@@ -9,7 +9,7 @@ package org.aswing.geom
  * The Dimension class encapsulates the width and height of a componentin a single object.
  * @author iiley
  */
-public class Dimension{
+public class IntDimension{
 	
 	public var width:int = 0;
 	public var height:int = 0;
@@ -17,7 +17,7 @@ public class Dimension{
 	/**
 	 * Creates a dimension.
 	 */
-	public function Dimension(width:int=0, height:int=0){
+	public function IntDimension(width:int=0, height:int=0){
 		setSize(width, height);
 	}
 	
@@ -33,7 +33,7 @@ public class Dimension{
 	 * Increases the size by s and return its self(<code>this</code>).
 	 * @return <code>this</code>.
 	 */
-	public function increaseSize(s:Dimension):Dimension{
+	public function increaseSize(s:IntDimension):IntDimension{
 		width += s.width;
 		height += s.height;
 		return this;
@@ -43,7 +43,7 @@ public class Dimension{
 	 * Decreases the size by s and return its self(<code>this</code>).
 	 * @return <code>this</code>.
 	 */
-	public function decreaseSize(s:Dimension):Dimension{
+	public function decreaseSize(s:IntDimension):IntDimension{
 		width -= s.width;
 		height -= s.height;
 		return this;
@@ -52,7 +52,7 @@ public class Dimension{
 	/**
 	 * modify the size and return itself. 
 	 */
-	public function change(deltaW:int, deltaH:int):Dimension{
+	public function change(deltaW:int, deltaH:int):IntDimension{
 		width += deltaW;
 		height += deltaH;
 		return this;
@@ -61,8 +61,8 @@ public class Dimension{
 	/**
 	 * return a new size with this size with a change.
 	 */
-	public function changedSize(deltaW:int, deltaH:int):Dimension{
-		var s:Dimension = new Dimension(deltaW, deltaH);
+	public function changedSize(deltaW:int, deltaH:int):IntDimension{
+		var s:IntDimension = new IntDimension(deltaW, deltaH);
 		return s;
 	}
 	
@@ -71,7 +71,7 @@ public class Dimension{
 	 * and puts result into itself.
 	 * @return the combined dimension itself.
 	 */
-	public function combine(d:Dimension):Dimension {
+	public function combine(d:IntDimension):IntDimension {
 		this.width = Math.max(this.width, d.width);	
 		this.height = Math.max(this.height, d.height);
 		return this;
@@ -79,10 +79,10 @@ public class Dimension{
 
 	/**
 	 * Combines current and specified dimensions by getting max sizes
-	 * and returns new Dimension object
+	 * and returns new IntDimension object
 	 * @return a new dimension with combined size.
 	 */
-	public function combineSize(d:Dimension):Dimension {
+	public function combineSize(d:IntDimension):IntDimension {
 		return clone().combine(d);
 	}
 	
@@ -92,19 +92,19 @@ public class Dimension{
 	 * @prame y the location y.
 	 * @return the bounds.
 	 */
-	public function getBounds(x:int=0, y:int=0):Rectangle{
-		var p:Point = new Point(x, y);
-		var r:Rectangle = new Rectangle();
+	public function getBounds(x:int=0, y:int=0):IntRectangle{
+		var p:IntPoint = new IntPoint(x, y);
+		var r:IntRectangle = new IntRectangle();
 		r.setLocation(p);
-		r.setSize(width, height);
+		r.setSize(this);
 		return r;
 	}
 	
 	/**
-	 * Returns whether or not the passing o is an same value Dimension.
+	 * Returns whether or not the passing o is an same value IntDimension.
 	 */
 	public function equals(o:Object):Boolean{
-		var d:Dimension = o as Dimension;
+		var d:IntDimension = o as IntDimension;
 		return width===d.width && height===d.height;
 	}
 
@@ -112,12 +112,12 @@ public class Dimension{
 	 * Duplicates current instance.
 	 * @return copy of the current instance.
 	 */
-	public function clone():Dimension {
-		return new Dimension(width,height);
+	public function clone():IntDimension {
+		return new IntDimension(width,height);
 	}
 	
 	public function toString():String{
-		return "Dimension("+width+","+height+")";
+		return "IntDimension("+width+","+height+")";
 	}
 }
 
