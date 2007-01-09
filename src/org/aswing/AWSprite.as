@@ -1,122 +1,127 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
 package org.aswing
 {
-	import flash.display.DisplayObject;
-	import flash.display.Sprite;
+	
+import flash.display.DisplayObject;
+import flash.display.Sprite;
+
+/**
+ * AsWing component based Sprite.
+ * <p>
+ * The AsWing Component Assets structure:(Assets means flash player display objects)
+ * <pre>
+ *             | -- foreground decorator asset
+ *             |
+ *             |    [other assets, there is no depth restrict between them, see below ]
+ * AWSprite -- | -- [icon, border, ui creation, children component assets ...]          
+ *             |    [they are above background decorator and below foreground decorator]
+ *             |
+ *             | -- background decorator asset
+ * </pre>
+ */
+public class AWSprite extends Sprite
+{
+	private var foregroundChild:DisplayObject;
+	private var backgroundChild:DisplayObject;
+	
+	public function AWSprite(){
+		super();
+	}
 	
 	/**
-	 * AsWing component based Sprite.
-	 * <p>
-	 * The AsWing Component Assets structure:(Assets means flash player display objects)
-	 * <pre>
-	 *             | -- foreground decorator asset
-	 *             |
-	 *             |    [other assets, there is no depth restrict between them, see below ]
-	 * AWSprite -- | -- [icon, border, ui creation, children component assets ...]          
-	 *             |    [they are above background decorator and below foreground decorator]
-	 *             |
-	 *             | -- background decorator asset
-	 * </pre>
+	 * Adds a child DisplayObject instance to this DisplayObjectContainer instance. 
+	 * The child is added to the front (top) of all other children except foreground decorator child(It is topest)
+	 *  in this DisplayObjectContainer instance. 
+	 * (To add a child to a specific index position, use the addChildAt() method.)
+	 * (<b>Note:</b> Generally if you dont want to broke the component asset depth management, use 
+	 * {@link #getTopIndexExceptForeground} and {@link #getBottomIndexExceptBackground} to get the 
+	 * right depth you can use) 
+	 * 
+	 * @param dis The DisplayObject instance to add as a child of this DisplayObjectContainer instance. 
 	 */
-	public class AWSprite extends Sprite
-	{
-		private var foregroundChild:DisplayObject;
-		private var backgroundChild:DisplayObject;
-		
-		public function AWSprite(){
-			super();
-		}
-		
-		/**
-		 * Adds a child DisplayObject instance to this DisplayObjectContainer instance. 
-		 * The child is added to the front (top) of all other children except foreground decorator child(It is topest)
-		 *  in this DisplayObjectContainer instance. 
-		 * (To add a child to a specific index position, use the addChildAt() method.)
-		 * (<b>Note:</b> Generally if you dont want to broke the component asset depth management, use 
-		 * {@link #getTopIndexExceptForeground} and {@link #getBottomIndexExceptBackground} to get the 
-		 * right depth you can use) 
-		 * 
-		 * @param dis The DisplayObject instance to add as a child of this DisplayObjectContainer instance. 
-		 */
-		public override function addChild(dis:DisplayObject):DisplayObject{
-			if(fgChild != null){
-				return addChildAt(dis, getChildIndex(fgChild));
-			}else{
-				return super.addChild(dis);
-			}
-		}
-		
-		/**
-		 * Returns the current top index for none forground child.
-		 * @return the current top index for child that is not a foreground child.
-		 */
-		public function getTopIndexExceptForeground():int{
-			if(foregroundChild == null){
-				return numChildren;
-			}else{
-				return numChildren - 1;
-			}
-		}
-		
-		/**
-		 * Returns the current bottom index for none background child.
-		 * @return the current bottom index for child that is not a background child.
-		 */		
-		public function getBottomIndexExceptBackground():int{
-			if(backgroundChild == null){
-				return 0;
-			}else{
-				return 1;
-			}
-		}
-		
-		/**
-		 * Sets the child to be the component background, it will be add to the bottom of all other children. 
-		 * (old backgournd child will be removed), use null to remove the background child.
-		 * 
-		 * @param child the background child to be added.
-		 */
-		protected function setBackgroundChild(child:DisplayObject):void{
-			if(child != backgroundChild){
-				removeChild(backgroundChild);
-				backgroundChild = child;
-				if(child != null){
-					addChildAt(child, 0);
-				}
-			}
-		}
-		
-		/**
-		 * Returns the background child. 
-		 * @return the background child.
-		 * @see #setBackgroundChild()
-		 */
-		protected function getBackgroundChild():DisplayObject{
-			return backgroundChild;
-		}
-		
-		/**
-		 * Sets the child to be the component foreground, it will be add to the top of all other children. 
-		 * (old foregournd child will be removed), use null to remove the foreground child.
-		 * 
-		 * @param child the foreground child to be added.
-		 */
-		protected function setForegroundChild(child:DisplayObject):void{
-			if(child != foregroundChild){
-				removeChild(foregroundChild);
-				foregroundChild = child;
-				if(child != null){
-					addChild(child);
-				}
-			}
-		}
-		
-		/**
-		 * Returns the foreground child. 
-		 * @return the foreground child.
-		 * @see #setForegroundChild()
-		 */
-		protected function getForegroundChild():DisplayObject{
-			return foregroundChild;
+	public override function addChild(dis:DisplayObject):DisplayObject{
+		if(fgChild != null){
+			return addChildAt(dis, getChildIndex(fgChild));
+		}else{
+			return super.addChild(dis);
 		}
 	}
+	
+	/**
+	 * Returns the current top index for none forground child.
+	 * @return the current top index for child that is not a foreground child.
+	 */
+	public function getTopIndexExceptForeground():int{
+		if(foregroundChild == null){
+			return numChildren;
+		}else{
+			return numChildren - 1;
+		}
+	}
+	
+	/**
+	 * Returns the current bottom index for none background child.
+	 * @return the current bottom index for child that is not a background child.
+	 */		
+	public function getBottomIndexExceptBackground():int{
+		if(backgroundChild == null){
+			return 0;
+		}else{
+			return 1;
+		}
+	}
+	
+	/**
+	 * Sets the child to be the component background, it will be add to the bottom of all other children. 
+	 * (old backgournd child will be removed), use null to remove the background child.
+	 * 
+	 * @param child the background child to be added.
+	 */
+	protected function setBackgroundChild(child:DisplayObject):void{
+		if(child != backgroundChild){
+			removeChild(backgroundChild);
+			backgroundChild = child;
+			if(child != null){
+				addChildAt(child, 0);
+			}
+		}
+	}
+	
+	/**
+	 * Returns the background child. 
+	 * @return the background child.
+	 * @see #setBackgroundChild()
+	 */
+	protected function getBackgroundChild():DisplayObject{
+		return backgroundChild;
+	}
+	
+	/**
+	 * Sets the child to be the component foreground, it will be add to the top of all other children. 
+	 * (old foregournd child will be removed), use null to remove the foreground child.
+	 * 
+	 * @param child the foreground child to be added.
+	 */
+	protected function setForegroundChild(child:DisplayObject):void{
+		if(child != foregroundChild){
+			removeChild(foregroundChild);
+			foregroundChild = child;
+			if(child != null){
+				addChild(child);
+			}
+		}
+	}
+	
+	/**
+	 * Returns the foreground child. 
+	 * @return the foreground child.
+	 * @see #setForegroundChild()
+	 */
+	protected function getForegroundChild():DisplayObject{
+		return foregroundChild;
+	}
+}
 }

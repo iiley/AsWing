@@ -1,3 +1,7 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
 package org.aswing.geom
 {
 
@@ -5,7 +9,7 @@ package org.aswing.geom
  * The Dimension class encapsulates the width and height of a componentin a single object.
  * @author iiley
  */
-class Dimension{
+public class Dimension{
 	
 	public var width:int = 0;
 	public var height:int = 0;

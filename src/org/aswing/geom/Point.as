@@ -1,13 +1,17 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
 package org.aswing.geom
 {
-	import flash.geom.Point;
 	
-	
+import flash.geom.Point;
+		
 /**
  * A point with x and y coordinates in integer.
  * @author iiley
  */
-class Point{
+public class Point{
 	
 	public var x:int = 0;
 	public var y:int = 0;

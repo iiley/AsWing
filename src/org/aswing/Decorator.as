@@ -1,3 +1,7 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
 package org.aswing
 {
 
@@ -8,10 +12,10 @@ import flash.display.DisplayObject;
  */
 public interface Decorator
 {
-	 /**
-	  * Returns the display object which is used to be the component decorator.
-	  */
-	 function getDisplay():DisplayObject;
+	/**
+	 * Returns the display object which is used to be the component decorator.
+	 */
+	function getDisplay():DisplayObject;
 	
 }
 
