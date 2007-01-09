@@ -1,4 +1,5 @@
-﻿/*
+﻿package org.aswing.graphics{
+/*
  Copyright aswing.org, see the LICENCE.txt.
 */
 import flash.display.Graphics;
@@ -9,7 +10,7 @@ import org.aswing.graphics.Brush;
  * 
  * @author iiley
  */
-class org.aswing.graphics.SolidBrush implements Brush{
+class SolidBrush implements Brush{
 	private var color:Number;
 	private var alpha:Number;
 	
@@ -55,4 +56,5 @@ class org.aswing.graphics.SolidBrush implements Brush{
 			this.alpha=color.getAlpha();
 		}
 	}
+}
 }

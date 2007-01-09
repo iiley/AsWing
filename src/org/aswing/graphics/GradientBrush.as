@@ -1,13 +1,15 @@
-﻿/*
+﻿package org.aswing.graphics{
+/*
  Copyright aswing.org, see the LICENCE.txt.
 */
 
 import org.aswing.graphics.Brush;
+import flash.display.Graphics;
 
 /**
  * @author iiley
  */
-class org.aswing.graphics.GradientBrush implements Brush{
+class GradientBrush implements Brush{
 	public static var LINEAR:String = "linear";
 	public static var RADIAL:String = "radial";
 	
@@ -32,43 +34,45 @@ class org.aswing.graphics.GradientBrush implements Brush{
 	public function getFillType():String{
 		return fillType;
 	}
-	public function setFillType(t:String):Void{
+	public function setFillType(t:String):void{
 		fillType = t;
 	}
 		
 	public function getColors():Array{
 		return colors;
 	}
-	public function setColors(cs:Array):Void{
+	public function setColors(cs:Array):void{
 		colors = cs;
 	}
 	
 	public function getAlphas():Array{
 		return alphas;
 	}
-	public function setAlphas(as:Array):Void{
-		alphas = as;
+	public function setAlphas(alphas:Array):void{
+		alphas = alphas;
 	}
 	
 	public function getRatios():Array{
 		return ratios;
 	}
-	public function setRatios(rs:Array):Void{
+	public function setRatios(rs:Array):void{
 		ratios = rs;
 	}
 	
 	public function getMatrix():Object{
 		return matrix;
 	}
-	public function setMatrix(m:Object):Void{
+	public function setMatrix(m:Object):void{
 		matrix = m;
 	}
 	
-	public function beginFill(target:MovieClip):Void{
+	public function beginFill(target:Graphics):void{
 		target.beginGradientFill(fillType, colors, alphas, ratios, matrix);
 	}
 	
-	public function endFill(target:MovieClip):Void{
+	public function endFill(target:Graphics):void{
 		target.endFill();
 	}	
+}
+
 }

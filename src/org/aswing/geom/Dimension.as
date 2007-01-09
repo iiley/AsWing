@@ -59,7 +59,7 @@ class Dimension{
 	 */
 	public function changedSize(deltaW:int, deltaH:int):Dimension{
 		var s:Dimension = new Dimension(deltaW, deltaH);
-		return s.change(d, h);
+		return s;
 	}
 	
 	/**

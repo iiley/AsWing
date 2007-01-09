@@ -2,7 +2,7 @@ package org.aswing.geom
 {
 	
 import flash.geom.Rectangle;
-import flash.geom.Point;
+import org.aswing.geom.Point;
 
 /**
  * A Rectangle specifies an area in a coordinate space that is enclosed by the Rectangle 
