@@ -76,7 +76,7 @@ package org.aswing{
 	     *                 a darker version of this <code>Color</code>.
 	     * @see        #brighter()
 	     */		
-		public function darker(factor:Number=FACTOR):ASColor{
+		public function darker(factor:Number=0.7):ASColor{
 	        var r:uint = getRed();
 	        var g:uint = getGreen();
 	        var b:uint = getBlue();
@@ -94,7 +94,7 @@ package org.aswing{
 	     *                 a brighter version of this <code>Color</code>.
 	     * @see        #darker()
 	     */	
-		public function brighter(factor:Number=FACTOR):ASColor{
+		public function brighter(factor:Number=0.7):ASColor{
 	        var r:uint = getRed();
 	        var g:uint = getGreen();
 	        var b:uint = getBlue();
