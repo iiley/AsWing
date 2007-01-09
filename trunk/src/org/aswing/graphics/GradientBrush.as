@@ -4,31 +4,29 @@
 
 package org.aswing.graphics{
 
-import org.aswing.graphics.Brush;
+import org.aswing.graphics.IBrush;
 import flash.display.Graphics;
+import flash.geom.Matrix;
 
 /**
  * @author iiley
  */
-class GradientBrush implements Brush{
+public class GradientBrush implements IBrush{
 	public static var LINEAR:String = "linear";
 	public static var RADIAL:String = "radial";
 	
-	public static function createMatrix(x:Number, y:Number, width:Number, height:Number, direction:Number):Object {
-		return {matrixType:"box", x:x, y:y, w:width, h:height, r:direction};	
-	}
 	
 	private var fillType:String;
 	private var colors:Array;
 	private var alphas:Array;
 	private var ratios:Array;
-	private var matrix:Object;
+	private var matrix:Matrix;
 	
-	public function GradientBrush(fillType:String, colors:Array, alphas:Array, ratios:Array, matrix:Object){
+	public function GradientBrush(fillType:String , colors:Array, alphas:Array, ratios:Array, matrix:Matrix){
 		this.fillType = fillType;
 		this.colors = colors;
-		this.alphas = alphas;
-		this.ratios = ratios;
+		setAlphas(alphas);
+		setRatios(ratios);
 		this.matrix = matrix;
 	}
 	
@@ -50,20 +48,26 @@ class GradientBrush implements Brush{
 		return alphas;
 	}
 	public function setAlphas(alphas:Array):void{
-		alphas = alphas;
+		for(var i:Number = 0 ; i < alphas.length ; i++){
+			alphas[i]= Math.min(1, Math.max(0, alphas[i]))
+		}
+		this.alphas = alphas;
 	}
 	
 	public function getRatios():Array{
 		return ratios;
 	}
 	public function setRatios(rs:Array):void{
+		for(var i:Number = 0 ; i < rs.length ; i++){
+			rs[i]= Math.min(255, Math.max(0, rs[i]))
+		}
 		ratios = rs;
 	}
 	
 	public function getMatrix():Object{
 		return matrix;
 	}
-	public function setMatrix(m:Object):void{
+	public function setMatrix(m:Matrix):void{
 		matrix = m;
 	}
 	

@@ -6,14 +6,17 @@ package org.aswing.graphics{
 
 import org.aswing.ASColor;
 import flash.display.Graphics;
+import org.aswing.graphics.IPen;
 
 /**
  * Pen, to draw line drawing.
  * @author iiley
  */
-class Pen{
-	private var _thickness:Number;
-	private var _color:Number;
+public class Pen implements IPen{
+	
+	
+	private var _thickness:uint;
+	private var _color:uint;
 	private var _alpha:Number;
 	private var _pixelHinting:Boolean;
 	private var _scaleMode:String;
@@ -22,11 +25,10 @@ class Pen{
 	private var _miterLimit:Number;
 	
 	/**
-	 * Pen(color:ASColor, thickness:Number)<br>
-	 * Pen(color:Number, thickness:Number, alpha:Number)<br>
+	 * Pen(thickness:uint, color:uint=0, alpha:Number=1, pixelHinting:Boolean = false, scaleMode:String = "normal", caps:String = null,  joints:String = null, miterLimit:Number = 3)<br>
 	 */
-	function Pen(asColor:ASColor, 
-				 thickness:Number=0, 
+	public function Pen(thickness:uint, 
+				 color:uint=0,
 				 alpha:Number=1,
 				 pixelHinting:Boolean = false, 
 				 scaleMode:String = "normal", 
@@ -34,8 +36,8 @@ class Pen{
 				 joints:String = null, 
 				 miterLimit:Number = 3){
 				 	
-		this._color = asColor.getRGB();
-		this._alpha = asColor.getAlpha();
+		this._color = color;
+		setAlpha(alpha);
 		this._thickness = thickness;
 		this._pixelHinting = pixelHinting;
 		this._scaleMode = scaleMode;
@@ -46,19 +48,19 @@ class Pen{
 		
 	}
 	
-	public function getColor():Number{
+	public function getColor():uint{
 		return _color;
 	}
 	
-	public function setColor(color:Number):void{
+	public function setColor(color:uint):void{
 		this._color=color;
 	}
 	
-	public function getThickness():Number{
+	public function getThickness():uint{
 		return _thickness;
 	}
 	
-	public function setThickness(thickness:Number):void{
+	public function setThickness(thickness:uint):void{
 		this._thickness=thickness;
 	}
 	
@@ -67,7 +69,7 @@ class Pen{
 	}
 	
 	public function setAlpha(alpha:Number):void{
-		this._alpha=alpha;
+		this._alpha=Math.min(1, Math.max(0, alpha));
 	}
 	
 
@@ -111,10 +113,6 @@ class Pen{
 		this._miterLimit=miterLimit;
 	}
 	
-	/**
-	 * 
-	 * 
-	 * */
 
 	public function setTo(target:Graphics):void{
 		target.lineStyle(_thickness, _color, _alpha,_pixelHinting,_scaleMode,_caps,_joints,_miterLimit);

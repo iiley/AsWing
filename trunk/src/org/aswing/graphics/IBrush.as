@@ -10,7 +10,7 @@ import flash.display.Graphics;
  * Brush to draw filled drawing.
  * @author iiley
  */
-interface Brush{
+public interface IBrush{
 	
 	 function beginFill(target:Graphics):void;
 	

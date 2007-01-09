@@ -6,38 +6,35 @@ package org.aswing.graphics{
 
 import flash.display.Graphics;
 import org.aswing.ASColor;
-import org.aswing.graphics.Brush;
+import org.aswing.graphics.IBrush;
 
 /**
  * 
  * @author iiley
  */
-class SolidBrush implements Brush{
-	private var color:Number;
+public class SolidBrush implements IBrush{
+	private var color:uint;
 	private var alpha:Number;
 	
 	/**
 	 * <p>
-	 * SolidBrush(color:ASColor)<br>
+	 * SolidBrush(color:uint,alpha:Number=1)<br>
 	 */
-	public function SolidBrush(color:ASColor){
-		
+	public function SolidBrush(color:uint,alpha:Number=1){
+		this.color=color;
+		this.alpha=alpha;
 	}
 	
-	public function getColor():Number{
+	public function getColor():uint{
 		return color;
 	}
 	
-	public function setColor(color:Number):void{		
-		if(color!=null){
-			this.color=color;
-		}		
+	public function setColor(color:uint):void{		
+		this.color=color;	
 	}
 	
 	public function setAlpha(alpha:Number):void{
-		if(alpha!=null){
 			this.alpha=alpha;
-		}
 	}
 	
 	public function getAlpha():Number{
