@@ -1,7 +1,8 @@
-﻿package org.aswing.graphics{
-/*
+﻿/*
  Copyright aswing.org, see the LICENCE.txt.
 */
+
+package org.aswing.graphics{
 
 import org.aswing.graphics.Brush;
 import flash.display.Graphics;

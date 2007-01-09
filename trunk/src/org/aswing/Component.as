@@ -1,9 +1,12 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
 package org.aswing
 {
 	
 import org.aswing.geom.Rectangle;
 	
-
 public class Component extends AWSprite
 {
 	private var bounds:Rectangle

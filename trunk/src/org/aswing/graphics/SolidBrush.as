@@ -1,7 +1,9 @@
-﻿package org.aswing.graphics{
-/*
+﻿/*
  Copyright aswing.org, see the LICENCE.txt.
 */
+
+package org.aswing.graphics{
+
 import flash.display.Graphics;
 import org.aswing.ASColor;
 import org.aswing.graphics.Brush;
@@ -18,7 +20,7 @@ class SolidBrush implements Brush{
 	 * <p>
 	 * SolidBrush(color:ASColor)<br>
 	 */
-	function SolidBrush(color:ASColor){
+	public function SolidBrush(color:ASColor){
 		
 	}
 	
@@ -33,9 +35,9 @@ class SolidBrush implements Brush{
 	}
 	
 	public function setAlpha(alpha:Number):void{
-			if(alpha!=null){
-				this.alpha=alpha;
-			}
+		if(alpha!=null){
+			this.alpha=alpha;
+		}
 	}
 	
 	public function getAlpha():Number{
