@@ -15,7 +15,7 @@ public class ASColor{
 	private var rgb:uint;
 	private var alpha:Number;
 	
-	public function ASColor (color:uint=0, alpha:Number=1){
+	public function ASColor (color:uint=0x000000, alpha:Number=1){
 		setRGB(color);
 		setAlpha(alpha);
 	}

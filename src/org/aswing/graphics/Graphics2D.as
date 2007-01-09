@@ -11,10 +11,10 @@ import flash.display.Graphics;
  * Graphics, use to paint graphics contexts on a MovieClip.
  * @author iiley
  */
-class Graphics2D {
+public class Graphics2D {
 	
 	private var target:Graphics;
-	private var brush:Brush;
+	private var brush:IBrush;
 	
 	/**
 	 * Create a graphics with target Graphics.
@@ -41,7 +41,7 @@ class Graphics2D {
 		target.moveTo(0, 0); //avoid a drawing error
 	}
 	
-	private function startBrush(b:Brush):void{
+	private function startBrush(b:IBrush):void{
 		brush = b;
 		b.beginFill(target);
 	}
@@ -56,7 +56,7 @@ class Graphics2D {
 	 * Clears the graphics contexts drawn on the target Graphics.
 	 */
 	private function clear():void {
-		if(target!=undefined) target.clear();
+		if(target!= null) target.clear();
 	}
 	
 	/**
@@ -96,7 +96,7 @@ class Graphics2D {
 	 * @param points the Array contains all vertex points in the polygon.
 	 * @see #polyline()
 	 */	
-	public function fillPolyline(b:Brush, points:Array):void{
+	public function fillPolyline(b:IBrush, points:Array):void{
 		startBrush(b);
 		polyline(points);
 		endBrush();
@@ -124,7 +124,7 @@ class Graphics2D {
 	 * @param points the Array contains all vertex points in the polygon.
 	 * @see #polygon()
 	 */	
-	public function fillPolygon(b:Brush, points:Array):void{
+	public function fillPolygon(b:IBrush, points:Array):void{
 		startBrush(b);
 		polygon(points);
 		endBrush();
@@ -137,7 +137,7 @@ class Graphics2D {
 	 * @param points2 the second polygon's points.
 	 * @see #fillPolygon()
 	 */
-	public function fillPolygonRing(b:Brush, points1:Array, points2:Array):void{
+	public function fillPolygonRing(b:IBrush, points1:Array, points2:Array):void{
 		startBrush(b);
 		polygon(points1);
 		polygon(points2);
@@ -166,7 +166,7 @@ class Graphics2D {
 	 * @param w the width of rectange bounds.
 	 * @param h the height of rectange bounds.
 	 */	
-	public function fillRectangle(brush:Brush, x:Number, y:Number, width:Number, height:Number):void{
+	public function fillRectangle(brush:IBrush, x:Number, y:Number, width:Number, height:Number):void{
 		startBrush(brush);
 		rectangle(x,y,width,height);
 		endBrush();
@@ -182,7 +182,7 @@ class Graphics2D {
 	 * @param w2 the second rectange's width.
 	 * @param h2 the second rectange's height.
 	 */	
-	public function fillRectangleRing(brush:Brush, cx:Number, cy:Number, w1:Number, h1:Number, w2:Number, h2:Number):void{
+	public function fillRectangleRing(brush:IBrush, cx:Number, cy:Number, w1:Number, h1:Number, w2:Number, h2:Number):void{
 		startBrush(brush);
 		rectangle(cx-w1/2, cy-h1/2, w1, h1);
 		rectangle(cx-w2/2, cy-h2/2, w2, h2);
@@ -198,7 +198,7 @@ class Graphics2D {
 	 * @param h the height of ring periphery bounds.
 	 * @param t the thickness of the ring.
 	 */
-	public function fillRectangleRingWithThickness(brush:Brush, x:Number, y:Number, w:Number, h:Number, t:Number):void{
+	public function fillRectangleRingWithThickness(brush:IBrush, x:Number, y:Number, w:Number, h:Number, t:Number):void{
 		startBrush(brush);
 		rectangle(x, y, w, h);
 		rectangle(x+t, y+t, w - t*2, h - t*2);
@@ -225,7 +225,7 @@ class Graphics2D {
 	 * @param cy the center of the circle's y corrdinate.
 	 * @param radius the radius of the circle.
 	 */
-	public function fillCircle(b:Brush, cx:Number, cy:Number, radius:Number):void{
+	public function fillCircle(b:IBrush, cx:Number, cy:Number, radius:Number):void{
 		startBrush(b);
 		circle(cx, cy, radius);
 		endBrush();
@@ -239,7 +239,7 @@ class Graphics2D {
 	 * @param r1 the first circle radius.
 	 * @param r2 the second circle radius.
 	 */
-	public function fillCircleRing(b:Brush, cx:Number, cy:Number, r1:Number, r2:Number):void{
+	public function fillCircleRing(b:IBrush, cx:Number, cy:Number, r1:Number, r2:Number):void{
 		startBrush(b);
 		circle(cx, cy, r1);
 		circle(cx, cy, r2);
@@ -254,7 +254,7 @@ class Graphics2D {
 	 * @param r the radius of circle periphery.
 	 * @param t the thickness of the ring.
 	 */
-	public function fillCircleRingWithThickness(b:Brush, cx:Number, cy:Number, r:Number, t:Number):void{
+	public function fillCircleRingWithThickness(b:IBrush, cx:Number, cy:Number, r:Number, t:Number):void{
 		startBrush(b);
 		circle(cx, cy, r);
 		r -= t;
@@ -284,7 +284,7 @@ class Graphics2D {
 	 * @param w the width of ellipse bounds.
 	 * @param h the height of ellipse bounds.
 	 */		
-	public function fillEllipse(b:Brush, x:Number, y:Number, width:Number, height:Number):void{
+	public function fillEllipse(b:IBrush, x:Number, y:Number, width:Number, height:Number):void{
 		startBrush(b);
 		ellipse(x, y, width, height);
 		endBrush();
@@ -300,7 +300,7 @@ class Graphics2D {
 	 * @param w2 the second eclipse's width.
 	 * @param h2 the second eclipse's height.
 	 */
-	public function fillEllipseRing(brush:Brush, cx:Number, cy:Number, w1:Number, h1:Number, w2:Number, h2:Number):void{
+	public function fillEllipseRing(brush:IBrush, cx:Number, cy:Number, w1:Number, h1:Number, w2:Number, h2:Number):void{
 		startBrush(brush);
 		ellipse(cx-w1/2, cy-h1/2, w1, h1);
 		ellipse(cx-w2/2, cy-h2/2, w2, h2);
@@ -316,7 +316,7 @@ class Graphics2D {
 	 * @param h the height of ellipse periphery bounds.
 	 * @param t the thickness of the ring.
 	 */
-	public function fillEllipseRingWithThickness(brush:Brush, x:Number, y:Number, w:Number, h:Number, t:Number):void{
+	public function fillEllipseRingWithThickness(brush:IBrush, x:Number, y:Number, w:Number, h:Number, t:Number):void{
 		startBrush(brush);
 		ellipse(x, y, w, h);
 		ellipse(x+t, y+t, w-t*2, h-t*2);
@@ -353,7 +353,7 @@ class Graphics2D {
 	 * @param blR the bottom left corner's round radius. (miss this param default to same as radius)
 	 * @param brR the bottom right corner's round radius. (miss this param default to same as radius)
 	 */	
-	public function fillRoundRect(brush:Brush, x:Number, y:Number, width:Number, height:Number, radius:Number, trR:Number, blR:Number, brR:Number):void{
+	public function fillRoundRect(brush:IBrush, x:Number, y:Number, width:Number, height:Number, radius:Number, trR:Number, blR:Number, brR:Number):void{
 		startBrush(brush);
 		roundRect(x,y,width,height,radius,trR,blR,brR);
 		endBrush();
@@ -371,7 +371,7 @@ class Graphics2D {
 	 * @param h2 the second round rect's height
 	 * @param r2 the second round rect's round radius
 	 */	
-	public function fillRoundRectRing(brush:Brush,cx:Number,cy:Number,w1:Number,h1:Number,r1:Number, w2:Number, h2:Number, r2:Number):void{
+	public function fillRoundRectRing(brush:IBrush,cx:Number,cy:Number,w1:Number,h1:Number,r1:Number, w2:Number, h2:Number, r2:Number):void{
 		startBrush(brush);
 		roundRect(cx-w1/2, cy-h1/2, w1, h1, r1);
 		roundRect(cx-w2/2, cy-h2/2, w2, h2, r2);
@@ -389,15 +389,15 @@ class Graphics2D {
 	 * @param t the thickness of the ring
 	 * @param ir the inboard round radius, default is <code>r-t</code>
 	 */	
-	public function fillRoundRectRingWithThickness(brush:Brush, x:Number, y:Number, w:Number, h:Number, r:Number, t:Number, ir:Number):void{
+	public function fillRoundRectRingWithThickness(brush:IBrush, x:Number, y:Number, w:Number, h:Number, r:Number, t:Number, ir:Number=-1):void{
 		startBrush(brush);
 		roundRect(x, y, w, h, r);
-		if(ir == undefined) ir = r - t;
+		if(ir == -1) ir = r - t;
 		roundRect(x+t, y+t, w-t*2, h-t*2, ir);
 		endBrush();
 	}	
 	
-	public function beginFill(brush:Brush):void{
+	public function beginFill(brush:IBrush):void{
 		startBrush(brush);
 	}
 	public function endFill():void{
@@ -467,6 +467,10 @@ class Graphics2D {
 	
 	/**
 	 * Paths a rectangle.
+	 * @param x the x corrdinate of the rectangle.
+	 * @param y the y corrdinate of the rectangle.
+	 * @param width  the width corrdinate of rectangle.
+	 * @param height the width corrdinate of rectangle.
 	 * @see #drawRectangle()
 	 * @see #fillRectangle()
 	 */
@@ -480,6 +484,10 @@ class Graphics2D {
 	
 	/**
 	 * Paths a ellipse.
+	 * @param x the x corrdinate of the ellipse.
+	 * @param y the y corrdinate of the ellipse.
+	 * @param width  the width corrdinate of ellipse.
+	 * @param height the width corrdinate of ellipse.
 	 * @see #drawEllipse()
 	 * @see #fillEllipse()
 	 */
@@ -505,6 +513,9 @@ class Graphics2D {
 	
 	/**
 	 * Paths a circle
+	 * @param cx x corrdinate of the center of the circle.
+	 * @param cy y corrdinate of the center of the circle.
+	 * @param r  the radius of circle.
 	 * @see #drawCircle()
 	 * @see #fillCircle()
 	 */
@@ -520,15 +531,22 @@ class Graphics2D {
 	
 	/**
 	 * Paths a round rect.
+	 * @param x the x corrdinate of the roundRect.
+	 * @param y the y corrdinate of the roundRect.
+	 * @param width  the width corrdinate of roundRect.
+	 * @param height the width corrdinate of roundRect.
+	 * @param radius the radius of the top left corner, if other corner radius if undefined, will be set to this radius
+	 * @param trR	 the radius of the top right corner, if omitted, use the top left as default.
+	 * @param blR    the radius of the bottom left corner, if omitted, use the top left as default.
+	 * @param brR    the radius of the bottom right corner, if omitted, use the top left as default.
 	 * @see #drawRoundRect()
 	 * @see #fillRoundRect()
-	 * @param radius top left radius, if other corner radius if undefined, will be set to this radius
 	 */
-	public function roundRect(x:Number,y:Number,width:Number,height:Number, radius:Number, trR:Number, blR:Number, brR:Number):void{
+	public function roundRect(x:Number,y:Number,width:Number,height:Number, radius:Number, trR:Number=-1, blR:Number=-1, brR:Number=-1):void{
 		var tlR:Number = radius;
-		if(trR == undefined) trR = radius;
-		if(blR == undefined) blR = radius;
-		if(brR == undefined) brR = radius;
+		if(trR == -1) trR = radius;
+		if(blR == -1) blR = radius;
+		if(brR == -1) brR = radius;
 		//Bottom right
 		target.moveTo(x+blR, y+height);
 		target.lineTo(x+width-brR, y+height);
@@ -545,9 +563,9 @@ class Graphics2D {
 	}
 	
 	/**
-	 * path a wedge.
+	 * paths a wedge.
 	 */
-	public function wedge(radius:Number, x:Number, y:Number, angle:Number, rot:Number):void {
+	public function wedge(radius:Number, x:Number, y:Number, angle:Number):void {
 		target.moveTo(0, 0);
 		target.lineTo(radius, 0);
 		var nSeg:Number = Math.floor(angle/30);
@@ -575,9 +593,9 @@ class Graphics2D {
 			target.curveTo(ax, ay, endx, endy);
 		}
 		target.lineTo(0, 0);
-		target._rotation = rot;
+	/* 	target._rotation = rot;
 		target._x = x;
-		target._y = y;
+		target._y = y; */
 	}	
 	
 	
