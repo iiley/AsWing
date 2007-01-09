@@ -5,13 +5,14 @@
 package org.aswing.geom
 {
 	
-import flash.geom.Point;
+
 		
+	
 /**
- * A point with x and y coordinates in integer.
+ * A point with x and y coordinates in int.
  * @author iiley
  */
-public class Point{
+public class IntPoint{
 	
 	public var x:int = 0;
 	public var y:int = 0;
@@ -19,7 +20,7 @@ public class Point{
 	/**
 	 * Constructor
 	 */
-	public function Point(x:int=0, y:int=0){
+	public function IntPoint(x:int=0, y:int=0){
 		setLocation(x, y);
 	}
 	
@@ -33,7 +34,7 @@ public class Point{
 		this.y = y;
 	}
 	
-	public function setLocationWithPoint(p:Point):void{
+	public function setLocationWithPoint(p:IntPoint):void{
 		this.x = p.x;
 		this.y = p.y;
 	}
@@ -44,30 +45,32 @@ public class Point{
 	 * @param dy delta of y.
 	 * @return the point itself.
 	 */
-	public function move(dx:int, dy:int):Point{
+	public function move(dx:int, dy:int):IntPoint{
 		x += dx;
 		y += dy;
 		return this;
 	}
 	
 	/**
-	 * Moves this point with an direction and distance, then return itself.
+	 * Moves this point with an direction in radians and distance, then return itself.
 	 * @param angle the angle in radians.
 	 * @param distance the distance in pixels.
 	 * @return the point itself.
 	 */
-	public function moveRadians(direction:Number, distance:Number):Point{
+	public function moveRadians(direction:int, distance:int):IntPoint{
 		x += Math.round(Math.cos(direction)*distance);
 		y += Math.round(Math.sin(direction)*distance);
 		return this;
 	}
 	
+	
+	
 	/**
 	 * Returns the point beside this point with direction and distance.
 	 * @return the point beside.
 	 */
-	public function nextPoint(direction:Number, distance:Number):Point{
-		return new Point(x+Math.cos(direction)*distance, y+Math.sin(direction)*distance);
+	public function nextPoint(direction:int, distance:int):IntPoint{
+		return new IntPoint(x+Math.cos(direction)*distance, y+Math.sin(direction)*distance);
 	}
 	
 	/**
@@ -75,16 +78,10 @@ public class Point{
 	 * @param p the another point.
 	 * @return the distance square from this to p.
 	 */
-	public function distanceSq(p:Point):int{
-		var xx:int;
-		var yy:int;
-		if(tx instanceof Point){
-			xx = tx.x;
-			yy = tx.y;
-		}else{
-			xx = tx;
-			yy = ty;
-		}
+	public function distanceSq(p:IntPoint):int{
+		var xx:int = p.x;
+		var yy:int = p.y;
+		
 		return ((x-xx)*(x-xx)+(y-yy)*(y-yy));	
 	}
 
@@ -94,30 +91,30 @@ public class Point{
 	 * @param p the another point.
 	 * @return the distance from this to p.
 	 */
-	public function distance(p:Point):int{
+	public function distance(p:IntPoint):int{
 		return Math.sqrt(distanceSq(p));
 	}
     
     /**
      * Returns whether or not this passing object is a same value point.
-     * @param o the object to be compared.
+     * @param toCompare the object to be compared.
      * @return equals or not.
      */
 	public function equals(o:Object):Boolean{
-		var p:Point = o as Point;
-		return x===p.x && y===p.y;
+		var toCompare:IntPoint = o as IntPoint;
+		return x===toCompare.x && y===toCompare.y;
 	}
 
 	/**
 	 * Duplicates current instance.
 	 * @return copy of the current instance.
 	 */
-	public function clone():Point {
-		return new Point(x,y);
+	public function clone():IntPoint {
+		return new IntPoint(x,y);
 	}
     
 	public function toString():String{
-		return "Point["+x+","+y+"]";
+		return "IntPoint["+x+","+y+"]";
 	}	
 }
 
