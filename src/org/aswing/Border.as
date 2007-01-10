@@ -5,8 +5,7 @@
 package org.aswing
 {
 	
-import org.aswing.Component;
-import org.aswing.geom.Rectangle;
+import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 	
 /**
@@ -23,14 +22,14 @@ public interface Border extends Decorator
 	 * @param g the graphics of the component, you can paint picture onto it.
 	 * @param bounds the bounds of the border should be.
 	 */
-	function updateBorder(com:Component, g:Graphics2D, bounds:Rectangle):void;
+	function updateBorder(com:Component, g:Graphics2D, bounds:IntRectangle):void;
 	
 	/**
 	 * Returns the insets of the border.
 	 * @param com the component which owns the border.
 	 * @param the bounds of the border should be.
 	 */
-	function getBorderInsets(com:Component, bounds:Rectangle):Insets;	
+	function getBorderInsets(com:Component, bounds:IntRectangle):Insets;	
 }
 
 }

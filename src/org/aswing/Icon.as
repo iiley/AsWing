@@ -6,7 +6,7 @@ package org.aswing
 {
 	
 import org.aswing.Component;
-import org.aswing.geom.Rectangle;
+import org.aswing.graphics.Graphics2D;
 	
 /**
  * A small fixed size picture, typically used to decorate components. 
@@ -35,7 +35,7 @@ public interface Icon extends Decorator
 	 * @param x the x coordinates of the icon should be.
 	 * @param y the y coordinates of the icon should be.
 	 */
-	function updateIcon(com:Component, g:Graphics, x:int, y:int):void;	
+	function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void;	
 }
 
 }
