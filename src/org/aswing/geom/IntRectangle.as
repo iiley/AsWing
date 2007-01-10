@@ -6,6 +6,7 @@ package org.aswing.geom
 {
 
 import org.aswing.geom.IntPoint;
+import flash.geom.Rectangle;
 
 /**
  * A Rectangle specifies an area in a coordinate space that is enclosed by the Rectangle 
@@ -23,6 +24,32 @@ public class IntRectangle
 	 */
 	public function IntRectangle(x:int=0, y:int=0, width:int=0, height:int=0){
 		getRectXYWH(x, y, width, height);
+	}
+	
+
+	/**
+	 * Return a Point instance with same value.
+	 */
+	public function toRectangle():Rectangle{
+		return new Rectangle(x, y, width, height);
+	}
+	
+	/**
+	 * Sets the location with a <code>Point</code>, the value will be transfer to int.
+	 * @param p the location to be set.
+	 */
+	public function setWithRectangle(r:Rectangle):void{
+		x = r.x;
+		y = r.y;
+		width = r.width;
+		height = r.height;
+	}
+	
+	/**
+	 * Create a int point with point.
+	 */
+	public static function creatWithRectangle(r:Rectangle):IntRectangle{
+		return new IntRectangle(r.x, r.y, r.width, r.height);
 	}
 	
 	/**
