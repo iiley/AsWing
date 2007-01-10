@@ -10,6 +10,8 @@ package org.aswing.graphics
 
 
 /**
+ * Encapsulate the fill parameter for flash.display.Graphics.beginBitmapFill()
+ * @see http://livedocs.macromedia.com/flex/2/langref/flash/display/Graphics.html#beginBitmapFill()
  * @author n0rthwood
  */
 public class BitmapBrush implements IBrush{
@@ -26,11 +28,16 @@ public class BitmapBrush implements IBrush{
 		this._smooth=smooth;
 	}
 	
-	
+	/**
+	 * @inheritDoc 
+	 */
 	public function beginFill(target:Graphics):void{
 		target.beginBitmapFill(_bitmapData,_matrix,_repeat,_smooth);
 	}
 	
+	/**
+	 * @inheritDoc 
+	 */
 	public function endFill(target:Graphics):void{
 		target.endFill();
 	}
@@ -39,6 +46,9 @@ public class BitmapBrush implements IBrush{
 		return _bitmapData;
 	}
 	
+	/**
+	 *
+	 */
 	public function setBitmapData(bitmapData:BitmapData):void{
 		this._bitmapData = bitmapData;
 	}
@@ -47,6 +57,9 @@ public class BitmapBrush implements IBrush{
 		return _matrix;
 	}
 	
+	/**
+	 *
+	 */
 	public function setMatrix(matrix:Matrix):void{
 		this._matrix = matrix;
 	}
@@ -55,6 +68,9 @@ public class BitmapBrush implements IBrush{
 		return _repeat;
 	}
 	
+	/**
+	 *
+	 */
 	public function setRepeat(repeat:Boolean):void{
 		this._repeat = repeat;
 	}
@@ -63,6 +79,9 @@ public class BitmapBrush implements IBrush{
 		return _smooth;
 	}
 	
+	/**
+	 *
+	 */
 	public function setSmooth(smooth:Boolean):void{
 		this._smooth = smooth;
 	}

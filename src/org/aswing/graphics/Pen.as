@@ -9,7 +9,12 @@ import flash.display.Graphics;
 import org.aswing.graphics.IPen;
 
 /**
- * Pen, to draw line drawing.
+ * Pen encapsulate normal lineStyle properties. <br>
+ * You can use pen to draw an ordinary shape. To draw gradient lines, refer to <code>org.aswing.graphics.GradientPen</code>
+ * 
+ * @see org.aswing.graphics.IPen
+ * @see org.aswing.graphics.GradientPen
+ * @see http://livedocs.macromedia.com/flex/2/langref/flash/display/Graphics.html#lineStyle()
  * @author iiley
  */
 public class Pen implements IPen{
@@ -49,14 +54,21 @@ public class Pen implements IPen{
 		return _color;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setColor(color:uint):void{
 		this._color=color;
 	}
+	
 	
 	public function getThickness():uint{
 		return _thickness;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setThickness(thickness:uint):void{
 		this._thickness=thickness;
 	}
@@ -65,6 +77,9 @@ public class Pen implements IPen{
 		return _alpha;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setAlpha(alpha:Number):void{
 		this._alpha=Math.min(1, Math.max(0, alpha));
 	}
@@ -73,6 +88,9 @@ public class Pen implements IPen{
  		return this._pixelHinting;
  	}
  	
+ 	/**
+	 * 
+	 */
  	public function setPixelHinting(pixelHinting:Boolean):void{
  		this._pixelHinting = pixelHinting;
  	}
@@ -81,6 +99,9 @@ public class Pen implements IPen{
 		return this._scaleMode;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setScaleMode(scaleMode:String="normal"):void{
 		this._scaleMode =  scaleMode;
 	}
@@ -89,6 +110,9 @@ public class Pen implements IPen{
 		return this._caps;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setCaps(caps:String):void{
 		this._caps=caps
 	}
@@ -97,6 +121,9 @@ public class Pen implements IPen{
 		return this._joints;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setJoints(joints:String):void{
 		this._joints=joints
 	}
@@ -105,14 +132,26 @@ public class Pen implements IPen{
 		return this._miterLimit;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setMiterLimit(miterLimit:Number):void{
 		this._miterLimit=miterLimit;
 	}
-
+	
+	/**
+	 * @inheritDoc 
+	 */
 	public function setTo(target:Graphics):void{
 		target.lineStyle(_thickness, _color, _alpha,_pixelHinting,_scaleMode,_caps,_joints,_miterLimit);
 	}
 	
+	/**
+	 * Set color and alpha through ASColor
+	 * 
+	 * @param color instance of an ASColor object.
+	 * @see org.aswing.ASColor
+	 */
 	public function setASColor(color:ASColor):void{
 		if(color!=null){			
 			this._color = color.getRGB();

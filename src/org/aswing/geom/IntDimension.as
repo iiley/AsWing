@@ -6,7 +6,8 @@ package org.aswing.geom
 {
 
 /**
- * The Dimension class encapsulates the width and height of a componentin a single object.
+ * The Dimension class encapsulates the width and height of a componentin a single object.<br>
+ * Note this Class use <b>int</b> as its parameters on purpose to avoid problems that happended in aswing before.
  * @author iiley
  */
 public class IntDimension{
@@ -29,6 +30,9 @@ public class IntDimension{
 		this.width = dim.width;
 		this.height = dim.height;
 	}
+	
+	
+
 	
 	/**
 	 * Sets the size with width and height.
