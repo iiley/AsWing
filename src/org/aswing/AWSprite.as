@@ -43,8 +43,8 @@ public class AWSprite extends Sprite
 	 * @param dis The DisplayObject instance to add as a child of this DisplayObjectContainer instance. 
 	 */
 	public override function addChild(dis:DisplayObject):DisplayObject{
-		if(fgChild != null){
-			return addChildAt(dis, getChildIndex(fgChild));
+		if(foregroundChild != null){
+			return addChildAt(dis, getChildIndex(foregroundChild));
 		}else{
 			return super.addChild(dis);
 		}
