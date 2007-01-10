@@ -22,14 +22,14 @@ public class IntRectangle
 	 * Creates a rectangle.
 	 */
 	public function IntRectangle(x:int=0, y:int=0, width:int=0, height:int=0){
-		setRect(x, y, width, height);
+		getRectXYWH(x, y, width, height);
 	}
 	
 	/**
 	 * Sets the rectangle to be as same as rect.
 	 */
 	public function setRect(rect:IntRectangle):void{
-		setRect(rect.x, rect.y, rect.width, rect.height);
+		getRectXYWH(rect.x, rect.y, rect.width, rect.height);
 	}
 	
 	/**
