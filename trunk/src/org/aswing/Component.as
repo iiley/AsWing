@@ -5,10 +5,13 @@
 package org.aswing
 {
 	
+import flash.display.DisplayObject;
+import flash.geom.Rectangle;
+
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.ComponentUI;
-import org.aswing.*;
+import org.aswing.util.Reflection;
 	
 public class Component extends AWSprite
 {
@@ -18,6 +21,9 @@ public class Component extends AWSprite
 	private var awmlID:String;
 	private var awmlIndex:Number;
 	private var awmlNamespace:String;
+	
+	private var locationValid:Boolean;
+	private var layoutValid:Boolean;
 	
 	private var bounds:IntRectangle
 	private var background:ASColor;
@@ -381,7 +387,7 @@ public class Component extends AWSprite
         if (font != null) {
             return font;
         }else if(parent is Component){
-        	return getComponentParent().getFont();
+        	return getParent().getFont();
         }else{
         	return null;
         }
@@ -415,7 +421,7 @@ public class Component extends AWSprite
 		if(background != null){
 			return background;
 		}else if(parent is Component){
-        	return getComponentParent().getBackground();
+        	return getParent().getBackground();
         }else{
         	return null;
         }
@@ -449,7 +455,7 @@ public class Component extends AWSprite
 		if(foreground != null){
 			return foreground;
 		}else if(parent is Component){
-        	return getComponentParent().getForeground();
+        	return getParent().getForeground();
         }else{
         	return null;
         }
@@ -526,6 +532,17 @@ public class Component extends AWSprite
 	public function setCompBoundsXYWH(x:int, y:int, w:int, h:int):void{
 		setLocationXY(x, y);
 		setSizeWH(w, h);
+	}
+	
+	/**
+	 * Same to DisplayObject.getBounds(), 
+	 * just add a explaination here that if you want to get the component bounds, 
+	 * see {@link #getCompBounds()} method.
+	 * @see #getCompBounds()
+	 * @see #setCompBounds()
+	 */
+	override public function getBounds(targetCoordinateSpace:DisplayObject):Rectangle{
+		return super.getBounds(targetCoordinateSpace);
 	}
 	
 	/**
@@ -688,11 +705,41 @@ public class Component extends AWSprite
 		return bounds.y;
 	}	
 	
+	
+    /**
+     * Supports deferred automatic layout.  
+     * <p> 
+     * Calls <code>invalidateLayout</code> and then adds this component's
+     * <code>validateRoot</code> to a list of components that need to be
+     * validated.  Validation will occur after all currently pending
+     * events have been dispatched.  In other words after this method
+     * is called,  the first validateRoot (if any) found when walking
+     * up the containment hierarchy of this component will be validated.
+     * By default, <code>JPopup</code>, <code>JScrollPane</code>,
+     * and <code>JTextField</code> return true 
+     * from <code>isValidateRoot</code>.
+     * <p>
+     * This method will or will not automatically be called on this component 
+     * when a property value changes such that size, location, or 
+     * internal layout of this component has been affected.But invalidate
+     * will do called after thats method, so you want to get the contents of 
+     * the GUI to update you should call this method.
+     * <p>
+     *
+     * @see #invalidate()
+     * @see #validate()
+     * @see #isValidateRoot()
+     * @see RepaintManager#addInvalidComponent()
+     */
 	public function revalidate():void{
 		//TODO imp
 	}
 	
 	public function repaint():void{
+		//TODO imp
+	}
+	
+	public function reloacte():void{
 		//TODO imp
 	}
 	
@@ -704,13 +751,31 @@ public class Component extends AWSprite
 		//TODO imp
 	}
 	
-	public function getComponentParent():Component{
+	public function paintImmediately():void{
+		//TODO imp
+	}
+	
+	/**
+	 * If this method returns true, revalidate calls by descendants of this 
+	 * component will cause the entire tree beginning with this root to be validated. 
+	 * Returns false by default. 
+	 * JScrollPane overrides this method and returns true. 
+	 * @return always returns false
+	 */
+	public function isValidateRoot():Boolean{
+		return false;
+	}	
+	
+	/**
+	 * Returns the parent component, if it parent is not a component, null will be returned
+	 */
+	public function getParent():Component{
 		var pa:Component = parent as Component;
 		return pa;
 	}
 	
 	override public function toString():String{
-		return "Component[asset:" + super.toString() + "]";
+		return Reflection.getClassName(this) + "[asset:" + super.toString() + "]";
 	}
 }
 

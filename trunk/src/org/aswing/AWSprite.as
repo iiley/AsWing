@@ -123,5 +123,16 @@ public class AWSprite extends Sprite
 	protected function getForegroundChild():DisplayObject{
 		return foregroundChild;
 	}
+	
+	override public function toString():String{
+		var p:DisplayObject = this;
+		var str:String = p.name;
+		while(p.parent != null){
+			var name:String = (p.parent == p.stage ? "Stage" : p.parent.name);
+			p = p.parent;
+			str = name + "." + str;
+		}
+		return str;
+	}
 }
 }
