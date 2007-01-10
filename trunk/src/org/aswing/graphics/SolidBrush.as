@@ -9,18 +9,15 @@ import org.aswing.ASColor;
 import org.aswing.graphics.IBrush;
 
 /**
- * 
+ * SolidBrush
  * @author iiley
  */
 public class SolidBrush implements IBrush{
+	
 	private var color:uint;
 	private var alpha:Number;
 	
-	/**
-	 * <p>
-	 * SolidBrush(color:uint,alpha:Number=1)<br>
-	 */
-	public function SolidBrush(color:uint,alpha:Number=1){
+	public function SolidBrush(color:uint=0x000000, alpha:Number=1){
 		this.color=color;
 		this.alpha=alpha;
 	}
@@ -34,7 +31,7 @@ public class SolidBrush implements IBrush{
 	}
 	
 	public function setAlpha(alpha:Number):void{
-			this.alpha=alpha;
+		this.alpha=alpha;
 	}
 	
 	public function getAlpha():Number{
@@ -50,9 +47,9 @@ public class SolidBrush implements IBrush{
 	}
 	
 	public function setASColor(color:ASColor):void{
-		if(color!=null){
-			this.color=color.getRGB();
-			this.alpha=color.getAlpha();
+		if(color != null){
+			this.color = color.getRGB();
+			this.alpha = color.getAlpha();
 		}
 	}
 }

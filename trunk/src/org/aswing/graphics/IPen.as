@@ -4,6 +4,7 @@
 package org.aswing.graphics{
 	
 import flash.display.Graphics;	
+
 /**
  * Pen to draw lines.
  * @author n0rthwood
@@ -15,4 +16,5 @@ public interface IPen{
 	 */ 
 	function setTo(target:Graphics):void;
 }
+
 }

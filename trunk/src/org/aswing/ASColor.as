@@ -6,12 +6,10 @@ package org.aswing{
 
 /**
  * ASColor object to set color and alpha for a movieclip.
- * @author firdosh
+ * @author firdosh, iiley, n0rthwood
  */
 public class ASColor{
-		
-	private static var FACTOR:Number = 0.7;
-	
+			
 	private var rgb:uint;
 	private var alpha:Number;
 	
