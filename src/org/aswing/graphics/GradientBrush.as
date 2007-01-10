@@ -28,7 +28,7 @@ public class GradientBrush implements IBrush{
 	 * @param matrix A transformation matrix as defined by the flash.geom.Matrix class. The flash.geom.Matrix class includes a createGradientBox() method, which lets you conveniently set up the matrix for use with the beginGradientFill() method.
 	 * @param spreadMethod A value from the SpreadMethod class that specifies which spread method to use, either: SpreadMethod.PAD, SpreadMethod.REFLECT, or SpreadMethod.REPEAT. 
 	 */
-	public function GradientBrush(fillType:String , colors:Array, alphas:Array, ratios:Array, matrix:Matrix=null, spreadMethod="pad"){
+	public function GradientBrush(fillType:String , colors:Array, alphas:Array, ratios:Array, matrix:Matrix=null, spreadMethod:String="pad"){
 		this.fillType = fillType;
 		this.colors = colors;
 		this.alphas = alphas;
