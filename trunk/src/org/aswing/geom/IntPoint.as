@@ -4,6 +4,9 @@
 
 package org.aswing.geom
 {
+	import flash.geom.Point;
+	import mx.validators.ValidationResult;
+	
 	
 /**
  * A point with x and y coordinates in int.
@@ -22,6 +25,29 @@ public class IntPoint{
 		this.y = y;
 	}
 	
+	/**
+	 * Return a Point instance with same value.
+	 */
+	public function toPoint():Point{
+		return new Point(x, y);
+	}
+	
+	/**
+	 * Sets the location with a <code>Point</code>, the value will be transfer to int.
+	 * @param p the location to be set.
+	 */
+	public function setWithPoint(p:Point):void{
+		x = p.x;
+		y = p.y;
+	}
+	
+	/**
+	 * Create a int point with point.
+	 */
+	public static function creatWithPoint(p:Point):IntPoint{
+		return new IntPoint(p.x, p.y);
+	}
+		
 	/**
 	 * Sets the location of this point as same as point p.
 	 * @param p the location to be set.
