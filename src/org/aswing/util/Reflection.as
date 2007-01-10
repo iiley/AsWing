@@ -10,11 +10,11 @@ import flash.utils.getQualifiedClassName;
 public class Reflection
 {
 	
-	public function getFullClassName(o:*):String{
+	public static function getFullClassName(o:*):String{
 		return getQualifiedClassName(o);
 	}
 	
-	public function getClassName(o:*):String{
+	public static function getClassName(o:*):String{
 		var name:String = getFullClassName(o);
 		var lastI:int = name.lastIndexOf(".");
 		if(lastI >= 0){
@@ -23,7 +23,7 @@ public class Reflection
 		return name;
 	}
 	
-	public function getPackageName(o:*):String{
+	public static function getPackageName(o:*):String{
 		var name:String = getFullClassName(o);
 		var lastI:int = name.lastIndexOf(".");
 		if(lastI >= 0){
