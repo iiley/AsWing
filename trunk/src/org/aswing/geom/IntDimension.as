@@ -18,13 +18,22 @@ public class IntDimension{
 	 * Creates a dimension.
 	 */
 	public function IntDimension(width:int=0, height:int=0){
-		setSize(width, height);
+		this.width = width;
+		this.height = height;
 	}
 	
 	/**
-	 * Sets the size.
+	 * Sets the size as same as the dim.
 	 */
-	public function setSize(width:int, height:int):void{
+	public function setSize(dim:IntDimension):void{
+		this.width = dim.width;
+		this.height = dim.height;
+	}
+	
+	/**
+	 * Sets the size with width and height.
+	 */
+	public function setSizeWH(width:int, height:int):void{
 		this.width = width;
 		this.height = height;
 	}

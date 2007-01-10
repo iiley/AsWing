@@ -26,17 +26,20 @@ public class IntRectangle
 	}
 	
 	/**
+	 * Sets the rectangle to be as same as rect.
+	 */
+	public function setRect(rect:IntRectangle):void{
+		setRect(rect.x, rect.y, rect.width, rect.height);
+	}
+	
+	/**
 	 * Sets the rect with x, y, width and height.
 	 */
-	public function setRect(x:int, y:int, width:int, height:int):void{
+	public function getRectXYWH(x:int, y:int, width:int, height:int):void{
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-	}
-	
-	public function getRectWithRect(rect:IntRectangle):void{
-		setRect(rect.x, rect.y, rect.width, rect.height);
 	}
 	
 	/**

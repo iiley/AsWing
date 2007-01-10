@@ -5,9 +5,6 @@
 package org.aswing.geom
 {
 	
-
-		
-	
 /**
  * A point with x and y coordinates in int.
  * @author iiley
@@ -21,7 +18,17 @@ public class IntPoint{
 	 * Constructor
 	 */
 	public function IntPoint(x:int=0, y:int=0){
-		setLocation(x, y);
+		this.x = x;
+		this.y = y;
+	}
+	
+	/**
+	 * Sets the location of this point as same as point p.
+	 * @param p the location to be set.
+	 */
+	public function setLocation(p:IntPoint):void{
+		this.x = p.x;
+		this.y = p.y;
 	}
 	
 	/**
@@ -29,14 +36,9 @@ public class IntPoint{
 	 * @param x the x coordinates.
 	 * @param y the y coordinates.
 	 */
-	public function setLocation(x:int=0, y:int=0):void{
+	public function setLocationXY(x:int=0, y:int=0):void{
 		this.x = x;
 		this.y = y;
-	}
-	
-	public function setLocationWithPoint(p:IntPoint):void{
-		this.x = p.x;
-		this.y = p.y;
 	}
 	
 	/**
