@@ -1,9 +1,6 @@
 /*
  Copyright aswing.org, see the LICENCE.txt.
 */
-/**
- * @author n0rthwood
- */
 package org.aswing.graphics
 {
 	import flash.display.Graphics;
@@ -12,6 +9,9 @@ package org.aswing.graphics
 
 
 
+/**
+ * @author n0rthwood
+ */
 public class BitmapBrush implements IBrush{
 	
 	private var _bitmapData:BitmapData;

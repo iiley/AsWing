@@ -14,7 +14,6 @@ import org.aswing.graphics.IPen;
  */
 public class Pen implements IPen{
 	
-	
 	private var _thickness:uint;
 	private var _color:uint;
 	private var _alpha:Number;
@@ -25,9 +24,9 @@ public class Pen implements IPen{
 	private var _miterLimit:Number;
 	
 	/**
-	 * Pen(thickness:uint, color:uint=0, alpha:Number=1, pixelHinting:Boolean = false, scaleMode:String = "normal", caps:String = null,  joints:String = null, miterLimit:Number = 3)<br>
+	 * Create a Pen.
 	 */
-	public function Pen(thickness:uint, 
+	public function Pen(thickness:uint=1, 
 				 color:uint=0,
 				 alpha:Number=1,
 				 pixelHinting:Boolean = false, 
@@ -44,8 +43,6 @@ public class Pen implements IPen{
 		this._caps = caps;
 		this._joints = joints;
 		this._miterLimit = miterLimit;
-		
-		
 	}
 	
 	public function getColor():uint{
@@ -71,7 +68,6 @@ public class Pen implements IPen{
 	public function setAlpha(alpha:Number):void{
 		this._alpha=Math.min(1, Math.max(0, alpha));
 	}
-	
 
  	public function getPixelHinting():Boolean{
  		return this._pixelHinting;
@@ -112,7 +108,6 @@ public class Pen implements IPen{
 	public function setMiterLimit(miterLimit:Number):void{
 		this._miterLimit=miterLimit;
 	}
-	
 
 	public function setTo(target:Graphics):void{
 		target.lineStyle(_thickness, _color, _alpha,_pixelHinting,_scaleMode,_caps,_joints,_miterLimit);
@@ -120,8 +115,8 @@ public class Pen implements IPen{
 	
 	public function setASColor(color:ASColor):void{
 		if(color!=null){			
-			this._color=color.getRGB();
-			this._alpha=color.getAlpha();
+			this._color = color.getRGB();
+			this._alpha = color.getAlpha();
 		}
 	}
 }

@@ -3,15 +3,14 @@
 */
 
 package org.aswing.graphics{
-	
-	
+		
 import flash.geom.Matrix;
 import flash.display.Graphics;
+
 /**
  * GradientPen to draw Gradient lines.
  * @author n0rthwood
  */		
-
 public class GradientPen extends Pen implements IPen{
 	
 	private var fillType:String;
