@@ -9,7 +9,8 @@ import org.aswing.ASColor;
 import org.aswing.graphics.IBrush;
 
 /**
- * SolidBrush
+ * SolidBrush encapsulate fill parameters for flash.display.Graphics.beginFill()
+ * @see http://livedocs.macromedia.com/flex/2/langref/flash/display/Graphics.html#beginFill()
  * @author iiley
  */
 public class SolidBrush implements IBrush{
@@ -26,10 +27,16 @@ public class SolidBrush implements IBrush{
 		return color;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setColor(color:uint):void{		
 		this.color=color;	
 	}
 	
+	/**
+	 * 
+	 */
 	public function setAlpha(alpha:Number):void{
 		this.alpha=alpha;
 	}
@@ -38,14 +45,25 @@ public class SolidBrush implements IBrush{
 		return alpha;
 	}
 	
+	/**
+	 * 
+	 */
 	public function beginFill(target:Graphics):void{
 		target.beginFill(color,alpha);
 	}
 	
+	/**
+	 * 
+	 */
 	public function endFill(target:Graphics):void{
 		target.endFill();
 	}
 	
+	/**
+	 * Set color through ASColor
+	 * @param color ASColor instance
+	 * @see org.aswing.ASColor
+	 */
 	public function setASColor(color:ASColor):void{
 		if(color != null){
 			this.color = color.getRGB();

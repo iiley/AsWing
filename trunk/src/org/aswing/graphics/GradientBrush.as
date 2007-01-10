@@ -4,43 +4,49 @@
 
 package org.aswing.graphics{
 
+import org.aswing.graphics.IBrush;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 
 /**
+ * GradientBrush encapsulate the fill paramters for flash.display.Graphics.beginGradientFill()
+ * @see http://livedocs.macromedia.com/flex/2/langref/flash/display/Graphics.html#beginGradientFill()
  * @author iiley
  */
 public class GradientBrush implements IBrush{
+	public static var LINEAR:String = "linear";
+	public static var RADIAL:String = "radial";
+	
 	
 	private var fillType:String;
 	private var colors:Array;
 	private var alphas:Array;
 	private var ratios:Array;
 	private var matrix:Matrix;
-	private var spreadMethod:String;
 	
 	/**
-	 * Create a gradient brush.
-	 * @param fillType A value from the GradientType class that specifies which gradient type to use: GradientType.LINEAR or GradientType.RADIAL. 
-	 * @param colors An array of RGB hexadecimal color values to be used in the gradient; for example, red is 0xFF0000, blue is 0x0000FF, and so on. You can specify up to 15 colors. For each color, be sure you specify a corresponding value in the alphas and ratios parameters.
-	 * @param alphas An array of alpha values for the corresponding colors in the colors array; valid values are 0 to 1. If the value is less than 0, the default is 0. If the value is greater than 1, the default is 1. 
-	 * @param ratios An array of color distribution ratios; valid values are 0 to 255. This value defines the percentage of the width where the color is sampled at 100%. The value 0 represents the left-hand position in the gradient box, and 255 represents the right-hand position in the gradient box. 
-	 * @param matrix A transformation matrix as defined by the flash.geom.Matrix class. The flash.geom.Matrix class includes a createGradientBox() method, which lets you conveniently set up the matrix for use with the beginGradientFill() method.
-	 * @param spreadMethod A value from the SpreadMethod class that specifies which spread method to use, either: SpreadMethod.PAD, SpreadMethod.REFLECT, or SpreadMethod.REPEAT. 
+	 * Create a GradientBrush object<br>
+	 * you can refer the explaination for the paramters from Adobe's doc
+	 * to create a Matrix, you can use matrix.createGradientBox() from the matrix object itself
+	 * 
+	 * @see http://livedocs.macromedia.com/flex/2/langref/flash/display/Graphics.html#beginGradientFill()
+	 * @see http://livedocs.macromedia.com/flex/2/langref/flash/geom/Matrix.html#createGradientBox()
 	 */
-	public function GradientBrush(fillType:String , colors:Array, alphas:Array, ratios:Array, matrix:Matrix=null, spreadMethod:String="pad"){
+	public function GradientBrush(fillType:String , colors:Array, alphas:Array, ratios:Array, matrix:Matrix){
 		this.fillType = fillType;
 		this.colors = colors;
-		this.alphas = alphas;
-		this.ratios = ratios;
+		setAlphas(alphas);
+		setRatios(ratios);
 		this.matrix = matrix;
-		this.spreadMethod = spreadMethod;
 	}
 	
 	public function getFillType():String{
 		return fillType;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setFillType(t:String):void{
 		fillType = t;
 	}
@@ -49,6 +55,9 @@ public class GradientBrush implements IBrush{
 		return colors;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setColors(cs:Array):void{
 		colors = cs;
 	}
@@ -57,37 +66,51 @@ public class GradientBrush implements IBrush{
 		return alphas;
 	}
 	
+	/**
+	 * Pay attention that the value in the array should be between 0-1. if the value is greater than 1, 1 will be used, if the value is less than 0, 0 will be used
+	 */
 	public function setAlphas(alphas:Array):void{
+		for(var i:Number = 0 ; i < alphas.length ; i++){
+			alphas[i]= Math.min(1, Math.max(0, alphas[i]))
+		}
 		this.alphas = alphas;
 	}
 	
 	public function getRatios():Array{
 		return ratios;
 	}
-	public function setRatios(rs:Array):void{
-		ratios = rs;
+	
+	/**
+	 * Ratios should be between 0-255, if the value is greater than 255, 255 will be used, if the value is less than 0, 0 will be used
+	 */
+	public function setRatios(ratios:Array):void{
+		for(var i:Number = 0 ; i < ratios.length ; i++){
+			ratios[i]= Math.min(255, Math.max(0, ratios[i]))
+		}
+		ratios = ratios;
 	}
 	
 	public function getMatrix():Object{
 		return matrix;
 	}
 	
+	/**
+	 * 
+	 */
 	public function setMatrix(m:Matrix):void{
 		matrix = m;
 	}
 	
-	public function setSpreadMethod(spreadMethod:String):void{
-		this.spreadMethod = spreadMethod;
-	}
-	
-	public function getSpreadMethod():String{
-		return spreadMethod;
-	}
-	
+	/**
+	 * @inheritDoc 
+	 */
 	public function beginFill(target:Graphics):void{
 		target.beginGradientFill(fillType, colors, alphas, ratios, matrix);
 	}
 	
+	/**
+	 * @inheritDoc 
+	 */
 	public function endFill(target:Graphics):void{
 		target.endFill();
 	}	
