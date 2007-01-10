@@ -6,7 +6,7 @@ package org.aswing
 {
 	
 import org.aswing.Component;
-import org.aswing.geom.Rectangle;
+import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 	
 /**
@@ -26,7 +26,7 @@ public interface GroundDecorator extends Decorator
 	 * @param g the graphics of the component, you can paint picture onto it.
 	 * @param bounds the bounds of the component can be decorated.
 	 */
-	function updateDecorator(com:Component, g:Graphics, bounds:Rectangle):void;
+	function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void;
 
 }
 

@@ -14,7 +14,7 @@ import org.aswing.geom.*;
  * 
  * @author iiley
  */
-class Insets{
+public class Insets{
 	
 	/**
 	 * Creates new <code>Insets</code> instance with identic edges.
@@ -60,8 +60,8 @@ class Insets{
 		return top + bottom;
 	}
 	
-	public function getInsideBounds(bounds:Rectangle):Rectangle{
-		var r:Rectangle = bounds.clone();
+	public function getInsideBounds(bounds:IntRectangle):IntRectangle{
+		var r:IntRectangle = bounds.clone();
 		r.x += left;
 		r.y += top;
 		r.width -= (left + right);
@@ -69,8 +69,8 @@ class Insets{
 		return r;
 	}
 	
-	public function getOutsideBounds(bounds:Rectangle):Rectangle{
-		var r:Rectangle = bounds.clone();
+	public function getOutsideBounds(bounds:IntRectangle):IntRectangle{
+		var r:IntRectangle = bounds.clone();
 		r.x -= left;
 		r.y -= top;
 		r.width += (left + right);
@@ -78,15 +78,15 @@ class Insets{
 		return r;
 	}
 	
-	public function getOutsideSize(size:Dimension):Dimension{
-		var s:Dimension = size.clone();
+	public function getOutsideSize(size:IntDimension):IntDimension{
+		var s:IntDimension = size.clone();
 		s.width += (left + right);
 		s.height += (top + bottom);
 		return s;
 	}
 	
-	public function getInsideSize(size:Dimension):Dimension{
-		var s:Dimension = size.clone();
+	public function getInsideSize(size:IntDimension):IntDimension{
+		var s:IntDimension = size.clone();
 		s.width -= (left + right);
 		s.height -= (top + bottom);
 		return s;
