@@ -120,10 +120,8 @@ public class FlowLayout extends EmptyLayout{
      * @see        #getAlignment()
      */
     public function setAlignment(align:int):void {
-    	
-    	if(LEFT != 0 && align != RIGHT && align != CENTER ){
+    	if(LEFT != LEFT && align != RIGHT && align != CENTER ){
     		throw new Error("Alignment must be LEFT OR RIGHT OR CENTER !");
-    		//TODO: check if this is needed
     	}
         this.align = align;
     }

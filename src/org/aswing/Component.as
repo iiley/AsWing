@@ -6,13 +6,14 @@ package org.aswing
 {
 	
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.geom.Rectangle;
 
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.ComponentUI;
+import org.aswing.util.HashMap;
 import org.aswing.util.Reflection;
-import flash.events.Event;
 	
 //--------------------------------------
 //  Events
@@ -24,7 +25,6 @@ import flash.events.Event;
  *  @eventType org.aswing.event.AWEvent.MOVED
  */
 [Event(name="moved", type="org.aswing.event.AWEvent")]
-
 	
 /**
  * The super class for all Components.
@@ -44,16 +44,25 @@ import flash.events.Event;
  */	
 public class Component extends AWSprite
 {
-	private var ui:ComponentUI;
+	protected var ui:ComponentUI;
 	private var uiProperties:Object;
+	private var clientProperty:HashMap;
 	
 	private var awmlID:String;
 	private var awmlIndex:Number;
 	private var awmlNamespace:String;
 	
+	private var alignmentX:Number;
+	private var alignmentY:Number;
+	private var minimumSize:IntDimension;
+	private var maximumSize:IntDimension;
+	private var preferredSize:IntDimension;
+	private var constraints:Object;
+	
 	protected var valid:Boolean;
 	
 	private var bounds:IntRectangle
+	private var clipBounds:IntRectangle;
 	private var background:ASColor;
 	private var foreground:ASColor;
 	private var backgroundDecorator:GroundDecorator;
@@ -67,7 +76,11 @@ public class Component extends AWSprite
 	{
 		super();
 		setName("Component");
+		ui = null;
 		uiProperties = new Object();
+		clientProperty = null;
+		alignmentX = 0;
+		alignmentY = 0;
 		bounds = new IntRectangle();
 		opaque = false;
 		valid = false;
@@ -635,11 +648,6 @@ public class Component extends AWSprite
 		}else{
 			return new IntPoint(bounds.x, bounds.y);
 		}
-	}	
-	
-	public function getPreferredSize():IntDimension{
-		//TODO:implement
-		return new IntDimension();
 	}
 	
 	/**
@@ -649,13 +657,7 @@ public class Component extends AWSprite
 	public function setBounds(b:IntRectangle):void{
 		setComBounds(b);
 	}
-	
-	public function getMaximumSize():IntDimension{
-		//TODO: implement
-		return new IntDimension();
 		
-	}
-	
 	/**
 	 * Set the component's size, the width and height all will be setted to not less than zero, 
 	 * then set the size.
@@ -688,7 +690,7 @@ public class Component extends AWSprite
 	
 	/**
 	 * Stores the size value of this component into "return value" rv and returns rv. 
-	 * If rv is null or undefined a new Dimension object is allocated. 
+	 * If rv is null or undefined a new IntDimension object is allocated. 
 	 * @param rv the return value, modified to the component's size.
 	 */	
 	public function getSize(rv:IntDimension=null):IntDimension{
@@ -804,6 +806,339 @@ public class Component extends AWSprite
 		return getHeight();
 	}
 	
+	/**
+	 * @param ax
+	 * @see #getAlignmentX()
+	 */
+    public function setAlignmentX(ax:Number):void{
+    	if(alignmentX != ax){
+    		alignmentX = ax;
+    		repaint();
+    	}
+    }
+    
+    /**
+	 * @param ay
+	 * @see #getAlignmentY()
+     */
+    public function setAlignmentY(ay:Number):void{
+    	if(alignmentY != ay){
+    		alignmentY = ay;
+    		repaint();
+    	}
+    }		
+	
+	/**
+	 * Returns the alignment along the x axis. 
+	 * This specifies how the component would like to be aligned relative 
+	 * to its size when its size is maxer than its maximumSize. 
+	 * The value should be a number between 0 and 1 where 0 
+	 * represents alignment start from left, 1 is aligned the furthest 
+	 * away from the left, 0.5 is centered, etc. 
+	 * @return the alignment along the x axis, 0 by default
+	 */
+    public function getAlignmentX():Number{
+    	return alignmentX;
+    }
+
+	/**
+	 * Returns the alignment along the y axis. 
+	 * This specifies how the component would like to be aligned relative 
+	 * to its size when its size is maxer than its maximumSize. 
+	 * The value should be a number between 0 and 1 where 0 
+	 * represents alignment start from top, 1 is aligned the furthest 
+	 * away from the top, 0.5 is centered, etc. 
+	 * @return the alignment along the y axis, 0 by default
+	 */
+    public function getAlignmentY():Number{
+    	return alignmentY;
+    }
+    
+    /**
+     * Returns the value of the property with the specified key. 
+     * Only properties added with putClientProperty will return a non-null value.
+     * @param key the being queried
+     * @return the value of this property or null
+     * @see #putClientProperty()
+     */
+    public function getClientProperty(key:*):*{
+    	return clientProperty.get(key);
+    }
+    
+    /**
+     * Adds an arbitrary key/value "client property" to this component.
+     * <p>
+     * The <code>get/putClientProperty</code> methods provide access to 
+     * a small per-instance hashtable. Callers can use get/putClientProperty
+     * to annotate components that were created by another module.
+     * For example, a
+     * layout manager might store per child constraints this way. For example:
+     * <pre>
+     * componentA.putClientProperty("to the left of", componentB);
+     * </pre>
+     * @param key the new client property key
+     * @param value the new client property value
+     * @see #getClientProperty()
+     */    
+    public function putClientProperty(key:*, value:*):void{
+    	//Lazy initialization
+    	if(clientProperty == null){
+    		clientProperty = new HashMap();
+    	}
+    	clientProperty.put(key, value);
+    }
+	
+	/**
+	 * get the minimumSize from ui, if ui is null then Returns getInsets().roundsSize(new IntDimension(0, 0)).
+	 */
+	protected function countMinimumSize():IntDimension{		
+		if(ui != null){
+			return ui.getMinimumSize(this);
+		}else{
+			return getInsets().getOutsideSize(new IntDimension(0, 0));
+		}
+	}
+	
+	/**
+	 * get the maximumSize from ui, if ui is null then return a big dimension;
+	 * @see IntDimension#createBigDimension()
+	 */
+	protected function countMaximumSize():IntDimension{		
+		if(ui != null){
+			return ui.getMaximumSize(this);
+		}else{
+			return IntDimension.createBigDimension();
+		}
+	}
+	
+	/**
+	 * get the preferredSize from ui, if ui is null then just return the current size
+	 */
+	protected function countPreferredSize():IntDimension{
+		if(ui != null){
+			return ui.getPreferredSize(this);
+		}else{
+			return getSize();
+		}
+	}
+	
+	/**
+	 * @see #setMinimumSize()
+	 */
+	public function getMinimumSize():IntDimension{
+		if(minimumSize != null){
+			 return minimumSize.clone();
+		}else{
+			 return countMinimumSize();
+		}
+	}
+	
+	/**
+	 * @see #setMaximumSize()
+	 */	
+	public function getMaximumSize():IntDimension{
+		if(maximumSize != null){
+			return maximumSize.clone();
+		}else{
+			return countMaximumSize();
+		}
+	}
+	
+	/**
+	 * @see #setPreferredSize()
+	 */	
+	public function getPreferredSize():IntDimension{
+		if(preferredSize != null){
+			return preferredSize.clone();
+		}else{
+			return countPreferredSize();
+		}
+	}
+	
+	/**
+	 * setMinimumSize(d:IntDimension)<br>
+	 * setMinimumSize(width:Number, height:Number)
+	 * <p>
+	 * Set the minimumSize, then the component's minimumSize is
+	 * specified. otherwish getMinimumSize will can the count method.
+	 * @param arguments null to set minimumSize null then getMinimumSize will can the layout.
+	 * others set the minimumSize to be a specified size.
+	 * @see #getMinimumSize()
+	 */
+	public function setMinimumSize(minimumSize:IntDimension):void{
+		if(minimumSize == null){
+			this.minimumSize = null;
+		}else{
+			this.minimumSize = minimumSize.clone();
+		}
+	}
+	
+	/**
+	 * setMaximumSize(d:IntDimension)<br>
+	 * setMaximumSize(width:Number, height:Number)<br>
+	 * <p>
+	 * Set the maximumSize, then the component's maximumSize is
+	 * specified. otherwish getMaximumSize will can count method.
+	 * 
+	 * @param arguments null to set maximumSize null to make getMaximumSize will can the layout.
+	 * others set the maximumSize to be a specified size.
+	 * @see #getMaximumSize()
+	 * @see #MaximumSize()
+	 */	
+	public function setMaximumSize(maximumSize:IntDimension):void{
+		if(maximumSize == null){
+			this.maximumSize = null;
+		}else{
+			this.maximumSize = maximumSize.clone();
+		}
+	}
+	
+	/**
+	 * setPreferredSize(d:IntDimension)<br>
+	 * setPreferredSize(width:Number, height:Number)<br>
+	 * <p>
+	 * Set the preferredSize, then the component's preferredSize is
+	 * specified. otherwish getPreferredSize will count method.
+	 * 
+	 * @param arguments null to set preferredSize null to make getPreferredSize will call the layout,
+	 * others set the preferredSize to be a specified size.
+	 * @see #getPreferredSize()
+	 */	
+	public function setPreferredSize(preferredSize:IntDimension):void{
+		if(preferredSize == null){
+			this.preferredSize = null;
+		}else{
+			this.preferredSize = preferredSize.clone();
+		}
+	}	
+	
+	/**
+	 * Returns <code>getPreferredSize().width</code>
+	 * @see #getPreferredSize()
+	 */
+	public function getPreferredWidth():int {
+		return getPreferredSize().width;
+	}
+	/**
+	 * Calls <code>setPreferredSize(preferredWidth, getPreferredHeight())</code>
+	 * @see #setPreferredSize()
+	 */
+	public function setPreferredWidth(preferredWidth:int):void {
+		setPreferredSize(new IntDimension(preferredWidth, getPreferredHeight()));
+	}
+	/**
+	 * Returns <code>getPreferredSize().height</code>
+	 * @see #getPreferredSize()
+	 */
+	public function getPreferredHeight():int {
+		return getPreferredSize().height;
+	}
+	/**
+	 * Calls <code>setPreferredSize(getPreferredWidth(), preferredHeight)</code>
+	 * @see #setPreferredSize()
+	 */
+	public function setPreferredHeight(preferredHeight:int):void {
+		setPreferredSize(new IntDimension(getPreferredWidth(), preferredHeight));
+	}
+	/**
+	 * Returns <code>getMaximumSize().width</code>
+	 * @see #getMaximumSize()
+	 */
+	public function getMaximumWidth():int {
+		return getMaximumSize().width;
+	}
+	/**
+	 * Calls <code>setMaximumSize(maximumWidth, getMaximumHeight())</code>
+	 * @see #setMaximumSize()
+	 */
+	public function setMaximumWidth(maximumWidth:int):void {
+		setMaximumSize(new IntDimension(maximumWidth, getMaximumHeight()));
+	}
+	/**
+	 * Returns <code>getMaximumSize().height</code>
+	 * @see #getMaximumSize()
+	 */
+	public function getMaximumHeight():int {
+		return getMaximumSize().height;
+	}
+	/**
+	 * Calls <code>setMaximumSize(getMaximumWidth(), maximumHeight)</code>
+	 * @see #setMaximumSize()
+	 */
+	public function setMaximumHeight(maximumHeight:int):void {
+		setMaximumSize(new IntDimension(getMaximumWidth(), maximumHeight));
+	}
+	/**
+	 * Returns <code>getMinimumSize().width</code>
+	 * @see #getMinimumSize()
+	 */
+	public function getMinimumWidth():int {
+		return getMinimumSize().width;
+	}
+	/**
+	 * Calls <code>setMinimumSize(minimumWidth, getMinimumHeight())</code>
+	 * @see #setMinimumSize()
+	 */
+	public function setMinimumWidth(minimumWidth:int):void {
+		setMinimumSize(new IntDimension(minimumWidth, getMinimumHeight()));
+	}	
+	/**
+	 * Returns <code>getMinimumSize().height</code>
+	 * @see #getMinimumSize()
+	 */
+	public function getMinimumHeight():int {
+		return getMinimumSize().height;
+	}
+	/**
+	 * Calls <code>setMinimumSize(getMinimumWidth(), minimumHeight)</code>
+	 * @see #setMinimumSize()
+	 */
+	public function setMinimumHeight(minimumHeight:int):void {
+		setMinimumSize(new IntDimension(getMinimumWidth(), minimumHeight));
+	}
+	
+	/**
+	 * Sets the clip bounds, a rectangle mask to make specified bounds visible.
+	 * Null to make the componet mask whole rectangle(show all).
+	 */
+	public function setClipBounds(b:IntRectangle):void{
+		var changed:Boolean = false;
+		if(b == null && clipBounds != null){
+			clipBounds = null;
+			changed = true;
+		}else{
+			if(!b.equals(clipBounds)){
+				clipBounds = b.clone();
+				changed = true;
+			}
+		}
+		if(changed){
+			layoutClipAndTrigger(null);
+		}
+	}
+	
+	/**
+	 * Returns the clip bounds.
+	 * @see #setClipBounds()
+	 */
+	public function getClipBounds():IntRectangle{
+		if(clipBounds == null){
+			return null;
+		}
+		return clipBounds.clone();
+	}
+	
+	/**
+	 * setClipSize(width:Number, height:Number):Void<br>
+	 * setClipSize(b:Dimension):Void<br>
+	 * Sets the clip size, a rectangle mask to make specified bounds visible.
+	 * This will be only in effect after component created and before next layout time.
+	 * @see #setClipBounds()
+	 */	
+	public function setClipSize(size:IntDimension):void{
+		//TODO imp
+	}	
+	
     /**
      * Supports deferred automatic layout.  
      * <p> 
@@ -830,28 +1165,146 @@ public class Component extends AWSprite
      * @see RepaintManager#addInvalidComponent()
      */
 	public function revalidate():void{
-		//TODO imp
-	}
+    	invalidate();
+    	RepaintManager.getInstance().addInvalidComponent(this);
+    }
+        
+    public function revalidateIfNecessary():void{
+    	RepaintManager.getInstance().addInvalidComponent(this);
+    }
 	
+	/**
+	 * Redraws the component face next RENDER event.This method can
+     * be called often, so it needs to execute quickly.
+	 * @see org.aswing.RepaintManager
+	 */
 	public function repaint():void{
-		//TODO imp
+		RepaintManager.getInstance().addRepaintComponent(this);
 	}
 	
 	public function reloacte():void{
 		//TODO imp
 	}
 	
+    /**
+     * Invalidates this component.  This component and all parents
+     * above it are marked as needing to be laid out.  This method can
+     * be called often, so it needs to execute quickly.
+     * @see       #validate()
+     * @see       #doLayout()
+     * @see       org.aswing.LayoutManager
+     */	
 	public function invalidate():void{
-		//TODO imp
+    	valid = false;
+    	var par:Container = getParent();
+    	if(par != null && par.isValid()){
+    		par.invalidate();
+    	}
 	}
 	
+    /**
+     * Ensures that this component has a valid layout.  This method is
+     * primarily intended to operate on instances of <code>Container</code>.
+     * @see       #invalidate()
+     * @see       #doLayout()
+     * @see       org.aswing.LayoutManager
+     * @see       org.aswing.Container#validate()
+     */	
 	public function validate():void{
-		//TODO imp
+    	if(!valid){
+    		valid = true;
+    	}
 	}
 	
+	/**
+	 * Redraw the component UI face immediately.
+	 * @see #repaint()
+	 */	
 	public function paintImmediately():void{
-		//TODO imp
+		if(isDisplayable() && isVisible()){
+			var paintBounds:IntRectangle = getPaintBoundsInRoot();
+			layoutClipAndTrigger(paintBounds);
+			paint(getInsets().getInsideBounds(paintBounds));
+		}
+	}	
+	/////////
+	/**
+	 * draw the component interface in specified bounds.
+	 * Sub class should override this method if you want to draw your component's face.
+	 * @param b this paiting bounds, it is opposite on the component's target_mc,
+	 * that mean the bounds.x mean in target_mc's x, not the root_mc's or component's parent's x.
+	 */
+	protected function paint(b:IntRectangle):void{
+		var g:Graphics2D = new Graphics2D(graphics);
+		
+		ui.paint(this, g, b);
+		//paint border at last to make it at the top depth
+		if(border != null){
+			// not that border is not painted in b, is painted in component's full size bounds
+			// because border are the rounds, others will painted in the border's bounds.
+			border.updateBorder(this, g, getInsets().getOutsideBounds(b));
+		}
+		//TODO event
+		//dispatchEvent(createEventObj(ON_PAINT));
 	}
+	
+	private function layoutClipAndTrigger(paintBounds:IntRectangle):void{
+		if(paintBounds == null){
+			paintBounds = getPaintBoundsInRoot();
+		}else{
+			paintBounds = paintBounds.clone();
+		}
+		if(clipBounds != null){
+			paintBounds.x = Math.max(paintBounds.x, clipBounds.x);
+			paintBounds.y = Math.max(paintBounds.y, clipBounds.y);
+			paintBounds.width = Math.min(paintBounds.width, clipBounds.width);
+			paintBounds.height = Math.min(paintBounds.height, clipBounds.height);
+		}
+		//this means the trigger and mask??
+		//TODO check this
+		this.scrollRect = paintBounds.toRectangle();
+	}
+
+	/**
+	 * get the simon-pure component paint bounds.
+	 * This is include insets range.
+	 * @see #getPaintBounds()
+	 */
+	private function getPaintBoundsInRoot():IntRectangle{
+		var minSize:IntDimension = getMinimumSize();
+		var maxSize:IntDimension = getMaximumSize();
+		var size:IntDimension = getSize();
+		var paintBounds:IntRectangle = new IntRectangle(0, 0, size.width, size.height);
+		//if it size max than maxsize, draw it as maxsize and then locate it in it size(the size max than maxsize)
+		if(size.width > maxSize.width){
+			paintBounds.width = maxSize.width;
+			paintBounds.x = (size.width-paintBounds.width)*getAlignmentX();
+		}
+		if(size.height > maxSize.height){
+			paintBounds.height = maxSize.height;
+			paintBounds.y = (size.height-paintBounds.height)*getAlignmentY();
+		}
+		//cannot paint its min than minsize
+		if(paintBounds.width < minSize.width) paintBounds.width = minSize.width;
+		if(paintBounds.height < minSize.height) paintBounds.height = minSize.height;
+		
+		return paintBounds;
+	}	
+	
+    /**
+     * Determines whether this component is valid. A component is valid
+     * when it is correctly sized within its parent
+     * container and all its children are also valid. components are invalidated
+     * before they are first shown on the screen. By the time the parent container 
+     * is fully realized, all its components will be valid.
+     * @return <code>true</code> if the component is valid, <code>false</code>
+     * otherwise
+     * @see #validate()
+     * @see #invalidate()
+     */
+    public function isValid():Boolean{
+    	return valid;
+    }
 	
 	/**
 	 * If this method returns true, revalidate calls by descendants of this 
@@ -879,9 +1332,20 @@ public class Component extends AWSprite
 		getParent().remove(this);
 	}
 	
-	public function getConstraints():Object{
-		//TODO imp
-		return null;
+	/**
+	 * Sets component's constraints.
+	 * @param constraints the constraints to set
+	 */
+	public function setConstraints(constraints:Object):void {
+		this.constraints = constraints;	
+	}
+	
+	/**
+	 * Gets cpmponent's constraints.
+	 * @return component's constraints
+	 */
+	public function getConstraints():Object {
+		return constraints;
 	}
 	
 	override public function toString():String{

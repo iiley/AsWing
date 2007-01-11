@@ -4,28 +4,39 @@
 
 package org.aswing
 {
-	import flash.display.DisplayObject;
 	
+import flash.display.DisplayObject;
+
+import org.aswing.event.*;
+import org.aswing.geom.*;
 	
 //--------------------------------------
 //  Events
 //--------------------------------------
-
+	
 /**
  * Dispatched when a component is added to a container. 
- * The following methods trigger this event: DisplayObjectContainer.addChild(), DisplayObjectContainer.addChildAt(). 
- *
- *  @eventType org.aswing.event.AWEvent.COM_ADDED
+ * The following methods trigger this event: 
+ * Container.addChild(com:Component), 
+ * Container.addChildAt(com:Component, index:int), 
+ * Container.append(), Container.insert(). 
+ * 
+ * @eventType org.aswing.event.AWEvent.COM_ADDED
  */
 [Event(name="comAdded", type="org.aswing.event.AWEvent")]
 
 /**
- *  Dispatched when the component is moved.
+ * Dispatched when a component is removed from a container.
+ * The following methods trigger this event: 
+ * Container.removeChild(com:Component), 
+ * Container.removeChildAt(com:Component, index:int), 
+ * Container.remove(), Container.removeAt(). 
  *
  *  @eventType org.aswing.event.AWEvent.COM_REMOVED
  */
 [Event(name="comRemoved", type="org.aswing.event.AWEvent")]
-	
+
+
 /**
  * Container can contain many component to be his child, all children are in its bounds,
  * and it moved, all children moved. It be removed from stage all children will be removed from stage.
@@ -60,8 +71,7 @@ public class Container extends Component
 		super();
 		setName("Container");
 		children = new Array();
-		//TODO layout
-		//layout = new EmptyLayout();
+		layout = new EmptyLayout();
 	}
 	
 	public function setLayout(layout:LayoutManager):void{
@@ -208,8 +218,7 @@ public class Container extends Component
 			children.splice(i, 0, com);
 		}
 		layout.addLayoutComponent(com, (constraints == null) ? com.getConstraints() : constraints);
-		//TODO event
-		//dispatchEvent(createEventObj(ON_COM_ADDED, com));	
+		dispatchEvent(new ContainerEvent(AWEvent.COM_ADDED, this, com));
 		
 		if (valid) {
 			invalidate();
@@ -328,8 +337,7 @@ public class Container extends Component
 			layout.removeLayoutComponent(com);
 			children.splice(i, 1);
 			removeChild(com);
-			//TODO event
-			//dispatchEvent(createEventObj(ON_COM_REMOVED, com));
+			dispatchEvent(new ContainerEvent(AWEvent.COM_REMOVED, this, com));
 			
 			if (valid) {
 				invalidate();
@@ -400,7 +408,58 @@ public class Container extends Component
 		    p = p.getParent();
 		}
 		return false;
-    }		
+    }
+		
+	/**
+	 * call the ui, if ui return null, ehn call layout to count.
+	 */
+	override protected function countMinimumSize():IntDimension{
+		var size:IntDimension = null;
+		if(ui != null){
+			size = ui.getMinimumSize(this);
+		}
+		if(size == null){
+			size = layout.minimumLayoutSize(this);
+		}
+		if(size == null){//this should never happen
+			size = super.countMinimumSize();
+		}
+		return size;
+	}
+	
+	/**
+	 * call the ui, if ui return null, ehn call layout to count.
+	 */
+	override protected function countMaximumSize():IntDimension{
+		var size:IntDimension = null;
+		if(ui != null){
+			size = ui.getMaximumSize(this);
+		}
+		if(size == null){
+			size = layout.maximumLayoutSize(this);
+		}
+		if(size == null){//this should never happen
+			size = super.countMaximumSize();
+		}
+		return size;
+	}
+	
+	/**
+	 * call the ui, if ui return null, ehn call layout to count.
+	 */
+	override protected function countPreferredSize():IntDimension{
+		var size:IntDimension = null;
+		if(ui != null){
+			size = ui.getPreferredSize(this);
+		}
+		if(size == null){
+			size = layout.preferredLayoutSize(this);
+		}
+		if(size == null){//this should never happen
+			size = super.countPreferredSize();
+		}
+		return size;
+	}    
 	
 }
 
