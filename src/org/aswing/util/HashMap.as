@@ -38,7 +38,7 @@ import flash.utils.Dictionary;
  *     }
  * </pre>
  *
- * @author: iiley
+ * @author iiley
  */	
 public class HashMap
 {
