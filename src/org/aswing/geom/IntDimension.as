@@ -131,7 +131,7 @@ public class IntDimension{
 	 * @return a IntDimension(10000, 10000)
 	 */
 	public static function createBigDimension():IntDimension{
-		return IntDimension(10000, 10000);
+		return new IntDimension(10000, 10000);
 	}
 	
 	public function toString():String{

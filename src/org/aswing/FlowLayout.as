@@ -79,12 +79,10 @@ public class FlowLayout extends EmptyLayout{
     private var vgap:int;
 
     /**
-     * <pre>
-     * FlowLayout(align:int=0, hgap:int=5, vgap:int=5)
-     * </pre>
+     * <p>  
      * Creates a new flow layout manager with the indicated alignment
      * and the indicated horizontal and vertical gaps.
-     * <p></p>
+     * </p>
      * The value of the alignment argument must be one of
      * <code>FlowLayout.LEFT</code>, <code>FlowLayout.RIGHT</code>,or <code>FlowLayout.CENTER</code>.
      * @param      align   the alignment value, default is LEFT

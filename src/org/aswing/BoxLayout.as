@@ -1,8 +1,8 @@
 /*
  Copyright aswing.org, see the LICENCE.txt.
 */
-package org.aswing
-{
+package org.aswing{
+	
 import org.aswing.Component;
 import org.aswing.Container;
 import org.aswing.EmptyLayout;
@@ -34,8 +34,6 @@ public class BoxLayout extends EmptyLayout
     private var gap:int;
     
     /**
-     * BoxLayout(axis:int=X_AXIS, gap:int=0)
-     * 
      * @param axis (optional)the layout axis, default is X_AXIS
      * @param gap  (optional)the gap between children, default is 0
      * 
@@ -49,7 +47,7 @@ public class BoxLayout extends EmptyLayout
     
     /**
      * Sets new axis.
-     * @param axis new axis
+     * @param axis new axis default is X_AXIS
      */
     public function setAxis(axis:int=X_AXIS):void {
     	this.axis = axis;
