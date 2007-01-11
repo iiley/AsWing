@@ -12,10 +12,10 @@ import flash.events.Event;
 /**
  * RepaintManager use to manager the component's painting.
  * 
- * <p>If you want to repaint a component, call its repaint method, it will regist itself
- * to RepaintManager, when frame ended, it will call its paintImmediately to paint its.
+ * <p>If you want to repaint a component, call its repaint method, the component will register itself
+ * to RepaintManager, when this frame end, it will call its paintImmediately method to paint its.
  * So component's repaint method is fast. But it will not paint immediately, if you want to paint
- * it immediately, you should call paintImmediately method, but it is not fast.
+ * it immediately, you should call paintImmediately method, but it is not fast.</p>
  * @author iiley
  */	
 public class RepaintManager

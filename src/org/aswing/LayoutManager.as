@@ -70,7 +70,7 @@ public interface LayoutManager
      * where 0 represents alignment along the origin, 1 is aligned
      * the furthest away from the origin, 0.5 is centered, etc.
      */
-    function getLayoutAlignmentX(target:Container):int;
+    function getLayoutAlignmentX(target:Container):Number;
 
     /**
      * Returns the alignment along the y axis.  This specifies how
@@ -79,7 +79,7 @@ public interface LayoutManager
      * where 0 represents alignment along the origin, 1 is aligned
      * the furthest away from the origin, 0.5 is centered, etc.
      */
-    function getLayoutAlignmentY(target:Container):int;
+    function getLayoutAlignmentY(target:Container):Number;
 
     /**
      * Invalidates the layout, indicating that if the layout manager
