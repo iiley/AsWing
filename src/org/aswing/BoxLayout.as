@@ -31,10 +31,10 @@ public class BoxLayout extends EmptyLayout
     
     
     private var axis:int;
-    private var gap:Number;
+    private var gap:int;
     
     /**
-     * BoxLayout(axis:Number=X_AXIS, gap:Number=0)
+     * BoxLayout(axis:int=X_AXIS, gap:int=0)
      * 
      * @param axis (optional)the layout axis, default is X_AXIS
      * @param gap  (optional)the gap between children, default is 0
@@ -42,7 +42,7 @@ public class BoxLayout extends EmptyLayout
      * @see #X_AXIS
      * @see #X_AXIS
      */
-    public function BoxLayout(axis:Number=X_AXIS, gap:Number=0){
+    public function BoxLayout(axis:int=X_AXIS, gap:int=0){
     	setAxis(axis);
     	setGap(gap);
     }
@@ -51,7 +51,7 @@ public class BoxLayout extends EmptyLayout
      * Sets new axis.
      * @param axis new axis
      */
-    public function setAxis(axis:Number=X_AXIS):void {
+    public function setAxis(axis:int=X_AXIS):void {
     	this.axis = axis;
     }
     
@@ -59,7 +59,7 @@ public class BoxLayout extends EmptyLayout
      * Gets axis.
      * @return axis
      */
-    public function getAxis():Number {
+    public function getAxis():int {
     	return axis;	
     }
     
@@ -67,7 +67,7 @@ public class BoxLayout extends EmptyLayout
      * Sets new gap.
      * @param get new gap
      */	
-    public function setGap(gap:Number=0):void {
+    public function setGap(gap:int=0):void {
     	this.gap = gap
     }
     
@@ -75,7 +75,7 @@ public class BoxLayout extends EmptyLayout
      * Gets gap.
      * @return gap
      */
-    public function getGap():Number {
+    public function getGap():int {
     	return gap;	
     }
     
@@ -83,12 +83,12 @@ public class BoxLayout extends EmptyLayout
 	 * return target.getSize();
 	 */
     override public function preferredLayoutSize(target:Container):IntDimension{
-    	var count:Number = target.getComponentCount();
+    	var count:int = target.getComponentCount();
     	var insets:Insets = target.getInsets();
-    	var width:Number = 0;
-    	var height:Number = 0;
-    	var amount:Number = 0;
-    	for(var i:Number=0; i<count; i++){
+    	var width:int = 0;
+    	var height:int = 0;
+    	var amount:int = 0;
+    	for(var i:int=0; i<count; i++){
     		var c:Component = target.getComponent(i);
     		if(c.isVisible()){
 	    		var size:IntDimension = c.getPreferredSize();
@@ -121,15 +121,15 @@ public class BoxLayout extends EmptyLayout
     }
     
 	/**
-	 * return new IntDimension(Number.MAX_VALUE, Number.MAX_VALUE);
+	 * return new IntDimension(int.MAX_VALUE, int.MAX_VALUE);
 	 */
     override public function maximumLayoutSize(target:Container):IntDimension{
-    	var count:Number = target.getComponentCount();
+    	var count:int = target.getComponentCount();
     	var insets:Insets = target.getInsets();
-    	var width:Number = 0;
-    	var height:Number = 0;
-    	var amount:Number = 0;
-    	for(var i:Number=0; i<count; i++){
+    	var width:int = 0;
+    	var height:int = 0;
+    	var amount:int = 0;
+    	for(var i:int=0; i<count; i++){
     		var c:Component = target.getComponent(i);
     		if(c.isVisible()){
 	    		var size:IntDimension = c.getMaximumSize();
@@ -154,9 +154,9 @@ public class BoxLayout extends EmptyLayout
     }    
     
     override public function layoutContainer(target:Container):void{
-    	var count:Number = target.getComponentCount();
-    	var amount:Number = 0;
-    	for(var i:Number=0; i<count; i++){
+    	var count:int = target.getComponentCount();
+    	var amount:int = 0;
+    	for(var i:int=0; i<count; i++){
     		var c:Component = target.getComponent(i);
     		if(c.isVisible()){
 	    		amount ++;
@@ -165,8 +165,8 @@ public class BoxLayout extends EmptyLayout
     	var size:IntDimension = target.getSize();
     	var insets:Insets = target.getInsets();
     	var rd:IntRectangle = insets.getInsideBounds(size.getBounds());
-    	var ch:Number;
-    	var cw:Number;
+    	var ch:int;
+    	var cw:int;
     	if(axis == Y_AXIS){
     		ch = Math.floor((rd.height - (amount-1)*gap)/amount);
     		cw = rd.width;
@@ -174,12 +174,12 @@ public class BoxLayout extends EmptyLayout
     		ch = rd.height;
     		cw = Math.floor((rd.width - (amount-1)*gap)/amount);
     	}
-    	var x:Number = rd.x;
-    	var y:Number = rd.y;
-    	var xAdd:Number = (axis == Y_AXIS ? 0 : cw+gap);
-    	var yAdd:Number = (axis == Y_AXIS ? ch+gap : 0);
+    	var x:int = rd.x;
+    	var y:int = rd.y;
+    	var xAdd:int = (axis == Y_AXIS ? 0 : cw+gap);
+    	var yAdd:int = (axis == Y_AXIS ? ch+gap : 0);
     	
-    	for(var ii:Number=0; ii<count; ii++){
+    	for(var ii:int=0; ii<count; ii++){
     		var comp:Component = target.getComponent(ii);
     		if(comp.isVisible()){
 	    		comp.setBounds(new IntRectangle(x, y, cw, ch));
