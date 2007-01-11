@@ -12,10 +12,12 @@ import org.aswing.geom.IntRectangle;
 import org.aswing.Insets;
 
 /**
- * <p>The SoftBoxLayout will layout the child components using their preferredWidth or preferredHeight instead of width or height.</p>
- * When set to X_AXIS, all of the child components share the same height from the container and use their own preferredWidth<br>
+ * The SoftBoxLayout will layout the child components using their preferredWidth or preferredHeight instead of width or height.
+ * It ignores the preferredWidth when set to Y_AXIS, ignores the preferredHeight when set to X_AXIS.
+ * <p>
+ * When set to X_AXIS, all of the child components share the same height from the container and use their own preferredWidth
  * When set to Y_AXIS, all of the child components share the same width  from the container and use their own preferredHeight
- * 
+ * </p>
  * <pre>
  * 		A X_AXIS SoftBoxLayout
  *   -----------------------------------------------------------
