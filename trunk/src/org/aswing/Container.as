@@ -32,6 +32,21 @@ package org.aswing
  * <p>
  * It for component like <code>DisplayObjectContainer</code> for <code>DisplayObject</code>.
  * </p>
+ * <p>
+ * <ul>
+ * <li>There are two scope for <code>Container</code> children, 
+ * One is <code>Component</code> children. 
+ * The indices and numbers for <code>insert()</code>, <code>getComponent()</code>, 
+ * <code>removeAt()</code>, <code>getComponentCount()</code> is in <code>Component</code> 
+ * children scope.
+ * </li>
+ * <li>Another is normal <code>DisplayObject</code> children, 
+ * The indices and numbers for <code>addChildAt()</code>, <code>getChildAt()</code>, 
+ * <code>removeChildAt()</code> and <code>numChildren()</code> is in normal <code>DisplayObject</code> 
+ * children scope.
+ * </li>
+ * </ul>
+ * </p>
  * @author iiley
  */	
 public class Container extends Component
@@ -145,7 +160,28 @@ public class Container extends Component
 		insertImp(i, com, constraints);
 	}
 	
-	protected function insertImp(i:int, com:Component, constraints:Object):void{
+	/**
+	 * Insets one or more component to the container with null constraints at specified starting index.
+	 * @see #insert()
+	 */
+	public function insertAll(index:int, ...coms):void{
+		for each(var i:* in coms){
+			var com:Component = i as Component;
+			if(com != null){
+				insert(index, com);
+				index++;
+			}
+		}
+	}
+	
+	/**
+	 * @param i the index to be insert
+	 * @param com the component to be insert
+	 * @param constraints the layout constraints
+	 * @param forceChildIndex the index to force the child to be added(for DisplayContainer scope), 
+	 * 			default -1 means not force.
+	 */
+	protected function insertImp(i:int, com:Component, constraints:Object, forceChildIndex:int=-1):void{
 		if(i > getComponentCount()){
 			throw new Error("illegal component position when insert comp to container");
 		}
@@ -164,8 +200,11 @@ public class Container extends Component
 			children.push(com);
 			DC_addChild(com);
 		}else{
-			//TODO imp
-			//DC_addChildAt(com, i);
+			if(forceChildIndex >= 0){
+				DC_addChildAt(com, forceChildIndex);
+			}else{
+				DC_addChildAt(com, getChildIndexWithComponentIndex(i));
+			}
 			children.splice(i, 0, com);
 		}
 		layout.addLayoutComponent(com, (constraints == null) ? com.getConstraints() : constraints);
@@ -174,7 +213,50 @@ public class Container extends Component
 		
 		if (valid) {
 			invalidate();
-	    }			
+	    }
+	}
+	
+	/**
+	 * If dis is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be added.
+	 * Otherwise it will be call <code>super.addChild()</code> as a normal DisplayObject to be added.
+	 * @inheritDoc 
+	 * @see #append()
+	 */
+	override public function addChild(dis:DisplayObject):DisplayObject{
+		if(dis is Component){
+			append(dis as Component);
+			return dis;
+		}else{
+			return DC_addChild(dis);
+		}
+	}
+
+	/**
+	 * If dis is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be added.
+	 * Otherwise it will be call <code>super.addChild()</code> as a normal DisplayObject to be added.
+	 * @inheritDoc 
+	 * @see #insert()
+	 */	
+	override public function addChildAt(dis:DisplayObject, index:int):DisplayObject{
+		if(dis is Component){
+			insertImp(getComponentIndexWithChildIndex(index), dis as Component, null, index);
+			return dis;
+		}else{
+			return DC_addChildAt(dis, index);
+		}
+	}
+	
+	override public function removeChild(child:DisplayObject):DisplayObject{
+		if(child is Component){
+			return remove(child as Component);
+		}else{
+			return super.removeChild(child);
+		}
+	}
+	
+	override public function removeChildAt(index:int):DisplayObject{
+		var child:DisplayObject = this.getChildAt(index);
+		return removeChild(child);
 	}
 	
 	protected function DC_addChild(dis:DisplayObject):DisplayObject{
@@ -186,7 +268,33 @@ public class Container extends Component
 	}
 	
 	protected function getChildIndexWithComponentIndex(index:int):int{
-		//TODO imp
+		var count:int = getComponentCount();
+		if(index < 0 || index > count){
+			throw new Error("Out of index counting bounds, it should be >=0 and <= component count!");
+		}
+		if(index == count){
+			return getTopIndexExceptForeground();
+		}else{
+			return getChildIndex(getComponent(index));
+		}
+	}
+	
+	protected function getComponentIndexWithChildIndex(index:int):int{
+		var count:int = numChildren;
+		if(index < 0 || index > count){
+			throw new Error("Out of index counting bounds, it should be >=0 and <= numChildren!");
+		}
+		if(index == count){
+			return getComponentCount();
+		}else{
+			var aboveCount:int = 0;
+			for(var i:int=index; i<count; i++){
+				if(getChildAt(i) is Component){
+					aboveCount++;
+				}
+			}
+			return getComponentCount() - aboveCount;
+		}
 		return 0;
 	}
 	
@@ -208,6 +316,10 @@ public class Container extends Component
 	 * @return the component just removed. or null there is not component at this position.
 	 */	
 	public function removeAt(i:int):Component{
+		return removeAtImp(i);
+	}
+	
+	protected function removeAtImp(i:int):Component{
 		if(i < 0){
 			return null;
 		}
@@ -215,10 +327,9 @@ public class Container extends Component
 		if(com != null){
 			layout.removeLayoutComponent(com);
 			children.splice(i, 1);
-			//TODO ???
+			removeChild(com);
+			//TODO event
 			//dispatchEvent(createEventObj(ON_COM_REMOVED, com));
-			//com.destroy();
-			//com.parent = null;
 			
 			if (valid) {
 				invalidate();
