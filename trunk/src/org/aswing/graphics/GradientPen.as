@@ -15,8 +15,9 @@ import flash.display.Graphics;
  * @see http://livedocs.macromedia.com/flex/2/langref/flash/display/Graphics.html#lineGradientStyle()
  * @author n0rthwood
  */		
-public class GradientPen extends Pen implements IPen{
+public class GradientPen implements IPen{
 	
+	private var thickness:uint;
 	private var fillType:String;
 	private var colors:Array;
 	private var alphas:Array;
@@ -27,15 +28,15 @@ public class GradientPen extends Pen implements IPen{
 	private var focalPointRatio:Number;
 
 	public function GradientPen(thickness:uint,fillType:String, colors:Array, alphas:Array, ratios:Array, matrix:Matrix = null, spreadMethod:String = "pad", interpolationMethod:String = "rgb", focalPointRatio:Number = 0){
-		super(thickness);
-		this.fillType=fillType;
-		this.colors=colors;
-		setAlphas(alphas);
-		setRatios(ratios);
-		this.matrix=matrix;
-		this.spreadMethod=spreadMethod;
-		this.interpolationMethod=interpolationMethod;
-		this.focalPointRatio=focalPointRatio;
+		this.thickness = thickness;
+		this.fillType = fillType;
+		this.colors = colors;
+		this.alphas = alphas;
+		this.ratios = ratios;
+		this.matrix = matrix;
+		this.spreadMethod = spreadMethod;
+		this.interpolationMethod = interpolationMethod;
+		this.focalPointRatio = focalPointRatio;
 	}
 	
 	public function getSpreadMethod():String{
@@ -101,9 +102,6 @@ public class GradientPen extends Pen implements IPen{
 	 * 
 	 */
 	public function setAlphas(alphas:Array):void{
-		for(var i:Number = 0 ; i < alphas.length ; i++){
-			alphas[i]= Math.min(1, Math.max(0, alphas[i]))
-		}
 		this.alphas = alphas;
 	}
 	
@@ -115,9 +113,6 @@ public class GradientPen extends Pen implements IPen{
 	 * 
 	 */
 	public function setRatios(rs:Array):void{
-		for(var i:Number = 0 ; i < rs.length ; i++){
-			rs[i]= Math.min(255, Math.max(0, rs[i]))
-		}
 		ratios = rs;		
 	}
 	
@@ -133,10 +128,9 @@ public class GradientPen extends Pen implements IPen{
 	}
 	
 	/**
-	 * @inheritDoc 
+	 * 
 	 */
-	override public function setTo(target:Graphics):void{
-		super.setTo(target);
+	public function setTo(target:Graphics):void{
 		target.lineGradientStyle(fillType,colors,alphas,ratios,matrix,spreadMethod,interpolationMethod,focalPointRatio);
 	}
 }

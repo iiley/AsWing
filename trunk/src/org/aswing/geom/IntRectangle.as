@@ -182,6 +182,9 @@ public class IntRectangle
 		}
 	}
 	
+	/**
+	 *
+	 */
 	public function equals(o:Object):Boolean{
 		var r:IntRectangle = o as IntRectangle;
 		return x===r.x && y===r.y && width===r.width && height===r.height;
