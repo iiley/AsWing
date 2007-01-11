@@ -25,6 +25,7 @@ import flash.utils.Dictionary;
  *     friends.put("two", new person("gothic man",22,"M"));
  *     friends.put("three", new person("rock girl",19,"F"));
  * </pre>
+ * </p>
  * <p>To retrieve a friends, use the following code:
  *
  * <pre>
@@ -37,7 +38,7 @@ import flash.utils.Dictionary;
  *         trace("two is not in friends!");
  *     }
  * </pre>
- *
+ *</p>
  * @author iiley
  */	
 public class HashMap
