@@ -6,6 +6,8 @@ package org.aswing
 {
 
 import org.aswing.util.HashSet;
+import flash.display.Stage;
+import flash.events.Event;
 
 /**
  * RepaintManager use to manager the component's painting.
@@ -20,7 +22,7 @@ public class RepaintManager
 {
 	
 	private static var instance:RepaintManager;
-	
+	private static var stage:Stage;
 	/**
 	 * although it's a set in fact, but it work more like a queue
 	 * just one component would only located one position.(one time a component do not need more than one painting)
@@ -31,12 +33,26 @@ public class RepaintManager
 	 */
 	private var validateQueue:HashSet;
 	
+	/**
+	 * @private
+	 */
 	public function RepaintManager(){
 		if(instance != null){
 			throw new Error("Singleton can't be create more than once!");
 		}
 		repaintQueue = new HashSet();
 		validateQueue = new HashSet();
+	}
+	
+	internal function initStage(theStage:Stage):void{
+		if(stage == null){
+			stage = theStage;
+			stage.addEventListener(Event.RENDER, __render);
+		}
+	}
+	
+	internal function isStageInited():Boolean{
+		return stage != null;
 	}
 	
 	public static function getInstance():RepaintManager{
@@ -52,6 +68,7 @@ public class RepaintManager
 	 */
 	public function addRepaintComponent(com:Component):void{
 		repaintQueue.add(com);
+		stage.invalidate();
 	}
 	
 	/**
@@ -65,6 +82,7 @@ public class RepaintManager
 		if(validateRoot != null){
 			validateQueue.add(validateRoot);
 		}
+		stage.invalidate();
 	}
 	
 	/**
@@ -73,6 +91,7 @@ public class RepaintManager
 	 */	
 	public function addInvalidRootComponent(com:Component):void{
 		validateQueue.add(com);
+		stage.invalidate();
 	}
 	
 	/**
@@ -102,7 +121,7 @@ public class RepaintManager
 	/**
 	 * Every frame this method will be executed to invoke the painting of components needed.
 	 */
-	public function tick():void{
+	private function __render():void{
 		var i:int;
 		var n:int;
 		var com:Component;
