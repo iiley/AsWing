@@ -51,8 +51,7 @@ public class Component extends AWSprite
 	private var awmlIndex:Number;
 	private var awmlNamespace:String;
 	
-	private var locationValid:Boolean;
-	private var layoutValid:Boolean;
+	protected var valid:Boolean;
 	
 	private var bounds:IntRectangle
 	private var background:ASColor;
@@ -67,9 +66,11 @@ public class Component extends AWSprite
 	public function Component()
 	{
 		super();
+		setName("Component");
 		uiProperties = new Object();
 		bounds = new IntRectangle();
 		opaque = false;
+		valid = false;
 		fontValidated = false;
 		if(!RepaintManager.getInstance().isStageInited()){
 			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
@@ -742,6 +743,47 @@ public class Component extends AWSprite
 		return bounds.y;
 	}	
 	
+	/**
+	 * @see #setX()
+	 */
+	override public function set x(value:Number):void{
+		setX(value);
+	}
+	
+	/**
+	 * @see @getX()
+	 */
+	override public function get x():Number{
+		return getX();
+	}
+	
+	/**
+	 * @see setWidth()
+	 */
+	override public function set width(value:Number):void{
+		setWidth(value);
+	}
+	
+	/**
+	 * @see getWidth()
+	 */
+	override public function get width():Number{
+		return getWidth();
+	}
+	
+	/**
+	 * @see setHeight()
+	 */	
+	override public function set height(value:Number):void{
+		setHeight(value);
+	}
+	
+	/**
+	 * @see getHeight()
+	 */	
+	override public function get height():Number{
+		return getHeight();
+	}
 	
     /**
      * Supports deferred automatic layout.  
@@ -806,9 +848,21 @@ public class Component extends AWSprite
 	/**
 	 * Returns the parent component, if it parent is not a component, null will be returned
 	 */
-	public function getParent():Component{
-		var pa:Component = parent as Component;
+	public function getParent():Container{
+		var pa:Container = parent as Container;
 		return pa;
+	}
+	
+	/**
+	 * Removes this component from its parent
+	 */
+	public function removeFromContainer():void{
+		getParent().remove(this);
+	}
+	
+	public function getConstraints():Object{
+		//TODO imp
+		return null;
 	}
 	
 	override public function toString():String{
