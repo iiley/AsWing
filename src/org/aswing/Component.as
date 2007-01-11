@@ -12,7 +12,36 @@ import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.ComponentUI;
 import org.aswing.util.Reflection;
+import flash.events.Event;
 	
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the component is moved.
+ *
+ *  @eventType org.aswing.event.AWEvent.MOVED
+ */
+[Event(name="moved", type="org.aswing.event.AWEvent")]
+
+	
+/**
+ * The super class for all Components.
+ * 
+ * <p>The maximumSize and minimumSize are the component's represent max or min size.</p>
+ * 
+ * <p>You can set a Component's size max than its maximumSize, but when it was drawed,
+ * it will not max than its maximumSize.Just as its maximumSize and posited itself
+ * in that size dimension you just setted. The position is relative to <code>getAlignmentX</code> 
+ * and <code>getAlignmentY<code>.
+ * </p>
+ * @see #setSize()
+ * @see #setPrefferedSize()
+ * @see #getAlignmentX()
+ * 
+ * @author iiley
+ */	
 public class Component extends AWSprite
 {
 	private var ui:ComponentUI;
@@ -42,6 +71,14 @@ public class Component extends AWSprite
 		bounds = new IntRectangle();
 		opaque = false;
 		fontValidated = false;
+		if(!RepaintManager.getInstance().isStageInited()){
+			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
+		}
+	}
+	
+	private function __repaintManagerStarter(e:Event):void{
+		RepaintManager.getInstance().initStage(stage);
+		removeEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 	}
 		    
 	/**
