@@ -31,9 +31,6 @@ public class IntDimension{
 		this.height = dim.height;
 	}
 	
-	
-
-	
 	/**
 	 * Sets the size with width and height.
 	 */
@@ -127,6 +124,14 @@ public class IntDimension{
 	 */
 	public function clone():IntDimension {
 		return new IntDimension(width,height);
+	}
+	
+	/**
+	 * Create a big dimension for component.
+	 * @return a IntDimension(10000, 10000)
+	 */
+	public static function createBigDimension():IntDimension{
+		return IntDimension(10000, 10000);
 	}
 	
 	public function toString():String{
