@@ -35,7 +35,7 @@ public class AWSprite extends Sprite
 	 * Adds a child DisplayObject instance to this DisplayObjectContainer instance. 
 	 * The child is added to the front (top) of all other children except foreground decorator child(It is topest)
 	 *  in this DisplayObjectContainer instance. 
-	 * (To add a child to a specific index position, use the addChildAt() method.)
+	 * (To avoid this restrict and add a child to a specific index position, use the <code>addChildAt()</code> method.)
 	 * (<b>Note:</b> Generally if you dont want to broke the component asset depth management, use 
 	 * {@link #getTopIndexExceptForeground} and {@link #getBottomIndexExceptBackground} to get the 
 	 * right depth you can use) 
