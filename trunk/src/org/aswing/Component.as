@@ -772,7 +772,7 @@ public class Component extends AWSprite
 	}
 	
 	/**
-	 * @see @getX()
+	 * @see #getX()
 	 */
 	override public function get x():Number{
 		return getX();
