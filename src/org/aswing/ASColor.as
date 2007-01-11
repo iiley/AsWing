@@ -101,9 +101,6 @@ public class ASColor{
 	}
 	
     /**
-     * darker(factor:Number)<br>
-     * darker() default factor to 0.7
-     * <p>
      * Creates a new <code>Color</code> that is a darker version of this
      * <code>Color</code>.
      * @param factor the darker factor(0, 1), default is 0.7
@@ -119,9 +116,6 @@ public class ASColor{
 	}
 	
     /**
-     * brighter(factor:Number)<br>
-     * brighter() default factor to 0.7
-     * <p>
      * Creates a new <code>Color</code> that is a brighter version of this
      * <code>Color</code>.
      * @param factor the birghter factor 0 to 1, default is 0.7
@@ -153,9 +147,10 @@ public class ASColor{
 	/**
 	 * Returns a ASColor with with the specified red, green, blue values in the range [0 - 255] 
 	 * and alpha value in range[0, 1]. 
-	 * <p>
-	 * getASColor(r:uint, g:uint, b:uint, a:Number)<br>
-	 * getASColor(r:uint, g:uint, b:uint)<br> alpha default value is 1
+	 * @param r red channel
+	 * @param g green channel
+	 * @param b blue channel
+	 * @param a alpha channel
 	 */
 	public static function getASColor(r:uint, g:uint, b:uint, a:Number=1):ASColor{
 		return new ASColor(getRGBWith(r, g, b), a);

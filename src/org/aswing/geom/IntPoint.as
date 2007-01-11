@@ -141,6 +141,9 @@ public class IntPoint{
 		return new IntPoint(x,y);
 	}
     
+    /**
+    * 
+    */
 	public function toString():String{
 		return "IntPoint["+x+","+y+"]";
 	}	
