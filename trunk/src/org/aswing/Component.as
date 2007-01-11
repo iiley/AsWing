@@ -637,6 +637,21 @@ public class Component extends AWSprite
 		}
 	}	
 	
+	public function getPreferredSize():IntDimension{
+		//TODO:implement
+		return new IntDimension();
+	}
+	
+	public function setBounds(bound:IntRectangle):void{
+		//TODO:implement
+	}
+	
+	public function getMaximumSize():IntDimension{
+		//TODO: implement
+		return new IntDimension();
+		
+	}
+	
 	/**
 	 * Set the component's size, the width and height all will be setted to not less than zero, 
 	 * then set the size.

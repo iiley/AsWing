@@ -13,7 +13,7 @@ import flash.display.DisplayObject;
 public interface Decorator
 {
 	/**
-	 * Returns the display object which is used to be the component decorator.
+	 * Returns the display object which is used as the component decorator.
 	 */
 	function getDisplay():DisplayObject;
 	

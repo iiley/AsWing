@@ -78,7 +78,8 @@ public class Insets{
 		return r;
 	}
 	
-	public function getOutsideSize(size:IntDimension):IntDimension{
+	public function getOutsideSize(size:IntDimension=null):IntDimension{
+		if(size == null) size = new IntDimension();
 		var s:IntDimension = size.clone();
 		s.width += (left + right);
 		s.height += (top + bottom);
@@ -86,6 +87,7 @@ public class Insets{
 	}
 	
 	public function getInsideSize(size:IntDimension):IntDimension{
+		if(size == null) size = new IntDimension();
 		var s:IntDimension = size.clone();
 		s.width -= (left + right);
 		s.height -= (top + bottom);
