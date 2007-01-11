@@ -559,7 +559,7 @@ public class Component extends AWSprite
 	 * Moves and resizes this component. The new location of the top-left corner is specified by x and y, and the new size is specified by width and height. 
 	 * @param b the location and size bounds
 	 */
-	public function setCompBounds(b:IntRectangle):void{
+	public function setComBounds(b:IntRectangle):void{
 		setLocationXY(b.x, b.y);
 		setSizeWH(b.width, b.height);
 	}
@@ -567,7 +567,7 @@ public class Component extends AWSprite
 	/**
 	 * Moves and resizes this component. The new location of the top-left corner is specified by x and y, and the new size is specified by width and height. 
 	 */	
-	public function setCompBoundsXYWH(x:int, y:int, w:int, h:int):void{
+	public function setComBoundsXYWH(x:int, y:int, w:int, h:int):void{
 		setLocationXY(x, y);
 		setSizeWH(w, h);
 	}
@@ -575,9 +575,9 @@ public class Component extends AWSprite
 	/**
 	 * Same to DisplayObject.getBounds(), 
 	 * just add a explaination here that if you want to get the component bounds, 
-	 * see {@link #getCompBounds()} method.
-	 * @see #getCompBounds()
-	 * @see #setCompBounds()
+	 * see {@link #getComBounds()} method.
+	 * @see #getComBounds()
+	 * @see #setComBounds()
 	 */
 	override public function getBounds(targetCoordinateSpace:DisplayObject):Rectangle{
 		return super.getBounds(targetCoordinateSpace);
@@ -592,7 +592,7 @@ public class Component extends AWSprite
 	 * @see #setSize()
 	 * @see #setLocation()
 	 */
-	public function getCompBounds(rv:IntRectangle=null):IntRectangle{
+	public function getComBounds(rv:IntRectangle=null):IntRectangle{
 		if(rv != null){
 			rv.setRect(bounds);
 			return rv;
@@ -642,8 +642,12 @@ public class Component extends AWSprite
 		return new IntDimension();
 	}
 	
-	public function setBounds(bound:IntRectangle):void{
-		//TODO:implement
+	/**
+	 * This method will call setComBounds()
+	 * @see #setComBounds()
+	 */
+	public function setBounds(b:IntRectangle):void{
+		setComBounds(b);
 	}
 	
 	public function getMaximumSize():IntDimension{

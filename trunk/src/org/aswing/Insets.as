@@ -86,7 +86,7 @@ public class Insets{
 		return s;
 	}
 	
-	public function getInsideSize(size:IntDimension):IntDimension{
+	public function getInsideSize(size:IntDimension=null):IntDimension{
 		if(size == null) size = new IntDimension();
 		var s:IntDimension = size.clone();
 		s.width -= (left + right);
