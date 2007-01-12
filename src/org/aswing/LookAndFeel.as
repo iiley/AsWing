@@ -42,7 +42,7 @@ public class LookAndFeel
      * @param defaultBgName the key for the default background
      * @param defaultFgName the key for the default foreground
      * 
-     * @see UIManager#getColor
+     * @see UIManager#getColor()
      */
     public static function installColors(c:Component, defaultBgName:String, defaultFgName:String):void{
         var bg:ASColor = c.getBackground();
@@ -64,7 +64,7 @@ public class LookAndFeel
      * @param c the target component for installing default font property
      * @param defaultFontName the key for the default font
      * 
-     * @see UIManager#getFont
+     * @see UIManager#getFont()
      */    
     public static function installFont(c:Component, defaultFontName:String):void{
     	var f:ASFont = c.getFont();
@@ -75,8 +75,8 @@ public class LookAndFeel
     }
     
     /**
-     * @see #installColors
-     * @see #installFont
+     * @see #installColors()
+     * @see #installFont()
      */
     public static function installColorsAndFont(c:Component, defaultBgName:String, defaultFgName:String, defaultFontName:String):void{
     	installColors(c, defaultBgName, defaultFgName);

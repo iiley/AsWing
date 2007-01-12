@@ -34,16 +34,16 @@ public class UIDefaults extends HashMap
      * @see #putDefaults()
      * @see org.aswing.utils.HashMap#put()
      */	
- 	override public function put(key:String, value:Object){
- 		var oldValue = (value == null) ? super.remove(key) : super.put(key, value);
+ 	override public function put(key:String, value:*):void{
+ 		var oldValue:* = (value == null) ? super.remove(key) : super.put(key, value);
  		return oldValue;
  	}
  	
 	/**
      * Puts all of the key/value pairs in the database.
      * @param keyValueList  an array of key/value pairs
-     * @see put
-     * @see org.aswing.utils.Hashtable#put
+     * @see #put()
+     * @see org.aswing.utils.Hashtable#put()
      */
 	public function putDefaults(keyValueList:Array):void{
 		for(var i:Number = 0; i < keyValueList.length; i += 2) {
@@ -129,7 +129,7 @@ public class UIDefaults extends HashMap
 		return this.get(key) as Class;
 	}
 	
-	public function getInstance(key:String, args:Array):Object{
+	public function getInstance(key:String):Object{
 		var value = this.get(key);
 		if(value is Class){
 			return getCreateInstance(value as Class, args);
@@ -138,14 +138,9 @@ public class UIDefaults extends HashMap
 		}
 	}
 	
-	private function getCreateInstance(constructor:Class, args:Array):Object{
-		//TODO need create method any more?
-		var instance:Object = null;//constructor[CREATE_METHOD_NAME].apply(null, args);
-		if(instance == null){
-			instance = new constructor();
-		}
-		return instance;
-	}		
+	private function getCreateInstance(constructor:Class):Object{
+		return new constructor();
+	}
 }
 
 }

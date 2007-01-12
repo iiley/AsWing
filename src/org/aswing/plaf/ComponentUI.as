@@ -46,6 +46,14 @@ public interface ComponentUI
      * @see org.aswing.Component#updateUI
      */
     function installUI(c:Component):void;
+    
+    /**
+     * Puts a ui default value used to this UI instead of LAF defualt value.
+     * The values should be put before installing then it can be used.
+     * @param key the key.
+     * @param value the value.
+     */
+    function putDefault(key:String, value:*):void;
 
     /**
      * Reverses configuration which was done on the specified component during
