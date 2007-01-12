@@ -8,7 +8,17 @@ package org.aswing.plaf
 import org.aswing.Component;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
-	
+ 
+/**
+ * The interface for all UI delegate objects in the AsWing pluggable look and feel architecture. 
+ * The UI delegate object for a AsWing component is responsible for implementing 
+ * the aspects of the component that depend on the look and feel. The Component 
+ * class invokes methods from this class in order to delegate operations (painting, 
+ * layout calculations, etc.) that may vary depending on the look and feel installed. 
+ * <b>Client programs should not invoke methods on this class directly.</b>
+ * 
+ * @author iiley
+ */	
 public interface ComponentUI
 {
 

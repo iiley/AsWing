@@ -4,8 +4,10 @@
 
 package org.aswing.event
 {
-	import org.aswing.Container;
-	import org.aswing.Component;
+	
+import flash.events.Event;
+import org.aswing.Container;
+import org.aswing.Component;
 	
 
 /**
@@ -14,17 +16,66 @@ package org.aswing.event
  */
 public class ContainerEvent extends AWEvent
 {	
+	/**
+     *  The <code>AWEvent.COM_ADDED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>comAdded</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>comp.addEventListener()</code> to register an event listener,
+     *       comp is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType comAdded
+	 */
+	public static const COM_ADDED:String = "comAdded";
+	
+	/**
+     *  The <code>AWEvent.COM_REMOVED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>comRemoved</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>comp.addEventListener()</code> to register an event listener,
+     *       comp is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType comRemoved
+	 */
+	public static const COM_REMOVED:String = "comRemoved";	
+	
 	private var container:Container;
 	private var child:Component;
 	
 	/**
 	 * Create an Container Event.
 	 */
-	public function ContainerEvent(type:String, container:Container, child:Component, 
-					bubbles:Boolean=false, cancelable:Boolean=false){
-		super(type, bubbles, cancelable);
+	public function ContainerEvent(type:String, container:Container, child:Component){
+		super(type, false, false);
 		this.container = container;
 		this.child = child;
+	}
+	
+	override public function clone():Event{
+		return new ContainerEvent(type, container, child, bubbles, cancelable);
 	}
 	
 	/**

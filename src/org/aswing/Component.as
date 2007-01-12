@@ -9,6 +9,9 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.geom.Rectangle;
 
+import org.aswing.event.AWEvent;
+import org.aswing.event.MovedEvent;
+import org.aswing.event.ResizedEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.ComponentUI;
@@ -20,12 +23,40 @@ import org.aswing.util.Reflection;
 //--------------------------------------
 
 /**
+ *  Dispatched when the component visible is set to true from false.
+ *
+ *  @eventType org.aswing.event.AWEvent.SHOWN
+ */
+[Event(name="shown", type="org.aswing.event.AWEvent")]
+
+/**
+ *  Dispatched when the component visible is set to false from true.
+ *
+ *  @eventType org.aswing.event.AWEvent.HIDDEN
+ */
+[Event(name="hidden", type="org.aswing.event.AWEvent")]
+
+/**
+ *  Dispatched when the component is painted.
+ *
+ *  @eventType org.aswing.event.AWEvent.PAINT
+ */
+[Event(name="paint", type="org.aswing.event.AWEvent")]
+
+/**
  *  Dispatched when the component is moved.
  *
  *  @eventType org.aswing.event.AWEvent.MOVED
  */
 [Event(name="moved", type="org.aswing.event.AWEvent")]
 	
+/**
+ *  Dispatched when the component is resized.
+ *
+ *  @eventType org.aswing.event.AWEvent.RESIZED
+ */
+[Event(name="resized", type="org.aswing.event.AWEvent")]
+
 /**
  * The super class for all Components.
  * 
@@ -362,12 +393,11 @@ public class Component extends AWSprite
 	 */
 	public function setVisible(v:Boolean):void{
 		if(v != visible){
-			//TODO imp
-			/*visible = v;
+			visible = v;
 			if(v){
-				dispatchEvent(createEventObj(ON_SHOWN));
+				dispatchEvent(new AWEvent(AWEvent.SHOWN, false, false));
 			}else{
-				dispatchEvent(createEventObj(ON_HIDDEN));
+				dispatchEvent(new AWEvent(AWEvent.HIDDEN, false, false));
 			}
 			//because the repaint and some other operating only do when visible
 			//so when change to visible, must call repaint to do the operatings they had not done when invisible
@@ -375,7 +405,6 @@ public class Component extends AWSprite
 				repaint();
 			}
 			revalidate();
-			*/
 		}
 	}
 	
@@ -623,9 +652,9 @@ public class Component extends AWSprite
 		var oldPos:IntPoint = bounds.getLocation();
 		if(!newPos.equals(oldPos)){
 			bounds.setLocation(newPos);
-			//TODO event
-			//dispatchEvent(createEventObj(ON_MOVED, oldPos, newPos));
-			invalidate();
+			dispatchEvent(new MovedEvent(oldPos, newPos));
+			//TODO check
+			//revalidateIfNecessary(); or invalidate() or do nothing?
 		}
 	}
 	
@@ -676,9 +705,8 @@ public class Component extends AWSprite
 		var oldSize:IntDimension = new IntDimension(bounds.width, bounds.height);
 		if(!newSize.equals(oldSize)){
 			bounds.setSize(newSize);
-			//TODO
-			//size();
-			//dispatchEvent(createEventObj(ON_RESIZED, oldSize, newSize));
+			size();
+			dispatchEvent(new ResizedEvent(oldSize, newSize));
 		}
 	}
 	/**
@@ -1129,15 +1157,17 @@ public class Component extends AWSprite
 	}
 	
 	/**
-	 * setClipSize(width:Number, height:Number):Void<br>
-	 * setClipSize(b:Dimension):Void<br>
 	 * Sets the clip size, a rectangle mask to make specified bounds visible.
 	 * This will be only in effect after component created and before next layout time.
 	 * @see #setClipBounds()
 	 */	
 	public function setClipSize(size:IntDimension):void{
-		//TODO imp
-	}	
+		if(clipBounds == null){
+			clipBounds = new IntRectangle();
+		}
+		clipBounds.setSize(size);
+		setClipBounds(clipBounds);
+	}
 	
     /**
      * Supports deferred automatic layout.  
@@ -1186,6 +1216,14 @@ public class Component extends AWSprite
 		//TODO imp
 	}
 	
+	/**
+	 * Do the process when size changed.
+	 */
+	protected function size():void{
+		repaint();
+		invalidate();
+	}
+	
     /**
      * Invalidates this component.  This component and all parents
      * above it are marked as needing to be laid out.  This method can
@@ -1231,12 +1269,14 @@ public class Component extends AWSprite
 	/**
 	 * draw the component interface in specified bounds.
 	 * Sub class should override this method if you want to draw your component's face.
-	 * @param b this paiting bounds, it is opposite on the component's target_mc,
-	 * that mean the bounds.x mean in target_mc's x, not the root_mc's or component's parent's x.
+	 * @param b this paiting bounds, it is opposite on the component corrdinarry.
 	 */
 	protected function paint(b:IntRectangle):void{
 		var g:Graphics2D = new Graphics2D(graphics);
 		
+		if(backgroundDecorator != null){
+			backgroundDecorator.updateDecorator(this, g, b);
+		}
 		ui.paint(this, g, b);
 		//paint border at last to make it at the top depth
 		if(border != null){
@@ -1244,8 +1284,10 @@ public class Component extends AWSprite
 			// because border are the rounds, others will painted in the border's bounds.
 			border.updateBorder(this, g, getInsets().getOutsideBounds(b));
 		}
-		//TODO event
-		//dispatchEvent(createEventObj(ON_PAINT));
+		if(foregroundDecorator != null){
+			foregroundDecorator.updateDecorator(this, g, b);
+		}
+		dispatchEvent(new AWEvent(AWEvent.PAINT, false, false));
 	}
 	
 	private function layoutClipAndTrigger(paintBounds:IntRectangle):void{
@@ -1262,7 +1304,7 @@ public class Component extends AWSprite
 		}
 		//this means the trigger and mask??
 		//TODO check this
-		this.scrollRect = paintBounds.toRectangle();
+		scrollRect = paintBounds.toRectangle();
 	}
 
 	/**
