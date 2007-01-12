@@ -14,7 +14,7 @@ import org.aswing.event.MovedEvent;
 import org.aswing.event.ResizedEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
-import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.*;
 import org.aswing.util.HashMap;
 import org.aswing.util.Reflection;
 	
@@ -76,7 +76,6 @@ import org.aswing.util.Reflection;
 public class Component extends AWSprite
 {
 	protected var ui:ComponentUI;
-	private var uiProperties:Object;
 	private var clientProperty:HashMap;
 	
 	private var awmlID:String;
@@ -109,7 +108,6 @@ public class Component extends AWSprite
 		super();
 		setName("Component");
 		ui = null;
-		uiProperties = new Object();
 		clientProperty = null;
 		alignmentX = 0;
 		alignmentY = 0;
@@ -117,6 +115,7 @@ public class Component extends AWSprite
 		opaque = false;
 		valid = false;
 		fontValidated = false;
+		border = DefaultBorderResource.INSTANCE;
 		if(!RepaintManager.getInstance().isStageInited()){
 			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 		}
@@ -273,27 +272,7 @@ public class Component extends AWSprite
         }
         revalidate();
         repaint();
-    }	
-	
-	/**
-	 * Sets the UI delegated property value.<br>
-	 * If the property value in component is undefined, then the delegated value 
-	 * will be used.
-	 * @param name the property name
-	 * @param value the value 
-	 */
-	public function setUIProperty(name:String, value:*):void{
-		uiProperties[name] = value;
-	}
-	
-	/**
-	 * Returns the UI delegated property value.
-	 * @param name the property name
-	 * @return the value of specified ui property
-	 */
-	public function getUIProperty(name:String):*{
-		return uiProperties[name];
-	}
+    }
 	
 	/**
 	 * Sets the border for the component, null to remove border.
@@ -551,6 +530,7 @@ public class Component extends AWSprite
      * @see #isOpaque()
      */
     public function setOpaque(b:Boolean):void {
+    	setOpaqueSet(true);
     	if(opaque != b){
     		opaque = b;
     		repaint();
@@ -565,16 +545,43 @@ public class Component extends AWSprite
      * its pixels or none at all, allowing the pixels underneath it to
      * "show through".  Therefore, a component that does not fully paint
      * its pixels provides a degree of transparency.
+     * </p>
+     * <p>
+     * The value is from LAF defaults if you have not set it.
+     * </p>
      * <p>
      * Subclasses that guarantee to always completely paint their contents
      * should override this method and return true.
-     *
+     * <p>
      * @return true if this component is completely opaque
      * @see #setOpaque()
+     * @see #isOpaqueSet()
      */
     public function isOpaque():Boolean{
-    	return opaque;
-    }	
+    	if(isOpaqueSet()){
+    		return opaque;
+    	}else{
+    		return getUIProperty("opaque") as Boolean;
+    	}
+    }
+    
+    /**
+     * Returns whether or not the opaque property is set. 
+     * If it is not set, <code>isOpaque()</code> will return the value defined in LAF defaults.
+     */
+    public function isOpaqueSet():Boolean{
+    	return opaqueSet;
+    }
+    
+    /**
+     * This method will be called to set true when you set the opaque by <code>setOpaque()</code>.
+     * You can also call this method to make the opaque property returned by the set or LAF defaults.
+     * @see #isOpaqueSet()
+     * @see #isOpaque()
+     */
+    public function setOpaqueSet(b:Boolean):void{
+    	opaqueSet = b;
+    }
     
     /**
      * Indicates the alpha transparency value of the component. 
