@@ -21,15 +21,17 @@ public class LookAndFeel
     /**
      * Convenience method for initializing a component's basic properties
      *  values from the current defaults table.  
-     * The properties are only set for uiProperties means that they will be 
-     * only used when user are not set them by call component.setXxxx() method.
      * 
      * @param c the target component for installing default color properties
      * @param componentUIPrefix the key for the default component UI Prefix
+     * @see org.aswing.Component#setOpaque()
+     * @see org.aswing.Component#setOpaqueSet()
      */	
 	public static function installBasicProperties(c:Component, componentUIPrefix:String):void{
-		c.setUIProperty("opaque", UIManager.get(componentUIPrefix + "opaque"));
-		c.setUIProperty("focusable", UIManager.get(componentUIPrefix + "focusable"));
+		if(!c.isOpaqueSet()){
+			c.setOpaque(UIManager.getBoolean(componentUIPrefix + "opaque"));
+			c.setOpaqueSet(false);
+		}
 	}
 	
     /**
