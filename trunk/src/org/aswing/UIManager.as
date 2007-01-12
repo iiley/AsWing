@@ -93,7 +93,7 @@ public class UIManager
 		return getDefaults().getInsets(key);
 	}
 	
-	public static function getInstance(key:String, args:Array):Object{
+	public static function getInstance(key:String):Object{
 		return getDefaults().getInstance(key);
 	}		
 }

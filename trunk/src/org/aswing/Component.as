@@ -101,6 +101,7 @@ public class Component extends AWSprite
 	private var font:ASFont;
 	private var fontValidated:Boolean;
 	private var opaque:Boolean;
+	private var opaqueSet:Boolean = false;
 	private var border:Border;
 	
 	public function Component()
@@ -234,7 +235,6 @@ public class Component extends AWSprite
      */
     public function updateUI():void{}
 
-
     /**
      * Sets the look and feel delegate for this component.
      * <code>Component</code> subclasses generally override this method
@@ -270,10 +270,6 @@ public class Component extends AWSprite
         ui = newUI;
         if (ui != null) {
             ui.installUI(this);
-            //TODO check this
-            //if(isDisplayable()){
-            //	ui.create(this);
-            //}
         }
         revalidate();
         repaint();
