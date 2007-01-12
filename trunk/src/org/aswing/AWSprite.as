@@ -36,11 +36,15 @@ public class AWSprite extends Sprite
 	 * The child is added to the front (top) of all other children except foreground decorator child(It is topest)
 	 *  in this DisplayObjectContainer instance. 
 	 * (To avoid this restrict and add a child to a specific index position, use the <code>addChildAt()</code> method.)
-	 * (<b>Note:</b> Generally if you dont want to broke the component asset depth management, use 
-	 * {@link #getTopIndexExceptForeground} and {@link #getBottomIndexExceptBackground} to get the 
-	 * right depth you can use) 
+	 * (<b>Note:</b> Generally if you don't want to break the component asset depth management, use 
+	 * getHighestIndexUnderForeground() and getLowestIndexAboveBackground() to get the 
+	 * right depth you can use. You can also refer to getChildIndex() to
+	 * insert child after or before an existing child) 
 	 * 
 	 * @param dis The DisplayObject instance to add as a child of this DisplayObjectContainer instance. 
+	 * @see #getLowestIndexAboveBackground()
+	 * @see #getHighestIndexUnderForeground()
+	 * @see #flash.display.DisplayObjectContainer.getChildIndex()
 	 */
 	public override function addChild(dis:DisplayObject):DisplayObject{
 		if(foregroundChild != null){
@@ -54,7 +58,7 @@ public class AWSprite extends Sprite
 	 * Returns the current top index for none forground child.
 	 * @return the current top index for child that is not a foreground child.
 	 */
-	public function getTopIndexExceptForeground():int{
+	public function getHighestIndexUnderForeground():int{
 		if(foregroundChild == null){
 			return numChildren;
 		}else{
@@ -66,7 +70,7 @@ public class AWSprite extends Sprite
 	 * Returns the current bottom index for none background child.
 	 * @return the current bottom index for child that is not a background child.
 	 */		
-	public function getBottomIndexExceptBackground():int{
+	public function getLowestIndexAboveBackground():int{
 		if(backgroundChild == null){
 			return 0;
 		}else{

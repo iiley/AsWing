@@ -282,7 +282,7 @@ public class Container extends Component
 			throw new Error("Out of index counting bounds, it should be >=0 and <= component count!");
 		}
 		if(index == count){
-			return getTopIndexExceptForeground();
+			return getHighestIndexUnderForeground();
 		}else{
 			return getChildIndex(getComponent(index));
 		}
