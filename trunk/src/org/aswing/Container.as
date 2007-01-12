@@ -218,7 +218,7 @@ public class Container extends Component
 			children.splice(i, 0, com);
 		}
 		layout.addLayoutComponent(com, (constraints == null) ? com.getConstraints() : constraints);
-		dispatchEvent(new ContainerEvent(AWEvent.COM_ADDED, this, com));
+		dispatchEvent(new ContainerEvent(ContainerEvent.COM_ADDED, this, com));
 		
 		if (valid) {
 			invalidate();
@@ -337,7 +337,7 @@ public class Container extends Component
 			layout.removeLayoutComponent(com);
 			children.splice(i, 1);
 			removeChild(com);
-			dispatchEvent(new ContainerEvent(AWEvent.COM_REMOVED, this, com));
+			dispatchEvent(new ContainerEvent(ContainerEvent.COM_REMOVED, this, com));
 			
 			if (valid) {
 				invalidate();
