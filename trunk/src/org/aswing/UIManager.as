@@ -57,6 +57,10 @@ public class UIManager
 		}
 	}
 	
+	public static function containsKey(key:String):Boolean{
+		return getDefaults().containsKey(key);
+	}
+	
 	public static function get(key:String){
 		return getDefaults().get(key);
 	}
@@ -73,9 +77,25 @@ public class UIManager
 		return getDefaults().getNumber(key);
 	}
 	
+	public function getInt(key:String):int{
+		return getDefaults().getInt(key);
+	}
+	
+	public function getUint(key:String):uint{
+		return getDefaults().getUint(key);
+	}
+	
+	public function getString(key:String):String{
+		return getDefaults().getString(key);
+	}
+	
 	public static function getBorder(key:String):Border{
 		return getDefaults().getBorder(key);
 	}
+
+	public function getGroundDecorator(key:String):GroundDecorator{
+		return getDefaults().getGroundDecorator(key);
+	}	
 	
 	public static function getColor(key:String):ASColor{
 		return getDefaults().getColor(key);

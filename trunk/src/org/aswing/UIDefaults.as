@@ -5,8 +5,10 @@
 package org.aswing
 {
 	
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.plaf.*;
 import org.aswing.util.HashMap;
-import org.aswing.plaf.ComponentUI;
 
 /**
  * A table of defaults for AsWing components.  Applications can set/get
@@ -87,7 +89,7 @@ public class UIDefaults extends HashMap
 	public function getBorder(key:String):Border{
 		var border:Border = getInstance(key) as Border;
 		if(border == null){
-			border = undefined; //make it to be an undefined property then can override by next LAF
+			border = EmptyUIResources.BORDER; //make it to be an ui resource then can override by next LAF
 		}
 		return border;
 	}
@@ -95,15 +97,23 @@ public class UIDefaults extends HashMap
 	public function getIcon(key:String):Icon{
 		var icon:Icon = getInstance(key) as Icon;
 		if(icon == null){
-			icon = undefined; //make it to be an undefined property then can override by next LAF
+			icon = EmptyUIResources.ICON; //make it to be ui resource property then can override by next LAF
 		}
 		return icon;
+	}
+	
+	public function getGroundDecorator(key:String):GroundDecorator{
+		var dec:GroundDecorator = getInstance(key) as GroundDecorator;
+		if(dec == null){
+			dec = EmptyUIResources.DECORATOR; //make it to be ui resource property then can override by next LAF
+		}
+		return dec;
 	}
 	
 	public function getColor(key:String):ASColor{
 		var color:ASColor = getInstance(key) as ASColor;
 		if(color == null){
-			color = undefined; //make it to be an undefined property then can override by next LAF
+			color = EmptyUIResources.COLOR; //make it to be an ui resource then can override by next LAF
 		}
 		return color;
 	}
@@ -111,7 +121,7 @@ public class UIDefaults extends HashMap
 	public function getFont(key:String):ASFont{
 		var font:ASFont = getInstance(key) as ASFont;
 		if(font == null){
-			font = undefined; //make it to be an undefined property then can override by next LAF
+			font = EmptyUIResources.FONT; //make it to be an ui resource then can override by next LAF
 		}
 		return font;
 	}
@@ -119,20 +129,20 @@ public class UIDefaults extends HashMap
 	public function getInsets(key:String):Insets{
 		var i:Insets = getInstance(key) as Insets;
 		if(i == null){
-			i = undefined; //make it to be an undefined property then can override by next LAF
+			i = EmptyUIResources.INSETS; //make it to be an ui resource then can override by next LAF
 		}
 		return i;
 	}	
 	
 	//-------------------------------------------------------------
-	public function getConstructor(key:String):Function{
+	public function getConstructor(key:String):Class{
 		return this.get(key) as Class;
 	}
 	
 	public function getInstance(key:String):Object{
 		var value = this.get(key);
 		if(value is Class){
-			return getCreateInstance(value as Class, args);
+			return getCreateInstance(value as Class);
 		}else{
 			return value;
 		}

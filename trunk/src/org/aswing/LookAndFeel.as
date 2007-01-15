@@ -5,6 +5,9 @@
 package org.aswing
 {
 	
+import org.aswing.plaf.*;
+import org.aswing.error.*;
+	
 /**
  * Reserved for look and feel implementation.
  */	
@@ -14,7 +17,7 @@ public class LookAndFeel
 	 * Should override in sub-class to return a defaults.
 	 */
 	public function getDefaults():UIDefaults{
-		throw new Error("Subclass should override this method!");
+		throw new ImpMissError();
 		return null;
 	}
 	
@@ -48,12 +51,12 @@ public class LookAndFeel
      */
     public static function installColors(c:Component, defaultBgName:String, defaultFgName:String):void{
         var bg:ASColor = c.getBackground();
-		if (bg === undefined || bg is UIResource) {
+		if (bg == null || bg is UIResource) {
 	    	c.setBackground(UIManager.getColor(defaultBgName));
 		}
 
         var fg:ASColor = c.getForeground();
-		if (fg === undefined || fg is UIResource) {
+		if (fg == null || fg is UIResource) {
 	    	c.setForeground(UIManager.getColor(defaultFgName));
 		}
     }
@@ -70,7 +73,7 @@ public class LookAndFeel
      */    
     public static function installFont(c:Component, defaultFontName:String):void{
     	var f:ASFont = c.getFont();
-		if (f === undefined || f is UIResource) {
+		if (f == null || f is UIResource) {
 			//trace(defaultFontName + " : " + UIManager.getFont(defaultFontName));
 	    	c.setFont(UIManager.getFont(defaultFontName));
 		}
@@ -94,7 +97,7 @@ public class LookAndFeel
      */
     public static function installBorder(c:Component, defaultBorderName:String):void{
         var b:Border = c.getBorder();
-        if (b === undefined || b is UIResource) {
+        if (b is UIResource) {
             c.setBorder(UIManager.getBorder(defaultBorderName));
         }
     }
@@ -107,7 +110,7 @@ public class LookAndFeel
      */
     public static function uninstallBorder(c:Component):void{
         if (c.getBorder() is UIResource) {
-            c.setBorder(undefined);
+            c.setBorder(DefaultEmptyDecoraterResource.INSTANCE);
         }
     }
 }
