@@ -24,6 +24,7 @@ package org.aswing.plaf
  *     panel.setOpaqueSet(false);
  * }
  * </pre>
+ * @see EmptyUIResources
  * @see ComponentUI
  * @author iiley
  */	
