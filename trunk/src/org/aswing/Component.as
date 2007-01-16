@@ -60,11 +60,11 @@ import org.aswing.util.Reflection;
 /**
  * The super class for all Components.
  * 
- * <p>The maximumSize and minimumSize are the component's represent max or min size.</p>
+ * <p>The maximumSize and minimumSize are the component's representable largest or smallest size respectively.</p>
  * 
- * <p>You can set a Component's size max than its maximumSize, but when it was drawed,
- * it will not max than its maximumSize.Just as its maximumSize and posited itself
- * in that size dimension you just setted. The position is relative to <code>getAlignmentX</code> 
+ * <p>You can set a Component's size larger than its maximumSize, but when it is drawed,
+ * it will not be larger than its maximumSize.
+ * The position is relative to <code>getAlignmentX</code> 
  * and <code>getAlignmentY<code>.
  * </p>
  * @see #setSize()

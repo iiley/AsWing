@@ -75,7 +75,8 @@ public class ContainerEvent extends AWEvent
 	}
 	
 	override public function clone():Event{
-		return new ContainerEvent(type, container, child, bubbles, cancelable);
+		//TODO:check if need this; return new ContainerEvent(type, container, child, bubbles, cancelable);
+		return new ContainerEvent(type, container, child);
 	}
 	
 	/**

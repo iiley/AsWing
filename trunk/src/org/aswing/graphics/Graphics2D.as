@@ -17,7 +17,8 @@ import flash.display.Graphics;
  * <br>
  * <br>
  * Here is an sample on how to use the org.aswing.grphics package to draw stuff
- * <pre>
+ * 
+ * <listing version="3.0"> 
  * 			var mySprite:Sprite = new Sprite();
  * 			g = new Graphics2D(mySprite.graphics);
  *			var color:ASColor = new ASColor();
@@ -41,7 +42,8 @@ import flash.display.Graphics;
  *			g.fillRectangle(bBrush,0,0,50,50);
  * 
  * 			addChild(mySprite);
- * </pre>
+ * </listing> 
+ * 
  * @see org.aswing.graphics
  * @author iiley
  */

@@ -6,6 +6,7 @@ package org.aswing.event
 {
 
 import org.aswing.geom.IntDimension;
+import flash.events.Event;
 	
 public class ResizedEvent extends AWEvent
 {

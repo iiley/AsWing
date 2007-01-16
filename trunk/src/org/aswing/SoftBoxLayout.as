@@ -18,38 +18,33 @@ import org.aswing.Insets;
  * When set to X_AXIS, all of the child components share the same height from the container and use their own preferredWidth
  * When set to Y_AXIS, all of the child components share the same width  from the container and use their own preferredHeight
  * </p>
- * <pre>
- * 		A X_AXIS SoftBoxLayout
- *   -----------------------------------------------------------
- *   | -------------------- ---------------------------------  |
- *   | |                  | |                               |  |
- *   | |                  | |                               |  |
- *   | |preferredWidth=9  | |preferredWidth=20              |  |
- *   | |                  | |preferredHeight won't work here|  |
- *   | |                  | |                               |  |
- *   | -------------------- --------------------------------   |
- *   -----------------------------------------------------------
- * </pre>
- * 
- * <pre>
- * 		A Y_AXIS SoftBoxLayout
- *   -------------------------------------
- *   | ---------------------------------  |
- *   | |                                | | 
- *   | |                                | |  
- *   | |preferredWidth doesn't work     | |
- *   | |preferredHeigh=15               | |
- *   | |                                | |  
- *   | ---------------------------------- |
- *   | ---------------------------------- |
- * 	 | |                                | |
- *   | |    preferredWidth doesn't work | |
- * 	 | |    preferredHeigh=10           | |
- * 	 | |                                | |   
- *   | ---------------------------------- |
- *  --------------------------------------|
- * </pre>
- * 
+ * <p></p>
+ * <p></p>
+ * <p>	
+ *   The picture below shows that when set X_AXIS,all of the child component share the same height no matter what value you set for the componnet.
+ *   It ignores the width and height property you set for the child component.<br/>
+ * 	 <strong>Note:</strong> The align is set to LEFT, so the children are ajusted to the left side,
+ *    In the right,there are still free space.
+ *  <br/>
+ * 	<img src="../../aswingImg/SoftBoxLayout_X_AXIS.JPG" ></img>
+ * </p>
+ * <br/>
+ * <br/>
+ *  <p>	
+ *   The picture below shows that when set Y_AXIS,all of the child component share the same width no matter what value you set for the componnet.
+ *   It ignores the width and height property you set for the child component.<br/>
+ * 	 <strong>Note:</strong> The align is set to <strong>RIGHT</strong>, when axis set to Y_AXIS and align set to right,  the children are ajusted to the bottom,
+ *    at top ,there are still free space.
+ *  <br/>
+ * 	<img src="../../aswingImg/SoftBoxLayout_Y_AXIS.JPG" ></img>
+ * </p>
+ * <br/>
+ * <br/>
+ * <p>
+ *   <strong>Note</strong> the container itself who applied SoftBoxLayout is not affected by the X_AXIS or Y_AXIS you set for SoftBoxLayout<br/>
+ *   The container's size will be determined by its parents' layout manager.  
+ * </p>	
+ *   
  * @see BoxLayout
  * @author iiley
  */

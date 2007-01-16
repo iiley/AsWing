@@ -24,8 +24,8 @@ public class RepaintManager
 	private static var instance:RepaintManager;
 	private static var stage:Stage;
 	/**
-	 * although it's a set in fact, but it work more like a queue
-	 * just one component would only located one position.(one time a component do not need more than one painting)
+	 * Although it's a set in fact, but it work more like a queue
+	 * The component will not be added twice into the repaintQueue (one time a component do not need more than one painting)
 	 */
 	private var repaintQueue:HashSet;
 	/**
@@ -86,7 +86,7 @@ public class RepaintManager
 	}
 	
 	/**
-	 * Regists it need to validate.
+	 * Regists it need to be validated.
 	 * @see org.aswing.Component#validate()
 	 */	
 	public function addInvalidRootComponent(com:Component):void{
@@ -95,7 +95,7 @@ public class RepaintManager
 	}
 	
 	/**
-	 * If a ancestors of component has no parent or it is isValidateRoot 
+	 * If the ancestor of the component has no parent or it is isValidateRoot 
 	 * and it's parent are visible, then it will be the validate root component,
 	 * else it has no validate root component.
 	 */
@@ -110,6 +110,7 @@ public class RepaintManager
 		}
 		
 		var root:Component = null;
+		//TODO: check if the root here is needed, if not delte the var declar
 		for(i = validateRoot; i!=null; i=i.getParent()){
 			if(!i.isVisible()){
 				//return null;

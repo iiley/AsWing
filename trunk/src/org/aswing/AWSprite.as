@@ -44,7 +44,7 @@ public class AWSprite extends Sprite
 	 * @param dis The DisplayObject instance to add as a child of this DisplayObjectContainer instance. 
 	 * @see #getLowestIndexAboveBackground()
 	 * @see #getHighestIndexUnderForeground()
-	 * @see #flash.display.DisplayObjectContainer.getChildIndex()
+	 * @see #http://livedocs.macromedia.com/flex/2/langref/flash/display/DisplayObjectContainer.html#getChildIndex()
 	 */
 	public override function addChild(dis:DisplayObject):DisplayObject{
 		if(foregroundChild != null){
@@ -80,11 +80,11 @@ public class AWSprite extends Sprite
 	
 	/**
 	 * Sets the child to be the component background, it will be add to the bottom of all other children. 
-	 * (old backgournd child will be removed), use null to remove the background child.
+	 * (old backgournd child will be removed). pass no paramter (null) to remove the background child.
 	 * 
 	 * @param child the background child to be added.
 	 */
-	protected function setBackgroundChild(child:DisplayObject):void{
+	protected function setBackgroundChild(child:DisplayObject = null):void{
 		if(child != backgroundChild){
 			removeChild(backgroundChild);
 			backgroundChild = child;
@@ -105,11 +105,11 @@ public class AWSprite extends Sprite
 	
 	/**
 	 * Sets the child to be the component foreground, it will be add to the top of all other children. 
-	 * (old foregournd child will be removed), use null to remove the foreground child.
+	 * (old foregournd child will be removed), pass no paramter (null) to remove the foreground child.
 	 * 
 	 * @param child the foreground child to be added.
 	 */
-	protected function setForegroundChild(child:DisplayObject):void{
+	protected function setForegroundChild(child:DisplayObject = null):void{
 		if(child != foregroundChild){
 			removeChild(foregroundChild);
 			foregroundChild = child;
