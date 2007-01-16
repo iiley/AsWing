@@ -43,22 +43,22 @@ public class ASColor{
 	public static const HALO_BLUE:ASColor = new ASColor(0x2BF5F5);
 	
 	
-	private var rgb:uint;
-	private var alpha:Number;
+	protected var rgb:int;
+	protected var alpha:Number;
 	
 	/**
 	 * Create a ASColor
 	 */
-	public function ASColor (color:uint=0x000000, alpha:Number=1){
+	public function ASColor (color:int=0x000000, alpha:Number=1){
 		setRGB(color);
 		setAlpha(alpha);
 	}
 	
-	private function setRGB(rgb:uint):void{
+	private function setRGB(rgb:int):void{
 		this.rgb = rgb;
 	}
 	
-	private function setAlpha(alpha:Number):void{
+	protected function setAlpha(alpha:Number):void{
 		this.alpha = Math.min(1, Math.max(0, alpha));
 	}
 	
@@ -72,7 +72,7 @@ public class ASColor{
 	/**
 	 * Returns the RGB value representing the color.
 	 */
-	public function getRGB():uint{
+	public function getRGB():int{
 		return rgb;	
 	}
 	
@@ -80,7 +80,7 @@ public class ASColor{
      * Returns the red component in the range 0-255.
      * @return the red component.
      */
-	public function getRed():uint{
+	public function getRed():int{
 		return (rgb & 0x00FF0000) >> 16;
 	}
 	
@@ -88,7 +88,7 @@ public class ASColor{
      * Returns the green component in the range 0-255.
      * @return the green component.
      */	
-	public function getGreen():uint{
+	public function getGreen():int{
 		return (rgb & 0x0000FF00) >> 8;
 	}
 	
@@ -96,7 +96,7 @@ public class ASColor{
      * Returns the blue component in the range 0-255.
      * @return the blue component.
      */	
-	public function getBlue():uint{
+	public function getBlue():int{
 		return (rgb & 0x000000FF);
 	}
 	
@@ -109,9 +109,9 @@ public class ASColor{
      * @see        #brighter()
      */		
 	public function darker(factor:Number=0.7):ASColor{
-        var r:uint = getRed();
-        var g:uint = getGreen();
-        var b:uint = getBlue();
+        var r:int = getRed();
+        var g:int = getGreen();
+        var b:int = getBlue();
 		return getASColor(r*factor, g*factor, b*factor, alpha);
 	}
 	
@@ -124,9 +124,9 @@ public class ASColor{
      * @see        #darker()
      */	
 	public function brighter(factor:Number=0.7):ASColor{
-        var r:uint = getRed();
-        var g:uint = getGreen();
-        var b:uint = getBlue();
+        var r:int = getRed();
+        var g:int = getGreen();
+        var b:int = getBlue();
 
         /* From 2D group:
          * 1. black.brighter() should return grey
@@ -152,7 +152,7 @@ public class ASColor{
 	 * @param b blue channel
 	 * @param a alpha channel
 	 */
-	public static function getASColor(r:uint, g:uint, b:uint, a:Number=1):ASColor{
+	public static function getASColor(r:int, g:int, b:int, a:Number=1):ASColor{
 		return new ASColor(getRGBWith(r, g, b), a);
 	}
 		
@@ -162,10 +162,10 @@ public class ASColor{
 	 * @param gg green channel
 	 * @param bb blue channel
 	 */
-	public static function getRGBWith(rr:uint, gg:uint, bb:uint):uint {
-		var r:uint = Math.round(rr);
-		var g:uint = Math.round(gg);
-		var b:uint = Math.round(bb);
+	public static function getRGBWith(rr:int, gg:int, bb:int):int {
+		var r:int = Math.round(rr);
+		var g:int = Math.round(gg);
+		var b:int = Math.round(bb);
 		if(r < 0){
 			r = 0;
 		}else if(r > 255){
@@ -181,7 +181,7 @@ public class ASColor{
 		}else if(b > 255){
 			b = 255;
 		}
-		var color_n:uint = (r<<16) + (g<<8) +b;
+		var color_n:int = (r<<16) + (g<<8) +b;
 		return color_n;
 	}
 	
