@@ -81,34 +81,7 @@ public class BoxLayout extends EmptyLayout
 	 * return target.getSize();
 	 */
     override public function preferredLayoutSize(target:Container):IntDimension{
-    	var count:int = target.getComponentCount();
-    	var insets:Insets = target.getInsets();
-    	var width:int = 0;
-    	var height:int = 0;
-    	var amount:int = 0;
-    	for(var i:int=0; i<count; i++){
-    		var c:Component = target.getComponent(i);
-    		if(c.isVisible()){
-	    		var size:IntDimension = c.getPreferredSize();
-	    		width = Math.max(width, size.width);
-	    		height = Math.max(height, size.height);
-    			amount++;
-    		}
-    	}
-    	if(axis == Y_AXIS){
-    		height = height*amount;
-    		if(amount > 0){
-    			height += (amount-1)*gap;
-    		}
-    	}else{
-    		width = width*amount;
-    		if(amount > 0){
-    			width += (amount-1)*gap;
-    		}
-    	}
-    	
-    	var dim:IntDimension = new IntDimension(width, height);
-    	return insets.getOutsideSize(dim);
+    	return getCommonLayoutSize(target);
     }
 
 	/**
@@ -122,6 +95,11 @@ public class BoxLayout extends EmptyLayout
 	 * return new IntDimension(int.MAX_VALUE, int.MAX_VALUE);
 	 */
     override public function maximumLayoutSize(target:Container):IntDimension{
+    	return getCommonLayoutSize(target);
+    }    
+    
+    
+    private function getCommonLayoutSize(target:Container):IntDimension{
     	var count:int = target.getComponentCount();
     	var insets:Insets = target.getInsets();
     	var width:int = 0;
@@ -149,7 +127,7 @@ public class BoxLayout extends EmptyLayout
     	}
     	var dim:IntDimension = new IntDimension(width, height);
     	return insets.getOutsideSize(dim);
-    }    
+    }
     
     override public function layoutContainer(target:Container):void{
     	var count:int = target.getComponentCount();
