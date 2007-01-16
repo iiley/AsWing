@@ -153,6 +153,13 @@ public class AWEvent extends Event
 	public static const SELECTION_CHANGED:String = "selectionChanged";
 		
 	/**
+	 *  The <code>AWEvent.ON_ACT</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>onAct</code> event.
+	 * 
+	 * ON_ACT Event type is the default action for an object
+	 */	
+	public static const ON_ACT:String = "onAct";	
+	/**
 	 * Create an AWEvent.
 	 */
 	public function AWEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
