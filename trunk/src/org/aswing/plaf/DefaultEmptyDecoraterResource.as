@@ -21,9 +21,9 @@ public class DefaultEmptyDecoraterResource implements Icon, Border, GroundDecora
 	/**
 	 * Shared instance.
 	 */
-	public static const INSTANCE:DefaultBorderResource = new DefaultBorderResource();
+	public static const INSTANCE:DefaultEmptyDecoraterResource = new DefaultEmptyDecoraterResource();
 	
-	public function DefaultBorderResource()
+	public function DefaultEmptyDecoraterResource()
 	{
 	}
 	

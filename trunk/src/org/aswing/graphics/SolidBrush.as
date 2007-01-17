@@ -23,6 +23,10 @@ public class SolidBrush implements IBrush{
 		this.alpha=alpha;
 	}
 	
+	public static function createBrush(c:ASColor):SolidBrush{
+		return new SolidBrush(c.getRGB(), c.getAlpha());
+	}
+	
 	public function getColor():uint{
 		return color;
 	}

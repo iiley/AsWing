@@ -6,7 +6,7 @@ package org.aswing
 {
 
 import org.aswing.event.AWEvent;
-import org.aswing.plaf.ButtonUI;
+import org.aswing.plaf.*;
 import org.aswing.error.ImpMissError;	
 	
 /**
@@ -75,8 +75,6 @@ public class AbstractButton extends Component
     /** The data model that determines the button's state. */
     private var model:ButtonModel;
     
-    private var action:Action;
-
     private var text:String;
     private var margin:Insets;
     private var defaultMargin:Insets;
@@ -143,15 +141,15 @@ public class AbstractButton extends Component
         var oldModel:ButtonModel = getModel();
         
         if (oldModel != null) {
-            oldModel.removeEventListener(__modelStateListener);
-            oldModel.removeEventListener(__modelSelectionListener);
+            oldModel.removeStateListener(__modelStateListener);
+            oldModel.removeSelectionListener(__modelSelectionListener);
         }
         
         model = newModel;
         
         if (newModel != null) {
-            modelStateListener = newModel.addStateListener(__modelStateListener);
-            modelSelectionListener = newModel.addSelectionListener(__modelSelectionListener);
+            newModel.addStateListener(__modelStateListener);
+            newModel.addSelectionListener(__modelSelectionListener);
         }
 
         if (newModel != oldModel) {
@@ -165,7 +163,7 @@ public class AbstractButton extends Component
      * @return the ButtonUI object
      * @see #setUI()
      */
-	override public function getUI():ButtonUI {
+	override public function getUI():ComponentUI {
         return ButtonUI(ui);
     }
 
@@ -175,7 +173,7 @@ public class AbstractButton extends Component
      * @param ui the <code>ButtonUI</code> L&F object
      * @see #getUI()
      */
-    override public function setUI(ui:ButtonUI):void {
+    override public function setUI(ui:ComponentUI):void {
         super.setUI(ui);
     }
 
@@ -268,7 +266,7 @@ public class AbstractButton extends Component
      * Enabled (or disabled) the button.
      * @param b  true to enable the button, otherwise false
      */
-	public function setEnabled(b:Boolean):void{
+	override public function setEnabled(b:Boolean):void{
 		if (!b && model.isRollOver()) {
 	    	model.setRollOver(false);
 		}
@@ -338,7 +336,7 @@ public class AbstractButton extends Component
 	 */
 	public function setMargin(m:Insets):void{
         // Cache the old margin if it comes from the UI
-        if(m instanceof UIResource) {
+        if(m is UIResource) {
             defaultMargin = m;
         }
         
@@ -361,7 +359,7 @@ public class AbstractButton extends Component
 		if(margin == null){
 			m = defaultMargin;
 		}
-		if(m == null || m instanceof UIResource){//make it can be replaced by LAF
+		if(m == null || m is UIResource){//make it can be replaced by LAF
 			return new InsetsUIResource(m.top, m.left, m.bottom, m.right);
 		}else{
 			return new Insets(m.top, m.left, m.bottom, m.right);
@@ -518,7 +516,8 @@ public class AbstractButton extends Component
         if(disabledIcon == null) {
             if(defaultIcon != null) {
             	//TODO imp with UIResource??
-                return new GrayFilteredIcon(defaultIcon);
+                //return new GrayFilteredIcon(defaultIcon);
+                return defaultIcon;
             }
         }
         return disabledIcon;
@@ -557,7 +556,7 @@ public class AbstractButton extends Component
         if(disabledSelectedIcon == null) {
             if(selectedIcon != null) {
             	//TODO imp with UIResource??
-                disabledSelectedIcon = new GrayFilteredIcon(selectedIcon);
+                //disabledSelectedIcon = new GrayFilteredIcon(selectedIcon);
             } else {
                 return getDisabledIcon();
             }

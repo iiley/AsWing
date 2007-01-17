@@ -7,6 +7,7 @@ package org.aswing.graphics{
 import org.aswing.graphics.IBrush;
 import flash.display.Graphics;
 import flash.geom.Matrix;
+import flash.display.GradientType;
 
 /**
  * GradientBrush encapsulate the fill paramters for flash.display.Graphics.beginGradientFill()

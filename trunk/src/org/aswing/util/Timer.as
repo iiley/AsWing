@@ -105,7 +105,7 @@ public class Timer extends AbstractImpulser implements Impulser{
     			stop();
     		}
     	}
-    	dispatchEvent(new AWEvent(AWEvent.ON_ACT));
+    	dispatchEvent(new AWEvent(AWEvent.ACT));
     }
     
 

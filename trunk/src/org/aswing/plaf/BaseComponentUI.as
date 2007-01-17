@@ -6,6 +6,7 @@ package org.aswing.plaf
 {
 	
 import org.aswing.*;
+import org.aswing.error.ImpMissError;
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
@@ -68,7 +69,7 @@ public class BaseComponentUI implements ComponentUI
 	
 	protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
 		if(c.isOpaque()){
-			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
+			g.fillRectangle(SolidBrush.createBrush(c.getBackground()), b.x, b.y, b.width, b.height);
 		}
 	}	
 	//-----------------------------------------------------------

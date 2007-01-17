@@ -36,7 +36,7 @@ public class UIDefaults extends HashMap
      * @see #putDefaults()
      * @see org.aswing.utils.HashMap#put()
      */	
- 	override public function put(key:String, value:*):void{
+ 	override public function put(key:*, value:*):*{
  		var oldValue:* = (value == null) ? super.remove(key) : super.put(key, value);
  		return oldValue;
  	}
@@ -49,7 +49,7 @@ public class UIDefaults extends HashMap
      */
 	public function putDefaults(keyValueList:Array):void{
 		for(var i:Number = 0; i < keyValueList.length; i += 2) {
-            var value = keyValueList[i + 1];
+            var value:* = keyValueList[i + 1];
             if (value == null) {
                 super.remove(keyValueList[i]);
             }else {
@@ -140,7 +140,7 @@ public class UIDefaults extends HashMap
 	}
 	
 	public function getInstance(key:String):Object{
-		var value = this.get(key);
+		var value:* = this.get(key);
 		if(value is Class){
 			return getCreateInstance(value as Class);
 		}else{

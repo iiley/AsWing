@@ -10,9 +10,7 @@ import org.aswing.graphics.Graphics2D;
 import org.aswing.geom.IntRectangle;
 import org.aswing.geom.IntDimension;
 import org.aswing.Component;
-import org.aswing.plaf.BaseComponentUI;
-import org.aswing.plaf.ButtonUI;
-import org.aswing.AbstractButton;
+import org.aswing.plaf.*;
 import org.aswing.event.AWEvent;
 import flash.text.TextField;
 import flash.filters.BlurFilter;
@@ -51,16 +49,16 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     
 	override public function installUI(c:Component):void{
 		button = AbstractButton(c);
-		installDefaults(b);
-		installComponents(b);
-		installListeners(b);
+		installDefaults(button);
+		installComponents(button);
+		installListeners(button);
 	}
     
 	override public function uninstallUI(c:Component):void{
 		button = AbstractButton(c);
-		uninstallDefaults(b);
-		uninstallComponents(b);
-		uninstallListeners(b);
+		uninstallDefaults(button);
+		uninstallComponents(button);
+		uninstallListeners(button);
  	}
  	
  	protected function installDefaults(b:AbstractButton):void{
@@ -71,7 +69,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         	defaults_initialized = true;
         }
         
-        if(b.getMargin() instanceof UIResource) {
+        if(b.getMargin() is UIResource) {
             b.setMargin(getInsets(pp + "margin"));
         }
         
@@ -134,7 +132,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     private static var iconRect:IntRectangle = new IntRectangle();    
 
     override public function paint(c:Component, g:Graphics2D, r:IntRectangle):void{
-    	super.paint(c, g, b);
+    	super.paint(c, g, r);
     	var b:AbstractButton = AbstractButton(c);
     	
     	var insets:Insets = b.getMargin();
@@ -190,9 +188,9 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 			AsWingUtils.applyTextFont(textField, font);
 			b.setFontValidated(true);
 		}
-    	ASWingUtils.applyTextColor(textField, color);
-		textField.x = tRect.x;
-		textField.y = tRect.y;
+    	AsWingUtils.applyTextColor(textField, button.getForeground());
+		textField.x = textRect.x;
+		textField.y = textRect.y;
 			    	
     	if(!model.isEnabled()){
     		textField.filters = [new BlurFilter()];
@@ -229,11 +227,11 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 				// revert back to 0 offset
 				//clearTextShiftOffset();
 			}
-		} else if(b.isRolloverEnabled() && model.isRollover()) {
+		} else if(b.isRollOverEnabled() && model.isRollOver()) {
 			if(model.isSelected()) {
-				tmpIcon = b.getRolloverSelectedIcon();
+				tmpIcon = b.getRollOverSelectedIcon();
 			} else {
-				tmpIcon = b.getRolloverIcon();
+				tmpIcon = b.getRollOverIcon();
 			}
 		} else if(model.isSelected()) {
 			tmpIcon = b.getSelectedIcon();
@@ -244,10 +242,10 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 		}
         icon.getDisplay().visible = true;
 		if(model.isPressed() && model.isArmed()) {
-			icon.updateIcon(c, g, iconRect.x + getTextShiftOffset(),
+			icon.updateIcon(b, g, iconRect.x + getTextShiftOffset(),
                         iconRect.y + getTextShiftOffset());
 		}else{
-			icon.updateIcon(c, g, iconRect.x, iconRect.y);
+			icon.updateIcon(b, g, iconRect.x, iconRect.y);
 		}
     }
     
@@ -260,7 +258,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     		arr.push(button.getDisabledIcon());
     	}
     	if(button.getSelectedIcon()() != null){
-    		arr(button.getSelectedIcon());
+    		arr.push(button.getSelectedIcon());
     	}
     	if(button.getDisabledSelectedIcon()() != null){
     		arr.push(button.getDisabledSelectedIcon());
@@ -282,11 +280,11 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
      * Returns the a button's preferred size with specified icon and text.
      */
     protected function getButtonPreferredSize(b:AbstractButton, icon:Icon, text:String):IntDimension{
-    	viewRect.setRect(0, 0, 100000, 100000);
+    	viewRect.setRectXYWH(0, 0, 100000, 100000);
     	textRect.x = textRect.y = textRect.width = textRect.height = 0;
         iconRect.x = iconRect.y = iconRect.width = iconRect.height = 0;
         
-        ASWingUtils.layoutCompoundLabel(
+        AsWingUtils.layoutCompoundLabel(
             b.getFont(), text, icon, 
             b.getVerticalAlignment(), b.getHorizontalAlignment(),
             b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
@@ -296,13 +294,13 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         /* The preferred size of the button is the size of 
          * the text and icon rectangles plus the buttons insets.
          */
-        var size:Dimension;
+        var size:IntDimension;
         if(icon == null){
         	size = textRect.getSize();
         }else if(b.getText()==null || b.getText()==""){
         	size = iconRect.getSize();
         }else{
-        	var r:Rectangle = iconRect.union(textRect);
+        	var r:IntRectangle = iconRect.union(textRect);
         	size = r.getSize();
         }
         size = b.getInsets().getOutsideSize(size);
@@ -315,7 +313,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
      * Returns the a button's minimum size with specified icon and text.
      */    
     protected function getButtonMinimumSize(b:AbstractButton, icon:Icon, text:String):IntDimension{
-        var size:Dimension = b.getInsets().getOutsideSize();
+        var size:IntDimension = b.getInsets().getOutsideSize();
 		if(b.getMargin() != null)
         	size = b.getMargin().getOutsideSize(size);
 		return size;
