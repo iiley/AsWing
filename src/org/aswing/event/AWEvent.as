@@ -15,6 +15,29 @@ public class AWEvent extends Event
 {	
 	
 	/**
+     *  The <code>AWEvent.ACT</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>act</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>comp.addEventListener()</code> to register an event listener,
+     *       comp is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType act
+	 */
+	public static const ACT:String = "act";
+	
+	/**
      *  The <code>AWEvent.MOVED</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>moved</code> event.
      *
@@ -152,13 +175,6 @@ public class AWEvent extends Event
 	 */
 	public static const SELECTION_CHANGED:String = "selectionChanged";
 		
-	/**
-	 *  The <code>AWEvent.ON_ACT</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>onAct</code> event.
-	 * 
-	 * ON_ACT Event type is the default action for an object
-	 */	
-	public static const ON_ACT:String = "onAct";	
 	/**
 	 * Create an AWEvent.
 	 */

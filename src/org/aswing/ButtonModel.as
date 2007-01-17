@@ -32,7 +32,7 @@ package org.aswing
 public interface ButtonModel
 {
 	/**
-	 * Adds a listener to listen the Model's change event.
+	 * Adds a listener to listen the Model's state change event.
 	 * <p>
 	 * When the button's state changed, the state is all about:
 	 * <ul>
