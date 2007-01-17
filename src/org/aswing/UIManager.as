@@ -7,6 +7,7 @@ package org.aswing
 
 import org.aswing.*;
 import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.basic.BasicLookAndFeel;
 	
 /**
  * This class keeps track of the current look and feel and its defaults.
@@ -53,7 +54,7 @@ public class UIManager
 	
 	private static function checkLookAndFeel():void{
 		if(lookAndFeel == null){
-			setLookAndFeel(new ASWingLookAndFeel());
+			setLookAndFeel(new BasicLookAndFeel());
 		}
 	}
 	
@@ -61,7 +62,7 @@ public class UIManager
 		return getDefaults().containsKey(key);
 	}
 	
-	public static function get(key:String){
+	public static function get(key:String):*{
 		return getDefaults().get(key);
 	}
 	
@@ -77,15 +78,15 @@ public class UIManager
 		return getDefaults().getNumber(key);
 	}
 	
-	public function getInt(key:String):int{
+	public static function getInt(key:String):int{
 		return getDefaults().getInt(key);
 	}
 	
-	public function getUint(key:String):uint{
+	public static function getUint(key:String):uint{
 		return getDefaults().getUint(key);
 	}
 	
-	public function getString(key:String):String{
+	public static function getString(key:String):String{
 		return getDefaults().getString(key);
 	}
 	
@@ -93,7 +94,7 @@ public class UIManager
 		return getDefaults().getBorder(key);
 	}
 
-	public function getGroundDecorator(key:String):GroundDecorator{
+	public static function getGroundDecorator(key:String):GroundDecorator{
 		return getDefaults().getGroundDecorator(key);
 	}	
 	

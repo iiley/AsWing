@@ -5,6 +5,8 @@
 package org.aswing
 {
 
+import org.aswing.util.ArrayUtils;
+
 /**
  * This class is used to create a multiple-exclusion scope for a set of buttons. 
  * Creating a set of buttons with the same ButtonGroup object means that turning "on" 

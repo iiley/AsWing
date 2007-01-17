@@ -7,7 +7,7 @@ package org.aswing
 
 import flash.text.TextField;
 import flash.text.TextFormat;
-import org.aswing.geom.IntDimension;	
+import org.aswing.geom.*;	
 	
 public class AsWingUtils
 {
@@ -149,7 +149,7 @@ public class AsWingUtils
             }
             
             if (textR.width > availTextWidth) {
-                text = layoutTextWidth(text, textR, availTextWidth, tf);
+                text = layoutTextWidth(text, textR, availTextWidth, textFormat);
             }
         }
 
@@ -276,7 +276,7 @@ public class AsWingUtils
     /**
      * before call this method textR.width must be filled with correct value of whole text.
      */
-    public static function layoutTextWidth(text:String, textR:Rectangle, availTextWidth:Number, tf:TextFormat):String{
+    public static function layoutTextWidth(text:String, textR:IntRectangle, availTextWidth:Number, tf:TextFormat):String{
         if (textR.width <= availTextWidth) {
             return text;
         }

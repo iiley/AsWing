@@ -73,7 +73,7 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
 	}
 	
 	public function setRollOver(b:Boolean):void{
-        if((isRollover() == b) || !isEnabled()) {
+        if((isRollOver() == b) || !isEnabled()) {
             return;
         }
         rollOver = b;

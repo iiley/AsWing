@@ -3,7 +3,7 @@
 */
 package org.aswing{
 
-import org.aswing.ASWingConstants;
+import org.aswing.AsWingConstants;
 import org.aswing.Component;
 import org.aswing.Container;
 import org.aswing.EmptyLayout;
@@ -64,31 +64,31 @@ public class SoftBoxLayout extends EmptyLayout{
      * This value indicates that each row of components
      * should be left-justified(X_AXIS)/top-justified(Y_AXIS).
      */
-    public static const LEFT:int 	= ASWingConstants.LEFT;
+    public static const LEFT:int 	= AsWingConstants.LEFT;
 
     /**
      * This value indicates that each row of components
      * should be centered.
      */
-    public static const CENTER:int = ASWingConstants.CENTER;
+    public static const CENTER:int = AsWingConstants.CENTER;
 
     /**
      * This value indicates that each row of components
      * should be right-justified(X_AXIS)/bottom-justified(Y_AXIS).
      */
-    public static const RIGHT:int 	= ASWingConstants.RIGHT;
+    public static const RIGHT:int 	= AsWingConstants.RIGHT;
     
     /**
      * This value indicates that each row of components
      * should be left-justified(X_AXIS)/top-justified(Y_AXIS).
      */
-    public static const TOP:int 	= ASWingConstants.TOP;
+    public static const TOP:int 	= AsWingConstants.TOP;
 
     /**
      * This value indicates that each row of components
      * should be right-justified(X_AXIS)/bottom-justified(Y_AXIS).
      */
-    public static const BOTTOM:int = ASWingConstants.BOTTOM;
+    public static const BOTTOM:int = AsWingConstants.BOTTOM;
     
     
     private var axis:int;

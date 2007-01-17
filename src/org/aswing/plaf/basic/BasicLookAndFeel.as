@@ -7,6 +7,7 @@ package org.aswing.plaf.basic
 	
 import org.aswing.*;
 import org.aswing.plaf.*;
+import org.aswing.plaf.basic.background.ButtonBackgound;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -97,7 +98,7 @@ public class BasicLookAndFeel extends LookAndFeel
         	"Button.light", table.getColor("controlHighlight"),       
        		"Button.highlight", table.getColor("controlLtHighlight"),
         	"Button.font", table.getFont("controlFont"),
-			"Button.bg", org.aswing.plaf.basic.bg.ButtonBackground,
+			"Button.bg", org.aswing.plaf.basic.background.ButtonBackgound,
 			"Button.margin", new InsetsUIResource(2, 2, 2, 2), 
 			"Button.textShiftOffset", 1
 		];

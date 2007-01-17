@@ -116,7 +116,7 @@ public class Component extends AWSprite
 		opaque = false;
 		valid = false;
 		fontValidated = false;
-		border = DefaultBorderResource.INSTANCE;
+		border = DefaultEmptyDecoraterResource.INSTANCE;
 		if(!RepaintManager.getInstance().isStageInited()){
 			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 		}
@@ -565,11 +565,7 @@ public class Component extends AWSprite
      * @see #isOpaqueSet()
      */
     public function isOpaque():Boolean{
-    	if(isOpaqueSet()){
-    		return opaque;
-    	}else{
-    		return getUIProperty("opaque") as Boolean;
-    	}
+    	return opaque;
     }
     
     /**
@@ -662,6 +658,8 @@ public class Component extends AWSprite
 		var oldPos:IntPoint = bounds.getLocation();
 		if(!newPos.equals(oldPos)){
 			bounds.setLocation(newPos);
+			super.x = newPos.x;
+			super.y = newPos.y;
 			dispatchEvent(new MovedEvent(oldPos, newPos));
 			//TODO check
 			//revalidateIfNecessary(); or invalidate() or do nothing?
@@ -800,6 +798,29 @@ public class Component extends AWSprite
 	 */
 	public function getY():int{
 		return bounds.y;
+	}
+	
+	/**
+	 * Enable or disable the component.
+	 * <p>
+	 * If a component is disabled, it will not fire mouse events. 
+	 * And some component will has different interface when enabled or disabled.
+	 * @param b true to enable the component, false to disable it.
+	 */
+	public function setEnabled(b:Boolean):void{
+		//TODO super.mouseEnabled
+		if(mouseEnabled != b){
+			mouseEnabled = b;
+			repaint();
+		}
+	}
+	
+	/**
+	 * Returns whether the component is enabled.
+	 * @see #setEnabled()
+	 */
+	public function isEnabled():Boolean{
+		return mouseEnabled;
 	}	
 	
 	/**

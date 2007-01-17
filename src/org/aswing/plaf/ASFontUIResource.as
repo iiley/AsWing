@@ -21,7 +21,7 @@ public class ASFontUIResource extends ASFont implements UIResource
 	 * Create a font ui resource with a font.
 	 */
 	public static function createResourceFont(font:ASFont):ASFontUIResource{
-		return new ASFontUIResource(font.getName(), font.getSize(), font.getBold(), font.getItalic(), font.getUnderline(), font.getEmbedFonts());
+		return new ASFontUIResource(font.getName(), font.getSize(), font.isBold(), font.isItalic(), font.isUnderline(), font.isEmbedFonts());
 	}
 }
 }

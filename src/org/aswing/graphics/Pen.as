@@ -31,9 +31,9 @@ public class Pen implements IPen{
 	/**
 	 * Create a Pen.
 	 */
-	public function Pen(thickness:uint=1, 
-				 color:uint=0,
+	public function Pen(color:uint=0,
 				 alpha:Number=1,
+				 thickness:uint=1, 
 				 pixelHinting:Boolean = false, 
 				 scaleMode:String = "normal", 
 				 caps:String = null, 

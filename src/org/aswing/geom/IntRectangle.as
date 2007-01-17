@@ -23,7 +23,7 @@ public class IntRectangle
 	 * Creates a rectangle.
 	 */
 	public function IntRectangle(x:int=0, y:int=0, width:int=0, height:int=0){
-		getRectXYWH(x, y, width, height);
+		setRectXYWH(x, y, width, height);
 	}
 	
 
@@ -56,13 +56,13 @@ public class IntRectangle
 	 * Sets the rectangle to be as same as rect.
 	 */
 	public function setRect(rect:IntRectangle):void{
-		getRectXYWH(rect.x, rect.y, rect.width, rect.height);
+		setRectXYWH(rect.x, rect.y, rect.width, rect.height);
 	}
 	
 	/**
 	 * Sets the rect with x, y, width and height.
 	 */
-	public function getRectXYWH(x:int, y:int, width:int, height:int):void{
+	public function setRectXYWH(x:int, y:int, width:int, height:int):void{
 		this.x = x;
 		this.y = y;
 		this.width = width;

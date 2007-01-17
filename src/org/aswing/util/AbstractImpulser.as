@@ -46,7 +46,7 @@ public class AbstractImpulser extends EventDispatcher implements Impulser{
      * @see org.aswing.EventDispatcher#ON_ACT
      */	
 	public function addActionListener(func:Function):void{
-		 addEventListener(AWEvent.ON_ACT, func);
+		 addEventListener(AWEvent.ACT, func);
 	}
 	
     /**

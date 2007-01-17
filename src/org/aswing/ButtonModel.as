@@ -130,7 +130,7 @@ public interface ButtonModel
      * 
      * @param b true to arm the button so it can be selected
      */
-	function setArmed():Boolean;
+	function setArmed(b:Boolean):void;
 	
 	/**
 	 * Sets the button to being pressed or unpressed.
