@@ -9,6 +9,7 @@ import org.aswing.*;
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.SolidBrush;
 
 /**
  * The base class for ComponentUI.
@@ -25,6 +26,14 @@ public class BaseComponentUI implements ComponentUI
 		}
 		defaults.put(key, value);
 	}
+	
+	public function getDefault(key:String):*{
+		if(this.containsDefaultsKey(key)){
+			return defaults.get(key);
+		}else{
+			return UIManager.get(key);
+		}
+	}	
 	
 	public function getMaximumSize(c:Component):IntDimension
 	{
@@ -49,7 +58,7 @@ public class BaseComponentUI implements ComponentUI
 	
 	public function paint(c:Component, g:Graphics2D, b:IntRectangle):void
 	{
-		throw new ImpMissError();
+		paintBackGround(c, g, b);
 	}
 	
 	public function installUI(c:Component):void
@@ -57,10 +66,15 @@ public class BaseComponentUI implements ComponentUI
 		throw new ImpMissError();
 	}
 	
+	protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+		if(c.isOpaque()){
+			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
+		}
+	}	
 	//-----------------------------------------------------------
 	//           Convernent methods
 	//-----------------------------------------------------------
-	
+
 	protected function containsDefaultsKey(key:String):Boolean{
 		return defaults != null && defaults.containsKey(key);
 	}
