@@ -19,6 +19,7 @@ public class JButton extends AbstractButton
 	}
 	
     override public function updateUI():void{
+    	trace("JButton updateUI");
     	setUI(UIManager.getUI(this));
     }
 	

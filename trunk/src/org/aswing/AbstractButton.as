@@ -359,7 +359,9 @@ public class AbstractButton extends Component
 		if(margin == null){
 			m = defaultMargin;
 		}
-		if(m == null || m is UIResource){//make it can be replaced by LAF
+		if(m == null){
+			return new InsetsUIResource();
+		}else if(m is UIResource){//make it can be replaced by LAF
 			return new InsetsUIResource(m.top, m.left, m.bottom, m.right);
 		}else{
 			return new Insets(m.top, m.left, m.bottom, m.right);
