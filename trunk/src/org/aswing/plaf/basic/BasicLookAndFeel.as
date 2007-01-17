@@ -97,8 +97,8 @@ public class BasicLookAndFeel extends LookAndFeel
         	"Button.light", table.getColor("controlHighlight"),       
        		"Button.highlight", table.getColor("controlLtHighlight"),
         	"Button.font", table.getFont("controlFont"),
-			"Button.border", org.aswing.plaf.basic.border.ButtonBorder,
-			"Button.margin", new InsetsUIResource(0, 0, 0, 0),
+			"Button.bg", org.aswing.plaf.basic.bg.ButtonBackground,
+			"Button.margin", new InsetsUIResource(2, 2, 2, 2), 
 			"Button.textShiftOffset", 1
 		];
 	    table.putDefaults(comDefaults);

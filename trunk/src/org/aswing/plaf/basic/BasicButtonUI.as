@@ -134,6 +134,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     private static var iconRect:IntRectangle = new IntRectangle();    
 
     override public function paint(c:Component, g:Graphics2D, r:IntRectangle):void{
+    	super.paint(c, g, b);
     	var b:AbstractButton = AbstractButton(c);
     	
     	var insets:Insets = b.getMargin();
@@ -167,6 +168,13 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         	textField.visible = false;
         }
     }
+    
+    /**
+     * do nothing here, let background decorator to paint the background
+     */
+	override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+		//do nothing here, let background decorator to paint the background
+	}    
     
     /**
      * paint the text to specified button with specified bounds
@@ -269,13 +277,11 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     	return arr;
     }
     
-	protected function paintBackGround(com:Component, g:Graphics2D, b:IntRectangle):void{
-	}
-        
+      
     /**
      * Returns the a button's preferred size with specified icon and text.
      */
-    /*private function getButtonPreferredSize(b:AbstractButton, icon:Icon, text:String):IntDimension{
+    protected function getButtonPreferredSize(b:AbstractButton, icon:Icon, text:String):IntDimension{
     	viewRect.setRect(0, 0, 100000, 100000);
     	textRect.x = textRect.y = textRect.width = textRect.height = 0;
         iconRect.x = iconRect.y = iconRect.width = iconRect.height = 0;
@@ -290,7 +296,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         /* The preferred size of the button is the size of 
          * the text and icon rectangles plus the buttons insets.
          */
-        /*var size:Dimension;
+        var size:Dimension;
         if(icon == null){
         	size = textRect.getSize();
         }else if(b.getText()==null || b.getText()==""){
@@ -303,33 +309,34 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 		if(b.getMargin() != null)
         	size = b.getMargin().getOutsideSize(size);
         return size;
-    }*/
+    }
+    
     /**
      * Returns the a button's minimum size with specified icon and text.
      */    
-    /*private function getButtonMinimumSize(b:AbstractButton, icon:Icon, text:String):IntDimension{
+    protected function getButtonMinimumSize(b:AbstractButton, icon:Icon, text:String):IntDimension{
         var size:Dimension = b.getInsets().getOutsideSize();
 		if(b.getMargin() != null)
         	size = b.getMargin().getOutsideSize(size);
 		return size;
     }    
     
-    override public function getPreferredSize(c:Component):Dimension{
+    override public function getPreferredSize(c:Component):IntDimension{
     	var b:AbstractButton = AbstractButton(c);
     	var icon:Icon = b.getIcon();
     	var text:String = b.getText();
     	return getButtonPreferredSize(b, icon, text);
     }
 
-    override public function getMinimumSize(c:Component):Dimension{
+    override public function getMinimumSize(c:Component):IntDimension{
     	var b:AbstractButton = AbstractButton(c);
     	var icon:Icon = b.getIcon();
     	var text:String = b.getText();
     	return getButtonMinimumSize(b, icon, text);
     }
 
-    override public function getMaximumSize(c:Component):Dimension{
-		return new Dimension(Number.MAX_VALUE, Number.MAX_VALUE);
-    }   */     
+    override public function getMaximumSize(c:Component):IntDimension{
+		return IntDimension.createBigDimension();
+    }
 }
 }

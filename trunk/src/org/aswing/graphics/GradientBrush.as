@@ -15,6 +15,9 @@ import flash.geom.Matrix;
  */
 public class GradientBrush implements IBrush{
 	
+	public static const LINEAR:String = GradientType.LINEAR;
+	public static const RADIAL:String = GradientType.RADIAL;
+	
 	private var fillType:String;
 	private var colors:Array;
 	private var alphas:Array;

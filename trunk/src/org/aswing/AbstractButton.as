@@ -165,7 +165,7 @@ public class AbstractButton extends Component
      * @return the ButtonUI object
      * @see #setUI()
      */
-    public function getUI():ButtonUI {
+	override public function getUI():ButtonUI {
         return ButtonUI(ui);
     }
 

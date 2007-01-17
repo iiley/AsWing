@@ -276,6 +276,10 @@ public class Component extends AWSprite
         revalidate();
         repaint();
     }
+    
+    public function getUI():ComponentUI{
+    	return ui;
+    }
 	
 	/**
 	 * Sets the border for the component, null to remove border.

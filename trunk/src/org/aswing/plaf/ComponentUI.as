@@ -54,6 +54,15 @@ public interface ComponentUI
      * @param value the value.
      */
     function putDefault(key:String, value:*):void;
+    
+    /**
+     * Returns the default property for this UI of specified key.
+     * Generally, the ui will search the key in self holder that was put by 
+     * <code>putDefault</code> first, if it contains, then return it. If not 
+     * then it will call <code>UIManager.get</code> to get it from LAF defaults.
+     * @return the default property of specifiled key.
+     */
+    function getDefault(key:String):*;
 
     /**
      * Reverses configuration which was done on the specified component during
