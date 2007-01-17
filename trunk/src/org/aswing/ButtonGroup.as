@@ -121,7 +121,7 @@ public class ButtonGroup
                 oldSelection.setSelected(false);
             }
             m.setSelected(true);
-        } 
+        }
     }
 
     /**

@@ -11,8 +11,8 @@ import org.aswing.event.*;
 /**
  * The default implementation of a <code>Button</code> component's data model.
  */
-public class DefaultButtonModel extends EventDispatcher implements ButtonModel
-{
+public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
+	
 	private var group:ButtonGroup;
 	private var enabled:Boolean;
 	private var rollOver:Boolean;
@@ -30,33 +30,27 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel
 	}
 	
 	
-	public function isArmed():Boolean
-	{
+	public function isArmed():Boolean{
 		return armed;
 	}
 	
-	public function isRollOver():Boolean
-	{
+	public function isRollOver():Boolean{
 		return rollOver;
 	}
 	
-	public function isSelected():Boolean
-	{
+	public function isSelected():Boolean{
 		return selected;
 	}
 	
-	public function isEnabled():Boolean
-	{
+	public function isEnabled():Boolean{
 		return enabled;
 	}
 	
-	public function isPressed():Boolean
-	{
+	public function isPressed():Boolean{
 		return pressed;
 	}
 	
-	public function setEnabled(b:Boolean):void
-	{
+	public function setEnabled(b:Boolean):void{
         if(isEnabled() == b) {
             return;
         }
@@ -70,8 +64,7 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel
         fireStateChanged();
 	}
 	
-	public function setPressed(b:Boolean):void
-	{
+	public function setPressed(b:Boolean):void{
         if((isPressed() == b) || !isEnabled()) {
             return;
         }
@@ -79,8 +72,7 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel
         fireStateChanged();
 	}
 	
-	public function setRollOver(b:Boolean):void
-	{
+	public function setRollOver(b:Boolean):void{
         if((isRollover() == b) || !isEnabled()) {
             return;
         }
@@ -98,8 +90,7 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel
         fireStateChanged();
 	}
 	
-	public function setSelected(b:Boolean):void
-	{
+	public function setSelected(b:Boolean):void{
         if (isSelected() == b) {
             return;
         }
@@ -110,29 +101,32 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel
         fireSelectionChanged();
 	}
 	
-	public function setGroup(group:ButtonGroup):void
-	{
+	public function setGroup(group:ButtonGroup):void{
 		this.group = group;
 	}
 	
-	public function addSelectionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void
-	{
+	public function addSelectionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
 		addEventListener(AWEvent.SELECTION_CHANGED, listener, false, priority);
 	}
 	
-	public function removeSelectionListener(listener:Function):void
-	{
+	public function removeSelectionListener(listener:Function):void{
 		removeEventListener(AWEvent.SELECTION_CHANGED, listener);
 	}
 	
-	public function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void
-	{
+	public function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
 		addEventListener(AWEvent.STATE_CHANGED, listener, false, priority);
 	}
 	
-	public function removeStateListener(listener:Function):void
-	{
+	public function removeStateListener(listener:Function):void{
 		removeEventListener(AWEvent.STATE_CHANGED, listener);
+	}
+	
+	protected function fireStateChanged():void{
+		dispatchEvent(new AWEvent(AWEvent.STATE_CHANGED));
+	}
+	
+	protected function fireSelectionChanged():void{
+		dispatchEvent(new AWEvent(AWEvent.SELECTION_CHANGED));
 	}
 }
 }

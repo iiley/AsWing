@@ -17,6 +17,7 @@ import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.util.HashMap;
 import org.aswing.util.Reflection;
+import org.aswing.error.ImpMissError;
 	
 //--------------------------------------
 //  Events
@@ -60,11 +61,11 @@ import org.aswing.util.Reflection;
 /**
  * The super class for all Components.
  * 
- * <p>The maximumSize and minimumSize are the component's representable largest or smallest size respectively.</p>
+ * <p>The maximumSize and minimumSize are the component's represent max or min size.</p>
  * 
- * <p>You can set a Component's size larger than its maximumSize, but when it is drawed,
- * it will not be larger than its maximumSize.
- * The position is relative to <code>getAlignmentX</code> 
+ * <p>You can set a Component's size max than its maximumSize, but when it was drawed,
+ * it will not max than its maximumSize.Just as its maximumSize and posited itself
+ * in that size dimension you just setted. The position is relative to <code>getAlignmentX</code> 
  * and <code>getAlignmentY<code>.
  * </p>
  * @see #setSize()
@@ -224,7 +225,7 @@ public class Component extends AWSprite
      * like this:
      * <pre>
      *   public void updateUI() {
-     *      setUI((SliderUI)UIManager.getUI(this);
+     *      setUI(SliderUI(UIManager.getUI(this)));
      *   }
      *  </pre>
      *
@@ -232,7 +233,9 @@ public class Component extends AWSprite
      * @see org.aswing.UIManager#getLookAndFeel()
      * @see org.aswing.UIManager#getUI()
      */
-    public function updateUI():void{}
+    public function updateUI():void{
+    	throw new ImpMissError();
+    }
 
     /**
      * Sets the look and feel delegate for this component.
@@ -1335,7 +1338,7 @@ public class Component extends AWSprite
 		
 		return paintBounds;
 	}	
-	
+		
     /**
      * Determines whether this component is valid. A component is valid
      * when it is correctly sized within its parent
