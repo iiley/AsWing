@@ -68,7 +68,9 @@ public class RepaintManager
 	 */
 	public function addRepaintComponent(com:Component):void{
 		repaintQueue.add(com);
-		stage.invalidate();
+		if(stage != null){
+			stage.invalidate();
+		}
 	}
 	
 	/**
@@ -82,7 +84,9 @@ public class RepaintManager
 		if(validateRoot != null){
 			validateQueue.add(validateRoot);
 		}
-		stage.invalidate();
+		if(stage != null){
+			stage.invalidate();
+		}
 	}
 	
 	/**
@@ -91,7 +95,9 @@ public class RepaintManager
 	 */	
 	public function addInvalidRootComponent(com:Component):void{
 		validateQueue.add(com);
-		stage.invalidate();
+		if(stage != null){
+			stage.invalidate();
+		}
 	}
 	
 	/**

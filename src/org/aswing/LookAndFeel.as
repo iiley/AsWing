@@ -89,29 +89,44 @@ public class LookAndFeel
     }
 	
     /**
-     * Convenience method for installing a component's default Border 
+     * Convenience method for installing a component's default Border , background decorator and foreground decorator
      * object on the specified component if either the border is 
      * currently null or already an instance of UIResource.
      * @param c the target component for installing default border
      * @param defaultBorderName the key specifying the default border
      */
-    public static function installBorder(c:Component, defaultBorderName:String):void{
+    public static function installBorderAndBFDecorators(c:Component, defaultBorderName:String, 
+    	defaultBGDName:String, defaultFGDName:String):void{
         var b:Border = c.getBorder();
         if (b is UIResource) {
             c.setBorder(UIManager.getBorder(defaultBorderName));
+        }
+        var bg:GroundDecorator = c.getBackgroundDecorator();
+        if(bg is UIResource){
+        	c.setBackgroundDecorator(UIManager.getGroundDecorator(defaultBGDName));
+        }
+        var fg:GroundDecorator = c.getForegroundDecorator();
+        if(fg is UIResource){
+        	c.setForegroundDecorator(UIManager.getGroundDecorator(defaultFGDName));
         }
     }
 
     /**
      * Convenience method for un-installing a component's default 
-     * border on the specified component if the border is 
+     * border, background decorator and foreground decorator on the specified component if the border is 
      * currently an instance of UIResource.
      * @param c the target component for uninstalling default border
      */
-    public static function uninstallBorder(c:Component):void{
+    public static function uninstallBorderAndBFDecorators(c:Component):void{
         if (c.getBorder() is UIResource) {
             c.setBorder(DefaultEmptyDecoraterResource.INSTANCE);
         }
+        if (c.getBackgroundDecorator() is UIResource) {
+            c.setBackgroundDecorator(DefaultEmptyDecoraterResource.INSTANCE);
+        }
+        if (c.getForegroundDecorator() is UIResource) {
+            c.setForegroundDecorator(DefaultEmptyDecoraterResource.INSTANCE);
+        }                
     }
 }
 

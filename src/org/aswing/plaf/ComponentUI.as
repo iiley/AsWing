@@ -63,7 +63,9 @@ public interface ComponentUI
      * @return the default property of specifiled key.
      */
     function getDefault(key:String):*;
-
+	
+	function getDefaultInstance(key:String):*;
+	
     /**
      * Reverses configuration which was done on the specified component during
      * <code>installUI</code>.  This method is invoked when this 

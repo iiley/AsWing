@@ -13,27 +13,26 @@ import org.aswing.graphics.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 import org.aswing.plaf.ComponentUI;
 
-public class ButtonBackgound implements GroundDecorator
-{
-	
+public class ButtonBackgound implements GroundDecorator{
     private var shadow:ASColor;
     private var darkShadow:ASColor;
     private var highlight:ASColor;
     private var lightHighlight:ASColor;
     
 	public function ButtonBackgound(){
+		trace("ButtonBackgound construct!");
 	} 
 	
 
 	private function reloadColors(ui:ComponentUI):void{
-		shadow = ui.getDefault("Button.shadow");
-		darkShadow = ui.getDefault("Button.darkShadow");
-		highlight = ui.getDefault("Button.light");
-		lightHighlight = ui.getDefault("Button.highlight");
+		shadow = ui.getDefaultInstance("Button.shadow");
+		darkShadow = ui.getDefaultInstance("Button.darkShadow");
+		highlight = ui.getDefaultInstance("Button.light");
+		lightHighlight = ui.getDefaultInstance("Button.highlight");
 	}
 	
-	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void
-	{
+	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+		trace("ButtonBackgound updateDecorator!");
 		if(shadow == null){
 			reloadColors(c.getUI());
 		}

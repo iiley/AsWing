@@ -29,12 +29,20 @@ public class BaseComponentUI implements ComponentUI
 	}
 	
 	public function getDefault(key:String):*{
-		if(this.containsDefaultsKey(key)){
+		if(containsDefaultsKey(key)){
 			return defaults.get(key);
 		}else{
 			return UIManager.get(key);
 		}
-	}	
+	}
+	
+	public function getDefaultInstance(key:String):*{
+		if(containsDefaultsKey(key)){
+			return defaults.getInstance(key);
+		}else{
+			return UIManager.getInstance(key);
+		}
+	}
 	
 	public function getMaximumSize(c:Component):IntDimension
 	{

@@ -41,6 +41,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 	
 	public function BasicButtonUI(){
 		super();
+		trace("BasicButtonUI construct!!");
 	}
 
     protected function getPropertyPrefix():String {
@@ -74,13 +75,13 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         }
         
         LookAndFeel.installColorsAndFont(b, pp + "background", pp + "foreground", pp + "font");
-        LookAndFeel.installBorder(b, pp + "border");
+        LookAndFeel.installBorderAndBFDecorators(b, pp + "border", pp+"bg", pp+"fg");
         LookAndFeel.installBasicProperties(b, pp);
         setTextShiftOffset();
  	}
 	
  	protected function uninstallDefaults(b:AbstractButton):void{
- 		LookAndFeel.uninstallBorder(b);
+ 		LookAndFeel.uninstallBorderAndBFDecorators(b);
  	}
  	
  	protected function installComponents(b:AbstractButton):void{
