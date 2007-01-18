@@ -7,6 +7,8 @@ package org.aswing
 
 import flash.text.TextField;
 import flash.text.TextFormat;
+import flash.text.TextFieldAutoSize;
+import flash.text.TextFieldType;
 import org.aswing.geom.*;	
 	
 public class AsWingUtils
@@ -53,6 +55,10 @@ public class AsWingUtils
      */
     private static const TEXT_FIELD:TextField = new TextField();
     private static var TEXT_FORMAT:TextFormat = null;
+    {
+    	TEXT_FIELD.autoSize = TextFieldAutoSize.LEFT;
+    	TEXT_FIELD.type = TextFieldType.DYNAMIC;
+    }
     
     /**
      * Apply the font and color to the textfield.
@@ -246,13 +252,25 @@ public class AsWingUtils
         return text;
     }
         
+    /**
+     * Not include the gutters
+     */
+    public static function stringWidth(tf:TextFormat, ch:String):Number{
+    	TEXT_FIELD.text = ch;
+    	if(TEXT_FORMAT != tf){
+    		TEXT_FIELD.setTextFormat(tf);
+    		TEXT_FORMAT = tf;
+    	}
+        return TEXT_FIELD.textWidth;
+    }        
+        
     public static function computeStringWidth(tf:TextFormat, str:String):Number{
     	TEXT_FIELD.text = str;
     	if(TEXT_FORMAT != tf){
     		TEXT_FIELD.setTextFormat(tf);
     		TEXT_FORMAT = tf;
     	}
-        return TEXT_FIELD.textWidth;
+        return TEXT_FIELD.width;
     }
     
     public static function computeStringHeight(tf:TextFormat, str:String):Number{
@@ -261,7 +279,7 @@ public class AsWingUtils
     		TEXT_FIELD.setTextFormat(tf);
     		TEXT_FORMAT = tf;
     	}
-        return TEXT_FIELD.textHeight;
+        return TEXT_FIELD.height;
     }
     
     public static function computeStringSize(tf:TextFormat, str:String):IntDimension{
@@ -270,7 +288,7 @@ public class AsWingUtils
     		TEXT_FIELD.setTextFormat(tf);
     		TEXT_FORMAT = tf;
     	}
-    	return new IntDimension(Math.ceil(TEXT_FIELD.textWidth), Math.ceil(TEXT_FIELD.textWidth));
+    	return new IntDimension(Math.ceil(TEXT_FIELD.width), Math.ceil(TEXT_FIELD.height));
     }
     
     /**

@@ -8,6 +8,7 @@ package org.aswing
 import org.aswing.util.HashSet;
 import flash.display.Stage;
 import flash.events.Event;
+import org.aswing.util.Timer;
 
 /**
  * RepaintManager use to manager the component's painting.
@@ -33,6 +34,8 @@ public class RepaintManager
 	 */
 	private var validateQueue:HashSet;
 	
+	private var timer:Timer;
+	
 	/**
 	 * @private
 	 */
@@ -42,6 +45,9 @@ public class RepaintManager
 		}
 		repaintQueue = new HashSet();
 		validateQueue = new HashSet();
+		timer = new Timer(40);
+		timer.addActionListener(__render);
+		timer.start();
 	}
 	
 	internal function initStage(theStage:Stage):void{
@@ -128,7 +134,7 @@ public class RepaintManager
 	/**
 	 * Every frame this method will be executed to invoke the painting of components needed.
 	 */
-	private function __render():void{
+	private function __render(e:Event):void{
 		var i:int;
 		var n:int;
 		var com:Component;
