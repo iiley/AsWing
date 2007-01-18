@@ -32,7 +32,6 @@ public class ButtonBackgound implements GroundDecorator{
 	}
 	
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
-		trace("ButtonBackgound updateDecorator!");
 		if(shadow == null){
 			reloadColors(c.getUI());
 		}
@@ -40,10 +39,9 @@ public class ButtonBackgound implements GroundDecorator{
 		bounds = bounds.clone();
 		if(b == null) return;
 		if(c.isOpaque()){
-	    	var isPressed:Boolean = false;
 			var model:ButtonModel = b.getModel();
-			isPressed = model.isPressed() || model.isSelected();
-			BasicGraphicsUtils.drawBezel(g, bounds, isPressed, shadow, darkShadow, highlight, lightHighlight);
+	    	var isPressing:Boolean = model.isArmed() || model.isSelected();
+			BasicGraphicsUtils.drawBezel(g, bounds, isPressing, shadow, darkShadow, highlight, lightHighlight);
 			bounds.grow(-2, -2);
 			BasicGraphicsUtils.paintButtonBackGround(b, g, bounds);
 		}

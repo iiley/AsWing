@@ -69,6 +69,11 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
             return;
         }
         pressed = b;
+        
+        if(!isPressed() && isArmed()) {
+        	fireActionEvent();
+        }
+		
         fireStateChanged();
 	}
 	
@@ -96,13 +101,21 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
         }
 
         selected = b;
-		
+        
         fireStateChanged();
         fireSelectionChanged();
 	}
 	
 	public function setGroup(group:ButtonGroup):void{
 		this.group = group;
+	}
+	
+	public function addActionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
+		addEventListener(AWEvent.ACT, listener, false, priority);
+	}
+	
+	public function removeActionListener(listener:Function):void{
+		removeEventListener(AWEvent.ACT, listener);
 	}
 	
 	public function addSelectionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
@@ -119,6 +132,10 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
 	
 	public function removeStateListener(listener:Function):void{
 		removeEventListener(AWEvent.STATE_CHANGED, listener);
+	}
+	
+	protected function fireActionEvent():void{
+		dispatchEvent(new AWEvent(AWEvent.ACT));
 	}
 	
 	protected function fireStateChanged():void{

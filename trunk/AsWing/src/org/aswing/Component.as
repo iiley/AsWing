@@ -1292,7 +1292,6 @@ public class Component extends AWSprite
 	 * @see #repaint()
 	 */	
 	public function paintImmediately():void{
-		trace("paintImmediately");
 		if(isDisplayable() && isVisible()){
 			var paintBounds:IntRectangle = getPaintBoundsInRoot();
 			layoutClipAndTrigger(paintBounds);
@@ -1306,7 +1305,6 @@ public class Component extends AWSprite
 	 * @param b this paiting bounds, it is opposite on the component corrdinarry.
 	 */
 	protected function paint(b:IntRectangle):void{
-		trace("paint");
 		var g:Graphics2D = new Graphics2D(graphics);
 		
 		if(backgroundDecorator != null){

@@ -99,11 +99,11 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
  	}
  	
  	protected function installListeners(b:AbstractButton):void{
- 		b.addStateListener(stateListener);
+ 		b.addStateListener(__stateListener);
  	}
 	
  	protected function uninstallListeners(b:AbstractButton):void{
- 		b.removeStateListener(stateListener);
+ 		b.removeStateListener(__stateListener);
  	}
  	
  	//-----------------------------------------------------
@@ -122,8 +122,8 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     
     //--------------------------------------------------------
     
-    private function stateListener(e:AWEvent):void{
-    	button.paintImmediately();
+    private function __stateListener(e:AWEvent):void{
+    	button.repaint();
     }
     
     //--------------------------------------------------
@@ -162,7 +162,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     	paintIcon(b, g, iconRect);
     	
         if (text != null && text != ""){
-        	if(b.getModel().isPressed()){
+        	if(b.getModel().isArmed()){
         		textRect.x += getTextShiftOffset();
         		textRect.y += getTextShiftOffset();
         	}

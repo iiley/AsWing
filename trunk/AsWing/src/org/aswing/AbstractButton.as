@@ -7,7 +7,9 @@ package org.aswing
 
 import org.aswing.event.AWEvent;
 import org.aswing.plaf.*;
-import org.aswing.error.ImpMissError;	
+import org.aswing.error.ImpMissError;
+import flash.events.MouseEvent;
+import flash.events.Event;	
 	
 /**
  *  Dispatched when the button's state changed. the state is all about:
@@ -120,6 +122,7 @@ public class AbstractButton extends Component
     	
     	setText(text);
     	setIcon(icon);
+    	initSelfHandlers();
 	}
 
     /**
@@ -141,6 +144,7 @@ public class AbstractButton extends Component
         var oldModel:ButtonModel = getModel();
         
         if (oldModel != null) {
+        	oldModel.removeActionListener(__modelActionListener);
             oldModel.removeStateListener(__modelStateListener);
             oldModel.removeSelectionListener(__modelSelectionListener);
         }
@@ -148,6 +152,7 @@ public class AbstractButton extends Component
         model = newModel;
         
         if (newModel != null) {
+        	newModel.addActionListener(__modelActionListener);
             newModel.addStateListener(__modelStateListener);
             newModel.addSelectionListener(__modelSelectionListener);
         }
@@ -748,11 +753,52 @@ public class AbstractButton extends Component
     //			internal handlers
     //--------------------------------------------------------------
 	
-	private function __modelStateListener():void{
+	private function initSelfHandlers():void{
+		addEventListener(MouseEvent.ROLL_OUT, __rollOutListener);
+		addEventListener(MouseEvent.ROLL_OVER, __rollOverListener);
+		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDownListener);
+		addEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
+	}
+	
+	private function __rollOverListener(e:Event):void{
+		if(isRollOverEnabled()) {
+			getModel().setRollOver(true);
+		}
+		if(getModel().isPressed()){
+			getModel().setArmed(true);
+		}
+	}
+	private function __rollOutListener(e:Event):void{
+		if(isRollOverEnabled()) {
+			getModel().setRollOver(false);
+		}
+		getModel().setArmed(false);
+	}
+	private function __mouseDownListener(e:Event):void{
+		getModel().setArmed(true);
+		getModel().setPressed(true);
+		stage.addEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
+	}
+	private function __mouseUpListener(e:Event):void{
+		getModel().setPressed(false);
+		getModel().setArmed(false);
+		stage.removeEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
+	}
+	private function __stageMouseUpListener(e:MouseEvent):void{
+		getModel().setPressed(false);
+		getModel().setArmed(false);
+		stage.removeEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
+	}
+	
+	private function __modelActionListener(e:AWEvent):void{
+		dispatchEvent(new AWEvent(AWEvent.ACT));
+	}
+	
+	private function __modelStateListener(e:AWEvent):void{
 		dispatchEvent(new AWEvent(AWEvent.STATE_CHANGED));
 	}
 	
-	private function __modelSelectionListener():void{
+	private function __modelSelectionListener(e:AWEvent):void{
 		dispatchEvent(new AWEvent(AWEvent.SELECTION_CHANGED));
 	}
 	

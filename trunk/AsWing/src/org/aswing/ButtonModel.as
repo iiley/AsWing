@@ -58,6 +58,24 @@ public interface ButtonModel
 	function removeStateListener(listener:Function):void;
 	
 	/**
+	 * Adds a listener to listen the Model's act event.
+	 * <p>
+	 * When the button model's armed and pressed to fire this event.
+	 * @param listener the listener
+	 * @param priority the priority
+	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
+	 * @see org.aswing.event.AWEvent#ACT
+	 */
+	function addActionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void;
+	
+	/**
+	 * Removes a action listener.
+	 * @param listener the listener to be removed.
+	 * @see org.aswing.event.AWEvent#ACT
+	 */
+	function removeActionListener(listener:Function):void;	
+	
+	/**
 	 * Add a listener to listen the Model's selection change event.
 	 * When the button's selection changed, fired when diselected or selected.
 	 * @param listener the listener
@@ -97,9 +115,6 @@ public interface ButtonModel
 	
 	/**
 	 * Indicates if button has been pressed.
-	 * <p>
-	 * Note, this is different from AsWing AS2 version, this is similar to AS2 version's <b>released</b>.
-	 * </p>
 	 * @return true if the button has been pressed
 	 */
 	function isPressed():Boolean;
