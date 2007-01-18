@@ -4,9 +4,9 @@
 
 package org.aswing.graphics{
 
-import org.aswing.ASColor;
 import flash.display.Graphics;
-import org.aswing.graphics.IPen;
+
+import org.aswing.ASColor;
 
 /**
  * Pen encapsulate normal lineStyle properties. <br>
@@ -20,8 +20,7 @@ import org.aswing.graphics.IPen;
 public class Pen implements IPen{
 	
 	private var _thickness:uint;
-	private var _color:uint;
-	private var _alpha:Number;
+	private var _color:ASColor;
 	private var _pixelHinting:Boolean;
 	private var _scaleMode:String;
 	private var _caps:String;
@@ -31,8 +30,7 @@ public class Pen implements IPen{
 	/**
 	 * Create a Pen.
 	 */
-	public function Pen(color:uint=0,
-				 alpha:Number=1,
+	public function Pen(color:ASColor,
 				 thickness:uint=1, 
 				 pixelHinting:Boolean = false, 
 				 scaleMode:String = "normal", 
@@ -41,7 +39,6 @@ public class Pen implements IPen{
 				 miterLimit:Number = 3){
 				 	
 		this._color = color;
-		setAlpha(alpha);
 		this._thickness = thickness;
 		this._pixelHinting = pixelHinting;
 		this._scaleMode = scaleMode;
@@ -50,17 +47,16 @@ public class Pen implements IPen{
 		this._miterLimit = miterLimit;
 	}
 	
-	public function getColor():uint{
+	public function getColor():ASColor{
 		return _color;
 	}
 	
 	/**
 	 * 
 	 */
-	public function setColor(color:uint):void{
+	public function setColor(color:ASColor):void{
 		this._color=color;
 	}
-	
 	
 	public function getThickness():uint{
 		return _thickness;
@@ -73,17 +69,6 @@ public class Pen implements IPen{
 		this._thickness=thickness;
 	}
 	
-	public function getAlpha():Number{
-		return _alpha;
-	}
-	
-	/**
-	 * 
-	 */
-	public function setAlpha(alpha:Number):void{
-		this._alpha=Math.min(1, Math.max(0, alpha));
-	}
-
  	public function getPixelHinting():Boolean{
  		return this._pixelHinting;
  	}
@@ -143,20 +128,7 @@ public class Pen implements IPen{
 	 * @inheritDoc 
 	 */
 	public function setTo(target:Graphics):void{
-		target.lineStyle(_thickness, _color, _alpha,_pixelHinting,_scaleMode,_caps,_joints,_miterLimit);
-	}
-	
-	/**
-	 * Set color and alpha through ASColor
-	 * 
-	 * @param color instance of an ASColor object.
-	 * @see org.aswing.ASColor
-	 */
-	public function setASColor(color:ASColor):void{
-		if(color!=null){			
-			this._color = color.getRGB();
-			this._alpha = color.getAlpha();
-		}
+		target.lineStyle(_thickness, _color.getRGB(), _color.getAlpha(), _pixelHinting,_scaleMode,_caps,_joints,_miterLimit);
 	}
 }
 
