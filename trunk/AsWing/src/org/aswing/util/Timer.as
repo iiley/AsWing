@@ -46,7 +46,7 @@ public class Timer extends AbstractImpulser implements Impulser{
 	 * @see #setDelay()
      * @throws Error when init delay <= 0 or delay == null
 	 */
-	public function Timer(delay:uint, repeats:Boolean){
+	public function Timer(delay:uint, repeats:Boolean=true){
 		super(delay, repeats);
 		this.intervalID = 0;
 	}
@@ -62,6 +62,7 @@ public class Timer extends AbstractImpulser implements Impulser{
     	isInitalFire = true;
     	clearInterval(intervalID);
     	intervalID = setInterval(fireActionPerformed, getInitialDelay());
+    	trace("intervalID = " + intervalID);
     }
     
     /**

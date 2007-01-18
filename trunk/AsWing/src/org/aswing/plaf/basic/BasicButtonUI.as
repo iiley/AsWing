@@ -14,6 +14,7 @@ import org.aswing.plaf.*;
 import org.aswing.event.AWEvent;
 import flash.text.TextField;
 import flash.filters.BlurFilter;
+import flash.utils.getTimer;
 
 /**
  * Basic Button implementation.
@@ -78,6 +79,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         LookAndFeel.installBorderAndBFDecorators(b, pp + "border", pp+"bg", pp+"fg");
         LookAndFeel.installBasicProperties(b, pp);
         setTextShiftOffset();
+        button.mouseChildren = false;
  	}
 	
  	protected function uninstallDefaults(b:AbstractButton):void{
@@ -86,6 +88,9 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
  	
  	protected function installComponents(b:AbstractButton):void{
  		textField = new TextField();
+ 		textField.selectable = false;
+ 		textField.mouseEnabled = false;
+ 		textField.mouseWheelEnabled = false;
  		b.addChild(textField);
  	}
 	
@@ -255,22 +260,22 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     	if(button.getIcon() != null){
     		arr.push(button.getIcon());
     	}
-    	if(button.getDisabledIcon()() != null){
+    	if(button.getDisabledIcon() != null){
     		arr.push(button.getDisabledIcon());
     	}
-    	if(button.getSelectedIcon()() != null){
+    	if(button.getSelectedIcon() != null){
     		arr.push(button.getSelectedIcon());
     	}
-    	if(button.getDisabledSelectedIcon()() != null){
+    	if(button.getDisabledSelectedIcon() != null){
     		arr.push(button.getDisabledSelectedIcon());
     	}
-    	if(button.getRollOverIcon()() != null){
+    	if(button.getRollOverIcon() != null){
     		arr.push(button.getRollOverIcon());
     	}
-    	if(button.getRollOverSelectedIcon()() != null){
+    	if(button.getRollOverSelectedIcon() != null){
     		arr.push(button.getRollOverSelectedIcon());
     	}
-    	if(button.getPressedIcon()() != null){
+    	if(button.getPressedIcon() != null){
     		arr.push(button.getPressedIcon());
     	}
     	return arr;
