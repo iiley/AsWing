@@ -1,0 +1,1434 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
+package org.aswing
+{
+	
+import flash.display.DisplayObject;
+import flash.events.Event;
+import flash.geom.Rectangle;
+
+import org.aswing.event.AWEvent;
+import org.aswing.event.MovedEvent;
+import org.aswing.event.ResizedEvent;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.plaf.*;
+import org.aswing.util.HashMap;
+import org.aswing.util.Reflection;
+import org.aswing.error.ImpMissError;
+	
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the component visible is set to true from false.
+ *
+ *  @eventType org.aswing.event.AWEvent.SHOWN
+ */
+[Event(name="shown", type="org.aswing.event.AWEvent")]
+
+/**
+ *  Dispatched when the component visible is set to false from true.
+ *
+ *  @eventType org.aswing.event.AWEvent.HIDDEN
+ */
+[Event(name="hidden", type="org.aswing.event.AWEvent")]
+
+/**
+ *  Dispatched when the component is painted.
+ *
+ *  @eventType org.aswing.event.AWEvent.PAINT
+ */
+[Event(name="paint", type="org.aswing.event.AWEvent")]
+
+/**
+ *  Dispatched when the component is moved.
+ *
+ *  @eventType org.aswing.event.AWEvent.MOVED
+ */
+[Event(name="moved", type="org.aswing.event.AWEvent")]
+	
+/**
+ *  Dispatched when the component is resized.
+ *
+ *  @eventType org.aswing.event.AWEvent.RESIZED
+ */
+[Event(name="resized", type="org.aswing.event.AWEvent")]
+
+/**
+ * The super class for all Components.
+ * 
+ * <p>The maximumSize and minimumSize are the component's represent max or min size.</p>
+ * 
+ * <p>You can set a Component's size max than its maximumSize, but when it was drawed,
+ * it will not max than its maximumSize.Just as its maximumSize and posited itself
+ * in that size dimension you just setted. The position is relative to <code>getAlignmentX</code> 
+ * and <code>getAlignmentY<code>.
+ * </p>
+ * @see #setSize()
+ * @see #setPrefferedSize()
+ * @see #getAlignmentX()
+ * 
+ * @author iiley
+ */	
+public class Component extends AWSprite
+{
+	protected var ui:ComponentUI;
+	private var clientProperty:HashMap;
+	
+	private var awmlID:String;
+	private var awmlIndex:Number;
+	private var awmlNamespace:String;
+	
+	private var alignmentX:Number;
+	private var alignmentY:Number;
+	private var minimumSize:IntDimension;
+	private var maximumSize:IntDimension;
+	private var preferredSize:IntDimension;
+	private var constraints:Object;
+	
+	protected var valid:Boolean;
+	
+	private var bounds:IntRectangle
+	private var clipBounds:IntRectangle;
+	private var background:ASColor;
+	private var foreground:ASColor;
+	private var backgroundDecorator:GroundDecorator;
+	private var foregroundDecorator:GroundDecorator;
+	private var font:ASFont;
+	private var fontValidated:Boolean;
+	private var opaque:Boolean;
+	private var opaqueSet:Boolean = false;
+	private var border:Border;
+	
+	public function Component()
+	{
+		super();
+		setName("Component");
+		ui = null;
+		clientProperty = null;
+		alignmentX = 0;
+		alignmentY = 0;
+		bounds = new IntRectangle();
+		opaque = false;
+		valid = false;
+		fontValidated = false;
+		border = DefaultEmptyDecoraterResource.INSTANCE;
+		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
+		foregroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
+		if(!RepaintManager.getInstance().isStageInited()){
+			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
+		}
+	}
+	
+	private function __repaintManagerStarter(e:Event):void{
+		RepaintManager.getInstance().initStage(stage);
+		removeEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
+	}
+		    
+	/**
+	 * Sets ID used to identify components created from AWML. Used to obtain components through 
+	 * {@link org.aswing.awml.AwmlManager}. You should never modify this value.
+	 * 
+	 * @param id the component's AWML ID
+	 */
+	public function setAwmlID(id:String):void {
+		awmlID = id;	
+	}
+
+	/**
+	 * Returns ID used to identify components created from AWML.
+	 * 
+	 * @return the AWML ID
+	 */
+	public function getAwmlID():String {
+		return awmlID;
+	}
+
+	/**
+	 * Sets namespace used to identify components created from AWML. 
+	 * Used to obtain components through {@link org.aswing.awml.AwmlManager}. 
+	 * You should never modify this value.
+	 * 
+	 * @param theNamespace the new namespace name
+	 */
+	public function setAwmlNamespace(theNamespace:String):void {
+		awmlNamespace = theNamespace;	
+	}
+
+	/**
+	 * Returns namespace name used to identify components created from AWML.
+	 * 
+	 * @return the namespace name
+	 */
+	public function getAwmlNamespace():String {
+		return awmlNamespace;	
+	}
+
+	/**
+	 * Sets ID used to identify components created from AWML. Used to obtain components through 
+	 * {@link org.aswing.awml.AwmlManager}. You should never modify this value.
+	 * 
+	 * @param index the position index of the component
+	 */
+	public function setAwmlIndex(index:Number):void {
+		awmlIndex = index;	
+	}
+
+	/**
+	 * Returns position index of the component inside its AWML container.
+	 * 
+	 * @return the component index in the AWML
+	 */
+	public function getAwmlIndex():Number {
+		return awmlIndex;	
+	}
+	    
+	/**
+     * Returns the <code>UIDefaults</code> key used to
+     * look up the name of the <code>org.aswing.plaf.ComponentUI</code>
+     * class that defines the look and feel
+     * for this component.  Most applications will never need to
+     * call this method.  Subclasses of <code>Component</code> that support
+     * pluggable look and feel should override this method to
+     * return a <code>UIDefaults</code> key that maps to the
+     * <code>ComponentUI</code> subclass that defines their look and feel.
+     *
+     * @return the <code>UIDefaults</code> key for a
+     *		<code>ComponentUI</code> subclass
+     * @see org.aswing.UIDefaults#getUI()
+     */
+	public function getUIClassID():String{
+		return "ComponentUI";
+	}
+	
+	/**
+	 * Sets the name of this component
+	 * @see #name
+	 */
+	public function setName(name:String):void{
+		this.name = name;
+	}
+	
+	/**
+	 * Returns the name of the component
+	 * @see #name
+	 */
+	public function getName():String{
+		return name;
+	}
+	
+    /**
+     * Resets the UI property to a value from the current look and feel.
+     * <code>Component</code> subclasses must override this method
+     * like this:
+     * <pre>
+     *   public void updateUI() {
+     *      setUI(SliderUI(UIManager.getUI(this)));
+     *   }
+     *  </pre>
+     *
+     * @see #setUI()
+     * @see org.aswing.UIManager#getLookAndFeel()
+     * @see org.aswing.UIManager#getUI()
+     */
+    public function updateUI():void{
+    	throw new ImpMissError();
+    }
+
+    /**
+     * Sets the look and feel delegate for this component.
+     * <code>Component</code> subclasses generally override this method
+     * to narrow the argument type. For example, in <code>JSlider</code>:
+     * <pre>
+     * public void setUI(SliderUI newUI) {
+     *     super.setUI(newUI);
+     * }
+     *  </pre>
+     * <p>
+     * Additionally <code>Component</code> subclasses must provide a
+     * <code>getUI</code> method that returns the correct type.  For example:
+     * <pre>
+     * public SliderUI getUI() {
+     *     return (SliderUI)ui;
+     * }
+     * </pre>
+     *
+     * @param newUI the new UI delegate
+     * @see #updateUI()
+     * @see UIManager#getLookAndFeel()
+     * @see UIManager#getUI()
+     */
+    public function setUI(newUI:ComponentUI):void{
+        /* We do not check that the UI instance is different
+         * before allowing the switch in order to enable the
+         * same UI instance *with different default settings*
+         * to be installed.
+         */
+        if (ui != null) {
+            ui.uninstallUI(this);
+        }
+        ui = newUI;
+        if (ui != null) {
+            ui.installUI(this);
+        }
+        revalidate();
+        repaint();
+    }
+    
+    public function getUI():ComponentUI{
+    	return ui;
+    }
+	
+	/**
+	 * Sets the border for the component, null to remove border.
+	 * @param border the new border to set, or null.
+	 */
+	public function setBorder(b:Border):void{
+		if(b != border){
+			removeChild(border.getDisplay());
+			border = b;
+			addChild(border.getDisplay());
+			repaint();
+			revalidate();
+		}
+	}
+	
+	/**
+	 * Returns the border.
+	 * @return the border.
+	 */
+	public function getBorder():Border{
+		return border;
+	}
+	
+	/**
+	 * If a border has been set on this component, returns the border's insets; 
+	 * otherwise returns an empty insets.
+	 */
+	public function getInsets():Insets{
+		if(border == null){
+			return new Insets();
+		}else{
+			return border.getBorderInsets(this, getSize().getBounds());
+		}
+	}	
+	
+	/**
+	 * Sets a decorator to be the component background, it will represent the component background 
+	 * with a <code>DisplayObject</code>. null to remove the decorator set before.
+	 * 
+	 * @param bg the background decorator.
+	 */
+	public function setBackgroundDecorator(bg:GroundDecorator):void{
+		if(bg != backgroundDecorator){
+			backgroundDecorator = bg;
+			if(bg != null){
+				setBackgroundChild(bg.getDisplay());
+			}else{
+				setBackgroundChild(null);
+			}
+		}
+	}
+	
+	/**
+	 * Returns the background decorator of this component.
+	 * @return the background decorator of this component.
+	 */
+	public function getBackgroundDecorator():GroundDecorator{
+		return backgroundDecorator;
+	}
+	
+	/**
+	 * Sets a decorator to be the component foreground, it will represent the component foreground 
+	 * with a <code>DisplayObject</code> on top of other children of this component. 
+	 * null to remove the decorator set before.
+	 * 
+	 * @param fg the foreground decorator.
+	 */
+	public function setForegroundDecorator(fg:GroundDecorator):void{
+		if(fg != foregroundDecorator){
+			foregroundDecorator = fg;
+			if(fg != null){
+				setForegroundChild(fg.getDisplay());
+			}else{
+				setForegroundChild(null);
+			}
+		}
+	}
+	
+	/**
+	 * Returns the foreground decorator of this component.
+	 * @return the foreground decorator of this component.
+	 */
+	public function getForegroundDecorator():GroundDecorator{
+		return foregroundDecorator;
+	}
+	
+	
+	/**
+	 * Set a component to be hide or shown.
+	 * If a component was hide, some laterly operation may not be done,
+	 * they will be done when next shown, ex: repaint, doLayout ....
+	 * So suggest you dont changed a component's visible frequently.
+	 */
+	public function setVisible(v:Boolean):void{
+		if(v != visible){
+			visible = v;
+			if(v){
+				dispatchEvent(new AWEvent(AWEvent.SHOWN, false, false));
+			}else{
+				dispatchEvent(new AWEvent(AWEvent.HIDDEN, false, false));
+			}
+			//because the repaint and some other operating only do when visible
+			//so when change to visible, must call repaint to do the operatings they had not done when invisible
+			if(visible){
+				repaint();
+			}
+			revalidate();
+		}
+	}
+	
+	public function isVisible():Boolean{
+		return visible;
+	}
+		
+	/**
+	 * Determines whether or not this component is on display list.
+	 */
+	public function isDisplayable():Boolean{
+		return this.stage != null;
+	}
+	
+	/**
+	 * Sets the text font for this component.<br>
+	 * this method will cause a repaint and revalidate method call.<br>
+	 * @param newFont the font to set for this component.
+	 */
+	public function setFont(newFont:ASFont):void{
+		if(font != newFont){
+			font = newFont;
+			setFontValidated(false);
+			repaint();
+			revalidate();
+		}
+	}
+	
+	/**
+	 * Returns whether the new font are applied and taked effect.
+	 * <p>
+	 * Some UI can just apply font to text when this method returned false 
+	 * to avoid wasteful time for font applying.
+	 * @return true if currently font are applied to texts, otherwish false.
+	 * @see #setFontValidated()
+	 */
+	public function isFontValidated():Boolean{
+		return fontValidated;
+	}
+	
+	/**
+	 * Sets whether the new font are applied and taked effect.
+	 * <p>
+	 * Once the UI applied the font, it can call this method to set the value 
+	 * to be true, to avoid next wasteful applying.
+	 * @return true set font are applied, otherwish false.
+	 * @see #isFontValidated()
+	 */
+	public function setFontValidated(b:Boolean):void{
+		fontValidated = b;
+	}
+	
+	/**
+     * Gets the font of this component.
+     * @return this component's font; if a font has not been set
+     * for this component and it has parent, the font of its parent is returned
+     * @see #setFont()
+     */
+	public function getFont():ASFont{
+        if (font != null) {
+            return font;
+        }else if(parent is Component){
+        	return getParent().getFont();
+        }else{
+        	return null;
+        }
+	}
+	
+	/**
+     * Sets the background color of this component.
+     * <p>
+     * The background color affects each component differently.
+     *
+     * @param c the color to become this component's color;
+     *          if this parameter is <code>null/undefined</code> and it has parent, then this
+     *          component will inherit the background color of its parent
+     * @see #getBackground()
+	 */
+	public function setBackground(c:ASColor):void{
+		if(background != c){
+			background = c;
+			repaint();
+		}
+	}
+	
+	/**
+     * Gets the background color of this component.
+     * @return this component's background color; if this component does
+     *          not have a background color and it has parent,
+     *          the background color of its parent is returned
+     * @see #setBackground()
+	 */
+	public function getBackground():ASColor{
+		if(background != null){
+			return background;
+		}else if(parent is Component){
+        	return getParent().getBackground();
+        }else{
+        	return null;
+        }
+	}
+	
+	/**
+     * Sets the foreground color of this component.
+     * <p>
+     * The foreground color affects each component differently.
+     *
+     * @param c the color to become this component's color;
+     *          if this parameter is <code>null/undefined</code> and it has parent, then this
+     *          component will inherit the foreground color of its parent
+     * @see #getForeground()
+	 */
+	public function setForeground(c:ASColor):void{
+		if(foreground != c){
+			foreground = c;
+			repaint();
+		}
+	}
+	
+	/**
+     * Gets the foreground color of this component.
+     * @return this component's foreground color; if this component does
+     *          not have a foreground color and it has parent,
+     *          the foreground color of its parent is returned
+     * @see #setForeground()
+	 */
+	public function getForeground():ASColor{
+		if(foreground != null){
+			return foreground;
+		}else if(parent is Component){
+        	return getParent().getForeground();
+        }else{
+        	return null;
+        }
+	}
+		
+    /**
+     * If true the component paints every pixel within its bounds. 
+     * Otherwise, the component may not paint some or all of its
+     * pixels, allowing the underlying pixels to show through.
+     * <p>
+     * The default value of this property is false for <code>JComponent</code>.
+     * However, the default value for this property on most standard
+     * <code>Component</code> subclasses (such as <code>JButton</code> and
+     * <code>JTree</code>) is look-and-feel dependent.
+     *
+     * @param b  true if this component should be opaque
+     * @see #isOpaque()
+     */
+    public function setOpaque(b:Boolean):void {
+    	setOpaqueSet(true);
+    	if(opaque != b){
+    		opaque = b;
+    		repaint();
+    	}
+    }
+    
+    /**
+     * Returns true if this component is completely opaque.
+     * <p>
+     * An opaque component paints every pixel within its
+     * rectangular bounds. A non-opaque component paints only a subset of
+     * its pixels or none at all, allowing the pixels underneath it to
+     * "show through".  Therefore, a component that does not fully paint
+     * its pixels provides a degree of transparency.
+     * </p>
+     * <p>
+     * The value is from LAF defaults if you have not set it.
+     * </p>
+     * <p>
+     * Subclasses that guarantee to always completely paint their contents
+     * should override this method and return true.
+     * <p>
+     * @return true if this component is completely opaque
+     * @see #setOpaque()
+     * @see #isOpaqueSet()
+     */
+    public function isOpaque():Boolean{
+    	return opaque;
+    }
+    
+    /**
+     * Returns whether or not the opaque property is set. 
+     * If it is not set, <code>isOpaque()</code> will return the value defined in LAF defaults.
+     */
+    public function isOpaqueSet():Boolean{
+    	return opaqueSet;
+    }
+    
+    /**
+     * This method will be called to set true when you set the opaque by <code>setOpaque()</code>.
+     * You can also call this method to make the opaque property returned by the set or LAF defaults.
+     * @see #isOpaqueSet()
+     * @see #isOpaque()
+     */
+    public function setOpaqueSet(b:Boolean):void{
+    	opaqueSet = b;
+    }
+    
+    /**
+     * Indicates the alpha transparency value of the component. 
+     * Valid values are 0 (fully transparent) to 1 (fully opaque).
+     * @param alpha the alpha for this component, between 0 and 1. default is 1.
+     */
+    public function setAlpha(alpha:Number):void{
+    	this.alpha = alpha;
+    }
+    
+    /**
+     * Returns the alpha of this component.
+     * @return the alpha of this component. default is 1.
+     */
+    public function getAlpha():Number{
+    	return alpha;
+    }
+		
+	/**
+	 * Moves and resizes this component. The new location of the top-left corner is specified by x and y, and the new size is specified by width and height. 
+	 * @param b the location and size bounds
+	 */
+	public function setComBounds(b:IntRectangle):void{
+		setLocationXY(b.x, b.y);
+		setSizeWH(b.width, b.height);
+	}
+	
+	/**
+	 * Moves and resizes this component. The new location of the top-left corner is specified by x and y, and the new size is specified by width and height. 
+	 */	
+	public function setComBoundsXYWH(x:int, y:int, w:int, h:int):void{
+		setLocationXY(x, y);
+		setSizeWH(w, h);
+	}
+	
+	/**
+	 * Same to DisplayObject.getBounds(), 
+	 * just add a explaination here that if you want to get the component bounds, 
+	 * see {@link #getComBounds()} method.
+	 * @see #getComBounds()
+	 * @see #setComBounds()
+	 */
+	override public function getBounds(targetCoordinateSpace:DisplayObject):Rectangle{
+		return super.getBounds(targetCoordinateSpace);
+	}
+	
+	/**
+	 * <p>Stores the bounds value of this component into "return value" rv and returns rv. 
+	 * If rv is null or undefined a new IntRectangle object is allocated. 
+	 * 
+	 * @param rv the return value, modified to the component's bounds.
+	 * 
+	 * @see #setSize()
+	 * @see #setLocation()
+	 */
+	public function getComBounds(rv:IntRectangle=null):IntRectangle{
+		if(rv != null){
+			rv.setRect(bounds);
+			return rv;
+		}else{
+			return new IntRectangle(bounds.x, bounds.y, bounds.width, bounds.height);
+		}
+	}
+	
+	/**
+	 * Set the component's location, if it is diffs from old location, invalidate it to wait validate.
+	 * The top-left corner of the new location is specified by the x and y parameters 
+	 * in the coordinate space of this component's parent.
+	 */
+	public function setLocation(newPos:IntPoint):void{
+		var oldPos:IntPoint = bounds.getLocation();
+		if(!newPos.equals(oldPos)){
+			bounds.setLocation(newPos);
+			super.x = newPos.x;
+			super.y = newPos.y;
+			dispatchEvent(new MovedEvent(oldPos, newPos));
+			//TODO check
+			//revalidateIfNecessary(); or invalidate() or do nothing?
+		}
+	}
+	
+	/**
+	 * @see #setLocation()
+	 */
+	public function setLocationXY(x:int, y:int):void{
+		setLocation(new IntPoint(x, y));
+	}
+	
+	/**
+	 * Stores the location value of this component into "return value" rv and returns rv. 
+	 * If p is null or undefined a new Point object is allocated. 
+	 * @param rv the return value, modified to the component's location.
+	 */
+	public function getLocation(rv:IntPoint=null):IntPoint{
+		if(rv != null){
+			rv.setLocationXY(bounds.x, bounds.y);
+			return rv;
+		}else{
+			return new IntPoint(bounds.x, bounds.y);
+		}
+	}
+	
+	/**
+	 * This method will call setComBounds()
+	 * @see #setComBounds()
+	 */
+	public function setBounds(b:IntRectangle):void{
+		setComBounds(b);
+	}
+		
+	/**
+	 * Set the component's size, the width and height all will be setted to not less than zero, 
+	 * then set the size.
+	 * You can set a Component's size max than its maximumSize, but when it was drawed,
+ 	 * it will not max than its maximumSize.Just as its maximumSize and posited itself
+ 	 * in that size dimension you just setted. The position is relative to <code>getAlignmentX</code> 
+	 * @see #getAlignmentX()
+	 * @see #getAlignmentY()
+	 * @see #getMinimumSize()
+	 * @see #countMaximumSize()
+	 * @see #getPreferredSize()
+	 */
+	public function setSize(newSize:IntDimension):void{
+		newSize.width = Math.max(0, newSize.width);
+		newSize.height = Math.max(0, newSize.height);
+		var oldSize:IntDimension = new IntDimension(bounds.width, bounds.height);
+		if(!newSize.equals(oldSize)){
+			bounds.setSize(newSize);
+			size();
+			dispatchEvent(new ResizedEvent(oldSize, newSize));
+		}
+	}
+	/**
+	 * @see #setSize()
+	 */
+	public function setSizeWH(w:int, h:int):void{
+		setSize(new IntDimension(w, h));
+	}
+	
+	/**
+	 * Stores the size value of this component into "return value" rv and returns rv. 
+	 * If rv is null or undefined a new IntDimension object is allocated. 
+	 * @param rv the return value, modified to the component's size.
+	 */	
+	public function getSize(rv:IntDimension=null):IntDimension{
+		if(rv != null){
+			rv.setSizeWH(bounds.width, bounds.height);
+			return rv;
+		}else{
+			return new IntDimension(bounds.width, bounds.height);
+		}
+	}
+	/**
+	 * Sets the component's width.
+	 * @param width the width of component to set
+	 * @see  #setSize()
+	 */
+	public function setWidth(width:int):void{
+		setSizeWH(width, getHeight());
+	}
+	/**
+	 * Sets the component's height.
+	 * @param height the height of component to set
+	 * @see  #setSize()
+	 */	
+	public function setHeight(height:Number):void{
+		setSizeWH(getWidth(), height);
+	}
+	/**
+	 * Returns the current width of this component
+	 * @return the width of the component
+	 */
+	public function getWidth():int{
+		return bounds.width;
+	}
+	/**
+	 * Returns the current height of this component
+	 * @return the height of the component
+	 */	
+	public function getHeight():int{
+		return bounds.height;
+	}
+	/**
+	 * Sets the x coordinate of the components.
+	 * @return the x coordinate
+	 * @see #setLocation()
+	 */
+	public function setX(x:int):void{
+		setLocationXY(x, getY());
+	}
+	/**
+	 * Sets the y coordinate of the components.
+	 * @return the y coordinate
+	 * @see #setLocation()
+	 */
+	public function setY(y:int):void{
+		setLocationXY(getX(), y);
+	}
+	/**
+	 * Returns the current x coordinate of the components.
+	 * @return the current x coordinate of the components
+	 * @see #getLocation()
+	 */
+	public function getX():int{
+		return bounds.x;
+	}
+	/**
+	 * Returns the current y coordinate of the components.
+	 * @return the current y coordinate of the components
+	 * @see #getLocation()
+	 */
+	public function getY():int{
+		return bounds.y;
+	}
+	
+	/**
+	 * Enable or disable the component.
+	 * <p>
+	 * If a component is disabled, it will not fire mouse events. 
+	 * And some component will has different interface when enabled or disabled.
+	 * @param b true to enable the component, false to disable it.
+	 */
+	public function setEnabled(b:Boolean):void{
+		//TODO super.mouseEnabled
+		if(mouseEnabled != b){
+			mouseEnabled = b;
+			repaint();
+		}
+	}
+	
+	/**
+	 * Returns whether the component is enabled.
+	 * @see #setEnabled()
+	 */
+	public function isEnabled():Boolean{
+		return mouseEnabled;
+	}	
+	
+	/**
+	 * @see #setX()
+	 */
+	override public function set x(value:Number):void{
+		setX(value);
+	}
+	
+	/**
+	 * @see #getX()
+	 */
+	override public function get x():Number{
+		return getX();
+	}
+	
+	/**
+	 * @see setWidth()
+	 */
+	override public function set width(value:Number):void{
+		setWidth(value);
+	}
+	
+	/**
+	 * @see getWidth()
+	 */
+	override public function get width():Number{
+		return getWidth();
+	}
+	
+	/**
+	 * @see setHeight()
+	 */	
+	override public function set height(value:Number):void{
+		setHeight(value);
+	}
+	
+	/**
+	 * @see getHeight()
+	 */	
+	override public function get height():Number{
+		return getHeight();
+	}
+	
+	/**
+	 * @param ax
+	 * @see #getAlignmentX()
+	 */
+    public function setAlignmentX(ax:Number):void{
+    	if(alignmentX != ax){
+    		alignmentX = ax;
+    		repaint();
+    	}
+    }
+    
+    /**
+	 * @param ay
+	 * @see #getAlignmentY()
+     */
+    public function setAlignmentY(ay:Number):void{
+    	if(alignmentY != ay){
+    		alignmentY = ay;
+    		repaint();
+    	}
+    }		
+	
+	/**
+	 * Returns the alignment along the x axis. 
+	 * This specifies how the component would like to be aligned relative 
+	 * to its size when its size is maxer than its maximumSize. 
+	 * The value should be a number between 0 and 1 where 0 
+	 * represents alignment start from left, 1 is aligned the furthest 
+	 * away from the left, 0.5 is centered, etc. 
+	 * @return the alignment along the x axis, 0 by default
+	 */
+    public function getAlignmentX():Number{
+    	return alignmentX;
+    }
+
+	/**
+	 * Returns the alignment along the y axis. 
+	 * This specifies how the component would like to be aligned relative 
+	 * to its size when its size is maxer than its maximumSize. 
+	 * The value should be a number between 0 and 1 where 0 
+	 * represents alignment start from top, 1 is aligned the furthest 
+	 * away from the top, 0.5 is centered, etc. 
+	 * @return the alignment along the y axis, 0 by default
+	 */
+    public function getAlignmentY():Number{
+    	return alignmentY;
+    }
+    
+    /**
+     * Returns the value of the property with the specified key. 
+     * Only properties added with putClientProperty will return a non-null value.
+     * @param key the being queried
+     * @return the value of this property or null
+     * @see #putClientProperty()
+     */
+    public function getClientProperty(key:*):*{
+    	return clientProperty.get(key);
+    }
+    
+    /**
+     * Adds an arbitrary key/value "client property" to this component.
+     * <p>
+     * The <code>get/putClientProperty</code> methods provide access to 
+     * a small per-instance hashtable. Callers can use get/putClientProperty
+     * to annotate components that were created by another module.
+     * For example, a
+     * layout manager might store per child constraints this way. For example:
+     * <pre>
+     * componentA.putClientProperty("to the left of", componentB);
+     * </pre>
+     * @param key the new client property key
+     * @param value the new client property value
+     * @see #getClientProperty()
+     */    
+    public function putClientProperty(key:*, value:*):void{
+    	//Lazy initialization
+    	if(clientProperty == null){
+    		clientProperty = new HashMap();
+    	}
+    	clientProperty.put(key, value);
+    }
+	
+	/**
+	 * get the minimumSize from ui, if ui is null then Returns getInsets().roundsSize(new IntDimension(0, 0)).
+	 */
+	protected function countMinimumSize():IntDimension{		
+		if(ui != null){
+			return ui.getMinimumSize(this);
+		}else{
+			return getInsets().getOutsideSize(new IntDimension(0, 0));
+		}
+	}
+	
+	/**
+	 * get the maximumSize from ui, if ui is null then return a big dimension;
+	 * @see IntDimension#createBigDimension()
+	 */
+	protected function countMaximumSize():IntDimension{		
+		if(ui != null){
+			return ui.getMaximumSize(this);
+		}else{
+			return IntDimension.createBigDimension();
+		}
+	}
+	
+	/**
+	 * get the preferredSize from ui, if ui is null then just return the current size
+	 */
+	protected function countPreferredSize():IntDimension{
+		if(ui != null){
+			return ui.getPreferredSize(this);
+		}else{
+			return getSize();
+		}
+	}
+	
+	/**
+	 * @see #setMinimumSize()
+	 */
+	public function getMinimumSize():IntDimension{
+		if(minimumSize != null){
+			 return minimumSize.clone();
+		}else{
+			 return countMinimumSize();
+		}
+	}
+	
+	/**
+	 * @see #setMaximumSize()
+	 */	
+	public function getMaximumSize():IntDimension{
+		if(maximumSize != null){
+			return maximumSize.clone();
+		}else{
+			return countMaximumSize();
+		}
+	}
+	
+	/**
+	 * @see #setPreferredSize()
+	 */	
+	public function getPreferredSize():IntDimension{
+		if(preferredSize != null){
+			return preferredSize.clone();
+		}else{
+			return countPreferredSize();
+		}
+	}
+	
+	/**
+	 * setMinimumSize(d:IntDimension)<br>
+	 * setMinimumSize(width:Number, height:Number)
+	 * <p>
+	 * Set the minimumSize, then the component's minimumSize is
+	 * specified. otherwish getMinimumSize will can the count method.
+	 * @param arguments null to set minimumSize null then getMinimumSize will can the layout.
+	 * others set the minimumSize to be a specified size.
+	 * @see #getMinimumSize()
+	 */
+	public function setMinimumSize(minimumSize:IntDimension):void{
+		if(minimumSize == null){
+			this.minimumSize = null;
+		}else{
+			this.minimumSize = minimumSize.clone();
+		}
+	}
+	
+	/**
+	 * setMaximumSize(d:IntDimension)<br>
+	 * setMaximumSize(width:Number, height:Number)<br>
+	 * <p>
+	 * Set the maximumSize, then the component's maximumSize is
+	 * specified. otherwish getMaximumSize will can count method.
+	 * 
+	 * @param arguments null to set maximumSize null to make getMaximumSize will can the layout.
+	 * others set the maximumSize to be a specified size.
+	 * @see #getMaximumSize()
+	 * @see #MaximumSize()
+	 */	
+	public function setMaximumSize(maximumSize:IntDimension):void{
+		if(maximumSize == null){
+			this.maximumSize = null;
+		}else{
+			this.maximumSize = maximumSize.clone();
+		}
+	}
+	
+	/**
+	 * setPreferredSize(d:IntDimension)<br>
+	 * setPreferredSize(width:Number, height:Number)<br>
+	 * <p>
+	 * Set the preferredSize, then the component's preferredSize is
+	 * specified. otherwish getPreferredSize will count method.
+	 * 
+	 * @param arguments null to set preferredSize null to make getPreferredSize will call the layout,
+	 * others set the preferredSize to be a specified size.
+	 * @see #getPreferredSize()
+	 */	
+	public function setPreferredSize(preferredSize:IntDimension):void{
+		if(preferredSize == null){
+			this.preferredSize = null;
+		}else{
+			this.preferredSize = preferredSize.clone();
+		}
+	}	
+	
+	/**
+	 * Returns <code>getPreferredSize().width</code>
+	 * @see #getPreferredSize()
+	 */
+	public function getPreferredWidth():int {
+		return getPreferredSize().width;
+	}
+	/**
+	 * Calls <code>setPreferredSize(preferredWidth, getPreferredHeight())</code>
+	 * @see #setPreferredSize()
+	 */
+	public function setPreferredWidth(preferredWidth:int):void {
+		setPreferredSize(new IntDimension(preferredWidth, getPreferredHeight()));
+	}
+	/**
+	 * Returns <code>getPreferredSize().height</code>
+	 * @see #getPreferredSize()
+	 */
+	public function getPreferredHeight():int {
+		return getPreferredSize().height;
+	}
+	/**
+	 * Calls <code>setPreferredSize(getPreferredWidth(), preferredHeight)</code>
+	 * @see #setPreferredSize()
+	 */
+	public function setPreferredHeight(preferredHeight:int):void {
+		setPreferredSize(new IntDimension(getPreferredWidth(), preferredHeight));
+	}
+	/**
+	 * Returns <code>getMaximumSize().width</code>
+	 * @see #getMaximumSize()
+	 */
+	public function getMaximumWidth():int {
+		return getMaximumSize().width;
+	}
+	/**
+	 * Calls <code>setMaximumSize(maximumWidth, getMaximumHeight())</code>
+	 * @see #setMaximumSize()
+	 */
+	public function setMaximumWidth(maximumWidth:int):void {
+		setMaximumSize(new IntDimension(maximumWidth, getMaximumHeight()));
+	}
+	/**
+	 * Returns <code>getMaximumSize().height</code>
+	 * @see #getMaximumSize()
+	 */
+	public function getMaximumHeight():int {
+		return getMaximumSize().height;
+	}
+	/**
+	 * Calls <code>setMaximumSize(getMaximumWidth(), maximumHeight)</code>
+	 * @see #setMaximumSize()
+	 */
+	public function setMaximumHeight(maximumHeight:int):void {
+		setMaximumSize(new IntDimension(getMaximumWidth(), maximumHeight));
+	}
+	/**
+	 * Returns <code>getMinimumSize().width</code>
+	 * @see #getMinimumSize()
+	 */
+	public function getMinimumWidth():int {
+		return getMinimumSize().width;
+	}
+	/**
+	 * Calls <code>setMinimumSize(minimumWidth, getMinimumHeight())</code>
+	 * @see #setMinimumSize()
+	 */
+	public function setMinimumWidth(minimumWidth:int):void {
+		setMinimumSize(new IntDimension(minimumWidth, getMinimumHeight()));
+	}	
+	/**
+	 * Returns <code>getMinimumSize().height</code>
+	 * @see #getMinimumSize()
+	 */
+	public function getMinimumHeight():int {
+		return getMinimumSize().height;
+	}
+	/**
+	 * Calls <code>setMinimumSize(getMinimumWidth(), minimumHeight)</code>
+	 * @see #setMinimumSize()
+	 */
+	public function setMinimumHeight(minimumHeight:int):void {
+		setMinimumSize(new IntDimension(getMinimumWidth(), minimumHeight));
+	}
+	
+	/**
+	 * Sets the clip bounds, a rectangle mask to make specified bounds visible.
+	 * Null to make the componet mask whole rectangle(show all).
+	 */
+	public function setClipBounds(b:IntRectangle):void{
+		var changed:Boolean = false;
+		if(b == null && clipBounds != null){
+			clipBounds = null;
+			changed = true;
+		}else{
+			if(!b.equals(clipBounds)){
+				clipBounds = b.clone();
+				changed = true;
+			}
+		}
+		if(changed){
+			layoutClipAndTrigger(null);
+		}
+	}
+	
+	/**
+	 * Returns the clip bounds.
+	 * @see #setClipBounds()
+	 */
+	public function getClipBounds():IntRectangle{
+		if(clipBounds == null){
+			return null;
+		}
+		return clipBounds.clone();
+	}
+	
+	/**
+	 * Sets the clip size, a rectangle mask to make specified bounds visible.
+	 * This will be only in effect after component created and before next layout time.
+	 * @see #setClipBounds()
+	 */	
+	public function setClipSize(size:IntDimension):void{
+		if(clipBounds == null){
+			clipBounds = new IntRectangle();
+		}
+		clipBounds.setSize(size);
+		setClipBounds(clipBounds);
+	}
+	
+    /**
+     * Supports deferred automatic layout.  
+     * <p> 
+     * Calls <code>invalidateLayout</code> and then adds this component's
+     * <code>validateRoot</code> to a list of components that need to be
+     * validated.  Validation will occur after all currently pending
+     * events have been dispatched.  In other words after this method
+     * is called,  the first validateRoot (if any) found when walking
+     * up the containment hierarchy of this component will be validated.
+     * By default, <code>JPopup</code>, <code>JScrollPane</code>,
+     * and <code>JTextField</code> return true 
+     * from <code>isValidateRoot</code>.
+     * <p>
+     * This method will or will not automatically be called on this component 
+     * when a property value changes such that size, location, or 
+     * internal layout of this component has been affected.But invalidate
+     * will do called after thats method, so you want to get the contents of 
+     * the GUI to update you should call this method.
+     * <p>
+     *
+     * @see #invalidate()
+     * @see #validate()
+     * @see #isValidateRoot()
+     * @see RepaintManager#addInvalidComponent()
+     */
+	public function revalidate():void{
+    	invalidate();
+    	RepaintManager.getInstance().addInvalidComponent(this);
+    }
+        
+    public function revalidateIfNecessary():void{
+    	RepaintManager.getInstance().addInvalidComponent(this);
+    }
+	
+	/**
+	 * Redraws the component face next RENDER event.This method can
+     * be called often, so it needs to execute quickly.
+	 * @see org.aswing.RepaintManager
+	 */
+	public function repaint():void{
+		RepaintManager.getInstance().addRepaintComponent(this);
+	}
+	
+	public function reloacte():void{
+		//TODO imp
+	}
+	
+	/**
+	 * Do the process when size changed.
+	 */
+	protected function size():void{
+		repaint();
+		invalidate();
+	}
+	
+    /**
+     * Invalidates this component.  This component and all parents
+     * above it are marked as needing to be laid out.  This method can
+     * be called often, so it needs to execute quickly.
+     * @see       #validate()
+     * @see       #doLayout()
+     * @see       org.aswing.LayoutManager
+     */	
+	public function invalidate():void{
+    	valid = false;
+    	var par:Container = getParent();
+    	if(par != null && par.isValid()){
+    		par.invalidate();
+    	}
+	}
+	
+    /**
+     * Ensures that this component has a valid layout.  This method is
+     * primarily intended to operate on instances of <code>Container</code>.
+     * @see       #invalidate()
+     * @see       #doLayout()
+     * @see       org.aswing.LayoutManager
+     * @see       org.aswing.Container#validate()
+     */	
+	public function validate():void{
+    	if(!valid){
+    		valid = true;
+    	}
+	}
+	
+	/**
+	 * Redraw the component UI face immediately.
+	 * @see #repaint()
+	 */	
+	public function paintImmediately():void{
+		trace("paintImmediately");
+		if(isDisplayable() && isVisible()){
+			var paintBounds:IntRectangle = getPaintBoundsInRoot();
+			layoutClipAndTrigger(paintBounds);
+			paint(getInsets().getInsideBounds(paintBounds));
+		}
+	}	
+	/////////
+	/**
+	 * draw the component interface in specified bounds.
+	 * Sub class should override this method if you want to draw your component's face.
+	 * @param b this paiting bounds, it is opposite on the component corrdinarry.
+	 */
+	protected function paint(b:IntRectangle):void{
+		trace("paint");
+		var g:Graphics2D = new Graphics2D(graphics);
+		
+		if(backgroundDecorator != null){
+			backgroundDecorator.updateDecorator(this, g, b);
+		}
+		ui.paint(this, g, b);
+		//paint border at last to make it at the top depth
+		if(border != null){
+			// not that border is not painted in b, is painted in component's full size bounds
+			// because border are the rounds, others will painted in the border's bounds.
+			border.updateBorder(this, g, getInsets().getOutsideBounds(b));
+		}
+		if(foregroundDecorator != null){
+			foregroundDecorator.updateDecorator(this, g, b);
+		}
+		dispatchEvent(new AWEvent(AWEvent.PAINT, false, false));
+	}
+	
+	private function layoutClipAndTrigger(paintBounds:IntRectangle):void{
+		if(paintBounds == null){
+			paintBounds = getPaintBoundsInRoot();
+		}else{
+			paintBounds = paintBounds.clone();
+		}
+		if(clipBounds != null){
+			paintBounds.x = Math.max(paintBounds.x, clipBounds.x);
+			paintBounds.y = Math.max(paintBounds.y, clipBounds.y);
+			paintBounds.width = Math.min(paintBounds.width, clipBounds.width);
+			paintBounds.height = Math.min(paintBounds.height, clipBounds.height);
+		}
+		//this means the trigger and mask??
+		//TODO check this
+		scrollRect = paintBounds.toRectangle();
+	}
+
+	/**
+	 * get the simon-pure component paint bounds.
+	 * This is include insets range.
+	 * @see #getPaintBounds()
+	 */
+	private function getPaintBoundsInRoot():IntRectangle{
+		var minSize:IntDimension = getMinimumSize();
+		var maxSize:IntDimension = getMaximumSize();
+		var size:IntDimension = getSize();
+		var paintBounds:IntRectangle = new IntRectangle(0, 0, size.width, size.height);
+		//if it size max than maxsize, draw it as maxsize and then locate it in it size(the size max than maxsize)
+		if(size.width > maxSize.width){
+			paintBounds.width = maxSize.width;
+			paintBounds.x = (size.width-paintBounds.width)*getAlignmentX();
+		}
+		if(size.height > maxSize.height){
+			paintBounds.height = maxSize.height;
+			paintBounds.y = (size.height-paintBounds.height)*getAlignmentY();
+		}
+		//cannot paint its min than minsize
+		if(paintBounds.width < minSize.width) paintBounds.width = minSize.width;
+		if(paintBounds.height < minSize.height) paintBounds.height = minSize.height;
+		
+		return paintBounds;
+	}	
+		
+    /**
+     * Determines whether this component is valid. A component is valid
+     * when it is correctly sized within its parent
+     * container and all its children are also valid. components are invalidated
+     * before they are first shown on the screen. By the time the parent container 
+     * is fully realized, all its components will be valid.
+     * @return <code>true</code> if the component is valid, <code>false</code>
+     * otherwise
+     * @see #validate()
+     * @see #invalidate()
+     */
+    public function isValid():Boolean{
+    	return valid;
+    }
+	
+	/**
+	 * If this method returns true, revalidate calls by descendants of this 
+	 * component will cause the entire tree beginning with this root to be validated. 
+	 * Returns false by default. 
+	 * JScrollPane overrides this method and returns true. 
+	 * @return always returns false
+	 */
+	public function isValidateRoot():Boolean{
+		return false;
+	}	
+	
+	/**
+	 * Returns the parent component, if it parent is not a component, null will be returned
+	 */
+	public function getParent():Container{
+		var pa:Container = parent as Container;
+		return pa;
+	}
+	
+	/**
+	 * Removes this component from its parent
+	 */
+	public function removeFromContainer():void{
+		getParent().remove(this);
+	}
+	
+	/**
+	 * Sets component's constraints.
+	 * @param constraints the constraints to set
+	 */
+	public function setConstraints(constraints:Object):void {
+		this.constraints = constraints;	
+	}
+	
+	/**
+	 * Gets cpmponent's constraints.
+	 * @return component's constraints
+	 */
+	public function getConstraints():Object {
+		return constraints;
+	}
+	
+	override public function toString():String{
+		return Reflection.getClassName(this) + "[asset:" + super.toString() + "]";
+	}
+}
+
+
+}
