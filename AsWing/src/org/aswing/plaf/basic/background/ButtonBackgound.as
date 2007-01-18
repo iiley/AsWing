@@ -25,10 +25,10 @@ public class ButtonBackgound implements GroundDecorator{
 	
 
 	private function reloadColors(ui:ComponentUI):void{
-		shadow = ui.getDefaultInstance("Button.shadow");
-		darkShadow = ui.getDefaultInstance("Button.darkShadow");
-		highlight = ui.getDefaultInstance("Button.light");
-		lightHighlight = ui.getDefaultInstance("Button.highlight");
+		shadow = ui.getColor("Button.shadow");
+		darkShadow = ui.getColor("Button.darkShadow");
+		highlight = ui.getColor("Button.light");
+		lightHighlight = ui.getColor("Button.highlight");
 	}
 	
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
