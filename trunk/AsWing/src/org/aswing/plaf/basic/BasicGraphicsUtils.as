@@ -23,16 +23,16 @@ public class BasicGraphicsUtils{
 		var w:Number = r.width;
 		var h:Number = r.height;
 		
-		var brush:SolidBrush = SolidBrush.createBrush(darkShadow);
+		var brush:SolidBrush = new SolidBrush(darkShadow);
 		g.fillRectangleRingWithThickness(brush, x1, y1, w, h, 1);
 		
-        brush.setASColor(lightHighlight);
+        brush.setColor(lightHighlight);
         g.fillRectangleRingWithThickness(brush, x1, y1, w-1, h-1, 1);
         
-        brush.setASColor(highlight);
+        brush.setColor(highlight);
         g.fillRectangleRingWithThickness(brush, x1+1, y1+1, w-2, h-2, 1);
         
-        brush.setASColor(shadow);
+        brush.setColor(shadow);
         g.fillRectangle(brush, x1+w-2, y1+1, 1, h-2);
         g.fillRectangle(brush, x1+1, y1+h-2, w-2, 1);
 	}
@@ -49,16 +49,16 @@ public class BasicGraphicsUtils{
 		var w:Number = r.width;
 		var h:Number = r.height;
 		
-        var brush:SolidBrush = SolidBrush.createBrush(darkShadow);
+        var brush:SolidBrush = new SolidBrush(darkShadow);
 		g.fillRectangleRingWithThickness(brush, x1, y1, w, h, 1);
 		
-		brush.setASColor(darkShadow);
+		brush.setColor(darkShadow);
         g.fillRectangleRingWithThickness(brush, x1, y1, w-1, h-1, 1);
         
-        brush.setASColor(highlight);
+        brush.setColor(highlight);
         g.fillRectangleRingWithThickness(brush, x1+1, y1+1, w-2, h-2, 1);
         
-        brush.setASColor(highlight);
+        brush.setColor(highlight);
         g.fillRectangle(brush, x1+w-2, y1+1, 1, h-2);
         g.fillRectangle(brush, x1+1, y1+h-2, w-2, 1);
 	}
@@ -101,21 +101,19 @@ public class BasicGraphicsUtils{
         var w:Number = r.width - 1;
         var x:Number = r.x + 0.5;
         var y:Number = r.y + 0.5;
-        var pen:Pen = new Pen(
-        	lightHighlight.getRGB(), lightHighlight.getAlpha(), 1, 
-        	false, "normal", "square", "miter");
+        var pen:Pen = new Pen(lightHighlight, 1, false, "normal", "square", "miter");
         g.drawLine(pen, x, y, x, y+h-2);
         g.drawLine(pen, x+1, y, x+w-2, y);
 		
-		pen.setASColor(highlight);
+		pen.setColor(highlight);
         g.drawLine(pen, x+1, y+1, x+1, y+h-3);
         g.drawLine(pen, x+2, y+1, x+w-3, y+1);
 
-		pen.setASColor(darkShadow);
+		pen.setColor(darkShadow);
         g.drawLine(pen, x, y+h-1, x+w-1, y+h-1);
         g.drawLine(pen, x+w-1, y, x+w-1, y+h-2);
 
-		pen.setASColor(shadow);
+		pen.setColor(shadow);
         g.drawLine(pen, x+1, y+h-2, x+w-2, y+h-2);
         g.drawLine(pen, x+w-2, y+1, x+w-2, y+h-3);
     }
@@ -130,21 +128,19 @@ public class BasicGraphicsUtils{
         var w:Number = r.width - 1;
         var x:Number = r.x + 0.5;
         var y:Number = r.y + 0.5;
-		var pen:Pen = new Pen(
-        	shadow.getRGB(), shadow.getAlpha(), 1, 
-        	false, "normal", "square", "miter");
+		var pen:Pen = new Pen(shadow, 1, false, "normal", "square", "miter");
         g.drawLine(pen, x, y, x, y+h-1);
         g.drawLine(pen, x+1, y, x+w-1, y);
 
-       	pen.setASColor(darkShadow);
+       	pen.setColor(darkShadow);
         g.drawLine(pen, x+1, y+1, x+1, y+h-2);
         g.drawLine(pen, x+2, y+1, x+w-2, y+1);
 
-        pen.setASColor(lightHighlight);
+        pen.setColor(lightHighlight);
         g.drawLine(pen, x+1, y+h-1, x+w-1, y+h-1);
         g.drawLine(pen, x+w-1, y+1, x+w-1, y+h-2);
 
-        pen.setASColor(highlight);
+        pen.setColor(highlight);
         g.drawLine(pen, x+2, y+h-2, x+w-2, y+h-2);
         g.drawLine(pen, x+w-2, y+2, x+w-2, y+h-3);
     }
@@ -153,7 +149,7 @@ public class BasicGraphicsUtils{
 		var bgColor:ASColor = (c.getBackground() == null ? ASColor.WHITE : c.getBackground());
 		if(c.isOpaque()){
 			if(c.getModel().isArmed() || c.getModel().isSelected()){
-				g.fillRectangle(SolidBrush.createBrush(bgColor), b.x, b.y, b.width, b.height);
+				g.fillRectangle(new SolidBrush(bgColor), b.x, b.y, b.width, b.height);
 			}else{
 				drawControlBackground(g, b, bgColor, Math.PI/2);
 			}
@@ -161,7 +157,7 @@ public class BasicGraphicsUtils{
     }
 
 	public static function drawControlBackground(g:Graphics2D, b:IntRectangle, bgColor:ASColor, direction:Number):void{
-		g.fillRectangle(SolidBrush.createBrush(bgColor), b.x, b.y, b.width, b.height);
+		g.fillRectangle(new SolidBrush(bgColor), b.x, b.y, b.width, b.height);
 		var x:Number = b.x;
 		var y:Number = b.y;
 		var w:Number = b.width;

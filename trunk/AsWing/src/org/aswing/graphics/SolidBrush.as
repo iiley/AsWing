@@ -15,45 +15,29 @@ import org.aswing.graphics.IBrush;
  */
 public class SolidBrush implements IBrush{
 	
-	private var color:uint;
+	private var color:ASColor;
 	private var alpha:Number;
 	
-	public function SolidBrush(color:uint=0x000000, alpha:Number=1){
-		this.color=color;
-		this.alpha=alpha;
+	public function SolidBrush(color:ASColor){
+		this.color = color;
 	}
-	
-	public static function createBrush(c:ASColor):SolidBrush{
-		return new SolidBrush(c.getRGB(), c.getAlpha());
-	}
-	
-	public function getColor():uint{
+		
+	public function getColor():ASColor{
 		return color;
 	}
 	
 	/**
 	 * 
 	 */
-	public function setColor(color:uint):void{		
-		this.color=color;	
-	}
-	
-	/**
-	 * 
-	 */
-	public function setAlpha(alpha:Number):void{
-		this.alpha=alpha;
-	}
-	
-	public function getAlpha():Number{
-		return alpha;
+	public function setColor(color:ASColor):void{		
+		this.color = color;	
 	}
 	
 	/**
 	 * 
 	 */
 	public function beginFill(target:Graphics):void{
-		target.beginFill(color,alpha);
+		target.beginFill(color.getRGB(), color.getAlpha());
 	}
 	
 	/**
@@ -61,18 +45,6 @@ public class SolidBrush implements IBrush{
 	 */
 	public function endFill(target:Graphics):void{
 		target.endFill();
-	}
-	
-	/**
-	 * Set color through ASColor
-	 * @param color ASColor instance
-	 * @see org.aswing.ASColor
-	 */
-	public function setASColor(color:ASColor):void{
-		if(color != null){
-			this.color = color.getRGB();
-			this.alpha = color.getAlpha();
-		}
 	}
 }
 }

@@ -100,12 +100,21 @@ public class ASColor{
 		return (rgb & 0x000000FF);
 	}
 	
+	/**
+	 * Create a new <code>ASColor</code> with another alpha but same rgb.
+	 * @param alpha the new alpha
+	 * @return the new <code>ASColor</code>
+	 */
+	public function changeAlpha(alpha:Number):ASColor{
+		return new ASColor(getRGB(), alpha);
+	}
+	
     /**
-     * Creates a new <code>Color</code> that is a darker version of this
-     * <code>Color</code>.
+     * Creates a new <code>ASColor</code> that is a darker version of this
+     * <code>ASColor</code>.
      * @param factor the darker factor(0, 1), default is 0.7
      * @return     a new <code>ASColor</code> object that is  
-     *                 a darker version of this <code>Color</code>.
+     *                 a darker version of this <code>ASColor</code>.
      * @see        #brighter()
      */		
 	public function darker(factor:Number=0.7):ASColor{
@@ -116,11 +125,11 @@ public class ASColor{
 	}
 	
     /**
-     * Creates a new <code>Color</code> that is a brighter version of this
-     * <code>Color</code>.
+     * Creates a new <code>ASColor</code> that is a brighter version of this
+     * <code>ASColor</code>.
      * @param factor the birghter factor 0 to 1, default is 0.7
      * @return     a new <code>ASColor</code> object that is  
-     *                 a brighter version of this <code>Color</code>.
+     *                 a brighter version of this <code>ASColor</code>.
      * @see        #darker()
      */	
 	public function brighter(factor:Number=0.7):ASColor{
