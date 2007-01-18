@@ -5,7 +5,7 @@
 package org.aswing.plaf
 {
 	
-import org.aswing.Component;
+import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
  
@@ -47,25 +47,6 @@ public interface ComponentUI
      */
     function installUI(c:Component):void;
     
-    /**
-     * Puts a ui default value used to this UI instead of LAF defualt value.
-     * The values should be put before installing then it can be used.
-     * @param key the key.
-     * @param value the value.
-     */
-    function putDefault(key:String, value:*):void;
-    
-    /**
-     * Returns the default property for this UI of specified key.
-     * Generally, the ui will search the key in self holder that was put by 
-     * <code>putDefault</code> first, if it contains, then return it. If not 
-     * then it will call <code>UIManager.get</code> to get it from LAF defaults.
-     * @return the default property of specifiled key.
-     */
-    function getDefault(key:String):*;
-	
-	function getDefaultInstance(key:String):*;
-	
     /**
      * Reverses configuration which was done on the specified component during
      * <code>installUI</code>.  This method is invoked when this 
@@ -173,6 +154,49 @@ public interface ComponentUI
      * @see #getPreferredSize
      */
     function getMaximumSize(c:Component):IntDimension;
+    
+    //---------------
+    
+    /**
+     * Puts a ui default value used to this UI instead of LAF defualt value.
+     * The values should be put before installing then it can be used.
+     * @param key the key.
+     * @param value the value.
+     */
+    function putDefault(key:String, value:*):void;
+    
+    /**
+     * Returns the default property for this UI of specified key.
+     * Generally, the ui will search the key in self holder that was put by 
+     * <code>putDefault</code> first, if it contains, then return it. If not 
+     * then it will call <code>UIManager.get</code> to get it from LAF defaults.
+     * @return the default property of specifiled key.
+     */
+    function getDefault(key:String):*;;
+	
+	function getBoolean(key:String):Boolean;
+	
+	function getNumber(key:String):Number;
+	
+	function getInt(key:String):int;
+	
+	function getUint(key:String):uint;
+	
+	function getString(key:String):String;
+	
+	function getBorder(key:String):Border;
+	
+	function getIcon(key:String):Icon;
+	
+	function getGroundDecorator(key:String):GroundDecorator;
+	
+	function getColor(key:String):ASColor;
+	
+	function getFont(key:String):ASFont;
+	
+	function getInsets(key:String):Insets;
+	
+	function getInstance(key:String):Object;  
 }
 	
 }
