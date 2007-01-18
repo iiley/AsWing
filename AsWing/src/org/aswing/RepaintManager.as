@@ -45,9 +45,9 @@ public class RepaintManager
 		}
 		repaintQueue = new HashSet();
 		validateQueue = new HashSet();
-		timer = new Timer(40);
+		timer = new Timer(40, false);
 		timer.addActionListener(__render);
-		timer.start();
+		//timer.start();
 	}
 	
 	internal function initStage(theStage:Stage):void{
@@ -74,9 +74,7 @@ public class RepaintManager
 	 */
 	public function addRepaintComponent(com:Component):void{
 		repaintQueue.add(com);
-		if(stage != null){
-			stage.invalidate();
-		}
+		renderLater();
 	}
 	
 	/**
@@ -89,9 +87,7 @@ public class RepaintManager
 		var validateRoot:Component = getValidateRootComponent(com);
 		if(validateRoot != null){
 			validateQueue.add(validateRoot);
-		}
-		if(stage != null){
-			stage.invalidate();
+			renderLater();
 		}
 	}
 	
@@ -101,8 +97,16 @@ public class RepaintManager
 	 */	
 	public function addInvalidRootComponent(com:Component):void{
 		validateQueue.add(com);
+		renderLater();
+	}
+	
+	private function renderLater():void{
 		if(stage != null){
 			stage.invalidate();
+		}else{
+			if(!timer.isRunning()){
+				timer.start();
+			}
 		}
 	}
 	
