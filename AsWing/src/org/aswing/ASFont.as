@@ -6,6 +6,7 @@ package org.aswing
 {
 	
 import flash.text.TextFormat;
+import flash.text.TextField;
 
 /**
  * Font that specified the font name, size, style and whether or not embed.
@@ -13,13 +14,13 @@ import flash.text.TextFormat;
  */
 public class ASFont
 {
-	
  	private var name:String;
  	private var size:uint;
  	private var bold:Boolean;
  	private var italic:Boolean;
  	private var underline:Boolean;
  	private var embedFonts:Boolean;
+ 	private var textFormat:TextFormat;
  	
  	/**
  	 * Create a font.
@@ -31,6 +32,7 @@ public class ASFont
 		this.italic = italic;
 		this.underline = underline;
 		this.embedFonts = embedFonts;
+		textFormat = getTextFormat();
 	}
 	
 	public function getName():String{
@@ -55,6 +57,16 @@ public class ASFont
 	
 	public function isEmbedFonts():Boolean{
 		return embedFonts;
+	}
+	
+	/**
+	 * Applys the font to the specified text field.
+	 * @param textField the text filed to be applied font.
+	 * @param beginIndex The zero-based index position specifying the first character of the desired range of text. 
+	 * @param endIndex The zero-based index position specifying the last character of the desired range of text. 
+	 */
+	public function apply(textField:TextField, beginIndex:int=-1, endIndex:int=-1):void{
+		textField.setTextFormat(textFormat, beginIndex, endIndex);
 	}
 	
 	/**

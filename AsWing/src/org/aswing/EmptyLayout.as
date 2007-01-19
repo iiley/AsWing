@@ -45,10 +45,10 @@ public class EmptyLayout implements LayoutManager
     }
 	
 	/**
-	 * return new IntDimension(Number.MAX_VALUE, Number.MAX_VALUE);
+	 * return IntDimension.createBigDimension();
 	 */
     public function maximumLayoutSize(target:Container):IntDimension{
-    	return new IntDimension(Number.MAX_VALUE, Number.MAX_VALUE);
+    	return IntDimension.createBigDimension();
     }
     
     /**

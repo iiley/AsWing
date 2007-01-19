@@ -20,6 +20,17 @@ public class BaseComponentUI implements ComponentUI
 	
 	private var defaults:UIDefaults;
 	
+	
+	public function installUI(c:Component):void
+	{
+		throw new ImpMissError();
+	}
+	
+	public function uninstallUI(c:Component):void
+	{
+		throw new ImpMissError();
+	}
+	
 	public function putDefault(key:String, value:*):void
 	{
 		if(defaults == null){
@@ -36,43 +47,9 @@ public class BaseComponentUI implements ComponentUI
 		}
 	}
 	
-	public function getDefaultInstance(key:String):*{
-		if(containsDefaultsKey(key)){
-			return defaults.getInstance(key);
-		}else{
-			return UIManager.getInstance(key);
-		}
-	}
-	
-	public function getMaximumSize(c:Component):IntDimension
-	{
-		return IntDimension.createBigDimension();
-	}
-	
-	public function uninstallUI(c:Component):void
-	{
-		throw new ImpMissError();
-	}
-	
-	public function getMinimumSize(c:Component):IntDimension
-	{
-		return c.getInsets().getOutsideSize();
-	}
-	
-	public function getPreferredSize(c:Component):IntDimension
-	{
-		throw new ImpMissError();
-		return null;
-	}
-	
 	public function paint(c:Component, g:Graphics2D, b:IntRectangle):void
 	{
 		paintBackGround(c, g, b);
-	}
-	
-	public function installUI(c:Component):void
-	{
-		throw new ImpMissError();
 	}
 	
 	protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
@@ -80,6 +57,29 @@ public class BaseComponentUI implements ComponentUI
 			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
 		}
 	}	
+	
+	/**
+	 * Returns null
+	 */
+	public function getMaximumSize(c:Component):IntDimension
+	{
+		return null;
+	}
+	/**
+	 * Returns null
+	 */	
+	public function getMinimumSize(c:Component):IntDimension
+	{
+		return null;
+	}
+	/**
+	 * Returns null
+	 */	
+	public function getPreferredSize(c:Component):IntDimension
+	{
+		return null;
+	}
+	
 	//-----------------------------------------------------------
 	//           Convernent methods
 	//-----------------------------------------------------------

@@ -62,7 +62,6 @@ public class Timer extends AbstractImpulser implements Impulser{
     	isInitalFire = true;
     	clearInterval(intervalID);
     	intervalID = setInterval(fireActionPerformed, getInitialDelay());
-    	trace("intervalID = " + intervalID);
     }
     
     /**

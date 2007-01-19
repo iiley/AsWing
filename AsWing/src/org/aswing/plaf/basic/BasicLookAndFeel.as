@@ -36,7 +36,8 @@ public class BasicLookAndFeel extends LookAndFeel
 	
 	protected function initClassDefaults(table:UIDefaults):void{
 		var uiDefaults:Array = [
-			   "ButtonUI", org.aswing.plaf.basic.BasicButtonUI
+			   "ButtonUI", org.aswing.plaf.basic.BasicButtonUI, 
+			   "PanelUI", org.aswing.plaf.basic.BasicPanelUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -87,7 +88,7 @@ public class BasicLookAndFeel extends LookAndFeel
 	}
 	
 	protected function initComponentDefaults(table:UIDefaults):void{
-	   // *** JButton
+		// *** Button
 	    var comDefaults:Array = [
 	    	"Button.background", new ASColorUIResource(0xE7E7E5),
 	    	"Button.foreground", table.get("controlText"),
@@ -104,6 +105,15 @@ public class BasicLookAndFeel extends LookAndFeel
 		];
 	    table.putDefaults(comDefaults);
 	    
+		// *** Panel
+	    comDefaults = [
+	    	"Panel.background", table.get("window"),
+	    	"Panel.foreground", table.get("windowText"),
+	    	"Panel.opaque", false,  
+	    	"Panel.focusable", false,
+        	"Panel.font", table.getFont("windowFont")
+		];
+	    table.putDefaults(comDefaults);
 	}
 	
 }

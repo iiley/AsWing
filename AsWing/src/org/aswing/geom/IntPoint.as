@@ -130,6 +130,7 @@ public class IntPoint{
      */
 	public function equals(o:Object):Boolean{
 		var toCompare:IntPoint = o as IntPoint;
+		if(toCompare == null) return false;
 		return x===toCompare.x && y===toCompare.y;
 	}
 

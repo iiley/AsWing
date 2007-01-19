@@ -42,7 +42,6 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 	
 	public function BasicButtonUI(){
 		super();
-		trace("BasicButtonUI construct!!");
 	}
 
     protected function getPropertyPrefix():String {

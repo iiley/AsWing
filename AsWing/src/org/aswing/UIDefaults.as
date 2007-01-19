@@ -141,7 +141,6 @@ public class UIDefaults extends HashMap
 	
 	public function getInstance(key:String):Object{
 		var value:* = this.get(key);
-		trace(key + " ui default is " + value);
 		if(value is Class){
 			return getCreateInstance(value as Class);
 		}else{

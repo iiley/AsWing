@@ -115,6 +115,7 @@ public class IntDimension{
 	 */
 	public function equals(o:Object):Boolean{
 		var d:IntDimension = o as IntDimension;
+		if(d == null) return false;
 		return width===d.width && height===d.height;
 	}
 
@@ -135,7 +136,7 @@ public class IntDimension{
 	}
 	
 	public function toString():String{
-		return "IntDimension("+width+","+height+")";
+		return "IntDimension["+width+","+height+"]";
 	}
 }
 

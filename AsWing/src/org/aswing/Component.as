@@ -94,6 +94,7 @@ public class Component extends AWSprite
 	
 	private var bounds:IntRectangle
 	private var clipBounds:IntRectangle;
+	private var clipMasked:Boolean;
 	private var background:ASColor;
 	private var foreground:ASColor;
 	private var backgroundDecorator:GroundDecorator;
@@ -113,6 +114,7 @@ public class Component extends AWSprite
 		alignmentX = 0;
 		alignmentY = 0;
 		bounds = new IntRectangle();
+		clipMasked = true;
 		opaque = false;
 		valid = false;
 		fontValidated = false;
@@ -400,7 +402,7 @@ public class Component extends AWSprite
 	 * Determines whether or not this component is on display list.
 	 */
 	public function isDisplayable():Boolean{
-		return this.stage != null;
+		return stage != null;
 	}
 	
 	/**
@@ -660,8 +662,7 @@ public class Component extends AWSprite
 		var oldPos:IntPoint = bounds.getLocation();
 		if(!newPos.equals(oldPos)){
 			bounds.setLocation(newPos);
-			super.x = newPos.x;
-			super.y = newPos.y;
+			locate();
 			dispatchEvent(new MovedEvent(oldPos, newPos));
 			//TODO check
 			//revalidateIfNecessary(); or invalidate() or do nothing?
@@ -823,7 +824,37 @@ public class Component extends AWSprite
 	 */
 	public function isEnabled():Boolean{
 		return mouseEnabled;
-	}	
+	}
+	
+	/**
+	 * Locate the component to the current location.
+	 */
+	protected function locate():void{
+		var _x:Number = getX();
+		var _y:Number = getY();
+		if(scrollRect != null){
+			_x += scrollRect.x;
+			_y += scrollRect.y;
+		}
+		d_x = _x;
+		d_y = _y;
+	}
+	
+	/**
+	 * Sets <code>DisplayObject.x</code> directly.
+	 * @param value the x coordinats
+	 */
+	protected function set d_x(value:Number):void{
+		super.x = value;
+	}
+	
+	/**
+	 * Sets <code>DisplayObject.y</code> directly.
+	 * @param value the y coordinats
+	 */	
+	protected function set d_y(value:Number):void{
+		super.y = value;
+	}
 	
 	/**
 	 * @see #setX()
@@ -1158,6 +1189,34 @@ public class Component extends AWSprite
 		setMinimumSize(new IntDimension(getMinimumWidth(), minimumHeight));
 	}
 	
+	
+	/**
+	 * Sets whether the component clip should be masked by its bounds. By default it is true.
+	 * <p>
+	 * AsWing A3 use <code>scrollRect</code> property to do the clip mask.
+	 * </p>
+	 * @param m whether the component clip should be masked.
+	 * @see #isClipMasked()
+	 */
+	public function setClipMasked(m:Boolean):void{
+		if(m != clipMasked){
+			clipMasked = m;
+			layoutClipAndTrigger(null);
+		}
+	}
+	
+	/**
+	 * Returns whether the component clip should be masked by its bounds. By default it is true.
+	 * <p>
+	 * AsWing A3 use <code>scrollRect</code> property to do the clip mask.
+	 * </p>
+	 * @return whether the component clip should be masked.
+	 * @see #setClipMasked()
+	 */
+	public function isClipMasked():Boolean{
+		return clipMasked;
+	}	
+	
 	/**
 	 * Sets the clip bounds, a rectangle mask to make specified bounds visible.
 	 * Null to make the componet mask whole rectangle(show all).
@@ -1244,11 +1303,7 @@ public class Component extends AWSprite
 	public function repaint():void{
 		RepaintManager.getInstance().addRepaintComponent(this);
 	}
-	
-	public function reloacte():void{
-		//TODO imp
-	}
-	
+		
 	/**
 	 * Do the process when size changed.
 	 */
@@ -1292,7 +1347,7 @@ public class Component extends AWSprite
 	 * @see #repaint()
 	 */	
 	public function paintImmediately():void{
-		if(isDisplayable() && isVisible()){
+		if(isVisible()){
 			var paintBounds:IntRectangle = getPaintBoundsInRoot();
 			layoutClipAndTrigger(paintBounds);
 			paint(getInsets().getInsideBounds(paintBounds));
@@ -1310,7 +1365,9 @@ public class Component extends AWSprite
 		if(backgroundDecorator != null){
 			backgroundDecorator.updateDecorator(this, g, b);
 		}
-		ui.paint(this, g, b);
+		if(ui != null){
+			ui.paint(this, g, b);
+		}
 		//paint border at last to make it at the top depth
 		if(border != null){
 			// not that border is not painted in b, is painted in component's full size bounds
@@ -1323,6 +1380,7 @@ public class Component extends AWSprite
 		dispatchEvent(new AWEvent(AWEvent.PAINT, false, false));
 	}
 	
+	private var lastScrollRect:IntRectangle;
 	private function layoutClipAndTrigger(paintBounds:IntRectangle):void{
 		if(paintBounds == null){
 			paintBounds = getPaintBoundsInRoot();
@@ -1337,7 +1395,19 @@ public class Component extends AWSprite
 		}
 		//this means the trigger and mask??
 		//TODO check this
-		scrollRect = paintBounds.toRectangle();
+		if(clipMasked){
+			if(!paintBounds.equals(lastScrollRect)){
+				scrollRect = paintBounds.toRectangle();
+				lastScrollRect = paintBounds;
+				locate();
+			}
+		}else{
+			if(lastScrollRect != null){
+				scrollRect = null;
+				lastScrollRect = null;
+				locate();
+			}
+		}
 	}
 
 	/**
@@ -1389,6 +1459,10 @@ public class Component extends AWSprite
 	 * @return always returns false
 	 */
 	public function isValidateRoot():Boolean{
+		if(stage != null && getParent() == null){
+			//TODO check this
+			return true;
+		}
 		return false;
 	}	
 	
