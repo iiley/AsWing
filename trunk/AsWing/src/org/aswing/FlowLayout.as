@@ -264,7 +264,6 @@ public class FlowLayout extends EmptyLayout{
 		var start:int = 0;
 
         var ltr:Boolean = true;
-
 		for (var i:int = 0 ; i < nmembers ; i++) {
 	    	var m:Component = target.getComponent(i);
 	    	if (m.isVisible()) {

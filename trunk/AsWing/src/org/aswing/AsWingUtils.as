@@ -75,7 +75,7 @@ public class AsWingUtils
      * 
      */
     public static function applyTextFont(text:TextField, font:ASFont):void{
-    	applyTextFormat(text, font.getTextFormat());
+    	font.apply(text);
     }
     
     /**
@@ -360,25 +360,6 @@ public class AsWingUtils
             //end binary search
             textR.width = lastWidth;
             return "";
-            
-            /*
-            //the old arithmetic
-            var mCharWidth:Number = charWidth(tf, "i");
-            for(nChars = 0; nChars < text.length; nChars++) {
-                lastWidth = totalWidth;
-                totalWidth += charWidth(tf, text.charAt(nChars));
-                if (totalWidth > availTextWidth) {
-                    break;
-                }
-            }
-            if(nChars > 0){
-                text = text.substring(0, nChars) + clipString;
-            }else{
-                text = clipString;
-            }
-            textR.width = lastWidth;
-            return text;
-            */
         }
     }    
 }

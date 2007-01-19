@@ -63,8 +63,8 @@ import org.aswing.geom.*;
 public class Container extends Component
 {
 
-	private var children:Array;
-	private var layout:LayoutManager;
+	protected var children:Array;
+	protected var layout:LayoutManager;
 		
 	public function Container()
 	{
@@ -123,7 +123,7 @@ public class Container extends Component
 	 * layout this container
 	 */
 	public function doLayout():void{
-		if(isDisplayable() && isVisible()){
+		if(isVisible()){
 			layout.layoutContainer(this);
 		}
 	}
@@ -198,7 +198,6 @@ public class Container extends Component
 		if(com is Container){
 			for(var cn:Container = this; cn != null; cn = cn.getParent()) {
                 if (cn == com) {
-                	trace("adding container's parent to itself");
                 	throw new Error("adding container's parent to itself");
                 }
             }

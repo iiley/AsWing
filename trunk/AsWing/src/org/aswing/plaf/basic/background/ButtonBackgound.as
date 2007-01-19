@@ -20,7 +20,6 @@ public class ButtonBackgound implements GroundDecorator{
     private var lightHighlight:ASColor;
     
 	public function ButtonBackgound(){
-		trace("ButtonBackgound construct!");
 	} 
 	
 
