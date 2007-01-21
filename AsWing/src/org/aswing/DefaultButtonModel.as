@@ -13,12 +13,12 @@ import org.aswing.event.*;
  */
 public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
 	
-	private var group:ButtonGroup;
-	private var enabled:Boolean;
-	private var rollOver:Boolean;
-	private var armed:Boolean;
-	private var pressed:Boolean;
-	private var selected:Boolean;
+	protected var group:ButtonGroup;
+	protected var enabled:Boolean;
+	protected var rollOver:Boolean;
+	protected var armed:Boolean;
+	protected var pressed:Boolean;
+	protected var selected:Boolean;
 	
 	public function DefaultButtonModel(){
 		super();
@@ -109,6 +109,17 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
 	public function setGroup(group:ButtonGroup):void{
 		this.group = group;
 	}
+	
+    /**
+     * Returns the group that this button belongs to.
+     * Normally used with radio buttons, which are mutually
+     * exclusive within their group.
+     *
+     * @return a <code>ButtonGroup</code> that this button belongs to
+     */
+    public function getGroup():ButtonGroup {
+        return group;
+    }	
 	
 	public function addActionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
 		addEventListener(AWEvent.ACT, listener, false, priority);

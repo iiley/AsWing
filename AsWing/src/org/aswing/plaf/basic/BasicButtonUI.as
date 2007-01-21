@@ -151,7 +151,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 
         // layout the text and icon
         var text:String = AsWingUtils.layoutCompoundLabel(
-            c.getFont(), b.getText(), b.getIcon(), 
+            c.getFont(), b.getText(), getIconToLayout(), 
             b.getVerticalAlignment(), b.getHorizontalAlignment(),
             b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
             viewRect, iconRect, textRect, 
@@ -172,6 +172,10 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         }
     }
     
+    protected function getIconToLayout():Icon{
+    	return button.getIcon();
+    }
+    
     /**
      * do nothing here, let background decorator to paint the background
      */
@@ -182,7 +186,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     /**
      * paint the text to specified button with specified bounds
      */
-    private function paintText(b:AbstractButton, textRect:IntRectangle, text:String):void{
+    protected function paintText(b:AbstractButton, textRect:IntRectangle, text:String):void{
     	var model:ButtonModel = b.getModel();
     	var font:ASFont = b.getFont();
     	
@@ -205,7 +209,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     /**
      * paint the icon to specified button's mc with specified bounds
      */
-    private function paintIcon(b:AbstractButton, g:Graphics2D, iconRect:IntRectangle):void{
+    protected function paintIcon(b:AbstractButton, g:Graphics2D, iconRect:IntRectangle):void{
         var model:ButtonModel = b.getModel();
         var icon:Icon = b.getIcon();
         var tmpIcon:Icon = null;
@@ -213,7 +217,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         var icons:Array = getIcons();
         for(var i:int=0; i<icons.length; i++){
         	var ico:Icon = icons[i];
-        	ico.getDisplay().visible = false;
+			setIconVisible(ico, false);
         }
         
 	    if(icon == null) {
@@ -245,13 +249,19 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 		if(tmpIcon != null) {
 			icon = tmpIcon;
 		}
-        icon.getDisplay().visible = true;
+		setIconVisible(icon, true);
 		if(model.isPressed() && model.isArmed()) {
 			icon.updateIcon(b, g, iconRect.x + getTextShiftOffset(),
                         iconRect.y + getTextShiftOffset());
 		}else{
 			icon.updateIcon(b, g, iconRect.x, iconRect.y);
 		}
+    }
+    
+    private function setIconVisible(icon:Icon, visible:Boolean):void{
+    	if(icon.getDisplay() != null){
+    		icon.getDisplay().visible = visible;
+    	}
     }
     
     protected function getIcons():Array{
@@ -326,16 +336,12 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     
     override public function getPreferredSize(c:Component):IntDimension{
     	var b:AbstractButton = AbstractButton(c);
-    	var icon:Icon = b.getIcon();
-    	var text:String = b.getText();
-    	return getButtonPreferredSize(b, icon, text);
+    	return getButtonPreferredSize(b, getIconToLayout(), b.getText());
     }
 
     override public function getMinimumSize(c:Component):IntDimension{
     	var b:AbstractButton = AbstractButton(c);
-    	var icon:Icon = b.getIcon();
-    	var text:String = b.getText();
-    	return getButtonMinimumSize(b, icon, text);
+    	return getButtonMinimumSize(b, getIconToLayout(), b.getText());
     }
 
     override public function getMaximumSize(c:Component):IntDimension{

@@ -8,6 +8,7 @@ package org.aswing.plaf.basic
 import org.aswing.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.background.ButtonBackgound;
+import org.aswing.plaf.basic.icon.CheckBoxIcon;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -37,7 +38,10 @@ public class BasicLookAndFeel extends LookAndFeel
 	protected function initClassDefaults(table:UIDefaults):void{
 		var uiDefaults:Array = [
 			   "ButtonUI", org.aswing.plaf.basic.BasicButtonUI, 
-			   "PanelUI", org.aswing.plaf.basic.BasicPanelUI
+			   "PanelUI", org.aswing.plaf.basic.BasicPanelUI, 
+			   "ToggleButtonUI", org.aswing.plaf.basic.BasicToggleButtonUI,
+			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
+			   "CheckBoxUI", org.aswing.plaf.basic.BasicCheckBoxUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -88,9 +92,10 @@ public class BasicLookAndFeel extends LookAndFeel
 	}
 	
 	protected function initComponentDefaults(table:UIDefaults):void{
+		var buttonBG:ASColorUIResource = new ASColorUIResource(0xE7E7E5);
 		// *** Button
 	    var comDefaults:Array = [
-	    	"Button.background", new ASColorUIResource(0xE7E7E5),
+	    	"Button.background", buttonBG,
 	    	"Button.foreground", table.get("controlText"),
 	    	"Button.opaque", true,  
 	    	"Button.focusable", true,  
@@ -112,6 +117,57 @@ public class BasicLookAndFeel extends LookAndFeel
 	    	"Panel.opaque", false,  
 	    	"Panel.focusable", false,
         	"Panel.font", table.getFont("windowFont")
+		];
+	    table.putDefaults(comDefaults);
+	    
+		// *** ToggleButton
+	    comDefaults = [
+	    	"ToggleButton.background", buttonBG,
+	    	"ToggleButton.foreground", table.get("controlText"),
+	    	"ToggleButton.opaque", true, 
+	    	"ToggleButton.focusable", true, 
+	    	"ToggleButton.shadow", table.getColor("controlShadow"),        
+        	"ToggleButton.darkShadow", table.getColor("controlDkShadow"),        
+        	"ToggleButton.light", table.getColor("controlHighlight"),       
+       		"ToggleButton.highlight", table.getColor("controlLtHighlight"),
+        	"ToggleButton.font", table.getFont("controlFont"),
+			"ToggleButton.bg", org.aswing.plaf.basic.background.ToggleButtonBackground,
+			"ToggleButton.margin", new InsetsUIResource(2, 2, 2, 2), 
+			"ToggleButton.textShiftOffset", 1
+		];
+	    table.putDefaults(comDefaults);
+	    
+		// *** RadioButton
+	    comDefaults = [
+	    	"RadioButton.background", table.get("control"),
+	    	"RadioButton.foreground", table.get("controlText"),
+	    	"RadioButton.opaque", false, 
+	    	"RadioButton.focusable", true, 
+	    	"RadioButton.shadow", table.getColor("controlShadow"),        
+        	"RadioButton.darkShadow", table.getColor("controlDkShadow"),        
+        	"RadioButton.light", table.getColor("controlHighlight"),       
+       		"RadioButton.highlight", table.getColor("controlLtHighlight"),
+        	"RadioButton.font", table.getFont("controlFont"),
+		    "RadioButton.icon", org.aswing.plaf.basic.icon.RadioButtonIcon,
+			"RadioButton.margin", new InsetsUIResource(0, 0, 0, 0), 
+			"RadioButton.textShiftOffset", 1
+		];
+	    table.putDefaults(comDefaults);
+	    
+		// *** CheckBox
+	    comDefaults = [
+	    	"CheckBox.background", table.get("control"),
+	    	"CheckBox.foreground", table.get("controlText"),
+	    	"CheckBox.opaque", false, 
+	    	"CheckBox.focusable", true, 
+	    	"CheckBox.shadow", table.getColor("controlShadow"),        
+        	"CheckBox.darkShadow", table.getColor("controlDkShadow"),        
+        	"CheckBox.light", table.getColor("controlHighlight"),       
+       		"CheckBox.highlight", table.getColor("controlLtHighlight"),
+        	"CheckBox.font", table.getFont("controlFont"),
+		    "CheckBox.icon", org.aswing.plaf.basic.icon.CheckBoxIcon,
+			"CheckBox.margin", new InsetsUIResource(0, 0, 0, 0), 
+			"CheckBox.textShiftOffset", 1
 		];
 	    table.putDefaults(comDefaults);
 	}
