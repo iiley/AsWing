@@ -2,24 +2,24 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 package org.aswing.util{
-/**
- * Provides common routines for classes implemented
- * {@link org.aswing.util.Impulse} interface. 
- *
- * @author iiley
- * @author Igor Sadovskiy
- */
+	
  
 import flash.events.EventDispatcher
 import org.aswing.event.AWEvent;
 
+/**
+ * Provides common routines for classes implemented
+ * <code>Impulse</code> interface. 
+ *
+ * @author iiley
+ * @author Igor Sadovskiy
+ */
 public class AbstractImpulser extends EventDispatcher implements Impulser{
 	protected var delay:uint;
 	protected var initialDelay:int;
 	protected var repeats:Boolean;
 	protected var isInitalFire:Boolean;
-	
-	
+		
 	/**
 	 * Constructs <code>AbstractImpulser</code>.
      * @throws Error when init delay <= 0 or delay == null
@@ -32,21 +32,25 @@ public class AbstractImpulser extends EventDispatcher implements Impulser{
 	}
 	
     /**
-     * addActionListener(fuc:Function, obj:Object)<br>
-     * addActionListener(fuc:Function)<br>
-     * 
      * Adds an action listener to the <code>AbstractImpulser</code>
      * instance.
      *
-     * @param fuc the listener function.
-     * @param obj which context to run in by the func.
-     * @return the listener just added.
-     * 
-     * @see org.aswing.EventDispatcher#addEventListener()
-     * @see org.aswing.EventDispatcher#ON_ACT
+	 * @param listener the listener
+	 * @param priority the priority
+	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
+	 * @see org.aswing.event.AWEvent#ACT
      */	
-	public function addActionListener(func:Function):void{
-		 addEventListener(AWEvent.ACT, func);
+	public function addActionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
+		 addEventListener(AWEvent.ACT, listener, false, priority, useWeakReference);
+	}
+	
+	/**
+	 * Removes a action listener.
+	 * @param listener the listener to be removed.
+	 * @see org.aswing.event.AWEvent#ACT
+	 */
+	public function removeActionListener(listener:Function):void{
+		this.removeEventListener(AWEvent.ACT, listener);
 	}
 	
     /**

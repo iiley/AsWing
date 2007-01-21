@@ -16,12 +16,19 @@ public interface Impulser{
      * Adds an action listener to the <code>Impulser</code>
      * instance.
      *
-     * @param fuc the listener function.
-     * 
-     * @see org.aswing.EventDispatcher#addEventListener()
-     * @see org.aswing.EventDispatcher#ON_ACT
-     */	
-	 function addActionListener(func:Function):void;
+	 * @param listener the listener
+	 * @param priority the priority
+	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
+	 * @see org.aswing.event.AWEvent#ACT
+	 */
+	function addActionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void;
+	
+	/**
+	 * Removes a action listener.
+	 * @param listener the listener to be removed.
+	 * @see org.aswing.event.AWEvent#ACT
+	 */
+	function removeActionListener(listener:Function):void;	
 	
     /**
      * Sets the <code>Impulser</code>'s delay between fired events.
