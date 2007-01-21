@@ -27,6 +27,9 @@ package org.aswing
  * <b>Note: </b><br>
  * A button is triggered when it is both "armed" and "pressed".
  * 
+ * <p>
+ * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
+ * </p>
  * @author iiley
  */	
 public interface ButtonModel
@@ -42,6 +45,9 @@ public interface ButtonModel
 	 * <li>released</li>
 	 * <li>selected</li>
 	 * </ul>
+	 * </p>
+	 * <p>
+	 * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
 	 * </p>
 	 * @param listener the listener
 	 * @param priority the priority
@@ -59,8 +65,10 @@ public interface ButtonModel
 	
 	/**
 	 * Adds a listener to listen the Model's act event.
-	 * <p>
 	 * When the button model's armed and pressed to fire this event.
+	 * <p>
+	 * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
+	 * </p>
 	 * @param listener the listener
 	 * @param priority the priority
 	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.

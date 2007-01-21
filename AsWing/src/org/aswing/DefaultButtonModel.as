@@ -130,19 +130,19 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
 	}
 	
 	public function addSelectionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
-		addEventListener(AWEvent.SELECTION_CHANGED, listener, false, priority);
+		addEventListener(InteractiveEvent.SELECTION_CHANGED, listener, false, priority);
 	}
 	
 	public function removeSelectionListener(listener:Function):void{
-		removeEventListener(AWEvent.SELECTION_CHANGED, listener);
+		removeEventListener(InteractiveEvent.SELECTION_CHANGED, listener);
 	}
 	
 	public function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
-		addEventListener(AWEvent.STATE_CHANGED, listener, false, priority);
+		addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);
 	}
 	
 	public function removeStateListener(listener:Function):void{
-		removeEventListener(AWEvent.STATE_CHANGED, listener);
+		removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
 	}
 	
 	protected function fireActionEvent():void{
@@ -150,11 +150,11 @@ public class DefaultButtonModel extends EventDispatcher implements ButtonModel{
 	}
 	
 	protected function fireStateChanged():void{
-		dispatchEvent(new AWEvent(AWEvent.STATE_CHANGED));
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED));
 	}
 	
 	protected function fireSelectionChanged():void{
-		dispatchEvent(new AWEvent(AWEvent.SELECTION_CHANGED));
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED));
 	}
 }
 }
