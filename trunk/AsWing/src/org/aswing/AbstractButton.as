@@ -5,14 +5,14 @@
 package org.aswing
 {
 
-import org.aswing.event.AWEvent;
+import org.aswing.event.*;
 import org.aswing.plaf.*;
 import org.aswing.error.ImpMissError;
 import flash.events.MouseEvent;
 import flash.events.Event;	
 	
 /**
- *  Dispatched when the button's state changed. the state is all about:
+ * Dispatched when the button's state changed. the state is all about:
  * <ul>
  * <li>enabled</li>
  * <li>rollOver</li>
@@ -21,15 +21,21 @@ import flash.events.Event;
  * <li>selected</li>
  * </ul>
  * </p>
- *  @eventType org.aswing.event.AWEvent.STATE_CHANGED
+ * <p>
+ * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
+ * </p>
+ * @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
  */
-[Event(name="stateChanged", type="org.aswing.event.AWEvent")]
+[Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
 	
 /**
  *  Dispatched when the button's selection changed.
- *  @eventType org.aswing.event.AWEvent.SELECTION_CHANGED
+ * <p>
+ * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
+ * </p>
+ *  @eventType org.aswing.event.InteractiveEvent.SELECTION_CHANGED
  */
-[Event(name="selectionChanged", type="org.aswing.event.AWEvent")]
+[Event(name="selectionChanged", type="org.aswing.event.InteractiveEvent")]
 
 /**
  * Defines common behaviors for buttons and menu items.
@@ -225,7 +231,7 @@ public class AbstractButton extends Component
 	 * @see org.aswing.event.AWEvent#SELECTION_CHANGED
 	 */	
 	public function addSelectionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
-		addEventListener(AWEvent.SELECTION_CHANGED, listener, false, priority);
+		addEventListener(InteractiveEvent.SELECTION_CHANGED, listener, false, priority);
 	}
 
 	/**
@@ -234,7 +240,7 @@ public class AbstractButton extends Component
 	 * @see org.aswing.event.AWEvent#SELECTION_CHANGED
 	 */
 	public function removeSelectionListener(listener:Function):void{
-		removeEventListener(AWEvent.SELECTION_CHANGED, listener);
+		removeEventListener(InteractiveEvent.SELECTION_CHANGED, listener);
 	}
 	
 	/**
@@ -255,7 +261,7 @@ public class AbstractButton extends Component
 	 * @see org.aswing.event.AWEvent#STATE_CHANGED
 	 */	
 	public function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
-		addEventListener(AWEvent.STATE_CHANGED, listener, false, priority);
+		addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);
 	}	
 	
 	/**
@@ -264,7 +270,7 @@ public class AbstractButton extends Component
 	 * @see org.aswing.event.AWEvent#STATE_CHANGED
 	 */	
 	public function removeStateListener(listener:Function):void{
-		removeEventListener(AWEvent.STATE_CHANGED, listener);
+		removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
 	}
 	
     /**
@@ -795,11 +801,11 @@ public class AbstractButton extends Component
 	}
 	
 	private function __modelStateListener(e:AWEvent):void{
-		dispatchEvent(new AWEvent(AWEvent.STATE_CHANGED));
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED));
 	}
 	
 	private function __modelSelectionListener(e:AWEvent):void{
-		dispatchEvent(new AWEvent(AWEvent.SELECTION_CHANGED));
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED));
 	}
 	
 }

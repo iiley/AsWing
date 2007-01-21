@@ -170,6 +170,26 @@ public class BasicLookAndFeel extends LookAndFeel
 			"CheckBox.textShiftOffset", 1
 		];
 	    table.putDefaults(comDefaults);
+	    
+	    // *** ScrollBar
+	    comDefaults = [
+	    	"ScrollBar.background", new ASColorUIResource(0xD0D0D0),
+	    	"ScrollBar.foreground", table.get("controlText"),
+    		"ScrollBar.opaque", true,  
+    		"ScrollBar.focusable", true, 
+        	"ScrollBar.font", table.getFont("controlFont"),
+	    	"ScrollBar.border", undefined,
+		    "ScrollBar.thumbBackground", table.get("control"),
+		    "ScrollBar.thumbShadow", table.get("controlShadow"),
+		    "ScrollBar.thumbDarkShadow", table.get("controlDkShadow"),
+		    "ScrollBar.thumbHighlight", table.get("controlHighlight"),
+		    "ScrollBar.thumbLightHighlight", table.get("controlLtHighlight"),
+		    "ScrollBar.thumbDecorator", table.get("controlLtHighlight"),
+		    "ScrollBar.arrowShadowColor", new ASColorUIResource(0x000000),
+		    "ScrollBar.arrowLightColor", new ASColorUIResource(0x444444)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
 	}
 	
 }
