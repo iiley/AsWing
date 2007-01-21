@@ -4,7 +4,7 @@
 
 package org.aswing.plaf.basic.icon
 {
-	
+
 import flash.display.DisplayObject;
 
 import org.aswing.*;
@@ -13,22 +13,22 @@ import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.UIResource;
 import flash.geom.Matrix;
 
-public class CheckBoxIcon implements Icon, UIResource
-{    
+public class RadioButtonIcon implements Icon, UIResource
+{
 	private var shadow:ASColor;
     private var darkShadow:ASColor;
     private var highlight:ASColor;
     private var lightHighlight:ASColor;
 	
-	public function CheckBoxIcon(){
+	public function RadioButtonIcon(){
 		
 	}
 	
 	private function reloadColors(ui:ComponentUI):void{
-		shadow = ui.getColor("CheckBox.shadow");
-		darkShadow = ui.getColor("CheckBox.darkShadow");
-		highlight = ui.getColor("CheckBox.light");
-		lightHighlight = ui.getColor("CheckBox.highlight");
+		shadow = ui.getColor("RadioButton.shadow");
+		darkShadow = ui.getColor("RadioButton.darkShadow");
+		highlight = ui.getColor("RadioButton.light");
+		lightHighlight = ui.getColor("RadioButton.highlight");
 	}
 	
 	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void{
@@ -38,16 +38,16 @@ public class CheckBoxIcon implements Icon, UIResource
 		var rb:AbstractButton = AbstractButton(c);
 		var model:ButtonModel = rb.getModel();
 		var drawDot:Boolean = model.isSelected();
-				
+		
 		var periphery:ASColor = darkShadow;
-		var middle:ASColor = darkShadow;
+		var middle:ASColor = highlight;
 		var inner:ASColor = shadow;
 		var dot:ASColor = rb.getForeground();
 		
 		// Set up colors per RadioButtonModel condition
 		if (!model.isEnabled()) {
 			periphery = middle = inner = rb.getBackground();
-			dot = darkShadow;;
+			dot = darkShadow;
 		} else if (model.isPressed()) {
 			periphery = shadow;
 			inner = darkShadow;
@@ -59,25 +59,25 @@ public class CheckBoxIcon implements Icon, UIResource
 		var cy:Number = y + h/2;
 		var xr:Number = w/2;
 		var yr:Number = h/2;
-				
+		
 		var brush:SolidBrush = new SolidBrush(darkShadow);
-		g.fillRectangle(brush,x, y, w, h);
-		       
-        brush.setColor(highlight);
-        g.fillRectangle(brush,x+1, y+1, w-2, h-2);
-       
+		g.fillEllipse(brush, x, y, w, h);
+		brush.setColor(highlight);
+		g.fillEllipse(brush, x+1, y+1, w-2, h-2);
+        
         var colors:Array = [0xDCDBD8, 0xffffff];
 		var alphas:Array = [1, 1];
 		var ratios:Array = [0, 255];
 		var matrix:Matrix = new Matrix();
-		matrix.createGradientBox(w-3, h-3, (45/180)*Math.PI, x+2, y+2);     
+		matrix.createGradientBox(w-3, h-3, (45/180)*Math.PI, x+2, y+2);    
 	    var gbrush:GradientBrush = new GradientBrush(GradientBrush.LINEAR, colors, alphas, ratios, matrix);
-	    g.fillRectangle(gbrush,x+2,y+2,w-4,h-4);
-       		
+	    g.fillEllipse(gbrush, x+2, y+2, w-4, h-4);
+		
 		if(drawDot){
-			var pen:Pen = new Pen(dot, 2);
-			g.drawLine(pen, cx-w/2+3, cy, cx-w/2/3, cy+h/2-3);
-			g.drawLine(pen, cx-w/2/3, cy+h/2-1, cx+w/2, cy-h/2+1);
+			xr = w/5;
+			yr = h/5;
+			brush = new SolidBrush(dot);
+			g.fillEllipse(brush, cx-xr, cy-yr, xr*2, yr*2);			
 		}
 	}
 	

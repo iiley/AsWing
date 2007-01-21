@@ -104,6 +104,7 @@ public class Component extends AWSprite
 	private var opaque:Boolean;
 	private var opaqueSet:Boolean = false;
 	private var border:Border;
+	private var enabled:Boolean;
 	
 	public function Component()
 	{
@@ -117,6 +118,7 @@ public class Component extends AWSprite
 		clipMasked = true;
 		opaque = false;
 		valid = false;
+		enabled = true;
 		fontValidated = false;
 		border = DefaultEmptyDecoraterResource.INSTANCE;
 		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
@@ -811,8 +813,8 @@ public class Component extends AWSprite
 	 * @param b true to enable the component, false to disable it.
 	 */
 	public function setEnabled(b:Boolean):void{
-		//TODO super.mouseEnabled
-		if(mouseEnabled != b){
+		if(enabled != b){
+			enabled = b;
 			mouseEnabled = b;
 			repaint();
 		}
@@ -823,7 +825,7 @@ public class Component extends AWSprite
 	 * @see #setEnabled()
 	 */
 	public function isEnabled():Boolean{
-		return mouseEnabled;
+		return enabled;
 	}
 	
 	/**
@@ -1360,6 +1362,7 @@ public class Component extends AWSprite
 	 * @param b this paiting bounds, it is opposite on the component corrdinarry.
 	 */
 	protected function paint(b:IntRectangle):void{
+		graphics.clear();
 		var g:Graphics2D = new Graphics2D(graphics);
 		
 		if(backgroundDecorator != null){

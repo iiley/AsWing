@@ -163,7 +163,7 @@ public class BasicGraphicsUtils{
 		var w:Number = b.width;
 		var h:Number = b.height;
         var colors:Array = [0xFFFFFF, 0xFFFFFF];
-		var alphas:Array = [75, 0];
+		var alphas:Array = [0.75, 0];
 		var ratios:Array = [0, 100];
 		var matrix:Matrix = new Matrix();
 		matrix.createGradientBox(w, h, direction, x, y);       
