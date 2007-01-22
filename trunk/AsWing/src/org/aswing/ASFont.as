@@ -67,6 +67,7 @@ public class ASFont
 	 */
 	public function apply(textField:TextField, beginIndex:int=-1, endIndex:int=-1):void{
 		textField.setTextFormat(textFormat, beginIndex, endIndex);
+		textField.defaultTextFormat = textFormat;
 	}
 	
 	/**

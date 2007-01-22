@@ -88,6 +88,10 @@ public class Component extends AWSprite
 	private var minimumSize:IntDimension;
 	private var maximumSize:IntDimension;
 	private var preferredSize:IntDimension;
+	private var cachePreferSizes:Boolean;
+	private var cachedPreferredSize:IntDimension;
+	private var cachedMinimumSize:IntDimension;
+	private var cachedMaximumSize:IntDimension;
 	private var constraints:Object;
 	
 	protected var valid:Boolean;
@@ -119,6 +123,7 @@ public class Component extends AWSprite
 		opaque = false;
 		valid = false;
 		enabled = true;
+		cachePreferSizes = true;
 		fontValidated = false;
 		border = DefaultEmptyDecoraterResource.INSTANCE;
 		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
@@ -1044,13 +1049,48 @@ public class Component extends AWSprite
 	}
 	
 	/**
+	 * Sets whether or not turn on the preferred size, minimum size and 
+	 * max size cache. By default, this is true(means turned on).
+	 * <p>
+	 * If this is turned on, the size count will be very fast as most time. 
+	 * So suggest you that do not turn off it unless you have your personal reason.
+	 * </p>
+	 * @param b true to turn on it, false trun off it.
+	 */
+	public function setCachePreferSizes(b:Boolean):void{
+		cachePreferSizes = b;
+		if(!b){
+	    	cachedMaximumSize = null;
+	    	cachedMinimumSize = null;
+	    	cachedPreferredSize = null;			
+		}
+	}
+	
+	/**
+	 * Returns whether or not the preferred size, minimum size and 
+	 * max size cache is turned on.
+	 * @return whether or not the preferred size, minimum size and 
+	 * max size cache is turned on.
+	 */
+	public function isCachePreferSizes():Boolean{
+		return cachePreferSizes;
+	}
+	
+	/**
 	 * @see #setMinimumSize()
 	 */
 	public function getMinimumSize():IntDimension{
 		if(minimumSize != null){
-			 return minimumSize.clone();
+			return minimumSize.clone();
+		}else if(isCachePreferSizes() && cachedMinimumSize != null){
+			return cachedMinimumSize.clone();
 		}else{
-			 return countMinimumSize();
+			if(isCachePreferSizes()){
+				cachedMinimumSize = countMinimumSize();
+				return cachedMinimumSize;
+			}else{
+				return countMinimumSize();
+			}
 		}
 	}
 	
@@ -1060,8 +1100,15 @@ public class Component extends AWSprite
 	public function getMaximumSize():IntDimension{
 		if(maximumSize != null){
 			return maximumSize.clone();
+		}else if(isCachePreferSizes() && cachedMaximumSize != null){
+			return cachedMaximumSize.clone();
 		}else{
-			return countMaximumSize();
+			if(isCachePreferSizes()){
+				cachedMaximumSize = countMaximumSize();
+				return cachedMaximumSize;
+			}else{
+				return countMaximumSize();
+			}
 		}
 	}
 	
@@ -1071,8 +1118,15 @@ public class Component extends AWSprite
 	public function getPreferredSize():IntDimension{
 		if(preferredSize != null){
 			return preferredSize.clone();
+		}else if(isCachePreferSizes() && cachedPreferredSize != null){
+			return cachedPreferredSize.clone();
 		}else{
-			return countPreferredSize();
+			if(isCachePreferSizes()){
+				cachedPreferredSize = countPreferredSize();
+				return cachedPreferredSize;
+			}else{
+				return countPreferredSize();
+			}
 		}
 	}
 	
@@ -1351,6 +1405,9 @@ public class Component extends AWSprite
      */	
 	public function invalidate():void{
     	valid = false;
+    	cachedMaximumSize = null;
+    	cachedMinimumSize = null;
+    	cachedPreferredSize = null;
     	var par:Container = getParent();
     	if(par != null && par.isValid()){
     		par.invalidate();
