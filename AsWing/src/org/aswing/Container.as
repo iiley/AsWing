@@ -191,7 +191,7 @@ public class Container extends Component
 	 * @param forceChildIndex the index to force the child to be added(for DisplayContainer scope), 
 	 * 			default -1 means not force.
 	 */
-	protected function insertImp(i:int, com:Component, constraints:Object, forceChildIndex:int=-1):void{
+	protected function insertImp(i:int, com:Component, constraints:Object=null, forceChildIndex:int=-1):void{
 		if(i > getComponentCount()){
 			throw new Error("illegal component position when insert comp to container");
 		}

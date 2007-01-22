@@ -27,11 +27,11 @@ import org.aswing.event.AWEvent;
  * <pre>
  *  var delay:Number = 1000; //milliseconds
  *  var listener:Object = new Object();
- *  listener.taskPerformer = function() {
+ *  listener.taskPerformer = function(e:Event) {
  *          <em>//...Perform a task...</em>
  *      }
  *  var timer:Timer = new Timer(delay);
- *  timer.addActionListener(listener.taskPerformer, listener);
+ *  timer.addActionListener(listener.taskPerformer);
  *  timer.start();
  * </pre>
  *
