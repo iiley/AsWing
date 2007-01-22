@@ -7,6 +7,15 @@ package org.aswing
 	
 import flash.display.DisplayObject;
 import flash.display.Sprite;
+import flash.events.*;
+import org.aswing.event.AWEvent;
+
+/**
+ *  Dispatched when the mouse released or released out side.
+ *
+ *  @eventType org.aswing.event.AWEvent.RELEASE
+ */
+[Event(name="release", type="org.aswing.event.AWEvent")]
 
 /**
  * AsWing component based Sprite.
@@ -29,6 +38,7 @@ public class AWSprite extends Sprite
 	
 	public function AWSprite(){
 		super();
+		addEventListener(MouseEvent.MOUSE_DOWN, __awSpriteMouseDownListener);
 	}
 	
 	/**
@@ -127,6 +137,14 @@ public class AWSprite extends Sprite
 	protected function getForegroundChild():DisplayObject{
 		return foregroundChild;
 	}
+	
+	private function __awSpriteMouseDownListener(e:MouseEvent):void{
+		stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
+	}
+	private function __awStageMouseUpListener(e:MouseEvent):void{
+		stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
+		dispatchEvent(new AWEvent(AWEvent.RELEASE));
+	}	
 	
 	override public function toString():String{
 		var p:DisplayObject = this;

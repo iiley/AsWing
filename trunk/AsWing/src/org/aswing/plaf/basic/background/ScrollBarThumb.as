@@ -13,6 +13,7 @@ import org.aswing.plaf.ComponentUI;
 import flash.display.Sprite;
 import org.aswing.geom.IntDimension;
 import flash.events.*;
+import org.aswing.event.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 
 /**
@@ -26,7 +27,7 @@ public class ScrollBarThumb implements GroundDecorator
     private var thumbLightShadowColor:ASColor;
     private var thumbDarkShadowColor:ASColor;
     private var thumbColor:ASColor;
-    private var thumb:Sprite;
+    private var thumb:AWSprite;
     private var size:IntDimension;
     private var verticle:Boolean;
         
@@ -34,7 +35,7 @@ public class ScrollBarThumb implements GroundDecorator
 	protected var pressed:Boolean;
     
 	public function ScrollBarThumb(){
-		thumb = new Sprite();
+		thumb = new AWSprite();
 		rollover = false;
 		pressed = false;
 		initSelfHandlers();
@@ -104,7 +105,7 @@ public class ScrollBarThumb implements GroundDecorator
 		thumb.addEventListener(MouseEvent.ROLL_OUT, __rollOutListener);
 		thumb.addEventListener(MouseEvent.ROLL_OVER, __rollOverListener);
 		thumb.addEventListener(MouseEvent.MOUSE_DOWN, __mouseDownListener);
-		thumb.addEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
+		thumb.addEventListener(AWEvent.RELEASE, __mouseUpListener);
 	}
 	
 	private function __rollOverListener(e:Event):void{
@@ -119,16 +120,9 @@ public class ScrollBarThumb implements GroundDecorator
 	}
 	private function __mouseDownListener(e:Event):void{
 		pressed = true;
-		stage.addEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
 		paint();
 	}
 	private function __mouseUpListener(e:Event):void{
-		pressed = false;
-		stage.removeEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
-		paint();
-	}
-	private function __stageMouseUpListener(e:MouseEvent):void{
-		stage.removeEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
 		if(pressed){
 			pressed = false;
 			paint();

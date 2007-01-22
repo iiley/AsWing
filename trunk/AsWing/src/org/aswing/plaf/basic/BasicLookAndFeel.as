@@ -9,6 +9,7 @@ import org.aswing.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.background.ButtonBackgound;
 import org.aswing.plaf.basic.icon.CheckBoxIcon;
+import org.aswing.plaf.basic.background.ScrollBarThumb;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -41,7 +42,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "PanelUI", org.aswing.plaf.basic.BasicPanelUI, 
 			   "ToggleButtonUI", org.aswing.plaf.basic.BasicToggleButtonUI,
 			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
-			   "CheckBoxUI", org.aswing.plaf.basic.BasicCheckBoxUI
+			   "CheckBoxUI", org.aswing.plaf.basic.BasicCheckBoxUI, 
+			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -178,13 +180,12 @@ public class BasicLookAndFeel extends LookAndFeel
     		"ScrollBar.opaque", true,  
     		"ScrollBar.focusable", true, 
         	"ScrollBar.font", table.getFont("controlFont"),
-	    	"ScrollBar.border", undefined,
 		    "ScrollBar.thumbBackground", table.get("control"),
 		    "ScrollBar.thumbShadow", table.get("controlShadow"),
 		    "ScrollBar.thumbDarkShadow", table.get("controlDkShadow"),
 		    "ScrollBar.thumbHighlight", table.get("controlHighlight"),
 		    "ScrollBar.thumbLightHighlight", table.get("controlLtHighlight"),
-		    "ScrollBar.thumbDecorator", table.get("controlLtHighlight"),
+		    "ScrollBar.thumbDecorator", org.aswing.plaf.basic.background.ScrollBarThumb,
 		    "ScrollBar.arrowShadowColor", new ASColorUIResource(0x000000),
 		    "ScrollBar.arrowLightColor", new ASColorUIResource(0x444444)
 	    ];

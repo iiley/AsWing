@@ -97,7 +97,7 @@ public class IntPoint{
 	 * Returns the point beside this point with direction and distance.
 	 * @return the point beside.
 	 */
-	public function nextPoint(direction:int, distance:int):IntPoint{
+	public function nextPoint(direction:Number, distance:Number):IntPoint{
 		return new IntPoint(x+Math.cos(direction)*distance, y+Math.sin(direction)*distance);
 	}
 	
