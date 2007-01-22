@@ -8,6 +8,7 @@ import org.aswing.EmptyLayout;
 import org.aswing.geom.IntDimension;
 import org.aswing.Insets;
 import org.aswing.geom.IntPoint;
+import org.aswing.util.Reflection;
 
 /**
  * A flow layout arranges components in a left-to-right flow, much
@@ -159,7 +160,9 @@ public class FlowLayout extends EmptyLayout{
     public function setVgap(vgap:int):void {
 		this.vgap = vgap;
     }
-
+	
+	private var cachedPreferredSize:IntDimension;
+	
     /**
      * Returns the preferred dimensions for this layout given the 
      * <i>visible</i> components in the specified target container.
@@ -170,6 +173,10 @@ public class FlowLayout extends EmptyLayout{
      * @see #doLayout()
      */
     override public function preferredLayoutSize(target:Container):IntDimension {
+    	checkContainer(target);
+    	if(cachedPreferredSize != null){
+    		return cachedPreferredSize.clone();
+    	}
 		var dim:IntDimension = new IntDimension(0, 0);
 		var nmembers:int = target.getComponentCount();
 
@@ -189,7 +196,27 @@ public class FlowLayout extends EmptyLayout{
 		var insets:Insets = target.getInsets();
 		dim.width += insets.left + insets.right + hgap*2;
 		dim.height += insets.top + insets.bottom + vgap*2;
+		cachedPreferredSize = dim;
     	return dim;
+    }
+    
+    /**
+     * do nothing
+     */
+    override public function invalidateLayout(target:Container):void{
+    	checkContainer(target);
+    	cachedPreferredSize = null;
+    }		    
+    
+    private var alone_target:Container;
+    private function checkContainer(target:Container):void{
+    	if(alone_target == null){
+    		alone_target = target;
+    		return;
+    	}
+    	if(alone_target != target){
+    		throw new Error(Reflection.getClassName(this) + " can't be shared!");
+    	}
     }
 
     /**
@@ -203,8 +230,17 @@ public class FlowLayout extends EmptyLayout{
      * @see Container#doLayout()
      */
     override public function minimumLayoutSize(target:Container):IntDimension {
+    	checkContainer(target);
 		return target.getInsets().getOutsideSize();
     }
+    
+	/**
+	 * return IntDimension.createBigDimension();
+	 */
+    override public function maximumLayoutSize(target:Container):IntDimension{
+    	checkContainer(target);
+    	return IntDimension.createBigDimension();
+    }    
     
     /**
      * Centers the elements in the specified row, if there is any slack.
@@ -254,6 +290,7 @@ public class FlowLayout extends EmptyLayout{
      * @see Container#doLayout
      */
     override public function layoutContainer(target:Container):void {
+    	checkContainer(target);
 		var insets:Insets = target.getInsets();
 	    var td:IntDimension = target.getSize();
 		var maxwidth:int = td.width - (insets.left + insets.right + hgap*2);
