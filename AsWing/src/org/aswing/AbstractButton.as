@@ -391,11 +391,22 @@ public class AbstractButton extends Component
 		return text;
 	}
 	
+	protected function installIcon(icon:Icon):void{
+		if(icon != null && icon.getDisplay() != null){
+			addChild(icon.getDisplay());
+		}
+	}
+	protected function uninstallIcon(icon:Icon):void{
+		if(icon != null && icon.getDisplay() != null){
+			removeChild(icon.getDisplay());
+		}
+	}
+	
 	public function setIcon(defaultIcon:Icon):void{
 		if(this.defaultIcon != defaultIcon){
-			removeChild(this.defaultIcon.getDisplay());
+			uninstallIcon(this.defaultIcon);
 			this.defaultIcon = defaultIcon;
-			addChild(this.defaultIcon.getDisplay());
+			installIcon(defaultIcon);
 			repaint();
 			invalidate();
 		}
@@ -423,8 +434,8 @@ public class AbstractButton extends Component
         var oldValue:Icon = this.pressedIcon;
         this.pressedIcon = pressedIcon;
         if (pressedIcon != oldValue) {
-        	removeChild(oldValue.getDisplay());
-        	addChild(pressedIcon.getDisplay());
+        	uninstallIcon(oldValue);
+        	installIcon(pressedIcon);
 			//if (getModel().isPressed()) {
                 repaint();
             //}
@@ -449,8 +460,8 @@ public class AbstractButton extends Component
         var oldValue:Icon = this.selectedIcon;
         this.selectedIcon = selectedIcon;
         if (selectedIcon != oldValue) {
-        	removeChild(oldValue.getDisplay());
-        	addChild(selectedIcon.getDisplay());
+        	uninstallIcon(oldValue);
+        	installIcon(selectedIcon);
             //if (isSelected()) {
                 repaint();
             //}
@@ -476,8 +487,8 @@ public class AbstractButton extends Component
         this.rolloverIcon = rolloverIcon;
         setRollOverEnabled(true);
         if (rolloverIcon != oldValue) {
-        	removeChild(oldValue.getDisplay());
-        	addChild(rolloverIcon.getDisplay());
+        	uninstallIcon(oldValue);
+        	installIcon(rolloverIcon);
 			//if(getModel().isRollOver()){
             	repaint();
             //}
@@ -505,8 +516,8 @@ public class AbstractButton extends Component
         this.rolloverSelectedIcon = rolloverSelectedIcon;
         setRollOverEnabled(true);
         if (rolloverSelectedIcon != oldValue) {
-        	removeChild(oldValue.getDisplay());
-        	addChild(rolloverSelectedIcon.getDisplay());
+        	uninstallIcon(oldValue);
+        	installIcon(rolloverSelectedIcon);
             //if (isSelected()) {
                 repaint();
             //}
@@ -545,8 +556,8 @@ public class AbstractButton extends Component
         var oldValue:Icon = this.disabledIcon;
         this.disabledIcon = disabledIcon;
         if (disabledIcon != oldValue) {
-        	removeChild(oldValue.getDisplay());
-        	addChild(disabledIcon.getDisplay());
+        	uninstallIcon(oldValue);
+        	installIcon(disabledIcon);
             //if (!isEnabled()) {
                 repaint();
             //}
@@ -587,8 +598,8 @@ public class AbstractButton extends Component
         var oldValue:Icon = this.disabledSelectedIcon;
         this.disabledSelectedIcon = disabledSelectedIcon;
         if (disabledSelectedIcon != oldValue) {
-        	removeChild(oldValue.getDisplay());
-        	addChild(disabledSelectedIcon.getDisplay());
+        	uninstallIcon(oldValue);
+        	installIcon(disabledSelectedIcon);
             //if (!isEnabled() && isSelected()) {
                 repaint();
                 revalidate();
@@ -763,7 +774,7 @@ public class AbstractButton extends Component
 		addEventListener(MouseEvent.ROLL_OUT, __rollOutListener);
 		addEventListener(MouseEvent.ROLL_OVER, __rollOverListener);
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDownListener);
-		addEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
+		addEventListener(AWEvent.RELEASE, __mouseUpListener);
 	}
 	
 	private function __rollOverListener(e:Event):void{
@@ -783,17 +794,10 @@ public class AbstractButton extends Component
 	private function __mouseDownListener(e:Event):void{
 		getModel().setArmed(true);
 		getModel().setPressed(true);
-		stage.addEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
 	}
 	private function __mouseUpListener(e:Event):void{
 		getModel().setPressed(false);
 		getModel().setArmed(false);
-		stage.removeEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
-	}
-	private function __stageMouseUpListener(e:MouseEvent):void{
-		getModel().setPressed(false);
-		getModel().setArmed(false);
-		stage.removeEventListener(MouseEvent.MOUSE_UP, __stageMouseUpListener);
 	}
 	
 	private function __modelActionListener(e:AWEvent):void{

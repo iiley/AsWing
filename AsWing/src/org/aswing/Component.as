@@ -608,6 +608,33 @@ public class Component extends AWSprite
     public function getAlpha():Number{
     	return alpha;
     }
+    
+    /**
+     * Returns the coordinate of the mouse position, in pixels, in the component scope.
+     * @return the coordinate of the mouse position.
+     */
+    public function getMousePosition():IntPoint{
+    	return new IntPoint(mouseX, mouseY);
+    }
+		
+	/**
+	 * Returns the bounds that component should paint in.
+	 * <p>
+	 * This is same to some paint method param b:Rectangle.
+	 * So if you want to paint outside those method, you can get the 
+	 * rectangle from here.
+	 * 
+	 * If this component has a little maximum size, and then current 
+	 * size is larger, the bounds return from this method will be related 
+	 * to <code>getAlignmentX<code>, <code>getAlignmentY<code> and <code>getMaximumSize<code>.
+	 * @return return the rectangle that component should paint in.
+	 * @see #getAlignmentX()
+	 * @see #getAlignmentY()
+	 * @see #getMaximumSize()
+	 */
+	public function getPaintBounds():IntRectangle{
+		return getInsets().getInsideBounds(getPaintBoundsInRoot());
+	}		
 		
 	/**
 	 * Moves and resizes this component. The new location of the top-left corner is specified by x and y, and the new size is specified by width and height. 
