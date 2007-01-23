@@ -207,7 +207,6 @@ public class GridLayout extends EmptyLayout{
 				h = d.height;
 			}
 		}
-		trace("prefer size : " + (new IntDimension((((insets.left + insets.right) + (ncols * w)) + ((ncols - 1) * hgap)), (((insets.top + insets.bottom) + (nrows * h)) + ((nrows - 1) * vgap)))) );
 		return new IntDimension((((insets.left + insets.right) + (ncols * w)) + ((ncols - 1) * hgap)), (((insets.top + insets.bottom) + (nrows * h)) + ((nrows - 1) * vgap))); 	
     }
 
@@ -246,7 +245,6 @@ public class GridLayout extends EmptyLayout{
 			for (var r:int = 0; r < nrows; r++){
 				var i:int = ((r * ncols) + c);
 				if (i < ncomponents){
-					trace((new IntRectangle(x, y, w, h)) + " set to " + target.getComponent(i));
 					target.getComponent(i).setBounds(new IntRectangle(x, y, w, h));
 				}
 				y += (h + vgap);

@@ -47,7 +47,6 @@ public class RepaintManager
 		validateQueue = new HashSet();
 		timer = new Timer(40, false);
 		timer.addActionListener(__render);
-		//timer.start();
 	}
 	
 	internal function initStage(theStage:Stage):void{
@@ -59,6 +58,10 @@ public class RepaintManager
 	
 	internal function isStageInited():Boolean{
 		return stage != null;
+	}
+	
+	internal function getStage():Stage{
+		return stage;
 	}
 	
 	public static function getInstance():RepaintManager{

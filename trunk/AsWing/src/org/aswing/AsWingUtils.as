@@ -9,7 +9,8 @@ import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
-import org.aswing.geom.*;	
+import org.aswing.geom.*;
+import flash.display.DisplayObjectContainer;	
 	
 public class AsWingUtils
 {
@@ -59,6 +60,28 @@ public class AsWingUtils
     	TEXT_FIELD.autoSize = TextFieldAutoSize.LEFT;
     	TEXT_FIELD.type = TextFieldType.DYNAMIC;
     }
+    
+    private static var ROOT:DisplayObjectContainer=null;
+    
+    /**
+     * Sets the root container for components base on. 
+     * Default is <code>RepaintManager.getInstance().getStage()</code>.
+     */
+    public static function setRoot(root:DisplayObjectContainer):void{
+        ROOT = root;
+    } 
+    
+    /**
+     * Returns the root container which components base on. or symbol libraray located in.
+     * @return the root container, or null--not root set and <code>RepaintManager</code> not stage inited.
+     * @see #setRoot()
+     */ 
+    public static function getRoot():DisplayObjectContainer{
+        if(ROOT == null){
+            return RepaintManager.getInstance().getStage();
+        }
+        return ROOT;
+    }    
     
     /**
      * Apply the font and color to the textfield.
