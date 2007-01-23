@@ -25,6 +25,8 @@ public class ContainerEvent extends AWEvent
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>getContainer()</code></td><td>the container who just be added a child.</td></tr>
+     *     <tr><td><code>getChild()</code></td><td>the added child.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -48,6 +50,8 @@ public class ContainerEvent extends AWEvent
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>getContainer()</code></td><td>the container who just be removed a child.</td></tr>
+     *     <tr><td><code>getChild()</code></td><td>the removed child.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,

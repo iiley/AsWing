@@ -52,14 +52,14 @@ public interface ButtonModel
 	 * @param listener the listener
 	 * @param priority the priority
 	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
-	 * @see org.aswing.event.AWEvent#STATE_CHANGED
+	 * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
 	 */
 	function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void;
 	
 	/**
 	 * Removes a state listener.
 	 * @param listener the listener to be removed.
-	 * @see org.aswing.event.AWEvent#STATE_CHANGED
+	 * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
 	 */
 	function removeStateListener(listener:Function):void;
 	
@@ -89,14 +89,14 @@ public interface ButtonModel
 	 * @param listener the listener
 	 * @param priority the priority
 	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
-	 * @see org.aswing.event.AWEvent#SELECTION_CHANGED
+	 * @see org.aswing.event.InteractiveEvent#SELECTION_CHANGED
 	 */	
 	function addSelectionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void;
 	
 	/**
 	 * Removes a selection listener.
 	 * @param listener the listener to be removed.
-	 * @see org.aswing.event.AWEvent#SELECTION_CHANGED
+	 * @see org.aswing.event.InteractiveEvent#SELECTION_CHANGED
 	 */
 	function removeSelectionListener(listener:Function):void;
 		

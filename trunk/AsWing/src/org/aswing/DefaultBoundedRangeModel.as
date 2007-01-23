@@ -82,7 +82,7 @@ public class DefaultBoundedRangeModel extends EventDispatcher implements Bounded
 	}
 	
 	public function setValueIsAdjusting(b:Boolean):void{
-		setRangeProperties(value, extent, min, max, b);
+		setRangeProperties(value, extent, min, max, b, false);
 	}
 	
 	public function getValueIsAdjusting():Boolean{

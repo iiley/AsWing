@@ -20,6 +20,8 @@ public class MovedEvent extends AWEvent
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>getOldLocation()</code></td><td>the old location</td></tr>
+     *     <tr><td><code>getNewLocation()</code></td><td>the new location</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
