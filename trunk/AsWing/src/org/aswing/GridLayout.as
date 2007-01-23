@@ -116,7 +116,6 @@ public class GridLayout extends EmptyLayout{
      */
     public function setRows(rows:int):void {
 		if ((rows == 0) && (this.cols == 0)) {
-	    	trace("rows and cols cannot both be zero");
 	    	throw new Error("rows and cols cannot both be zero");
 		}
 		this.rows = rows;
@@ -145,7 +144,6 @@ public class GridLayout extends EmptyLayout{
      */
     public function setColumns(cols:int):void {
 		if ((cols == 0) && (this.rows == 0)) {
-	    	trace("rows and cols cannot both be zero");
 	    	throw new Error("rows and cols cannot both be zero");
 		}
 		this.cols = cols;
@@ -209,6 +207,7 @@ public class GridLayout extends EmptyLayout{
 				h = d.height;
 			}
 		}
+		trace("prefer size : " + (new IntDimension((((insets.left + insets.right) + (ncols * w)) + ((ncols - 1) * hgap)), (((insets.top + insets.bottom) + (nrows * h)) + ((nrows - 1) * vgap)))) );
 		return new IntDimension((((insets.left + insets.right) + (ncols * w)) + ((ncols - 1) * hgap)), (((insets.top + insets.bottom) + (nrows * h)) + ((nrows - 1) * vgap))); 	
     }
 
@@ -217,10 +216,10 @@ public class GridLayout extends EmptyLayout{
     }
 	
 	/**
-	 * return new IntDimension(Number.MAX_VALUE, Number.MAX_VALUE);
+	 * return new IntDimension(1000000, 1000000);
 	 */
     override public function maximumLayoutSize(target:Container):IntDimension{
-    	return new IntDimension(int.MAX_VALUE, Number.MAX_VALUE);
+    	return new IntDimension(1000000, 1000000);
     }
     
     override public function layoutContainer(target:Container):void{
@@ -247,6 +246,7 @@ public class GridLayout extends EmptyLayout{
 			for (var r:int = 0; r < nrows; r++){
 				var i:int = ((r * ncols) + c);
 				if (i < ncomponents){
+					trace((new IntRectangle(x, y, w, h)) + " set to " + target.getComponent(i));
 					target.getComponent(i).setBounds(new IntRectangle(x, y, w, h));
 				}
 				y += (h + vgap);
