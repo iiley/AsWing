@@ -377,7 +377,26 @@ public class Component extends AWSprite
 		return foregroundDecorator;
 	}
 	
+	/**
+	 * Sets the <code>DisplayObject.visible</code> directly.
+	 * @param value the visible
+	 */	
+	protected function set d_visible(value:Boolean):void{
+		super.visible = value;
+	}
 	
+	/**
+	 * Returns the <code>DisplayObject.visible</code> directly.
+	 * @return the <code>DisplayObject.visible</code>
+	 */
+	protected function get d_visible():Boolean{
+		return super.visible;
+	}	
+	
+	override public function set visible(value:Boolean):void{
+		setVisible(value);
+	}
+		
 	/**
 	 * Set a component to be hide or shown.
 	 * If a component was hide, some laterly operation may not be done,
@@ -385,8 +404,8 @@ public class Component extends AWSprite
 	 * So suggest you dont changed a component's visible frequently.
 	 */
 	public function setVisible(v:Boolean):void{
-		if(v != visible){
-			visible = v;
+		if(v != d_visible){
+			d_visible = v;
 			if(v){
 				dispatchEvent(new AWEvent(AWEvent.SHOWN, false, false));
 			}else{
@@ -394,7 +413,7 @@ public class Component extends AWSprite
 			}
 			//because the repaint and some other operating only do when visible
 			//so when change to visible, must call repaint to do the operatings they had not done when invisible
-			if(visible){
+			if(d_visible){
 				repaint();
 			}
 			revalidate();
@@ -774,6 +793,14 @@ public class Component extends AWSprite
 			return new IntDimension(bounds.width, bounds.height);
 		}
 	}
+	
+	/**
+	 * Causes this component to be sized to fit the preferred size.
+	 */
+	public function pack():void{
+		setSize(getPreferredSize());
+	}	
+	
 	/**
 	 * Sets the component's width.
 	 * @param width the width of component to set
