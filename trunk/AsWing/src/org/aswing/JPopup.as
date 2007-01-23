@@ -10,6 +10,17 @@ import org.aswing.event.*;
 import flash.events.*;
 import org.aswing.graphics.*;
 
+/**
+ * JPopup is a component that generally be a base container of a window panel.
+ * <p>
+ * <b>Note:</b>
+ * You should call <code>dispose()</code> to remove a JPopup from stage.<br>
+ * You'd better call <code>AsWingUtils.setRoot(theRoot)</code> to set a root 
+ * for all popup as default root when application initialization.
+ * </p>
+ * @see org.aswing.JWindow
+ * @author iiley
+ */
 public class JPopup extends Container{
 	
 	private static var popups:Vector;
