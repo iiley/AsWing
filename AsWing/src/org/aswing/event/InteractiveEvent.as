@@ -26,6 +26,8 @@ public class InteractiveEvent extends AWEvent{
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -49,6 +51,8 @@ public class InteractiveEvent extends AWEvent{
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,

@@ -43,7 +43,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ToggleButtonUI", org.aswing.plaf.basic.BasicToggleButtonUI,
 			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
 			   "CheckBoxUI", org.aswing.plaf.basic.BasicCheckBoxUI, 
-			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI
+			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
+			   "ScrollPaneUI", org.aswing.plaf.basic.BasicScrollPaneUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}

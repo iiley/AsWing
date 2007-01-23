@@ -179,7 +179,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
     		}
     	}
     	if(finished){
-    		scrollbar.setValue(scrollContinueDestination);
+    		scrollbar.setValue(scrollContinueDestination, false);
     		scrollTimer.stop();
     	}else{
     		scrollByIncrement(scrollIncrement);
@@ -253,7 +253,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
     }
         
     private function scrollByIncrement(increment:int):void{
-    	scrollbar.setValue(scrollbar.getValue() + increment);
+    	scrollbar.setValue(scrollbar.getValue() + increment, false);
     }
     
     private function __startDragThumb(e:Event):void{
@@ -322,7 +322,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
     	}
     	
     	var scrollBarValue:int = getValueWithThumbMaxMinPos(thumbMin, thumbMax, thumbPos);
-    	scrollbar.setValue(scrollBarValue);
+    	scrollbar.setValue(scrollBarValue, false);
     }
     
     private function getValueWithPosition(point:IntPoint):int{
@@ -370,8 +370,8 @@ public class BasicScrollBarUI extends BaseComponentUI{
     private function paintAndLocateThumb(b:IntRectangle):void{
      	if(!scrollbar.isEnabled()){
     		if(isVertical()){
-    			if(incrButton.isEnabled()){
-    				trace("Logic Wrong : Scrollbar range is not enabled, but its button enabled ");
+    			if(scrollbar.mouseChildren){
+    				trace("Logic Wrong : Scrollbar is not enabled, but its children enabled ");
     			}
     		}
     		thumMC.visible = false;
