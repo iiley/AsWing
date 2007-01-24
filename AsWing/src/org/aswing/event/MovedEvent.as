@@ -7,7 +7,11 @@ package org.aswing.event
 
 import flash.events.Event;
 import org.aswing.geom.IntPoint;
-	
+
+/**
+ * The event for component moved.
+ * @author iiley
+ */
 public class MovedEvent extends AWEvent
 {
 

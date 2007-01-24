@@ -14,37 +14,15 @@ import flash.display.*;
 public class DepthManager{
 	
 	/**
-	 * bringToBottom(mc:MovieClip, exceptMC:MovieClip)<br>
-	 * bringToBottom(mc:MovieClip)
-	 * <p>
 	 * Bring the mc to all brother mcs' bottom.
-	 * <p>
-	 * if exceptMC is undefined or null, the mc will be sent to bottom of all.
-	 * else, the exceptMC will be set to bottom of all, mc will be above it.
 	 * @param mc the mc to be set to bottom
-	 * @param exceptMC the exceptMC of bottom mc.
 	 * @see #isBottom()
-	 * @throws Error when the exceptMC is not at the bottom currently.
 	 */
-	public static function bringToBottom(mc:DisplayObject, exceptMC:DisplayObject=null):void{
+	public static function bringToBottom(mc:DisplayObject):void{
 		var parent:DisplayObjectContainer = mc.parent;
 		if(parent == null){ return; }
-		if(exceptMC != null){
-			if(exceptMC.parent != parent){
-				throw new Error("The two display object is not in same parent!");
-			}
-		}
-		if(exceptMC == null){
-			if(parent.getChildIndex(mc) != 0){
-				parent.setChildIndex(mc, 0)
-			}
-		}else{
-			if(parent.getChildIndex(exceptMC) != 0){
-				parent.setChildIndex(exceptMC, 0)
-			}
-			if(parent.getChildIndex(mc) != 1){
-				parent.setChildIndex(mc, 1)
-			}
+		if(parent.getChildIndex(mc) != 0){
+			parent.setChildIndex(mc, 0)
 		}
 	}
 	
@@ -71,26 +49,15 @@ public class DepthManager{
 	}
 	
 	/**
-	 * isBottom(mc:MovieClip, exceptMC:MovieClip)<br>
-	 * isBottom(mc:MovieClip)
-	 * <p>
-	 * Returns is the mc is at the bottom depths in DepthManager's valid depths.
-	 * Valid depths is that depths from MIN_DEPTH to MAX_DEPTH.
-	 * <p>
-	 * if exceptMC is undefined or null, judge is the mc is at bottom of all.
-	 * else, the mc judge is the mc is at bottom of all except the exceptMC.
+	 * Returns if the mc is at bottom depth.
 	 * @param mc the mc to be set to bottom
-	 * @param exceptMC the exceptMC of bottom mc.
 	 * @return is the mc is at the bottom
 	 */
-	public static function isBottom(mc:DisplayObject, exceptMC:DisplayObject=null):Boolean{
+	public static function isBottom(mc:DisplayObject):Boolean{
 		var parent:DisplayObjectContainer = mc.parent;
 		if(parent == null) return true;
 		var depth:int = parent.getChildIndex(mc);
 		if(depth == 0){
-			return true;
-		}
-		if(parent.getChildIndex(exceptMC)==0 && depth==1){
 			return true;
 		}
 		return false;

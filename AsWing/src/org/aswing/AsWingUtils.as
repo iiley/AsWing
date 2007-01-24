@@ -10,7 +10,7 @@ import flash.text.TextFormat;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import org.aswing.geom.*;
-import flash.display.DisplayObjectContainer;	
+import flash.display.*;	
 	
 public class AsWingUtils
 {
@@ -82,6 +82,25 @@ public class AsWingUtils
         }
         return ROOT;
     }    
+    
+    /**
+     * Returns whethor or not the display object is showing, which means that 
+     * it is visible and it's ancestors(parent, parent's parent ...) is visible and on stage too. 
+     * @return trun if showing, not then false.
+     */
+    public static function isDisplayObjectShowing(dis:DisplayObject):Boolean{
+    	if(dis == null || dis.stage == null){
+    		return false;
+    	}
+    	while(dis != null && dis.visible == true){
+    		if(dis == dis.stage){
+    			return true;
+    		}
+    		dis = dis.parent;
+    	}
+    	return false;
+    }
+	    
     
     /**
      * Apply the font and color to the textfield.
