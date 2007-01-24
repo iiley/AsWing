@@ -4,7 +4,7 @@
 
 package org.aswing{
 
-import org.aswing.util.Vector;
+import org.aswing.util.*;
 import flash.display.*;
 import org.aswing.event.*;
 import flash.events.*;
@@ -43,7 +43,7 @@ public class JPopup extends Container{
 	 * is <code>AsWingUtils.getRoot()</code>
 	 * @param modal true for a modal dialog, false for one that allows other windows to be active at the same time,
 	 *  default is false.
-	 * @see org.aswing.ASWingUtils#getRootMovieClip()
+	 * @see org.aswing.AsWingUtils#getRoot()
 	 * @throw Error if not specified the owner, and aswing default root is not specified either.
 	 * @throw Error if the owner is not a JPopup nor DisplayObjectContainer
 	 */
@@ -61,6 +61,7 @@ public class JPopup extends Container{
 		}else{
 			throw new Error(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
 		}
+		setName("JPopup");
 		ground_mc = new Sprite();
 		ground_mc.name = "ground_mc";
 		ground_mc.visible = false;
@@ -209,7 +210,7 @@ public class JPopup extends Container{
 	 */
 	public function dispose():void{
 		if(isAddedToList()){
-			visible = false;
+			d_visible = false;
 			//TODO check this
 			//getPopupOwner().removeEventListener(listenerToOwner);
 			disposeProcess();
@@ -223,7 +224,7 @@ public class JPopup extends Container{
 	 * override this method to do process when disposing
 	 */
 	protected function disposeProcess():void{
-	}
+	}	
 	
 	/**
 	 * If this Popup is visible, sends this Popup to the back and may cause it to lose 
@@ -234,9 +235,9 @@ public class JPopup extends Container{
 	 */
 	public function toBack():void{
 		if(isDisplayable() && visible){
-			//if(!DepthManager.isBottom(ground_mc, getOwnerRootMC())){
-			//	DepthManager.bringToBottom(ground_mc, getOwnerRootMC());
-			//}
+			if(!DepthManager.isBottom(ground_mc, getPopupOwner())){
+				DepthManager.bringToBottom(ground_mc, getPopupOwner());
+			}
 		}
 	}
 	
@@ -247,9 +248,9 @@ public class JPopup extends Container{
 	 */
 	public function toFront():void{
 		if(isDisplayable() && visible){
-			//if(!DepthManager.isTop(ground_mc)){
-			//	DepthManager.bringToTop(ground_mc);	
-			//}
+			if(!DepthManager.isTop(ground_mc)){
+				DepthManager.bringToTop(ground_mc);	
+			}
 		}
 	}	
 	
@@ -347,13 +348,13 @@ public class JPopup extends Container{
 	//--------------------------------------------------------
 	
 	private function equipPopupContents():void{
-		if(owner is DisplayObjectContainer){
-			var ownerMC:DisplayObjectContainer = DisplayObjectContainer(owner);
-			ownerMC.addChild(ground_mc);
-		}else if(owner is JPopup){
+		if(owner is JPopup){
 			var jwo:JPopup = JPopup(owner);
 			jwo.ground_mc.addChild(ground_mc);
-		}else{
+		}else if(owner is DisplayObjectContainer){
+			var ownerMC:DisplayObjectContainer = DisplayObjectContainer(owner);
+			ownerMC.addChild(ground_mc);
+		}else {
 			throw new Error(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
 		}
 		if(lastLAF != UIManager.getLookAndFeel()){
