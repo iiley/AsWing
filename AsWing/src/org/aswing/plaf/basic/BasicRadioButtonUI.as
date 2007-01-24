@@ -23,7 +23,6 @@ public class BasicRadioButtonUI extends BasicToggleButtonUI{
 	override protected function installDefaults(b:AbstractButton):void{
 		super.installDefaults(b);
 		defaultIcon = getIcon(getPropertyPrefix() + "icon");
-		trace("RadioButton defaultIcon : " + defaultIcon);
 	}
 	
     override protected function getPropertyPrefix():String {

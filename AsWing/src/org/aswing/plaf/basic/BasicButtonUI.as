@@ -161,6 +161,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     	paintIcon(b, g, iconRect);
     	
         if (text != null && text != ""){
+        	textField.visible = true;
         	if(b.getModel().isArmed()){
         		textRect.x += getTextShiftOffset();
         		textRect.y += getTextShiftOffset();
@@ -202,7 +203,9 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 		textField.y = textRect.y;
 			    	
     	if(!model.isEnabled()){
-    		textField.filters = [new BlurFilter()];
+    		b.filters = [new BlurFilter()];
+    	}else{
+    		b.filters = null;
     	}
     }
     
