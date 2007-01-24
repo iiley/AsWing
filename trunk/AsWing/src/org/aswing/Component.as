@@ -95,8 +95,8 @@ public class Component extends AWSprite
 	private var constraints:Object;
 	
 	protected var valid:Boolean;
+	protected var bounds:IntRectangle;
 	
-	private var bounds:IntRectangle
 	private var clipBounds:IntRectangle;
 	private var clipMasked:Boolean;
 	private var background:ASColor;
@@ -425,12 +425,37 @@ public class Component extends AWSprite
 	}
 		
 	/**
-	 * Determines whether or not this component is on display list.
+	 * Determines whether or not this component is on stage(on the display list).
+	 * @return turn of this component is on display list, false not.
 	 */
-	public function isDisplayable():Boolean{
+	public function isOnStage():Boolean{
 		return stage != null;
 	}
 	
+    /**
+     * Determines whether this component is showing on screen. This means
+     * that the component must be visible, and it must be in a container
+     * that is visible and showing.
+     * @return <code>true</code> if the component is showing,
+     *          <code>false</code> otherwise
+     * @see #setVisible()
+     */    
+    public function isShowing():Boolean{
+    	if(isOnStage() && isVisible()){
+    		//here, parent is stage means this is the top component(like root)
+    		if(parent == stage){
+    			return true;
+    		}else{
+    			if(getParent() != null){
+    				return getParent().isShowing();
+    			}else{
+    				return AsWingUtils.isDisplayObjectShowing(parent);
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
 	/**
 	 * Sets the text font for this component.<br>
 	 * this method will cause a repaint and revalidate method call.<br>
@@ -918,6 +943,22 @@ public class Component extends AWSprite
 	}
 	
 	/**
+	 * Returns <code>DisplayObject.x</code> directly.
+	 * @return the x coordinats
+	 */
+	protected function get d_x():Number{
+		return super.x;
+	}
+	
+	/**
+	 * Returns <code>DisplayObject.y</code> directly.
+	 * @return the y coordinats
+	 */	
+	protected function get d_y():Number{
+		return super.y;
+	}	
+	
+	/**
 	 * @see #setX()
 	 */
 	override public function set x(value:Number):void{
@@ -1114,7 +1155,7 @@ public class Component extends AWSprite
 		}else{
 			if(isCachePreferSizes()){
 				cachedMinimumSize = countMinimumSize();
-				return cachedMinimumSize;
+				return cachedMinimumSize.clone();
 			}else{
 				return countMinimumSize();
 			}
@@ -1132,7 +1173,7 @@ public class Component extends AWSprite
 		}else{
 			if(isCachePreferSizes()){
 				cachedMaximumSize = countMaximumSize();
-				return cachedMaximumSize;
+				return cachedMaximumSize.clone();
 			}else{
 				return countMaximumSize();
 			}
@@ -1150,7 +1191,7 @@ public class Component extends AWSprite
 		}else{
 			if(isCachePreferSizes()){
 				cachedPreferredSize = countPreferredSize();
-				return cachedPreferredSize;
+				return cachedPreferredSize.clone();
 			}else{
 				return countPreferredSize();
 			}
@@ -1592,7 +1633,9 @@ public class Component extends AWSprite
 	 * Removes this component from its parent
 	 */
 	public function removeFromContainer():void{
-		getParent().remove(this);
+		if(getParent() != null){
+			getParent().remove(this);
+		}
 	}
 	
 	/**

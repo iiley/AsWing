@@ -108,7 +108,7 @@ public class BasicLookAndFeel extends LookAndFeel
        		"Button.highlight", table.getColor("controlLtHighlight"),
         	"Button.font", table.getFont("controlFont"),
 			"Button.bg", org.aswing.plaf.basic.background.ButtonBackgound,
-			"Button.margin", new InsetsUIResource(2, 2, 2, 2), 
+			"Button.margin", new InsetsUIResource(2, 3, 3, 2), 
 			"Button.textShiftOffset", 1
 		];
 	    table.putDefaults(comDefaults);
@@ -135,7 +135,7 @@ public class BasicLookAndFeel extends LookAndFeel
        		"ToggleButton.highlight", table.getColor("controlLtHighlight"),
         	"ToggleButton.font", table.getFont("controlFont"),
 			"ToggleButton.bg", org.aswing.plaf.basic.background.ToggleButtonBackground,
-			"ToggleButton.margin", new InsetsUIResource(2, 2, 2, 2), 
+			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2), 
 			"ToggleButton.textShiftOffset", 1
 		];
 	    table.putDefaults(comDefaults);

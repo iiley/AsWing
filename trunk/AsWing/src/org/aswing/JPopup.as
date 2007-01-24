@@ -9,6 +9,20 @@ import flash.display.*;
 import org.aswing.event.*;
 import flash.events.*;
 import org.aswing.graphics.*;
+import org.aswing.geom.IntPoint;
+import flash.geom.Rectangle;
+
+/**
+ * Dispatched when the popup opened.
+ * @eventType org.aswing.event.PopupEvent.POPUP_OPENED
+ */
+[Event(name="popupOpened", type="org.aswing.event.PopupEvent")]
+	
+/**
+ *  Dispatched when the popup closed(hidden or disposed).
+ *  @eventType org.aswing.event.PopupEvent.POPUP_CLOSED
+ */
+[Event(name="popupClosed", type="org.aswing.event.PopupEvent")]
 
 /**
  * JPopup is a component that generally be a base container of a window panel.
@@ -25,10 +39,10 @@ public class JPopup extends Container{
 	
 	private static var popups:Vector;
 	
-	private var ground_mc:Sprite;
-	private var modalMC:Sprite;
-	private var owner:*;
-	private var modal:Boolean;
+	protected var ground_mc:Sprite;
+	protected var modalMC:Sprite;
+	protected var owner:*;
+	protected var modal:Boolean;
 	
 	private var lastLAF:Object;	
 	
@@ -125,15 +139,13 @@ public class JPopup extends Container{
 	 * @param owner the new owner to apply
 	 * @return true if changed successfully, false otherwise
 	 */
-	public function changeOwner(owner:*):Boolean{
+	public function changeOwner(owner:*):void{
 		if(this.owner != owner){
-			if(isDisplayable()){
-				//TODO can be successfully, just do it
-				return false;
-			}
 			this.owner = owner;
+			if(isAddedToList()){
+				equipPopupContents();
+			}
 		}
-		return true;
 	}
 	
 	/**
@@ -182,11 +194,9 @@ public class JPopup extends Container{
 					equipPopupContents();
 				}
 				resetModalMC();
-				//TODO event
-				//dispatchEvent(createEventObj(ON_WINDOW_OPENED));
+				dispatchEvent(new PopupEvent(PopupEvent.POPUP_OPENED));
 			}else{
-				//TODO event
-				//dispatchEvent(createEventObj(ON_WINDOW_CLOSED));
+				dispatchEvent(new PopupEvent(PopupEvent.POPUP_CLOSED));
 			}
 		}
 		if(v){
@@ -215,8 +225,7 @@ public class JPopup extends Container{
 			//getPopupOwner().removeEventListener(listenerToOwner);
 			disposeProcess();
 			ground_mc.parent.removeChild(ground_mc);
-			//TODO event
-			//dispatchEvent(createEventObj(ON_WINDOW_CLOSED));
+			dispatchEvent(new PopupEvent(PopupEvent.POPUP_CLOSED));
 		}
 	}
 	
@@ -234,9 +243,17 @@ public class JPopup extends Container{
 	 * @see #toFront()
 	 */
 	public function toBack():void{
-		if(isDisplayable() && visible){
-			if(!DepthManager.isBottom(ground_mc, getPopupOwner())){
-				DepthManager.bringToBottom(ground_mc, getPopupOwner());
+		if(isAddedToList() && isVisible()){
+			var po:JPopup = getPopupOwner();
+			if(po == null){
+				if(!DepthManager.isBottom(ground_mc)){
+					DepthManager.bringToBottom(ground_mc);
+				}
+			}else{
+				var destIndex:int = po.parent.getChildIndex(po)+1;
+				if((ground_mc.parent.getChildIndex(ground_mc)) != destIndex){
+					ground_mc.parent.setChildIndex(ground_mc, destIndex);
+				}
 			}
 		}
 	}
@@ -247,13 +264,35 @@ public class JPopup extends Container{
 	 * @see #toBack()
 	 */
 	public function toFront():void{
-		if(isDisplayable() && visible){
+		if(isAddedToList() && isVisible()){
 			if(!DepthManager.isTop(ground_mc)){
 				DepthManager.bringToTop(ground_mc);	
 			}
 		}
-	}	
+	}
 	
+	private var lastDragPos:IntPoint;
+	override public function startDrag(lockCenter:Boolean=false, bounds:Rectangle=null):void{
+		super.startDrag(lockCenter, bounds);
+		stage.removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+		stage.addEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+		lastDragPos = getLocation();
+	}
+	
+	override public function stopDrag():void{
+		super.stopDrag();
+		stage.removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+	}
+	
+	private function __dragMoving(e:MouseEvent):void{
+		bounds.x = d_x;
+		bounds.y = d_y;
+		var newPos:IntPoint = getLocation();
+		if(!newPos.equals(lastDragPos)){
+			dispatchEvent(new MovedEvent(lastDragPos, newPos));
+		}
+		lastDragPos = newPos;
+	}
 	/**
 	 * Return an array containing all the windows this window currently owns.
 	 */
@@ -261,7 +300,7 @@ public class JPopup extends Container{
 		return getOwnedPopupsWithOwner(this);
 	}
 	
-	private static function getPopupsVector():Vector{
+	protected static function getPopupsVector():Vector{
 		if(popups == null){
 			popups = new Vector();
 		}
@@ -332,17 +371,6 @@ public class JPopup extends Container{
 		//modalMC._height = Stage.height+200;
 		//modalMC._x = globalBounds.x - getX() - 100;
 		//modalMC._y = globalBounds.y - getY() - 100;
-	}
-			
-	/**
-	 * Returns the component's depth, return -1 if it is not in display list.
-	 * @return the depth
-	 */
-	public function getDepth():int{
-		if(ground_mc.parent != null){
-			return ground_mc.parent.getChildIndex(ground_mc);
-		}
-		return -1;
 	}
 	
 	//--------------------------------------------------------
