@@ -77,29 +77,20 @@ public class BoxLayout extends EmptyLayout
     	return gap;	
     }
     
-	/**
-	 * return target.getSize();
-	 */
     override public function preferredLayoutSize(target:Container):IntDimension{
-    	return getCommonLayoutSize(target);
+    	return getCommonLayoutSize(target, false);
     }
 
-	/**
-	 * target.getSize();
-	 */
     override public function minimumLayoutSize(target:Container):IntDimension{
     	return target.getInsets().getOutsideSize();
     }
     
-	/**
-	 * return new IntDimension(int.MAX_VALUE, int.MAX_VALUE);
-	 */
     override public function maximumLayoutSize(target:Container):IntDimension{
-    	return getCommonLayoutSize(target);
+    	return getCommonLayoutSize(target, true);
     }    
     
     
-    private function getCommonLayoutSize(target:Container):IntDimension{
+    private function getCommonLayoutSize(target:Container, isMax:Boolean):IntDimension{
     	var count:int = target.getComponentCount();
     	var insets:Insets = target.getInsets();
     	var width:int = 0;
@@ -108,7 +99,7 @@ public class BoxLayout extends EmptyLayout
     	for(var i:int=0; i<count; i++){
     		var c:Component = target.getComponent(i);
     		if(c.isVisible()){
-	    		var size:IntDimension = c.getMaximumSize();
+	    		var size:IntDimension = isMax ? c.getMaximumSize() : c.getPreferredSize();
 	    		width = Math.max(width, size.width);
 	    		height = Math.max(height, size.height);
 	    		amount++;
