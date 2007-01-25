@@ -294,11 +294,12 @@ public class BasicScrollBarUI extends BaseComponentUI{
     	scrollbar.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
     }
     
-    private function __onMoveThumb(e:Event):void{
+    private function __onMoveThumb(e:MouseEvent):void{
     	if(!scrollbar.isEnabled()){
     		return;
     	}
     	scrollThumbToCurrentMousePosition();
+    	e.updateAfterEvent();
     }
     
     private function scrollThumbToCurrentMousePosition():void{
