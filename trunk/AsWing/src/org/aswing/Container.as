@@ -83,6 +83,11 @@ public class Container extends Component
 		return layout;
 	}
 	
+	//TODO imp
+	public function getFocusTraversalPolicy():FocusTraversalPolicy{
+		return null;
+	}
+	
     /** 
      * Invalidates the container.  The container and all parents
      * above it are marked as needing to be laid out.  This method can
@@ -359,9 +364,13 @@ public class Container extends Component
      * @param  n   the index of the component to get.
      * @return the n<sup>th</sup> component in this container. returned null if 
      * the index if out of bounds.  
+     * @throw Error if index out of container children bounds
      * @see #getComponentCount()
      */
 	public function getComponent(index:int):Component{
+		if(index < 0 || index >= children.length){
+			throw new Error("Index out of container children bounds!!!");
+		}
 		return children[index];
 	}
 	

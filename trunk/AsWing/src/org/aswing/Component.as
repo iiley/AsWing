@@ -96,6 +96,7 @@ public class Component extends AWSprite
 	
 	protected var valid:Boolean;
 	protected var bounds:IntRectangle;
+	protected var readyToPaint:Boolean;
 	
 	private var clipBounds:IntRectangle;
 	private var clipMasked:Boolean;
@@ -912,6 +913,11 @@ public class Component extends AWSprite
 		return enabled;
 	}
 	
+	//TODO imp
+	public function isFocusable():Boolean{
+		return true;
+	}
+	
 	/**
 	 * Locate the component to the current location.
 	 */
@@ -1461,6 +1467,7 @@ public class Component extends AWSprite
 	 * Do the process when size changed.
 	 */
 	protected function size():void{
+		readyToPaint = true;
 		repaint();
 		invalidate();
 	}
@@ -1499,17 +1506,31 @@ public class Component extends AWSprite
 	}
 	
 	/**
-	 * Redraw the component UI face immediately.
+	 * Redraw the component UI face immediately if it is visible and ready to paint.
 	 * @see #repaint()
+	 * @see #isVisible()
+	 * @see #isReadyToPaint()
 	 */	
 	public function paintImmediately():void{
-		if(isVisible()){
+		if(isVisible() && isReadyToPaint()){
 			var paintBounds:IntRectangle = getPaintBoundsInRoot();
 			layoutClipAndTrigger(paintBounds);
 			paint(getInsets().getInsideBounds(paintBounds));
 		}
 	}	
 	/////////
+	
+	/**
+	 * Returns if this component is ready to do paint.
+	 * By default, if a component is resized once, then it is ready.
+	 * @return if this component is ready to do paint.
+	 * @see #setSize()
+	 * @see #size()
+	 */
+	protected function isReadyToPaint():Boolean{
+		return readyToPaint;
+	}
+	
 	/**
 	 * draw the component interface in specified bounds.
 	 * Sub class should override this method if you want to draw your component's face.
