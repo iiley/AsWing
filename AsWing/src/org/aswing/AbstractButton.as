@@ -47,37 +47,37 @@ public class AbstractButton extends Component
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static const CENTER:Number  = AsWingConstants.CENTER;
+	public static const CENTER:int  = AsWingConstants.CENTER;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static const TOP:Number     = AsWingConstants.TOP;
+	public static const TOP:int     = AsWingConstants.TOP;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static const LEFT:Number    = AsWingConstants.LEFT;
+    public static const LEFT:int    = AsWingConstants.LEFT;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static const BOTTOM:Number  = AsWingConstants.BOTTOM;
+    public static const BOTTOM:int  = AsWingConstants.BOTTOM;
  	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static const RIGHT:Number   = AsWingConstants.RIGHT;
+    public static const RIGHT:int   = AsWingConstants.RIGHT;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */        
-	public static const HORIZONTAL:Number = AsWingConstants.HORIZONTAL;
+	public static const HORIZONTAL:int = AsWingConstants.HORIZONTAL;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static const VERTICAL:Number   = AsWingConstants.VERTICAL;	
+	public static const VERTICAL:int   = AsWingConstants.VERTICAL;	
 	
 
     /** The data model that determines the button's state. */
@@ -103,13 +103,13 @@ public class AbstractButton extends Component
     private var    rolloverEnabled:Boolean;
 
     // Icon/Label Alignment
-    private var        verticalAlignment:Number;
-    private var        horizontalAlignment:Number;
+    private var        verticalAlignment:int;
+    private var        horizontalAlignment:int;
     
-    private var        verticalTextPosition:Number;
-    private var        horizontalTextPosition:Number;
+    private var        verticalTextPosition:int;
+    private var        horizontalTextPosition:int;
 
-    private var        iconTextGap:Number;	
+    private var        iconTextGap:int;	
 	
 	public function AbstractButton(text:String="", icon:Icon=null)
 	{
@@ -126,8 +126,9 @@ public class AbstractButton extends Component
     	
     	iconTextGap = 2;
     	
-    	setText(text);
-    	setIcon(icon);
+    	this.text = text;
+    	this.defaultIcon = icon;
+    	installIcon(icon);
     	initSelfHandlers();
 	}
 
@@ -618,7 +619,7 @@ public class AbstractButton extends Component
      * <li>AsWingConstants.BOTTOM
      * </ul>
      */
-    public function getVerticalAlignment():Number {
+    public function getVerticalAlignment():int {
         return verticalAlignment;
     }
     
@@ -631,7 +632,7 @@ public class AbstractButton extends Component
      * <li>AsWingConstants.BOTTOM
      * </ul>
      */
-    public function setVerticalAlignment(alignment:Number):void {
+    public function setVerticalAlignment(alignment:int):void {
         if (alignment == verticalAlignment){
         	return;
         }else{
@@ -650,7 +651,7 @@ public class AbstractButton extends Component
      * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function getHorizontalAlignment():Number{
+    public function getHorizontalAlignment():int{
         return horizontalAlignment;
     }
     
@@ -663,7 +664,7 @@ public class AbstractButton extends Component
      * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function setHorizontalAlignment(alignment:Number):void {
+    public function setHorizontalAlignment(alignment:int):void {
         if (alignment == horizontalAlignment){
         	return;
         }else{
@@ -683,7 +684,7 @@ public class AbstractButton extends Component
      * <li>AsWingConstants.BOTTOM
      * </ul>
      */
-    public function getVerticalTextPosition():Number{
+    public function getVerticalTextPosition():int{
         return verticalTextPosition;
     }
     
@@ -696,12 +697,13 @@ public class AbstractButton extends Component
      * <li>AsWingConstants.BOTTOM
      * </ul>
      */
-    public function setVerticalTextPosition(textPosition:Number):void {
+    public function setVerticalTextPosition(textPosition:int):void {
         if (textPosition == verticalTextPosition){
 	        return;
         }else{
         	verticalTextPosition = textPosition;
         	repaint();
+        	revalidate();
         }
     }
     
@@ -715,7 +717,7 @@ public class AbstractButton extends Component
      * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function getHorizontalTextPosition():Number {
+    public function getHorizontalTextPosition():int {
         return horizontalTextPosition;
     }
     
@@ -728,12 +730,13 @@ public class AbstractButton extends Component
      * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function setHorizontalTextPosition(textPosition:Number):void {
+    public function setHorizontalTextPosition(textPosition:int):void {
         if (textPosition == horizontalTextPosition){
         	return;
         }else{
         	horizontalTextPosition = textPosition;
         	repaint();
+        	revalidate();
         }
     }
     
@@ -745,7 +748,7 @@ public class AbstractButton extends Component
      *         and the icon.
      * @see #setIconTextGap()
      */
-    public function getIconTextGap():Number {
+    public function getIconTextGap():int {
         return iconTextGap;
     }
 
@@ -757,8 +760,8 @@ public class AbstractButton extends Component
      * 
      * @see #getIconTextGap()
      */
-    public function setIconTextGap(iconTextGap:Number):void {
-        var oldValue:Number = this.iconTextGap;
+    public function setIconTextGap(iconTextGap:int):void {
+        var oldValue:int = this.iconTextGap;
         this.iconTextGap = iconTextGap;
         if (iconTextGap != oldValue) {
             revalidate();
