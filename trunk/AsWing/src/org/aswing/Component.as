@@ -1452,7 +1452,9 @@ public class Component extends AWSprite
 	 * @see org.aswing.RepaintManager
 	 */
 	public function repaint():void{
-		RepaintManager.getInstance().addRepaintComponent(this);
+		if(isVisible()){
+			RepaintManager.getInstance().addRepaintComponent(this);
+		}
 	}
 		
 	/**

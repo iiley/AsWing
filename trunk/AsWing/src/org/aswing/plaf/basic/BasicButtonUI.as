@@ -18,13 +18,6 @@ import flash.utils.getTimer;
 
 /**
  * Basic Button implementation.
- * To implement a Diff button UI, generally you should:
- * <ul>
- * 	<li>override <code>paintBackGround</code> to paint different bg for you button
- * 	<li>implement a diff Border for it, and put it into UI defaults with "Button.border" as key.
- * 	<li>initialize differnt UI defaults for buttons in your LAF class, for example:  
- * 	Button.font, ToggleButton.backgound XxxButton.foreground...
- * </ul>
  * @author iiley
  */
 public class BasicButtonUI extends BaseComponentUI implements ButtonUI
