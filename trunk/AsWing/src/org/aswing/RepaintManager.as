@@ -37,7 +37,8 @@ public class RepaintManager
 	private var timer:Timer;
 	
 	/**
-	 * @private
+	 * Singleton class, 
+	 * Don't create instance directly, in stead you should call <code>getInstance()</code>.
 	 */
 	public function RepaintManager(){
 		if(instance != null){
@@ -49,19 +50,15 @@ public class RepaintManager
 		timer.addActionListener(__render);
 	}
 	
-	internal function initStage(theStage:Stage):void{
+	/**
+	 * Init the repaint manager, it will works better when it is inited.
+	 * By default, it will be inited when a component is added to stage automatically.
+	 */	
+	internal function init(theStage:Stage):void{
 		if(stage == null){
 			stage = theStage;
 			stage.addEventListener(Event.RENDER, __render);
 		}
-	}
-	
-	internal function isStageInited():Boolean{
-		return stage != null;
-	}
-	
-	internal function getStage():Stage{
-		return stage;
 	}
 	
 	public static function getInstance():RepaintManager{

@@ -32,8 +32,12 @@ public class LookAndFeel
      */	
 	public static function installBasicProperties(c:Component, componentUIPrefix:String):void{
 		if(!c.isOpaqueSet()){
-			c.setOpaque(UIManager.getBoolean(componentUIPrefix + "opaque"));
+			c.setOpaque(c.getUI().getBoolean(componentUIPrefix + "opaque"));
 			c.setOpaqueSet(false);
+		}
+		if(!c.isFocusableSet()){
+			c.setFocusable(c.getUI().getBoolean(componentUIPrefix+"focusable"));
+			c.setFocusableSet(false);
 		}
 	}
 	
@@ -52,12 +56,12 @@ public class LookAndFeel
     public static function installColors(c:Component, defaultBgName:String, defaultFgName:String):void{
         var bg:ASColor = c.getBackground();
 		if (bg == null || bg is UIResource) {
-	    	c.setBackground(UIManager.getColor(defaultBgName));
+	    	c.setBackground(c.getUI().getColor(defaultBgName));
 		}
 
         var fg:ASColor = c.getForeground();
 		if (fg == null || fg is UIResource) {
-	    	c.setForeground(UIManager.getColor(defaultFgName));
+	    	c.setForeground(c.getUI().getColor(defaultFgName));
 		}
     }
     
@@ -75,7 +79,7 @@ public class LookAndFeel
     	var f:ASFont = c.getFont();
 		if (f == null || f is UIResource) {
 			//trace(defaultFontName + " : " + UIManager.getFont(defaultFontName));
-	    	c.setFont(UIManager.getFont(defaultFontName));
+	    	c.setFont(c.getUI().getFont(defaultFontName));
 		}
     }
     
@@ -99,15 +103,15 @@ public class LookAndFeel
     	defaultBGDName:String, defaultFGDName:String):void{
         var b:Border = c.getBorder();
         if (b is UIResource) {
-            c.setBorder(UIManager.getBorder(defaultBorderName));
+            c.setBorder(c.getUI().getBorder(defaultBorderName));
         }
         var bg:GroundDecorator = c.getBackgroundDecorator();
         if(bg is UIResource){
-        	c.setBackgroundDecorator(UIManager.getGroundDecorator(defaultBGDName));
+        	c.setBackgroundDecorator(c.getUI().getGroundDecorator(defaultBGDName));
         }
         var fg:GroundDecorator = c.getForegroundDecorator();
         if(fg is UIResource){
-        	c.setForegroundDecorator(UIManager.getGroundDecorator(defaultFGDName));
+        	c.setForegroundDecorator(c.getUI().getGroundDecorator(defaultFGDName));
         }
     }
 

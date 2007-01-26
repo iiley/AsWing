@@ -107,9 +107,11 @@ public class Component extends AWSprite
 	private var font:ASFont;
 	private var fontValidated:Boolean;
 	private var opaque:Boolean;
-	private var opaqueSet:Boolean = false;
+	private var opaqueSet:Boolean;
 	private var border:Border;
 	private var enabled:Boolean;
+	private var focusable:Boolean;
+	private var focusableSet:Boolean;
 	
 	public function Component()
 	{
@@ -122,20 +124,23 @@ public class Component extends AWSprite
 		bounds = new IntRectangle();
 		clipMasked = true;
 		opaque = false;
+		opaqueSet = false;
 		valid = false;
 		enabled = true;
+		focusable = false;
+		focusableSet = false;
 		cachePreferSizes = true;
 		fontValidated = false;
 		border = DefaultEmptyDecoraterResource.INSTANCE;
 		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
 		foregroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
-		if(!RepaintManager.getInstance().isStageInited()){
+		if(!AsWingManager.isStageInited()){
 			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 		}
 	}
 	
 	private function __repaintManagerStarter(e:Event):void{
-		RepaintManager.getInstance().initStage(stage);
+		AsWingManager.initStage(stage);
 		removeEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 	}
 		    
@@ -625,8 +630,9 @@ public class Component extends AWSprite
     }
     
     /**
-     * Returns whether or not the opaque property is set. 
-     * If it is not set, <code>isOpaque()</code> will return the value defined in LAF defaults.
+     * Returns whether or not the opaque property is set by user. 
+     * If it is not set, <code>opaque</code> will can be replaced with the value defined 
+     * in LAF defaults when install a UI.
      */
     public function isOpaqueSet():Boolean{
     	return opaqueSet;
@@ -913,9 +919,45 @@ public class Component extends AWSprite
 		return enabled;
 	}
 	
-	//TODO imp
+    /**
+     * Returns whether this Component can be focused.
+     *
+     * @return <code>true</code> if this Component is focusable;
+     *         <code>false</code> otherwise.
+     * @see #setFocusable()
+     */	
 	public function isFocusable():Boolean{
 		return true;
+	}
+	
+    /**
+     * Sets the focusable state of this Component to the specified value. This
+     * value overrides the Component's default focusability.
+     *
+     * @param focusable indicates whether this Component is focusable
+     * @see #isFocusable()
+     */	
+	public function setFocusable(b:Boolean):void{
+		focusable = b;
+		setFocusableSet(true);
+	}
+	
+    /**
+     * Returns whether or not the opaque property is set by user. 
+     * If it is not set, <code>focusable</code> will can be replaced with the value defined 
+     * in LAF defaults when install a UI.
+     */	
+	public function isFocusableSet():Boolean{
+		return focusableSet;
+	}
+	
+	/**
+	 * Indicate that the <code>focusable</code> property is set by user or not.
+	 * @param b whether set or not
+	 * @see #isFocusableSet()
+	 */
+	public function setFocusableSet(b:Boolean):void{
+		focusableSet = b;
 	}
 	
 	/**
