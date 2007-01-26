@@ -204,6 +204,16 @@ public class AbstractButton extends Component
     }
     
     /**
+     * Programmatically perform a "click".
+     */
+    public function doClick():void{
+    	dispatchEvent(new MouseEvent(MouseEvent.ROLL_OVER, true, false, 0, 0));
+    	dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 0, 0));
+    	dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, true, false, 0, 0));
+    	dispatchEvent(new MouseEvent(MouseEvent.CLICK, true, false, 0, 0));
+    }
+    
+    /**
      * Adds a action listener to this button. Buttons fire a action event when 
      * user clicked on it.
 	 * @param listener the listener

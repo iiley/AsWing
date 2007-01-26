@@ -50,6 +50,7 @@ public class JWindow extends JPopup{
 		setName("JWindow");
 		actived = false;
 		layout = new WindowLayout();
+		setFocusTraversalPolicy(new WindowOrderFocusTraversalPolicy());
 		//TODO imp
 		//listenerToOwner[ON_WINDOW_ICONIFIED] = Delegate.create(this, __ownerIconified);
 		//listenerToOwner[ON_WINDOW_RESTORED] = Delegate.create(this, __ownerRestored);
