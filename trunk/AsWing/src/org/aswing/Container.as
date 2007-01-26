@@ -62,7 +62,10 @@ import org.aswing.geom.*;
  */	
 public class Container extends Component
 {
-
+	private static const DEFAULT_FOCUS_TRAVERSAL_POLICY:FocusTraversalPolicy = new ContainerOrderFocusTraversalPolicy();
+	
+	private var focusTraversalPolicy:FocusTraversalPolicy;
+	
 	protected var children:Array;
 	protected var layout:LayoutManager;
 		
@@ -70,6 +73,7 @@ public class Container extends Component
 	{
 		super();
 		setName("Container");
+		focusTraversalPolicy = null;
 		children = new Array();
 		layout = new EmptyLayout();
 	}
@@ -83,9 +87,35 @@ public class Container extends Component
 		return layout;
 	}
 	
-	//TODO imp
+	/**
+	 * Sets the focus traversal policy to this container, or sets null to 
+	 * make this container use its parent's focus traversal policy.
+	 * (By default, it is null)
+	 * @param ftp the focus traversal policy, or null.
+	 */
+	public function setFocusTraversalPolicy(ftp:FocusTraversalPolicy):void{
+		focusTraversalPolicy = ftp;
+	}
+	
+	/**
+	 * Returns the focus traversal policy of this container, it will return its parent's 
+	 * focus traversal policy if its self is null. If no focus traversal policy is found, 
+	 * it will return a default focus traversal policy.(<code>DEFAULT_FOCUS_TRAVERSAL_POLICY</code>).
+	 * @return the focus traversal policy
+	 */
 	public function getFocusTraversalPolicy():FocusTraversalPolicy{
-		return null;
+		if(focusTraversalPolicy == null){
+			var ftp:FocusTraversalPolicy = null;
+			if(getParent() != null){
+				ftp = getParent().getFocusTraversalPolicy();
+			}
+			if(ftp == null){
+				ftp = DEFAULT_FOCUS_TRAVERSAL_POLICY;
+			}
+			return ftp;
+		}else{
+			return focusTraversalPolicy;
+		}
 	}
 	
     /** 

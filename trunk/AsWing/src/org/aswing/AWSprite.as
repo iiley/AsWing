@@ -144,7 +144,7 @@ public class AWSprite extends Sprite
 	private function __awStageMouseUpListener(e:MouseEvent):void{
 		stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 		dispatchEvent(new AWEvent(AWEvent.RELEASE));
-	}	
+	}
 	
 	override public function toString():String{
 		var p:DisplayObject = this;

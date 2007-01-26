@@ -61,7 +61,10 @@ public class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 		return getFirstComponent(container);
 	}
 	
-	private function getFirstComponent(container:Container):Component{
+	/**
+	 * Returns the first focusable component in the container.
+	 */
+	protected function getFirstComponent(container:Container):Component{
 		if(container == null){
 			return null;
 		}
@@ -77,7 +80,10 @@ public class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 		return null;
 	}
 	
-	private function getLastComponent(container:Container):Component{
+	/**
+	 * Returns the last focusable component in the container.
+	 */
+	protected function getLastComponent(container:Container):Component{
 		if(container == null){
 			return null;
 		}

@@ -61,6 +61,9 @@ public class KeyboardManager{
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp);
 			stage.addEventListener(Event.DEACTIVATE, __deactived);
+			
+			//stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDownCap, true);
+			//stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUpCap, true);
 		}
 	}
 	
@@ -100,6 +103,15 @@ public class KeyboardManager{
 		selfKeyMap.unregisterKeyAction(key);
 	}
 	
+	/**
+	 * Returns whether or not the key is down.
+	 * @param the key code
+	 * @return true if the specified key is down, false if not.
+	 */
+	public function isKeyDown(keyCode:uint):Boolean{
+		return keySequence.contains(keyCode);
+	}
+		
 	private function __onKeyDown(e:KeyboardEvent) : void {
 		var code:uint = e.keyCode;
 		if(!keySequence.contains(code)){
