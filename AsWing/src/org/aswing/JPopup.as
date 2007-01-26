@@ -29,7 +29,7 @@ import flash.geom.Rectangle;
  * <p>
  * <b>Note:</b>
  * You should call <code>dispose()</code> to remove a JPopup from stage.<br>
- * You'd better call <code>AsWingUtils.setRoot(theRoot)</code> to set a root 
+ * You'd better call <code>AsWingManager.setRoot(theRoot)</code> to set a root 
  * for all popup as default root when application initialization.
  * </p>
  * @see org.aswing.JWindow
@@ -54,21 +54,21 @@ public class JPopup extends Container{
 	 * JPopup()<br>
 	 * Create a JPopup
 	 * @param owner the owner of this popup, it can be a DisplayObjectContainer or a JPopup, default it is default 
-	 * is <code>AsWingUtils.getRoot()</code>
+	 * is <code>AsWingManager.getRoot()</code>
 	 * @param modal true for a modal dialog, false for one that allows other windows to be active at the same time,
 	 *  default is false.
-	 * @see org.aswing.AsWingUtils#getRoot()
+	 * @see org.aswing.AsWingManager#getRoot()
 	 * @throw Error if not specified the owner, and aswing default root is not specified either.
 	 * @throw Error if the owner is not a JPopup nor DisplayObjectContainer
 	 */
 	public function JPopup(owner:*=null, modal:Boolean=false){
 		super();
 		if(owner == null){
-			if(AsWingUtils.getRoot() == null){
+			if(AsWingManager.getRoot() == null){
 				throw new Error("Default root is not inited, please set a default root by calling " + 
-						"AsWingUtils.setRoot(theRoot) before this constructing!");
+						"AsWingManager.setRoot(theRoot) before this constructing!");
 			}
-			owner = AsWingUtils.getRoot();
+			owner = AsWingManager.getRoot();
 		}
 		if(owner is JPopup || owner is DisplayObjectContainer){
 			this.owner = owner;
