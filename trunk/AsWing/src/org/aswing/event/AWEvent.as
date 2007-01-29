@@ -177,7 +177,7 @@ public class AWEvent extends Event
 
 	/**
      *  The <code>AWEvent.FOCUS_LOST</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>onFocusLost</code> event.
+     *  <code>type</code> property of the event object for a <code>focusLost</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -194,10 +194,10 @@ public class AWEvent extends Event
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType onFocusLost
+     *  @eventType focusLost
 	 */	 	 
-	public static const FOCUS_LOST:String = "onFocusLost";	
-				
+	public static const FOCUS_LOST:String = "focusLost";	
+					
 	/**
 	 * Create an AWEvent.
 	 */

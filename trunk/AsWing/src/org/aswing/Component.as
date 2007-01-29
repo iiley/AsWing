@@ -12,6 +12,7 @@ import flash.geom.Rectangle;
 import org.aswing.event.AWEvent;
 import org.aswing.event.MovedEvent;
 import org.aswing.event.ResizedEvent;
+import org.aswing.event.FocusKeyEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
@@ -20,6 +21,7 @@ import org.aswing.util.Reflection;
 import org.aswing.error.ImpMissError;
 import flash.display.InteractiveObject;
 import flash.events.FocusEvent;
+import flash.events.KeyboardEvent;
 	
 //--------------------------------------
 //  Events
@@ -72,7 +74,21 @@ import flash.events.FocusEvent;
  * 
  * @eventType org.aswing.event.AWEvent.FOCUS_LOST
  */
-[Event(name="onFocusLost", type="org.aswing.event.AWEvent")]
+[Event(name="focusLost", type="org.aswing.event.AWEvent")]
+
+/**
+ * Dispatched when the key down and the component is the focus owner.
+ * 
+ * @eventType org.aswing.event.FocusKeyEvent.FOCUS_KEY_DOWN
+ */
+[Event(name="focusKeyDown", type="org.aswing.event.FocusKeyEvent")]
+	
+/**
+ * Dispatched when the key up and the component is the focus owner.
+ * 
+ * @eventType org.aswing.event.FocusKeyEvent.FOCUS_KEY_UP
+ */
+[Event(name="focusKeyUp", type="org.aswing.event.FocusKeyEvent")]
 
 /**
  * The super class for all Components.
@@ -1836,6 +1852,16 @@ public class Component extends AWSprite
      */
     public function getInternalFocusObject():InteractiveObject{
     	return this;
+    }
+    
+    internal function fireFocusKeyDownEvent(e:KeyboardEvent):void{
+    	dispatchEvent(new FocusKeyEvent(FocusKeyEvent.FOCUS_KEY_DOWN, e.charCode, 
+    	e.keyCode, e.keyLocation, e.ctrlKey, e.altKey, e.shiftKey));
+    }
+    
+    internal function fireFocusKeyUpEvent(e:KeyboardEvent):void{
+    	dispatchEvent(new FocusKeyEvent(FocusKeyEvent.FOCUS_KEY_UP, e.charCode, 
+    	e.keyCode, e.keyLocation, e.ctrlKey, e.altKey, e.shiftKey));
     }
 	
 	//----------------------------------------------------------------
