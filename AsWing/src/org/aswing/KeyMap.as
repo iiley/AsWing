@@ -64,7 +64,9 @@ public class KeyMap{
 	public function fireKeyAction(keySequence:Array):void{
 		var codec:String = getCodecWithKeySequence(keySequence);
 		var action:Function = getKeyActionWithCodec(codec);
-		action();
+		if(action != null){
+			action();
+		}
 	}
 	
 	/**

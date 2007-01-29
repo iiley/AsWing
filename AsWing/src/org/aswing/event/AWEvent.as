@@ -151,6 +151,52 @@ public class AWEvent extends Event
      *  @eventType paint
 	 */
 	public static const PAINT:String = "paint";
+	
+	/**
+     *  The <code>AWEvent.FOCUS_GAINED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>focusGained</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>comp.addEventListener()</code> to register an event listener,
+     *       comp is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType focusGained
+	 */	 
+	public static const FOCUS_GAINED:String = "focusGained";
+
+	/**
+     *  The <code>AWEvent.FOCUS_LOST</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>onFocusLost</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>comp.addEventListener()</code> to register an event listener,
+     *       comp is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType onFocusLost
+	 */	 	 
+	public static const FOCUS_LOST:String = "onFocusLost";	
 				
 	/**
 	 * Create an AWEvent.

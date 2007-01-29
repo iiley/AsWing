@@ -35,7 +35,7 @@ import flash.geom.Rectangle;
  * @see org.aswing.JWindow
  * @author iiley
  */
-public class JPopup extends Container{
+public class JPopup extends JRootPane{
 	
 	private static var popups:Vector;
 	
@@ -80,7 +80,6 @@ public class JPopup extends Container{
 		ground_mc.name = "ground_mc";
 		ground_mc.visible = false;
 		
-		layout = new BorderLayout();
 		lastLAF = UIManager.getLookAndFeel();
 		
 		modalMC = new Sprite();

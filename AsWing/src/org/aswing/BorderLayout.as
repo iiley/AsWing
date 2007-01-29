@@ -158,7 +158,8 @@ public class BorderLayout extends EmptyLayout{
 	 * 
 	 */
     override public function addLayoutComponent(comp:Component, constraints:Object):void {
-	    addLayoutComponentByAlign(constraints.toString(), comp);
+    	var name:String = constraints != null ? constraints.toString() : null;
+	    addLayoutComponentByAlign(name, comp);
     }
 
     private function addLayoutComponentByAlign(name:String, comp:Component):void {

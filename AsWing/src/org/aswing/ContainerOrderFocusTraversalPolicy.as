@@ -23,7 +23,7 @@ public class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 		}
 		var index:int = container.getIndex(c);
 		var n:int = container.getComponentCount();
-		if(index > 0){
+		if(index >= 0){
 			while((++index) < n){
 				var nc:Component = getFocusableComponent(container.getComponent(index));
 				if(nc != null){

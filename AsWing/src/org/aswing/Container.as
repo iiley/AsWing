@@ -60,12 +60,9 @@ import org.aswing.geom.*;
  * </p>
  * @author iiley
  */	
-public class Container extends Component
-{
-	private static const DEFAULT_FOCUS_TRAVERSAL_POLICY:FocusTraversalPolicy = new ContainerOrderFocusTraversalPolicy();
+public class Container extends Component{
 	
 	private var focusTraversalPolicy:FocusTraversalPolicy;
-	
 	protected var children:Array;
 	protected var layout:LayoutManager;
 		
@@ -100,7 +97,8 @@ public class Container extends Component
 	/**
 	 * Returns the focus traversal policy of this container, it will return its parent's 
 	 * focus traversal policy if its self is null. If no focus traversal policy is found, 
-	 * it will return a default focus traversal policy.(<code>DEFAULT_FOCUS_TRAVERSAL_POLICY</code>).
+	 * it will return a default focus traversal policy.
+	 * (<code>FocusManager.getCurrentManager().getDefaultFocusTraversalPolicy()</code>).
 	 * @return the focus traversal policy
 	 */
 	public function getFocusTraversalPolicy():FocusTraversalPolicy{
@@ -110,7 +108,7 @@ public class Container extends Component
 				ftp = getParent().getFocusTraversalPolicy();
 			}
 			if(ftp == null){
-				ftp = DEFAULT_FOCUS_TRAVERSAL_POLICY;
+				ftp = FocusManager.getCurrentManager().getDefaultFocusTraversalPolicy();
 			}
 			return ftp;
 		}else{
@@ -410,7 +408,8 @@ public class Container extends Component
 	 * @see #getComponent()
 	 */
 	public function getIndex(com:Component):int{
-		for(var i:int=0; i<children.length; i++){
+		var n:int = children.length;
+		for(var i:int=0; i<n; i++){
 			if(com == children[i]){
 				return i;
 			}

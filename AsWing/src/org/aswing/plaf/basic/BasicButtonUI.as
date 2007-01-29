@@ -15,6 +15,7 @@ import org.aswing.event.AWEvent;
 import flash.text.TextField;
 import flash.filters.BlurFilter;
 import flash.utils.getTimer;
+import flash.text.TextFormat;
 
 /**
  * Basic Button implementation.
@@ -144,11 +145,11 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 
         // layout the text and icon
         var text:String = AsWingUtils.layoutCompoundLabel(
-            c.getFont(), b.getText(), getIconToLayout(), 
+            c.getFont(), b.getDisplayText(), getIconToLayout(), 
             b.getVerticalAlignment(), b.getHorizontalAlignment(),
             b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
             viewRect, iconRect, textRect, 
-	    	b.getText() == null ? 0 : b.getIconTextGap());
+	    	b.getDisplayText() == null ? 0 : b.getIconTextGap());
 	   	
     	
     	paintIcon(b, g, iconRect);
@@ -194,6 +195,11 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     	AsWingUtils.applyTextColor(textField, button.getForeground());
 		textField.x = textRect.x;
 		textField.y = textRect.y;
+		if(b.getMnemonicIndex() >= 0){
+			textField.setTextFormat(
+				new TextFormat(null, null, null, null, null, true), 
+				b.getMnemonicIndex());
+		}
 			    	
     	if(!model.isEnabled()){
     		b.filters = [new BlurFilter()];
@@ -300,7 +306,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
             b.getVerticalAlignment(), b.getHorizontalAlignment(),
             b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
             viewRect, iconRect, textRect, 
-	    	b.getText() == null ? 0 : b.getIconTextGap()
+	    	b.getDisplayText() == null ? 0 : b.getIconTextGap()
         );
         /* The preferred size of the button is the size of 
          * the text and icon rectangles plus the buttons insets.
@@ -308,7 +314,7 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
         var size:IntDimension;
         if(icon == null){
         	size = textRect.getSize();
-        }else if(b.getText()==null || b.getText()==""){
+        }else if(b.getDisplayText()==null || b.getDisplayText()==""){
         	size = iconRect.getSize();
         }else{
         	var r:IntRectangle = iconRect.union(textRect);
@@ -332,12 +338,12 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     
     override public function getPreferredSize(c:Component):IntDimension{
     	var b:AbstractButton = AbstractButton(c);
-    	return getButtonPreferredSize(b, getIconToLayout(), b.getText());
+    	return getButtonPreferredSize(b, getIconToLayout(), b.getDisplayText());
     }
 
     override public function getMinimumSize(c:Component):IntDimension{
     	var b:AbstractButton = AbstractButton(c);
-    	return getButtonMinimumSize(b, getIconToLayout(), b.getText());
+    	return getButtonMinimumSize(b, getIconToLayout(), b.getDisplayText());
     }
 
     override public function getMaximumSize(c:Component):IntDimension{

@@ -8,6 +8,7 @@ import flash.display.Stage;
 import flash.events.KeyboardEvent;
 import flash.events.Event;
 import org.aswing.util.*;
+import flash.ui.Keyboard;
 
 /**
  * KeyboardController controlls the key map for the action firing.
@@ -26,8 +27,9 @@ public class KeyboardManager{
 	private var keymaps:Vector;
 	private var keySequence:Vector;
 	private var selfKeyMap:KeyMap;
-	private var checkMissedUpTimer:Timer;
 	private var inited:Boolean;
+	
+	private var mnemonicModifier:Array;
 	
 	/**
 	 * Singleton class, 
@@ -38,6 +40,7 @@ public class KeyboardManager{
 		keymaps = new Vector();
 		keySequence = new Vector();
 		selfKeyMap = new KeyMap();
+		mnemonicModifier = [Keyboard.CONTROL, Keyboard.SHIFT];
 		registerKeyMap(selfKeyMap);
 	}
 	
@@ -111,6 +114,29 @@ public class KeyboardManager{
 	public function isKeyDown(keyCode:uint):Boolean{
 		return keySequence.contains(keyCode);
 	}
+	
+	/**
+	 * Sets the mnemonic modifier key codes, the default is [Ctrl, Shift], however 
+	 * for normal UI frameworks, it is [Alt], but because the flashplayer or explorer will 
+	 * eat [Alt] for thier own mnemonic modifier, so we set our default to [Ctrl, Shift].
+	 * @param keyCodes the array of key codes to be the mnemoic modifier.
+	 */
+	public function setMnemonicModifier(keyCodes:Array):void{
+		mnemonicModifier = keyCodes.concat();
+	}
+	
+	/**
+	 * Returns whether or not the mnemonic modifier keys is down.
+	 * @return whether or not the mnemonic modifier keys is down.
+	 */
+	public function isMnemonicModifierDown():Boolean{
+		for(var i:int=0; i<mnemonicModifier.length; i++){
+			if(!isKeyDown(mnemonicModifier[i])){
+				return false;
+			}
+		}
+		return true;
+	}
 		
 	private function __onKeyDown(e:KeyboardEvent) : void {
 		var code:uint = e.keyCode;
@@ -118,21 +144,15 @@ public class KeyboardManager{
 			keySequence.append(code);
 		}
 		var n:Number = keymaps.size();
-		for(var i:Number=0; i<n; i++){
+		for(var i:int=0; i<n; i++){
 			var keymap:KeyMap = KeyMap(keymaps.get(i));
 			keymap.fireKeyAction(keySequence.toArray());
-		}
-		if(!checkMissedUpTimer.isRunning()){
-			checkMissedUpTimer.start();
 		}
 	}
 
 	private function __onKeyUp(e:KeyboardEvent) : void {
 		var code:uint = e.keyCode;
 		keySequence.remove(code);
-		if(keySequence.isEmpty()){
-			checkMissedUpTimer.stop();
-		}
 	}
 	
 	private function __deactived(e:Event):void{

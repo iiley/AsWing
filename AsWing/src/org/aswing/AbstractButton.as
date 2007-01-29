@@ -5,11 +5,13 @@
 package org.aswing
 {
 
-import org.aswing.event.*;
-import org.aswing.plaf.*;
-import org.aswing.error.ImpMissError;
+import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.events.Event;	
+
+import org.aswing.error.ImpMissError;
+import org.aswing.event.*;
+import org.aswing.plaf.*;	
+import org.aswing.util.*;
 	
 /**
  * Dispatched when the button's state changed. the state is all about:
@@ -84,6 +86,9 @@ public class AbstractButton extends Component
     private var model:ButtonModel;
     
     private var text:String;
+	private var displayText:String;
+	private var mnemonic:int;
+	private var mnemonicIndex:int;
     private var margin:Insets;
     private var defaultMargin:Insets;
 
@@ -125,10 +130,12 @@ public class AbstractButton extends Component
     	horizontalTextPosition = RIGHT;
     	
     	iconTextGap = 2;
-    	
     	this.text = text;
+    	this.analyzeMnemonic();
     	this.defaultIcon = icon;
-    	installIcon(icon);
+    	this.installIcon(defaultIcon);
+    	setText(text);
+    	setIcon(icon);
     	initSelfHandlers();
 	}
 
@@ -389,17 +396,86 @@ public class AbstractButton extends Component
 			return new Insets(m.top, m.left, m.bottom, m.right);
 		}
 	}
-		
+	
+	/**
+	 * Sets the text include the "&"(mnemonic modifier char). For example, 
+	 * if you set "&File" to be the text, then "File" will be displayed, and "F" 
+	 * will be the mnemonic.
+	 * @param text the text.
+	 * @see #getDisplayText()
+	 * @see #getMnemonic()
+	 * @see #getMnemonicIndex()
+	 */
 	public function setText(text:String):void{
 		if(this.text != text){
 			this.text = text;
+			analyzeMnemonic();
 			repaint();
 			invalidate();
 		}
 	}
 	
+	private function analyzeMnemonic():void{
+		displayText = text;
+		mnemonic = -1;
+		mnemonicIndex = -1;
+		if(text == null){
+			return;
+		}
+		var mi:int = text.indexOf("&");
+		var mc:String = "";
+		var found:Boolean = false;
+		while(mi >= 0){
+			if(mi+1 < text.length){
+				mc = text.charAt(mi+1);
+				if(StringUtils.isLetter(mc)){
+					found = true;
+					break;
+				}
+			}else{
+				break;
+			}
+			mi = text.indexOf("&", mi+1);
+		}
+		if(found){
+			displayText = text.substring(0, mi) + text.substring(mi+1);
+			mnemonic = mc.toUpperCase().charCodeAt(0);
+			mnemonicIndex = mi;
+		}
+	}
+	
+	/**
+	 * Returns the text include the "&"(mnemonic modifier char).
+	 * @return the text.
+	 * @see #getDisplayText()
+	 */
 	public function getText():String{
 		return text;
+	}
+	
+	/**
+	 * Returns the text to be displayed, it is a text that removed the "&"(mnemonic modifier char).
+	 * @return the text to be displayed.
+	 */
+	public function getDisplayText():String{
+		return displayText;	
+	}
+	
+	/**
+	 * Returns the mnemonic char index in the display text, -1 means no mnemonic.
+	 * @return the mnemonic char index or -1.
+	 * @see #getDisplayText()
+	 */
+	public function getMnemonicIndex():int{
+		return mnemonicIndex;
+	}
+	
+	/**
+	 * Returns the keyboard mnemonic for this button, -1 means no mnemonic.
+	 * @return the keyboard mnemonic or -1.
+	 */
+	public function getMnemonic():int{
+		return mnemonic;
 	}
 	
 	protected function installIcon(icon:Icon):void{
@@ -788,6 +864,22 @@ public class AbstractButton extends Component
 		addEventListener(MouseEvent.ROLL_OVER, __rollOverListener);
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDownListener);
 		addEventListener(AWEvent.RELEASE, __mouseUpListener);
+		addEventListener(Event.ADDED_TO_STAGE, __addedToStage);
+		addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
+	}
+	
+	private var rootPane:JRootPane;
+	private function __addedToStage(e:Event):void{
+		rootPane = getRootPaneAncestor();
+		if(rootPane != null){
+			rootPane.registerMnemonic(this);
+		}
+	}
+	private function __removedFromStage(e:Event):void{
+		if(rootPane != null){
+			rootPane.unregisterMnemonic(this);
+			rootPane = null;
+		}
 	}
 	
 	private function __rollOverListener(e:Event):void{
