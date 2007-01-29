@@ -101,6 +101,8 @@ public class FocusManager{
 			stage = theStage;
 			inited = true;
 			stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
+			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp);
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
 
 			focusFrontHolderMC = new Sprite();
@@ -150,11 +152,12 @@ public class FocusManager{
 		return dir;
 	}
 	
-	private static function __onMouseDown(e:MouseEvent):void{
-		instance.__noticeWhenMouseDown();
+	private function __onMouseDown(e:MouseEvent):void{
+		traversing = false;
+		//TODO imp
 	}
 	
-	private static function __onKeyFocusChange(e:FocusEvent):void{
+	private function __onKeyFocusChange(e:FocusEvent):void{
 		if(!traversalEnabled){
 			return;
 		}
@@ -162,18 +165,22 @@ public class FocusManager{
 			e.preventDefault();
 		}
 		if(e.shiftKey){
-			instance.setTraversing(true);
-			instance.focusPrevious();
+			setTraversing(true);
+			focusPrevious();
 		}else{
-			instance.setTraversing(true);
-			instance.focusNext();
+			setTraversing(true);
+			focusNext();
 		}
 	}
 	
-	private function __noticeWhenMouseDown():void{
-		traversing = false;
-		//TODO imp
-		//getFocusOwner().clearFocusGraphicsByUI();
+	private function __onKeyDown(e:KeyboardEvent):void{
+		if(focusOwner != null){
+			focusOwner.f
+		}
+	}
+	
+	private function __onKeyUp(e:KeyboardEvent):void{
+		
 	}
 	
 	/**
