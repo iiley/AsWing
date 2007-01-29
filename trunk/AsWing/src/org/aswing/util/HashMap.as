@@ -138,6 +138,18 @@ public class HashMap
  		}
   		return null;
  	}
+ 	
+ 	/**
+ 	 * Same functionity method with different name to <code>get</code>.
+ 	 * 
+     * @param   key the key whose associated value is to be returned.
+     * @return  the value to which this map maps the specified key, or
+     *          <tt>null</tt> if the map contains no mapping for this key
+     *           or it is null value originally.
+ 	 */
+ 	public function getValue(key:*):*{
+ 		return get(key);
+ 	}
 
  	/**
  	 * Associates the specified value with the specified key in this map. 

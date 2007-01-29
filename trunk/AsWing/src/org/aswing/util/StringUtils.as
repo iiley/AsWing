@@ -11,21 +11,11 @@ public class StringUtils
  	 * with undefined or null value, false returned.
  	 */
  	public static function isString(value:*):Boolean{
- 		if(value == undefined) return false;
- 		return typeof(value) == "string" || value is String;
+ 		return value is String;
  	}
  	
  	public static function castString(str:*):String{
- 		if(str == undefined){
- 			return str;
- 		}
- 		if(typeof(str) == "string"){
- 			return String(str);
- 		}else if(str is String){
- 			return str.toString();
- 		}else{
- 			return null;
- 		}
+ 		return str as String;
  	}
  	
  	/**
@@ -88,6 +78,19 @@ public class StringUtils
 
  	public static function endsWith(targetString:String, subString:String):Boolean {
  		return (targetString.lastIndexOf(subString) == (targetString.length - subString.length));	
+ 	}
+ 	
+ 	public static function isLetter(chars:String):Boolean{
+ 		if(chars == null || chars == ""){
+ 			return false;
+ 		}
+ 		for(var i:int=0; i<chars.length; i++){
+ 			var code:uint = chars.charCodeAt(i);
+ 			if(code < 65 || code > 122 || (code > 90 && code < 97)){
+ 				return false;
+ 			}
+ 		}
+ 		return true;
  	}
 }
 }

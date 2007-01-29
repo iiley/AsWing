@@ -18,6 +18,8 @@ import org.aswing.plaf.*;
 import org.aswing.util.HashMap;
 import org.aswing.util.Reflection;
 import org.aswing.error.ImpMissError;
+import flash.display.InteractiveObject;
+import flash.events.FocusEvent;
 	
 //--------------------------------------
 //  Events
@@ -57,6 +59,20 @@ import org.aswing.error.ImpMissError;
  *  @eventType org.aswing.event.AWEvent.RESIZED
  */
 [Event(name="resized", type="org.aswing.event.AWEvent")]
+
+/**
+ * Dispatched when the component gained the focus from it is not the focus owner
+ * 
+ * @eventType org.aswing.event.AWEvent.FOCUS_GAINED
+ */
+[Event(name="focusGained", type="org.aswing.event.AWEvent")]
+	
+/**
+ * Dispatched when the component lost the focus from it was the focus owner.
+ * 
+ * @eventType org.aswing.event.AWEvent.FOCUS_LOST
+ */
+[Event(name="onFocusLost", type="org.aswing.event.AWEvent")]
 
 /**
  * The super class for all Components.
@@ -137,6 +153,8 @@ public class Component extends AWSprite
 		if(!AsWingManager.isStageInited()){
 			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 		}
+		addEventListener(FocusEvent.FOCUS_IN, __focusIn);
+		addEventListener(FocusEvent.FOCUS_OUT, __focusOut);
 	}
 	
 	private function __repaintManagerStarter(e:Event):void{
@@ -448,7 +466,7 @@ public class Component extends AWSprite
      */    
     public function isShowing():Boolean{
     	if(isOnStage() && isVisible()){
-    		//here, parent is stage means this is the top component(like root)
+    		//here, parent is stage means this is the top component(ex root)
     		if(parent == stage){
     			return true;
     		}else{
@@ -749,8 +767,6 @@ public class Component extends AWSprite
 			bounds.setLocation(newPos);
 			locate();
 			dispatchEvent(new MovedEvent(oldPos, newPos));
-			//TODO check
-			//revalidateIfNecessary(); or invalidate() or do nothing?
 		}
 	}
 	
@@ -939,6 +955,7 @@ public class Component extends AWSprite
      */	
 	public function setFocusable(b:Boolean):void{
 		focusable = b;
+		getInternalFocusObject().tabEnabled = b;
 		setFocusableSet(true);
 	}
 	
@@ -1695,6 +1712,21 @@ public class Component extends AWSprite
 	}
 	
 	/**
+	 * Returns the first <code>JRootPane</code> ancestor of this component.
+	 * @return the <code>JRootPane</code> ancestor, or null if not found.
+	 */
+	public function getRootPaneAncestor():JRootPane{
+		var pa:DisplayObject = parent;
+		while(pa != null){
+			if(pa is JRootPane){
+				return pa as JRootPane;
+			}
+			pa = pa.parent;
+		}
+		return null;
+	}
+	
+	/**
 	 * Removes this component from its parent
 	 */
 	public function removeFromContainer():void{
@@ -1717,6 +1749,111 @@ public class Component extends AWSprite
 	 */
 	public function getConstraints():Object {
 		return constraints;
+	}
+	
+    /**
+     * Transfers the focus to the next component, as though this Component were
+     * the focus owner.
+     * 
+     * @return true if transfered, false otherwise
+     * @see       #requestFocus()
+     */
+    public function transferFocus():Boolean {
+    	return transferFocusWithDirection(1);
+    }
+    
+    /**
+     * Transfers the focus to the previous component, as though this Component
+     * were the focus owner.
+     * 
+     * @return true if transfered, false otherwise
+     * @see       #requestFocus()
+     */
+    public function transferFocusBackward():Boolean{
+    	return transferFocusWithDirection(-1);
+    }
+    
+    /**
+     * dir > 0 transferFocus, dir <= 0 transferFocusBackward
+     */
+    private function transferFocusWithDirection(dir:Number):Boolean{
+        var pa:Container = getParent();
+        if(pa != null){
+        	var nextFocus:Component = null;
+        	if(dir > 0){
+        		nextFocus = pa.getFocusTraversalPolicy().getComponentAfter(this);
+        	}else{
+        		nextFocus = pa.getFocusTraversalPolicy().getComponentBefore(this);
+        	}
+        	if(nextFocus != null){
+        		trace("Next Focus is " + nextFocus);
+        		return nextFocus.requestFocus();
+        	}
+        }
+        return false;
+    }
+    
+    /**
+     * Returns <code>true</code> if this <code>Component</code> is the 
+     *    focus owner.
+     *
+     * @return <code>true</code> if this <code>Component</code> is the 
+     *     focus owner; <code>false</code> otherwise
+     */
+    public function isFocusOwner():Boolean {
+        return (FocusManager.getCurrentManager().getFocusOwner() == this);
+    }
+    
+    /**
+     * Requests that this Component get the input focus, and that this
+     * Component's top-level ancestor become the focused Window. This component
+     * must be displayable, visible, and focusable for the request to be
+     * granted. Every effort will be made to honor the request; however, in
+     * some cases it may be impossible to do so. Developers must never assume
+     * that this Component is the focus owner until this Component receives a
+     * ON_FOCUS_GAINED event.
+     *
+     * @return true if the request is made successful, false if the request is denied.
+     * @see #isFocusable()
+     * @see #isDisplayable()
+     * @see #ON_FOCUS_GAINED
+     */
+    public function requestFocus():Boolean {
+    	//TODO imp check
+    	if(isFocusable() && isEnabled() && isShowing()){
+    		stage.focus = getInternalFocusObject();
+    		return true;
+    	}
+        return false;
+    }
+    
+    /**
+     * Returns the object to receive the focus for this component. 
+     * Default is just return the component, other component may return a 
+     * child object, for example <code>JTextComponent<code> will return 
+     * its <code>TextField</code> object.
+     * @return the object to receive the focus.
+     */
+    public function getInternalFocusObject():InteractiveObject{
+    	return this;
+    }
+	
+	//----------------------------------------------------------------
+	//               Event Handlers
+	//----------------------------------------------------------------
+	
+	private function __focusIn(e:FocusEvent):void{
+		if(e.target == getInternalFocusObject()){
+    		FocusManager.getCurrentManager().setFocusOwner(this);
+    		dispatchEvent(new AWEvent(AWEvent.FOCUS_GAINED));
+		}
+	}
+	
+	private function __focusOut(e:FocusEvent):void{
+		if(e.target == getInternalFocusObject()){
+    		FocusManager.getCurrentManager().setFocusOwner(null);
+    		dispatchEvent(new AWEvent(AWEvent.FOCUS_LOST));
+		}
 	}
 	
 	override public function toString():String{

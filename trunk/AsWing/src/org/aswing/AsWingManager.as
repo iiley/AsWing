@@ -50,6 +50,7 @@ public class AsWingManager{
 			stage = theStage;
 			RepaintManager.getInstance().init(stage);
 			KeyboardManager.getInstance().init(stage);
+			FocusManager.getCurrentManager().init(stage);
 		}
 	}
 	
