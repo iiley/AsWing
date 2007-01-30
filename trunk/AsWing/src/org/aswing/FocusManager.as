@@ -16,76 +16,18 @@ import flash.ui.Keyboard;
  */
 public class FocusManager{
 	
-   /**
-     * The identifier for the Forward focus traversal keys.
-     *
-     * @see #setDefaultFocusTraversalKeys()
-     * @see #getDefaultFocusTraversalKeys()
-     * @see Component#setFocusTraversalKeys()
-     * @see Component#getFocusTraversalKeys()
-     */
-	public static var FORWARD_TRAVERSAL_KEYS:Number = 0;
-    /**
-     * The identifier for the Backward focus traversal keys.
-     *
-     * @see #setDefaultFocusTraversalKeys()
-     * @see #getDefaultFocusTraversalKeys()
-     * @see Component#setFocusTraversalKeys()
-     * @see Component#getFocusTraversalKeys()
-     */
-	public static var BACKWARD_TRAVERSAL_KEYS:Number = 1;
-    /**
-     * The identifier for the Up Cycle focus traversal keys.
-     *
-     * @see #setDefaultFocusTraversalKeys()
-     * @see #getDefaultFocusTraversalKeys()
-     * @see Component#setFocusTraversalKeys()
-     * @see Component#getFocusTraversalKeys()
-     */
-	public static var UP_CYCLE_TRAVERSAL_KEYS:Number = 2;
-    /**
-     * The identifier for the Down Cycle focus traversal keys.
-     *
-     * @see #setDefaultFocusTraversalKeys()
-     * @see #getDefaultFocusTraversalKeys()
-     * @see Component#setFocusTraversalKeys()
-     * @see Component#getFocusTraversalKeys()
-     */
-	public static var DOWN_CYCLE_TRAVERSAL_KEYS:Number = 3;
-    /**
-     * The identifiers length.
-     */
-	public static var TRAVERSAL_KEY_LENGTH:Number = (DOWN_CYCLE_TRAVERSAL_KEYS + 1);
-	
-	/**
-	 * Then tab index range(start index, inclusive) of AsWing component using
-	 */
-	public static var ASWING_TAB_INDEX_START:Number = 10000;
-	/**
-	 * Then tab index range(end inde, inclusive) of AsWing component using
-	 */	
-	public static var ASWING_TAB_INDEX_END:Number   = 20000;
-	
 	private static var instance:FocusManager;
 	private static var traversalEnabled:Boolean = true;
 		
 	private static var oldFocusOwner:Component;
 	private static var focusOwner:Component;
 	private static var activeWindow:JWindow;
-	private static var currentFocusCycleRoot:Container;
-	
-	private static var lastFocusRecivedComponentObject:Object;
-	private static var justSystemTabDirection:Number = 0;
-	
+		
 	private var stage:Stage;
 	private var inited:Boolean;
 	private var defaultPolicy:FocusTraversalPolicy;
 	private var traversing:Boolean;
-	
-	private var focusFrontHolderMC:Sprite;
-	private var focusBackHolderMC:Sprite;
-	
-	
+		
 	public function FocusManager(){
 		traversing = false;
 		inited = false;
@@ -104,17 +46,6 @@ public class FocusManager{
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp);
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
-
-			focusFrontHolderMC = new Sprite();
-			focusFrontHolderMC.name = "aswing_focusFrontHolder";
-			focusFrontHolderMC.tabEnabled = true;
-			focusFrontHolderMC.tabIndex = ASWING_TAB_INDEX_START;
-			focusBackHolderMC = new Sprite();
-			focusBackHolderMC.name = "aswing_focusBackHolder";
-			focusBackHolderMC.tabEnabled = true;
-			focusBackHolderMC.tabIndex = ASWING_TAB_INDEX_END;
-			stage.addChild(focusFrontHolderMC);
-			stage.addChild(focusBackHolderMC);
 		}
 	}
 	
@@ -126,30 +57,6 @@ public class FocusManager{
 			stage.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange);
 			stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
 		}
-	}
-	
-	/**
-	 * Makes specified component obj(a movie clip or a text field) to receive this flash internal focus.
-	 * @return the flash system tab navigating direction, 0 if it is not navigated by system tab.
-	 */
-	public function receiveFocus(obj:InteractiveObject):Number{
-		lastFocusRecivedComponentObject.tabIndex = undefined;
-		lastFocusRecivedComponentObject.tabEnabled = false;
-		obj.tabEnabled = true;
-		obj.tabIndex = ASWING_TAB_INDEX_START + Math.floor((ASWING_TAB_INDEX_END - ASWING_TAB_INDEX_START)/2);
-		if(justSystemTabDirection == 0){
-			if(stage.focus != obj){
-				stage.focus = obj;
-			}
-		}else if(justSystemTabDirection < 0){
-			stage.focus = focusBackHolderMC;
-		}else{
-			stage.focus = focusFrontHolderMC;
-		}
-		lastFocusRecivedComponentObject = obj;
-		var dir:Number = justSystemTabDirection;
-		justSystemTabDirection = 0;
-		return dir;
 	}
 	
 	private function __onMouseDown(e:MouseEvent):void{
@@ -164,6 +71,9 @@ public class FocusManager{
 		if(focusOwner != null){
 			e.preventDefault();
 		}
+		if(e.keyCode != Keyboard.TAB){
+			return;
+		}
 		if(e.shiftKey){
 			setTraversing(true);
 			focusPrevious();
@@ -175,12 +85,14 @@ public class FocusManager{
 	
 	private function __onKeyDown(e:KeyboardEvent):void{
 		if(focusOwner != null){
-			focusOwner.f
+			focusOwner.fireFocusKeyDownEvent(e);
 		}
 	}
 	
 	private function __onKeyUp(e:KeyboardEvent):void{
-		
+		if(focusOwner != null){
+			focusOwner.fireFocusKeyUpEvent(e);
+		}
 	}
 	
 	/**

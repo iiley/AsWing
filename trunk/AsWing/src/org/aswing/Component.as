@@ -6,22 +6,20 @@ package org.aswing
 {
 	
 import flash.display.DisplayObject;
-import flash.events.Event;
+import flash.display.InteractiveObject;
+import flash.events.*;
 import flash.geom.Rectangle;
 
+import org.aswing.error.ImpMissError;
 import org.aswing.event.AWEvent;
+import org.aswing.event.FocusKeyEvent;
 import org.aswing.event.MovedEvent;
 import org.aswing.event.ResizedEvent;
-import org.aswing.event.FocusKeyEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.util.HashMap;
 import org.aswing.util.Reflection;
-import org.aswing.error.ImpMissError;
-import flash.display.InteractiveObject;
-import flash.events.FocusEvent;
-import flash.events.KeyboardEvent;
 	
 //--------------------------------------
 //  Events
@@ -171,6 +169,7 @@ public class Component extends AWSprite
 		}
 		addEventListener(FocusEvent.FOCUS_IN, __focusIn);
 		addEventListener(FocusEvent.FOCUS_OUT, __focusOut);
+		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDown);
 	}
 	
 	private function __repaintManagerStarter(e:Event):void{
@@ -959,7 +958,7 @@ public class Component extends AWSprite
      * @see #setFocusable()
      */	
 	public function isFocusable():Boolean{
-		return true;
+		return focusable;
 	}
 	
     /**
@@ -1794,6 +1793,9 @@ public class Component extends AWSprite
      */
     private function transferFocusWithDirection(dir:Number):Boolean{
         var pa:Container = getParent();
+        if(pa == null){
+        	pa = this as Container;
+        }
         if(pa != null){
         	var nextFocus:Component = null;
         	if(dir > 0){
@@ -1802,7 +1804,6 @@ public class Component extends AWSprite
         		nextFocus = pa.getFocusTraversalPolicy().getComponentBefore(this);
         	}
         	if(nextFocus != null){
-        		trace("Next Focus is " + nextFocus);
         		return nextFocus.requestFocus();
         	}
         }
@@ -1836,7 +1837,8 @@ public class Component extends AWSprite
      */
     public function requestFocus():Boolean {
     	//TODO imp check
-    	if(isFocusable() && isEnabled() && isShowing()){
+    	if(isFocusable() && isEnabled() && isShowing()){			
+    		trace("requestFocus " + this);
     		stage.focus = getInternalFocusObject();
     		return true;
     	}
@@ -1868,17 +1870,35 @@ public class Component extends AWSprite
 	//               Event Handlers
 	//----------------------------------------------------------------
 	
+	//retrive the focus when mouse down if not focused child or self
+	//this will works because focusIn will be fired before mouseDown
+	private function __mouseDown(e:MouseEvent):void{
+		var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+		if(focusOwner == null || !(focusOwner == this || AsWingUtils.isAncestor(this, focusOwner))){
+			requestFocus();
+		}
+	}
+	
 	private function __focusIn(e:FocusEvent):void{
-		if(e.target == getInternalFocusObject()){
-    		FocusManager.getCurrentManager().setFocusOwner(this);
-    		dispatchEvent(new AWEvent(AWEvent.FOCUS_GAINED));
+		if(e.target == getInternalFocusObject() && isFocusable()){
+			var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+			if(this != focusOwner){
+	    		FocusManager.getCurrentManager().setFocusOwner(this);
+	    		dispatchEvent(new AWEvent(AWEvent.FOCUS_GAINED));
+   			}
 		}
 	}
 	
 	private function __focusOut(e:FocusEvent):void{
-		if(e.target == getInternalFocusObject()){
-    		FocusManager.getCurrentManager().setFocusOwner(null);
-    		dispatchEvent(new AWEvent(AWEvent.FOCUS_LOST));
+		if(e.relatedObject == null){
+			return;
+		}
+		if(e.target == getInternalFocusObject() && isFocusable()){
+			var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+			if(this == focusOwner){
+	    		FocusManager.getCurrentManager().setFocusOwner(null);
+	    		dispatchEvent(new AWEvent(AWEvent.FOCUS_LOST));
+   			}
 		}
 	}
 	

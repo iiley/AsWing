@@ -64,6 +64,7 @@ public class JScrollBar extends Component{
 	public function JScrollBar(orientation:int=VERTICAL, 
 		value:int=0, extent:int=10, min:int=0, max:int=100){
 		super();
+		setName("JScrollBar");
 		unitIncrement = 1;
 		blockIncrement = (extent == 0 ? 10 : extent);
 		setOrientation(orientation);

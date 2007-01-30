@@ -44,6 +44,7 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
 			   "CheckBoxUI", org.aswing.plaf.basic.BasicCheckBoxUI, 
 			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
+			   "ViewportUI", org.aswing.plaf.basic.BasicViewportUI,
 			   "ScrollPaneUI", org.aswing.plaf.basic.BasicScrollPaneUI, 
 			   "LabelUI",org.aswing.plaf.basic.BasicLabelUI
 		   ];
@@ -191,6 +192,23 @@ public class BasicLookAndFeel extends LookAndFeel
 		    "ScrollBar.arrowShadowColor", new ASColorUIResource(0x000000),
 		    "ScrollBar.arrowLightColor", new ASColorUIResource(0x444444)
 	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** ScrollPane
+	    comDefaults = [
+	    	"ScrollPane.opaque", false,  
+	    	"ScrollPane.focusable", false  
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+		// *** Panel
+	    comDefaults = [
+	    	"Viewport.background", table.get("window"),
+	    	"Viewport.foreground", table.get("windowText"),
+	    	"Viewport.opaque", false, 
+	    	"Viewport.focusable", true, 
+        	"Viewport.font", table.getFont("windowFont")
+		];
 	    table.putDefaults(comDefaults);
 	    
 	   // *** Label
