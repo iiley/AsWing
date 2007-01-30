@@ -16,6 +16,8 @@ import flash.text.TextField;
 import flash.filters.BlurFilter;
 import flash.utils.getTimer;
 import flash.text.TextFormat;
+import org.aswing.event.FocusKeyEvent;
+import flash.ui.Keyboard;
 
 /**
  * Basic Button implementation.
@@ -25,8 +27,8 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
 {
     
     // Offset controlled by set method 
-    private var shiftOffset:Number;
-    private var defaultTextShiftOffset:Number;
+    private var shiftOffset:int;
+    private var defaultTextShiftOffset:int;
 
     // Has the shared instance defaults been initialized?
     private var defaults_initialized:Boolean;	
@@ -93,10 +95,14 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
  	
  	protected function installListeners(b:AbstractButton):void{
  		b.addStateListener(__stateListener);
+ 		b.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
+ 		b.addEventListener(FocusKeyEvent.FOCUS_KEY_UP, __onKeyUp);
  	}
 	
  	protected function uninstallListeners(b:AbstractButton):void{
  		b.removeStateListener(__stateListener);
+ 		b.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
+ 		b.removeEventListener(FocusKeyEvent.FOCUS_KEY_UP, __onKeyUp);
  	}
  	
  	//-----------------------------------------------------
@@ -117,6 +123,33 @@ public class BasicButtonUI extends BaseComponentUI implements ButtonUI
     
     private function __stateListener(e:AWEvent):void{
     	button.repaint();
+    }
+    
+    private function __onKeyDown(e:FocusKeyEvent):void{
+		if(!(button.isShowing() && button.isEnabled())){
+			return;
+		}
+		var model:ButtonModel = button.getModel();
+		if(e.keyCode == Keyboard.SPACE && !(model.isRollOver() && model.isPressed())){
+	    	FocusManager.getCurrentManager().setTraversing(true);
+			model.setRollOver(true);
+			model.setArmed(true);
+			model.setPressed(true);
+		}
+    }
+    
+    private function __onKeyUp(e:FocusKeyEvent):void{
+		if(!(button.isShowing() && button.isEnabled())){
+			return;
+		}
+		if(e.keyCode == Keyboard.SPACE){
+			var model:ButtonModel = button.getModel();
+	    	FocusManager.getCurrentManager().setTraversing(true);
+			model.setPressed(false);
+			model.setArmed(false);
+			//b.fireActionEvent();
+			model.setRollOver(false);
+		}
     }
     
     //--------------------------------------------------

@@ -41,6 +41,14 @@ public class BasicScrollPaneUI extends BaseComponentUI{
         LookAndFeel.installColorsAndFont(scrollPane, pp + "background", pp + "foreground", pp + "font");
         LookAndFeel.installBorderAndBFDecorators(scrollPane, pp + "border", pp+"bg", pp+"fg");
         LookAndFeel.installBasicProperties(scrollPane, pp);
+        if(!scrollPane.getVerticalScrollBar().isFocusableSet()){
+        	scrollPane.getVerticalScrollBar().setFocusable(false);
+        	scrollPane.getVerticalScrollBar().setFocusableSet(false);
+        }
+        if(!scrollPane.getHorizontalScrollBar().isFocusableSet()){
+        	scrollPane.getHorizontalScrollBar().setFocusable(false);
+        	scrollPane.getHorizontalScrollBar().setFocusableSet(false);
+        }
 	}
     
     private function uninstallDefaults():void{

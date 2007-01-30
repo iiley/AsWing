@@ -80,6 +80,21 @@ public class AsWingUtils
     }
     
     /**
+     * Returns whether or not the ancestor is the child's ancestor.
+     * @return whether or not the ancestor is the child's ancestor.
+     */
+    public static function isAncestor(ancestor:Component, child:Component):Boolean{
+    	var pa:DisplayObjectContainer = child.parent;
+    	while(pa != null){
+    		if(pa == ancestor){
+    			return true;
+    		}
+    		pa = pa.parent;
+    	}
+    	return false;
+    }
+    
+    /**
      * Apply the font and color to the textfield.
      * @param text
      * @param font

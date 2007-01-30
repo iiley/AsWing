@@ -14,6 +14,7 @@ import flash.events.*;
 import org.aswing.plaf.basic.icon.ArrowIcon;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
+import flash.ui.Keyboard;
 
 /**
  * The basic scrollbar ui.
@@ -133,6 +134,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollbar.addEventListener(AWEvent.RELEASE, __trackReleased);
 		
 		scrollbar.addEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
+		scrollbar.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
 	}
     
     protected function uninstallListeners():void{
@@ -148,6 +150,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollbar.removeEventListener(AWEvent.RELEASE, __trackReleased);
 		
 		scrollbar.removeEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
+		scrollbar.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
     }
 	    
     private function isVertical():Boolean{
@@ -164,6 +167,26 @@ public class BasicScrollBarUI extends BaseComponentUI{
 			return;
 		}
     	scrollByIncrement(-e.delta * scrollbar.getUnitIncrement());
+    }
+    
+    private function __onKeyDown(e:FocusKeyEvent):void{
+		if(!(scrollbar.isEnabled() && scrollbar.isShowing())){
+			return;
+		}
+    	var code:uint = e.keyCode;
+    	if(code == Keyboard.UP || code == Keyboard.LEFT){
+    		scrollByIncrement(-scrollbar.getUnitIncrement());
+    	}else if(code == Keyboard.DOWN || code == Keyboard.RIGHT){
+    		scrollByIncrement(scrollbar.getUnitIncrement());
+    	}else if(code == Keyboard.PAGE_UP){
+    		scrollByIncrement(-scrollbar.getBlockIncrement());
+    	}else if(code == Keyboard.PAGE_DOWN){
+    		scrollByIncrement(scrollbar.getBlockIncrement());
+    	}else if(code == Keyboard.HOME){
+    		scrollbar.setValue(scrollbar.getMinimum());
+    	}else if(code == Keyboard.END){
+    		scrollbar.setValue(scrollbar.getMaximum() - scrollbar.getVisibleAmount());
+    	}
     }
     
     private function __scrollTimerPerformed(e:AWEvent):void{
@@ -471,6 +494,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
      */    
     protected function createArrowButton():JButton{
 		var b:JButton = new JButton();
+		b.setFocusable(false);
 		return b;
     }
         

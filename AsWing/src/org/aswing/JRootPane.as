@@ -25,6 +25,7 @@ public class JRootPane extends Container{
 	
 	public function JRootPane(){
 		super();
+		setName("JRootPane");
 		layout = new BorderLayout();
 		mnemonics = new HashMap();
 		addEventListener(TextEvent.TEXT_INPUT, __textInput, true);

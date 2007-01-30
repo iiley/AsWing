@@ -17,6 +17,15 @@ public class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 	
 	public function getComponentAfter(c:Component):Component
 	{
+		if(c == null){
+			return null;
+		}
+		if(c is Container){
+			var fc:Component = getFirstComponent(c as Container);
+			if(fc != null){
+				return fc;
+			}
+		}
 		var container:Container = c.getParent();
 		if(container == null){
 			return getFirstComponent(c as Container);
