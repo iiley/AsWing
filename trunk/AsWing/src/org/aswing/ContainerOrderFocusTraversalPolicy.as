@@ -17,10 +17,14 @@ public class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 	
 	public function getComponentAfter(c:Component):Component
 	{
+		return getComponentAfterImp(c, true);
+	}
+	
+	protected function getComponentAfterImp(c:Component, deepIn:Boolean=true):Component{
 		if(c == null){
 			return null;
 		}
-		if(c is Container){
+		if((c is Container) && deepIn){
 			var fc:Component = getFirstComponent(c as Container);
 			if(fc != null){
 				return fc;
@@ -41,24 +45,34 @@ public class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 			}
 		}
 		//up circle
-		return getComponentAfter(container);
+		return getComponentAfterImp(container, false);
 	}
 	
 	public function getComponentBefore(c:Component):Component
 	{
+		return getComponentBeforeImp(c);
+	}
+	
+	protected function getComponentBeforeImp(c:Component):Component{
+		if(c == null){
+			return null;
+		}
 		var container:Container = c.getParent();
 		if(container == null){
 			return getLastComponent(c as Container);
 		}
 		var index:int = container.getIndex(c);
 		while((--index) >= 0){
-			var nc:Component = getFocusableComponent(container.getComponent(index));
+			var nc:Component = getLastComponent(container.getComponent(index));
 			if(nc != null){
 				return nc;
 			}
 		}
+		if(accept(container)){
+			return container;
+		}
 		//up circle
-		return getComponentBefore(container);
+		return getComponentBeforeImp(container);
 	}
 	
 	/**
@@ -90,21 +104,48 @@ public class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 	}
 	
 	/**
-	 * Returns the last focusable component in the container.
+	 * Returns the last focusable component in the component, if it is a container 
+	 * deep into it to find the last.
 	 */
-	protected function getLastComponent(container:Container):Component{
+	protected function getLastComponent(c:Component):Component{
+		var container:Container = c as Container;
 		if(container == null){
-			return null;
+			if(accept(c)){
+				return c;
+			}else{
+				return null;
+			}
 		}
 		var index:int = container.getComponentCount();
 		while((--index) >= 0){
-			var nc:Component = getFocusableComponent(container.getComponent(index));
+			var theC:Component = container.getComponent(index);
+			if(isLeaf(theC)){
+				if(accept(theC)){
+					return theC;
+				}
+			}
+			var nc:Component = getLastComponent(theC as Container);
 			if(nc != null){
 				return nc;
 			}
 		}
+		if(accept(container)){
+			return container;
+		}
 		//do not up cirle here
 		return null;
+	}
+	
+	private function isLeaf(c:Component):Boolean{
+		if(c is Container){
+			var con:Container = c as Container;
+			return con.getComponentCount() == 0;
+		}
+		return true;
+	}
+	
+	private function accept(c:Component):Boolean{
+		return c.isShowing() && c.isFocusable() && c.isEnabled();
 	}
 	
 	private function getFocusableComponent(c:Component):Component{
