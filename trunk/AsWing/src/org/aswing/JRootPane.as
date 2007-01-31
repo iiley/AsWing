@@ -93,6 +93,8 @@ public class JRootPane extends Container{
 		if(mnBtn != null){
 			if(mnBtn.isShowing() && mnBtn.isEnabled()){
 				mnBtn.doClick();
+				FocusManager.getCurrentManager().setTraversing(true);
+				mnBtn.paintFocusRect();
 			}
 		}
 	}

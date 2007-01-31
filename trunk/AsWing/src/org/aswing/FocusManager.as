@@ -7,6 +7,8 @@ package org.aswing{
 import flash.display.*;
 import flash.events.*;
 import flash.ui.Keyboard;
+import org.aswing.util.DepthManager;
+import flash.geom.Point;
 
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
@@ -24,6 +26,7 @@ public class FocusManager{
 	private static var activeWindow:JWindow;
 		
 	private var stage:Stage;
+	private var focusRect:Sprite;
 	private var inited:Boolean;
 	private var defaultPolicy:FocusTraversalPolicy;
 	private var traversing:Boolean;
@@ -46,7 +49,19 @@ public class FocusManager{
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp);
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
+			focusRect = new Sprite();
+			focusRect.mouseEnabled = false;
+			focusRect.visible = false;
+			stage.addChild(focusRect);
 		}
+	}
+	
+	public function moveFocusRectUpperTo(c:Component):Sprite{
+		DepthManager.bringToTop(focusRect);
+		var p:Point = c.localToGlobal(new Point());
+		focusRect.x = p.x;
+		focusRect.y = p.y;
+		return focusRect;
 	}
 	
 	/**
@@ -60,8 +75,7 @@ public class FocusManager{
 	}
 	
 	private function __onMouseDown(e:MouseEvent):void{
-		traversing = false;
-		//TODO imp
+		setTraversing(false);
 	}
 	
 	private function __onKeyFocusChange(e:FocusEvent):void{
@@ -74,11 +88,10 @@ public class FocusManager{
 		if(e.keyCode != Keyboard.TAB){
 			return;
 		}
+		setTraversing(true);
 		if(e.shiftKey){
-			setTraversing(true);
 			focusPrevious();
 		}else{
-			setTraversing(true);
 			focusNext();
 		}
 	}
@@ -120,6 +133,10 @@ public class FocusManager{
 	 */
 	public function setTraversing(b:Boolean):void{
 		traversing = b;
+		focusRect.visible = b;
+		if(!b){
+			focusRect.graphics.clear();
+		}
 	}
 		
 	/**

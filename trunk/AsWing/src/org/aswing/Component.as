@@ -20,6 +20,7 @@ import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.util.HashMap;
 import org.aswing.util.Reflection;
+import flash.display.Sprite;
 	
 //--------------------------------------
 //  Events
@@ -1615,21 +1616,38 @@ public class Component extends AWSprite
 		var g:Graphics2D = new Graphics2D(graphics);
 		
 		if(backgroundDecorator != null){
-			backgroundDecorator.updateDecorator(this, g, b);
+			backgroundDecorator.updateDecorator(this, g, b.clone());
 		}
 		if(ui != null){
-			ui.paint(this, g, b);
+			ui.paint(this, g, b.clone());
 		}
+		paintFocusRect();
 		//paint border at last to make it at the top depth
 		if(border != null){
 			// not that border is not painted in b, is painted in component's full size bounds
 			// because border are the rounds, others will painted in the border's bounds.
-			border.updateBorder(this, g, getInsets().getOutsideBounds(b));
+			border.updateBorder(this, g, getInsets().getOutsideBounds(b.clone()));
 		}
 		if(foregroundDecorator != null){
 			foregroundDecorator.updateDecorator(this, g, b);
 		}
+				
 		dispatchEvent(new AWEvent(AWEvent.PAINT, false, false));
+	}
+	
+	/**
+	 * Paints the focus rect if need.
+	 * The focus will be paint by the component ui if this component is focusOwner and 
+	 * <code>FocusManager.getCurrentManager().isTraversing()</code>.
+	 */
+	public function paintFocusRect():void{
+		if(ui != null){
+			if(FocusManager.getCurrentManager().isTraversing() && isFocusOwner()){
+				var fr:Sprite = FocusManager.getCurrentManager().moveFocusRectUpperTo(this);
+				fr.graphics.clear();
+				ui.paintFocus(this, new Graphics2D(fr.graphics), new IntRectangle(0, 0, width, height));
+			}
+		}
 	}
 	
 	private var lastScrollRect:IntRectangle;
@@ -1837,8 +1855,7 @@ public class Component extends AWSprite
      */
     public function requestFocus():Boolean {
     	//TODO imp check
-    	if(isFocusable() && isEnabled() && isShowing()){			
-    		trace("requestFocus " + this);
+    	if(isFocusable() && isEnabled() && isShowing()){
     		stage.focus = getInternalFocusObject();
     		return true;
     	}
@@ -1884,6 +1901,7 @@ public class Component extends AWSprite
 			var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
 			if(this != focusOwner){
 	    		FocusManager.getCurrentManager().setFocusOwner(this);
+	    		paintFocusRect();
 	    		dispatchEvent(new AWEvent(AWEvent.FOCUS_GAINED));
    			}
 		}
