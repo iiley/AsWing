@@ -97,6 +97,17 @@ public interface ComponentUI
     function paint(c:Component, g:Graphics2D, b:IntRectangle):void;
     
     /**
+     * Paints focus representation to the component.
+     * @param c the component being painted;
+     *          this argument is often ignored,
+     *          but might be used if the UI object is stateless
+     *          and shared by multiple components.
+     * @param g the Graphics context in which to paint.
+     * @param b the bounds to paint focus in.
+     */
+    function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void;
+    
+    /**
      * Returns the specified component's preferred size appropriate for
      * the look and feel.  If <code>null</code> is returned, the preferred
      * size will be calculated by the component's layout manager instead 

@@ -11,6 +11,7 @@ import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.graphics.SolidBrush;
+import org.aswing.graphics.Pen;
 
 /**
  * The base class for ComponentUI.
@@ -52,6 +53,18 @@ public class BaseComponentUI implements ComponentUI
 		paintBackGround(c, g, b);
 	}
 	
+	public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void{
+    	g.drawRectangle(new Pen(getDefaultFocusColorInner(), 1), b.x+0.5, b.y+0.5, b.width-1, b.height-1);
+    	g.drawRectangle(new Pen(getDefaultFocusColorOutter(), 1), b.x+1.5, b.y+1.5, b.width-3, b.height-3);
+	}
+	
+    private function getDefaultFocusColorInner():ASColor{
+    	return getColor("focusInner");
+    }
+    private function getDefaultFocusColorOutter():ASColor{
+    	return getColor("focusOutter");
+    }
+    	
 	protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
 		if(c.isOpaque()){
 			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
