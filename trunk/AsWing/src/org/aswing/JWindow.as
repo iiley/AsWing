@@ -6,7 +6,8 @@ package org.aswing{
 	
 import org.aswing.util.Vector;
 import org.aswing.geom.*;
-import org.aswing.event.WindowEvent;	
+import org.aswing.event.WindowEvent;
+import flash.events.MouseEvent;	
 
 /**
  * Dispatched when the window be set actived from not being actived.
@@ -43,6 +44,7 @@ public class JWindow extends JPopup{
 	private var contentPane:Container;
 	private var actived:Boolean;
 	
+	private var focusWhenDeactive:Component;
 	private var lootActiveFrom:JWindow;
 	
 	public function JWindow(owner:*=null, modal:Boolean=false){
@@ -51,6 +53,8 @@ public class JWindow extends JPopup{
 		actived = false;
 		layout = new WindowLayout();
 		setFocusTraversalPolicy(new WindowOrderFocusTraversalPolicy());
+		
+		addEventListener(MouseEvent.MOUSE_DOWN, __activeWhenPress, true, 1);
 		//TODO imp
 		//listenerToOwner[ON_WINDOW_ICONIFIED] = Delegate.create(this, __ownerIconified);
 		//listenerToOwner[ON_WINDOW_RESTORED] = Delegate.create(this, __ownerRestored);
@@ -191,6 +195,26 @@ public class JWindow extends JPopup{
 			}
 		}
 	}
+	
+	/**
+	 * Request focus to this window's default focus component or last focused component when 
+	 * last deactived.
+	 */
+	public function focusAtThisWindow():void{
+		var defaultFocus:Component = focusWhenDeactive;
+		if(defaultFocus == null || 
+			!(AsWingUtils.isAncestor(this, defaultFocus) 
+				&& defaultFocus.isShowing() 
+				&& defaultFocus.isFocusable() 
+				&& defaultFocus.isEnabled())){
+			defaultFocus = getFocusTraversalPolicy().getDefaultComponent(this);
+		}
+		if(defaultFocus == null){
+			defaultFocus = this;
+		}
+		focusWhenDeactive = null;
+		defaultFocus.requestFocus();
+	}
 			
 	/**
 	 * Returns all displable windows currently. A window was disposed or destroied will not 
@@ -278,18 +302,34 @@ public class JWindow extends JPopup{
 					setLootActiveFrom(w);
 				}
 			}
-
 		}
-		//FocusManager.getCurrentManager().setActiveWindow(this);
-		//focusAtThisWindow();
+		FocusManager.getCurrentManager().setActiveWindow(this);
+		focusAtThisWindow();
 		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_ACTIVATED));
 	}
 	
 	private function deactive():void{
 		actived = false;
+		//recored this last focus component
+		focusWhenDeactive = FocusManager.getCurrentManager().getFocusOwner();
+		if(!AsWingUtils.isAncestor(this, focusWhenDeactive)){
+			focusWhenDeactive = null;
+		}
 		//KeyboardManager.getInstance().unregisterKeyMap(getKeyMap());
-		//FocusManager.getCurrentManager().setActiveWindow(null);
+		FocusManager.getCurrentManager().setActiveWindow(null);
 		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_DEACTIVATED));
+	}
+	
+	//---------------------------------------------------------------------
+	
+	private function __activeWhenPress(e:MouseEvent):void{
+		if(getWindowOwner() != null){
+			getWindowOwner().toFront();
+		}
+		if(!isActive()){
+			toFront();
+			active();
+		}
 	}
 }
 }

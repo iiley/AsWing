@@ -7,9 +7,11 @@ package org.aswing.plaf.basic
 	
 import org.aswing.*;
 import org.aswing.plaf.*;
-import org.aswing.plaf.basic.background.ButtonBackgound;
+import org.aswing.plaf.basic.background.ButtonBackground;
 import org.aswing.plaf.basic.icon.CheckBoxIcon;
 import org.aswing.plaf.basic.background.ScrollBarThumb;
+import org.aswing.plaf.basic.border.TextFieldBorder;
+import org.aswing.plaf.basic.background.TextComponentBackBround;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -46,7 +48,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
 			   "ViewportUI", org.aswing.plaf.basic.BasicViewportUI,
 			   "ScrollPaneUI", org.aswing.plaf.basic.BasicScrollPaneUI, 
-			   "LabelUI",org.aswing.plaf.basic.BasicLabelUI
+			   "LabelUI",org.aswing.plaf.basic.BasicLabelUI, 
+			   "TextFieldUI",org.aswing.plaf.basic.BasicTextFieldUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -109,7 +112,7 @@ public class BasicLookAndFeel extends LookAndFeel
         	"Button.light", table.getColor("controlHighlight"),       
        		"Button.highlight", table.getColor("controlLtHighlight"),
         	"Button.font", table.getFont("controlFont"),
-			"Button.bg", org.aswing.plaf.basic.background.ButtonBackgound,
+			"Button.bg", org.aswing.plaf.basic.background.ButtonBackground,
 			"Button.margin", new InsetsUIResource(2, 3, 3, 2), 
 			"Button.textShiftOffset", 1
 		];
@@ -221,6 +224,19 @@ public class BasicLookAndFeel extends LookAndFeel
 		];
 	    table.putDefaults(comDefaults);
 	    
+	   // *** TextField
+	    comDefaults = [
+		    "TextField.background", new ASColorUIResource(0xF3F3F3),
+		    "TextField.foreground", new ASColorUIResource(0x000000),
+	    	"TextField.opaque", true,  
+	    	"TextField.focusable", true,
+	        "TextField.light", new ASColorUIResource(0xDCDEDD),
+	        "TextField.shadow", new ASColorUIResource(0x666666),
+        	"TextField.font", table.getFont("controlFont"),
+			"TextField.bg", org.aswing.plaf.basic.background.TextComponentBackBround,
+		    "TextField.border", org.aswing.plaf.basic.border.TextFieldBorder
+		];
+	    table.putDefaults(comDefaults);
 	}
 	
 }

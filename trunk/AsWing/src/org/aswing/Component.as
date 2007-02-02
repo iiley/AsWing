@@ -338,9 +338,15 @@ public class Component extends AWSprite
 	 */
 	public function setBorder(b:Border):void{
 		if(b != border){
-			removeChild(border.getDisplay());
+			if(border != null && border.getDisplay() != null){
+				removeChild(border.getDisplay());
+			}
 			border = b;
-			addChild(border.getDisplay());
+			
+			if(border != null && border.getDisplay() != null){
+				addChild(border.getDisplay());
+			}
+			
 			repaint();
 			revalidate();
 		}
@@ -1629,7 +1635,7 @@ public class Component extends AWSprite
 			border.updateBorder(this, g, getInsets().getOutsideBounds(b.clone()));
 		}
 		if(foregroundDecorator != null){
-			foregroundDecorator.updateDecorator(this, g, b);
+			foregroundDecorator.updateDecorator(this, g, b.clone());
 		}
 				
 		dispatchEvent(new AWEvent(AWEvent.PAINT, false, false));

@@ -7,9 +7,9 @@ import org.aswing.*;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
-import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.*;
 
-public class ToggleButtonBackground implements GroundDecorator
+public class ToggleButtonBackground implements GroundDecorator, UIResource
 {
     private var shadow:ASColor;
     private var darkShadow:ASColor;

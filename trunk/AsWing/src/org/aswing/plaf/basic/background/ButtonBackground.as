@@ -11,15 +11,15 @@ import org.aswing.*;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
-import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.*;
 
-public class ButtonBackgound implements GroundDecorator{
+public class ButtonBackground implements GroundDecorator, UIResource{
     private var shadow:ASColor;
     private var darkShadow:ASColor;
     private var highlight:ASColor;
     private var lightHighlight:ASColor;
     
-	public function ButtonBackgound(){
+	public function ButtonBackground(){
 	} 
 	
 

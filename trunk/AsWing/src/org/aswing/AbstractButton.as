@@ -14,6 +14,14 @@ import org.aswing.plaf.*;
 import org.aswing.util.*;
 	
 /**
+ * Dispatched when the button's model take action, generally when user click the 
+ * button or <code>doClick()</code> is called programaticlly.
+ * @eventType org.aswing.event.AWEvent.ACT
+ * @see org.aswing.AbstractButton#addActionListener()
+ */
+[Event(name="act", type="org.aswing.event.AWEvent")]
+
+/**
  * Dispatched when the button's state changed. the state is all about:
  * <ul>
  * <li>enabled</li>
@@ -176,27 +184,7 @@ public class AbstractButton extends Component
             repaint();
         }
     }
-        
-    /**
-     * Returns the L&F object that renders this component.
-     * @return the ButtonUI object
-     * @see #setUI()
-     */
-	override public function getUI():ComponentUI {
-        return ButtonUI(ui);
-    }
-
-    
-    /**
-     * Sets the L&F object that renders this component.
-     * @param ui the <code>ButtonUI</code> L&F object
-     * @see #getUI()
-     */
-    override public function setUI(ui:ComponentUI):void {
-        super.setUI(ui);
-    }
-
-    
+         
     /**
      * Resets the UI property to a value from the current look
      * and feel.  Subtypes of <code>AbstractButton</code>
