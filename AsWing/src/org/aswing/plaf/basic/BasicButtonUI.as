@@ -23,7 +23,7 @@ import flash.ui.Keyboard;
  * Basic Button implementation.
  * @author iiley
  */
-public class BasicButtonUI extends BaseComponentUI implements ButtonUI
+public class BasicButtonUI extends BaseComponentUI
 {
     
     // Offset controlled by set method 

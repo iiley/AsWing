@@ -296,7 +296,19 @@ public class AsWingUtils
     		TEXT_FORMAT = tf;
     	}
         return TEXT_FIELD.textWidth;
-    }        
+    }
+    
+    /**
+     * Not include the gutters
+     */
+    public static function stringSize(tf:TextFormat, str:String):IntDimension{
+    	TEXT_FIELD.text = str;
+    	if(TEXT_FORMAT != tf){
+    		TEXT_FIELD.setTextFormat(tf);
+    		TEXT_FORMAT = tf;
+    	}
+    	return new IntDimension(Math.ceil(TEXT_FIELD.textWidth), Math.ceil(TEXT_FIELD.textHeight));
+    }
         
     public static function computeStringWidth(tf:TextFormat, str:String):Number{
     	TEXT_FIELD.text = str;

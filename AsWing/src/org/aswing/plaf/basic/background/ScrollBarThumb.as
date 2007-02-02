@@ -9,7 +9,7 @@ import org.aswing.graphics.*;
 import org.aswing.*;
 import org.aswing.geom.IntRectangle;
 import flash.display.DisplayObject;
-import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.*;
 import flash.display.Sprite;
 import org.aswing.geom.IntDimension;
 import flash.events.*;
@@ -20,7 +20,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
  * The thumb decorator for JScrollBar.
  * @author iiley
  */
-public class ScrollBarThumb implements GroundDecorator
+public class ScrollBarThumb implements GroundDecorator, UIResource
 {
 	private var thumbHighlightColor:ASColor;
     private var thumbLightHighlightColor:ASColor;
