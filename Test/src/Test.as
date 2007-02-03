@@ -13,7 +13,7 @@ package {
 			super();
 			stage.stageFocusRect = false;
 			AsWingManager.setRoot(this);
-			addChild(new Popup("tt"));
+			addChild(new TextAreaCase());
 		}
 	}
 }

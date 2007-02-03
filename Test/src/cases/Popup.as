@@ -13,10 +13,9 @@ package cases
 		private var pop2:JPopup;
 		private var button2:JButton;
 		
-		public function Popup(param:String="", x:int)
+		public function Popup()
 		{
 			super();
-			trace("param = " + param);
 			var panel:JRootPane = new JRootPane();
 			panel.setLayout(new FlowLayout());
 			var button1:JButton = new JButton("&Popup 1");
@@ -27,8 +26,8 @@ package cases
 			addChild(panel);
 			panel.validate();
 			
-			//button1.addActionListener(__pop1Listener);
-			//button2.addActionListener(__pop2Listener);
+			button1.addActionListener(__pop1Listener);
+			button2.addActionListener(__pop2Listener);
 			
 			pop1 = new JPopup();
 			
@@ -48,9 +47,9 @@ package cases
 			pop2.setSizeWH(200, 200);
 			pop2.setLocationXY(200, 10);
 			
-			//pop1.addEventListener(MouseEvent.MOUSE_DOWN, __top1);
-			//pop1.addEventListener(AWEvent.RELEASE, __top1Released);
-			//pop2.addEventListener(MouseEvent.MOUSE_DOWN, __top2);
+			pop1.addEventListener(MouseEvent.MOUSE_DOWN, __top1);
+			pop1.addEventListener(AWEvent.RELEASE, __top1Released);
+			pop2.addEventListener(MouseEvent.MOUSE_DOWN, __top2);
 		}
 		
 		private function __pop1Listener(e:Event):void{

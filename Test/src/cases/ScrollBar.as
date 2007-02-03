@@ -21,7 +21,10 @@ package cases
 			
 			vscroll = new JScrollBar(JScrollBar.VERTICAL);
 			vscroll.setValue(45);
+			vscroll.setVisible(false);
+			vscroll.setName("vscroll");
 			hscroll = new JScrollBar(JScrollBar.HORIZONTAL);
+			hscroll.setName("hscroll");
 			panel.append(vscroll, BorderLayout.EAST);
 			panel.append(hscroll, BorderLayout.SOUTH);
 			hscroll.addStateListener(__vsListener);
@@ -42,6 +45,7 @@ package cases
 		final private function __vsListener(e:InteractiveEvent):void{
 			var x:int = hscroll.getValue()/(hscroll.getMaximum()-hscroll.getMinimum()) * viewport.getViewSize().width;
 			viewport.setViewPosition(new IntPoint(x, 0));
+			vscroll.setVisible(true);
 			//trace("vscroll value : " + hscroll.getValue());
 		}
 	}

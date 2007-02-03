@@ -13,7 +13,8 @@ package cases
 			super();
 			
 			panel = new JPanel();
-			var text:JTextField = new JTextField("JTextField");
+			var text:JTextField = new JTextField("input");
+			text.setCachePreferSizes(false);
 			panel.append(text);
 			text.addActionListener(__revalidate);
 			panel.append(new JTextField("JTextField1", 8));
