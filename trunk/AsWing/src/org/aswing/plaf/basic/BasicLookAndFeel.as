@@ -49,7 +49,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ViewportUI", org.aswing.plaf.basic.BasicViewportUI,
 			   "ScrollPaneUI", org.aswing.plaf.basic.BasicScrollPaneUI, 
 			   "LabelUI",org.aswing.plaf.basic.BasicLabelUI, 
-			   "TextFieldUI",org.aswing.plaf.basic.BasicTextFieldUI
+			   "TextFieldUI",org.aswing.plaf.basic.BasicTextFieldUI, 
+			   "TextAreaUI",org.aswing.plaf.basic.BasicTextAreaUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -235,6 +236,20 @@ public class BasicLookAndFeel extends LookAndFeel
         	"TextField.font", table.getFont("controlFont"),
 			"TextField.bg", org.aswing.plaf.basic.background.TextComponentBackBround,
 		    "TextField.border", org.aswing.plaf.basic.border.TextFieldBorder
+		];
+	    table.putDefaults(comDefaults);
+	    
+	   // *** TextArea
+	    comDefaults = [
+		    "TextArea.background", new ASColorUIResource(0xF3F3F3),
+		    "TextArea.foreground", new ASColorUIResource(0x000000),
+	    	"TextArea.opaque", true,  
+	    	"TextArea.focusable", true,
+	        "TextArea.light", new ASColorUIResource(0xDCDEDD),
+	        "TextArea.shadow", new ASColorUIResource(0x666666),
+        	"TextArea.font", table.getFont("controlFont"),
+			"TextArea.bg", org.aswing.plaf.basic.background.TextComponentBackBround,
+		    "TextArea.border", org.aswing.plaf.basic.border.TextAreaBorder
 		];
 	    table.putDefaults(comDefaults);
 	}

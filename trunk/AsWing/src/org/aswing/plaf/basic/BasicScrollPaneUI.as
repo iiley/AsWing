@@ -122,7 +122,7 @@ public class BasicScrollPaneUI extends BaseComponentUI{
 	
     private function __adjustChanged(e:ScrollPaneEvent):void{
     	var viewport:Viewportable = scrollPane.getViewport();
-    	viewport.scrollRectToVisible(scrollPane.getVisibleRect());
+    	viewport.scrollRectToVisible(scrollPane.getVisibleRect(), e.isProgrammatic());
     }
 	
 }
