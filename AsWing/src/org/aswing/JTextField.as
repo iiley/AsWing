@@ -26,6 +26,8 @@ public class JTextField extends JTextComponent{
 	
 	public function JTextField(text:String="", columns:int=0){
 		super();
+		setName("JTextField");
+		getTextField().multiline = false;
 		getTextField().text = text;
 		this.columns = columns;
 		addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onFocusKeyDown);

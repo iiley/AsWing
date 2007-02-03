@@ -10,6 +10,23 @@ import org.aswing.geom.IntPoint;
 import org.aswing.event.InteractiveEvent;
 
 /**
+ * Dispatched when the viewport's state changed. the state is all about:
+ * <ul>
+ * <li>view position</li>
+ * <li>verticalUnitIncrement</li>
+ * <li>verticalBlockIncrement</li>
+ * <li>horizontalUnitIncrement</li>
+ * <li>horizontalBlockIncrement</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
+ * </p>
+ * @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
+ */
+[Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
+
+/**
  * JViewport is an basic viewport to view normal components. Generally JViewport works 
  * with JScrollPane together, for example:<br>
  * <pre>
@@ -26,7 +43,7 @@ public class JViewport extends Container implements Viewportable{
  	/**
  	 * The default unit/block increment, it means auto count a value.
  	 */
- 	public static const AUTO_INCREMENT:int = -999999999;
+ 	public static const AUTO_INCREMENT:int = int.MIN_VALUE;
  	
 	private var verticalUnitIncrement:int;
 	private var verticalBlockIncrement:int;
@@ -303,19 +320,19 @@ public class JViewport extends Container implements Viewportable{
 		}
 	}
 
-	public function setViewPosition(p : IntPoint) : void {
+	public function setViewPosition(p : IntPoint, programmatic:Boolean=true) : void {
 		if(!p.equals(getViewPosition())){
 			restrictionViewPos(p);
 			if(!p.equals(getViewPosition())){
 				var ir:IntRectangle = getInsets().getInsideBounds(getSize().getBounds());
 				view.setLocationXY(ir.x-p.x, ir.y-p.y);
-				fireStateChanged();
+				fireStateChanged(programmatic);
 			}
 		}
 	}
 
-	public function scrollRectToVisible(contentRect : IntRectangle) : void {
-		setViewPosition(new IntPoint(contentRect.x, contentRect.y));
+	public function scrollRectToVisible(contentRect:IntRectangle, programmatic:Boolean=true):void{
+		setViewPosition(new IntPoint(contentRect.x, contentRect.y), programmatic);
 	}
 	
 	/**
@@ -389,7 +406,11 @@ public class JViewport extends Container implements Viewportable{
 	 * <p>
 	 * When the viewpoat's state changed, the state is all about:
 	 * <ul>
-	 * <li>viewPosition
+	 * <li>viewPosition</li>
+	 * <li>verticalUnitIncrement</li>
+	 * <li>verticalBlockIncrement</li>
+	 * <li>horizontalUnitIncrement</li>
+	 * <li>horizontalBlockIncrement</li>
 	 * </ul>
 	 * @param listener the listener
 	 * @param priority the priority
@@ -409,8 +430,8 @@ public class JViewport extends Container implements Viewportable{
 		removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
 	}
 	
-	protected function fireStateChanged():void{
-		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED));
+	protected function fireStateChanged(programmatic:Boolean=true):void{
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
 	}
 	
 	public function getViewportPane() : Component {

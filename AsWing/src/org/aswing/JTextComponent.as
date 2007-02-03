@@ -7,6 +7,8 @@ package org.aswing{
 import flash.text.*;
 import flash.display.InteractiveObject;
 import org.aswing.geom.*;
+import flash.events.*;
+import flash.ui.Keyboard;
 
 /**
  * JTextComponent is the base class for text components. 
@@ -44,9 +46,23 @@ public class JTextComponent extends Component{
 		textField = new TextField();
 		textField.type = TextFieldType.INPUT;
 		textField.autoSize = TextFieldAutoSize.NONE;
+		textField.background = false;
 		editable = true;
 		columnRowCounted = false;
 		addChild(textField);
+		textField.addEventListener(TextEvent.TEXT_INPUT, __onTextComponentTextInput);
+	}
+	
+	private function __onTextComponentTextInput(e:TextEvent):void{
+    	if(!getTextField().multiline){ //fix the bug that fp in interenet browser single line TextField Ctrl+Enter will entered a newline bug
+    		var text:String = e.text;
+    		if(KeyboardManager.getInstance().isKeyDown(Keyboard.CONTROL) 
+    			&& KeyboardManager.getInstance().isKeyDown(Keyboard.ENTER)){
+				if(text.length == 1 && text.charCodeAt(0) == 10){
+					e.preventDefault();
+				}
+    		}
+    	}
 	}
 	
 	/**
@@ -77,6 +93,8 @@ public class JTextComponent extends Component{
 			}else{
 				getTextField().type = TextFieldType.DYNAMIC;
 			}
+			invalidate();
+			invalidateColumnRowSize();
 		}
 	}
 	
@@ -121,6 +139,9 @@ public class JTextComponent extends Component{
 	
 	public function appendText(newText:String):void{
 		getTextField().appendText(newText);
+		if(isAutoSize()){
+			revalidate();
+		}
 	}
 	
 	public function replaceSelectedText(value:String):void{
@@ -236,7 +257,7 @@ public class JTextComponent extends Component{
 		}
 	}
 	
-	public function isWordWarp():Boolean{
+	public function isWordWrap():Boolean{
 		return getTextField().wordWrap;
 	}
 	
@@ -305,12 +326,24 @@ public class JTextComponent extends Component{
 		return heightMargin;
 	}
 	
-	protected function getTextFieldAutoSizedSize():IntDimension{
+	protected function getTextFieldAutoSizedSize(forceWidth:int=0, forceHeight:int=0):IntDimension{
 		var tf:TextField = getTextField();
 		var old:String = tf.autoSize;
+		if(forceWidth != 0){
+			tf.width = forceWidth;
+		}
+		if(forceHeight != 0){
+			tf.height = forceHeight;
+		}
 		tf.autoSize = TextFieldAutoSize.LEFT;
 		var size:IntDimension = new IntDimension(tf.width, tf.height);
 		tf.autoSize = old;
+		if(forceWidth != 0){
+			size.width = forceWidth;
+		}
+		if(forceHeight != 0){
+			size.height = forceHeight;
+		}
 		return size;
 	}
 	

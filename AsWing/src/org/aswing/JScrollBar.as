@@ -191,6 +191,7 @@ public class JScrollBar extends Component{
 	/**
 	 * Sets the scrollbar's value. This method just forwards the value to the model.
 	 * @param value the value to set.
+     * @param programmatic indicate if this is a programmatic change.
 	 * @see #getValue()
 	 * @see BoundedRangeModel#setValue()
 	 */
