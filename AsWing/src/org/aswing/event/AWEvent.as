@@ -196,7 +196,7 @@ public class AWEvent extends Event
      *
      *  @eventType focusLost
 	 */	 	 
-	public static const FOCUS_LOST:String = "focusLost";	
+	public static const FOCUS_LOST:String = "focusLost";
 					
 	/**
 	 * Create an AWEvent.

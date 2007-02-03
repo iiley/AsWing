@@ -104,7 +104,9 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		thumMC.addEventListener(AWEvent.RELEASE, __stopDragThumb);
 		createIcons();
     	incrButton = createArrowButton();
+    	incrButton.setName("JScrollbar_incrButton");
     	decrButton = createArrowButton();
+    	decrButton.setName("JScrollbar_decrButton");
     	setButtonIcons();
         //incrButton.setFocusable(false);
         //decrButton.setFocusable(false);
@@ -210,7 +212,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
     }
     
     private function __adjustChanged(e:Event):void{
-    	if(!isDragging)
+    	if(scrollbar.isVisible() && !isDragging)
     		paintAndLocateThumb(scrollbar.getPaintBounds());
     }
     

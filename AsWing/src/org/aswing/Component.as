@@ -162,6 +162,7 @@ public class Component extends AWSprite
 		focusableSet = false;
 		cachePreferSizes = true;
 		fontValidated = false;
+		readyToPaint = false;
 		border = DefaultEmptyDecoraterResource.INSTANCE;
 		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
 		foregroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
@@ -459,7 +460,7 @@ public class Component extends AWSprite
 			}
 			//because the repaint and some other operating only do when visible
 			//so when change to visible, must call repaint to do the operatings they had not done when invisible
-			if(d_visible){
+			if(v){
 				repaint();
 			}
 			revalidate();
@@ -1539,7 +1540,7 @@ public class Component extends AWSprite
 	 * @see org.aswing.RepaintManager
 	 */
 	public function repaint():void{
-		if(isVisible()){
+		if(isVisible() && isReadyToPaint()){
 			RepaintManager.getInstance().addRepaintComponent(this);
 		}
 	}
@@ -1608,7 +1609,7 @@ public class Component extends AWSprite
 	 * @see #setSize()
 	 * @see #size()
 	 */
-	protected function isReadyToPaint():Boolean{
+	private function isReadyToPaint():Boolean{
 		return readyToPaint;
 	}
 	
@@ -1732,7 +1733,8 @@ public class Component extends AWSprite
 	 * component will cause the entire tree beginning with this root to be validated. 
 	 * Returns false by default. 
 	 * JScrollPane overrides this method and returns true. 
-	 * @return always returns false
+	 * @return return true if this component is located in a non-component container, 
+	 *         otherwise returns false
 	 */
 	public function isValidateRoot():Boolean{
 		if(stage != null && getParent() == null){

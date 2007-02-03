@@ -20,9 +20,7 @@ import flash.events.Event;
  * <li>horizontalBlockIncrement</li>
  * </ul>
  * </p>
- * <p>
- * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
- * </p>
+ * 
  * @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
  */
 [Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
@@ -54,6 +52,8 @@ public class JTextArea extends JTextComponent implements Viewportable{
 	
 	private var viewPos:IntPoint;
 	private var viewportSizeTesting:Boolean;
+	private var lastMaxScrollV:int;
+	private var lastMaxScrollH:int;
 		
 	private var verticalUnitIncrement:int;
 	private var verticalBlockIncrement:int;
@@ -68,7 +68,9 @@ public class JTextArea extends JTextComponent implements Viewportable{
 		this.rows = rows;
 		this.columns = columns;
 		viewPos = new IntPoint();
-		viewportSizeTesting = false;
+		viewportSizeTesting = false;			
+		lastMaxScrollV = getTextField().maxScrollV;
+		lastMaxScrollH = getTextField().maxScrollH;
 		
 		verticalUnitIncrement = AUTO_INCREMENT;
 		verticalBlockIncrement = AUTO_INCREMENT;
@@ -173,7 +175,9 @@ public class JTextArea extends JTextComponent implements Viewportable{
     	if(viewportSizeTesting){
     		return;
     	}
-		revalidate();
+		//do not need call revalidate here in fact
+		//because if the scroll changed with text change, the 
+		//scroll event will be fired see below handler
 	}
 	
 	private function __onTextAreaTextScroll(e:Event):void{
@@ -186,6 +190,11 @@ public class JTextArea extends JTextComponent implements Viewportable{
 			viewPos.setLocation(newViewPos);
 			//notify scroll bar to syn
 			fireStateChanged(true);
+		}
+		if(lastMaxScrollV != t.maxScrollV || lastMaxScrollH != t.maxScrollH){
+			lastMaxScrollV = t.maxScrollV;
+			lastMaxScrollH = t.maxScrollH;
+			revalidate();
 		}
 	}
 	
@@ -344,8 +353,11 @@ public class JTextArea extends JTextComponent implements Viewportable{
 	}
 	
 	public function setViewPosition(p:IntPoint, programmatic:Boolean=true):void{
-		restrictionViewPos(p);
 		if(!viewPos.equals(p)){
+			restrictionViewPos(p);
+			if(viewPos.equals(p)){
+				return;
+			}
 			viewPos.setLocation(p);
 			validateScroll();
 			fireStateChanged(programmatic);

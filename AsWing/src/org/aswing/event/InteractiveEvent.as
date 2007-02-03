@@ -18,7 +18,7 @@ import flash.events.Event;
 public class InteractiveEvent extends AWEvent{
 	
 	/**
-     *  The <code>AWEvent.STATE_CHANGED</code> constant defines the value of the
+     *  The <code>InteractiveEvent.STATE_CHANGED</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>stateChanged</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
@@ -43,7 +43,7 @@ public class InteractiveEvent extends AWEvent{
 	public static const STATE_CHANGED:String = "stateChanged";
 	
 	/**
-     *  The <code>AWEvent.SELECTION_CHANGED</code> constant defines the value of the
+     *  The <code>InteractiveEvent.SELECTION_CHANGED</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>selectionChanged</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
@@ -66,7 +66,57 @@ public class InteractiveEvent extends AWEvent{
      *  @eventType selectionChanged
 	 */
 	public static const SELECTION_CHANGED:String = "selectionChanged";
-		
+
+	/**
+     *  The <code>InteractiveEvent.SCROLL_CHANGED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>scrollChanged</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>comp.addEventListener()</code> to register an event listener,
+     *       comp is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType scrollChanged
+	 */
+	public static const SCROLL_CHANGED:String = "scrollChanged";
+	
+	/**
+     *  The <code>InteractiveEvent.TEXT_CHANGED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>textChanged</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>comp.addEventListener()</code> to register an event listener,
+     *       comp is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType textChanged
+	 */
+	public static const TEXT_CHANGED:String = "textChanged";
+
 	private var programmatic:Boolean;
 	
 	public function InteractiveEvent(type:String, programmatic:Boolean=false, bubbles:Boolean=false, cancelable:Boolean=false){

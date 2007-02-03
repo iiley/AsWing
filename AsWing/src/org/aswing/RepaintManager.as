@@ -24,6 +24,8 @@ public class RepaintManager
 	
 	private static var instance:RepaintManager;
 	private static var stage:Stage;
+	private static var time:int = 0;
+	
 	/**
 	 * Although it's a set in fact, but it work more like a queue
 	 * The component will not be added twice into the repaintQueue (one time a component do not need more than one painting)
@@ -35,6 +37,7 @@ public class RepaintManager
 	private var validateQueue:HashSet;
 	
 	private var timer:Timer;
+	private var renderring:Boolean;
 	
 	/**
 	 * Singleton class, 
@@ -46,6 +49,7 @@ public class RepaintManager
 		}
 		repaintQueue = new HashSet();
 		validateQueue = new HashSet();
+		renderring = false;
 		timer = new Timer(40, false);
 		timer.addActionListener(__render);
 	}
@@ -101,7 +105,7 @@ public class RepaintManager
 	}
 	
 	private function renderLater():void{
-		if(stage != null){
+		if(stage != null && !renderring){
 			stage.invalidate();
 		}else{
 			if(!timer.isRunning()){
@@ -142,7 +146,10 @@ public class RepaintManager
 		var i:int;
 		var n:int;
 		var com:Component;
-						
+		time++;
+		
+		renderring = true;
+		
 //		var time:Number = getTimer();
 		var processValidates:Array = validateQueue.toArray();
 		//must clear here, because there maybe addRepaintComponent at below operation
@@ -176,6 +183,7 @@ public class RepaintManager
 //		if(n > 0){
 //			trace(n + " paint time : " + (getTimer() - time));
 //		}
+		renderring = false;
 	}	
 }
 }
