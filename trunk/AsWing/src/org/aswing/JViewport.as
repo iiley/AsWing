@@ -19,9 +19,7 @@ import org.aswing.event.InteractiveEvent;
  * <li>horizontalBlockIncrement</li>
  * </ul>
  * </p>
- * <p>
- * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
- * </p>
+ * 
  * @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
  */
 [Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
