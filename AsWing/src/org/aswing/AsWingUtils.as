@@ -10,7 +10,8 @@ import flash.text.TextFormat;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import org.aswing.geom.*;
-import flash.display.*;	
+import flash.display.*;
+import flash.geom.Point;	
 	
 public class AsWingUtils
 {
@@ -92,6 +93,29 @@ public class AsWingUtils
     		pa = pa.parent;
     	}
     	return false;
+    }
+    
+    /**
+     * Returns the currently visible maximized bounds in a display object(viewable the stage area).
+     * @param dis the display object
+     */
+    public static function getVisibleMaximizedBounds(dis:DisplayObject):IntRectangle{
+    	var stage:Stage = dis == null ? null : dis.stage;
+    	if(stage == null){
+    		stage = AsWingManager.getStage();
+    	}
+    	if(stage == null){
+    		return new IntRectangle(200, 200);
+    	}
+        var sw:Number = stage.width;
+        var sh:Number = stage.height;
+        var sa:String = stage.align;
+        //TODO imp when stage resized
+        var b:IntRectangle = new IntRectangle(0, 0, sw, sh);
+        var p:Point = new Point(0, 0);
+        dis.globalToLocal(p);
+        b.setLocation(IntPoint.creatWithPoint(p));
+        return b;
     }
     
     /**

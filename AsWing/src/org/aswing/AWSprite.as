@@ -18,6 +18,13 @@ import org.aswing.event.AWEvent;
 [Event(name="release", type="org.aswing.event.AWEvent")]
 
 /**
+ *  Dispatched only when the mouse released out side.
+ *
+ *  @eventType org.aswing.event.AWEvent.RELEASE_OUT_SIDE
+ */
+[Event(name="releaseOutSide", type="org.aswing.event.AWEvent")]
+
+/**
  * AsWing component based Sprite.
  * <p>
  * The AsWing Component Assets structure:(Assets means flash player display objects)
@@ -144,6 +151,9 @@ public class AWSprite extends Sprite
 	private function __awStageMouseUpListener(e:MouseEvent):void{
 		stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 		dispatchEvent(new AWEvent(AWEvent.RELEASE));
+		if(e.target != this){
+			dispatchEvent(new AWEvent(AWEvent.RELEASE_OUT_SIDE));
+		}
 	}
 	
 	override public function toString():String{

@@ -291,24 +291,24 @@ public class JWindow extends JPopup{
 		lootActiveFrom = activeOwner;
 	}
 	
-	private function active():void{
+	private function active(programmatic:Boolean=true):void{
 		actived = true;
 		var vec:Vector = getPopupsVector();
 		for(var i:Number=0; i<vec.size(); i++){
 			var w:JWindow = JWindow(vec.get(i));
 			if(w != null && w != this){
 				if(w.isActive()){
-					w.deactive();
+					w.deactive(programmatic);
 					setLootActiveFrom(w);
 				}
 			}
 		}
 		FocusManager.getCurrentManager().setActiveWindow(this);
 		focusAtThisWindow();
-		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_ACTIVATED));
+		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_ACTIVATED, programmatic));
 	}
 	
-	private function deactive():void{
+	private function deactive(programmatic:Boolean=true):void{
 		actived = false;
 		//recored this last focus component
 		focusWhenDeactive = FocusManager.getCurrentManager().getFocusOwner();
@@ -317,7 +317,7 @@ public class JWindow extends JPopup{
 		}
 		//KeyboardManager.getInstance().unregisterKeyMap(getKeyMap());
 		FocusManager.getCurrentManager().setActiveWindow(null);
-		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_DEACTIVATED));
+		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_DEACTIVATED, programmatic));
 	}
 	
 	//---------------------------------------------------------------------
@@ -328,7 +328,7 @@ public class JWindow extends JPopup{
 		}
 		if(!isActive()){
 			toFront();
-			active();
+			active(false);
 		}
 	}
 }
