@@ -9,6 +9,7 @@ import flash.events.*;
 import flash.ui.Keyboard;
 import org.aswing.util.DepthManager;
 import flash.geom.Point;
+import flash.text.TextField;
 
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
@@ -46,6 +47,7 @@ public class FocusManager{
 			stage = theStage;
 			inited = true;
 			stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange);
+			stage.addEventListener(FocusEvent.MOUSE_FOCUS_CHANGE, __onMouseFocusChange);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp);
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
@@ -76,6 +78,16 @@ public class FocusManager{
 	
 	private function __onMouseDown(e:MouseEvent):void{
 		setTraversing(false);
+	}
+	
+	private function __onMouseFocusChange(e:FocusEvent):void{
+		//prevent default focus change if the related object is not tabEnabled
+		if(focusOwner != null){
+			var tar:InteractiveObject = e.relatedObject as InteractiveObject;
+			if(tar == null || !(tar is TextField || tar.tabEnabled)){
+				e.preventDefault();
+			}
+		}
 	}
 	
 	private function __onKeyFocusChange(e:FocusEvent):void{
