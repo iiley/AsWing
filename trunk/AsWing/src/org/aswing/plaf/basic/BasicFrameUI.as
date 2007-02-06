@@ -78,6 +78,7 @@ public class BasicFrameUI extends BaseComponentUI{
 		
 		frame.addEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.addEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
+		frame.addEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
 	}
 
     override public function uninstallUI(c:Component):void {
@@ -94,10 +95,7 @@ public class BasicFrameUI extends BaseComponentUI{
 	protected function uninstallComponents():void{
 		titleBar.setUI(null); //uninstall its listeners
 		frame.remove(titleBar);
-		var par:DisplayObjectContainer = frame.parent;
-		if(par != null){
-			par.removeChild(boundsMC);
-		}
+		removeBoundsMC();
 	}
 	
 	protected function uninstallListeners():void{
@@ -107,6 +105,7 @@ public class BasicFrameUI extends BaseComponentUI{
 		
 		frame.removeEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
+		frame.removeEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
 	}
     
     //----------------------------------------------------------
@@ -159,9 +158,7 @@ public class BasicFrameUI extends BaseComponentUI{
 	    	frame.setLocation(dest);
 	    	frame.validate();
     	}
-    	if(frame.parent != null && frame.parent.contains(boundsMC)){
-    		frame.parent.removeChild(boundsMC);
-    	}
+    	removeBoundsMC();
     }
     
     private function __onTitleBarDoubleClick(e:Event):void{
@@ -179,6 +176,16 @@ public class BasicFrameUI extends BaseComponentUI{
 				frame.setState(JFrame.MAXIMIZED, false);
 			}
 		}
+    }
+    
+    private function __frameClosed(e:Event):void{
+    	removeBoundsMC();
+    }
+    
+    private function removeBoundsMC():void{
+    	if(frame.parent != null && frame.parent.contains(boundsMC)){
+    		frame.parent.removeChild(boundsMC);
+    	}
     }
     
     private function representMoveBounds(e:MouseEvent=null):IntPoint{

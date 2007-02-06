@@ -26,6 +26,9 @@ public class AsWingManager{
      */
     public static function setRoot(root:DisplayObjectContainer):void{
         ROOT = root;
+        if(stage == null){
+        	initStage(root.stage);
+        }
     } 
     
     /**
