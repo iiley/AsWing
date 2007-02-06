@@ -1,6 +1,6 @@
 package {
 	
-	import flash.display.Sprite;
+	import flash.display.*;
 	import org.aswing.*;
 	import org.aswing.event.AWEvent;
 	import cases.*;
@@ -11,9 +11,10 @@ package {
 		public function Test()
 		{
 			super();
+			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.stageFocusRect = false;
 			AsWingManager.setRoot(this);
-			addChild(new TextAreaCase());
+			addChild(new Frame());
 		}
 	}
 }
