@@ -7,7 +7,8 @@ package org.aswing{
 import org.aswing.util.Vector;
 import org.aswing.geom.*;
 import org.aswing.event.WindowEvent;
-import flash.events.MouseEvent;	
+import flash.events.MouseEvent;
+import flash.display.*;	
 
 /**
  * Dispatched when the window be set actived from not being actived.
@@ -46,6 +47,7 @@ public class JWindow extends JPopup{
 	
 	private var focusWhenDeactive:Component;
 	private var lootActiveFrom:JWindow;
+	private var focusObject:InteractiveObject;
 	
 	/**
 	 * Create a JWindow
@@ -61,10 +63,16 @@ public class JWindow extends JPopup{
 		super(owner, modal);
 		setName("JWindow");
 		actived = false;
+		focusObject = new Sprite();
+		focusObject.name = "hidden_focus_obj";
+		focusObject.visible = false;
+		addChild(focusObject);
+		
 		layout = new WindowLayout();
 		setFocusTraversalPolicy(new WindowOrderFocusTraversalPolicy());
 		
-		addEventListener(MouseEvent.MOUSE_DOWN, __activeWhenPress, true, 1);
+		addEventListener(MouseEvent.MOUSE_DOWN, __activeWhenPress, true);
+		addEventListener(MouseEvent.MOUSE_DOWN, __activeWhenPressWindowSelf);
 		//TODO imp
 		//listenerToOwner[ON_WINDOW_ICONIFIED] = Delegate.create(this, __ownerIconified);
 		//listenerToOwner[ON_WINDOW_RESTORED] = Delegate.create(this, __ownerRestored);
@@ -331,7 +339,15 @@ public class JWindow extends JPopup{
 	}
 	
 	//---------------------------------------------------------------------
-	
+    /**
+     * Window will return a empty sprite to receive the focus, this makes window 
+     * can only get focus with key navigation, not mouse.
+     * @return the object to receive the focus.
+     */
+	override public function getInternalFocusObject():InteractiveObject{
+		return focusObject;
+	}
+    	
 	private function __activeWhenPress(e:MouseEvent):void{
 		if(getWindowOwner() != null){
 			getWindowOwner().toFront();
@@ -339,6 +355,12 @@ public class JWindow extends JPopup{
 		if(!isActive()){
 			toFront();
 			active(false);
+		}
+	}
+	
+	private function __activeWhenPressWindowSelf(e:MouseEvent):void{
+		if(e.target == this){
+			__activeWhenPress(e);
 		}
 	}
 }

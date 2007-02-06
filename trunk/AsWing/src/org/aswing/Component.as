@@ -1877,9 +1877,9 @@ public class Component extends AWSprite
      * its <code>TextField</code> object.
      * @return the object to receive the focus.
      */
-    public function getInternalFocusObject():InteractiveObject{
-    	return this;
-    }
+	public function getInternalFocusObject():InteractiveObject{
+		return this;
+	}
     
     internal function fireFocusKeyDownEvent(e:KeyboardEvent):void{
     	dispatchEvent(new FocusKeyEvent(FocusKeyEvent.FOCUS_KEY_DOWN, e.charCode, 

@@ -134,6 +134,9 @@ public class BasicFrameUI extends BaseComponentUI{
 	private var startPos:IntPoint;
 	private var startMousePos:IntPoint;
     private function __onTitleBarPress(e:MouseEvent):void{
+    	if(e.target != titleBar){
+    		return;
+    	}
     	if(frame.isDragable() && !isMaximizedFrame()){
     		if(frame.isDragDirectly()){
     			frame.startDrag(false, frame.getMaximizedBounds().toRectangle());
@@ -146,6 +149,9 @@ public class BasicFrameUI extends BaseComponentUI{
     }
     
     private function __onTitleBarRelease(e:Event):void{
+    	if(e.target != titleBar){
+    		return;
+    	}
     	frame.stopDrag();
     	frame.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
     	if(frame.isDragable() && !isMaximizedFrame() && !frame.isDragDirectly()){
@@ -153,12 +159,15 @@ public class BasicFrameUI extends BaseComponentUI{
 	    	frame.setLocation(dest);
 	    	frame.validate();
     	}
-    	if(frame.parent != null){
+    	if(frame.parent != null && frame.parent.contains(boundsMC)){
     		frame.parent.removeChild(boundsMC);
     	}
     }
     
     private function __onTitleBarDoubleClick(e:Event):void{
+    	if(e.target != titleBar){
+    		return;
+    	}
 		if(frame.isResizable()){
 			var state:int = frame.getState();
 			
@@ -185,7 +194,6 @@ public class BasicFrameUI extends BaseComponentUI{
     	//these make user can't drag frames out the stage
     	var gap:Number = titleBar.getHeight();
     	var frameMaxBounds:IntRectangle = frame.getMaximizedBounds();
-    	trace("frameMaxBounds " + frameMaxBounds);
     	
     	var topLeft:IntPoint = frameMaxBounds.leftTop();
     	var topRight:IntPoint = frameMaxBounds.rightTop();
