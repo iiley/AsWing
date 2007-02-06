@@ -39,7 +39,7 @@ public class DefaultResizeBarHandler{
 		mc.addEventListener(MouseEvent.ROLL_OVER, __onRollOver);
 		mc.addEventListener(MouseEvent.ROLL_OUT, __onRollOut);
 		mc.addEventListener(MouseEvent.MOUSE_DOWN, __onPress);
-		mc.addEventListener(MouseEvent.MOUSE_UP, __onRelease);
+		mc.addEventListener(MouseEvent.CLICK, __onRelease);
 		mc.addEventListener(AWEvent.RELEASE_OUT_SIDE, __onReleaseOutside);
 	}
 	
@@ -70,7 +70,7 @@ public class DefaultResizeBarHandler{
 		resizer.hideArrow();
 	}
 	
-	private function showArrowToMousePos():void{
+	private function showArrowToMousePos(e:Event=null):void{
 		resizer.setArrowRotation(arrowRotation);
 		resizer.showArrowToMousePos();
 	}

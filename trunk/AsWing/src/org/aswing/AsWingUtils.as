@@ -107,8 +107,8 @@ public class AsWingUtils
     	if(stage == null){
     		return new IntRectangle(200, 200);
     	}
-        var sw:Number = stage.width;
-        var sh:Number = stage.height;
+        var sw:Number = stage.stageWidth;
+        var sh:Number = stage.stageHeight;
         var sa:String = stage.align;
         //TODO imp when stage resized
         var b:IntRectangle = new IntRectangle(0, 0, sw, sh);

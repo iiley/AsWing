@@ -1,0 +1,60 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
+package org.aswing.plaf.basic.icon{
+
+import org.aswing.graphics.Graphics2D;
+import org.aswing.*;
+import flash.display.DisplayObject;
+import org.aswing.plaf.UIResource;
+
+/**
+ * Frame title bar icon base.
+ * @author iiley
+ */
+public class FrameIcon implements Icon, UIResource{
+		
+	private static const DEFAULT_ICON_WIDTH:int = 13;
+	
+	protected var width:int;
+	protected var height:int;
+	
+	private var color:ASColor;
+		
+	/**
+	 * @param width the width of the icon square.
+	 */	
+	public function FrameIcon(width:int=DEFAULT_ICON_WIDTH){
+		this.width = width;
+		height = width;
+	}
+	
+	public function getColor():ASColor{
+		return color;
+	}
+	
+	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void
+	{
+		if(color == null){
+			color = c.getUI().getColor("Frame.activeCaptionText");
+		}
+	}
+	
+	public function getIconHeight():int
+	{
+		return width;
+	}
+	
+	public function getIconWidth():int
+	{
+		return height;
+	}
+	
+	public function getDisplay():DisplayObject
+	{
+		return null;
+	}
+	
+}
+}

@@ -3,7 +3,7 @@
 */
 
 package org.aswing.resizer{
-	
+
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.plaf.UIResource;
@@ -11,6 +11,8 @@ import org.aswing.event.AWEvent;
 import flash.display.*;
 import org.aswing.graphics.*;
 import flash.events.MouseEvent;
+import flash.events.Event;
+import org.aswing.util.DepthManager;
 
 /**
  * Resizer is a resizer for Components to make it resizable when user mouse on 
@@ -60,9 +62,9 @@ public class DefaultResizer implements Resizer, UIResource{
 		startX = 0;
 		startY = 0;
 		//Default colors
-	    resizeArrowColor = new ASColor(0x808080);
-	    resizeArrowLightColor = new ASColor(0xCCCCCC);
-	    resizeArrowDarkColor = new ASColor(0x000000);
+	    resizeArrowColor = UIManager.getColor("resizeArrow");
+	    resizeArrowLightColor = UIManager.getColor("resizeArrowLight");
+	    resizeArrowDarkColor = UIManager.getColor("resizeArrowDark");
 	}
 	
 	public function setResizeArrowColor(c:ASColor):void{
@@ -172,9 +174,13 @@ public class DefaultResizer implements Resizer, UIResource{
 	
 	private function representRect(bounds:IntRectangle):void{
 		if(!resizeDirectly){
-			var currentPos:IntPoint = owner.getLocation();
-			var x:Number = bounds.x - currentPos.x;
-			var y:Number = bounds.y - currentPos.y;
+			var par:DisplayObjectContainer = owner.parent;
+			if(!par.contains(boundsMC)){
+				par.addChild(boundsMC);
+			}
+			DepthManager.bringToTop(boundsMC);
+			var x:Number = bounds.x;
+			var y:Number = bounds.y;
 			var w:Number = bounds.width;
 			var h:Number = bounds.height;
 			var g:Graphics2D = new Graphics2D(boundsMC.graphics);
@@ -202,7 +208,7 @@ public class DefaultResizer implements Resizer, UIResource{
 								 
 		var gdi:Graphics2D;
 		gdi = new Graphics2D(resizeArrowMC.graphics);
-		gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(40), 4), arrowPoints);
+		gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(0.4), 4), arrowPoints);
 		gdi.fillPolygon(new SolidBrush(resizeArrowLightColor), arrowPoints);
 		gdi.drawPolygon(new Pen(resizeArrowDarkColor, 1), arrowPoints);
 		resizeArrowMC.visible = false;
@@ -210,7 +216,6 @@ public class DefaultResizer implements Resizer, UIResource{
 		boundsMC = new Shape();
 		boundsMC.name = "bounds";
 		boundsMC.visible = false;
-		resizeMC.addChild(boundsMC);
 		
 		topResizeMC = new AWSprite();
 		leftResizeMC = new AWSprite();
@@ -287,7 +292,7 @@ public class DefaultResizer implements Resizer, UIResource{
 	/**
 	 * Locate the resizer mcs to fit the component.
 	 */
-	private function locate():void{
+	private function locate(e:Event=null):void{
 		//var x:Number = 0;
 		//var y:Number = 0;
 		var w:Number = owner.getWidth();

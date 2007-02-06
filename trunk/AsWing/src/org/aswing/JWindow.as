@@ -47,6 +47,16 @@ public class JWindow extends JPopup{
 	private var focusWhenDeactive:Component;
 	private var lootActiveFrom:JWindow;
 	
+	/**
+	 * Create a JWindow
+	 * @param owner the owner of this popup, it can be a DisplayObjectContainer or a JPopup, default it is default 
+	 * is <code>AsWingManager.getRoot()</code>
+	 * @param modal true for a modal dialog, false for one that allows other windows to be active at the same time,
+	 *  default is false.
+	 * @see org.aswing.AsWingManager#getRoot()
+	 * @throw Error if not specified the owner, and aswing default root is not specified either.
+	 * @throw Error if the owner is not a JPopup nor DisplayObjectContainer
+	 */	
 	public function JWindow(owner:*=null, modal:Boolean=false){
 		super(owner, modal);
 		setName("JWindow");

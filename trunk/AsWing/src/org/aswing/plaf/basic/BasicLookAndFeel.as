@@ -7,11 +7,11 @@ package org.aswing.plaf.basic
 	
 import org.aswing.*;
 import org.aswing.plaf.*;
-import org.aswing.plaf.basic.background.ButtonBackground;
-import org.aswing.plaf.basic.icon.CheckBoxIcon;
-import org.aswing.plaf.basic.background.ScrollBarThumb;
-import org.aswing.plaf.basic.border.TextFieldBorder;
-import org.aswing.plaf.basic.background.TextComponentBackBround;
+import org.aswing.plaf.basic.background.*;
+import org.aswing.plaf.basic.border.*;
+import org.aswing.plaf.basic.icon.*;
+import org.aswing.plaf.basic.frame.*;
+import org.aswing.resizer.*;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -33,6 +33,7 @@ public class BasicLookAndFeel extends LookAndFeel
 		initClassDefaults(table);
 		initSystemColorDefaults(table);
 		initSystemFontDefaults(table);
+		initCommonUtils(table);
 		initComponentDefaults(table);
 	
 		return table;
@@ -50,7 +51,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ScrollPaneUI", org.aswing.plaf.basic.BasicScrollPaneUI, 
 			   "LabelUI",org.aswing.plaf.basic.BasicLabelUI, 
 			   "TextFieldUI",org.aswing.plaf.basic.BasicTextFieldUI, 
-			   "TextAreaUI",org.aswing.plaf.basic.BasicTextAreaUI
+			   "TextAreaUI",org.aswing.plaf.basic.BasicTextAreaUI, 
+			   "FrameUI",org.aswing.plaf.basic.BasicFrameUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -98,6 +100,16 @@ public class BasicLookAndFeel extends LookAndFeel
 				"windowFont", new ASFontUIResource("Tahoma", 11)
 		];
 		table.putDefaults(defaultSystemFonts);
+	}
+	
+	protected function initCommonUtils(table:UIDefaults):void{
+		ResizerController.setDefaultResizerClass(DefaultResizer);
+		var arrowColors:Array = [
+		    "resizeArrow", table.get("inactiveCaption"),
+		    "resizeArrowLight", table.get("window"),
+		    "resizeArrowDark", table.get("activeCaptionText"),
+		];
+		table.putDefaults(arrowColors);
 	}
 	
 	protected function initComponentDefaults(table:UIDefaults):void{
@@ -252,6 +264,31 @@ public class BasicLookAndFeel extends LookAndFeel
 		    "TextArea.border", org.aswing.plaf.basic.border.TextAreaBorder
 		];
 	    table.putDefaults(comDefaults);
+	    
+	    // *** Frame
+	    comDefaults = [
+		    "Frame.background", table.get("window"),
+		    "Frame.foreground", table.get("windowText"),
+	    	"Frame.opaque", true,  
+	    	"Frame.focusable", true,
+		    "Frame.activeCaption", table.get("activeCaption"),
+		    "Frame.activeCaptionText", table.get("activeCaptionText"),
+		    "Frame.activeCaptionBorder", table.get("activeCaptionBorder"),
+		    "Frame.inactiveCaption", table.get("inactiveCaption"),
+		    "Frame.inactiveCaptionText", table.get("inactiveCaptionText"),
+		    "Frame.inactiveCaptionBorder", table.get("inactiveCaptionBorder"),
+		    "Frame.titleBarUI", org.aswing.plaf.basic.frame.TitleBarUI,
+		    "Frame.resizer", org.aswing.resizer.DefaultResizer,
+		    "Frame.font", table.get("windowFont"),
+		    "Frame.border", org.aswing.plaf.basic.border.FrameBorder,
+		    "Frame.icon", org.aswing.plaf.basic.icon.TitleIcon,
+		    "Frame.iconifiedIcon", org.aswing.plaf.basic.icon.FrameIconifiedIcon,
+		    "Frame.normalIcon", org.aswing.plaf.basic.icon.FrameNormalIcon,
+		    "Frame.maximizeIcon", org.aswing.plaf.basic.icon.FrameMaximizeIcon,
+		    "Frame.closeIcon", org.aswing.plaf.basic.icon.FrameCloseIcon
+	    ];
+	    table.putDefaults(comDefaults);	    
+	    
 	}
 	
 }

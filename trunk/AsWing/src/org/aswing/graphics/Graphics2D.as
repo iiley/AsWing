@@ -380,11 +380,11 @@ public class Graphics2D {
 	 * @param width the width of rectangle bounds.
 	 * @param height the height of rectangle bounds.
 	 * @param radius the top left corner's round radius.
-	 * @param trR the top right corner's round radius. (miss this param default to same as radius)
-	 * @param blR the bottom left corner's round radius. (miss this param default to same as radius)
-	 * @param brR the bottom right corner's round radius. (miss this param default to same as radius)
+	 * @param trR (optional)the top right corner's round radius. (miss this param default to same as radius)
+	 * @param blR (optional)the bottom left corner's round radius. (miss this param default to same as radius)
+	 * @param brR (optional)the bottom right corner's round radius. (miss this param default to same as radius)
 	 */
-	public function drawRoundRect(pen:IPen, x:Number, y:Number, width:Number, height:Number, radius:Number, trR:Number, blR:Number, brR:Number):void{
+	public function drawRoundRect(pen:IPen, x:Number, y:Number, width:Number, height:Number, radius:Number, trR:Number=-1, blR:Number=-1, brR:Number=-1):void{
 		startPen(pen);
 		roundRect(x, y, width, height, radius, trR, blR, brR);
 		endPen();
@@ -618,9 +618,9 @@ public class Graphics2D {
 	 * @param width  the width corrdinate of roundRect.
 	 * @param height the width corrdinate of roundRect.
 	 * @param radius the radius of the top left corner, if other corner radius is undefined, will use this radius as default
-	 * @param topRightRadius	 the radius of the top right corner, if omitted, use the top left as default.
-	 * @param bottomLeftRadius   the radius of the bottom left corner, if omitted, use the top left as default.
-	 * @param bottomRightRadius  the radius of the bottom right corner, if omitted, use the top left as default.
+	 * @param topRightRadius	 (optional)the radius of the top right corner, if omitted, use the top left as default.
+	 * @param bottomLeftRadius   (optional)the radius of the bottom left corner, if omitted, use the top left as default.
+	 * @param bottomRightRadius  (optional)the radius of the bottom right corner, if omitted, use the top left as default.
 	 * @see #drawRoundRect()
 	 * @see #fillRoundRect()
 	 */

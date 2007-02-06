@@ -115,25 +115,17 @@ public class JFrame extends JWindow{
 	private var resizer:Resizer;
 	
 	/**
-	 * JFrame(title:String, modal:Boolean)<br>
-	 * JFrame(title:String)<br>
-	 * JFrame(owner:JWindow, title:String, modal:Boolean)<br>
-	 * JFrame(owner:JWindow, title:String)<br>
-	 * JFrame(owner:JWindow)<br>
-	 * JFrame(owner:MovieClip, title:String, modal:Boolean)<br>
-	 * JFrame(owner:MovieClip, title:String)<br>
-	 * JFrame(owner:MovieClip)<br>
-	 * JFrame()<br>
-	 * Constructs a new frame that is initially invisible.
-	 * @param owner the owner of this window, a <code>JWindow</code> 
-	 * or a <code>MovieClip</code>, default is <code>ASWingUtils.getRootMovieClip()</code> 
-	 * @param title the String to display in the dialog's title bar. default is undefined.
+	 * Create a JWindow
+	 * @param owner the owner of this popup, it can be a DisplayObjectContainer or a JPopup, default it is default 
+	 * is <code>AsWingManager.getRoot()</code>
+	 * @param title the title, default is "".
 	 * @param modal true for a modal dialog, false for one that allows other windows to be active at the same time,
 	 *  default is false.
-	 * @see org.aswing.JWindow
-	 * @see org.aswing.ASWingUtils#getRootMovieClip()
+	 * @see org.aswing.AsWingManager#getRoot()
+	 * @throw Error if not specified the owner, and aswing default root is not specified either.
+	 * @throw Error if the owner is not a JPopup nor DisplayObjectContainer
 	 */	
-	public function JFrame(owner:*, title:String="", modal:Boolean=false) {
+	public function JFrame(owner:*=null, title:String="", modal:Boolean=false) {
 		super(owner, modal);
 		
 		this.title = title;
@@ -379,7 +371,7 @@ public class JFrame extends JWindow{
 	}
 	
 	public function setResizer(r:Resizer):void{
-		if(r != resizer && r != null){
+		if(r != resizer){
 			resizer = r;
 			ResizerController.init(this, r);
 			r.setEnabled(isResizable());
@@ -435,7 +427,7 @@ public class JFrame extends JWindow{
 	 * @see #tryToClose()
 	 */
 	public function closeReleased():void{
-		dispatchEvent(new FrameEvent(FrameEvent.FRAME_CLOSING, true));
+		dispatchEvent(new FrameEvent(FrameEvent.FRAME_CLOSING, false));
 		tryToClose();
 	}
 	
