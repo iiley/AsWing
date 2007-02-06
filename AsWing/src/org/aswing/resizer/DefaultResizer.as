@@ -28,8 +28,8 @@ public class DefaultResizer implements Resizer, UIResource{
 	//-----------resize equiments--------------
 	private var resizeMC:Sprite;
 	
-	private var resizeArrowMC:Sprite;
-	private var boundsMC:Shape;
+	private var resizeArrowCursor:Shape;
+	private var boundsShape:Shape;
 	
 	private var topResizeMC:AWSprite;
 	private var leftResizeMC:AWSprite;
@@ -85,6 +85,7 @@ public class DefaultResizer implements Resizer, UIResource{
 			if(resizeMC != null){
 				owner.removeChild(resizeMC);
 			}
+			hideBoundsMC();
 		}
 		owner = c;
 		if(owner != null){
@@ -119,30 +120,28 @@ public class DefaultResizer implements Resizer, UIResource{
 	//-----------------------For Handlers-------------------------
 	
 	public function setArrowRotation(r:Number):void{
-		resizeArrowMC.rotation = r;
+		resizeArrowCursor.rotation = r;
 	}
 	
-	public function hideArrow():void{
-		resizeArrowMC.visible = false;
+	public function startArrowCursor():void{
+		CursorManager.showCustomCursor(resizeArrowCursor);
 	}
 	
-	public function showArrowToMousePos():void{
-		resizeArrowMC.visible = true;
-		resizeArrowMC.x = resizeArrowMC.parent.mouseX;
-		resizeArrowMC.y = resizeArrowMC.parent.mouseY;		
+	public function stopArrowCursor():void{
+		CursorManager.hideCustomCursor(resizeArrowCursor);
 	}
 	
-	public function startDragArrow():void{
-		resizeArrowMC.startDrag(true);
+	private var resizingNow:Boolean = false;
+	public function setResizing(b:Boolean):void{
+		resizingNow = b;
 	}
 	
-	public function stopDragArrow():void{
-		resizeArrowMC.stopDrag();
+	public function isResizing():Boolean{
+		return resizingNow;
 	}
 	
 	public function startResize(strategy:ResizeStrategy):void{
 		if(!resizeDirectly){
-			boundsMC.visible = true;
 			representRect(owner.getComBounds());
 		}
 		startX = resizeMC.mouseX;
@@ -165,8 +164,16 @@ public class DefaultResizer implements Resizer, UIResource{
 	public function finishResize(strategy:ResizeStrategy):void{
 		if(!resizeDirectly){
 			owner.setComBounds(lastRepresentedBounds);
-			boundsMC.visible = false;
+			hideBoundsMC();
 			owner.revalidate();
+		}
+	}
+	
+	
+	private function hideBoundsMC():void{
+		var par:DisplayObjectContainer = owner.parent;
+		if(boundsShape != null && par != null && par.contains(boundsShape)){
+			par.removeChild(boundsShape);
 		}
 	}
 	
@@ -175,16 +182,16 @@ public class DefaultResizer implements Resizer, UIResource{
 	private function representRect(bounds:IntRectangle):void{
 		if(!resizeDirectly){
 			var par:DisplayObjectContainer = owner.parent;
-			if(!par.contains(boundsMC)){
-				par.addChild(boundsMC);
+			if(!par.contains(boundsShape)){
+				par.addChild(boundsShape);
 			}
-			DepthManager.bringToTop(boundsMC);
+			DepthManager.bringToTop(boundsShape);
 			var x:Number = bounds.x;
 			var y:Number = bounds.y;
 			var w:Number = bounds.width;
 			var h:Number = bounds.height;
-			var g:Graphics2D = new Graphics2D(boundsMC.graphics);
-			boundsMC.graphics.clear();
+			var g:Graphics2D = new Graphics2D(boundsShape.graphics);
+			boundsShape.graphics.clear();
 			g.drawRectangle(new Pen(resizeArrowLightColor), x-1,y-1,w+2,h+2);
 			g.drawRectangle(new Pen(resizeArrowColor), x,y,w,h);
 			g.drawRectangle(new Pen(resizeArrowDarkColor), x+1,y+1,w-2,h-2);
@@ -196,9 +203,8 @@ public class DefaultResizer implements Resizer, UIResource{
 		var r:Number = RESIZE_MC_WIDTH;
 		resizeMC = new Sprite();
 		resizeMC.name = "resizer";
-		resizeArrowMC = new Sprite();
-		resizeArrowMC.name = "arrow";
-		resizeMC.addChild(resizeArrowMC);
+		resizeArrowCursor = new Shape();
+		resizeArrowCursor.name = "resizeCursor";
 		
 		var w:Number = 1; //arrowAxisHalfWidth
 		var arrowPoints:Array = [{x:-r*2, y:0}, {x:-r, y:-r}, {x:-r, y:-w},
@@ -207,15 +213,13 @@ public class DefaultResizer implements Resizer, UIResource{
 								 {x:-r, y:r}];
 								 
 		var gdi:Graphics2D;
-		gdi = new Graphics2D(resizeArrowMC.graphics);
+		gdi = new Graphics2D(resizeArrowCursor.graphics);
 		gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(0.4), 4), arrowPoints);
 		gdi.fillPolygon(new SolidBrush(resizeArrowLightColor), arrowPoints);
 		gdi.drawPolygon(new Pen(resizeArrowDarkColor, 1), arrowPoints);
-		resizeArrowMC.visible = false;
 		
-		boundsMC = new Shape();
-		boundsMC.name = "bounds";
-		boundsMC.visible = false;
+		boundsShape = new Shape();
+		boundsShape.name = "bounds";
 		
 		topResizeMC = new AWSprite();
 		leftResizeMC = new AWSprite();

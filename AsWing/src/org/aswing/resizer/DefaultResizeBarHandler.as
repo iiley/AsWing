@@ -10,7 +10,6 @@ import org.aswing.event.AWEvent;
 import flash.events.Event;
 import org.aswing.AWSprite;
 	
-	
 /**
  * The Handler for Resizer's mc bars.
  * @author iiley
@@ -27,7 +26,6 @@ public class DefaultResizeBarHandler{
 		mc = barMC;
 		this.arrowRotation = arrowRotation;
 		this.strategy = strategy;
-		
 		handle();
 	}
 	
@@ -44,35 +42,40 @@ public class DefaultResizeBarHandler{
 	}
 	
 	private function __onRollOver(e:Event):void{
-		showArrowToMousePos();
-		mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, showArrowToMousePos);
+		if(!resizer.isResizing()){
+			resizer.startArrowCursor();
+			__rotateArrow();
+			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+		}
 	}
 	
 	private function __onRollOut(e:Event):void{
-		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, showArrowToMousePos);
-		resizer.hideArrow();
+		if(!resizer.isResizing()){
+			mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+			resizer.stopArrowCursor();
+		}
 	}
 	
 	private function __onPress(e:Event):void{
-		resizer.startDragArrow();
+		resizer.setResizing(true);
 		startResize();
+		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
 		mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizing);
 	}
 	
 	private function __onRelease(e:Event):void{
-		resizer.stopDragArrow();
+		resizer.setResizing(false);
+		resizer.stopArrowCursor();
 		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
 		finishResize();
 	}
 	
 	private function __onReleaseOutside(e:Event):void{
 		__onRelease(e);
-		resizer.hideArrow();
 	}
 	
-	private function showArrowToMousePos(e:Event=null):void{
+	private function __rotateArrow(e:Event=null):void{
 		resizer.setArrowRotation(arrowRotation);
-		resizer.showArrowToMousePos();
 	}
 	
 	private function startResize():void{
