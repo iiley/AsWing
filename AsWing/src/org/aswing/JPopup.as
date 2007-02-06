@@ -9,7 +9,7 @@ import flash.display.*;
 import org.aswing.event.*;
 import flash.events.*;
 import org.aswing.graphics.*;
-import org.aswing.geom.IntPoint;
+import org.aswing.geom.*;
 import flash.geom.Rectangle;
 
 /**
@@ -70,6 +70,7 @@ public class JPopup extends JRootPane{
 		}else{
 			throw new Error(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
 		}
+		this.modal = modal;
 		setName("JPopup");
 		ground_mc = new Sprite();
 		ground_mc.name = "ground_mc";
@@ -360,11 +361,11 @@ public class JPopup extends JRootPane{
 		}
 		modalMC.visible = true;
 		//TODO modal
-		//var globalBounds:Rectangle = ASWingUtils.getVisibleMaximizedBounds(ground_mc);
-		//modalMC._width = Stage.width+200;
-		//modalMC._height = Stage.height+200;
-		//modalMC._x = globalBounds.x - getX() - 100;
-		//modalMC._y = globalBounds.y - getY() - 100;
+		var globalBounds:IntRectangle = AsWingUtils.getVisibleMaximizedBounds(ground_mc);
+		modalMC.width = stage.stageWidth + 200;
+		modalMC.height = stage.stageHeight + 200;
+		modalMC.x = globalBounds.x - getX() - 100;
+		modalMC.y = globalBounds.y - getY() - 100;
 	}
 	
 	//--------------------------------------------------------
