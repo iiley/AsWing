@@ -11,16 +11,18 @@ import flash.events.*;
 import org.aswing.event.AWEvent;
 
 /**
- *  Dispatched when the mouse released or released out side.
+ * Dispatched when the mouse released or released out side.
+ * If you need a event like AS2 <code>onRelease</code> you can 
+ * use <code>Event.CLICK</code>
  *
- *  @eventType org.aswing.event.AWEvent.RELEASE
+ * @eventType org.aswing.event.AWEvent.RELEASE
  */
 [Event(name="release", type="org.aswing.event.AWEvent")]
 
 /**
- *  Dispatched only when the mouse released out side.
+ * Dispatched only when the mouse released out side.
  *
- *  @eventType org.aswing.event.AWEvent.RELEASE_OUT_SIDE
+ * @eventType org.aswing.event.AWEvent.RELEASE_OUT_SIDE
  */
 [Event(name="releaseOutSide", type="org.aswing.event.AWEvent")]
 

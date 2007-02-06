@@ -298,8 +298,10 @@ public class ResizerController{
 	}
 	
 	private function _destroyResizer():void{
-		_resizer.setOwner(null);
-		_resizer = null;
+		if(_resizer != null){
+			_resizer.setOwner(null);
+			_resizer = null;
+		}
 	}
 	
 	private function _destroy( ) : void

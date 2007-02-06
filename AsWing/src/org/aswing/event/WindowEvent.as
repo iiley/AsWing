@@ -11,7 +11,7 @@ import flash.events.Event;
  * @see org.aswing.JWindow
  * @author iiley
  */
-public class WindowEvent extends PopupEvent{
+public class WindowEvent extends InteractiveEvent{
 
 	/**
      *  The <code>WindowEvent.WINDOW_ACTIVATED</code> constant defines the value of the
@@ -22,6 +22,8 @@ public class WindowEvent extends PopupEvent{
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -45,6 +47,8 @@ public class WindowEvent extends PopupEvent{
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -59,12 +63,12 @@ public class WindowEvent extends PopupEvent{
 	 */
 	public static const WINDOW_DEACTIVATED:String = "windowDeactived";	
 		
-	public function WindowEvent(type:String){
-		super(type);
+	public function WindowEvent(type:String, programmatic:Boolean=false){
+		super(type, programmatic);
 	}
 	
 	override public function clone():Event{
-		return new WindowEvent(type);
+		return new WindowEvent(type, isProgrammatic());
 	}	
 }
 

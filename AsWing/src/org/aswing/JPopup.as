@@ -47,11 +47,6 @@ public class JPopup extends JRootPane{
 	private var lastLAF:Object;	
 	
 	/**
-	 * JPopup(owner:JPopup, modal:Boolean)<br>
-	 * JPopup(owner:DisplayObjectContainer, modal:Boolean)<br>
-	 * JPopup(owner:JPopup)<br>
-	 * JPopup(owner:DisplayObjectContainer)<br>
-	 * JPopup()<br>
 	 * Create a JPopup
 	 * @param owner the owner of this popup, it can be a DisplayObjectContainer or a JPopup, default it is default 
 	 * is <code>AsWingManager.getRoot()</code>
