@@ -96,6 +96,23 @@ public class AsWingUtils
     }
     
     /**
+     * Returns whether or not the ancestor is the child's ancestor.
+     * @return whether or not the ancestor is the child's ancestor.
+     */
+    public static function isAncestorDisplayObject(ancestor:DisplayObjectContainer, child:DisplayObject):Boolean{
+    	var pa:DisplayObjectContainer = child.parent;
+    	while(pa != null){
+    		if(pa == ancestor){
+    			return true;
+    		}
+    		pa = pa.parent;
+    	}
+    	return false;
+    }
+    
+    
+    
+    /**
      * Returns the currently visible maximized bounds in a display object(viewable the stage area).
      * @param dis the display object
      */

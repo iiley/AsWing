@@ -14,7 +14,7 @@ import org.aswing.event.AWEvent;
  * Dispatched when the mouse released or released out side.
  * If you need a event like AS2 <code>onRelease</code> you can 
  * use <code>Event.CLICK</code>
- *
+ * 
  * @eventType org.aswing.event.AWEvent.RELEASE
  */
 [Event(name="release", type="org.aswing.event.AWEvent")]
@@ -148,15 +148,14 @@ public class AWSprite extends Sprite
 	}
 	
 	private function __awSpriteMouseDownListener(e:MouseEvent):void{
-		if(e.target == this){
-			stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
-		}
+		stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 	}
 	private function __awStageMouseUpListener(e:MouseEvent):void{
 		stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
-		dispatchEvent(new AWEvent(AWEvent.RELEASE, true));
-		if(e.target != this){
-			dispatchEvent(new AWEvent(AWEvent.RELEASE_OUT_SIDE, true));
+		dispatchEvent(new AWEvent(AWEvent.RELEASE));
+		var target:DisplayObject = e.target as DisplayObject;
+		if(!(this == target || AsWingUtils.isAncestorDisplayObject(this, target))){
+			dispatchEvent(new AWEvent(AWEvent.RELEASE_OUT_SIDE));
 		}
 	}
 	
