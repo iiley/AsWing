@@ -19,7 +19,7 @@ import org.aswing.plaf.basic.frame.TitleBarLayout;
 import org.aswing.plaf.ComponentUI;
 import flash.events.Event;
 import org.aswing.event.*;
-import flash.text.TextField;
+import flash.text.*;
 import flash.display.StageScaleMode;
 import flash.geom.Rectangle;
 import org.aswing.plaf.UIResource;
@@ -114,6 +114,7 @@ public class TitleBarUI extends BaseComponentUI{
 		titleTextField.name = "title";
 		titleTextField.selectable = false;
 		titleTextField.mouseEnabled = false;
+ 		titleTextField.autoSize = TextFieldAutoSize.LEFT;
 		titleBar.addChild(titleTextField);
 		
 		adjustButtons();
@@ -335,9 +336,14 @@ public class TitleBarUI extends BaseComponentUI{
     	}
     	
         if (text != null && text != ""){
-			titleTextField.text = text;
-	    	AsWingUtils.applyTextFontAndColor(titleTextField, frame.getFont(), 
-	    		frame.isActive() ? activeTextColor : inactiveTextColor);
+        	if(titleTextField.text != text){
+				titleTextField.text = text;
+        	}
+			if(!frame.isFontValidated()){
+				AsWingUtils.applyTextFont(titleTextField, frame.getFont());
+				frame.setFontValidated(true);
+			}
+			AsWingUtils.applyTextColor(titleTextField, frame.isActive() ? activeTextColor : inactiveTextColor);
 			titleTextField.x = textRect.x;
 			titleTextField.y = textRect.y;
         }

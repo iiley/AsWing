@@ -12,10 +12,9 @@ import org.aswing.geom.IntDimension;
 import org.aswing.Component;
 import org.aswing.plaf.*;
 import org.aswing.event.AWEvent;
-import flash.text.TextField;
 import flash.filters.BlurFilter;
 import flash.utils.getTimer;
-import flash.text.TextFormat;
+import flash.text.*;
 import org.aswing.event.FocusKeyEvent;
 import flash.ui.Keyboard;
 
@@ -86,6 +85,7 @@ public class BasicButtonUI extends BaseComponentUI
  		textField.selectable = false;
  		textField.mouseEnabled = false;
  		textField.mouseWheelEnabled = false;
+ 		textField.autoSize = TextFieldAutoSize.LEFT;
  		b.addChild(textField);
  	}
 	

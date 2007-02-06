@@ -7,7 +7,7 @@ package org.aswing{
 import org.aswing.geom.*;
 import org.aswing.resizer.*;
 import org.aswing.event.*;
-
+import org.aswing.plaf.DefaultEmptyDecoraterResource;
 
 /**
  * Dispatched when the frame's state changed. the state is all about:
@@ -135,6 +135,7 @@ public class JFrame extends JWindow{
 		dragable  = true;
 		resizable = true;
 		closable  = true;
+		icon = DefaultEmptyDecoraterResource.INSTANCE;
 		
 		setName("JFrame");
 		
@@ -159,7 +160,7 @@ public class JFrame extends JWindow{
 			title = t;
 			repaint();
 			revalidate();
-			WindowLayout(getLayout()).getTitleBar().repaint();
+			repaintTitleBar();
 		}
 	}
 	
@@ -191,7 +192,19 @@ public class JFrame extends JWindow{
 	public function getIcon():Icon{
 		return icon;
 	}
-		
+	
+	override public function setFont(newFont:ASFont):void{
+		super.setFont(newFont);
+		repaintTitleBar();
+	}
+	
+	private function repaintTitleBar():void{
+		var layout:WindowLayout = getLayout() as WindowLayout;
+		if(layout != null && layout.getTitleBar() != null){
+			layout.getTitleBar().repaint();
+		}
+	}	
+	
 	/**
 	 * Sets whether this frame is resizable by the user.
 	 * 

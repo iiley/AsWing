@@ -148,13 +148,15 @@ public class AWSprite extends Sprite
 	}
 	
 	private function __awSpriteMouseDownListener(e:MouseEvent):void{
-		stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
+		if(e.target == this){
+			stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
+		}
 	}
 	private function __awStageMouseUpListener(e:MouseEvent):void{
 		stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
-		dispatchEvent(new AWEvent(AWEvent.RELEASE));
+		dispatchEvent(new AWEvent(AWEvent.RELEASE, true));
 		if(e.target != this){
-			dispatchEvent(new AWEvent(AWEvent.RELEASE_OUT_SIDE));
+			dispatchEvent(new AWEvent(AWEvent.RELEASE_OUT_SIDE, true));
 		}
 	}
 	

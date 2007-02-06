@@ -59,12 +59,12 @@ public class BasicLookAndFeel extends LookAndFeel
 	
 	protected function initSystemColorDefaults(table:UIDefaults):void{
 			var defaultSystemColors:Array = [
-				"activeCaption", 0xE0E0E0, /* Color for captions (title bars) when they are active. */
+				"activeCaption", 0xF7F7F7, /* Color for captions (title bars) when they are active. */
 				"activeCaptionText", 0x000000, /* Text color for text in captions (title bars). */
 				"activeCaptionBorder", 0xC0C0C0, /* Border color for caption (title bar) window borders. */
-				"inactiveCaption", 0x808080, /* Color for captions (title bars) when not active. */
+				"inactiveCaption", 0xE7E7E7, /* Color for captions (title bars) when not active. */
 				"inactiveCaptionText", 0x666666, /* Text color for text in inactive captions (title bars). */
-				"inactiveCaptionBorder", 0xC0C0C0, /* Border color for inactive caption (title bar) window borders. */
+				"inactiveCaptionBorder", 0x888888, /* Border color for inactive caption (title bar) window borders. */
 				"window", 0xCCCCCC, /* Default color for the interior of windows */
 				"windowBorder", 0x000000, /* ??? */
 				"windowText", 0x000000, /* ??? */

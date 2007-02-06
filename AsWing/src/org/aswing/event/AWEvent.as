@@ -21,7 +21,7 @@ public class AWEvent extends Event
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>bubbles</code></td><td>true</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
@@ -44,7 +44,7 @@ public class AWEvent extends Event
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>bubbles</code></td><td>true</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
