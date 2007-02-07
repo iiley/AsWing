@@ -7,7 +7,8 @@ package org.aswing{
 import org.aswing.geom.*;
 import org.aswing.resizer.*;
 import org.aswing.event.*;
-import org.aswing.plaf.DefaultEmptyDecoraterResource;
+import org.aswing.plaf.*;
+import flash.events.MouseEvent;
 
 /**
  * Dispatched when the frame's state changed. the state is all about:
@@ -144,6 +145,25 @@ public class JFrame extends JWindow{
 	
 	override public function updateUI():void{
     	setUI(UIManager.getUI(this));
+    }
+    
+    /**
+     * NewUI should be a <code>FrameUI</code> instance.
+     */
+    override public function setUI(newUI:ComponentUI):void{
+    	if(newUI is FrameUI){
+    		super.setUI(newUI);
+    	}else{
+    		throw new Error("JFrame just accept FrameUI instance!!!");
+    	}
+    }
+    
+    /**
+     * Returns the ui for this frame with <code>FrameUI</code> instance
+     * @return the frame ui.
+     */
+    public function getFrameUI():FrameUI{
+    	return getUI() as FrameUI;
     }
     
 	override public function getUIClassID():String{
@@ -458,6 +478,17 @@ public class JFrame extends JWindow{
 	
 	protected function fireStateChanged(programmatic:Boolean=true):void{
 		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
-	}	
+	}
+	
+	override protected function initModalMC():void{
+		super.initModalMC();
+		getModalMC().addEventListener(MouseEvent.MOUSE_DOWN, __flashModelFrame);
+	}
+	
+	private function __flashModelFrame(e:MouseEvent):void{
+		if(getFrameUI() != null){
+			getFrameUI().flashModalFrame();
+		}
+	}
 }
 }

@@ -6,7 +6,7 @@ package org.aswing.resizer{
 	
 import flash.display.InteractiveObject;
 import flash.events.MouseEvent;
-import org.aswing.event.AWEvent;
+import org.aswing.event.*;
 import flash.events.Event;
 import org.aswing.AWSprite;
 	
@@ -38,7 +38,7 @@ public class DefaultResizeBarHandler{
 		mc.addEventListener(MouseEvent.ROLL_OUT, __onRollOut);
 		mc.addEventListener(MouseEvent.MOUSE_DOWN, __onPress);
 		mc.addEventListener(MouseEvent.CLICK, __onRelease);
-		mc.addEventListener(AWEvent.RELEASE_OUT_SIDE, __onReleaseOutside);
+		mc.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onReleaseOutside);
 	}
 	
 	private function __onRollOver(e:Event):void{

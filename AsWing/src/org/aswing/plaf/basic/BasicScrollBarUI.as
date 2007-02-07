@@ -101,7 +101,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		}
 		scrollbar.addChild(thumMC);
 		thumMC.addEventListener(MouseEvent.MOUSE_DOWN, __startDragThumb);
-		thumMC.addEventListener(AWEvent.RELEASE, __stopDragThumb);
+		thumMC.addEventListener(ReleaseEvent.RELEASE, __stopDragThumb);
 		createIcons();
     	incrButton = createArrowButton();
     	incrButton.setName("JScrollbar_incrButton");
@@ -119,7 +119,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollbar.removeChild(decrButton);
 		scrollbar.removeChild(thumMC);
 		thumMC.removeEventListener(MouseEvent.MOUSE_DOWN, __startDragThumb);
-		thumMC.removeEventListener(AWEvent.RELEASE, __stopDragThumb);
+		thumMC.removeEventListener(ReleaseEvent.RELEASE, __stopDragThumb);
 		thumbDecorator = null;
     }
 	
@@ -127,13 +127,13 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollbar.addStateListener(__adjustChanged);
 		
 		incrButton.addEventListener(MouseEvent.MOUSE_DOWN, __incrButtonPress);
-		incrButton.addEventListener(AWEvent.RELEASE, __incrButtonReleased);
+		incrButton.addEventListener(ReleaseEvent.RELEASE, __incrButtonReleased);
 		
 		decrButton.addEventListener(MouseEvent.MOUSE_DOWN, __decrButtonPress);
-		decrButton.addEventListener(AWEvent.RELEASE, __decrButtonReleased);
+		decrButton.addEventListener(ReleaseEvent.RELEASE, __decrButtonReleased);
 				
 		scrollbar.addEventListener(MouseEvent.MOUSE_DOWN, __trackPress);
-		scrollbar.addEventListener(AWEvent.RELEASE, __trackReleased);
+		scrollbar.addEventListener(ReleaseEvent.RELEASE, __trackReleased);
 		
 		scrollbar.addEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
 		scrollbar.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
@@ -143,13 +143,13 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollbar.removeStateListener(__adjustChanged);
 		
 		incrButton.removeEventListener(MouseEvent.MOUSE_DOWN, __incrButtonPress);
-		incrButton.removeEventListener(AWEvent.RELEASE, __incrButtonReleased);
+		incrButton.removeEventListener(ReleaseEvent.RELEASE, __incrButtonReleased);
 		
 		decrButton.removeEventListener(MouseEvent.MOUSE_DOWN, __decrButtonPress);
-		decrButton.removeEventListener(AWEvent.RELEASE, __decrButtonReleased);
+		decrButton.removeEventListener(ReleaseEvent.RELEASE, __decrButtonReleased);
 				
 		scrollbar.removeEventListener(MouseEvent.MOUSE_DOWN, __trackPress);
-		scrollbar.removeEventListener(AWEvent.RELEASE, __trackReleased);
+		scrollbar.removeEventListener(ReleaseEvent.RELEASE, __trackReleased);
 		
 		scrollbar.removeEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
 		scrollbar.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);

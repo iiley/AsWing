@@ -105,7 +105,7 @@ public class ScrollBarThumb implements GroundDecorator, UIResource
 		thumb.addEventListener(MouseEvent.ROLL_OUT, __rollOutListener);
 		thumb.addEventListener(MouseEvent.ROLL_OVER, __rollOverListener);
 		thumb.addEventListener(MouseEvent.MOUSE_DOWN, __mouseDownListener);
-		thumb.addEventListener(AWEvent.RELEASE, __mouseUpListener);
+		thumb.addEventListener(ReleaseEvent.RELEASE, __mouseUpListener);
 	}
 	
 	private function __rollOverListener(e:Event):void{
