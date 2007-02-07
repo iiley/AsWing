@@ -4,9 +4,8 @@
 
 package org.aswing.geom
 {
-	import flash.geom.Point;
-	import mx.validators.ValidationResult;
-	
+
+import flash.geom.Point;
 	
 /**
  * A point with x and y coordinates in int.
