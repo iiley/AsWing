@@ -8,23 +8,23 @@ package org.aswing
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.*;
-import org.aswing.event.AWEvent;
+import org.aswing.event.*;
 
 /**
  * Dispatched when the mouse released or released out side.
  * If you need a event like AS2 <code>onRelease</code> you can 
  * use <code>Event.CLICK</code>
  * 
- * @eventType org.aswing.event.AWEvent.RELEASE
+ * @eventType org.aswing.event.ReleaseEvent.RELEASE
  */
-[Event(name="release", type="org.aswing.event.AWEvent")]
+[Event(name="release", type="org.aswing.event.ReleaseEvent")]
 
 /**
  * Dispatched only when the mouse released out side.
  *
- * @eventType org.aswing.event.AWEvent.RELEASE_OUT_SIDE
+ * @eventType org.aswing.event.ReleaseEvent.RELEASE_OUT_SIDE
  */
-[Event(name="releaseOutSide", type="org.aswing.event.AWEvent")]
+[Event(name="releaseOutSide", type="org.aswing.event.ReleaseEvent")]
 
 /**
  * AsWing component based Sprite.
@@ -147,16 +147,19 @@ public class AWSprite extends Sprite
 		return foregroundChild;
 	}
 	
+	private var pressedTarget:DisplayObject;
 	private function __awSpriteMouseDownListener(e:MouseEvent):void{
+		pressedTarget = e.target as DisplayObject;
 		stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 	}
 	private function __awStageMouseUpListener(e:MouseEvent):void{
 		stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
-		dispatchEvent(new AWEvent(AWEvent.RELEASE));
+		dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE, pressedTarget));
 		var target:DisplayObject = e.target as DisplayObject;
 		if(!(this == target || AsWingUtils.isAncestorDisplayObject(this, target))){
-			dispatchEvent(new AWEvent(AWEvent.RELEASE_OUT_SIDE));
+			dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE_OUT_SIDE, pressedTarget));
 		}
+		pressedTarget = null;
 	}
 	
 	override public function toString():String{

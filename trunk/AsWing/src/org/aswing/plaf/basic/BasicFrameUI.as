@@ -15,12 +15,14 @@ import org.aswing.event.*;
 import org.aswing.graphics.*;
 import flash.events.Event;
 import flash.display.DisplayObjectContainer;
+import flash.utils.Timer;
+import flash.events.TimerEvent;
 
 /**
  * Basic frame ui imp.
  * @author iiley
  */
-public class BasicFrameUI extends BaseComponentUI{
+public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	
 	private var frame:JFrame;
 	private var titleBar:FrameTitleBar;
@@ -31,6 +33,7 @@ public class BasicFrameUI extends BaseComponentUI{
 	
 	private var mouseMoveListener:Object;
 	private var boundsMC:Sprite;
+	private var flashTimer:Timer;
 	
 	public function BasicFrameUI() {
 		super();
@@ -72,7 +75,7 @@ public class BasicFrameUI extends BaseComponentUI{
 	
 	protected function installListeners():void{
 		titleBar.addEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
-		titleBar.addEventListener(AWEvent.RELEASE, __onTitleBarRelease);
+		titleBar.addEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
 		titleBar.doubleClickEnabled = true;
 		titleBar.addEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
 		
@@ -100,14 +103,56 @@ public class BasicFrameUI extends BaseComponentUI{
 	
 	protected function uninstallListeners():void{
 		titleBar.removeEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
-		titleBar.removeEventListener(AWEvent.RELEASE, __onTitleBarRelease);
+		titleBar.removeEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
 		titleBar.removeEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
 		
 		frame.removeEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		frame.removeEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
+		flashTimer.stop();
+	}
+	
+	private var flashing:Boolean;
+	private var flashingActivedColor:Boolean;
+
+	/**
+	 * Flash the modal frame. (User clicked other where is not in the modal frame, 
+	 * flash the frame to make notice this frame is modal.)
+	 */
+	public function flashModalFrame():void{
+		if(flashTimer == null){
+			flashTimer = new Timer(50, 8);
+			flashTimer.addEventListener(TimerEvent.TIMER, __flashTick);
+			flashTimer.addEventListener(TimerEvent.TIMER_COMPLETE, __flashComplete);
+		}
+		flashing = true;
+		flashingActivedColor = false;
+		flashTimer.reset();
+		flashTimer.start();
+	}
+	
+	private function __flashTick(e:TimerEvent):void{
+		flashingActivedColor = !flashingActivedColor;
+		frame.repaint();
+		titleBar.repaint();
 	}
     
+	private function __flashComplete(e:TimerEvent):void{
+		flashing = false;
+		frame.repaint();
+		titleBar.repaint();
+	}
+
+	/**
+	 * For <code>flashModalFrame</code> to judge whether paint actived color or inactived color.
+	 */    
+	public function isPaintActivedFrame():Boolean{
+		if(flashing){
+			return flashingActivedColor;
+		}else{
+			return frame.isActive();
+		}
+	}
     //----------------------------------------------------------
     /**
      * Override this method to create different title bar
@@ -147,8 +192,8 @@ public class BasicFrameUI extends BaseComponentUI{
     	}
     }
     
-    private function __onTitleBarRelease(e:Event):void{
-    	if(e.target != titleBar){
+    private function __onTitleBarRelease(e:ReleaseEvent):void{
+    	if(e.getPressTarget() != titleBar){
     		return;
     	}
     	frame.stopDrag();
@@ -180,6 +225,7 @@ public class BasicFrameUI extends BaseComponentUI{
     
     private function __frameClosed(e:Event):void{
     	removeBoundsMC();
+    	flashTimer.stop();
     }
     
     private function removeBoundsMC():void{

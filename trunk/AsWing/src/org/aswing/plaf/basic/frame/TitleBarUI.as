@@ -186,19 +186,19 @@ public class TitleBarUI extends BaseComponentUI{
 		frame.closeReleased();
 	}
 	
-	private function __frameMoved(e:Event):void{
+	private function __frameMoved(e:MovedEvent):void{
 		if(stateChangeLocation){
 			stateChangeLocation = false;
 		}else{
-			lastNormalStateBounds.setLocation(frame.getLocation());
+			lastNormalStateBounds.setLocation(e.getNewLocation());
 		}
 	}
 	
-	private function __sizeChanged(e:Event):void{
+	private function __sizeChanged(e:ResizedEvent):void{
 		if(stateChangeSize || frame.getState() == JFrame.ICONIFIED){
 			stateChangeSize = false;
 		}else{
-			lastNormalStateBounds.setSize(frame.getSize());
+			lastNormalStateBounds.setSize(e.getNewSize());
 		}
 	}
 	
@@ -343,7 +343,7 @@ public class TitleBarUI extends BaseComponentUI{
 				AsWingUtils.applyTextFont(titleTextField, frame.getFont());
 				frame.setFontValidated(true);
 			}
-			AsWingUtils.applyTextColor(titleTextField, frame.isActive() ? activeTextColor : inactiveTextColor);
+			AsWingUtils.applyTextColor(titleTextField, frame.getFrameUI().isPaintActivedFrame() ? activeTextColor : inactiveTextColor);
 			titleTextField.x = textRect.x;
 			titleTextField.y = textRect.y;
         }
@@ -365,7 +365,7 @@ public class TitleBarUI extends BaseComponentUI{
 		var h:Number = b.height;
 		
 		var colors:Array;
-		if(frame.isActive()){
+		if(frame.getFrameUI().isPaintActivedFrame()){
 	    	colors = [activeColor.darker(0.9).getRGB(), activeColor.getRGB()];
 		}else{
 	    	colors = [inactiveColor.darker(0.9).getRGB(), inactiveColor.getRGB()];
@@ -377,7 +377,7 @@ public class TitleBarUI extends BaseComponentUI{
 	    var brush:GradientBrush = new GradientBrush(GradientBrush.LINEAR, colors, alphas, ratios, matrix);
 	    g.fillRoundRect(brush, x, y, w, h, 4, 4, 0, 0);    
 		
-		if(frame.isActive()){
+		if(frame.getFrameUI().isPaintActivedFrame()){
 			colors = [activeColor.getRGB(), activeColor.getRGB()];
 		}else{
 			colors = [inactiveColor.getRGB(), inactiveColor.getRGB()];

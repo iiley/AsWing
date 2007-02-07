@@ -367,6 +367,16 @@ public class JPopup extends JRootPane{
 		modalMC.x = globalBounds.x - getX() - 100;
 		modalMC.y = globalBounds.y - getY() - 100;
 	}
+		
+	protected function initModalMC():void{
+		modalMC.tabEnabled = false;
+		modalMC.visible = modal;
+    	modalMC.graphics.clear();
+    	var modalColor:ASColor = new ASColor(0, 0);
+		var g:Graphics2D = new Graphics2D(modalMC.graphics);
+		g.fillRectangle(new SolidBrush(modalColor), 0, 0, 1, 1);
+	}	
+	
 	
 	//--------------------------------------------------------
 	
@@ -386,17 +396,5 @@ public class JPopup extends JRootPane{
 			lastLAF = UIManager.getLookAndFeel();
 		}
 	}
-		
-	private function initModalMC():void{
-		modalMC.tabEnabled = false;
-		//TODO check if need this
-		modalMC.addEventListener(MouseEvent.ROLL_OVER, function(e:Event):void{});
-		modalMC.visible = modal;
-    	modalMC.graphics.clear();
-    	var modalColor:ASColor = new ASColor(0, 0);
-		var g:Graphics2D = new Graphics2D(modalMC.graphics);
-		g.fillRectangle(new SolidBrush(modalColor), 0, 0, 1, 1);
-	}	
-	
 }
 }

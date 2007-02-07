@@ -851,7 +851,7 @@ public class AbstractButton extends Component
 		addEventListener(MouseEvent.ROLL_OUT, __rollOutListener);
 		addEventListener(MouseEvent.ROLL_OVER, __rollOverListener);
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDownListener);
-		addEventListener(AWEvent.RELEASE, __mouseUpListener);
+		addEventListener(ReleaseEvent.RELEASE, __mouseUpListener);
 		addEventListener(Event.ADDED_TO_STAGE, __addedToStage);
 		addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
 	}

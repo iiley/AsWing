@@ -31,7 +31,7 @@ public class FrameBorder implements Border, UIResource{
 			inactiveColor = c.getUI().getColor("Frame.inactiveCaptionBorder");   
 		}
 		var frame:JFrame = JFrame(c);
-		var color:ASColor = frame.isActive() ? activeColor : inactiveColor;
+		var color:ASColor = frame.getFrameUI().isPaintActivedFrame() ? activeColor : inactiveColor;
 		
 		//fill alpha rect
 		g.drawRoundRect(
