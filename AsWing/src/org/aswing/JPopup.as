@@ -44,6 +44,7 @@ public class JPopup extends JRootPane{
 	protected var owner:*;
 	protected var modal:Boolean;
 	
+	private var ownedEquipedPopups:Vector;
 	private var lastLAF:Object;	
 	
 	/**
@@ -72,6 +73,7 @@ public class JPopup extends JRootPane{
 		}
 		this.modal = modal;
 		setName("JPopup");
+		ownedEquipedPopups = new Vector();
 		ground_mc = new Sprite();
 		ground_mc.name = "ground_mc";
 		ground_mc.visible = false;
@@ -168,6 +170,10 @@ public class JPopup extends JRootPane{
 		setVisible(true);
 	}
 	
+	internal function getGroundContainer():DisplayObjectContainer{
+		return ground_mc;
+	}
+	
 	/**
 	 * Shows or hides the Popup. 
 	 * <p>Shows the window when set visible true, If the Popup and/or its owner are not yet displayable(and if Owner is a JPopup),
@@ -180,7 +186,6 @@ public class JPopup extends JRootPane{
 	 * @see #hide()
 	 */	
 	override public function setVisible(v:Boolean):void{
-		ground_mc.visible = v;
 		if(v != visible || (v && !isAddedToList())){
 			super.setVisible(v);
 			
@@ -194,6 +199,7 @@ public class JPopup extends JRootPane{
 				dispatchEvent(new PopupEvent(PopupEvent.POPUP_CLOSED));
 			}
 		}
+		ground_mc.visible = shouldGroundVisible();
 		if(v){
 			toFront();
 		}
@@ -220,6 +226,9 @@ public class JPopup extends JRootPane{
 			//getPopupOwner().removeEventListener(listenerToOwner);
 			disposeProcess();
 			ground_mc.parent.removeChild(ground_mc);
+			if(getPopupOwner() != null){
+				getPopupOwner().removeOwnedEquipedPopup(this);
+			}
 			dispatchEvent(new PopupEvent(PopupEvent.POPUP_CLOSED));
 		}
 	}
@@ -229,6 +238,25 @@ public class JPopup extends JRootPane{
 	 */
 	protected function disposeProcess():void{
 	}	
+	
+	/**
+	 * Returns should ground be visible through.
+	 * This method will call <code>owner.shouldOwnedPopupGroundVisible()</code>.
+	 */
+	internal function shouldGroundVisible():Boolean{
+		var pOwner:JPopup = getPopupOwner();
+		if(pOwner != null){
+			return pOwner.shouldOwnedPopupGroundVisible(this);
+		}
+		return isVisible();
+	}	
+	
+	/**
+	 * Returns should owned popup ground be visible.
+	 */
+	internal function shouldOwnedPopupGroundVisible(popup:JPopup):Boolean{
+		return popup.isVisible();
+	}
 	
 	/**
 	 * If this Popup is visible, sends this Popup to the back and may cause it to lose 
@@ -289,10 +317,21 @@ public class JPopup extends JRootPane{
 		lastDragPos = newPos;
 	}
 	/**
-	 * Return an array containing all the windows this window currently owns.
+	 * Return an array containing all the popups this popup currently owns.
 	 */
 	public function getOwnedPopups():Array{
 		return getOwnedPopupsWithOwner(this);
+	}
+	
+	/**
+	 * Returns an array containing all the popups that is equiped and is this popup currently owns.
+	 * <p>
+	 * Whether a popup is Equiped, based on whether the popup is shown(by <code>show()</code> or 
+	 * <code>setVisible(true)</code>) and not disposed(<code>dispose()</code>).
+	 * </p>
+	 */	
+	public function getOwnedEquipedPopups():Array{
+		return ownedEquipedPopups.toArray();
 	}
 	
 	protected static function getPopupsVector():Vector{
@@ -377,6 +416,13 @@ public class JPopup extends JRootPane{
 		g.fillRectangle(new SolidBrush(modalColor), 0, 0, 1, 1);
 	}	
 	
+	private function addOwnedEquipedPopup(pop:JPopup):void{
+		ownedEquipedPopups.append(pop);
+	}
+	
+	private function removeOwnedEquipedPopup(pop:JPopup):void{
+		ownedEquipedPopups.remove(pop);
+	}
 	
 	//--------------------------------------------------------
 	
@@ -384,6 +430,7 @@ public class JPopup extends JRootPane{
 		if(owner is JPopup){
 			var jwo:JPopup = JPopup(owner);
 			jwo.ground_mc.addChild(ground_mc);
+			jwo.addOwnedEquipedPopup(this);
 		}else if(owner is DisplayObjectContainer){
 			var ownerMC:DisplayObjectContainer = DisplayObjectContainer(owner);
 			ownerMC.addChild(ground_mc);

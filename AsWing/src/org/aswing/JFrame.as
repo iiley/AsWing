@@ -389,14 +389,51 @@ public class JFrame extends JWindow{
 			state = s;
 			fireStateChanged();
 			if(state == ICONIFIED){
-				dispatchEvent(new FrameEvent(FrameEvent.FRAME_ICONIFIED, programmatic));
+				precessIconified(programmatic);
 			}else if((state & MAXIMIZED_HORIZ == MAXIMIZED_HORIZ) || (state & MAXIMIZED_VERT == MAXIMIZED_VERT)){
-				dispatchEvent(new FrameEvent(FrameEvent.FRAME_MAXIMIZED, programmatic));
+				precessMaximized(programmatic);
 			}else{
-				dispatchEvent(new FrameEvent(FrameEvent.FRAME_RESTORED, programmatic));
+				precessRestored(programmatic);
 			}
 			return;
 		}
+	}
+	
+	/**
+	 * Do the precesses when iconified.
+	 */
+	protected function precessIconified(programmatic:Boolean=true):void{
+		doSubPopusVisible();
+		dispatchEvent(new FrameEvent(FrameEvent.FRAME_ICONIFIED, programmatic));
+	}
+	/**
+	 * Do the precesses when restored.
+	 */
+	protected function precessRestored(programmatic:Boolean=true):void{
+		doSubPopusVisible();
+		dispatchEvent(new FrameEvent(FrameEvent.FRAME_RESTORED, programmatic));
+	}
+	/**
+	 * Do the precesses when maximized.
+	 */
+	protected function precessMaximized(programmatic:Boolean=true):void{
+		doSubPopusVisible();
+		dispatchEvent(new FrameEvent(FrameEvent.FRAME_MAXIMIZED, programmatic));
+	}
+	
+	private function doSubPopusVisible():void{
+		var owneds:Array = getOwnedEquipedPopups();
+		for(var i:int=0; i<owneds.length; i++){
+			var pop:JPopup = owneds[i];
+			pop.getGroundContainer().visible = pop.shouldGroundVisible();
+		}
+	}
+		
+	override internal function shouldOwnedPopupGroundVisible(popup:JPopup):Boolean{
+		if(getState() == ICONIFIED){
+			return false;
+		}
+		return super.shouldOwnedPopupGroundVisible(popup);
 	}
 	
 	public function getState():int{

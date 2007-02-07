@@ -76,7 +76,7 @@ public class JRootPane extends Container{
 		if(code == Keyboard.ENTER){
 			var dfBtn:AbstractButton = getDefaultButton();
 			if(dfBtn != null){
-				if(dfBtn.isShowing() && mnBtn.isEnabled()){
+				if(dfBtn.isShowing() && dfBtn.isEnabled()){
 					dfBtn.doClick();
 				}
 				return;
