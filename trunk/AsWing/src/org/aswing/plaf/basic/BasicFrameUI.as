@@ -225,7 +225,10 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     
     private function __frameClosed(e:Event):void{
     	removeBoundsMC();
-    	flashTimer.stop();
+    	if(flashTimer != null){
+    		flashTimer.stop();
+    		flashTimer = null;
+    	}
     }
     
     private function removeBoundsMC():void{
