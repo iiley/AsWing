@@ -92,8 +92,8 @@ public class LookAndFeel
      */
     public static function installColorsAndFont(c:Component, componentUIPrefix:String,
     	defaultBgName:String="background", defaultFgName:String="foreground", defaultFontName:String="font"):void{
-    	installColors(c, componentUIPrefix + defaultBgName, componentUIPrefix + defaultFgName);
-    	installFont(c, componentUIPrefix + defaultFontName);
+    	installColors(c, componentUIPrefix, defaultBgName, defaultFgName);
+    	installFont(c, componentUIPrefix, defaultFontName);
     }
 	
     /**
