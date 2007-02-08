@@ -9,6 +9,7 @@ import flash.events.MouseEvent;
 import org.aswing.event.*;
 import flash.events.Event;
 import org.aswing.AWSprite;
+import org.aswing.AsWingManager;
 	
 /**
  * The Handler for Resizer's mc bars.
@@ -39,6 +40,7 @@ public class DefaultResizeBarHandler{
 		mc.addEventListener(MouseEvent.MOUSE_DOWN, __onPress);
 		mc.addEventListener(MouseEvent.CLICK, __onRelease);
 		mc.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onReleaseOutside);
+		mc.addEventListener(Event.REMOVED_FROM_STAGE, __onDestroy);
 	}
 	
 	private function __onRollOver(e:Event):void{
@@ -72,6 +74,11 @@ public class DefaultResizeBarHandler{
 	
 	private function __onReleaseOutside(e:Event):void{
 		__onRelease(e);
+	}
+	
+	private function __onDestroy(e:Event):void{
+		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
+		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
 	}
 	
 	private function __rotateArrow(e:Event=null):void{

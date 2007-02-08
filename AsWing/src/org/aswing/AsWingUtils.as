@@ -130,7 +130,7 @@ public class AsWingUtils
         //TODO imp when stage resized
         var b:IntRectangle = new IntRectangle(0, 0, sw, sh);
         var p:Point = new Point(0, 0);
-        dis.globalToLocal(p);
+        p = dis.globalToLocal(p);
         b.setLocation(IntPoint.creatWithPoint(p));
         return b;
     }

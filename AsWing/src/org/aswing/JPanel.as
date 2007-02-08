@@ -19,10 +19,10 @@ public class JPanel extends Container
 		updateUI();
 	}
 	
-    override public function updateUI():void{
-    	setUI(UIManager.getUI(this));
-    }
-    
+	override public function updateUI():void{
+		setUI(UIManager.getUI(this));
+	}
+	
 	override public function getUIClassID():String{
 		return "PanelUI";
 	}	
