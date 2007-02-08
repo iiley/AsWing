@@ -40,7 +40,8 @@ public class JSharedToolTip extends JToolTip{
      * @param component  a <code>JComponent</code> object to add
      */
 	public function registerComponent(c:Component):void{
-		listenOwner(c);
+		//TODO chech whether the week works
+		listenOwner(c, true);
 		if(getTargetComponent() == c){
 			setTipText(c.getToolTipText());
 		}

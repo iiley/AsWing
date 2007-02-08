@@ -341,12 +341,12 @@ public class JToolTip extends Container{
 		return offsetsRelatedToMouse;
 	}
 	
-	protected function listenOwner(comp:Component):void{
-		comp.addEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
-		comp.addEventListener(MouseEvent.ROLL_OUT, ____compRollOut);
-		comp.addEventListener(AWEvent.HIDDEN, ____compRollOut);
-		comp.addEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut);
-		comp.addEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut);
+	protected function listenOwner(comp:Component, useWeakReference:Boolean = false):void{
+		comp.addEventListener(MouseEvent.ROLL_OVER, ____compRollOver, false, 0, useWeakReference);
+		comp.addEventListener(MouseEvent.ROLL_OUT, ____compRollOut, false, 0, useWeakReference);
+		comp.addEventListener(AWEvent.HIDDEN, ____compRollOut, false, 0, useWeakReference);
+		comp.addEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut, false, 0, useWeakReference);
+		comp.addEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut, false, 0, useWeakReference);
 	}
 	protected function unlistenOwner(comp:Component):void{
 		comp.removeEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
