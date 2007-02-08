@@ -22,6 +22,7 @@ public class BasicSeparatorUI extends BaseComponentUI
 {
 		
 	public function BasicSeparatorUI(){
+		super();
 	}
 	
     protected function getPropertyPrefix():String {
@@ -58,6 +59,7 @@ public class BasicSeparatorUI extends BaseComponentUI
 	
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
     	super.paint(c, g, b);
+		trace("c:"+c);    	
 		var sp:JSeparator = JSeparator(c);
 		if (sp.getOrientation() == JSeparator.VERTICAL){
 			var pen:Pen = new Pen(c.getBackground().darker(), 1);
