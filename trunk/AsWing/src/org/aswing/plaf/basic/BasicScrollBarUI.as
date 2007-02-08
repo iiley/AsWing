@@ -82,7 +82,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		configureScrollBarColors();
 		var pp:String = getPropertyPrefix();
 		LookAndFeel.installBasicProperties(scrollbar, pp);
-        LookAndFeel.installBorderAndBFDecorators(scrollbar, pp + "border", pp+"bg", pp+"fg");
+        LookAndFeel.installBorderAndBFDecorators(scrollbar, pp);
 	}
 	
     private function configureScrollBarColors():void{
