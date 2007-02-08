@@ -57,6 +57,7 @@ public class BasicSeparatorUI extends BaseComponentUI
 	}
 	
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
+    	super.paint(c, g, b);
 		var sp:JSeparator = JSeparator(c);
 		if (sp.getOrientation() == JSeparator.VERTICAL){
 			var pen:Pen = new Pen(c.getBackground().darker(), 1);
@@ -66,7 +67,7 @@ public class BasicSeparatorUI extends BaseComponentUI
 		}else{
 			var pen2:Pen = new Pen(c.getBackground().darker(), 1);
 			g.drawLine(pen2, b.x, b.y+0.5, b.x+b.width, b.y+0.5);
-			pen.setColor(c.getBackground().brighter());
+			pen2.setColor(c.getBackground().brighter());
 			g.drawLine(pen2, b.x, b.y+1.5, b.x+b.width, b.y+1.5);
 		}
 	}
@@ -90,5 +91,10 @@ public class BasicSeparatorUI extends BaseComponentUI
 			return new IntDimension(Number.MAX_VALUE, 2 + size.height);
 		}
     }
+    
+	override public function getMinimumSize(c:Component):IntDimension
+	{
+		return getPreferredSize(c);
+	}    
 }
 }
