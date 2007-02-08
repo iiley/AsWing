@@ -52,8 +52,8 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	
     protected function installDefaults():void {
     	var pp:String = getPropertyPrefix();
-		LookAndFeel.installColorsAndFont(frame, pp + "background", pp + "foreground", pp + "font");
-		LookAndFeel.installBorderAndBFDecorators(frame, pp + "border", pp+"bg", pp+"fg");
+		LookAndFeel.installColorsAndFont(frame, pp);
+		LookAndFeel.installBorderAndBFDecorators(frame, pp);
 		LookAndFeel.installBasicProperties(frame, pp);
 		
 	    resizeArrowColor = getColor("resizeArrow");

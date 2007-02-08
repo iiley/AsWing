@@ -47,6 +47,7 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
 			   "CheckBoxUI", org.aswing.plaf.basic.BasicCheckBoxUI, 
 			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
+			   "SeparatorUI", org.aswing.plaf.basic.BasicSeparatorUI,
 			   "ViewportUI", org.aswing.plaf.basic.BasicViewportUI,
 			   "ScrollPaneUI", org.aswing.plaf.basic.BasicScrollPaneUI, 
 			   "LabelUI",org.aswing.plaf.basic.BasicLabelUI, 
@@ -192,6 +193,15 @@ public class BasicLookAndFeel extends LookAndFeel
 			"CheckBox.textShiftOffset", 1
 		];
 	    table.putDefaults(comDefaults);
+	    
+	    // *** Separator
+	    comDefaults = [
+		    "Separator.background", null, //make it to get from parent
+		    "Separator.foreground", null,
+	    	"Separator.opaque", false,
+	    	"Separator.focusable", false
+	    ];
+	    table.putDefaults(comDefaults);	    
 	    
 	    // *** ScrollBar
 	    comDefaults = [
