@@ -26,7 +26,7 @@ public class ToolTipBorder extends LineBorder implements UIResource
 			color = c.getUI().getColor("ToolTip.borderColor");
 			setColor(color);
 		}
-		super.updateBorder(c, g, b);
+		super.updateBorderImp(c, g, b);
 	}
 }
 }

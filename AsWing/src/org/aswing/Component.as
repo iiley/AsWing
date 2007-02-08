@@ -144,6 +144,7 @@ public class Component extends AWSprite
 	private var enabled:Boolean;
 	private var focusable:Boolean;
 	private var focusableSet:Boolean;
+	private var toolTipText:String;
 	
 	public function Component()
 	{
@@ -164,6 +165,7 @@ public class Component extends AWSprite
 		cachePreferSizes = true;
 		fontValidated = false;
 		readyToPaint = false;
+		toolTipText = null;
 		border = DefaultEmptyDecoraterResource.INSTANCE;
 		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
 		foregroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
@@ -1046,6 +1048,37 @@ public class Component extends AWSprite
 	public function setFocusableSet(b:Boolean):void{
 		focusableSet = b;
 	}
+
+	/**
+	 * Registers the text to display in a tool tip. 
+	 * The text displays when the cursor lingers over the component. 
+	 * <p>
+	 * This tip will display with a shared tool tip with other components, 
+	 * so if you want to display more than one tip at same time, you may 
+	 * need to create your <code>JToolTip</code> or <code>JSharedToolTip</code>.
+	 * </p>
+	 * @param t the string to display; if the text is null, 
+	 * the tool tip is turned off for this component
+	 * @see JToolTip
+	 * @see JSharedToolTip
+	 */
+	public function setToolTipText(t:String):void{
+		toolTipText = t;
+		if(t == null){
+			JSharedToolTip.getSharedInstance().unregisterComponent(this);
+		}else{
+			JSharedToolTip.getSharedInstance().registerComponent(this);
+		}
+	}
+	
+	/**
+	 * Returns the tooltip string that has been set with setToolTipText. 
+	 * @return the text of the tool tip
+	 * @see #setToolTipText()
+	 */
+	public function getToolTipText():String{
+		return toolTipText;
+	}	
 	
 	/**
 	 * Locate the component to the current location.
