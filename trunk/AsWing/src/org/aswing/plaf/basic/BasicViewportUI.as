@@ -30,10 +30,14 @@ public class BasicViewportUI extends BaseComponentUI{
 		uninstallListeners();
 	}
 
+    protected function getPropertyPrefix():String {
+        return "Viewport.";
+    }
+
 	protected function installDefaults():void {
-		var pp:String = "Viewport.";
-		LookAndFeel.installColorsAndFont(viewport, pp + "background", pp + "foreground", pp + "font");
-		LookAndFeel.installBorderAndBFDecorators(viewport, pp + "border", pp+"bg", pp+"fg");
+		var pp:String = getPropertyPrefix();
+		LookAndFeel.installColorsAndFont(viewport, pp);
+		LookAndFeel.installBorderAndBFDecorators(viewport, pp);
 		LookAndFeel.installBasicProperties(viewport, pp);
 	}
 

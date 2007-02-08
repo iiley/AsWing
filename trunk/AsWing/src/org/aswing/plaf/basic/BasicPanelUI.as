@@ -27,8 +27,8 @@ public class BasicPanelUI extends BaseComponentUI
 
 	private function installDefaults(p:JPanel):void {
 		var pp:String = "Panel.";
-		LookAndFeel.installColorsAndFont(p, pp + "background", pp + "foreground", pp + "font");
-		LookAndFeel.installBorderAndBFDecorators(p, pp + "border", pp+"bg", pp+"fg");
+		LookAndFeel.installColorsAndFont(p, pp);
+		LookAndFeel.installBorderAndBFDecorators(p, pp);
 		LookAndFeel.installBasicProperties(p, pp);
 	}
 

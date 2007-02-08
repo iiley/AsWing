@@ -45,8 +45,8 @@ public class BasicLabelUI extends BaseComponentUI{
  	protected function installDefaults(b:JLabel):void{
         var pp:String = getPropertyPrefix();
         
-        LookAndFeel.installColorsAndFont(b, pp + "background", pp + "foreground", pp + "font");
-        LookAndFeel.installBorderAndBFDecorators(b, pp + "border", pp+"bg", pp+"fg");
+        LookAndFeel.installColorsAndFont(b, pp);
+        LookAndFeel.installBorderAndBFDecorators(b, pp);
         LookAndFeel.installBasicProperties(b, pp);
         label.mouseChildren = false;
  	}
