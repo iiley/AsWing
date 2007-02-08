@@ -8,7 +8,7 @@ package org.aswing
 import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
 import flash.events.*;
-import flash.geom.Rectangle;
+import flash.geom.*;
 
 import org.aswing.error.ImpMissError;
 import org.aswing.event.AWEvent;
@@ -21,6 +21,7 @@ import org.aswing.plaf.*;
 import org.aswing.util.HashMap;
 import org.aswing.util.Reflection;
 import flash.display.Sprite;
+import mx.containers.Panel;
 	
 //--------------------------------------
 //  Events
@@ -802,6 +803,32 @@ public class Component extends AWSprite
 	}
 	
 	/**
+	 * Set the component's location in global coordinate. This method should only be called when the component 
+	 * is on the display list.
+	 * @param gp the global location.
+	 * @see #setLocation()
+	 * @see #localToGlobal()
+	 * @see #MovieClip.globalToLocal()
+	 */
+	public function setGlobalLocation(gp:IntPoint):void{
+		var newPos:Point = parent.globalToLocal(new Point(gp.x, gp.y));
+		setLocationXY(newPos.x, newPos.y);
+	}
+	
+	/**
+	 * Set the component's location in global coordinate. This method should only be called when the component 
+	 * is on the display list.
+	 * @param x the global x location.
+	 * @param y the global y location.
+	 * @see #setLocation()
+	 * @see #localToGlobal()
+	 * @see #globalToLocal()
+	 */
+	public function setGlobalLocationXY(x:int, y:int):void{
+		setGlobalLocation(new IntPoint(x, y));
+	}
+	
+	/**
 	 * Stores the location value of this component into "return value" rv and returns rv. 
 	 * If p is null or undefined a new Point object is allocated. 
 	 * @param rv the return value, modified to the component's location.
@@ -814,6 +841,25 @@ public class Component extends AWSprite
 			return new IntPoint(bounds.x, bounds.y);
 		}
 	}
+	
+	/**
+	 * Stores the global location value of this component into "return value" p and returns p. 
+	 * If p is null or undefined a new Point object is allocated. 
+	 * @param p the return value, modified to the component's global location.
+	 * @see #getLocation()
+	 * @see #setGlobalLocation()
+	 * @see MovieClip.localToGlobal()
+	 * @see MovieClip.globalToLocal()
+	 */
+	public function getGlobalLocation(rv:IntPoint=null):IntPoint{
+		var gp:Point = localToGlobal(new Point(0, 0));
+		if(rv != null){
+			rv.setLocationXY(gp.x, gp.y);
+			return rv;
+		}else{
+			return new IntPoint(gp.x, gp.y);
+		}
+	}	
 	
 	/**
 	 * This method will call setComBounds()
@@ -1769,11 +1815,13 @@ public class Component extends AWSprite
 	}
 	
 	/**
-	 * Removes this component from its parent
+	 * Removes this component from its parent.
 	 */
 	public function removeFromContainer():void{
 		if(getParent() != null){
 			getParent().remove(this);
+		}else if(parent != null){
+			parent.removeChild(this);
 		}
 	}
 	

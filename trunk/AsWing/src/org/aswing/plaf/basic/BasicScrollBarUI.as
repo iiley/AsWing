@@ -137,6 +137,8 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		
 		scrollbar.addEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
 		scrollbar.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
+		
+		scrollbar.addEventListener(Event.REMOVED_FROM_STAGE, __destroy);
 	}
     
     protected function uninstallListeners():void{
@@ -153,6 +155,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		
 		scrollbar.removeEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
 		scrollbar.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
+		scrollbar.removeEventListener(Event.REMOVED_FROM_STAGE, __destroy);
     }
 	    
     private function isVertical():Boolean{
@@ -164,6 +167,14 @@ public class BasicScrollBarUI extends BaseComponentUI{
     }
     
     //-------------------------listeners--------------------------
+    
+    private function __destroy(e:Event):void{
+    	scrollTimer.stop();
+    	if(isDragging){
+    		scrollbar.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
+    	}
+    }
+    
     private function __onMouseWheel(e:MouseEvent):void{
 		if(!scrollbar.isEnabled()){
 			return;

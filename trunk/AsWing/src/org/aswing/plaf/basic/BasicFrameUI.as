@@ -82,6 +82,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 		frame.addEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.addEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		frame.addEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
+		frame.addEventListener(Event.REMOVED_FROM_STAGE, __frameClosed);
 	}
 
     override public function uninstallUI(c:Component):void {
@@ -109,6 +110,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 		frame.removeEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		frame.removeEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
+		frame.removeEventListener(Event.REMOVED_FROM_STAGE, __frameClosed);
 		flashTimer.stop();
 	}
 	

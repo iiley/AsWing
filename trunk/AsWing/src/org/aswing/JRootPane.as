@@ -103,6 +103,7 @@ public class JRootPane extends Container{
 		if(KeyboardManager.getInstance().isKeyDown(Keyboard.CONTROL) 
 			|| KeyboardManager.getInstance().isMnemonicModifierDown()){
 				e.preventDefault();
+				trace("The input " + e.text + " was prevented!!");
 			}
 	}
 	
