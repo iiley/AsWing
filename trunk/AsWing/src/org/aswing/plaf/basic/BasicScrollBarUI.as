@@ -59,6 +59,10 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollTimer.addActionListener(__scrollTimerPerformed);
 	}
     	
+    protected function getPropertyPrefix():String {
+        return "ScrollBar.";
+    }    	
+    	
     override public function installUI(c:Component):void{
 		scrollbar = JScrollBar(c);
 		installDefaults();
@@ -76,15 +80,16 @@ public class BasicScrollBarUI extends BaseComponentUI{
 	
 	protected function installDefaults():void{
 		configureScrollBarColors();
-		var pp:String = "ScrollBar.";
+		var pp:String = getPropertyPrefix();
 		LookAndFeel.installBasicProperties(scrollbar, pp);
         LookAndFeel.installBorderAndBFDecorators(scrollbar, pp + "border", pp+"bg", pp+"fg");
 	}
 	
     private function configureScrollBarColors():void{
-    	LookAndFeel.installColorsAndFont(scrollbar, "ScrollBar.background", "ScrollBar.foreground", "ScrollBar.font");
-		arrowShadowColor = getColor("ScrollBar.arrowShadowColor");
-		arrowLightColor = getColor("ScrollBar.arrowLightColor");
+		var pp:String = getPropertyPrefix();    	
+    	LookAndFeel.installColorsAndFont(scrollbar, pp);
+		arrowShadowColor = getColor(pp + "arrowShadowColor");
+		arrowLightColor = getColor(pp + "arrowLightColor");
     }
     
     protected function uninstallDefaults():void{
@@ -93,7 +98,8 @@ public class BasicScrollBarUI extends BaseComponentUI{
     
 	protected function installComponents():void{
 		thumMC = new AWSprite();
-		thumbDecorator = getGroundDecorator("ScrollBar.thumbDecorator");
+		var pp:String = getPropertyPrefix();    			
+		thumbDecorator = getGroundDecorator(pp + "thumbDecorator");
 		if(thumbDecorator != null){
 			if(thumbDecorator.getDisplay() != null){
 				thumMC.addChild(thumbDecorator.getDisplay());
