@@ -20,7 +20,7 @@ public class ToolTipBorder extends LineBorder implements UIResource
 		super();
 	}
 	
-	override public function updateBorder(c:Component, g:Graphics2D, b:IntRectangle):void
+	override public function updateBorderImp(c:Component, g:Graphics2D, b:IntRectangle):void
 	{
 		if(color == null){
 			color = c.getUI().getColor("ToolTip.borderColor");
