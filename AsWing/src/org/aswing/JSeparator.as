@@ -1,0 +1,69 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
+package org.aswing
+{
+	
+/**
+ * <code>JSeparator</code> provides a general purpose component for
+ * implementing divider lines - most commonly used as a divider
+ * between menu items that breaks them up into logical groupings.
+ * Instead of using <code>JSeparator</code> directly,
+ * you can use the <code>JMenu</code> or <code>JPopupMenu</code>
+ * <code>addSeparator</code> method to create and add a separator.
+ * <code>JSeparator</code>s may also be used elsewhere in a GUI
+ * wherever a visual divider is useful.
+ * 
+ * @author iiley
+ */	
+public class JSeparator extends Component
+{
+	
+    /** 
+     * Horizontal orientation.
+     */
+    public static const HORIZONTAL:int = AsWingConstants.HORIZONTAL;
+    /** 
+     * Vertical orientation.
+     */
+    public static const VERTICAL:int   = AsWingConstants.VERTICAL;
+	
+	private var orientation:Number;
+	
+	/**
+	 * JSeparator(orientation:Number)<br>
+	 * JSeparator() default orientation to HORIZONTAL;
+	 * <p>
+	 * @param orientation (optional) the orientation.
+	 */
+	public function JSeparator(orientation:int=HORIZONTAL){
+		super();
+		setName("JSeparator");
+		this.orientation = orientation;
+		setFocusable(false);
+		updateUI();
+	}
+
+	override public function updateUI():void{
+		setUI(UIManager.getUI(this));
+	}
+	
+	override public function getUIClassID():String{
+		return "SeparatorUI";
+	}
+	
+	public function getOrientation():Number{
+		return orientation;
+	}
+	
+	public function setOrientation(orientation:Number):void{
+		if (this.orientation != orientation){
+			this.orientation = orientation;
+			revalidate();
+			repaint();
+		}
+	}
+}
+
+}

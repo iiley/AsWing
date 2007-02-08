@@ -48,8 +48,8 @@ public class BasicTextComponentUI extends BaseComponentUI{
  	
  	protected function installDefaults():void{
         var pp:String = getPropertyPrefix();
-        LookAndFeel.installColorsAndFont(textComponent, pp + "background", pp + "foreground", pp + "font");
-        LookAndFeel.installBorderAndBFDecorators(textComponent, pp + "border", pp+"bg", pp+"fg");
+        LookAndFeel.installColorsAndFont(textComponent, pp);
+        LookAndFeel.installBorderAndBFDecorators(textComponent, pp);
         LookAndFeel.installBasicProperties(textComponent, pp);
  	}
 	
