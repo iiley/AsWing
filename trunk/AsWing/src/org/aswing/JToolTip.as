@@ -155,13 +155,13 @@ public class JToolTip extends Container{
 		return waitThenPopupEnabled;
 	}
 		
-	private function __compRollOver(source:Component):void{
+	protected function __compRollOver(source:Component):void{
 		if(source == comp && isWaitThenPopupEnabled()){
 			startWaitToPopup();
 		}
 	}
 	
-	private function __compRollOut(source:Component):void{
+	protected function __compRollOut(source:Component):void{
 		if(source == comp && isWaitThenPopupEnabled()){
 			disposeToolTip();
 		}
@@ -287,19 +287,11 @@ public class JToolTip extends Container{
 	public function setTargetComponent(c:Component):void{
 		if(c != comp){
 			if(comp != null){
-				comp.removeEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
-				comp.removeEventListener(MouseEvent.ROLL_OUT, ____compRollOut);
-				comp.removeEventListener(AWEvent.HIDDEN, ____compRollOut);
-				comp.removeEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut);
-				comp.removeEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut);
+				unlistenOwner(comp);
 			}
 			comp = c;
 			if(comp != null){
-				comp.addEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
-				comp.addEventListener(MouseEvent.ROLL_OUT, ____compRollOut);
-				comp.addEventListener(AWEvent.HIDDEN, ____compRollOut);
-				comp.addEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut);
-				comp.addEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut);
+				listenOwner(comp);
 			}
 		}
 	}
@@ -348,6 +340,22 @@ public class JToolTip extends Container{
 	public function isOffsetsRelatedToMouse():Boolean{
 		return offsetsRelatedToMouse;
 	}
+	
+	protected function listenOwner(comp:Component):void{
+		comp.addEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
+		comp.addEventListener(MouseEvent.ROLL_OUT, ____compRollOut);
+		comp.addEventListener(AWEvent.HIDDEN, ____compRollOut);
+		comp.addEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut);
+		comp.addEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut);
+	}
+	protected function unlistenOwner(comp:Component):void{
+		comp.removeEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
+		comp.removeEventListener(MouseEvent.ROLL_OUT, ____compRollOut);
+		comp.removeEventListener(AWEvent.HIDDEN, ____compRollOut);
+		comp.removeEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut);
+		comp.removeEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut);
+	}
+	
 	
 	//-----------can't override these------
 	private function ____compRollOver(e:Event):void{
