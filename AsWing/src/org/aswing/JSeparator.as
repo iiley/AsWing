@@ -29,7 +29,7 @@ public class JSeparator extends Component
      */
     public static const VERTICAL:int   = AsWingConstants.VERTICAL;
 	
-	private var orientation:Number;
+	private var orientation:int;
 	
 	/**
 	 * JSeparator(orientation:Number)<br>
@@ -57,7 +57,7 @@ public class JSeparator extends Component
 		return orientation;
 	}
 	
-	public function setOrientation(orientation:Number):void{
+	public function setOrientation(orientation:int):void{
 		if (this.orientation != orientation){
 			this.orientation = orientation;
 			revalidate();
