@@ -1702,6 +1702,9 @@ public class Component extends AWSprite
 		graphics.clear();
 		var g:Graphics2D = new Graphics2D(graphics);
 		
+		//fill a transparent rectangle to be the mouse trigger
+		g.fillRectangle(bg_trigger_brush, b.x, b.y, b.width, b.height);
+		
 		if(backgroundDecorator != null){
 			backgroundDecorator.updateDecorator(this, g, b.clone());
 		}
@@ -1721,6 +1724,7 @@ public class Component extends AWSprite
 				
 		dispatchEvent(new AWEvent(AWEvent.PAINT, false, false));
 	}
+	private static const bg_trigger_brush:SolidBrush = new SolidBrush(new ASColor(0, 0));
 	
 	/**
 	 * Paints the focus rect if need.
