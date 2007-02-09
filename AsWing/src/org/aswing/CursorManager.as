@@ -32,7 +32,7 @@ public class CursorManager{
 	public static function setCursorContainerRoot(theRoot:DisplayObjectContainer):void{
 		if(theRoot != root){
 			root = theRoot;
-			if(cursorHolder != null && !root.contains(cursorHolder)){
+			if(cursorHolder != null && cursorHolder.parent != root){
 				root.addChild(cursorHolder);
 			}
 		}
