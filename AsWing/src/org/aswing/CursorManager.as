@@ -27,6 +27,7 @@ public class CursorManager{
 	 * Sets the container to hold the cursors(in fact it will hold the cursor's parent--a sprite).
 	 * By default(if you have not set one), it is the stage if <code>AsWingManager</code> is inited.
 	 * @param theRoot the container to hold the cursors.
+	 * @see org.aswing.AsWingManager#getStage()
 	 */
 	public static function setCursorContainerRoot(theRoot:DisplayObjectContainer):void{
 		if(theRoot != root){

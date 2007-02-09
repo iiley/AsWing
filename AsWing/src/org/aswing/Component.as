@@ -11,17 +11,13 @@ import flash.events.*;
 import flash.geom.*;
 
 import org.aswing.error.ImpMissError;
-import org.aswing.event.AWEvent;
-import org.aswing.event.FocusKeyEvent;
-import org.aswing.event.MovedEvent;
-import org.aswing.event.ResizedEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
-import org.aswing.util.HashMap;
-import org.aswing.util.Reflection;
+import org.aswing.util.*;
 import flash.display.Sprite;
-import mx.containers.Panel;
+import org.aswing.event.*;
+import org.aswing.dnd.*;
 	
 //--------------------------------------
 //  Events
@@ -90,6 +86,40 @@ import mx.containers.Panel;
  */
 [Event(name="focusKeyUp", type="org.aswing.event.FocusKeyEvent")]
 
+
+/**
+ * Dispatched when the component is recongnized that it can be drag start.
+ * @see #isDragEnabled()
+ * 
+ * @eventType org.aswing.event.DragAndDropEvent.DRAG_RECOGNIZED
+ */
+[Event(name="dragRecongnized", type="org.aswing.event.DragAndDropEvent")]
+
+/**
+ * Dispatched when a drag is enter this component area.
+ * @see #isDropTrigger()
+ * 
+ * @eventType org.aswing.event.DragAndDropEvent.DRAG_ENTER
+ */
+[Event(name="dragEnter", type="org.aswing.event.DragAndDropEvent")]
+
+/**
+ * Dispatched when a drag is exit this component area.
+ * @see #isDropTrigger()
+ * 
+ * @eventType org.aswing.event.DragAndDropEvent.DRAG_EXIT
+ */
+[Event(name="dragExit", type="org.aswing.event.DragAndDropEvent")]
+
+/**
+ * Dispatched when a drag is drop on this component.
+ * @see #isDropTrigger()
+ * 
+ * @eventType org.aswing.event.DragAndDropEvent.DRAG_DROP
+ */
+[Event(name="dragDrop", type="org.aswing.event.DragAndDropEvent")]
+
+
 /**
  * The super class for all Components.
  * 
@@ -145,6 +175,9 @@ public class Component extends AWSprite
 	private var focusable:Boolean;
 	private var focusableSet:Boolean;
 	private var toolTipText:String;
+	private var dragEnabled:Boolean;
+	private var dropTrigger:Boolean;
+	private var dragAcceptableInitiator:HashSet;
 	
 	public function Component()
 	{
@@ -1048,6 +1081,100 @@ public class Component extends AWSprite
 	public function setFocusableSet(b:Boolean):void{
 		focusableSet = b;
 	}
+
+	/**
+	 * Sets whether this component can fire ON_DRAG_RECOGNIZED event.
+	 * @see #ON_DRAG_RECOGNIZED 
+	 * @see #isDragEnabled()
+	 */
+	public function setDragEnabled(b:Boolean):void{
+		dragEnabled = b;
+	}
+	
+	/**
+	 * Returns whether this component can fire ON_DRAG_RECOGNIZED event. (Default value is false)
+	 * @see #ON_DRAG_RECOGNIZED
+	 * @see #setDragEnabled()
+	 */
+	public function isDragEnabled():Boolean{
+		return dragEnabled;
+	}
+	
+	/**
+	 * Sets whether this component can trigger dragging component to fire drag events 
+	 * when dragging over to this component.
+	 * @param b true to make this component to be a trigger that trigger drag and drop 
+	 * action to fire events, false not to do that things.
+	 * @see #ON_DRAG_ENTER
+	 * @see #ON_DRAG_OVER
+	 * @see #ON_DRAG_EXIT
+	 * @see #ON_DRAG_DROP
+	 * @see #isDropTrigger()
+	 */
+	public function setDropTrigger(b:Boolean):void{
+		dropTrigger = b;
+	}
+	
+	/**
+	 * Returns whether this component can trigger dragging component to fire drag events 
+	 * when dragging over to this component.(Default value is false)
+	 * @return true if this component is a trigger that can trigger drag and drop action to 
+	 * fire events, false it is not.
+	 * @see #ON_DRAG_ENTER
+	 * @see #ON_DRAG_OVER
+	 * @see #ON_DRAG_EXIT
+	 * @see #ON_DRAG_DROP
+	 * @see #setDropTrigger()
+	 */
+	public function isDropTrigger():Boolean{
+		return dropTrigger;
+	}
+
+	/**
+	 * Adds a component to be the acceptable drag initiator to this component.
+	 * <p>
+	 * It is not meanning that the DnD events will not be fired when the initiator 
+	 * is dragging enter/over/exit/drop on this component.
+	 * It is meanning that you can have a convenient way to proccess that events from 
+	 * the method <code>isDragAcceptableInitiator</code> later, and the default dragging 
+	 * image will take advantage to present a better picture when painting.
+	 * </p>
+	 * <p>
+	 * Don't forgot to call <code>removeDragAcceptableInitiator</code> when you don't need 
+	 * a initiator, to make sure this will not keep a reference count of Gabarge-celector.
+	 * </p>
+	 * @param com the acceptable drag initiator
+	 * @see #isDragAcceptableInitiator()
+	 */
+	public function addDragAcceptableInitiator(com:Component):void{
+		if(dragAcceptableInitiator == null){
+			dragAcceptableInitiator = new HashSet();
+		}
+		dragAcceptableInitiator.add(com);
+	}
+	
+	/**
+	 * Removes a component to be the acceptable drag initiator to this component.
+	 * @param com the acceptable drag initiator
+	 * @see #addDragAcceptableInitiator()
+	 */
+	public function removeDragAcceptableInitiator(com:Component):void{
+		if(dragAcceptableInitiator != null)
+			dragAcceptableInitiator.remove(com);
+	}
+	
+	/**
+	 * Returns whether the component is acceptable drag initiator for this component.
+	 * @param com the maybe acceptable drag initiator
+	 * @return true if it is acceptable drag initiator, false not
+	 */
+	public function isDragAcceptableInitiator(com:Component):Boolean{
+		if(dragAcceptableInitiator != null){
+			return dragAcceptableInitiator.contains(com);
+		}else{
+			return false;
+		}
+	}		
 
 	/**
 	 * Registers the text to display in a tool tip. 
@@ -1976,6 +2103,40 @@ public class Component extends AWSprite
     	dispatchEvent(new FocusKeyEvent(FocusKeyEvent.FOCUS_KEY_UP, e.charCode, 
     	e.keyCode, e.keyLocation, e.ctrlKey, e.altKey, e.shiftKey));
     }
+    
+
+	private function fireDragRecognizedEvent(touchedChild:Component):void{
+		dispatchEvent(new DragAndDropEvent(DragAndDropEvent.DRAG_RECOGNIZED, this, null, new IntPoint(stage.mouseX, stage.mouseY)));
+	}
+	
+	/**
+	 * @private
+	 * Fires ON_DRAG_ENTER event.(Note, this method is only for DragManager use)
+	 */
+	public function fireDragEnterEvent(dragInitiator:Component, sourceData:SourceData, mousePos:IntPoint, relatedTarget:Component):void{
+		dispatchEvent(new DragAndDropEvent(DragAndDropEvent.DRAG_ENTER, dragInitiator, sourceData, mousePos, this, relatedTarget));
+	}
+	/**
+	 * @private
+	 * Fires ON_DRAG_ENTER event.(Note, this method is only for DragManager use)
+	 */
+	public function fireDragOverringEvent(dragInitiator:Component, sourceData:SourceData, mousePos:IntPoint):void{
+		dispatchEvent(new DragAndDropEvent(DragAndDropEvent.DRAG_OVERRING, dragInitiator, sourceData, mousePos, this));
+	}
+	/**
+	 * @private
+	 * Fires ON_DRAG_ENTER event.(Note, this method is only for DragManager use)
+	 */
+	public function fireDragExitEvent(dragInitiator:Component, sourceData:SourceData, mousePos:IntPoint, relatedTarget:Component):void{
+		dispatchEvent(new DragAndDropEvent(DragAndDropEvent.DRAG_EXIT, dragInitiator, sourceData, mousePos, this, relatedTarget));
+	}
+	/**
+	 * @private
+	 * Fires ON_DRAG_ENTER event.(Note, this method is only for DragManager use)
+	 */
+	public function fireDragDropEvent(dragInitiator:Component, sourceData:SourceData, mousePos:IntPoint):void{
+		dispatchEvent(new DragAndDropEvent(DragAndDropEvent.DRAG_DROP, dragInitiator, sourceData, mousePos, this));
+	}    
 	
 	//----------------------------------------------------------------
 	//               Event Handlers

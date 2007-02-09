@@ -110,13 +110,16 @@ public class AsWingUtils
     	return false;
     }
     
-    
+    public static function getStageMousePosition():IntPoint{
+    	var st:Stage = AsWingManager.getStage();
+    	return new IntPoint(st.mouseX, st.mouseY);
+    }
     
     /**
      * Returns the currently visible maximized bounds in a display object(viewable the stage area).
-     * @param dis the display object
+     * @param dis the display object, default is stage
      */
-    public static function getVisibleMaximizedBounds(dis:DisplayObject):IntRectangle{
+    public static function getVisibleMaximizedBounds(dis:DisplayObject=null):IntRectangle{
     	var stage:Stage = dis == null ? null : dis.stage;
     	if(stage == null){
     		stage = AsWingManager.getStage();
