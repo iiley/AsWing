@@ -58,8 +58,7 @@ public class BasicSeparatorUI extends BaseComponentUI
 	}
 	
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
-    	super.paint(c, g, b);
-		trace("c:"+c);    	
+    	super.paint(c, g, b); 	
 		var sp:JSeparator = JSeparator(c);
 		if (sp.getOrientation() == JSeparator.VERTICAL){
 			var pen:Pen = new Pen(c.getBackground().darker(), 1);
@@ -88,9 +87,9 @@ public class BasicSeparatorUI extends BaseComponentUI
 		var insets:Insets = sp.getInsets();
 		var size:IntDimension = insets.getOutsideSize();
 		if (sp.getOrientation() == JSeparator.VERTICAL){
-			return new IntDimension(2 + size.width, Number.MAX_VALUE);
+			return new IntDimension(2 + size.width, int.MAX_VALUE);
 		}else{
-			return new IntDimension(Number.MAX_VALUE, 2 + size.height);
+			return new IntDimension(int.MAX_VALUE, 2 + size.height);
 		}
     }
     
