@@ -25,8 +25,8 @@ public class DragManager{
 	public static var TYPE_MOVE:Number = 1;
 	public static var TYPE_COPY:Number = 2;
 	
-	//public static var DEFAULT_DROP_MOTION:DropMotion = new DirectlyRemoveMotion();
-	//public static var DEFAULT_REJECT_DROP_MOTION:DropMotion = new RejectedMotion();
+	public static var DEFAULT_DROP_MOTION:DropMotion = new DirectlyRemoveMotion();
+	public static var DEFAULT_REJECT_DROP_MOTION:DropMotion = new RejectedMotion();
 	
 	private static var s_isDragging:Boolean = false;
 	
