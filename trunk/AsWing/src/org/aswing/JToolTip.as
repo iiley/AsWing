@@ -77,7 +77,7 @@ public class JToolTip extends Container{
 		
 	/**
 	 * Sets the default container to hold tool tips.
-	 * By default(if you have not set one), it is the stage if <code>AsWingManager</code> is inited.
+	 * By default(if you have not set one), it is the <code>AsWingManager.getRoot()</code> .
 	 * @param theRoot the default container to hold tool tips.
 	 */
 	public static function setDefaultToolTipContainerRoot(theRoot:DisplayObjectContainer):void{
@@ -88,7 +88,7 @@ public class JToolTip extends Container{
 	
 	private static function getDefaultToolTipContainerRoot():DisplayObjectContainer{
 		if(defaultRoot == null){
-			return AsWingManager.getStage();
+			return AsWingManager.getRoot();
 		}
 		return defaultRoot;
 	}

@@ -5,6 +5,7 @@
 package org.aswing{
 	
 import flash.display.*;
+import org.aswing.error.AsWingManagerNotInited;
 
 /**
  * The main manager for AsWing framework.
@@ -33,12 +34,16 @@ public class AsWingManager{
     
     /**
      * Returns the root container which components base on. or symbol libraray located in.
+     * If you have not set a specified root, the stage will be the root to be returned.
+	 * @param checkError whethor or not check root is inited set.
      * @return the root container, or null--not root set and AsWingManager not stage inited.
+	 * @throws AsWingManagerNotInited if checkError and both root and stage is null.
      * @see #setRoot()
+     * @see #getStage()
      */ 
-    public static function getRoot():DisplayObjectContainer{
+    public static function getRoot(checkError:Boolean=true):DisplayObjectContainer{
         if(ROOT == null){
-            return getStage();
+            return getStage(checkError);
         }
         return ROOT;
     }	
@@ -67,9 +72,14 @@ public class AsWingManager{
 	
 	/**
 	 * Returns the stage.
+	 * @param checkError whethor or not check is stage is inited set.
 	 * @return the stage.
+	 * @throws AsWingManagerNotInited if checkError and stage is null.
 	 */
-	public static function getStage():Stage{
+	public static function getStage(checkError:Boolean=true):Stage{
+		if(checkError && stage==null){
+			throw new AsWingManagerNotInited();
+		}
 		return stage;
 	}	
 	

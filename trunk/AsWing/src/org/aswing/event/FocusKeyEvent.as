@@ -5,6 +5,7 @@
 package org.aswing.event{
 	
 import flash.events.KeyboardEvent;
+import flash.events.Event;
 
 public class FocusKeyEvent extends KeyboardEvent{
 
@@ -68,6 +69,10 @@ public class FocusKeyEvent extends KeyboardEvent{
 	
 	public function FocusKeyEvent(type:String, charCode:uint=0.0, keyCode:uint=0.0, keyLocation:uint=0.0, ctrlKey:Boolean=false, altKey:Boolean=false, shiftKey:Boolean=false){
 		super(type, false, false, charCode, keyCode, keyLocation, ctrlKey, altKey, shiftKey);
+	}
+	
+	override public function clone():Event{
+		return new FocusKeyEvent(type, charCode, keyCode, keyLocation, ctrlKey, altKey, shiftKey);
 	}
 	
 }
