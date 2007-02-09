@@ -196,7 +196,7 @@ public class BasicLookAndFeel extends LookAndFeel
 	    
 	    // *** Separator
 	    comDefaults = [
-		    "Separator.background", new ASColorUIResource(0xF3F3F3),
+		    "Separator.background", new ASColorUIResource(0x000000),
 		    "Separator.foreground", new ASColorUIResource(0x000000),
 	    	"Separator.opaque", false,
 	    	"Separator.focusable", false
