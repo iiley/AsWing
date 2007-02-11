@@ -31,12 +31,10 @@ public class BasicSeparatorUI extends BaseComponentUI
 	
 	override public function installUI(c:Component):void{
 		installDefaults(JSeparator(c));
-		installListeners(JSeparator(c));
 	}
 	
 	override public function uninstallUI(c:Component):void{
 		uninstallDefaults(JSeparator(c));
-		uninstallListeners(JSeparator(c));
 	}
 	
 	public function installDefaults(s:JSeparator):void{
@@ -52,11 +50,7 @@ public class BasicSeparatorUI extends BaseComponentUI
 	public function uninstallDefaults(s:JSeparator):void{
 		LookAndFeel.uninstallBorderAndBFDecorators(s);
 	}
-	public function installListeners(s:JSeparator):void{
-	}
-	public function uninstallListeners(s:JSeparator):void{
-	}
-	
+
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
     	super.paint(c, g, b); 	
 		var sp:JSeparator = JSeparator(c);

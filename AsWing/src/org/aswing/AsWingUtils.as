@@ -451,7 +451,61 @@ public class AsWingUtils
             textR.width = lastWidth;
             return "";
         }
-    }    
+    } 
+    
+    
+    /**
+     * Compute and return the location of origin of the text baseline, and a possibly clipped
+     * version of the text string.  Locations are computed
+     * relative to the viewR rectangle.
+     */
+    public static function layoutText(
+        f:ASFont,
+        text:String,
+        verticalAlignment:Number,
+        horizontalAlignment:Number,
+        viewR:IntRectangle,
+        textR:IntRectangle):String
+    {        
+        var tf:TextFormat = f.getTextFormat();
+		var	textFieldSize:IntDimension = AsWingUtils.computeStringSize(tf, text);
+        var textIsEmpty:Boolean = (text==null || text=="");
+        if(textIsEmpty){
+            textR.width = textR.height = 0;
+        }else{
+            textR.width = Math.ceil(textFieldSize.width);
+            textR.height = Math.ceil(textFieldSize.height);
+        }        
+        
+        if(!textIsEmpty){
+            
+            /* If the label text string is too wide to fit within the available
+             * space "..." and as many characters as will fit will be
+             * displayed instead.
+             */
+
+            var availTextWidth:Number = viewR.width;
+            if (textR.width > availTextWidth) {
+                text = layoutTextWidth(text, textR, availTextWidth, tf);
+            }
+        }
+        if(horizontalAlignment == CENTER){
+            textR.x = viewR.x + (viewR.width - textR.width)/2;
+        }else if(horizontalAlignment == RIGHT){
+            textR.x = viewR.x + (viewR.width - textR.width);
+        }else{
+            textR.x = viewR.x;
+        }
+        if(verticalAlignment == CENTER){
+            textR.y = viewR.y + (viewR.height - textR.height)/2;
+        }else if(verticalAlignment == BOTTOM){
+            textR.y = viewR.y + (viewR.height - textR.height);
+        }else{
+            textR.y = viewR.y;
+        }
+        return text;
+    }
+       
 }
 
 }
