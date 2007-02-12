@@ -2149,6 +2149,31 @@ public class Component extends AWSprite
 		if(focusOwner == null || !(focusOwner == this || AsWingUtils.isAncestor(this, focusOwner))){
 			requestFocus();
 		}
+		if(isDragEnabled()){
+			addEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
+			addEventListener(MouseEvent.ROLL_OUT, __rollOut);
+			stage.addEventListener(MouseEvent.MOUSE_UP, __mouseUp);
+			pressingPoint = getMousePosition();
+		}
+	}
+	private var pressingPoint:IntPoint;
+	private function __mouseUp(e:MouseEvent):void{
+		stopListernDragRec();
+	}
+	private function __mouseMove(e:MouseEvent):void{
+		var mp:IntPoint = getMousePosition();
+		if(mp.distanceSq(pressingPoint) > 1){
+			fireDragRecognizedEvent(null);
+			stopListernDragRec();
+		}
+	}
+	private function __rollOut(e:MouseEvent):void{
+		stopListernDragRec();
+	}
+	private function stopListernDragRec():void{
+		removeEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
+		removeEventListener(MouseEvent.ROLL_OUT, __rollOut);
+		stage.removeEventListener(MouseEvent.MOUSE_UP, __mouseUp);
 	}
 	
 	private function __focusIn(e:FocusEvent):void{
