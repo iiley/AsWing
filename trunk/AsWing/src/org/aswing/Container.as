@@ -253,7 +253,7 @@ public class Container extends Component{
 		dispatchEvent(new ContainerEvent(ContainerEvent.COM_ADDED, this, com));
 		
 		if (valid) {
-			invalidate();
+			revalidate();
 	    }
 	}
 	
@@ -291,12 +291,12 @@ public class Container extends Component{
 		if(child is Component){
 			return remove(child as Component);
 		}else{
-			return super.removeChild(child);
+			return DC_removeChild(child);
 		}
 	}
 	
 	override public function removeChildAt(index:int):DisplayObject{
-		var child:DisplayObject = this.getChildAt(index);
+		var child:DisplayObject = getChildAt(index);
 		return removeChild(child);
 	}
 	
@@ -306,6 +306,14 @@ public class Container extends Component{
 	
 	protected function DC_addChildAt(dis:DisplayObject, index:int):DisplayObject{
 		return super.addChildAt(dis, index);
+	}
+	
+	protected function DC_removeChild(dis:DisplayObject):DisplayObject{
+		return super.removeChild(dis);
+	}
+	
+	protected function DC_removeChildAt(index:int):DisplayObject{
+		return super.removeChildAt(index);
 	}
 	
 	protected function getChildIndexWithComponentIndex(index:int):int{
@@ -368,12 +376,12 @@ public class Container extends Component{
 		if(com != null){
 			layout.removeLayoutComponent(com);
 			children.splice(i, 1);
-			removeChild(com);
+			DC_removeChild(com);
 			dispatchEvent(new ContainerEvent(ContainerEvent.COM_REMOVED, this, com));
 			
 			if (valid) {
-				invalidate();
-		    }			
+				revalidate();
+		    }
 		}
 		return com;
 	}

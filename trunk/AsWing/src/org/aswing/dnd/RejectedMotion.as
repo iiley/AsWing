@@ -54,10 +54,11 @@ public class RejectedMotion implements DropMotion{
 			dragObject.parent.removeChild(dragObject);
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER, __enterFrame);
+			dragObject.alpha = 1;
 			return;
 		}
 		p = dragObject.parent.globalToLocal(p);
-		dragObject.alpha += (4 - dragObject.alpha) * speed;
+		dragObject.alpha += (0.04 - dragObject.alpha) * speed;
 		dragObject.x = p.x;
 		dragObject.y = p.y;
 	}
