@@ -75,7 +75,7 @@ public class DragManager{
 	 * @param dragImage (optional)the image to drag, default is a rectangle image.
 	 * @param dragListener (optional)the listener added to just for this time dragging action, default is null(no listener)
 	 */
-	public static function startDrag(dragInitiator:Component, sourceData:SourceData, dragImage:DraggingImage, dragListener:DragListener):void{
+	public static function startDrag(dragInitiator:Component, sourceData:SourceData, dragImage:DraggingImage=null, dragListener:DragListener=null):void{
 		if(s_isDragging){
 			throw new Error("The last dragging action is not finished, can't start a new one!");
 			return;
@@ -98,6 +98,10 @@ public class DragManager{
 			dragProxyMC = new Sprite();
 			dragProxyMC.mouseEnabled = false;
 			dragProxyMC.name = "drag_image";
+		}else{
+			if(dragProxyMC.parent != null){
+				dragProxyMC.parent.removeChild(dragProxyMC);
+			}
 		}
 		if(dragProxyMC.numChildren > 0){
 			dragProxyMC.removeChildAt(0);
@@ -105,7 +109,7 @@ public class DragManager{
 		container.addChild(dragProxyMC);
 		
 		var globalPos:IntPoint = AsWingUtils.getStageMousePosition();
-		var dp:Point = container.globalToLocal(globalPos.toPoint());
+		var dp:Point = container.globalToLocal(dragInitiator.getGlobalLocation().toPoint());
 		dragProxyMC.x = dp.x;
 		dragProxyMC.y = dp.y;
 		
@@ -177,6 +181,17 @@ public class DragManager{
 	}
 	
 	/**
+	 * Returns current drop target component of specified position.
+	 * @param pos the global point
+	 * @return the drop target component
+	 * @see #startDrag()
+	 * @see #getDropTargetComponent()
+	 */
+	public static function getDropTargetComponent(pos:Point=null):Component{
+		return getDropTarget(pos, Component) as Component;
+	}
+	
+	/**
 	 * Returns current drop target component of dragging components by startDrag method.
 	 * @return the drop target component
 	 * @see #startDrag()
@@ -184,6 +199,20 @@ public class DragManager{
 	 */
 	public static function getCurrentDropTargetComponent():Component{
 		return getDropTarget(null, Component) as Component;
+	}
+	
+	/**
+	 * Returns drop target drop trigger component of specified global position.
+	 * @param pos the point
+	 * @return the drop target drop trigger component
+	 * @see #startDrag()
+	 * @see #getDropTargetDropTriggerComponent()
+	 */
+	public static function getDropTragetDropTriggerComponent(pos:Point=null):Component{
+		return getDropTarget(
+			pos, 
+			Component, 
+			____dropTargetCheck) as Component;
 	}
 	
 	/**
@@ -303,9 +332,9 @@ public class DragManager{
 		var dropC:Component = getCurrentDropTargetDropTriggerComponent();
 		
 		var stage:Stage = AsWingManager.getStage();
-		stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
-		stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
-		stage.addEventListener(MouseEvent.MOUSE_UP, __onMouseUp);
+		stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
+		stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
+		stage.removeEventListener(MouseEvent.MOUSE_UP, __onMouseUp);
 		s_isDragging = false;
 		
 		if(enteredComponent != null){
@@ -323,7 +352,6 @@ public class DragManager{
 			removeDragListener(s_dragListener);
 		}
 		s_dragImage = null;
-		dragProxyMC = null;
 		s_dragListener = null;
 		s_sourceData = null;
 		enteredComponent = null;
