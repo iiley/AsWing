@@ -27,17 +27,20 @@ package cases
 			button2.addActionListener(__pop2Listener);
 			
 			pop1 = new JFrame(this, "Frame 1");
-				
+			pop1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			pop1.getContentPane().setLayout(new FlowLayout());
 			pop1.getContentPane().append(new JCheckBox("CheckBox"));
 			pop1.setSizeWH(200, 200);
 			pop1.setLocationXY(100, 10);
 			
-			pop2 = new JFrame(this, "Long Title Frame, Really very Long?", true);
+			pop2 = new JFrame(pop1, "Long Title Frame, Really very Long?", true);
+			pop2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			var defaultButton:JButton = new JButton("PopupedButton");
 			pop2.getContentPane().setLayout(new FlowLayout());
-			pop2.getContentPane().append(new JButton("PopupedButton"));
+			pop2.getContentPane().append(defaultButton);
 			pop2.setSizeWH(200, 200);
 			pop2.setLocationXY(200, 10);
+			pop2.setDefaultButton(defaultButton);
 			
 			//pop1.addEventListener(MouseEvent.MOUSE_DOWN, __top1);
 			//pop1.addEventListener(AWEvent.RELEASE, __top1Released);
