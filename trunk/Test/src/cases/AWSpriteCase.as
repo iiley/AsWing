@@ -2,7 +2,7 @@ package cases
 {
 	import org.aswing.AWSprite;
 	import flash.display.Sprite;
-	import org.aswing.event.AWEvent;
+	import org.aswing.event.*;
 
 	public class AWSpriteCase extends Sprite
 	{
@@ -26,9 +26,9 @@ package cases
 			concon.addChild(container);
 			addChild(concon);
 			
-			addEventListener(AWEvent.RELEASE_OUT_SIDE, __outSide, false);
-			container.addEventListener(AWEvent.RELEASE_OUT_SIDE, __outSideContainer, false);
-			concon.addEventListener(AWEvent.RELEASE_OUT_SIDE, __outSideConcon, false);
+			addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __outSide, false);
+			container.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __outSideContainer, false);
+			concon.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __outSideConcon, false);
 		}
 		
 		private function __outSide(e:AWEvent):void{
