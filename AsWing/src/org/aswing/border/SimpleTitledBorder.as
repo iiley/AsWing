@@ -147,13 +147,17 @@ public class SimpleTitledBorder extends DecorateBorder
     	return textFieldSize;
 	}
 	
-	override public function updateBorderImp(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+	private function getTextField():TextField{
     	if(textField == null){
 	    	textField = new TextField();
-	    	textField.width = getTextFieldSize().width;
-	    	textField.height = getTextFieldSize().height;
 	    	textField.selectable = false;
     	}
+    	return textField;
+	}
+	
+	override public function updateBorderImp(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+	    getTextField().width = getTextFieldSize().width;
+	    getTextField().height = getTextFieldSize().height;
     	if(!colorFontValid){
     		textField.text = title;
     		AsWingUtils.applyTextFontAndColor(textField, font, color);
@@ -176,9 +180,6 @@ public class SimpleTitledBorder extends DecorateBorder
     	}
     	textField.x = x;
     	textField.y = y;
-    	if (!c.contains(textField)){
-    		c.addChild(textField);
-    	}
     }
     	   
     override public function getBorderInsetsImp(c:Component, bounds:IntRectangle):Insets{
@@ -205,7 +206,7 @@ public class SimpleTitledBorder extends DecorateBorder
 	
 	override public function getDisplayImp():DisplayObject
 	{
-		return null;
+		return getTextField();
 	}	
 }
 }
