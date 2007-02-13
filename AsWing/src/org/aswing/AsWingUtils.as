@@ -12,9 +12,12 @@ import flash.text.TextFieldType;
 import org.aswing.geom.*;
 import flash.display.*;
 import flash.geom.Point;	
-	
-public class AsWingUtils
-{
+
+/**
+ * A collection of utility methods for AsWing.
+ * @author iiley
+ */
+public class AsWingUtils{
 
     /**
      * A fast access to ASWingConstants Constant
