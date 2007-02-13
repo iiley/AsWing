@@ -219,9 +219,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	private	var firstVisibleIndexOffset:int = 0;
 	private	var lastVisibleIndexOffset:int = 0;
 	
-	private var itemHandler:Object;
 	private var autoDragAndDropType:int;
-	private var dndListener:Object;
 	
 	/**
 	 * Create a list.

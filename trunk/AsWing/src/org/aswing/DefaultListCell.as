@@ -36,7 +36,7 @@ public class DefaultListCell extends AbstractListCell{
 		return getJLabel();
 	}
 
-	private function getJLabel():JLabel{
+	protected function getJLabel():JLabel{
 		if(jlabel == null){
 			jlabel = new JLabel();
 			jlabel.setHorizontalAlignment(JLabel.LEFT);

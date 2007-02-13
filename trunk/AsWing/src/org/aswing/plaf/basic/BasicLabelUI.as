@@ -7,7 +7,7 @@ import org.aswing.geom.IntDimension;
 import org.aswing.Component;
 import org.aswing.plaf.*;
 import org.aswing.event.AWEvent;
-import flash.text.TextField;
+import flash.text.*;
 import flash.filters.BlurFilter;
 import flash.utils.getTimer;
 
@@ -57,6 +57,7 @@ public class BasicLabelUI extends BaseComponentUI{
  	
  	protected function installComponents(b:JLabel):void{
  		textField = new TextField();
+ 		textField.autoSize = TextFieldAutoSize.LEFT;
  		textField.selectable = false;
  		textField.mouseEnabled = false;
  		textField.mouseWheelEnabled = false;
@@ -92,7 +93,6 @@ public class BasicLabelUI extends BaseComponentUI{
     	
     	textRect.x = textRect.y = textRect.width = textRect.height = 0;
         iconRect.x = iconRect.y = iconRect.width = iconRect.height = 0;
-
         // layout the text and icon
         var text:String = AsWingUtils.layoutCompoundLabel(
             c.getFont(), b.getText(), getIconToLayout(), 
@@ -133,7 +133,6 @@ public class BasicLabelUI extends BaseComponentUI{
     	AsWingUtils.applyTextColor(textField, b.getForeground());
 		textField.x = textRect.x;
 		textField.y = textRect.y;
-			    	
     	if(!b.isEnabled()){
     		b.filters = [new BlurFilter()];
     	}else{
