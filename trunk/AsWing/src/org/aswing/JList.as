@@ -1376,16 +1376,17 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     	var cellWidth:int = ir.width;
     	
     	restrictionViewPos(viewPosition);
+		var x:int = viewPosition.x;
+		var y:int = viewPosition.y;
 		var ih:int = factory.getCellHeight();
 		var startIndex:int = Math.floor(y/ih);
 		var startY:int = startIndex*ih - y;
 		var listSize:int = m.getSize();
-		
 		var cx:int = ir.x - x;
 		var cy:int = ir.y + startY;
 		var maxY:int = ir.y + ir.height;
 		for(var i:int = 0; i<cells.getSize(); i++){
-			var cell:ListCell = ListCell(cells.get(i));
+			var cell:ListCell = cells.get(i);
 			var ldIndex:int = startIndex + i;
 			var cellCom:Component = cell.getCellComponent();
 			if(ldIndex < listSize){
@@ -1411,6 +1412,8 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     	var cellWidth:int = Math.max(ir.width, viewWidth);
     	
     	restrictionViewPos(viewPosition);
+		var x:int = viewPosition.x;
+		var y:int = viewPosition.y;
 		var ih:int = factory.getCellHeight();
 		var startIndex:int = Math.floor(y/ih);
 		var listSize:int = m.getSize();
@@ -1466,6 +1469,8 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     	var cellWidth:int = Math.max(ir.width, viewWidth);
     	
     	restrictionViewPos(viewPosition);
+		var x:int = viewPosition.x;
+		var y:int = viewPosition.y;
 		var startIndex:int = 0;
 		var cellsCount:int = cells.getSize();
 		
