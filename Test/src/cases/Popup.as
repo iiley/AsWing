@@ -22,6 +22,7 @@ package cases
 			button2 = new JButton("P&opup 2");
 			panel.append(button1);
 			panel.append(button2);
+			panel.append(new JLabel("Press tab key first to get the focus!"));
 			panel.pack();
 			addChild(panel);
 			panel.validate();
@@ -43,22 +44,24 @@ package cases
 			pop2 = new JPopup();
 			pop2.setBackgroundDecorator(new SolidBackground(ASColor.RED));
 			pop2.setLayout(new FlowLayout());
-			pop2.append(new JButton("Popuped&Button"));
+			pop2.append(new JButton("Popuped Button"));
 			pop2.setSizeWH(200, 200);
 			pop2.setLocationXY(200, 10);
 			
 			pop1.addEventListener(MouseEvent.MOUSE_DOWN, __top1);
-			pop1.addEventListener(AWEvent.RELEASE, __top1Released);
+			pop1.addEventListener(ReleaseEvent.RELEASE, __top1Released);
 			pop2.addEventListener(MouseEvent.MOUSE_DOWN, __top2);
 		}
 		
 		private function __pop1Listener(e:Event):void{
 			pop1.show();
-			button2.setEnabled(true);
+			pop1.getComponent(0).requestFocus();
+			//button2.setEnabled(true);
 		}
 		private function __pop2Listener(e:Event):void{
 			pop2.show();
-			button2.setEnabled(false);
+			pop2.getComponent(0).requestFocus();
+			//button2.setEnabled(false);
 		}
 		private function __top1(e:Event):void{
 			pop1.toFront();
