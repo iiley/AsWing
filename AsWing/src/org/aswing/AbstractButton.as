@@ -384,11 +384,16 @@ public class AbstractButton extends Component
 			return new Insets(m.top, m.left, m.bottom, m.right);
 		}
 	}
-	
+		
 	/**
 	 * Sets the text include the "&"(mnemonic modifier char). For example, 
 	 * if you set "&File" to be the text, then "File" will be displayed, and "F" 
 	 * will be the mnemonic.
+	 * <p>
+	 * This method will make button repaint, but will not make button relayout, 
+	 * so if you sets a different size text, you may need to call <code>revalidate()</code> 
+	 * to make this button to be relayouted by his container.
+	 * </p>
 	 * @param text the text.
 	 * @see #getDisplayText()
 	 * @see #getMnemonic()
@@ -477,6 +482,15 @@ public class AbstractButton extends Component
 		}
 	}
 	
+	/**
+	 * Sets the default icon for the button.
+	 * <p>
+	 * This method will make button repaint, but will not make button relayout, 
+	 * so if you sets a different size icon, you may need to call <code>revalidate()</code> 
+	 * to make this button to be relayouted by his container.
+	 * </p>
+	 * @param defaultIcon the default icon for the button.
+	 */
 	public function setIcon(defaultIcon:Icon):void{
 		if(this.defaultIcon != defaultIcon){
 			uninstallIcon(this.defaultIcon);

@@ -55,7 +55,7 @@ public class AsWingUtils
     /**
      * Shared text field to count the text size
      */
-    private static const TEXT_FIELD:TextField = new TextField();
+    private static var TEXT_FIELD:TextField = new TextField();
     private static var TEXT_FORMAT:TextFormat = null;
     {
     	TEXT_FIELD.autoSize = TextFieldAutoSize.LEFT;
