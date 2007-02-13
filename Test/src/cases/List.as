@@ -44,6 +44,7 @@ public class List extends Sprite
         listData = new VectorListModel(arr);
         //list40
         list = new JList(listData, new GeneralListCellFactory(IconListCell, false, false));
+        list.setBorder(new LineBorder(null, ASColor.RED, 3));
         //list60
         //list = new JList(listData, new GeneralListCellFactory(IconListCell, false, false));
         //list100000
