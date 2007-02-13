@@ -60,13 +60,16 @@ public class KeyMap{
 	
 	/**
 	 * Fires a key action with key sequence.
+	 * @return whether or not a key action fired with this key sequence.
 	 */
-	public function fireKeyAction(keySequence:Array):void{
+	public function fireKeyAction(keySequence:Array):Boolean{
 		var codec:String = getCodecWithKeySequence(keySequence);
 		var action:Function = getKeyActionWithCodec(codec);
 		if(action != null){
 			action();
+			return true;
 		}
+		return false;
 	}
 	
 	/**

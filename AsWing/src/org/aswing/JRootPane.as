@@ -19,6 +19,7 @@ public class JRootPane extends Container{
 	
 	private var defaultButton:JButton;
 	private var mnemonics:HashMap;
+	private var mnemonicJustActed:Boolean;
 	
 	//TODO imp
 	private var menuBar:*;
@@ -26,6 +27,7 @@ public class JRootPane extends Container{
 	public function JRootPane(){
 		super();
 		setName("JRootPane");
+		mnemonicJustActed = false;
 		layout = new BorderLayout();
 		mnemonics = new HashMap();
 		addEventListener(TextEvent.TEXT_INPUT, __textInput, true);
@@ -72,14 +74,18 @@ public class JRootPane extends Container{
 	//-------------------------------------------------------
 	
 	private function __keyDown(e:KeyboardEvent):void{
+		mnemonicJustActed = false;
+		
 		var code:uint = e.keyCode;
+		
 		if(code == Keyboard.ENTER){
 			var dfBtn:AbstractButton = getDefaultButton();
 			if(dfBtn != null){
 				if(dfBtn.isShowing() && dfBtn.isEnabled()){
 					dfBtn.doClick();
+					mnemonicJustActed = true;
+					return;
 				}
-				return;
 			}
 		}
 		
@@ -95,16 +101,15 @@ public class JRootPane extends Container{
 				mnBtn.doClick();
 				FocusManager.getCurrentManager().setTraversing(true);
 				mnBtn.paintFocusRect();
+				mnemonicJustActed = true;
 			}
 		}
 	}
 	
 	private function __textInput(e:TextEvent):void{
-		if(KeyboardManager.getInstance().isKeyDown(Keyboard.CONTROL) 
-			|| KeyboardManager.getInstance().isMnemonicModifierDown()){
-				e.preventDefault();
-				trace("The input " + e.text + " was prevented!!");
-			}
+		if(KeyboardManager.getInstance().isMnemonicModifierDown() || KeyboardManager.getInstance().isKeyJustActed()){
+			e.preventDefault();
+		}
 	}
 	
 	private function __removedFromStage(e:Event):void{
