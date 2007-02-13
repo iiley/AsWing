@@ -20,7 +20,7 @@ public class DragAndDrop extends Sprite implements DragListener{
 		var pane:Container = frame.getContentPane();
 		pane.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
 		
-		destPane = new JPanel();
+		destPane = new JPanel(new FlowLayout());
 		//destPane.setBorder(new TitledBorder(null, "DnD container"));
 		destPane.setDropTrigger(true);
 		
@@ -66,12 +66,6 @@ public class DragAndDrop extends Sprite implements DragListener{
 	
 	private function __startDrag(e:DragAndDropEvent):void{
 		traceText("try to start Drag " + e.getDragInitiator());
-		if(e.getDragInitiator() is AbstractButton){
-			var btn:AbstractButton = AbstractButton(e.getDragInitiator());
-			btn.getModel().setRollOver(false);
-			btn.getModel().setArmed(false);
-			btn.getModel().setPressed(true);
-		}
 		DragManager.startDrag(e.getDragInitiator(), null, null, this);
 	}	
 	
@@ -104,7 +98,9 @@ public class DragAndDrop extends Sprite implements DragListener{
 		if(targetComponent == controls || targetComponent == destPane){
 			if(targetComponent.isDragAcceptableInitiator(dragInitiator)){
 				var ct:Container = Container(targetComponent);
+				dragInitiator.removeFromContainer();
 				ct.append(dragInitiator);
+				trace("ct children : " + ct.getComponentCount());
 				ct.removeDragAcceptableInitiator(dragInitiator);
 				if(targetComponent == controls){
 					destPane.addDragAcceptableInitiator(dragInitiator);
@@ -114,6 +110,7 @@ public class DragAndDrop extends Sprite implements DragListener{
 			}else{
 				DragManager.setDropMotion(new RejectedMotion());
 			}
+			//dragInitiator.revalidate();
 		}else if(targetComponent is JTextArea){
 			var jta:JTextArea = JTextArea(targetComponent);
 			var label:JLabel = dragInitiator as JLabel;

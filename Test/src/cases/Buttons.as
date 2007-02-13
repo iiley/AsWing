@@ -4,6 +4,7 @@ import flash.display.Sprite;
 import org.aswing.*;
 import org.aswing.geom.IntRectangle;
 import org.aswing.geom.IntDimension;
+import org.aswing.event.*;
 
 public class Buttons extends Sprite
 {
@@ -12,6 +13,7 @@ public class Buttons extends Sprite
 		super();
 		var panel:JPanel = new JPanel();
 		var button:JButton = new JButton("Button");
+		button.addActionListener(__buttonAction);
 		var radio1:JRadioButton = new JRadioButton("Radio button 1");
 		var radio2:JRadioButton = new JRadioButton("Radio button 2");
 		var check1:JCheckBox = new JCheckBox("Check Box 1");
@@ -32,5 +34,14 @@ public class Buttons extends Sprite
 		panel.validate();
 	}
 	
+	private function __buttonAction(e:AWEvent):void{
+		var btn:JButton = e.target as JButton;
+		if(btn.getIcon() != null){
+			btn.setIcon(null);
+		}else{
+			btn.setIcon(new CircleIcon(ASColor.BLUE, Math.random()*40, Math.random()*40))
+		}
+		btn.revalidate();
+	}
 }
 }
