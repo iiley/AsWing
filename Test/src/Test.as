@@ -14,7 +14,7 @@ package {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.stageFocusRect = false;
 			AsWingManager.setRoot(this);
-			addChild(new TextAreaCase());
+			addChild(new TextFieldCase());
 		}
 	}
 }
