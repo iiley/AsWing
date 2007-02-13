@@ -125,18 +125,58 @@ public class AsWingUtils
     		stage = AsWingManager.getStage();
     	}
     	if(stage == null){
-    		return new IntRectangle(200, 200);
+    		return new IntRectangle(200, 200);//just return a value here
     	}
+    	if(stage.scaleMode != StageScaleMode.NO_SCALE){
+    		return new IntRectangle(0, 0, stage.stageWidth, stage.stageHeight);
+    	}
+    	
         var sw:Number = stage.stageWidth;
         var sh:Number = stage.stageHeight;
         var sa:String = stage.align;
+        var initStageSize:IntDimension = AsWingManager.getInitialStageSize();
+        var dw:Number = sw - initStageSize.width;
+        var dh:Number = sh - initStageSize.height;
+        
         //TODO imp when stage resized
         var b:IntRectangle = new IntRectangle(0, 0, sw, sh);
-        var p:Point = new Point(0, 0);
         if(dis != null){
-        	p = dis.globalToLocal(p);
+        	var p:Point = dis.globalToLocal(new Point(0, 0));
+        	b.setLocation(new IntPoint(p.x, p.y));
         }
-        b.setLocation(IntPoint.creatWithPoint(p));
+        
+        switch(sa){
+            case StageAlign.TOP:
+                b.x -= dw/2;
+                break;
+            case StageAlign.BOTTOM:
+                b.x -= dw/2;
+                b.y -= dh;
+                break;
+            case StageAlign.LEFT:
+                b.y -= dh/2;
+                break;
+            case StageAlign.RIGHT:
+                b.x -= dw;
+                b.y -= dh/2;
+                break;
+            case StageAlign.TOP_LEFT:
+                break;
+            case StageAlign.TOP_RIGHT:
+                b.x -= dw;
+                break;
+            case StageAlign.BOTTOM_LEFT:
+                b.y -= dh;
+                break;
+            case StageAlign.BOTTOM_RIGHT:
+                b.x -= dw;
+                b.y -= dh;
+                break;
+            default:
+                b.x -= dw/2;
+                b.y -= dh/2;
+                break;
+        }        
         return b;
     }
     
