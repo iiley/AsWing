@@ -78,7 +78,7 @@ public class Vector implements List
 	 * @param index where to append, if omited, appedn to the last position.
 	 */
 	public function append(obj:*, index:int=-1):void{
-		if(index == -1){			
+		if(index == -1){
 			_elements.push(obj);
 		}else{
 			_elements.splice(index, 0, obj);
