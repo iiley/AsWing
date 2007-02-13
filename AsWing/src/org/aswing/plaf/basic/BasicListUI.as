@@ -228,9 +228,9 @@ public class BasicListUI extends BaseComponentUI{
     }
     
     private function doSelection():void{
-    	var index:Number = pressedIndex;
+    	var index:int = pressedIndex;
 		if(pressedShift){
-			var archor:Number = list.getAnchorSelectionIndex();
+			var archor:int = list.getAnchorSelectionIndex();
 			if(archor < 0){
 				archor = index;
 			}

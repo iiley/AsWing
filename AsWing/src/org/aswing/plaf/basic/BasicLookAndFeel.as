@@ -54,7 +54,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "TextFieldUI",org.aswing.plaf.basic.BasicTextFieldUI, 
 			   "TextAreaUI",org.aswing.plaf.basic.BasicTextAreaUI, 
 			   "FrameUI",org.aswing.plaf.basic.BasicFrameUI, 
-			   "ToolTipUI",org.aswing.plaf.basic.BasicToolTipUI
+			   "ToolTipUI",org.aswing.plaf.basic.BasicToolTipUI, 
+			   "ListUI",org.aswing.plaf.basic.BasicListUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -309,6 +310,18 @@ public class BasicLookAndFeel extends LookAndFeel
 	    	"ToolTip.borderColor", table.get("controlText"),
         	"ToolTip.font", table.getFont("controlFont"),
 		    "ToolTip.border", org.aswing.plaf.basic.border.ToolTipBorder
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** List
+	    comDefaults = [
+	        "List.font", table.getFont("controlFont"),
+		    "List.background", table.get("control"),
+		    "List.foreground", table.get("controlText"),
+	    	"List.opaque", false, 
+	    	"List.focusable", true, 
+	        "List.selectionBackground", new ASColorUIResource(0x444444),
+		    "List.selectionForeground", table.get("control")
 	    ];
 	    table.putDefaults(comDefaults);
 	}
