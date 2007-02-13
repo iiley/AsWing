@@ -10,6 +10,7 @@ import org.aswing.geom.IntPoint;
 import org.aswing.event.InteractiveEvent;
 import flash.text.*;
 import flash.events.Event;
+
 /**
  * Dispatched when the viewport's state changed. the state is all about:
  * <ul>
