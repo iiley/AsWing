@@ -28,6 +28,7 @@ public class KeyboardManager{
 	private var keySequence:Vector;
 	private var selfKeyMap:KeyMap;
 	private var inited:Boolean;
+	private var keyJustActed:Boolean;
 	
 	private var mnemonicModifier:Array;
 	
@@ -37,6 +38,7 @@ public class KeyboardManager{
 	 */
 	public function KeyboardManager(){
 		inited = false;
+		keyJustActed = false;
 		keymaps = new Vector();
 		keySequence = new Vector();
 		selfKeyMap = new KeyMap();
@@ -137,16 +139,27 @@ public class KeyboardManager{
 		}
 		return true;
 	}
+	
+	/**
+	 * Returns whether or not just a key action acted when the last key down.
+	 * @return true if there's key actions acted at last key down, false not.
+	 */
+	public function isKeyJustActed():Boolean{
+		return keyJustActed;
+	}
 		
 	private function __onKeyDown(e:KeyboardEvent) : void {
 		var code:uint = e.keyCode;
 		if(!keySequence.contains(code)){
 			keySequence.append(code);
 		}
-		var n:Number = keymaps.size();
+		keyJustActed = false;
+		var n:int = keymaps.size();
 		for(var i:int=0; i<n; i++){
 			var keymap:KeyMap = KeyMap(keymaps.get(i));
-			keymap.fireKeyAction(keySequence.toArray());
+			if(keymap.fireKeyAction(keySequence.toArray())){
+				keyJustActed = true;
+			}
 		}
 	}
 
