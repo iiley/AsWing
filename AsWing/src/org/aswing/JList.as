@@ -209,6 +209,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	private var selectionForeground:ASColor;
 	private var selectionBackground:ASColor;
 	
+	protected var cellPane:Container;
 	private var cellFactory:ListCellFactory;
 	private var model:ListModel;
 	private var selectionModel:ListSelectionModel;
@@ -231,6 +232,8 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		
 		setName("JList");
 		layout = this;
+		cellPane = new Container();
+		append(cellPane);
 		viewPosition = new IntPoint(0, 0);
 		setSelectionModel(new DefaultListSelectionModel());
 		firstVisibleIndex = 0;
@@ -1020,14 +1023,14 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	
 	//----------------------privates-------------------------
 	
-	private function addCellToContainer(cell:ListCell):void{
+	protected function addCellToContainer(cell:ListCell):void{
 		cell.getCellComponent().setFocusable(false);
-		append(cell.getCellComponent());
+		cellPane.append(cell.getCellComponent());
 		comToCellMap.put(cell.getCellComponent(), cell);
 		addHandlersToCell(cell.getCellComponent());
 	}
 	
-	private function removeCellFromeContainer(cell:ListCell):void{
+	protected function removeCellFromeContainer(cell:ListCell):void{
 		cell.getCellComponent().removeFromContainer()
 		comToCellMap.remove(cell.getCellComponent());
 		removeHandlersFromCell(cell.getCellComponent());
@@ -1354,6 +1357,10 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
      */
     public function layoutContainer(target:Container):void{
     	var factory:ListCellFactory = getCellFactory();
+    	
+		var ir:IntRectangle = getInsets().getInsideBounds(getSize().getBounds());
+    	cellPane.setComBounds(ir);
+    	
     	if(factory.isShareCells()){
     		layoutWhenShareCells();
     	}else{
@@ -1372,6 +1379,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var m:ListModel = getModel();
 		var ir:IntRectangle = getInsets().getInsideBounds(getSize().getBounds());
     	var cellWidth:int = ir.width;
+    	ir.x = ir.y = 0; //this is because the cells is in cellPane, not in JList
     	
     	restrictionViewPos(viewPosition);
 		var x:int = viewPosition.x;
@@ -1408,6 +1416,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var m:ListModel = getModel();
 		var ir:IntRectangle = getInsets().getInsideBounds(getSize().getBounds());
     	var cellWidth:int = Math.max(ir.width, viewWidth);
+    	ir.x = ir.y = 0; //this is because the cells is in cellPane, not in JList
     	
     	restrictionViewPos(viewPosition);
 		var x:int = viewPosition.x;
@@ -1465,6 +1474,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var m:ListModel = getModel();
 		var ir:IntRectangle = getInsets().getInsideBounds(getSize().getBounds());
     	var cellWidth:int = Math.max(ir.width, viewWidth);
+    	ir.x = ir.y = 0; //this is because the cells is in cellPane, not in JList
     	
     	restrictionViewPos(viewPosition);
 		var x:int = viewPosition.x;
