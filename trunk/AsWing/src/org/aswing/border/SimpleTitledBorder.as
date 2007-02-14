@@ -151,13 +151,12 @@ public class SimpleTitledBorder extends DecorateBorder
     	if(textField == null){
 	    	textField = new TextField();
 	    	textField.selectable = false;
+	    	textField.autoSize = TextFieldAutoSize.CENTER;	    	
     	}
     	return textField;
 	}
 	
 	override public function updateBorderImp(c:Component, g:Graphics2D, bounds:IntRectangle):void{
-	    getTextField().width = getTextFieldSize().width;
-	    getTextField().height = getTextFieldSize().height;
     	if(!colorFontValid){
     		textField.text = title;
     		AsWingUtils.applyTextFontAndColor(textField, font, color);
