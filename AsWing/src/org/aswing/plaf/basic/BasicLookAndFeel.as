@@ -55,6 +55,7 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "TextAreaUI",org.aswing.plaf.basic.BasicTextAreaUI, 
 			   "FrameUI",org.aswing.plaf.basic.BasicFrameUI, 
 			   "ToolTipUI",org.aswing.plaf.basic.BasicToolTipUI, 
+			   "ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,			   			   
 			   "ListUI",org.aswing.plaf.basic.BasicListUI
 		   ];
 		table.putDefaults(uiDefaults);
