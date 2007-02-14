@@ -99,14 +99,12 @@ public class TitledBorder extends DecorateBorder
     	if(textField == null){
 	    	textField = new TextField();
 	    	textField.selectable = false;
+	    	textField.autoSize = TextFieldAutoSize.CENTER;
     	}
     	return textField;
 	}
 	
 	override public function updateBorderImp(c:Component, g:Graphics2D, bounds:IntRectangle):void{
-	    getTextField().width = getTextFieldSize().width;
-	    getTextField().height = getTextFieldSize().height;
-    	
     	var textHeight:Number = Math.ceil(getTextFieldSize().height);
     	var x1:Number = bounds.x + lineThickness*0.5;
     	var y1:Number = bounds.y + lineThickness*0.5;
