@@ -88,5 +88,7 @@ public class List extends Sprite
         listData.removeAt(0);
         list.scrollToTopLeft();
     }
+    
+    //测试显示如果先点击addItem 然后点击removeItem 会出现错误; 07-2-14 test by senkay
 }
 }
