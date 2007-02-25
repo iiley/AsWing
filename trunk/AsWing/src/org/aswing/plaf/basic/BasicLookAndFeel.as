@@ -56,7 +56,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "FrameUI",org.aswing.plaf.basic.BasicFrameUI, 
 			   "ToolTipUI",org.aswing.plaf.basic.BasicToolTipUI, 
 			   "ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,			   			   
-			   "ListUI",org.aswing.plaf.basic.BasicListUI
+			   "ListUI",org.aswing.plaf.basic.BasicListUI,
+			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,			   
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -196,6 +197,27 @@ public class BasicLookAndFeel extends LookAndFeel
 		];
 	    table.putDefaults(comDefaults);
 	    
+	   // *** JTabbedPane
+	    comDefaults = [
+	    	"TabbedPane.background", new ASColorUIResource(0xE7E7E5),
+	    	"TabbedPane.foreground", table.get("controlText"),
+	    	"TabbedPane.opaque", false,  
+	    	"TabbedPane.focusable", true,  
+	    	"TabbedPane.shadow", new ASColorUIResource(0x888888),        
+        	"TabbedPane.darkShadow", new ASColorUIResource(0x444444),        
+        	"TabbedPane.light", table.getColor("controlHighlight"),       
+       		"TabbedPane.highlight", new ASColorUIResource(0xFFFFFF),
+		    "TabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
+		    "TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
+        	"TabbedPane.font", table.getFont("controlFont"),
+			"TabbedPane.border", null,
+			"TabbedPane.tabMargin", new InsetsUIResource(1, 1, 1, 1),
+			"TabbedPane.baseLineThickness", 8,
+			"TabbedPane.maxTabWidth", 1000,
+		    //"TabbedPane.itemDecorator", org.aswing.plaf.basic.background.TabbedPaneItem			
+		];
+	    table.putDefaults(comDefaults);
+	    
 	    // *** Separator
 	    comDefaults = [
 		    "Separator.background", new ASColorUIResource(0x000000),
@@ -229,6 +251,19 @@ public class BasicLookAndFeel extends LookAndFeel
 	    	"ScrollPane.focusable", false  
 	    ];
 	    table.putDefaults(comDefaults);
+	    
+	    // *** ProgressBar
+	    comDefaults = [
+		    "ProgressBar.background", table.get("window"),
+		    "ProgressBar.foreground", table.get("windowText"),
+	    	"ProgressBar.opaque", false,
+	    	"ProgressBar.focusable", false,        	
+	    	"ProgressBar.font", new ASFontUIResource("Tahoma", 9),
+			"ProgressBar.border", org.aswing.plaf.basic.border.ProgressBarBorder,
+		    "ProgressBar.iconDecorator", org.aswing.plaf.basic.background.ProgressBarIcon,
+			"ProgressBar.progressColor", new ASColorUIResource(0x3366CC)
+	    ];
+	    table.putDefaults(comDefaults);	    
 	    
 		// *** Panel
 	    comDefaults = [
