@@ -12,9 +12,27 @@ import org.aswing.Insets;
 
 
 /**
- * A layout manager that allows multiple components to be laid out either vertically or 
- * horizontally. The components will not wrap so, for example, a vertical arrangement 
- * of components will stay vertically arranged when the frame is resized.
+ * A layout manager that allows multiple components to be arranged either vertically or 
+ * horizontally. The components will not be wrapped. The width, height, preferredWidth,preferredHeight doesn't affect the way 
+ * this layout manager layout the components. Note, it does  not work the same way as Java swing boxlayout does.
+ * <p>
+ * If this boxlayout is set to X_AXIS, it will layout the child componnets evenly regardless the value of width,height,preferredWidth,preferredHeight.
+ * The height of the child components is the same as the parent container.
+ * The following picture illustrate this:
+ * <img src="../../aswingImg/BoxLayout_X_AXIS.JPG" ></img>
+ * </p>
+ * <br/>
+ * <br/>
+ * <p>
+ * It works the same way when it is set to Y_AXIS. 
+ * </p>
+ * <br>
+ * Note that this layout will first subtract all of the gaps before it evenly layout the components.
+ * If you have a container that is 100 pixel in width with 5 child components, the layout manager is boxlayout, and set to X_AXIS, the gap is 20.
+ * You would not see any child componnet in visual. 
+ * Because the layout mananager will first subtract 20(gap)*5(component) =100 pixels from the visual area. Then, each component's width would be 0.
+ * Pay attention to this when you use this layout manager.
+ * </br>
  * @author iiley
  */
 public class BoxLayout extends EmptyLayout

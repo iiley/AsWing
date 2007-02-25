@@ -25,7 +25,7 @@ import org.aswing.geom.IntRectangle;
  *    p.setLayout(new BorderLayout());
  *    p.add(new Button("Okay"), BorderLayout.SOUTH);
  * </pre>
- * As a convenience, <code>BorderLayout</code> interprets the
+ * For convenience, <code>BorderLayout</code> interprets the
  * absence of a string specification the same as the constant
  * <code>CENTER</code>:
  * <pre>
@@ -34,6 +34,11 @@ import org.aswing.geom.IntRectangle;
  *    p2.add(new TextArea());  // Same as p.add(new TextArea(), BorderLayout.CENTER);
  * </pre>
  * 
+ * <p>
+ * The following image illustrate the way the borderLayout layout child component.
+ * <br></br>
+ * <img src="../../aswingImg/BorderLayout.JPG" ></img>
+ * </p>
  * @author iiley
  */
  
