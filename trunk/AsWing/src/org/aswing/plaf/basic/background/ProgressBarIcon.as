@@ -12,6 +12,10 @@ import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 
+/**
+ * The barIcon decorator for ProgressBar.
+ * @author senkay
+ */
 public class ProgressBarIcon implements GroundDecorator, UIResource
 {
 	private var indeterminatePercent:Number;
