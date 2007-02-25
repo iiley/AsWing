@@ -22,21 +22,21 @@ public class JProgressBar extends Component
     /** 
      * Horizontal orientation.
      */
-    public static const HORIZONTAL:Number = AsWingConstants.HORIZONTAL;
+    public static const HORIZONTAL:int = AsWingConstants.HORIZONTAL;
     /** 
      * Vertical orientation.
      */
-    public static const VERTICAL:Number   = AsWingConstants.VERTICAL;
+    public static const VERTICAL:int   = AsWingConstants.VERTICAL;
 	
-	private var orientation:Number;
+	private var orientation:int;
 	private var indeterminate:Boolean;
 	private var string:String;
 	private var model:BoundedRangeModel;
 	private var indeterminatePaintTimer:Timer;
 	
 	/**
-	 * JProgressBar(orient:Number, min:Number, max:Number)<br>
-	 * JProgressBar(orient:Number)<br>
+	 * JProgressBar(orient:int, min:int, max:int)<br>
+	 * JProgressBar(orient:int)<br>
 	 * JProgressBar()
 	 * <p>
 	 * @param orient (optional)the desired orientation of the progress bar, 
@@ -45,7 +45,7 @@ public class JProgressBar extends Component
 	 * @param min (optional)the minimum value of the progress bar, default is 0
 	 * @param max (optional)the maximum value of the progress bar, default is 100
 	 */
-	public function JProgressBar(orient:Number=HORIZONTAL, min:Number=0, max:Number=100) {
+	public function JProgressBar(orient:int=HORIZONTAL, min:int=0, max:int=100) {
 		super();
 		setName("ProgressBar");
 		
@@ -127,7 +127,7 @@ public class JProgressBar extends Component
      * @return <code>HORIZONTAL</code> or <code>VERTICAL</code>
      * @see #setOrientation()
      */
-	public function getOrientation():Number {
+	public function getOrientation():int {
 		return orientation;
 	}
 	
@@ -145,7 +145,7 @@ public class JProgressBar extends Component
      * @see #getOrientation()
      * @see org.aswing.ASFont#getEmbedFonts()
      */
-	public function setOrientation(newOrientation:Number):void {
+	public function setOrientation(newOrientation:int):void {
 		if(newOrientation != HORIZONTAL && newOrientation!= VERTICAL){
 			newOrientation = HORIZONTAL;
 		}
@@ -163,8 +163,8 @@ public class JProgressBar extends Component
      * @return the percent complete for this progress bar
      */
     public function getPercentComplete():Number {
-		var span:Number = model.getMaximum() - model.getMinimum();
-		var currentValue:Number = model.getValue();
+		var span:int = model.getMaximum() - model.getMinimum();
+		var currentValue:int = model.getValue();
 		var pc:Number = (currentValue - model.getMinimum()) / span;
 		return pc;
     }
@@ -180,7 +180,7 @@ public class JProgressBar extends Component
      * @see     #setValue()
      * @see     org.aswing.BoundedRangeModel#getValue()
      */
-	public function getValue():Number{
+	public function getValue():int{
 		return getModel().getValue();
 	}
     /**
@@ -192,7 +192,7 @@ public class JProgressBar extends Component
      * @see     #setMinimum()
      * @see     org.aswing.BoundedRangeModel#getMinimum()
      */	
-	public function getMinimum():Number{
+	public function getMinimum():int{
 		return getModel().getMinimum();
 	}
 	/**
@@ -204,7 +204,7 @@ public class JProgressBar extends Component
      * @see     #setMaximum()
      * @see     org.aswing.BoundedRangeModel#getMaximum()
      */
-	public function getMaximum():Number{
+	public function getMaximum():int{
 		return getModel().getMaximum();
 	}
     /**
@@ -222,7 +222,7 @@ public class JProgressBar extends Component
      * @see    #addChangeListener()
      * @see     org.aswing.BoundedRangeModel#setValue()
      */	
-	public function setValue(n:Number):void{
+	public function setValue(n:int):void{
 		getModel().setValue(n);
 	}
     /**
@@ -240,7 +240,7 @@ public class JProgressBar extends Component
      * @see    #addChangeListener()
      * @see    org.aswing.BoundedRangeModel#setMinimum()
      */	
-	public function setMinimum(n:Number):void{
+	public function setMinimum(n:int):void{
 		getModel().setMinimum(n);
 	}
     /**
@@ -257,7 +257,7 @@ public class JProgressBar extends Component
      * @see    #addChangeListener()
      * @see    org.aswing.BoundedRangeModel#setMaximum()
      */	
-	public function setMaximum(n:Number):void{
+	public function setMaximum(n:int):void{
 		getModel().setMaximum(n);
 	}
     /**
