@@ -6,7 +6,6 @@ package org.aswing.util
 {
 	
 import flash.utils.Dictionary;
-import mx.validators.ValidationResult;
 	
 /**
  * A collection that contains no duplicate elements. More formally, 
