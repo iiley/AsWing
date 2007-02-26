@@ -36,7 +36,7 @@ public class TabbedPaneUI extends BaseComponentUI implements LayoutManager
 	
 	public function maximumLayoutSize(target:Container):IntDimension
 	{
-    	return new IntDimension(int.MAX_VALUE, int.MAX_VALUE);
+    	return IntDimension.createBigDimension();
 	}
 	
 	public function layoutContainer(target:Container):void

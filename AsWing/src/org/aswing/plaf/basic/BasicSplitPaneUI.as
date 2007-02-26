@@ -114,7 +114,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 	 * Override this method to return a different splitCursor for your UI<br>
 	 * Credit to Kristof Neirynck for added this.
 	 */
-	private function createSplitCursor(vertical:Boolean):Cursor{
+	protected function createSplitCursor(vertical:Boolean):Cursor{
 		var result:Cursor;
 		if(vertical){
 			result = new Cursor(Cursor.V_RESIZE_CURSOR);
@@ -505,7 +505,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 	}
 
 	public function maximumLayoutSize(target : Container) : IntDimension {
-		return new IntDimension(int.MAX_VALUE, int.MAX_VALUE);
+		return IntDimension.createBigDimension();
 	}
 	
 	public function layoutContainer(target : Container) : void {

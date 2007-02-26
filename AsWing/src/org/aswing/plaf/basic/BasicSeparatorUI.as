@@ -83,7 +83,7 @@ public class BasicSeparatorUI extends BaseComponentUI
 		if (sp.getOrientation() == JSeparator.VERTICAL){
 			return new IntDimension(2 + size.width, int.MAX_VALUE);
 		}else{
-			return new IntDimension(int.MAX_VALUE, 2 + size.height);
+			return new IntDimension(10000, 2 + size.height);
 		}
     }
     
