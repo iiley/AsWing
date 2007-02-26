@@ -49,7 +49,7 @@ import flash.display.Graphics;
  */
 public class Graphics2D {
 	
-	private var target:Graphics;
+	protected var target:Graphics;
 	private var brush:IBrush;
 	
 	/**
