@@ -88,10 +88,6 @@ public class Divider extends Container
 	
 	public function getCollapseRightButton():AbstractButton{
 		return rightButton;
-	}	
-	
-	public function hitTestMouse():Boolean{
-		return this.hitTestPoint(this.mouseX, this.mouseY);
 	}
 }
 }
