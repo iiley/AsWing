@@ -1652,7 +1652,7 @@ public class Component extends AWSprite
 	 */
 	public function hitTestMouse():Boolean{
 		if(isOnStage()){
-			return hitTestPoint(stage.x, stage.y, false);
+			return hitTestPoint(stage.mouseX, stage.mouseY, false);
 		}else{
 			return false;
 		}

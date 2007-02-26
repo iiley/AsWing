@@ -56,7 +56,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "FrameUI",org.aswing.plaf.basic.BasicFrameUI, 
 			   "ToolTipUI",org.aswing.plaf.basic.BasicToolTipUI, 
 			   "ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,			   			   
-			   "ListUI",org.aswing.plaf.basic.BasicListUI,
+			   "ListUI",org.aswing.plaf.basic.BasicListUI,		   			   
+			   "ComboBoxUI",org.aswing.plaf.basic.BasicComboBoxUI,
 			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,			   
 		   ];
 		table.putDefaults(uiDefaults);
@@ -358,6 +359,23 @@ public class BasicLookAndFeel extends LookAndFeel
 	    	"List.focusable", true, 
 	        "List.selectionBackground", new ASColorUIResource(0x444444),
 		    "List.selectionForeground", table.get("control")
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** ComboBox
+	    comDefaults = [
+	        "ComboBox.font", table.getFont("controlFont"),
+		    "ComboBox.background", table.get("control"),
+		    "ComboBox.foreground", table.get("controlText"),
+	    	"ComboBox.opaque", true, 
+	    	"ComboBox.focusable", true, 
+	    	"ComboBox.shadow", table.getColor("controlShadow"),        
+	    	"ComboBox.darkShadow", table.getColor("controlDkShadow"),        
+	    	"ComboBox.light", table.getColor("controlHighlight"),       
+	   		"ComboBox.highlight", table.getColor("controlLtHighlight"),
+		    "ComboBox.border", org.aswing.plaf.basic.border.ComboBoxBorder,
+		    "ComboBox.arrowShadowColor", new ASColorUIResource(0x000000),
+		    "ComboBox.arrowLightColor", new ASColorUIResource(0x444444)
 	    ];
 	    table.putDefaults(comDefaults);
 	}
