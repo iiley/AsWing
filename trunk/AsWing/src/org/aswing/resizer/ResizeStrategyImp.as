@@ -41,7 +41,7 @@ public class ResizeStrategyImp implements ResizeStrategy{
 			minSize = new IntDimension(0, 0);
 		}
 		if(maxSize == null){
-			maxSize = new IntDimension(int.MAX_VALUE, int.MAX_VALUE);
+			maxSize = IntDimension.createBigDimension();
 		}		
 		var newX:int;
 		var newY:int;

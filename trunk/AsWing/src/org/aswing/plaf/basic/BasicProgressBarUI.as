@@ -144,7 +144,7 @@ public class BasicProgressBarUI extends BaseComponentUI
 		return sp.getInsets().getOutsideSize(size);
 	}
     override public function getMaximumSize(c:Component):IntDimension{
-		return new IntDimension(int.MAX_VALUE, int.MAX_VALUE);
+		return IntDimension.createBigDimension();
     }
     override public function getMinimumSize(c:Component):IntDimension{
 		return c.getInsets().getOutsideSize(new IntDimension(1, 1));
