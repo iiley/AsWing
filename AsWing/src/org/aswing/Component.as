@@ -211,7 +211,6 @@ public class Component extends AWSprite
 	}
 	
 	private function __repaintManagerStarter(e:Event):void{
-		trace("__repaintManagerStarter");
 		AsWingManager.initStage(stage);
 		removeEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 	}

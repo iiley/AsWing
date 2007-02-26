@@ -258,7 +258,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     			return;
     		}
     	}
-    	if(code == Keyboard.ENTER){
+    	if(code == Keyboard.ENTER && isPopupVisible(box)){
 	    	hidePopup();
 	    	setComboBoxValueFromListSelection();
 	    	return;
