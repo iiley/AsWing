@@ -58,7 +58,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,			   			   
 			   "ListUI",org.aswing.plaf.basic.BasicListUI,		   			   
 			   "ComboBoxUI",org.aswing.plaf.basic.BasicComboBoxUI,
-			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,			   
+			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,
+			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI   
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -326,6 +327,9 @@ public class BasicLookAndFeel extends LookAndFeel
 		    "Frame.inactiveCaption", table.get("inactiveCaption"),
 		    "Frame.inactiveCaptionText", table.get("inactiveCaptionText"),
 		    "Frame.inactiveCaptionBorder", table.get("inactiveCaptionBorder"),
+		    "Frame.resizeArrow", table.get("inactiveCaption"),
+		    "Frame.resizeArrowLight", table.get("window"),
+		    "Frame.resizeArrowDark", table.get("activeCaptionText"),		    
 		    "Frame.titleBarUI", org.aswing.plaf.basic.frame.TitleBarUI,
 		    "Frame.resizer", org.aswing.resizer.DefaultResizer,
 		    "Frame.font", table.get("windowFont"),
@@ -361,6 +365,18 @@ public class BasicLookAndFeel extends LookAndFeel
 		    "List.selectionForeground", table.get("control")
 	    ];
 	    table.putDefaults(comDefaults);
+	    
+	    // *** SplitPane
+	    comDefaults = [
+		    "SplitPane.background", table.get("window"), 
+		    "SplitPane.foreground", table.get("controlDkShadow"), 
+	    	"SplitPane.opaque", false, 
+	    	"SplitPane.focusable", true, 
+	        "SplitPane.font", table.getFont("windowFont"), 
+	    	"SplitPane.border", undefined, 
+	    	"SplitPane.presentDragColor", new ASColorUIResource(0x000000, 40)
+	    ];
+	    table.putDefaults(comDefaults);	
 	    
 	    // *** ComboBox
 	    comDefaults = [
