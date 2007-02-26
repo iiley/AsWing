@@ -5,10 +5,10 @@ import flash.events.Event;
 import org.aswing.event.*;
 
 /**
- * Dispatched when the tip text changed.
- * @eventType org.aswing.event.MovedEvent.MOVED
+ * Dispatched when the divider moved.
+ * @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
  */
-[Event(name="moved", type="org.aswing.event.MovedEvent")]
+[Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
 
 /**
  * <code>JSplitPane</code> is used to divide two (and only two)
@@ -402,7 +402,7 @@ public class JSplitPane extends Container
      * @param location an int specifying a UI-specific value (typically a 
      *        pixel count)
      */
-    public function setDividerLocation(location:int):void {
+    public function setDividerLocation(location:int, programmatic:Boolean=false):void {
 		var oldValue:int = dividerLocation;
 		if(oldValue != location){
 			dividerLocation = location;
@@ -410,7 +410,7 @@ public class JSplitPane extends Container
 			if(oldValue >= 0 && oldValue != int.MAX_VALUE){
 				setLastDividerLocation(oldValue);
 			}
-			dispatchEvent(new Event(MovedEvent.MOVED));
+			dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
 		}
     }
 		
