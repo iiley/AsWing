@@ -33,7 +33,7 @@ public class WindowLayout extends EmptyLayout{
 	/**
 	 * @param comp the child to add to the layout
 	 * @param constraints the constraints indicate what position the child will be added.
-	 * @throws Error when the constraints is not <code>TITLE</code> either <code>CONTENT</code>.
+	 * @throws ArgumentError when the constraints is not <code>TITLE</code> either <code>CONTENT</code>.
 	 */
     override public function addLayoutComponent(comp:Component, constraints:Object):void {
 	    if(constraints == TITLE){
@@ -41,7 +41,7 @@ public class WindowLayout extends EmptyLayout{
 	    }else if(constraints == CONTENT){
 	    	contentPane = comp;
 	    }else{
-	    	throw new Error("ERROR When add component to JWindow/JFrame, constraints must be TITLE or CONTENT : " + constraints);
+	    	throw new ArgumentError("ERROR When add component to JWindow/JFrame, constraints must be TITLE or CONTENT : " + constraints);
 	    }
     }
     

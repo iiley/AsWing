@@ -8,6 +8,7 @@ import org.aswing.plaf.BaseComponentUI;
 import org.aswing.*;
 import org.aswing.graphics.*;
 import org.aswing.geom.*;
+import org.aswing.error.ImpMissError;
 
 /**
  * The base class for text component UIs.
@@ -22,7 +23,7 @@ public class BasicTextComponentUI extends BaseComponentUI{
 	}
 
     protected function getPropertyPrefix():String {
-    	throw new Error("Subclass should override this method!!");
+    	throw new ImpMissError();
         return "";
     }
     

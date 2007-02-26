@@ -66,9 +66,6 @@ public interface ButtonModel
 	/**
 	 * Adds a listener to listen the Model's act event.
 	 * When the button model's armed and pressed to fire this event.
-	 * <p>
-	 * Buttons always fire <code>programmatic=false</code> InteractiveEvent.
-	 * </p>
 	 * @param listener the listener
 	 * @param priority the priority
 	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.

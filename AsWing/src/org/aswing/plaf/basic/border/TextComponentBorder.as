@@ -9,6 +9,7 @@ import org.aswing.geom.IntRectangle;
 import org.aswing.*;
 import flash.display.DisplayObject;
 import org.aswing.plaf.*;
+import org.aswing.error.ImpMissError;
 
 public class TextComponentBorder implements Border, UIResource{
 
@@ -20,7 +21,7 @@ public class TextComponentBorder implements Border, UIResource{
 	}
 	
     protected function getPropertyPrefix():String {
-    	throw new Error("Subclass should override this method!!");
+    	throw new ImpMissError();
         return "";
     }
 	

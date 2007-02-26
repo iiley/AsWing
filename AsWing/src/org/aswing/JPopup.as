@@ -54,22 +54,18 @@ public class JPopup extends JRootPane{
 	 * @param modal true for a modal dialog, false for one that allows other windows to be active at the same time,
 	 *  default is false.
 	 * @see org.aswing.AsWingManager#getRoot()
-	 * @throw Error if not specified the owner, and aswing default root is not specified either.
-	 * @throw Error if the owner is not a JPopup nor DisplayObjectContainer
+	 * @throw AsWingManagerNotInited if not specified the owner, and aswing default root is not specified either.
+	 * @throw TypeError if the owner is not a JPopup nor DisplayObjectContainer
 	 */
 	public function JPopup(owner:*=null, modal:Boolean=false){
 		super();
 		if(owner == null){
-			if(AsWingManager.getRoot() == null){
-				throw new Error("Default root is not inited, please set a default root by calling " + 
-						"AsWingManager.setRoot(theRoot) before this constructing!");
-			}
 			owner = AsWingManager.getRoot();
 		}
 		if(owner is JPopup || owner is DisplayObjectContainer){
 			this.owner = owner;
 		}else{
-			throw new Error(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
+			throw new TypeError(this + " JPopup's owner is not a DisplayObjectContainer or JPopup, owner is : " + owner);
 		}
 		this.modal = modal;
 		setName("JPopup");
@@ -435,7 +431,7 @@ public class JPopup extends JRootPane{
 			var ownerMC:DisplayObjectContainer = DisplayObjectContainer(owner);
 			ownerMC.addChild(ground_mc);
 		}else {
-			throw new Error(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
+			throw new TypeError(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
 		}
 		if(lastLAF != UIManager.getLookAndFeel()){
 			//TODO update UI

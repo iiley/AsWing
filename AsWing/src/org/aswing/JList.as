@@ -292,10 +292,10 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	
 	/**
 	 * Can not set layout to JList, its layout is itself.
-	 * @throws Error when set any layout.
+	 * @throws ArgumentError when set any layout.
 	 */
 	override public function setLayout(layout:LayoutManager):void{
-		throw new Error("Can not set layout to JList, its layout is itself!");
+		throw new ArgumentError("Can not set layout to JList, its layout is itself!");
 	}	
 	
 	/**
@@ -431,8 +431,9 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	/**
 	 * Clears the selection - after calling this method isSelectionEmpty will return true. 
 	 * This is a convenience method that just delegates to the selectionModel.
+     * @param programmatic indicate if this is a programmatic change.
 	 */
-	public function clearSelection():void{
+	public function clearSelection(programmatic:Boolean=true):void{
 		getSelectionModel().clearSelection();
 	}
 	
@@ -560,34 +561,44 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     }	
 	
     /** 
+     * @param index0 index0.
+     * @param index1 index1.
+     * @param programmatic indicate if this is a programmatic change.
      * @see ListSelectionModel#setSelectionInterval
      * @see #removeSelectionInterval()
      */	
-	public function setSelectionInterval(index0:int, index1:int):void{
+	public function setSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		getSelectionModel().setSelectionInterval(index0, index1);
 	}
 	
     /** 
+     * @param index0 index0.
+     * @param index1 index1.
+     * @param programmatic indicate if this is a programmatic change.
      * @see ListSelectionModel#addSelectionInterval()
      * @see #removeSelectionInterval()
      */	
-	public function addSelectionInterval(index0:int, index1:int):void{
+	public function addSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		getSelectionModel().addSelectionInterval(index0, index1);
 	}
 
     /** 
+     * @param index0 index0.
+     * @param index1 index1.
+     * @param programmatic indicate if this is a programmatic change.
      * @see ListSelectionModel#removeSelectionInterval()
      */	
-	public function removeSelectionInterval(index0:int, index1:int):void{
+	public function removeSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		getSelectionModel().removeSelectionInterval(index0, index1);
 	}
 	
 	/**
 	 * Selects all elements in the list.
 	 * 
+     * @param programmatic indicate if this is a programmatic change.
 	 * @see #setSelectionInterval
 	 */
-	public function selectAll():void {
+	public function selectAll(programmatic:Boolean=true):void {
 		setSelectionInterval(0, getModel().getSize()-1);
 	}
 	
@@ -672,14 +683,14 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	
 	/**
      * Selects a single cell.
-     *
-     * @param index the index of the one cell to select
+     * @param index the index to be seleted.
+     * @param programmatic indicate if this is a programmatic change.
      * @see ListSelectionModel#setSelectionInterval
      * @see #isSelectedIndex()
      * @see #addSelectionListener()
 	 * @see #ensureIndexIsVisible()
 	 */
-	public function setSelectedIndex(index:int):void{
+	public function setSelectedIndex(index:int, programmatic:Boolean=true):void{
 		if(index >= getModel().getSize()){
 			return;
 		}
@@ -690,12 +701,13 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	 * Selects a set of cells. 
 	 * <p> This will not cause a scroll, if you want to 
 	 * scroll to visible the selected value, call ensureIndexIsVisible().
-	 * @param indices an array of the indices of the cells to select
+	 * @param indices an array of the indices of the cells to select.
+     * @param programmatic indicate if this is a programmatic change.
      * @see #isSelectedIndex()
      * @see #addSelectionListener()
 	 * @see #ensureIndexIsVisible()
 	 */	
-	public function setSelectedIndices(indices:Array):void{
+	public function setSelectedIndices(indices:Array, programmatic:Boolean=true):void{
         var sm:ListSelectionModel = getSelectionModel();
         sm.clearSelection();
 		var size:int = getModel().getSize();
@@ -709,11 +721,12 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	/**
 	 * Selects the specified object from the list. This will not cause a scroll, if you want to 
 	 * scroll to visible the selected value, call ensureIndexIsVisible().
-	 * @param value the value to be selected
+	 * @param value the value to be selected.
+     * @param programmatic indicate if this is a programmatic change.
 	 * @see #setSelectedIndex()
 	 * @see #ensureIndexIsVisible()
 	 */
-	public function setSelectedValue(value:*):void{
+	public function setSelectedValue(value:*, programmatic:Boolean=true):void{
 		var n:int = model.getSize();
 		for(var i:int=0; i<n; i++){
 			if(model.getElementAt(i) == value){
@@ -728,12 +741,13 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	 * Selects a set of cells. 
 	 * <p> This will not cause a scroll, if you want to 
 	 * scroll to visible the selected value, call ensureIndexIsVisible().
-	 * @param values an array of the values to select
+	 * @param values an array of the values to select.
+     * @param programmatic indicate if this is a programmatic change.
      * @see #isSelectedIndex()
      * @see #addSelectionListener()
 	 * @see #ensureIndexIsVisible()
 	 */	
-	public function setSelectedValues(values:Array):void{
+	public function setSelectedValues(values:Array, programmatic:Boolean=true):void{
         var sm:ListSelectionModel = getSelectionModel();
         sm.clearSelection();
 		var size:int = getModel().getSize();
@@ -1780,7 +1794,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     }
         
     private function __selectionListener(e:ListSelectionEvent):void{
-    	dispatchEvent(new ListSelectionEvent(e.getFirstIndex(), e.getLastIndex()));
+    	dispatchEvent(new ListSelectionEvent(e.getFirstIndex(), e.getLastIndex(), e.isProgrammatic()));
     	revalidate();
     }
     

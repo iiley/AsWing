@@ -43,7 +43,7 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 		selectionMode = MULTIPLE_SELECTION;
 	}
 	
-	public function setSelectionInterval(index0 : int, index1 : int) : void {
+	public function setSelectionInterval(index0 : int, index1 : int, programmatic:Boolean=true) : void {
 		if (index0 < 0 || index1 < 0) {
 			return;
 		}
@@ -72,11 +72,11 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 			for(i=minIndex; i<=maxIndex; i++){
 				value[i] = true;
 			}
-			fireListSelectionEvent(min, max);
+			fireListSelectionEvent(min, max, programmatic);
 		}
 	}
 
-	public function addSelectionInterval(index0 : int, index1 : int) : void {
+	public function addSelectionInterval(index0 : int, index1 : int, programmatic:Boolean=true) : void {
 		if (index0 < 0 || index1 < 0) {
 			return;
 		}
@@ -97,11 +97,11 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 		minIndex = Math.min(min, minIndex);
 		maxIndex = Math.max(max, maxIndex);
 		if(changed){
-			fireListSelectionEvent(min, max);
+			fireListSelectionEvent(min, max, programmatic);
 		}
 	}
 
-	public function removeSelectionInterval(index0 : int, index1 : int) : void {
+	public function removeSelectionInterval(index0 : int, index1 : int, programmatic:Boolean=true) : void {
 		if (index0 < 0 || index1 < 0) {
 			return;
 		}		
@@ -127,7 +127,7 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 		for(var i:int=min; i<=max; i++){
 			value[i] = undefined;
 		}
-		fireListSelectionEvent(min, max);
+		fireListSelectionEvent(min, max, programmatic);
 	}
 
 	public function getMinSelectionIndex() : int {
@@ -167,13 +167,13 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 		leadIndex = index;
 	}
 
-	public function clearSelection() : void {
+	public function clearSelection(programmatic:Boolean=true) : void {
 		if(!isSelectionEmpty()){
 			var max:int = maxIndex;
 			minIndex	= MAX;
 			maxIndex	= MIN;
 			clearSelectionImp();
-			fireListSelectionEvent(0, max);
+			fireListSelectionEvent(0, max, programmatic);
 		}
 	}
 	
@@ -185,7 +185,7 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 		return minIndex > maxIndex;
 	}
 	
-	public function insertIndexInterval(index:int, length:int, before:Boolean):void{
+	public function insertIndexInterval(index:int, length:int, before:Boolean, programmatic:Boolean=true):void{
 		/* The first new index will appear at insMinIndex and the last
 		 * one will appear at insMaxIndex
 		 */
@@ -229,11 +229,11 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 		}
 		
 		if(needInstertArray){
-			fireListSelectionEvent(insMinIndex, insMaxIndex+length);
+			fireListSelectionEvent(insMinIndex, insMaxIndex+length, programmatic);
 		}
 	}
 
-	public function removeIndexInterval(index0:int, index1:int):void{
+	public function removeIndexInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		var rmMinIndex:int = Math.min(index0, index1);
 		var rmMaxIndex:int = Math.max(index0, index1);
 		var gapLength:int = (rmMaxIndex - rmMinIndex) + 1;
@@ -301,7 +301,7 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 		}
 		
 		if(needFireEvent){
-			fireListSelectionEvent(rmMinIndex, rmMaxIndex+gapLength);
+			fireListSelectionEvent(rmMinIndex, rmMaxIndex+gapLength, programmatic);
 		}
 	}	
 	
@@ -330,8 +330,8 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 		removeEventListener(ListSelectionEvent.LIST_SELECTION_CHANGED, listener);
 	}
 	
-	protected function fireListSelectionEvent(firstIndex:int, lastIndex:int):void{
-		dispatchEvent(new ListSelectionEvent(firstIndex, lastIndex));
+	protected function fireListSelectionEvent(firstIndex:int, lastIndex:int, programmatic:Boolean):void{
+		dispatchEvent(new ListSelectionEvent(firstIndex, lastIndex, programmatic));
 	}
 	
 	override public function toString():String{

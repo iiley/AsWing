@@ -5,7 +5,7 @@
 package org.aswing.error
 {
 /**
- * A abstract class's abstract method missing overriden error.
+ * This error indicates that an abstract class's abstract method missing overriden error.
  */
 public class ImpMissError extends Error
 {

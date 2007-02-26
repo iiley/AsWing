@@ -51,7 +51,7 @@ public class LinkedList implements List
 	}
 	
 	/**
-	 * @throws Error when index out of bounds
+	 * @throws RangeError when index out of bounds
 	 */
 	public function append(data:*, index:int = -1):void{
 		if(index == -1) index = size();
@@ -61,8 +61,7 @@ public class LinkedList implements List
 		}
 		
 		if(index < 0 || index > size()){
-			trace("/e/Error index out of range : " + index + ", size:" + size());
-			throw new Error("Error index out of range : " + index + ", size:" + size());
+			throw new RangeError("Error index out of range : " + index + ", size:" + size());
 		}
 		var newNode:ListNode;
 		if(index == size()){
@@ -120,7 +119,7 @@ public class LinkedList implements List
 	}
 
 	/**
-	 * @throws Error when index out of bounds
+	 * @throws RangeError when index out of bounds
 	 */
 	public function appendAll(arr : Array, index : int = -1) : void {
 		if(index == -1) index = size();
@@ -128,8 +127,7 @@ public class LinkedList implements List
 			return;
 		}
 		if(index < 0 || index > size()){
-			trace("/e/Error index out of range : " + index + ", size:" + size());
-			throw new Error("Error index out of range : " + index + ", size:" + size());
+			throw new RangeError("Error index out of range : " + index + ", size:" + size());
 		}
 		
 		var tempList:LinkedList = new LinkedList();
