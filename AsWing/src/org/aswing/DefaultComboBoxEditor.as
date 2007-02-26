@@ -18,7 +18,9 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
 	}
 	
 	public function selectAll():void{
-		getTextField().selectAll();
+		if(getTextField().isEditable()){
+			getTextField().selectAll();
+		}
 		//getTextField().makeFocus();
 	}
 	
@@ -61,7 +63,7 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     
     private function getTextField():JTextField{
         if(textField == null){
-            textField = new JTextField(null, 1); //set rows 1 to ensure the JTextField has a perfer height when empty
+            textField = new JTextField("", 1); //set rows 1 to ensure the JTextField has a perfer height when empty
             textField.setBorder(null);
             textField.setOpaque(false);
             textField.setFocusable(false);

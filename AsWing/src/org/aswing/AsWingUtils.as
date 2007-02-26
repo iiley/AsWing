@@ -460,7 +460,7 @@ public class AsWingUtils{
             var ri:int = num; //binary search of right index
             
             while(li<ri){
-                var i:Number = li + (ri - li)/2;
+                var i:int = li + (ri - li)/2;
                 var subText:String = text.substring(0, i);
                 var length:int = Math.ceil(lastWidth + computeStringWidth(tf, subText));
                 

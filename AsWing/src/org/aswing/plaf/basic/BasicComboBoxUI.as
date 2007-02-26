@@ -25,12 +25,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 	private var box:JComboBox;
 	private var popup:JPopup;
 	private var scollPane:JScrollPane;
-	private var mouseListener:Object;
-	private var listListener:Object;
-	private var boxListener:Object;
-	private var editorListener:Object;
-	private var containerListener:Object;
-	private var oldRequestFocusMethod:Function;
     private var arrowShadowColor:ASColor;
     private var arrowLightColor:ASColor;
 	
@@ -62,11 +56,11 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 	
 	protected function installDefaults():void{
 		var pp:String = getPropertyPrefix();
-        LookAndFeel.installBorderAndBFDecorators(box, pp + "border");
-        LookAndFeel.installColorsAndFont(box, pp + "background", pp + "foreground", pp + "font");
+        LookAndFeel.installBorderAndBFDecorators(box, pp);
+        LookAndFeel.installColorsAndFont(box, pp);
         LookAndFeel.installBasicProperties(box, pp);
-		arrowShadowColor = UIManager.getColor("ComboBox.arrowShadowColor");
-		arrowLightColor = UIManager.getColor("ComboBox.arrowLightColor");
+		arrowShadowColor = getColor("ComboBox.arrowShadowColor");
+		arrowLightColor = getColor("ComboBox.arrowLightColor");
 	}
     
     protected function uninstallDefaults():void{
@@ -91,6 +85,8 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		box.addEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
 		box.addEventListener(Event.REMOVED_FROM_STAGE, __onBoxRemovedFromStage);
 		getPopupList().addEventListener(ListItemEvent.ITEM_CLICK, __onListItemReleased);
+		popupTimer = new Timer(40);
+		popupTimer.addActionListener(__movePopup);
 	}
     
     protected function uninstallListeners():void{
@@ -101,6 +97,11 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		box.removeEventListener(Event.REMOVED_FROM_STAGE, __onBoxRemovedFromStage);
 		getPopupList().removeEventListener(ListItemEvent.ITEM_CLICK, __onListItemReleased);
     }
+    
+	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
+		super.paint(c, g, b);
+		layoutCombobox();
+	}
         
     override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
     	if(c.isOpaque()){
@@ -122,6 +123,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 				    arrowLightColor,
 				    arrowShadowColor
     	));
+    	btn.setFocusable(false);
     	btn.setPreferredSize(new IntDimension(16, 16));
     	return btn;
     }
@@ -177,7 +179,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 	    	AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped, true);
 			popupTimer.stop();
 			getPopup().dispose();
-			returnFocusFromListToCombobox();
     	}
     }
     
@@ -213,11 +214,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		var selectedValue:Object = getPopupList().getSelectedValue();
 		box.setSelectedItem(selectedValue);
     }
-    
-	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
-		super.paint(c, g, b);
-		layoutCombobox();
-	}    
     
     //-----------------------------
     
@@ -262,26 +258,31 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     			return;
     		}
     	}
+    	if(code == Keyboard.ENTER){
+	    	hidePopup();
+	    	setComboBoxValueFromListSelection();
+	    	return;
+    	}
     	var list:JList = getPopupList();
-    	var delta:int = 0;
+    	var index:int = list.getSelectedIndex();
     	if(code == Keyboard.DOWN){
-    		delta = 1;
+    		index += 1;
     	}else if(code == Keyboard.UP){
-    		delta = -1;
+    		index -= 1;
     	}else if(code == Keyboard.PAGE_DOWN){
-    		delta = box.getMaximumRowCount();
+    		index += box.getMaximumRowCount();
     	}else if(code == Keyboard.PAGE_UP){
-    		delta = -box.getMaximumRowCount();
+    		index -= box.getMaximumRowCount();
     	}else if(code == Keyboard.HOME){
-    		list.setSelectedIndex(0, false);
-    		return;
+    		index = 0;
     	}else if(code == Keyboard.END){
-    		list.setSelectedIndex(list.getModel().getSize()-1, false);
+    		index = list.getModel().getSize()-1;
+    	}else{
     		return;
     	}
-    	var index:int = list.getSelectedIndex() + delta;
     	index = Math.max(0, Math.min(list.getModel().getSize()-1, index));
     	list.setSelectedIndex(index, false);
+    	list.ensureIndexIsVisible(index);
     }
     
     private function __onFocusLost(e:Event):void{
@@ -299,34 +300,22 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     
     private function __onBoxPressed(e:Event):void{
     	if(!isPopupVisible(box)){
-    		setPopupVisible(box, true);
-    	}
-    }
-    
-    private function __onMouseDownWhenPopuped(e:Event):void{
-    	if(!getScollPane().hitTestMouse()){
+    		if(box.isEditable()){
+    			if(!box.getEditor().getEditorComponent().hitTestMouse()){
+    				setPopupVisible(box, true);
+    			}
+    		}else{
+    			setPopupVisible(box, true);
+    		}
+    	}else{
     		hidePopup();
     	}
     }
     
-    private function returnFocusFromListToCombobox():void{
-    	if(dropDownButton.hitTestMouse()){
-    		dropDownButton.requestFocus();
-    		if(dropDownButton.isFocusOwner()){
-    			return;
-    		}
+    private function __onMouseDownWhenPopuped(e:Event):void{
+    	if(!getPopup().hitTestMouse() && !box.hitTestMouse()){
+    		hidePopup();
     	}
-    	var editorCom:Component = box.getEditor().getEditorComponent();
-    	if(editorCom.isEnabled()){
-    		editorCom.requestFocus();
-    		if(editorCom.isFocusOwner()){
-    			return;
-    		}
-    	}
-		dropDownButton.requestFocus();
-		if(!dropDownButton.isFocusOwner()){
-			box.transferFocus();
-		}
     }
     
 	/**
@@ -344,14 +333,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
      * Determine the visibility of the popup
      */
 	public function isPopupVisible(c:JComboBox):Boolean{
-		return getScollPane().isShowing();
-	}
-	
-	/** 
-     * Determine whether or not the combo box itself is traversable 
-     */
-	public function isFocusTraversable(c:JComboBox):Boolean{
-		return false;
+		return getPopup().isVisible();
 	}
 	
 	//---------------------Layout Implementation---------------------------

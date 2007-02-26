@@ -7,6 +7,7 @@ package org.aswing{
 import org.aswing.event.*;
 import org.aswing.plaf.*;
 import flash.events.Event;
+import flash.display.InteractiveObject;
 
 /**
  * Dispatched when the combobox act, when value set or selection changed.
@@ -157,9 +158,6 @@ public class JComboBox extends Component{
 	public function getPopupList():JList{
 		if(popupList == null){
 			popupList = new JList();
-			popupList.setFont(getFont());
-			popupList.setForeground(getForeground());
-			popupList.setBackground(getBackground());
 			popupList.addSelectionListener(__listSelectionChanged);
 		}
 		return popupList;
@@ -219,9 +217,11 @@ public class JComboBox extends Component{
 		editor = anEditor;
 		editor.setEditable(isEditable());
 		addChild(editor.getEditorComponent());
-		editor.getEditorComponent().setFont(getFont());
-		editor.getEditorComponent().setForeground(getForeground());
-		editor.getEditorComponent().setBackground(getBackground());
+		if(ui != null){//means ui installed
+			editor.getEditorComponent().setFont(getFont());
+			editor.getEditorComponent().setForeground(getForeground());
+			editor.getEditorComponent().setBackground(getBackground());
+		}
 		editor.addActionListener(__editorActed);
 		revalidate();
 	}
@@ -233,6 +233,13 @@ public class JComboBox extends Component{
      */
 	public function getEditor():ComboBoxEditor{
 		return editor;
+	}
+	
+	/**
+	 * Returns the editor component internal focus object.
+	 */
+	override public function getInternalFocusObject():InteractiveObject{
+		return getEditor().getEditorComponent().getInternalFocusObject();
 	}
 	
 	/**

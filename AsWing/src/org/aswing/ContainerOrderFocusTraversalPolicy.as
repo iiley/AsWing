@@ -145,7 +145,7 @@ public class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 	}
 	
 	private function accept(c:Component):Boolean{
-		return c.isShowing() && c.isFocusable() && c.isEnabled();
+		return c != null && c.isShowing() && c.isFocusable() && c.isEnabled();
 	}
 	
 	private function getFocusableComponent(c:Component):Component{
