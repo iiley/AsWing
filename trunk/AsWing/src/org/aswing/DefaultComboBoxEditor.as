@@ -8,6 +8,9 @@ import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.events.Event;
 import org.aswing.event.AWEvent;
+import flash.events.KeyboardEvent;
+import flash.ui.Keyboard;
+import flash.events.FocusEvent;
 
 public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEditor{
 
@@ -73,17 +76,22 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     }
 
     private function initHandler():void{
-        textField.addActionListener(__textFieldActed);
-        textField.addEventListener(AWEvent.FOCUS_LOST, __grapValueFormText);
+        textField.getTextField().addEventListener(KeyboardEvent.KEY_DOWN, __textKeyDown);
+        textField.getTextField().addEventListener(FocusEvent.FOCUS_OUT, __grapValueFormText);
     }
-
+	
     private function __grapValueFormText(e:Event):void{
-        value = getTextField().getText();
+    	if(textField.isEditable() && value !== getTextField().getText()){
+    		value = getTextField().getText();
+	        dispatchEvent(new AWEvent(AWEvent.ACT));
+     	}
     }
 
-    private function __textFieldActed(e:Event):void{
-        __grapValueFormText(null);
-        dispatchEvent(new AWEvent(AWEvent.ACT));
+    private function __textKeyDown(e:KeyboardEvent):void{
+    	if(textField.isEditable() && e.keyCode == Keyboard.ENTER){
+	        __grapValueFormText(null);
+	        dispatchEvent(new AWEvent(AWEvent.ACT));
+     	}
     }   
 }
 }
