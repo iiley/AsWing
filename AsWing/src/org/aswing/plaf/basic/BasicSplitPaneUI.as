@@ -102,12 +102,12 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 	
 	private function installListeners():void{
 		sp.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __on_splitpane_key_down);
-		sp.addEventListener(MovedEvent.MOVED, __div_location_changed);
+		sp.addEventListener(InteractiveEvent.STATE_CHANGED, __div_location_changed);
 	}
 	
 	private function uninstallListeners():void{
 		sp.removeEventListener(KeyboardEvent.KEY_DOWN, __on_splitpane_key_down);
-		sp.removeEventListener(MovedEvent.MOVED, __div_location_changed);
+		sp.removeEventListener(InteractiveEvent.STATE_CHANGED, __div_location_changed);
 	}
 	
 	/**
@@ -314,7 +314,6 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
     //-----------------------------------------------------------------------
     
 	private function __collapseLeft(e:AWEvent) : void {
-		trace("__collapseLeft target:"+e.target);		
 		pressFlag = true;
 		if(sp.getDividerLocation() == int.MAX_VALUE){
 			sp.setDividerLocation(sp.getLastDividerLocation());
@@ -329,7 +328,6 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 	}
 
 	private function __collapseRight(e:AWEvent) : void {
-		trace("__collapseRight target:"+e.target);		
 		pressFlag = true;		
 		if(sp.getDividerLocation() < 0){
 			sp.setDividerLocation(sp.getLastDividerLocation());
@@ -372,7 +370,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 		sp.setDividerLocation(restrictDividerLocation(sp.getDividerLocation() + dir));
 	}
     
-    private function __div_location_changed(e:Event):void{
+    private function __div_location_changed(e:InteractiveEvent):void{
     	layoutWithLocation(sp.getDividerLocation());
         if(sp.getDividerLocation() >= 0 && sp.getDividerLocation() != int.MAX_VALUE){
         	divider.setEnabled(true);
@@ -531,7 +529,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 				getMinimumDividerLocation(), 
 				Math.min(newLocation, getMaximumDividerLocation()));
 			
-			sp.setDividerLocation(newLocation);
+			sp.setDividerLocation(newLocation, true);
 		}
 		if(!layouted){
 			layoutWithLocation(sp.getDividerLocation());
