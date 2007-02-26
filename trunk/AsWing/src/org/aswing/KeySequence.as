@@ -23,6 +23,7 @@ public class KeySequence implements KeyType{
 	 * KeySequence(key1:KeyStroke, key2:KeyStroke, ...)<br>
 	 * KeySequence(description:String, codeSequence:Array)<br>
 	 * Create a key definition with keys.
+	 * @throws ArgumentError when arguments is not illegular.
 	 */
 	public function KeySequence(...arguments){
 		if(arguments[0] is KeyStroke){
@@ -39,8 +40,7 @@ public class KeySequence implements KeyType{
 				codeString = arguments[0].toString();
 				codeSequence = arguments[1].concat();
 			}else{
-				trace("/e/ KeySequence constructing error!!");
-				throw new Error("KeySequence constructing error!!");
+				throw new ArgumentError("KeySequence constructing error!!");
 			}
 		}
 	}

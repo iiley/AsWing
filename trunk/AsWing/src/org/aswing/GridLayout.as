@@ -83,14 +83,13 @@ public class GridLayout extends EmptyLayout{
      *                   any number of columns
      * @param     hgap   (optional)the horizontal gap, default 0
      * @param     vgap   (optional)the vertical gap, default 0
-     * @throws Error  if the value of both
+     * @throws ArgumentError  if the value of both
      *			<code>rows</code> and <code>cols</code> is 
      *			set to zero
      */
     public function GridLayout(rows:int=1, cols:int=0, hgap:int=0, vgap:int=0) {
 		if ((rows == 0) && (cols == 0)) {
-	     	trace("rows and cols cannot both be zero");
-	     	throw new Error("rows and cols cannot both be zero");
+	     	throw new ArgumentError("rows and cols cannot both be zero");
 	 	}
 	    
 		this.rows = rows;

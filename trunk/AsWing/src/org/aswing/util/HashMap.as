@@ -163,8 +163,8 @@ public class HashMap
      *	       <tt>null</tt> with the specified key.
   	 */
  	public function put(key:*, value:*):*{
-  		if(key == undefined){
-   			throw new Error("cannot put a value with undefined or null key!");
+  		if(key == null){
+   			throw new ArgumentError("cannot put a value with undefined or null key!");
    			return undefined;
   		}else if(value == null){
   			return remove(key);

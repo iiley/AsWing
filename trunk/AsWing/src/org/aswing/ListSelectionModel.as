@@ -27,10 +27,11 @@ public interface ListSelectionModel{
      * to be less than or equal to index1.  
      * 
      * @param index0 one end of the interval.
-     * @param index1 other end of the interval
+     * @param index1 other end of the interval.
+     * @param programmatic indicate if this is a programmatic change.
      * @see #addListSelectionListener()
      */	
-	function setSelectionInterval(index0:int, index1:int):void;
+	function setSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void;
 	
     /** 
      * Change the selection to be the set union of the current selection
@@ -40,10 +41,11 @@ public interface ListSelectionModel{
      * than or equal to index1.  
      * 
      * @param index0 one end of the interval.
-     * @param index1 other end of the interval
+     * @param index1 other end of the interval.
+     * @param programmatic indicate if this is a programmatic change.
      * @see #addListSelectionListener()
      */	
-	function addSelectionInterval(index0:int, index1:int):void;
+	function addSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void;
 
     /** 
      * Change the selection to be the set difference of the current selection
@@ -53,10 +55,11 @@ public interface ListSelectionModel{
      * than or equal to index1.  
      * 
      * @param index0 one end of the interval.
-     * @param index1 other end of the interval
+     * @param index1 other end of the interval.
+     * @param programmatic indicate if this is a programmatic change.
      * @see #addListSelectionListener()
      */	
-	function removeSelectionInterval(index0:int, index1:int):void;
+	function removeSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void;
 
     /**
      * Returns the first selected index or -1 if the selection is empty.
@@ -115,9 +118,10 @@ public interface ListSelectionModel{
      * Change the selection to the empty set.  If this represents
      * a change to the current selection then notify each ListSelectionListener.
      * 
+     * @param programmatic indicate if this is a programmatic change.
      * @see #addListSelectionListener()
      */
-	function clearSelection():void;	
+	function clearSelection(programmatic:Boolean=true):void;	
 
     /**
      * Returns true if no indices are selected.
@@ -128,15 +132,22 @@ public interface ListSelectionModel{
      * Insert length indices beginning before/after index.  This is typically 
      * called to sync the selection model with a corresponding change
      * in the data model.
+     * @param index the index.
+     * @param length the length.
+     * @param before whether before or after.
+     * @param programmatic indicate if this is a programmatic change.
      */
-    function insertIndexInterval(index:int, length:int, before:Boolean):void;
+    function insertIndexInterval(index:int, length:int, before:Boolean, programmatic:Boolean=true):void;
 
     /** 
      * Remove the indices in the interval index0,index1 (inclusive) from
      * the selection model.  This is typically called to sync the selection
      * model width a corresponding change in the data model.
+     * @param index the first index.
+     * @param length the second index.
+     * @param programmatic indicate if this is a programmatic change.
      */
-    function removeIndexInterval(index0:int, index1:int):void;
+    function removeIndexInterval(index0:int, index1:int, programmatic:Boolean=true):void;
  
     /**
      * Set the selection mode. The following selectionMode values are allowed:

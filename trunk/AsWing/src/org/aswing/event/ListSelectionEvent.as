@@ -12,7 +12,7 @@ import flash.events.Event;
  * @see org.aswing.ListSelectionModel
  * @author iiley
  */
-public class ListSelectionEvent extends AWEvent{
+public class ListSelectionEvent extends InteractiveEvent{
 		
 	/**
      *  The <code>ListSelectionEvent.LIST_SELECTION_CHANGED</code> constant defines the value of the
@@ -42,8 +42,8 @@ public class ListSelectionEvent extends AWEvent{
 	private var firstIndex:int;
 	private var lastIndex:int;
 	
-	public function ListSelectionEvent(firstIndex:int, lastIndex:int){
-		super(LIST_SELECTION_CHANGED);
+	public function ListSelectionEvent(firstIndex:int, lastIndex:int, programmatic:Boolean){
+		super(LIST_SELECTION_CHANGED, programmatic);
 		this.firstIndex = firstIndex;
 		this.lastIndex = lastIndex;
 	}
@@ -65,7 +65,7 @@ public class ListSelectionEvent extends AWEvent{
 	}
 	
 	override public function clone():Event{
-		return new ListSelectionEvent(firstIndex, lastIndex);
+		return new ListSelectionEvent(firstIndex, lastIndex, isProgrammatic());
 	}
 }
 }

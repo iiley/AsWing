@@ -156,6 +156,10 @@ public class JTextComponent extends Component{
 		getTextField().setSelection(beginIndex, endIndex);
 	}
 	
+	public function selectAll():void{
+		getTextField().setSelection(0, getTextField().length);
+	}
+	
 	public function setCondenseWhite(b:Boolean):void{
 		if(getTextField().condenseWhite != b){
 			getTextField().condenseWhite = b;

@@ -56,8 +56,8 @@ public class JWindow extends JPopup{
 	 * @param modal true for a modal dialog, false for one that allows other windows to be active at the same time,
 	 *  default is false.
 	 * @see org.aswing.AsWingManager#getRoot()
-	 * @throw Error if not specified the owner, and aswing default root is not specified either.
-	 * @throw Error if the owner is not a JPopup nor DisplayObjectContainer
+	 * @throw AsWingManagerNotInited if not specified the owner, and aswing default root is not specified either.
+	 * @throw TypeError if the owner is not a JPopup nor DisplayObjectContainer
 	 */	
 	public function JWindow(owner:*=null, modal:Boolean=false){
 		super(owner, modal);
@@ -81,7 +81,7 @@ public class JWindow extends JPopup{
 	
 	/**
 	 * Sets the layout for the window.
-	 * @throws Error when you try to set a non-WindowLayout instance.
+	 * @throws ArgumentError when you try to set a non-WindowLayout instance.
 	 */
 	override public function setLayout(layout:LayoutManager):void{
 		if(layout is WindowLayout){
@@ -96,8 +96,7 @@ public class JWindow extends JPopup{
 				}
 			}
 		}else{
-			trace(this + " Can not set a non-WindowLayout Layout to JWindow");
-			throw new Error(this + " Can not set a non-WindowLayout Layout to JWindow");
+			throw new ArgumentError("Can not set a non-WindowLayout Layout to JWindow");
 		}
 	}
 		

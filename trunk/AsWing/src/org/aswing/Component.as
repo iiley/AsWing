@@ -894,6 +894,18 @@ public class Component extends AWSprite
 		}else{
 			return new IntPoint(gp.x, gp.y);
 		}
+	}
+	
+	public function globalToComponent(p:IntPoint):IntPoint{
+		var np:Point = new Point(p.x, p.y);
+		np = globalToLocal(np);
+		return new IntPoint(np.x, np.y);
+	}
+	
+	public function componentToGlobal(p:IntPoint):IntPoint{
+		var np:Point = new Point(p.x, p.y);
+		np = localToGlobal(np);
+		return new IntPoint(np.x, np.y);
 	}	
 	
 	/**
@@ -1635,6 +1647,16 @@ public class Component extends AWSprite
 		setMinimumSize(new IntDimension(getMinimumWidth(), minimumHeight));
 	}
 	
+	/**
+	 * Returns whether the component hit the mouse.
+	 */
+	public function hitTestMouse():Boolean{
+		if(isOnStage()){
+			return hitTestPoint(stage.x, stage.y, false);
+		}else{
+			return false;
+		}
+	}
 	
 	/**
 	 * Sets whether the component clip should be masked by its bounds. By default it is true.
@@ -2077,10 +2099,24 @@ public class Component extends AWSprite
     public function requestFocus():Boolean {
     	//TODO imp check
     	if(isFocusable() && isEnabled() && isShowing()){
-    		stage.focus = getInternalFocusObject();
+    		makeFocus();
     		return true;
     	}
         return false;
+    }
+    
+    /**
+     * Makes this component's internal focus object to be the stage focus directly, 
+     * without any judgement.
+     * <p>
+     * You'd better to call <code>requestFocus()</code> generally, this method is only 
+     * used to some internal implementation at most time.
+     * </p>
+     * @see #requestFocus()
+     * @see #getInternalFocusObject()
+     */
+    public function makeFocus():void{
+    	stage.focus = getInternalFocusObject();
     }
     
     /**

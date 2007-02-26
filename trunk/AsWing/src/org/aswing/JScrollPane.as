@@ -6,6 +6,7 @@ package org.aswing{
 
 import org.aswing.geom.*;
 import org.aswing.event.*;
+import org.aswing.error.*;
 
 /**
  * Dispatched when one of the scrollpane's scrollbar state changed.
@@ -70,7 +71,7 @@ public class JScrollPane extends Container{
 	 * @param viewOrViewport the scroll content component or a Viewportable
 	 * @param vsbPolicy SCROLLBAR_AS_NEEDED or SCROLLBAR_NEVER or SCROLLBAR_ALWAYS, default SCROLLBAR_AS_NEEDED
 	 * @param hsbPolicy SCROLLBAR_AS_NEEDED or SCROLLBAR_NEVER or SCROLLBAR_ALWAYS, default SCROLLBAR_AS_NEEDED
-	 * @throw Error when viewOrViewport is not component or viewportable.
+	 * @throw TypeError when viewOrViewport is not component or viewportable.
 	 * @see #SCROLLBAR_AS_NEEDED
 	 * @see #SCROLLBAR_NEVER
 	 * @see #SCROLLBAR_ALWAYS
@@ -107,13 +108,13 @@ public class JScrollPane extends Container{
 	}	
 	
 	/**
-	 * @throws Error when the layout is not ScrollPaneLayout instance.
+	 * @throws ArgumentError when the layout is not ScrollPaneLayout instance.
 	 */
 	override public function setLayout(layout:LayoutManager):void{
 		if(layout is ScrollPaneLayout){
 			super.setLayout(layout);
 		}else{
-			throw new Error("Only can set ScrollPaneLayout to JScrollPane");
+			throw new ArgumentError("Only can set ScrollPaneLayout to JScrollPane");
 		}
 	}
 	
@@ -144,7 +145,7 @@ public class JScrollPane extends Container{
 	 * </p>
 	 * @param viewOrViewport a component or a Viewportable object.
 	 * @see Viewportable
-	 * @throw Error when viewOrViewport is not component or viewportable.
+	 * @throw TypeError when viewOrViewport is not component or viewportable.
 	 */
 	public function setView(viewOrViewport:*):void{
 		if(viewOrViewport is Viewportable){
@@ -152,7 +153,7 @@ public class JScrollPane extends Container{
 		}else if(viewOrViewport is Component){
 			setViewportView(Component(viewOrViewport));
 		}else{
-			throw new Error("Only accept Component or Viewportable instance here!");
+			throw new TypeError("Only accept Component or Viewportable instance here!");
 		}
 	}
 	
@@ -336,14 +337,14 @@ public class JScrollPane extends Container{
 	 * @throws Error when append child to JScrollPane
 	 */
 	override public function append(com:Component, constraints:Object=null):void{
-		throw new Error("Can not add comp to JScrollPane");
+		throw new UnsupportedError("Can not add comp to JScrollPane");
 	}
 	
 	/**
 	 * @throws Error when append child to JScrollPane
 	 */	
 	override public function insert(i:int, com:Component, constraints:Object=null):void{
-		throw new Error("Can not add comp to JScrollPane");	
+		throw new UnsupportedError("Can not add comp to JScrollPane");	
 	}	
 }
 }

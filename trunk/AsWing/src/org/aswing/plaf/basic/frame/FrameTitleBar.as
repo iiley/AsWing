@@ -26,7 +26,7 @@ public class FrameTitleBar extends Container{
 		if(l is TitleBarLayout){
 			super.setLayout(l);
 		}else{
-			throw new Error("FrameTitleBar just can accept FrameTitleBar!");
+			throw new TypeError("FrameTitleBar just can accept FrameTitleBar!");
 		}
 	}
 		

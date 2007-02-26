@@ -149,7 +149,7 @@ public class Vector implements List
 	
 	public function indexOf(obj:*):int{
 		for(var i:int = 0; i<_elements.length; i++){
-			if(_elements[i] == obj){
+			if(_elements[i] === obj){
 				return i;
 			}
 		}
@@ -178,7 +178,7 @@ public class Vector implements List
 	
 	public function lastIndexOf(obj:*):int{
 		for(var i:int = _elements.length-1; i>=0; i--){
-			if(_elements[i] == obj){
+			if(_elements[i] === obj){
 				return i;
 			}
 		}

@@ -22,7 +22,7 @@ public class DefaultBoundedRangeModel extends EventDispatcher implements Bounded
 	
 	/**
 	 * Create a DefaultBoundedRangeModel
-	 * @throws Error when invalid range properties
+	 * @throws RangeError when invalid range properties
 	 */
 	public function DefaultBoundedRangeModel(value:int=0, extent:int=0, min:int=0, max:int=100){
 		isAdjusting = false;
@@ -33,7 +33,7 @@ public class DefaultBoundedRangeModel extends EventDispatcher implements Bounded
 			this.min = min;
 			this.max = max;
 		}else{
-			throw new Error("invalid range properties");
+			throw new RangeError("invalid range properties");
 		}
 	}
 	

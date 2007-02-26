@@ -123,8 +123,8 @@ public class JFrame extends JWindow{
 	 * @param modal true for a modal dialog, false for one that allows other windows to be active at the same time,
 	 *  default is false.
 	 * @see org.aswing.AsWingManager#getRoot()
-	 * @throw Error if not specified the owner, and aswing default root is not specified either.
-	 * @throw Error if the owner is not a JPopup nor DisplayObjectContainer
+	 * @throw AsWingManagerNotInited if not specified the owner, and aswing default root is not specified either.
+	 * @throw TypeError if the owner is not a JPopup nor DisplayObjectContainer
 	 */	
 	public function JFrame(owner:*=null, title:String="", modal:Boolean=false) {
 		super(owner, modal);
@@ -147,14 +147,20 @@ public class JFrame extends JWindow{
     	setUI(UIManager.getUI(this));
     }
     
-    /**
-     * NewUI should be a <code>FrameUI</code> instance.
-     */
+	
+	/**
+	 * Sets the ui.
+	 * <p>
+	 * JFrame ui should implemented <code>FrameUI</code> interface!
+	 * </p>
+	 * @param newUI the newUI
+	 * @throws ArgumentError when the newUI is not an <code>FrameUI</code> instance.
+	 */
     override public function setUI(newUI:ComponentUI):void{
     	if(newUI is FrameUI){
     		super.setUI(newUI);
     	}else{
-    		throw new Error("JFrame just accept FrameUI instance!!!");
+    		throw new ArgumentError("JFrame just accept FrameUI instance!!!");
     	}
     }
     

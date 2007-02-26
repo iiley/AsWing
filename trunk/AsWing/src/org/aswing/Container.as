@@ -194,8 +194,8 @@ public class Container extends Component{
 	 * @param i index the position at which to insert the component, or less than 0 value to append the component to the end 
 	 * @param com the component to be added
 	 * @param constraints an object expressing layout contraints for this component
-	 * @throws Error when index > children count
-	 * @throws Error when add container's parent(or itself) to itself
+	 * @throws RangeError when index > children count
+	 * @throws ArgumentError when add container's parent(or itself) to itself
 	 * @see Component#removeFromContainer()
 	 * @see #append()
 	 */
@@ -226,12 +226,12 @@ public class Container extends Component{
 	 */
 	protected function insertImp(i:int, com:Component, constraints:Object=null, forceChildIndex:int=-1):void{
 		if(i > getComponentCount()){
-			throw new Error("illegal component position when insert comp to container");
+			throw new RangeError("illegal component position when insert comp to container");
 		}
 		if(com is Container){
 			for(var cn:Container = this; cn != null; cn = cn.getParent()) {
                 if (cn == com) {
-                	throw new Error("adding container's parent to itself");
+                	throw new ArgumentError("adding container's parent to itself");
                 }
             }
 		}
@@ -319,7 +319,7 @@ public class Container extends Component{
 	protected function getChildIndexWithComponentIndex(index:int):int{
 		var count:int = getComponentCount();
 		if(index < 0 || index > count){
-			throw new Error("Out of index counting bounds, it should be >=0 and <= component count!");
+			throw new RangeError("Out of index counting bounds, it should be >=0 and <= component count!");
 		}
 		if(index == count){
 			return getHighestIndexUnderForeground();
@@ -331,7 +331,7 @@ public class Container extends Component{
 	protected function getComponentIndexWithChildIndex(index:int):int{
 		var count:int = numChildren;
 		if(index < 0 || index > count){
-			throw new Error("Out of index counting bounds, it should be >=0 and <= numChildren!");
+			throw new RangeError("Out of index counting bounds, it should be >=0 and <= numChildren!");
 		}
 		if(index == count){
 			return getComponentCount();
@@ -400,12 +400,12 @@ public class Container extends Component{
      * @param  n   the index of the component to get.
      * @return the n<sup>th</sup> component in this container. returned null if 
      * the index if out of bounds.  
-     * @throw Error if index out of container children bounds
+     * @throw RangeError if index out of container children bounds
      * @see #getComponentCount()
      */
 	public function getComponent(index:int):Component{
 		if(index < 0 || index >= children.length){
-			throw new Error("Index out of container children bounds!!!");
+			throw new RangeError("Index out of container children bounds!!!");
 		}
 		return children[index];
 	}
