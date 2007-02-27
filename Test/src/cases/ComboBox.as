@@ -71,7 +71,7 @@ public class ComboBox extends Sprite{
 		statusText = new JTextField();
 		frame.getContentPane().append(statusText, BorderLayout.SOUTH);
 		
-		frame.setComBoundsXYWH(10, 10, 400, 400);
+		frame.setComBoundsXYWH(10, 10, 400, 200);
 		frame.show();
 	}
 	
