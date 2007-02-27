@@ -16,7 +16,7 @@ import org.aswing.error.ImpMissError;
  */
 public class BasicTextComponentUI extends BaseComponentUI{
 	
-	private var textComponent:JTextComponent;
+	protected var textComponent:JTextComponent;
 	
 	public function BasicTextComponentUI(){
 		super();

@@ -24,16 +24,16 @@ import flash.events.TimerEvent;
  */
 public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	
-	private var frame:JFrame;
-	private var titleBar:FrameTitleBar;
+	protected var frame:JFrame;
+	protected var titleBar:FrameTitleBar;
 	
 	private var resizeArrowColor:ASColor;
 	private var resizeArrowLightColor:ASColor;
 	private var resizeArrowDarkColor:ASColor;
 	
-	private var mouseMoveListener:Object;
-	private var boundsMC:Sprite;
-	private var flashTimer:Timer;
+	protected var mouseMoveListener:Object;
+	protected var boundsMC:Sprite;
+	protected var flashTimer:Timer;
 	
 	public function BasicFrameUI() {
 		super();

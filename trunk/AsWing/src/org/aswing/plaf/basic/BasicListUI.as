@@ -22,7 +22,7 @@ import flash.ui.Keyboard;
  */
 public class BasicListUI extends BaseComponentUI{
 	
-	private var list:JList;
+	protected var list:JList;
 	
 	public function BasicListUI(){
 		super();

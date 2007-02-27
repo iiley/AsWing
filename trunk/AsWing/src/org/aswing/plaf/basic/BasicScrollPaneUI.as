@@ -16,8 +16,8 @@ import org.aswing.geom.*;
  */
 public class BasicScrollPaneUI extends BaseComponentUI{
 
-	private var scrollPane:JScrollPane;
-	private var lastViewport:Viewportable;
+	protected var scrollPane:JScrollPane;
+	protected var lastViewport:Viewportable;
 	
 	public function BasicScrollPaneUI(){
 	}

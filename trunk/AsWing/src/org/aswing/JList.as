@@ -1363,7 +1363,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     }
 	
     public function maximumLayoutSize(target:Container):IntDimension{
-    	return new IntDimension(int.MAX_VALUE, int.MAX_VALUE);
+    	return IntDimension.createBigDimension();
     }
     
     /**
