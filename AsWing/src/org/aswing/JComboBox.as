@@ -488,7 +488,6 @@ public class JComboBox extends Component{
 	
 	//----------------------------------------------------------
 	private function __editorActed(e:Event):void{
-		trace("__editorActed");
 		setSelectedItem(getEditor().getValue());
 	}
 	

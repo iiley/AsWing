@@ -57,7 +57,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ToolTipUI",org.aswing.plaf.basic.BasicToolTipUI, 
 			   "ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,			   			   
 			   "ListUI",org.aswing.plaf.basic.BasicListUI,		   			   
-			   "ComboBoxUI",org.aswing.plaf.basic.BasicComboBoxUI,
+			   "ComboBoxUI",org.aswing.plaf.basic.BasicComboBoxUI,			   
+			   "SliderUI",org.aswing.plaf.basic.BasicSliderUI,
 			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,
 			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI   
 		   ];
@@ -392,6 +393,28 @@ public class BasicLookAndFeel extends LookAndFeel
 		    "ComboBox.border", org.aswing.plaf.basic.border.ComboBoxBorder,
 		    "ComboBox.arrowShadowColor", new ASColorUIResource(0x000000),
 		    "ComboBox.arrowLightColor", new ASColorUIResource(0x444444)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** Slider
+	    comDefaults = [
+		    "Slider.background", table.getFont("controlFont"),
+		    "Slider.foreground", table.get("controlText"),
+	    	"Slider.opaque", false,  
+	    	"Slider.focusable", true,  
+		    "Slider.shadow", table.getColor("controlShadow"),
+	        "Slider.darkShadow", table.getColor("controlDkShadow"),
+	        "Slider.light", table.getColor("controlHighlight"),
+	        "Slider.highlight", table.getColor("controlLtHighlight"),
+        	"Slider.font", table.getFont("controlFont"),
+	    	"Slider.thumbIcon", org.aswing.plaf.basic.icon.SliderThumbIcon,
+		    "Slider.tickColor", table.get("controlDkShadow"),
+		    "Slider.progressColor", new ASColorUIResource(0xC4C4FE),
+		    "Slider.thumb", table.get("control"),
+		    "Slider.thumbShadow", table.get("controlShadow"),
+		    "Slider.thumbDarkShadow", table.get("controlDkShadow"),
+		    "Slider.thumbHighlight", table.get("controlHighlight"),
+		    "Slider.thumbLightHighlight", table.get("controlLtHighlight")
 	    ];
 	    table.putDefaults(comDefaults);
 	}

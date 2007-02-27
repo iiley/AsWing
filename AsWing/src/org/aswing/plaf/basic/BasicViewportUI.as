@@ -12,7 +12,7 @@ import flash.ui.Keyboard;
 
 public class BasicViewportUI extends BaseComponentUI{
 	
-	private var viewport:JViewport;
+	protected var viewport:JViewport;
 	
 	public function BasicViewportUI(){
 		super();

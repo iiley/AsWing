@@ -22,24 +22,24 @@ import flash.ui.Keyboard;
  */
 public class BasicScrollBarUI extends BaseComponentUI{
 	
-	private var scrollBarWidth:int;
-	private var minimumThumbLength:int;
-	private var thumbRect:IntRectangle;
-	private var isDragging:Boolean;
-	private var offset:int;
+	protected var scrollBarWidth:int;
+	protected var minimumThumbLength:int;
+	protected var thumbRect:IntRectangle;
+	protected var isDragging:Boolean;
+	protected var offset:int;
 	
     private var arrowShadowColor:ASColor;
     private var arrowLightColor:ASColor;
     
-    private var scrollbar:JScrollBar;
-    private var thumMC:AWSprite;
-	private var thumbDecorator:GroundDecorator;
-    private var incrButton:JButton;
-    private var decrButton:JButton;
-    private var leftIcon:Icon;
-    private var rightIcon:Icon;
-    private var upIcon:Icon;
-    private var downIcon:Icon;
+    protected var scrollbar:JScrollBar;
+    protected var thumMC:AWSprite;
+	protected var thumbDecorator:GroundDecorator;
+    protected var incrButton:JButton;
+    protected var decrButton:JButton;
+    protected var leftIcon:Icon;
+    protected var rightIcon:Icon;
+    protected var upIcon:Icon;
+    protected var downIcon:Icon;
         
     private static var scrollSpeedThrottle:int = 60; // delay in milli seconds
     private static var initialScrollSpeedThrottle:int = 500; // first delay in milli seconds

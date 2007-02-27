@@ -11,8 +11,8 @@ import flash.filters.DropShadowFilter;
 
 public class BasicToolTipUI extends BaseComponentUI{
 	
-	private var tooltip:JToolTip;
-	private var label:JLabel;
+	protected var tooltip:JToolTip;
+	protected var label:JLabel;
 	
 	public function BasicToolTipUI() {
 		super();
