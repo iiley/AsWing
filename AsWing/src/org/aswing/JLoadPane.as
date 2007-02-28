@@ -108,16 +108,15 @@ public class JLoadPane extends FloorPane
 	override protected function removeFloorMCs():void{
 		removeListenners();
 		super.removeFloorMCs();
+		loader = null;
 	}
-	
 	private function removeListenners():void{
 		if (loader != null){
 			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, __onLoadComplete);
 			loader.contentLoaderInfo.removeEventListener(Event.INIT, __onLoadInit);
 			loader.contentLoaderInfo.removeEventListener(Event.OPEN, __onLoadStart);
-			loader.contentLoaderInfo.removeEventListener(Event.UNLOAD, __onLoadUnload);
+			loader.contentLoaderInfo.removeEventListener(Event.UNLOAD, __onUnload);
 			loader.contentLoaderInfo.removeEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
-			loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, __onLoadError);	
 			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, 	__onLoadProgress);
 		}
 	}
@@ -136,10 +135,9 @@ public class JLoadPane extends FloorPane
 	 * Subclass must override this method to make loading.
 	 */
 	override protected function loadFloor():void{
-		if (loader != null){
+		if (loader != null && path != null){
 			loadedError = false;
 			loader.load(new URLRequest(path));
-			trace("path:"+path);
 		}
 	}
 	
@@ -149,14 +147,16 @@ public class JLoadPane extends FloorPane
 	 * Subclass must override this method to make creating.
 	 */
 	override protected function createFloor():DisplayObject{
-		loader = new Loader();
-		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, __onLoadComplete);
-		loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit);
-		loader.contentLoaderInfo.addEventListener(Event.OPEN, __onLoadStart);
-		loader.contentLoaderInfo.addEventListener(Event.UNLOAD, __onLoadUnload);
-		loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
-		loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError);	
-		loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, 	__onLoadProgress);		
+		if (loader == null){
+			loader = new Loader();
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, __onLoadComplete);
+			loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit);
+			loader.contentLoaderInfo.addEventListener(Event.OPEN, __onLoadStart);
+			loader.contentLoaderInfo.addEventListener(Event.UNLOAD, __onUnload);
+			loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError, false, 0, true);	
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, 	__onLoadProgress);		
+		}
 		return loader;
 	}
 	
@@ -217,7 +217,7 @@ public class JLoadPane extends FloorPane
 		dispatchEvent(new Event(Event.OPEN));
 	}
 	
-	private function __onLoadUnload(e:Event):void{
+	private function __onUnload(e:Event):void{
 		dispatchEvent(new Event(Event.UNLOAD));
 	}
 	
