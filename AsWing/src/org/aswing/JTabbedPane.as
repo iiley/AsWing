@@ -22,7 +22,7 @@ import org.aswing.plaf.*;
 public class JTabbedPane extends AbstractTabbedPane
 {
 	
-	private var tabPlacement:Number;
+	private var tabPlacement:int;
 	
     /**
      * JTabbedPane()
@@ -56,7 +56,7 @@ public class JTabbedPane extends AbstractTabbedPane
      *
      * @param tabPlacement the placement for the tabs relative to the content
      */
-    public function setTabPlacement(tabPlacement:Number):void {
+    public function setTabPlacement(tabPlacement:int):void {
     	if(this.tabPlacement != tabPlacement){
     		this.tabPlacement = tabPlacement;
     		revalidate();
@@ -68,7 +68,7 @@ public class JTabbedPane extends AbstractTabbedPane
      * Returns the placement of the tabs for this tabbedpane.
      * @see #setTabPlacement()
      */
-    public function getTabPlacement():Number{
+    public function getTabPlacement():int{
     	return tabPlacement;
     }
     
@@ -76,7 +76,7 @@ public class JTabbedPane extends AbstractTabbedPane
      * Not support this function.
      * @throws Error("Not supported setVisibleAt!")
      */
-    override  public function setVisibleAt(index:Number, visible:Boolean):void{
+    override public function setVisibleAt(index:int, visible:Boolean):void{
     	throw new Error("Not supported setVisibleAt!");
     }	
 	
