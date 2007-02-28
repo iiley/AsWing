@@ -13,6 +13,7 @@ import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.util.*;	
 import org.aswing.error.ImpMissError;
+import flash.display.Sprite;
 
 /**
  * Abstract class for A container with a decorative displayObject.
@@ -91,10 +92,10 @@ public class FloorPane extends Container
 	 */
     public static const RIGHT:int   = AsWingConstants.RIGHT;
     
-    protected var path:String;
+    private var path:String;
 	private var floorEnabled:Boolean;
 	private var floorMC:DisplayObject;
-	protected var floorMCMask:Shape;
+	private var floorMCMask:Sprite;
 	private var maskFloor:Boolean;
 	private var floorLoaded:Boolean;
 	private var prefferSizeStrategy:int;
@@ -436,7 +437,7 @@ public class FloorPane extends Container
 	private function fitImage():void{
 		if(isLoaded()){
 			// for child classes which redefines floorMC
-			var floorMC:DisplayObject = getFloorMC();
+			var floor:DisplayObject = getFloorMC();
 			var b:IntRectangle = getPaintBounds();
 			var s:IntDimension = countFloorSize();
 			floorMCMask.x = b.x;
@@ -444,23 +445,23 @@ public class FloorPane extends Container
 			floorMCMask.width = b.width;
 			floorMCMask.height = b.height;
 			if(scaleMode == SCALE_STRETCH_PANE){
-				floorMC.x = b.x - offsetX;
-				floorMC.y = b.y - offsetY;
-				floorMC.width = s.width;
-				floorMC.height = s.height;
+				floor.x = b.x - offsetX;
+				floor.y = b.y - offsetY;
+				floor.width = s.width;
+				floor.height = s.height;
 				hadscaled = true;
 			} else if (scaleMode == SCALE_FIT_PANE || scaleMode == SCALE_FIT_WIDTH || scaleMode == SCALE_FIT_HEIGHT || scaleMode == SCALE_CUSTOM) {
-				floorMC.width = s.width;
-				floorMC.height = s.height;
+				floor.width = s.width;
+				floor.height = s.height;
 				alignFloor();
 				hadscaled = true;
 			}else{
 				if(hadscaled){
-					if(floorMC.width != floorOriginalSize.width){
-						floorMC.width = floorOriginalSize.width;
+					if(floor.width != floorOriginalSize.width){
+						floor.width = floorOriginalSize.width;
 					}
-					if(floorMC.height != floorOriginalSize.height){
-						floorMC.height = floorOriginalSize.height;
+					if(floor.height != floorOriginalSize.height){
+						floor.height = floorOriginalSize.height;
 					}
 					hadscaled = false;
 				}
@@ -468,10 +469,11 @@ public class FloorPane extends Container
 			}
 			// calc current scale
 			if (scaleMode != SCALE_STRETCH_PANE) {
-				actualScale = Math.floor(floorMC.width / floorOriginalSize.width * 100);
+				actualScale = Math.floor(floor.width / floorOriginalSize.width * 100);
 			} else {
 				actualScale = 0;
 			}
+			setMaskFloor(maskFloor);
 		}else{
 			reload();
 		}
@@ -571,11 +573,12 @@ public class FloorPane extends Container
 		if(isEnabledFloor()){
 			removeFloorMCs();
 			floorMC = createFloor();
-			this.addChild(floorMC);
 			floorMCMask = createFloorMask();
-			//setMaskFloor(maskFloor);
-			setLoaded(false);
-			loadFloor();
+			if (floorMC != null){			
+				this.addChild(floorMC);
+				setLoaded(false);
+				loadFloor();
+			}
 		}
 	}
 	
@@ -586,6 +589,7 @@ public class FloorPane extends Container
 	public function setMaskFloor(m:Boolean):void{
 		maskFloor = m;
 		var floor:DisplayObject = getFloorMC();
+		//floorMCMask.y =+ 100;
 		if(m){
 			floor.mask = floorMCMask;
 		}else{
@@ -599,18 +603,16 @@ public class FloorPane extends Container
 			floor.mask = null;
 			this.removeChild(floor);
 		}
-		floor = null;
-		floorMCMask = null;
 	}
 	
 	/**
 	 * Creates mask shape.
 	 */
-	private function createFloorMask():Shape{
-		if (floorMCMask == null && floorMC != null){
-			floorMCMask = new Shape();
-			var g:Graphics2D = new Graphics2D(floorMCMask.graphics);
-			g.fillRectangle(new SolidBrush(ASColor.RED),0,0,1,1);
+	private function createFloorMask():Sprite{
+		if (floorMCMask == null){
+			floorMCMask = new Sprite();
+			floorMCMask.graphics.beginFill(0xFF0000);
+			floorMCMask.graphics.drawRect(0, 0, 1, 1);
 			floorMCMask.visible = false;
 		}
 		return floorMCMask;

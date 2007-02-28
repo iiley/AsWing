@@ -103,25 +103,6 @@ public class JLoadPane extends FloorPane
 	}
 	
 	/**
-	 * remove mask,floor,loader and listenner
-	 */
-	override protected function removeFloorMCs():void{
-		removeListenners();
-		super.removeFloorMCs();
-		loader = null;
-	}
-	private function removeListenners():void{
-		if (loader != null){
-			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, __onLoadComplete);
-			loader.contentLoaderInfo.removeEventListener(Event.INIT, __onLoadInit);
-			loader.contentLoaderInfo.removeEventListener(Event.OPEN, __onLoadStart);
-			loader.contentLoaderInfo.removeEventListener(Event.UNLOAD, __onUnload);
-			loader.contentLoaderInfo.removeEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
-			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, 	__onLoadProgress);
-		}
-	}
-	
-	/**
 	 * Returns is error loaded.
 	 * @see #ON_LOAD_ERROR
 	 */
@@ -129,15 +110,10 @@ public class JLoadPane extends FloorPane
 		return loadedError;
 	}
 	
-	/**
-	 * load the floor content.
-	 * <p> here it is empty.
-	 * Subclass must override this method to make loading.
-	 */
 	override protected function loadFloor():void{
-		if (loader != null && path != null){
+		if (loader != null && getPath() != null){
 			loadedError = false;
-			loader.load(new URLRequest(path));
+			loader.load(new URLRequest(getPath()));
 		}
 	}
 	
@@ -154,7 +130,7 @@ public class JLoadPane extends FloorPane
 			loader.contentLoaderInfo.addEventListener(Event.OPEN, __onLoadStart);
 			loader.contentLoaderInfo.addEventListener(Event.UNLOAD, __onUnload);
 			loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError, false, 0, true);	
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError);	
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, 	__onLoadProgress);		
 		}
 		return loader;
@@ -189,6 +165,11 @@ public class JLoadPane extends FloorPane
 		return object;
 	}
 	
+	
+	public function getLoader():Loader{
+		trace("1@@@@:"+loader.contentLoaderInfo.loaderURL);
+		return loader;
+	}
 	//-----------------------------------------------
 
 	private function __onLoadComplete(e:Event):void{
