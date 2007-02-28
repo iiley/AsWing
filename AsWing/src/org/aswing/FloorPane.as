@@ -423,7 +423,7 @@ public class FloorPane extends Container
 	}
 	
 	override public function updateUI():void{
-		reload();
+		revalidate();
 	}
 	
 	/**
@@ -440,8 +440,9 @@ public class FloorPane extends Container
 			var floor:DisplayObject = getFloorMC();
 			var b:IntRectangle = getPaintBounds();
 			var s:IntDimension = countFloorSize();
-			floorMCMask.x = b.x;
-			floorMCMask.y = b.y;
+			
+			floorMCMask.x = b.x + this.x;
+			floorMCMask.y = b.y + this.y;
 			floorMCMask.width = b.width;
 			floorMCMask.height = b.height;
 			if(scaleMode == SCALE_STRETCH_PANE){
