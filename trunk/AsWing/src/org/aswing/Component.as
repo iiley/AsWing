@@ -205,6 +205,10 @@ public class Component extends AWSprite
 		if(!AsWingManager.isStageInited()){
 			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 		}
+		font = DefaultEmptyDecoraterResource.DEFAULT_FONT;
+		background = DefaultEmptyDecoraterResource.DEFAULT_BACKGROUND_COLOR;
+		foreground = DefaultEmptyDecoraterResource.DEFAULT_FOREGROUND_COLOR;
+		
 		addEventListener(FocusEvent.FOCUS_IN, __focusIn);
 		addEventListener(FocusEvent.FOCUS_OUT, __focusOut);
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDown);
@@ -587,7 +591,7 @@ public class Component extends AWSprite
         if (font != null) {
             return font;
         }else if(parent is Component){
-        	return getParent().getFont();
+        	return Component(parent).getFont();
         }else{
         	return null;
         }
@@ -621,7 +625,7 @@ public class Component extends AWSprite
 		if(background != null){
 			return background;
 		}else if(parent is Component){
-        	return getParent().getBackground();
+        	return Component(parent).getBackground();
         }else{
         	return null;
         }
@@ -655,7 +659,7 @@ public class Component extends AWSprite
 		if(foreground != null){
 			return foreground;
 		}else if(parent is Component){
-        	return getParent().getForeground();
+        	return Component(parent).getForeground();
         }else{
         	return null;
         }
@@ -2120,13 +2124,25 @@ public class Component extends AWSprite
     
     /**
      * Returns the object to receive the focus for this component. 
-     * Default is just return the component, other component may return a 
-     * child object, for example <code>JTextComponent<code> will return 
+     * It will call the ui to return the ui specified object, if ui is null 
+     * or ui returned null, then it just return the component self. 
+     * <p>
+     * Other component may return a child object, for example <code>JTextComponent<code> will return 
      * its <code>TextField</code> object.
+     * </p>
      * @return the object to receive the focus.
+     * @see org.aswing.plaf.ComponentUI#getInternalFocusObject()
      */
 	public function getInternalFocusObject():InteractiveObject{
-		return this;
+		var ifo:InteractiveObject = null;
+		if(ui != null){
+			ifo = ui.getInternalFocusObject(this);
+		}
+		if(ifo != null){
+			return ifo;
+		}else{
+			return this;
+		}
 	}
     
     internal function fireFocusKeyDownEvent(e:KeyboardEvent):void{

@@ -15,7 +15,7 @@ import org.aswing.util.*;
 	
 /**
  * Dispatched when the button's model take action, generally when user click the 
- * button or <code>doClick()</code> is called programaticlly.
+ * button or <code>doClick()</code> method is called.
  * @eventType org.aswing.event.AWEvent.ACT
  * @see org.aswing.AbstractButton#addActionListener()
  */

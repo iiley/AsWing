@@ -30,12 +30,17 @@ public class SliderThumbIcon implements Icon, UIResource{
 		thumb = new Sprite();
 	}
 	
+	protected function getPropertyPrefix():String {
+		return "Slider.";
+	}	
+	
 	protected function initThumb(ui:ComponentUI):void{
-		thumbHighlightColor = ui.getColor("Slider.thumbHighlight");
-		thumbLightHighlightColor = ui.getColor("Slider.thumbLightHighlight");
-		thumbLightShadowColor = ui.getColor("Slider.thumbShadow");
-		thumbDarkShadowColor = ui.getColor("Slider.thumbDarkShadow");
-		thumbColor = ui.getColor("Slider.thumb");
+		var pp:String = getPropertyPrefix();
+		thumbHighlightColor = ui.getColor(pp+"thumbHighlight");
+		thumbLightHighlightColor = ui.getColor(pp+"thumbLightHighlight");
+		thumbLightShadowColor = ui.getColor(pp+"thumbShadow");
+		thumbDarkShadowColor = ui.getColor(pp+"thumbDarkShadow");
+		thumbColor = ui.getColor(pp+"thumb");
 		
 		//enabled
 		enabledButton = new SimpleButton();

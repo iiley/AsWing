@@ -12,6 +12,7 @@ import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.graphics.SolidBrush;
 import org.aswing.graphics.Pen;
+import flash.display.InteractiveObject;
 
 /**
  * The base class for ComponentUI.
@@ -70,6 +71,16 @@ public class BaseComponentUI implements ComponentUI
 			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
 		}
 	}	
+	
+    /**
+     * Returns the object to receive the focus for the component.
+     * The default implementation just return the component self.
+     * @param c the component
+     * @return the object to receive the focus.
+     */
+	public function getInternalFocusObject(c:Component):InteractiveObject{
+		return c;
+	}
 	
 	/**
 	 * Returns null

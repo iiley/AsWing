@@ -21,16 +21,15 @@ import org.aswing.event.AWEvent;
  */
 public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		
-	private var dropDownButton:Component;
-	private var box:JComboBox;
-	private var popup:JPopup;
-	private var scollPane:JScrollPane;
-    private var arrowShadowColor:ASColor;
-    private var arrowLightColor:ASColor;
+	protected var dropDownButton:Component;
+	protected var box:JComboBox;
+	protected var popup:JPopup;
+	protected var scollPane:JScrollPane;
+    protected var arrowShadowColor:ASColor;
+    protected var arrowLightColor:ASColor;
 	
-	private var popupTimer:Timer;
-	private var popupDestinationY:Number;
-	private var moveDir:Number;
+	protected var popupTimer:Timer;
+	protected var moveDir:Number;
 		
 	public function BasicComboBoxUI() {
 		super();
@@ -59,8 +58,8 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
         LookAndFeel.installBorderAndBFDecorators(box, pp);
         LookAndFeel.installColorsAndFont(box, pp);
         LookAndFeel.installBasicProperties(box, pp);
-		arrowShadowColor = getColor("ComboBox.arrowShadowColor");
-		arrowLightColor = getColor("ComboBox.arrowLightColor");
+		arrowShadowColor = getColor(pp+"arrowShadowColor");
+		arrowLightColor = getColor(pp+"arrowLightColor");
 	}
     
     protected function uninstallDefaults():void{
