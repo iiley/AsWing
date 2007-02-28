@@ -14,8 +14,8 @@ import org.aswing.util.*;
  * A generic implementation of SingleSelectionModel.
  * @author iiley
  */
-public class DefaultSingleSelectionModel extends EventDispatcher implements SingleSelectionModel
-{
+public class DefaultSingleSelectionModel extends EventDispatcher implements SingleSelectionModel{
+	
 	private var index:int;
 	
 	public function DefaultSingleSelectionModel(){
@@ -26,15 +26,15 @@ public class DefaultSingleSelectionModel extends EventDispatcher implements Sing
 		return index;
 	}
 
-	public function setSelectedIndex(index : int) : void {
+	public function setSelectedIndex(index : int, programmatic:Boolean=true) : void {
 		if(this.index != index){
 			this.index = index;
-			fireChangeEvent();
+			fireChangeEvent(programmatic);
 		}
 	}
 
-	public function clearSelection() : void {
-		setSelectedIndex(-1);
+	public function clearSelection(programmatic:Boolean=true) : void {
+		setSelectedIndex(-1, programmatic);
 	}
 
 	public function isSelected() : Boolean {
@@ -42,15 +42,15 @@ public class DefaultSingleSelectionModel extends EventDispatcher implements Sing
 	}
 	
 	public function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
-		this.addEventListener(InteractiveEvent.STATE_CHANGED, listener, false,  priority, useWeakReference);
+		addEventListener(InteractiveEvent.STATE_CHANGED, listener, false,  priority, useWeakReference);
 	}
 	
 	public function removeStateListener(listener:Function):void{
-		this.removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
+		removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
 	}
 	
-	private function fireChangeEvent():void{
-		dispatchEvent(new Event(InteractiveEvent.STATE_CHANGED));
+	private function fireChangeEvent(programmatic:Boolean):void{
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
 	}
 }
 }
