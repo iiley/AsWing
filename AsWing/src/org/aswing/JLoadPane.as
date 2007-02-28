@@ -167,7 +167,6 @@ public class JLoadPane extends FloorPane
 	
 	
 	public function getLoader():Loader{
-		trace("1@@@@:"+loader.contentLoaderInfo.loaderURL);
 		return loader;
 	}
 	//-----------------------------------------------
@@ -178,7 +177,7 @@ public class JLoadPane extends FloorPane
 	
 	private function __onLoadError(e:IOErrorEvent):void{
 		loadedError = true;
-		dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.toString()));
+		//dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.toString()));
 	}
 	
 	private function __onLoadInit(e:Event):void{
