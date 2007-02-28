@@ -94,7 +94,7 @@ public class FloorPane extends Container
     protected var path:String;
 	private var floorEnabled:Boolean;
 	private var floorMC:DisplayObject;
-	private var floorMCMask:Shape;
+	protected var floorMCMask:Shape;
 	private var maskFloor:Boolean;
 	private var floorLoaded:Boolean;
 	private var prefferSizeStrategy:int;
@@ -125,7 +125,7 @@ public class FloorPane extends Container
 	 */
 	public function FloorPane(path:String, prefferSizeStrategy:int=PREFER_SIZE_BOTH) {
 		super();
-		
+
 		this.path = path;
 		this.prefferSizeStrategy = prefferSizeStrategy;
 		
@@ -472,8 +472,6 @@ public class FloorPane extends Container
 			} else {
 				actualScale = 0;
 			}
-			//to do this
-			floorMC.mask = null;
 		}else{
 			reload();
 		}
@@ -512,8 +510,6 @@ public class FloorPane extends Container
 	override protected function countPreferredSize():IntDimension{
 		var size:IntDimension = super.countPreferredSize();
 		var sizeByMC:IntDimension;
-		var floorMC:DisplayObject = getFloorMC();
-		
 		if(isLoaded()){
 			sizeByMC = countFloorSize();
 			sizeByMC = getInsets().getOutsideSize(sizeByMC);
@@ -577,7 +573,7 @@ public class FloorPane extends Container
 			floorMC = createFloor();
 			this.addChild(floorMC);
 			floorMCMask = createFloorMask();
-			setMaskFloor(maskFloor);
+			//setMaskFloor(maskFloor);
 			setLoaded(false);
 			loadFloor();
 		}
@@ -603,7 +599,8 @@ public class FloorPane extends Container
 			floor.mask = null;
 			this.removeChild(floor);
 		}
-		floorMC = floorMCMask = null;		
+		floor = null;
+		floorMCMask = null;
 	}
 	
 	/**
