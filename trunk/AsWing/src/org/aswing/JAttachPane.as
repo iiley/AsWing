@@ -11,6 +11,7 @@ import flash.utils.*;
 import org.aswing.event.AttachEvent;
 import org.aswing.geom.IntDimension;
 import flash.display.Loader;
+import flash.display.Sprite;
 
 /**
  * Dispatched when when the symbol was attached.
@@ -72,19 +73,14 @@ public class JAttachPane extends FloorPane {
 			try{
 				var classReference:Class;
 				if (loader == null){
-										trace("1@@@@:"+loader.contentLoaderInfo.loaderURL);
-					//classReference = getDefinitionByName(this.getPath()) as Class;
+					classReference = getDefinitionByName(this.getPath()) as Class;
 				}else{
-					trace("1@@@@:"+loader.contentLoaderInfo.loaderURL);
-					trace("2@@@@:"+loader.contentLoaderInfo.toString());
-					trace("3@@@@:"+loader.toString());
-					classReference = loader.contentLoaderInfo.applicationDomain.getDefinition("link_mc2") as Class;
+					classReference = loader.contentLoaderInfo.applicationDomain.getDefinition(this.getPath()) as Class;
 				}
-				var object:Object = new classReference();
-				var attachMC:DisplayObject = DisplayObject(object);
+				var attachMC:Sprite = new classReference();
 				setFloorOriginalSize(new IntDimension(attachMC.width, attachMC.height));
 				dispatchEvent(new AttachEvent(AttachEvent.ATTACHED));
-				return DisplayObject(classReference);
+				return attachMC;
 			}catch(e:Error){
 				trace("createFloor error:"+e.toString());
 				return null;
