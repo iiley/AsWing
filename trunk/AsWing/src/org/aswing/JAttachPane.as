@@ -12,6 +12,8 @@ import org.aswing.event.AttachEvent;
 import org.aswing.geom.IntDimension;
 import flash.display.Loader;
 import flash.display.Sprite;
+import flash.events.Event;
+import flash.net.URLRequest;
 
 /**
  * Dispatched when when the symbol was attached.
@@ -26,6 +28,8 @@ import flash.display.Sprite;
 public class JAttachPane extends FloorPane {
 	
 	private var loader:Loader;
+	private var loadpath:String;
+	private var loading:Boolean;
 	/**
 	 * JAttachPane(path:String, prefferSizeStrategy:int) <br>
 	 * JAttachPane(path:String) prefferSizeStrategy default to PREFER_SIZE_BOTH<br>
@@ -43,6 +47,8 @@ public class JAttachPane extends FloorPane {
 	public function JAttachPane(path:String, prefferSizeStrategy:int) {
 		super(path, prefferSizeStrategy);
 		this.loader = null;
+		this.loadpath = null;
+		this.loading = false;
 		setName("JAttachPane");
 	}	
 	
@@ -51,8 +57,14 @@ public class JAttachPane extends FloorPane {
 		super.setPath(path);
 	}
 	
-	public function setLoaderPath(loader:Loader, path:String):void{
+	public function setPathAndLoader(path:String, loader:Loader=null):void{
 		this.loader = loader;
+		super.setPath(path);
+	}
+	
+	public function setPathAndLoaderPath(path:String, loadpath:String=null):void{
+		this.loadpath = loadpath;
+		this.loader = null;
 		super.setPath(path);
 	}
 	
@@ -70,25 +82,49 @@ public class JAttachPane extends FloorPane {
 	 */
 	override protected function createFloor():DisplayObject{
 		if (this.getPath() != null){
-			try{
-				var classReference:Class;
-				if (loader == null){
-					classReference = getDefinitionByName(this.getPath()) as Class;
-				}else{
-					classReference = loader.contentLoaderInfo.applicationDomain.getDefinition(this.getPath()) as Class;
-				}
-				var attachMC:DisplayObject = new classReference();
-				setFloorOriginalSize(new IntDimension(attachMC.width, attachMC.height));
-				dispatchEvent(new AttachEvent(AttachEvent.ATTACHED));
-				return attachMC;
-			}catch(e:Error){
-				trace("createFloor error:"+e.toString());
-				return null;
+			if (loadpath != null){
+				if (loading) return null;
+				loader = new Loader();
+				loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit);
+				loader.load(new URLRequest(loadpath));
+				loading = true;
+			}else{
+				return getAttachDisplayObject();
 			}
+
 		}else{
 			return null;
 		}
 		return null;
+	}
+	
+	private function __onLoadInit(e:Event):void{
+		loader.contentLoaderInfo.removeEventListener(Event.INIT, __onLoadInit);
+		loadpath = null;
+		loading = false;
+		setLoaded(false);		
+		valid = false;		
+		revalidate();
+		validate();
+	}
+	
+	private function getAttachDisplayObject():DisplayObject{
+		try{
+			var classReference:Class;
+			if (loader == null){
+				classReference = getDefinitionByName(this.getPath()) as Class;
+			}else{
+				classReference = loader.contentLoaderInfo.applicationDomain.getDefinition(this.getPath()) as Class;
+			}
+			var attachMC:DisplayObject = new classReference();
+			setFloorOriginalSize(new IntDimension(attachMC.width, attachMC.height));
+			dispatchEvent(new AttachEvent(AttachEvent.ATTACHED));
+			return attachMC;
+		}catch(e:Error){
+			trace("createFloor error:"+e.toString());
+			return null;
+		}
+		return null
 	}
 }
 }
