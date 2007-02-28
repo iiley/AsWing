@@ -2,8 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
+package org.aswing{
 	
 import flash.events.Event;
 
@@ -16,43 +15,43 @@ import org.aswing.util.*;
  * For example JAccordion, JTabbedPane.
  * @author iiley
  */
-public class AbstractTabbedPane extends Container
-{
+public class AbstractTabbedPane extends Container{
+	
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static const CENTER:Number  = AsWingConstants.CENTER;
+	public static const CENTER:int  = AsWingConstants.CENTER;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static const TOP:Number     = AsWingConstants.TOP;
+	public static const TOP:int     = AsWingConstants.TOP;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static const LEFT:Number    = AsWingConstants.LEFT;
+    public static const LEFT:int    = AsWingConstants.LEFT;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static const BOTTOM:Number  = AsWingConstants.BOTTOM;
+    public static const BOTTOM:int  = AsWingConstants.BOTTOM;
  	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static const RIGHT:Number   = AsWingConstants.RIGHT;
+    public static const RIGHT:int   = AsWingConstants.RIGHT;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */        
-	public static const HORIZONTAL:Number = AsWingConstants.HORIZONTAL;
+	public static const HORIZONTAL:int = AsWingConstants.HORIZONTAL;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static const VERTICAL:Number   = AsWingConstants.VERTICAL;
+	public static const VERTICAL:int   = AsWingConstants.VERTICAL;
 	
     private var titles:Array;
     private var icons:Array;
@@ -62,11 +61,11 @@ public class AbstractTabbedPane extends Container
     private var model:SingleSelectionModel;
     
 	// Icon/Label Alignment
-    private var verticalAlignment:Number;
-    private var horizontalAlignment:Number;
-    private var verticalTextPosition:Number;
-    private var horizontalTextPosition:Number;
-    private var iconTextGap:Number;
+    private var verticalAlignment:int;
+    private var horizontalAlignment:int;
+    private var verticalTextPosition:int;
+    private var horizontalTextPosition:int;
+    private var iconTextGap:int;
     private var margin:Insets;
     
 	public function AbstractTabbedPane() {
@@ -148,6 +147,14 @@ public class AbstractTabbedPane extends Container
 	 * @see #insertTab()
 	 */
 	override public function insert(i:int, com:Component, constraints:Object=null):void{
+		insertImp(i, com, constraints);
+	}
+	
+	
+	/**
+	 * This will call insertTab()
+	 */
+	override protected function insertImp(i:int, com:Component, constraints:Object=null, forceChildIndex:int=-1):void{
 		var title:String = null;
 		var icon:Icon = null;
 		if(constraints == null){
@@ -160,7 +167,7 @@ public class AbstractTabbedPane extends Container
 			title = constraints.toString();
 		}
 		insertTab(i, com, title, icon, null);
-	}
+	}	
 	
 	/**
 	 * Adds a component and tip represented by a title and/or icon, either of which can be null.
@@ -182,12 +189,11 @@ public class AbstractTabbedPane extends Container
 	 * @param title the title to be displayed in this tab
 	 * @param icon the icon to be displayed in this tab
 	 * @param tip the tooltip to be displayed for this tab, can be null means no tool tip.
-	 * @throws Error when index > children count
+	 * @throws RangeError when index > children count
 	 */
-	public function insertTab(i:Number, com:Component, title:String, icon:Icon, tip:String):void{
+	public function insertTab(i:int, com:Component, title:String, icon:Icon, tip:String):void{
 		if(i > getComponentCount()){
-			trace("illegal component position when insert comp to container");
-			throw new Error("illegal component position when insert comp to container");
+			throw new RangeError("illegal component position when insert comp to container");
 		}
 		if(i < 0){
 			i = getComponentCount();
@@ -198,15 +204,22 @@ public class AbstractTabbedPane extends Container
 		insertToArray(enables, i, true);
 		insertToArray(visibles, i, true);
 		
-		var currentSelectedIndex:Number = getSelectedIndex();
-		var selectedIndexAfterRemove:Number = currentSelectedIndex;
+		var currentSelectedIndex:int = getSelectedIndex();
+		var selectedIndexAfterRemove:int = currentSelectedIndex;
 		if(i <= currentSelectedIndex){
 			selectedIndexAfterRemove = currentSelectedIndex + 1;
 		}else if(currentSelectedIndex < 0){
 			selectedIndexAfterRemove = i;
 		}
-		super.insert(i, com);
+		super.insertImp(i, com);
 		getModel().setSelectedIndex(selectedIndexAfterRemove);
+	}
+	
+	/**
+	 * This will call removeTabAt()
+	 */	
+	override protected function removeAtImp(i:int):Component{
+		removeTabAt(i);
 	}
 	
 	/**
@@ -226,14 +239,14 @@ public class AbstractTabbedPane extends Container
 		removeFromArray(enables, i);
 		removeFromArray(visibles, i);
 		
-		var currentSelectedIndex:Number = getSelectedIndex();
-		var selectedIndexAfterRemove:Number = currentSelectedIndex;
+		var currentSelectedIndex:int = getSelectedIndex();
+		var selectedIndexAfterRemove:int = currentSelectedIndex;
 		if(i == currentSelectedIndex){
 			selectedIndexAfterRemove = -1;
 		}else if(i < currentSelectedIndex){
 			selectedIndexAfterRemove = currentSelectedIndex - 1;
 		}
-		var rc:Component = super.removeAt(i);
+		var rc:Component = super.removeAtImp(i);
 		rc.setVisible(true);
 		
 		if(selectedIndexAfterRemove < 0){
@@ -251,7 +264,7 @@ public class AbstractTabbedPane extends Container
 	 * @param index the tab index which should be enabled/disabled
 	 * @param enabled whether or not the tab should be enabled 
 	 */
-	public function setEnabledAt(index:Number, enabled:Boolean):void{
+	public function setEnabledAt(index:int, enabled:Boolean):void{
 		if(enables[index] != enabled){
 			enables[index] = enabled;
 			revalidate();
@@ -265,7 +278,7 @@ public class AbstractTabbedPane extends Container
 	 * @param index  the index of the item being queried 
 	 * @return if the tab at index is enabled; false otherwise.
 	 */
-	public function isEnabledAt(index:Number):Boolean{
+	public function isEnabledAt(index:int):Boolean{
 		return enables[index] == true;
 	}
 
@@ -275,7 +288,7 @@ public class AbstractTabbedPane extends Container
 	 * @param index the tab index which should be shown/hidden
 	 * @param shown whether or not the tab should be visible 
 	 */
-	public function setVisibleAt(index:Number, visible:Boolean):void{
+	public function setVisibleAt(index:int, visible:Boolean):void{
 		if(visibles[index] != visible){
 			visibles[index] = visible;
 			revalidate();
@@ -289,7 +302,7 @@ public class AbstractTabbedPane extends Container
 	 * @param index  the index of the item being queried 
 	 * @return if the tab at index is visible; false otherwise.
 	 */
-	public function isVisibleAt(index:Number):Boolean{
+	public function isVisibleAt(index:int):Boolean{
 		return visibles[index] == true;
 	}
 	
@@ -302,7 +315,7 @@ public class AbstractTabbedPane extends Container
 	 * @see #removeTabAt()
 	 */
 	override public function remove(com:Component):Component{
-		var index:Number = getIndex(com);
+		var index:int = getIndex(com);
 		if(index >= 0){
 			return removeAt(index);
 		}
@@ -317,7 +330,7 @@ public class AbstractTabbedPane extends Container
 	 * @see Container#removeAt()
 	 */	
 	override public function removeAt(index:int):Component{
-		return removeTabAt(index);
+		return removeAtImp(index);
 	}
 	
 	/**
@@ -336,7 +349,7 @@ public class AbstractTabbedPane extends Container
 	/**
 	 * Returns the count of tabs.
 	 */
-	public function getTabCount():Number{
+	public function getTabCount():int{
 		return getComponentCount();
 	}
 	
@@ -345,7 +358,7 @@ public class AbstractTabbedPane extends Container
 	 * @param i the index
 	 * @return the tab title
 	 */
-	public function getTitleAt(i:Number):String{
+	public function getTitleAt(i:int):String{
 		return titles[i];
 	}
 	
@@ -354,7 +367,7 @@ public class AbstractTabbedPane extends Container
 	 * @param i the index
 	 * @return the tab icon
 	 */	
-	public function getIconAt(i:Number):Icon{
+	public function getIconAt(i:int):Icon{
 		return Icon(icons[i]);
 	}
 	
@@ -363,7 +376,7 @@ public class AbstractTabbedPane extends Container
 	 * @param i the index
 	 * @return the tab tool tip text
 	 */	
-	public function getTipAt(i:Number):String{
+	public function getTipAt(i:int):String{
 		return tips[i];
 	}
 	
@@ -373,7 +386,7 @@ public class AbstractTabbedPane extends Container
 	 * @param i the index
 	 * @param t the tab title
 	 */
-	public function setTitleAt(i:Number, t:String):void{
+	public function setTitleAt(i:int, t:String):void{
 		if(i < 0 || i >= getComponentCount()){
 			return;
 		}
@@ -390,7 +403,7 @@ public class AbstractTabbedPane extends Container
 	 * @param i the index
 	 * @param icon the tab icon
 	 */	
-	public function setIconAt(i:Number, icon:Icon):void{
+	public function setIconAt(i:int, icon:Icon):void{
 		if(i < 0 || i >= getComponentCount()){
 			return;
 		}
@@ -408,7 +421,7 @@ public class AbstractTabbedPane extends Container
 	 * @param i the index
 	 * @param t the tab tool tip
 	 */	
-	public function setTipAt(i:Number, t:String):void{
+	public function setTipAt(i:int, t:String):void{
 		if(i < 0 || i >= getComponentCount()){
 			return;
 		}
@@ -424,7 +437,7 @@ public class AbstractTabbedPane extends Container
 	 * @param title the title for the tab 
 	 * @return the first tab index which matches title, or -1 if no tab has this title
 	 */
-	public function indexOfTitle(title:String):Number{
+	public function indexOfTitle(title:String):int{
 		return ArrayUtils.indexInArray(titles, title);
 	}
 	
@@ -433,7 +446,7 @@ public class AbstractTabbedPane extends Container
 	 * @param title the title for the tab 
 	 * @return the first tab index which matches icon, or -1 if no tab has this icon
 	 */	
-	public function indexOfIcon(icon:Icon):Number{
+	public function indexOfIcon(icon:Icon):int{
 		return ArrayUtils.indexInArray(icons, icon);
 	}
 	
@@ -442,7 +455,7 @@ public class AbstractTabbedPane extends Container
 	 * @param title the title for the tab 
 	 * @return the first tab index which matches tip, or -1 if no tab has this tip
 	 */		
-	public function indexOfTip(tip:String):Number{
+	public function indexOfTip(tip:String):int{
 		return ArrayUtils.indexInArray(tips, tip);
 	}
 	
@@ -455,7 +468,7 @@ public class AbstractTabbedPane extends Container
      *
      * @param index  the index to be selected
 	 */
-	public function setSelectedIndex(i:Number):void{
+	public function setSelectedIndex(i:int):void{
 		if(i>=-1 && i<getComponentCount()){
 			getModel().setSelectedIndex(i);
 		}
@@ -471,12 +484,12 @@ public class AbstractTabbedPane extends Container
 		setSelectedIndex(getIndex(com));
 	}
 	
-	public function getSelectedIndex():Number{
+	public function getSelectedIndex():int{
 		return getModel().getSelectedIndex();
 	}
 	
 	public function getSelectedComponent():Component{
-		var index:Number = getModel().getSelectedIndex();
+		var index:int = getModel().getSelectedIndex();
 		if(index >= 0){
 			return getComponent(index);
 		}
@@ -489,12 +502,12 @@ public class AbstractTabbedPane extends Container
      * @return the <code>verticalAlignment</code> property, one of the
      *		following values: 
      * <ul>
-     * <li>ASWingConstants.CENTER (the default)
-     * <li>ASWingConstants.TOP
-     * <li>ASWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER (the default)
+     * <li>AsWingConstants.TOP
+     * <li>AsWingConstants.BOTTOM
      * </ul>
      */
-    public function getVerticalAlignment():Number {
+    public function getVerticalAlignment():int {
         return verticalAlignment;
     }
     
@@ -502,12 +515,12 @@ public class AbstractTabbedPane extends Container
      * Sets the vertical alignment of the icon and text.
      * @param alignment  one of the following values:
      * <ul>
-     * <li>ASWingConstants.CENTER (the default)
-     * <li>ASWingConstants.TOP
-     * <li>ASWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER (the default)
+     * <li>AsWingConstants.TOP
+     * <li>AsWingConstants.BOTTOM
      * </ul>
      */
-    public function setVerticalAlignment(alignment:Number):void {
+    public function setVerticalAlignment(alignment:int):void {
         if (alignment == verticalAlignment){
         	return;
         }else{
@@ -522,12 +535,12 @@ public class AbstractTabbedPane extends Container
      * @return the <code>horizontalAlignment</code> property,
      *		one of the following values:
      * <ul>
-     * <li>ASWingConstants.RIGHT (the default)
-     * <li>ASWingConstants.LEFT
-     * <li>ASWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)
+     * <li>AsWingConstants.LEFT
+     * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function getHorizontalAlignment():Number{
+    public function getHorizontalAlignment():int{
         return horizontalAlignment;
     }
     
@@ -535,12 +548,12 @@ public class AbstractTabbedPane extends Container
      * Sets the horizontal alignment of the icon and text.
      * @param alignment  one of the following values:
      * <ul>
-     * <li>ASWingConstants.RIGHT (the default)
-     * <li>ASWingConstants.LEFT
-     * <li>ASWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)
+     * <li>AsWingConstants.LEFT
+     * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function setHorizontalAlignment(alignment:Number):void {
+    public function setHorizontalAlignment(alignment:int):void {
         if (alignment == horizontalAlignment){
         	return;
         }else{
@@ -556,12 +569,12 @@ public class AbstractTabbedPane extends Container
      * @return the <code>verticalTextPosition</code> property, 
      *		one of the following values:
      * <ul>
-     * <li>ASWingConstants.CENTER  (the default)
-     * <li>ASWingConstants.TOP
-     * <li>ASWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER  (the default)
+     * <li>AsWingConstants.TOP
+     * <li>AsWingConstants.BOTTOM
      * </ul>
      */
-    public function getVerticalTextPosition():Number{
+    public function getVerticalTextPosition():int{
         return verticalTextPosition;
     }
     
@@ -569,12 +582,12 @@ public class AbstractTabbedPane extends Container
      * Sets the vertical position of the text relative to the icon.
      * @param alignment  one of the following values:
      * <ul>
-     * <li>ASWingConstants.CENTER (the default)
-     * <li>ASWingConstants.TOP
-     * <li>ASWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER (the default)
+     * <li>AsWingConstants.TOP
+     * <li>AsWingConstants.BOTTOM
      * </ul>
      */
-    public function setVerticalTextPosition(textPosition:Number):void {
+    public function setVerticalTextPosition(textPosition:int):void {
         if (textPosition == verticalTextPosition){
 	        return;
         }else{
@@ -589,12 +602,12 @@ public class AbstractTabbedPane extends Container
      * @return the <code>horizontalTextPosition</code> property, 
      * 		one of the following values:
      * <ul>
-     * <li>ASWingConstants.RIGHT (the default)
-     * <li>ASWingConstants.LEFT
-     * <li>ASWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)
+     * <li>AsWingConstants.LEFT
+     * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function getHorizontalTextPosition():Number {
+    public function getHorizontalTextPosition():int {
         return horizontalTextPosition;
     }
     
@@ -602,12 +615,12 @@ public class AbstractTabbedPane extends Container
      * Sets the horizontal position of the text relative to the icon.
      * @param textPosition one of the following values:
      * <ul>
-     * <li>ASWingConstants.RIGHT (the default)
-     * <li>ASWingConstants.LEFT
-     * <li>ASWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)
+     * <li>AsWingConstants.LEFT
+     * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function setHorizontalTextPosition(textPosition:Number):void {
+    public function setHorizontalTextPosition(textPosition:int):void {
         if (textPosition == horizontalTextPosition){
         	return;
         }else{
@@ -625,7 +638,7 @@ public class AbstractTabbedPane extends Container
      *         and the icon.
      * @see #setIconTextGap()
      */
-    public function getIconTextGap():Number {
+    public function getIconTextGap():int {
         return iconTextGap;
     }
 
@@ -637,8 +650,8 @@ public class AbstractTabbedPane extends Container
      * 
      * @see #getIconTextGap()
      */
-    public function setIconTextGap(iconTextGap:Number):void {
-        var oldValue:Number = this.iconTextGap;
+    public function setIconTextGap(iconTextGap:int):void {
+        var oldValue:int = this.iconTextGap;
         this.iconTextGap = iconTextGap;
         if (iconTextGap != oldValue) {
             revalidate();
@@ -676,30 +689,31 @@ public class AbstractTabbedPane extends Container
 		}
 	}    
         	
-	private function __modelStateChanged():void{
-		fireStateChanged();
+	private function __modelStateChanged(e:InteractiveEvent):void{
+		fireStateChanged(e.isProgrammatic());
 	}
 	
-	private function fireStateChanged():void{
-		dispatchEvent(new Event(InteractiveEvent.STATE_CHANGED));
+	private function fireStateChanged(programmatic:Boolean):void{
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
 	}
+	
     //----------------------------------------------------------------
     
-	private function insertToArray(arr:Array, i:Number, obj:Object):void{
+	private function insertToArray(arr:Array, i:int, obj:Object):void{
 		if(i < 0){
 			arr.push(obj);
 		}else{
 			arr.splice(i, 0, obj);
 		}
-	}	
+	}
 	
-	private function removeFromArray(arr:Array, i:Number):void{
+	private function removeFromArray(arr:Array, i:int):void{
 		if(i < 0){
 			arr.pop();
 		}else{
 			arr.splice(i, 1);
 		}
-	}	
+	}
 	
 }
 }
