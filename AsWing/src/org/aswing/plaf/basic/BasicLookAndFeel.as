@@ -12,6 +12,7 @@ import org.aswing.plaf.basic.border.*;
 import org.aswing.plaf.basic.icon.*;
 import org.aswing.plaf.basic.frame.*;
 import org.aswing.resizer.*;
+import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -58,7 +59,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,			   			   
 			   "ListUI",org.aswing.plaf.basic.BasicListUI,		   			   
 			   "ComboBoxUI",org.aswing.plaf.basic.BasicComboBoxUI,			   
-			   "SliderUI",org.aswing.plaf.basic.BasicSliderUI,
+			   "SliderUI",org.aswing.plaf.basic.BasicSliderUI,		   
+			   "AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,
 			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,
 			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI   
 		   ];
@@ -415,6 +417,30 @@ public class BasicLookAndFeel extends LookAndFeel
 		    "Slider.thumbDarkShadow", table.get("controlDkShadow"),
 		    "Slider.thumbHighlight", table.get("controlHighlight"),
 		    "Slider.thumbLightHighlight", table.get("controlLtHighlight")
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** Adjuster
+	    comDefaults = [
+		    "Adjuster.background", buttonBG,
+		    "Adjuster.foreground", table.get("controlText"),
+	    	"Adjuster.opaque", false,  
+	    	"Adjuster.focusable", true,  
+		    "Adjuster.shadow", table.getColor("controlShadow"),
+	        "Adjuster.darkShadow", table.getColor("controlDkShadow"),
+	        "Adjuster.light", table.getColor("controlHighlight"),
+	        "Adjuster.highlight", table.getColor("controlLtHighlight"),
+        	"Adjuster.font", table.getFont("controlFont"), 
+	    	"Adjuster.thumbIcon", org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon,
+		    "Adjuster.tickColor", table.get("controlDkShadow"),
+		    "Adjuster.progressColor", new ASColorUIResource(0xC4C4EE),
+		    "Adjuster.thumb", table.get("control"),
+		    "Adjuster.thumbShadow", table.get("controlShadow"),
+		    "Adjuster.thumbDarkShadow", table.get("controlDkShadow"),
+		    "Adjuster.thumbHighlight", table.get("controlHighlight"),
+		    "Adjuster.thumbLightHighlight", table.get("controlLtHighlight"),
+		    "Adjuster.arrowShadowColor", new ASColorUIResource(0x000000),
+		    "Adjuster.arrowLightColor", new ASColorUIResource(0x444444)
 	    ];
 	    table.putDefaults(comDefaults);
 	}

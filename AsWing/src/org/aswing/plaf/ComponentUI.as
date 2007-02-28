@@ -8,6 +8,7 @@ package org.aswing.plaf
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
+import flash.display.InteractiveObject;
  
 /**
  * The interface for all UI delegate objects in the AsWing pluggable look and feel architecture. 
@@ -107,6 +108,13 @@ public interface ComponentUI
      */
     function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void;
     
+    /**
+     * Returns the object to receive the focus for the component. 
+     * @param c the component
+     * @return the object to receive the focus.
+     */
+	function getInternalFocusObject(c:Component):InteractiveObject;
+	
     /**
      * Returns the specified component's preferred size appropriate for
      * the look and feel.  If <code>null</code> is returned, the preferred

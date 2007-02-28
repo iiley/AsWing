@@ -3,8 +3,8 @@
 */
 
 package org.aswing{
-	import org.aswing.event.InteractiveEvent;
 	
+import org.aswing.event.InteractiveEvent;
 
 /**
  * Dispatched when the slider's state changed. 

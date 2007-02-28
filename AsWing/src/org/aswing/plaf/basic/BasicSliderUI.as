@@ -86,13 +86,14 @@ public class BasicSliderUI extends BaseComponentUI{
 	}
 	
 	protected function configureSliderColors():void{
-		highlightColor = getColor("Slider.highlight");
-		shadowColor = getColor("Slider.shadow");
-		darkShadowColor = getColor("Slider.darkShadow");
-		lightColor = getColor("Slider.light");
+		var pp:String = getPropertyPrefix();
+		highlightColor = getColor(pp+"highlight");
+		shadowColor = getColor(pp+"shadow");
+		darkShadowColor = getColor(pp+"darkShadow");
+		lightColor = getColor(pp+"light");
 		
-		tickColor = getColor("Slider.tickColor");
-		progressColor = getColor("Slider.progressColor");
+		tickColor = getColor(pp+"tickColor");
+		progressColor = getColor(pp+"progressColor");
 	}
 	
 	protected function uninstallDefaults():void{
@@ -100,7 +101,8 @@ public class BasicSliderUI extends BaseComponentUI{
 	}
 	
 	protected function installComponents():void{
-		thumbIcon = getIcon("Slider.thumbIcon");
+		var pp:String = getPropertyPrefix();
+		thumbIcon = getIcon(pp+"thumbIcon");
 		if(thumbIcon.getDisplay()==null){
 			throw new Error("Slider thumb icon must has its own display object(getDisplay()!=null)!");
 		}
@@ -723,6 +725,10 @@ public class BasicSliderUI extends BaseComponentUI{
 	
 	//---------------------
 	
+	protected function getPrefferedLength():int{
+		return 200;
+	}
+		
     override public function getPreferredSize(c:Component):IntDimension{
     	var size:IntDimension;
     	var thumbSize:IntDimension = getThumbSize();
@@ -731,10 +737,10 @@ public class BasicSliderUI extends BaseComponentUI{
     	var wide:int = slider.getPaintTicks() ? gap+tickLength : 0;
     	if(isVertical()){
     		wide += thumbSize.width;
-    		size = new IntDimension(wide, Math.max(wide, 200));
+    		size = new IntDimension(wide, Math.max(wide, getPrefferedLength()));
     	}else{
     		wide += thumbSize.height;
-    		size = new IntDimension(Math.max(wide, 200), wide);
+    		size = new IntDimension(Math.max(wide, getPrefferedLength()), wide);
     	}
     	return c.getInsets().getOutsideSize(size);
     }
