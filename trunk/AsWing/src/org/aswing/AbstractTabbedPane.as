@@ -219,7 +219,7 @@ public class AbstractTabbedPane extends Container{
 	 * This will call removeTabAt()
 	 */	
 	override protected function removeAtImp(i:int):Component{
-		removeTabAt(i);
+		return removeTabAt(i);
 	}
 	
 	/**

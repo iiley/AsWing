@@ -26,12 +26,12 @@ public interface SingleSelectionModel
      * @see   #getSelectedIndex()
      * @see   #addChangeListener()
      */
-    function setSelectedIndex(index:int):void;
+    function setSelectedIndex(index:int, programmatic:Boolean=true):void;
 
     /**
      * Clears the selection (to -1).
      */
-    function clearSelection():void;
+    function clearSelection(programmatic:Boolean=true):void;
 
     /**
      * Returns true if the selection model currently has a selected value.
