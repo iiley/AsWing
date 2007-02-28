@@ -77,7 +77,7 @@ public class JAttachPane extends FloorPane {
 				}else{
 					classReference = loader.contentLoaderInfo.applicationDomain.getDefinition(this.getPath()) as Class;
 				}
-				var attachMC:Sprite = new classReference();
+				var attachMC:DisplayObject = new classReference();
 				setFloorOriginalSize(new IntDimension(attachMC.width, attachMC.height));
 				dispatchEvent(new AttachEvent(AttachEvent.ATTACHED));
 				return attachMC;
