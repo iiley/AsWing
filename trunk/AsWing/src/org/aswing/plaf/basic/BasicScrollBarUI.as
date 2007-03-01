@@ -54,9 +54,6 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		isDragging = false;
 		offset = 0;
 		scrollIncrement = 0;
-		scrollTimer = new Timer(scrollSpeedThrottle);
-		scrollTimer.setInitialDelay(initialScrollSpeedThrottle);
-		scrollTimer.addActionListener(__scrollTimerPerformed);
 	}
     	
     protected function getPropertyPrefix():String {
@@ -75,7 +72,6 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
-		scrollTimer.stop();
     }
 	
 	protected function installDefaults():void{
@@ -145,6 +141,10 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollbar.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
 		
 		scrollbar.addEventListener(Event.REMOVED_FROM_STAGE, __destroy);
+		
+		scrollTimer = new Timer(scrollSpeedThrottle);
+		scrollTimer.setInitialDelay(initialScrollSpeedThrottle);
+		scrollTimer.addActionListener(__scrollTimerPerformed);
 	}
     
     protected function uninstallListeners():void{
@@ -162,6 +162,8 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollbar.removeEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
 		scrollbar.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
 		scrollbar.removeEventListener(Event.REMOVED_FROM_STAGE, __destroy);
+		scrollTimer.stop();
+		scrollTimer = null;
     }
 	    
     private function isVertical():Boolean{
@@ -551,9 +553,9 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		var w:int, h:int;
 		if(isVertical()){
 			w = scrollBarWidth;
-			h = 10000;
+			h = 100000;
 		}else{
-			w = 10000;
+			w = 100000;
 			h = scrollBarWidth;
 		}
 		return scrollbar.getInsets().getOutsideSize(new IntDimension(w, h));

@@ -111,13 +111,25 @@ public class AbstractTabbedPane extends Container{
 	}
 	
 	/**
-	 * addChangeListener(func : Function, obj : Object) : Object<br>
-	 * addChangeListener(func : Function) : Object<br>
-	 * listens the tab selection change event.
-	 */
-	public function addChangeListener(func : Function) : void {
-		addEventListener(InteractiveEvent.STATE_CHANGED, func);
-	}
+	 * Adds a listener to listen the tab selection change event.
+	 * @param listener the listener
+	 * @param priority the priority
+	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
+	 * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
+	 */	
+	public function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
+		addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);
+	}	
+	
+	/**
+	 * Removes a state listener.
+	 * @param listener the listener to be removed.
+	 * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
+	 */	
+	public function removeStateListener(listener:Function):void{
+		removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
+	}	
+	
 	/**
 	 * Adds a component to the tabbedpane. 
 	 * If constraints is a String or an Icon or an Object(object.toString() as a title), 
@@ -159,8 +171,8 @@ public class AbstractTabbedPane extends Container{
 		var icon:Icon = null;
 		if(constraints == null){
 			title = com.getName();
-		}else if(StringUtils.isString(constraints)){
-			title = String(constraints);
+		}else if(constraints is String){
+			title = constraints as String;
 		}else if(constraints is Icon){
 			icon = Icon(constraints);
 		}else{
@@ -177,7 +189,7 @@ public class AbstractTabbedPane extends Container{
 	 * @param icon the icon to be displayed in this tab
 	 * @param tip the tooltip to be displayed for this tab, can be null means no tool tip.
 	 */
-	public function appendTab(com:Component, title:String, icon:Icon, tip:String):void{
+	public function appendTab(com:Component, title:String="", icon:Icon=null, tip:String=null):void{
 		insertTab(-1, com, title, icon, tip);
 	}
 	
@@ -191,7 +203,7 @@ public class AbstractTabbedPane extends Container{
 	 * @param tip the tooltip to be displayed for this tab, can be null means no tool tip.
 	 * @throws RangeError when index > children count
 	 */
-	public function insertTab(i:int, com:Component, title:String, icon:Icon, tip:String):void{
+	public function insertTab(i:int, com:Component, title:String="", icon:Icon=null, tip:String=null):void{
 		if(i > getComponentCount()){
 			throw new RangeError("illegal component position when insert comp to container");
 		}
@@ -502,9 +514,9 @@ public class AbstractTabbedPane extends Container{
      * @return the <code>verticalAlignment</code> property, one of the
      *		following values: 
      * <ul>
-     * <li>AsWingConstants.CENTER (the default)
-     * <li>AsWingConstants.TOP
-     * <li>AsWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER (the default)</li>
+     * <li>AsWingConstants.TOP</li>
+     * <li>AsWingConstants.BOTTOM</li>
      * </ul>
      */
     public function getVerticalAlignment():int {
@@ -515,9 +527,9 @@ public class AbstractTabbedPane extends Container{
      * Sets the vertical alignment of the icon and text.
      * @param alignment  one of the following values:
      * <ul>
-     * <li>AsWingConstants.CENTER (the default)
-     * <li>AsWingConstants.TOP
-     * <li>AsWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER (the default)</li>
+     * <li>AsWingConstants.TOP</li>
+     * <li>AsWingConstants.BOTTOM</li>
      * </ul>
      */
     public function setVerticalAlignment(alignment:int):void {
@@ -535,9 +547,9 @@ public class AbstractTabbedPane extends Container{
      * @return the <code>horizontalAlignment</code> property,
      *		one of the following values:
      * <ul>
-     * <li>AsWingConstants.RIGHT (the default)
-     * <li>AsWingConstants.LEFT
-     * <li>AsWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)</li>
+     * <li>AsWingConstants.LEFT</li>
+     * <li>AsWingConstants.CENTER</li>
      * </ul>
      */
     public function getHorizontalAlignment():int{
@@ -548,9 +560,9 @@ public class AbstractTabbedPane extends Container{
      * Sets the horizontal alignment of the icon and text.
      * @param alignment  one of the following values:
      * <ul>
-     * <li>AsWingConstants.RIGHT (the default)
-     * <li>AsWingConstants.LEFT
-     * <li>AsWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)</li>
+     * <li>AsWingConstants.LEFT</li>
+     * <li>AsWingConstants.CENTER</li>
      * </ul>
      */
     public function setHorizontalAlignment(alignment:int):void {
@@ -569,9 +581,9 @@ public class AbstractTabbedPane extends Container{
      * @return the <code>verticalTextPosition</code> property, 
      *		one of the following values:
      * <ul>
-     * <li>AsWingConstants.CENTER  (the default)
-     * <li>AsWingConstants.TOP
-     * <li>AsWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER  (the default)</li>
+     * <li>AsWingConstants.TOP</li>
+     * <li>AsWingConstants.BOTTOM</li>
      * </ul>
      */
     public function getVerticalTextPosition():int{
@@ -582,9 +594,9 @@ public class AbstractTabbedPane extends Container{
      * Sets the vertical position of the text relative to the icon.
      * @param alignment  one of the following values:
      * <ul>
-     * <li>AsWingConstants.CENTER (the default)
-     * <li>AsWingConstants.TOP
-     * <li>AsWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER (the default)</li>
+     * <li>AsWingConstants.TOP</li>
+     * <li>AsWingConstants.BOTTOM</li>
      * </ul>
      */
     public function setVerticalTextPosition(textPosition:int):void {
@@ -602,9 +614,9 @@ public class AbstractTabbedPane extends Container{
      * @return the <code>horizontalTextPosition</code> property, 
      * 		one of the following values:
      * <ul>
-     * <li>AsWingConstants.RIGHT (the default)
-     * <li>AsWingConstants.LEFT
-     * <li>AsWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)</li>
+     * <li>AsWingConstants.LEFT</li>
+     * <li>AsWingConstants.CENTER</li>
      * </ul>
      */
     public function getHorizontalTextPosition():int {
@@ -615,9 +627,9 @@ public class AbstractTabbedPane extends Container{
      * Sets the horizontal position of the text relative to the icon.
      * @param textPosition one of the following values:
      * <ul>
-     * <li>AsWingConstants.RIGHT (the default)
-     * <li>AsWingConstants.LEFT
-     * <li>AsWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)</li>
+     * <li>AsWingConstants.LEFT</li>
+     * <li>AsWingConstants.CENTER</li>
      * </ul>
      */
     public function setHorizontalTextPosition(textPosition:int):void {

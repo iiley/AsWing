@@ -90,6 +90,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     
     protected function uninstallListeners():void{
     	popupTimer.stop();
+    	popupTimer = null;
 		box.removeEventListener(MouseEvent.MOUSE_DOWN, __onBoxPressed);
 		box.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onFocusKeyDown);
 		box.removeEventListener(AWEvent.FOCUS_LOST, __onFocusLost);

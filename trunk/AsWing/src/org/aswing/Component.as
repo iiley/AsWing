@@ -1691,6 +1691,7 @@ public class Component extends AWSprite
 	/**
 	 * Sets the clip bounds, a rectangle mask to make specified bounds visible.
 	 * Null to make the componet mask whole rectangle(show all).
+	 * @param b the bounds to be the masked clip, null to make it show all. Default is null.
 	 */
 	public function setClipBounds(b:IntRectangle):void{
 		var changed:Boolean = false;
@@ -1725,11 +1726,12 @@ public class Component extends AWSprite
 	 * @see #setClipBounds()
 	 */	
 	public function setClipSize(size:IntDimension):void{
-		if(clipBounds == null){
-			clipBounds = new IntRectangle();
+		var bounds:IntRectangle = new IntRectangle();
+		if(clipBounds != null){
+			bounds.setLocation(clipBounds.getLocation());
 		}
-		clipBounds.setSize(size);
-		setClipBounds(clipBounds);
+		bounds.setSize(size);
+		setClipBounds(bounds);
 	}
 	
     /**
@@ -2197,7 +2199,11 @@ public class Component extends AWSprite
 	//this will works because focusIn will be fired before mouseDown
 	private function __mouseDown(e:MouseEvent):void{
 		var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
-		if(focusOwner == null || !(focusOwner == this || AsWingUtils.isAncestor(this, focusOwner))){
+		var target:DisplayObject = e.target as DisplayObject;
+		if(focusOwner == null || 
+			!(focusOwner == this || 
+				AsWingUtils.isAncestor(this, focusOwner) 
+					&& focusOwner.contains(target))){
 			requestFocus();
 		}
 		if(isDragEnabled()){

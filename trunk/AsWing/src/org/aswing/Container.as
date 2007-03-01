@@ -258,10 +258,11 @@ public class Container extends Component{
 	}
 	
 	/**
-	 * If dis is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be added.
+	 * If <code>dis</code> is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be added.
 	 * Otherwise it will be call <code>super.addChild()</code> as a normal DisplayObject to be added.
 	 * @inheritDoc 
 	 * @see #append()
+	 * @see #DC_addChild()
 	 */
 	override public function addChild(dis:DisplayObject):DisplayObject{
 		if(dis is Component){
@@ -273,10 +274,11 @@ public class Container extends Component{
 	}
 
 	/**
-	 * If dis is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be added.
+	 * If <code>dis</code> is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be added.
 	 * Otherwise it will be call <code>super.addChild()</code> as a normal DisplayObject to be added.
 	 * @inheritDoc 
 	 * @see #insert()
+	 * @see #DC_addChildAt()
 	 */	
 	override public function addChildAt(dis:DisplayObject, index:int):DisplayObject{
 		if(dis is Component){
@@ -287,6 +289,12 @@ public class Container extends Component{
 		}
 	}
 	
+	/**
+	 * If <code>child</code> is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be removed.
+	 * Otherwise it will be call <code>super.removeChild()</code> as a normal DisplayObject to be removed.
+	 * @inheritDoc 
+	 * @see #DC_removeChild()
+	 */	
 	override public function removeChild(child:DisplayObject):DisplayObject{
 		if(child is Component){
 			return remove(child as Component);
@@ -295,24 +303,50 @@ public class Container extends Component{
 		}
 	}
 	
+	/**
+	 * If the child at the index is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be removed.
+	 * Otherwise it will be call <code>super.removeChild()</code> as a normal DisplayObject to be removed.
+	 * @inheritDoc 
+	 * @see #DC_removeChildAt()
+	 */		
 	override public function removeChildAt(index:int):DisplayObject{
 		var child:DisplayObject = getChildAt(index);
 		return removeChild(child);
 	}
 	
-	protected function DC_addChild(dis:DisplayObject):DisplayObject{
+	/**
+	 * Directly call <code>DisplayObjectContainer.addChild</code>.
+	 * It will not judge whether the <code>dis</code> is a component or not.
+	 * @see #addChild()
+	 */
+	public function DC_addChild(dis:DisplayObject):DisplayObject{
 		return super.addChild(dis);
 	}
 	
-	protected function DC_addChildAt(dis:DisplayObject, index:int):DisplayObject{
+	/**
+	 * Directly call <code>DisplayObjectContainer.addChildAt</code>.
+	 * It will not judge whether the <code>dis</code> is a component or not.
+	 * @see #addChildAt()
+	 */	
+	public function DC_addChildAt(dis:DisplayObject, index:int):DisplayObject{
 		return super.addChildAt(dis, index);
 	}
 	
-	protected function DC_removeChild(dis:DisplayObject):DisplayObject{
+	/**
+	 * Directly call <code>DisplayObjectContainer.removeChild</code>.
+	 * It will not judge whether the <code>dis</code> is a component or not.
+	 * @see #removeChild()
+	 */	
+	public function DC_removeChild(dis:DisplayObject):DisplayObject{
 		return super.removeChild(dis);
 	}
 	
-	protected function DC_removeChildAt(index:int):DisplayObject{
+	/**
+	 * Directly call <code>DisplayObjectContainer.removeChildAt</code>.
+	 * It will not judge whether the <code>dis</code> is a component or not.
+	 * @see #removeChildAt()
+	 */	
+	public function DC_removeChildAt(index:int):DisplayObject{
 		return super.removeChildAt(index);
 	}
 	
