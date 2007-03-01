@@ -6,6 +6,7 @@ package org.aswing.plaf.basic{
 	
 import org.aswing.geom.*;
 import org.aswing.*;
+import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.accordion.*;
 import flash.display.Sprite;
@@ -116,6 +117,19 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 		motionTimer = null;
     }
     
+   	override public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void{
+    	var header:AccordionHeader = getSelectedHeader();
+    	if(header != null){
+    		header.getComponent().paintFocusRect(true);
+    	}else{
+    		super.paintFocus(c, g, b);
+    	}
+    } 
+    
+	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
+    	super.paint(c, g, b);
+    }
+    
     /**
      * Just override this method if you want other LAF headers.
      */
@@ -215,15 +229,10 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 	    		FocusManager.getCurrentManager().setTraversing(true);
 		    	index = accordion.getSelectedIndex();
 		    	index++;
-		    	count = 1;
-		    	while((!accordion.isEnabledAt(index) || !accordion.isVisibleAt(index)) && count<=n){
+		    	while(index<n && (!accordion.isEnabledAt(index) || !accordion.isVisibleAt(index))){
 		    		index++;
-		    		count++;
-			    	if(index >= n){
-			    		index = 0;
-			    	}
 		    	}
-		    	if(count > n){
+		    	if(index >= n){
 		    		return;
 		    	}
 		    	accordion.setSelectedIndex(index);
@@ -231,15 +240,10 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 	    		FocusManager.getCurrentManager().setTraversing(true);
 		    	index = accordion.getSelectedIndex();
 		    	index--;
-		    	count = 1;
-		    	while((!accordion.isEnabledAt(index) || !accordion.isVisibleAt(index)) && count<=n){
+		    	while(index >= 0 && (!accordion.isEnabledAt(index) || !accordion.isVisibleAt(index))){
 		    		index--;
-		    		count++;
-			    	if(index < 0){
-			    		index = n - 1;
-			    	}
 		    	}
-		    	if(count > n){
+		    	if(index < 0){
 		    		return;
 		    	}
 		    	accordion.setSelectedIndex(index);

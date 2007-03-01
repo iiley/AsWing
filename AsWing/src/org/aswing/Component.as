@@ -1884,10 +1884,11 @@ public class Component extends AWSprite
 	 * Paints the focus rect if need.
 	 * The focus will be paint by the component ui if this component is focusOwner and 
 	 * <code>FocusManager.getCurrentManager().isTraversing()</code>.
+	 * @param force force to paint the focus rect nomatter if it is focused.
 	 */
-	public function paintFocusRect():void{
+	public function paintFocusRect(force:Boolean=false):void{
 		if(ui != null){
-			if(FocusManager.getCurrentManager().isTraversing() && isFocusOwner()){
+			if(force || FocusManager.getCurrentManager().isTraversing() && isFocusOwner()){
 				var fr:Sprite = FocusManager.getCurrentManager().moveFocusRectUpperTo(this);
 				fr.graphics.clear();
 				ui.paintFocus(this, new Graphics2D(fr.graphics), new IntRectangle(0, 0, width, height));
