@@ -35,12 +35,16 @@ package cases
 			
 			pop2 = new JFrame(pop1, "Long Title Frame, Really very Long?", true);
 			pop2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			var defaultButton:JButton = new JButton("PopupedButton");
+			var defaultButton:JButton = new JButton("Default Button");
 			pop2.getContentPane().setLayout(new FlowLayout());
 			pop2.getContentPane().append(defaultButton);
+			pop2.getContentPane().append(new JButton("Normal Button"));
 			pop2.setSizeWH(200, 200);
 			pop2.setLocationXY(200, 10);
 			pop2.setDefaultButton(defaultButton);
+			defaultButton.addActionListener(
+				function(e:Event):void{
+					trace("defaultButton entered!");});
 			
 			//pop1.addEventListener(MouseEvent.MOUSE_DOWN, __top1);
 			//pop1.addEventListener(AWEvent.RELEASE, __top1Released);
