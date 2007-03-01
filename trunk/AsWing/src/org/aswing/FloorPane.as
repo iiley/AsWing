@@ -92,7 +92,7 @@ public class FloorPane extends Container
 	 */
     public static const RIGHT:int   = AsWingConstants.RIGHT;
     
-    private var path:String;
+    protected var path:String;
 	private var floorEnabled:Boolean;
 	private var floorMC:DisplayObject;
 	private var floorMCMask:Sprite;
