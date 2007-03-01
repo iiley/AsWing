@@ -10,6 +10,7 @@ import flash.ui.Keyboard;
 import org.aswing.util.DepthManager;
 import flash.geom.Point;
 import flash.text.TextField;
+import org.aswing.event.*;
 
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
@@ -58,12 +59,55 @@ public class FocusManager{
 		}
 	}
 	
+	private var focusPaintedComponent:Component;
+	
 	public function moveFocusRectUpperTo(c:Component):Sprite{
+		if(focusPaintedComponent != c){
+			if(focusPaintedComponent != null){
+				removeistenerToFocusPaintedComponent();
+			}
+			focusPaintedComponent = c;
+			addListenerToFocusPaintedComponent();
+		}
+		
 		DepthManager.bringToTop(focusRect);
 		var p:Point = c.localToGlobal(new Point());
 		focusRect.x = p.x;
 		focusRect.y = p.y;
 		return focusRect;
+	}
+	
+	private function addListenerToFocusPaintedComponent():void{
+		focusPaintedComponent.addEventListener(MovedEvent.MOVED, __focusPaintedComMoved);
+		focusPaintedComponent.addEventListener(ResizedEvent.RESIZED, __focusPaintedComResized);
+		focusPaintedComponent.addEventListener(Event.REMOVED_FROM_STAGE, __focusPaintedComRemoved);
+	}
+	
+	private function removeistenerToFocusPaintedComponent():void{
+		if(focusPaintedComponent != null){
+			focusPaintedComponent.removeEventListener(MovedEvent.MOVED, __focusPaintedComMoved);
+			focusPaintedComponent.removeEventListener(ResizedEvent.RESIZED, __focusPaintedComResized);
+			focusPaintedComponent.removeEventListener(Event.REMOVED_FROM_STAGE, __focusPaintedComRemoved);
+			focusPaintedComponent = null;
+		}
+	}
+	
+	private function __focusPaintedComRemoved(e:Event):void{
+		removeistenerToFocusPaintedComponent();
+	}
+	
+	private function __focusPaintedComMoved(e:MovedEvent):void{
+		if(focusRect.visible){
+			var dx:int = e.getNewLocation().x - e.getOldLocation().x;
+			var dy:int = e.getNewLocation().y - e.getOldLocation().y;
+			focusRect.x += dx;
+			focusRect.y += dy;
+		}
+	}
+	private function __focusPaintedComResized(e:ResizedEvent):void{
+		if(focusRect.visible){
+			focusPaintedComponent.paintFocusRect(true);
+		}
 	}
 	
 	/**
@@ -148,6 +192,7 @@ public class FocusManager{
 		focusRect.visible = b;
 		if(!b){
 			focusRect.graphics.clear();
+			removeistenerToFocusPaintedComponent();
 		}
 	}
 		
