@@ -12,7 +12,7 @@ import org.aswing.event.AttachEvent;
 import org.aswing.geom.IntDimension;
 import flash.display.Loader;
 import flash.display.Sprite;
-import flash.events.Event;
+import flash.events.*;
 import flash.net.URLRequest;
 
 /**
@@ -50,22 +50,56 @@ public class JAttachPane extends FloorPane {
 		this.loadpath = null;
 		this.loading = false;
 		setName("JAttachPane");
-	}	
+	}
 	
+	/**
+	 * Sets the path to attach displayObject from library of root sprite.
+	 * This method will cause <code>reload()</code> action if the path 
+	 * is different from old one.
+	 * @param path the linkageID of a displayObject.
+	 * @see #reload()
+	 */
 	override public function setPath(path:String):void{
 		this.loader = null;
+		this.loadpath = null;
 		super.setPath(path);
 	}
 	
+	/**
+	 * Sets the path to attach displayObject from library of loader.
+	 * This method will cause <code>reload()</code> action if the path 
+	 * is different from old one.
+	 * @param path the linkageID of a displayObject.
+	 * @param loader the loader object of the loader with library.
+	 * @see #reload()
+	 */
 	public function setPathAndLoader(path:String, loader:Loader=null):void{
-		this.loader = loader;
-		super.setPath(path);
+		if(path != this.path || loader != this.loader){
+			this.path = path;
+			this.loader = loader;
+			this.loadpath = null;
+			setLoaded(false);
+			reload();
+		}
 	}
 	
+	/**
+	 * Sets the path to attach displayObject from library of loader with loaderpath.
+	 * This method will cause <code>reload()</code> action if the path 
+	 * is different from old one.
+	 * @param path the linkageID of a displayObject.
+	 * @param loadpath the path of the swf path with library.
+	 * @see #reload()
+	 */
 	public function setPathAndLoaderPath(path:String, loadpath:String=null):void{
-		this.loadpath = loadpath;
-		this.loader = null;
-		super.setPath(path);
+		if(path != this.path || loadpath != this.loadpath){
+			this.loadpath = loadpath;
+			this.path = path;
+			this.loader = null;
+			this.loading = false;
+			setLoaded(false);
+			reload();
+		}
 	}
 	
 	override protected function loadFloor():void{
@@ -82,30 +116,32 @@ public class JAttachPane extends FloorPane {
 	 */
 	override protected function createFloor():DisplayObject{
 		if (this.getPath() != null){
-			if (loadpath != null){
-				if (loading) return null;
-				loader = new Loader();
-				loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit);
-				loader.load(new URLRequest(loadpath));
-				loading = true;
+			if (loadpath != null && !loading){
+				return createLoader();
 			}else{
 				return getAttachDisplayObject();
 			}
-
-		}else{
-			return null;
 		}
 		return null;
 	}
 	
+	private function createLoader():DisplayObject{
+		if (loader == null){
+			loader = new Loader();
+			loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit, false, 0, true);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError, false, 0, true);
+		}
+		loader.load(new URLRequest(loadpath));
+		loading = true;
+		return null;		
+	}
+	
 	private function __onLoadInit(e:Event):void{
-		loader.contentLoaderInfo.removeEventListener(Event.INIT, __onLoadInit);
-		loadpath = null;
-		loading = false;
-		setLoaded(false);		
-		valid = false;		
-		revalidate();
-		validate();
+		setLoaded(false);
+		reload();
+	}
+	
+	private function __onLoadError(e:IOErrorEvent):void{
 	}
 	
 	private function getAttachDisplayObject():DisplayObject{
