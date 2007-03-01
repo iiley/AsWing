@@ -60,7 +60,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ListUI",org.aswing.plaf.basic.BasicListUI,		   			   
 			   "ComboBoxUI",org.aswing.plaf.basic.BasicComboBoxUI,			   
 			   "SliderUI",org.aswing.plaf.basic.BasicSliderUI,		   
-			   "AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,
+			   "AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
+			   "AccordionUI",org.aswing.plaf.basic.BasicAccordionUI,
 			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,
 			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI   
 		   ];
@@ -441,6 +442,17 @@ public class BasicLookAndFeel extends LookAndFeel
 		    "Adjuster.thumbLightHighlight", table.get("controlLtHighlight"),
 		    "Adjuster.arrowShadowColor", new ASColorUIResource(0x000000),
 		    "Adjuster.arrowLightColor", new ASColorUIResource(0x444444)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** Accordion
+	    comDefaults = [
+		    "Accordion.background", table.get("window"),
+		    "Accordion.foreground", table.get("windowText"),
+	    	"Accordion.opaque", false,  
+	    	"Accordion.focusable", true,
+	    	"Accordion.motionSpeed", 50, 
+			"Accordion.tabMargin", new InsetsUIResource(2, 3, 3, 2)
 	    ];
 	    table.putDefaults(comDefaults);
 	}

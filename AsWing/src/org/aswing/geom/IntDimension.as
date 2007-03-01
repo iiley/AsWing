@@ -129,10 +129,10 @@ public class IntDimension{
 	
 	/**
 	 * Create a big dimension for component.
-	 * @return a IntDimension(10000, 10000)
+	 * @return a IntDimension(100000, 100000)
 	 */
 	public static function createBigDimension():IntDimension{
-		return new IntDimension(10000, 10000);
+		return new IntDimension(100000, 100000);
 	}
 	
 	public function toString():String{

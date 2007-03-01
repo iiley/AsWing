@@ -1,5 +1,9 @@
-package org.aswing
-{
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
+package org.aswing{
+
 import flash.events.IEventDispatcher;
 
 /**
@@ -20,9 +24,10 @@ public interface SingleSelectionModel
     /**
      * Sets the model's selected index to <I>index</I>.
      *
-     * Notifies any listeners if the model changes
+     * Notifies any listeners if the model changes.
      *
-     * @param index an int specifying the model selection
+     * @param index an int specifying the model selection.
+     * @param programmatic indicate if this is a programmatic change.
      * @see   #getSelectedIndex()
      * @see   #addChangeListener()
      */
@@ -30,6 +35,7 @@ public interface SingleSelectionModel
 
     /**
      * Clears the selection (to -1).
+     * @param programmatic indicate if this is a programmatic change.
      */
     function clearSelection(programmatic:Boolean=true):void;
 

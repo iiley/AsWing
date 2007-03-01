@@ -74,8 +74,8 @@ public class AWSprite extends Sprite
 	}
 	
 	/**
-	 * Returns the current top index for none forground child.
-	 * @return the current top index for child that is not a foreground child.
+	 * Returns the current top index for a new child(none forground child).
+	 * @return the current top index for a new child that is not a foreground child.
 	 */
 	public function getHighestIndexUnderForeground():int{
 		if(foregroundChild == null){
@@ -95,6 +95,47 @@ public class AWSprite extends Sprite
 		}else{
 			return 1;
 		}
+	}
+	
+	/**
+	 * Brings a child to top.
+	 * This method will keep foreground child on top, if you bring a other object 
+	 * to top, this method will only bring it on top of other objects
+	 * (mean on top of others but bellow the foreground child).
+	 * @param child the child to be bringed to top.
+	 */
+	public function bringToTop(child:DisplayObject):void{
+		if(child.parent != this){
+			throw new Error("The child is not in this AWSprite1");
+		}
+		var index:int = numChildren-1;
+		if(foregroundChild != null){
+			if(foregroundChild != child){
+				index = numChildren-2;
+			}
+		}
+		setChildIndex(child, index);
+	}
+	
+
+	/**
+	 * Brings a child to bottom.
+	 * This method will keep background child on bottom, if you bring a other object 
+	 * to bottom, this method will only bring it at bottom of other objects
+	 * (mean at bottom of others but on top of the background child).
+	 * @param child the child to be bringed to bottom.
+	 */	
+	public function bringToBottom(child:DisplayObject):void{
+		if(child.parent != this){
+			throw new Error("The child is not in this AWSprite1");
+		}
+		var index:int = 0;
+		if(backgroundChild != null){
+			if(backgroundChild != child){
+				index = 1;
+			}
+		}
+		setChildIndex(child, index);
 	}
 	
 	/**

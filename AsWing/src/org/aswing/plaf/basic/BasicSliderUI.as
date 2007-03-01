@@ -54,9 +54,6 @@ public class BasicSliderUI extends BaseComponentUI{
 		trackDrawRect = new IntRectangle();
 		offset	  = 0;
 		isDragging  = false;
-		scrollTimer = new Timer(scrollSpeedThrottle);
-		scrollTimer.setInitialDelay(initialScrollSpeedThrottle);
-		scrollTimer.addActionListener(__scrollTimerPerformed);
 	}
 		
 	protected function getPropertyPrefix():String {
@@ -124,6 +121,9 @@ public class BasicSliderUI extends BaseComponentUI{
 		slider.addEventListener(MouseEvent.MOUSE_WHEEL, __onSliderMouseWheel);
 		slider.addStateListener(__onSliderStateChanged);
 		slider.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onSliderKeyDown);
+		scrollTimer = new Timer(scrollSpeedThrottle);
+		scrollTimer.setInitialDelay(initialScrollSpeedThrottle);
+		scrollTimer.addActionListener(__scrollTimerPerformed);
 	}
 	
 	protected function uninstallListeners():void{
@@ -133,6 +133,7 @@ public class BasicSliderUI extends BaseComponentUI{
 		slider.removeStateListener(__onSliderStateChanged);
 		slider.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onSliderKeyDown);
 		scrollTimer.stop();
+		scrollTimer = null;
 	}
 	
 	protected function isVertical():Boolean{

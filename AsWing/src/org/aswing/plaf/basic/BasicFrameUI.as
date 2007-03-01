@@ -111,7 +111,10 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 		frame.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		frame.removeEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
 		frame.removeEventListener(Event.REMOVED_FROM_STAGE, __frameClosed);
-		flashTimer.stop();
+		if(flashTimer != null){
+			flashTimer.stop();
+			flashTimer = null;
+		}
 	}
 	
 	private var flashing:Boolean;
