@@ -43,6 +43,9 @@ public class ButtonBackground implements GroundDecorator, UIResource{
 			BasicGraphicsUtils.drawBezel(g, bounds, isPressing, shadow, darkShadow, highlight, lightHighlight);
 			bounds.grow(-2, -2);
 			BasicGraphicsUtils.paintButtonBackGround(b, g, bounds);
+			if(b is JButton && JButton(b).isDefaultButton()){
+				g.drawRectangle(new Pen(darkShadow.changeAlpha(0.4), 2), bounds.x, bounds.y, bounds.width, bounds.height);
+			}
 		}
 	}
 	

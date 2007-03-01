@@ -18,6 +18,18 @@ public class JButton extends AbstractButton
 		updateUI();
 	}
 	
+	/**
+	 * Returns whether this button is the default button of its root pane or not.
+	 * @return true if this button is the default button of its root pane, false otherwise.
+	 */
+	public function isDefaultButton():Boolean{
+		var rootPane:JRootPane = getRootPaneAncestor();
+		if(rootPane != null){
+			return rootPane.getDefaultButton() == this;
+		}
+		return false;
+	}
+	
     override public function updateUI():void{
     	setUI(UIManager.getUI(this));
     }

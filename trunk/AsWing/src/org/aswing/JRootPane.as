@@ -36,7 +36,13 @@ public class JRootPane extends Container{
 	}
 	
 	public function setDefaultButton(button:JButton):void{
-		defaultButton = button;
+		if(defaultButton != button){
+			if(defaultButton != null){
+				defaultButton.repaint();
+			}
+			defaultButton = button;
+			defaultButton.repaint();
+		}
 	}
 	
 	public function getDefaultButton():JButton{

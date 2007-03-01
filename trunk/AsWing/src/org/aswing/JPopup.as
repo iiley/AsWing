@@ -397,8 +397,8 @@ public class JPopup extends JRootPane{
 		modalMC.visible = true;
 		//TODO modal
 		var globalBounds:IntRectangle = AsWingUtils.getVisibleMaximizedBounds(ground_mc);
-		modalMC.width = stage.stageWidth + 200;
-		modalMC.height = stage.stageHeight + 200;
+		modalMC.width = AsWingManager.getStage().stageWidth + 200;
+		modalMC.height = AsWingManager.getStage().stageHeight + 200;
 		modalMC.x = globalBounds.x - getX() - 100;
 		modalMC.y = globalBounds.y - getY() - 100;
 	}
