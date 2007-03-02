@@ -66,7 +66,6 @@ public class AttachIcon extends FloorIcon
 	override protected function reload():void{
 		if (this.getDisplay() != null){
 			setLoaded(true);
-			c.updateUI();
 		}
 	}
 	
