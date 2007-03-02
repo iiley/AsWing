@@ -81,9 +81,9 @@ public class BasicSeparatorUI extends BaseComponentUI
 		var insets:Insets = sp.getInsets();
 		var size:IntDimension = insets.getOutsideSize();
 		if (sp.getOrientation() == JSeparator.VERTICAL){
-			return new IntDimension(2 + size.width, int.MAX_VALUE);
+			return new IntDimension(2 + size.width, 100000);
 		}else{
-			return new IntDimension(10000, 2 + size.height);
+			return new IntDimension(100000, 2 + size.height);
 		}
     }
     
