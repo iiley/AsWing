@@ -296,7 +296,7 @@ public class TitleBarUI extends BaseComponentUI{
 			}
 			if(icon != null){
 				if(icon.getDisplay() != null){
-					titleBar.addChild(paintedIcon.getDisplay());
+					titleBar.addChild(icon.getDisplay());
 				}
 			}
 		}

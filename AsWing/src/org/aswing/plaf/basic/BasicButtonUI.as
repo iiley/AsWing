@@ -12,7 +12,7 @@ import org.aswing.geom.IntDimension;
 import org.aswing.Component;
 import org.aswing.plaf.*;
 import org.aswing.event.AWEvent;
-import flash.filters.BlurFilter;
+import flash.filters.*;
 import flash.utils.getTimer;
 import flash.text.*;
 import org.aswing.event.FocusKeyEvent;
@@ -198,6 +198,13 @@ public class BasicButtonUI extends BaseComponentUI
         	textField.text = "";
         	textField.visible = false;
         }
+        //Because the bug of http://www.rgenerat.org/iileyblog/?p=60 we can't use it yet
+        /*if(b.getModel().isRollOver() && !b.getModel().isArmed()){
+        	b.filters = [new GlowFilter(0x88FF88, 0.7, 
+        		6.0, 6.0, 2, 1, false, false)];
+        }else{
+        	b.filters = [];
+        }*/
     }
     
     protected function getIconToLayout():Icon{

@@ -146,7 +146,9 @@ public class AWSprite extends Sprite
 	 */
 	protected function setBackgroundChild(child:DisplayObject = null):void{
 		if(child != backgroundChild){
-			removeChild(backgroundChild);
+			if(backgroundChild != null){
+				removeChild(backgroundChild);
+			}
 			backgroundChild = child;
 			if(child != null){
 				addChildAt(child, 0);
@@ -171,7 +173,9 @@ public class AWSprite extends Sprite
 	 */
 	protected function setForegroundChild(child:DisplayObject = null):void{
 		if(child != foregroundChild){
-			removeChild(foregroundChild);
+			if(foregroundChild != null){
+				removeChild(foregroundChild);
+			}
 			foregroundChild = child;
 			if(child != null){
 				addChild(child);
