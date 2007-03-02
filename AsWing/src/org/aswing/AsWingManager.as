@@ -7,6 +7,8 @@ package org.aswing{
 import flash.display.*;
 import org.aswing.error.AsWingManagerNotInited;
 import org.aswing.geom.IntDimension;
+import flash.utils.Timer;
+import flash.events.TimerEvent;
 
 /**
  * The main manager for AsWing framework.
@@ -23,6 +25,7 @@ public class AsWingManager{
     private static var ROOT:DisplayObjectContainer=null;
     private static var INITIAL_STAGE_WIDTH:int;
     private static var INITIAL_STAGE_HEIGHT:int;
+    private static var timer:Timer;
     
     /**
      * Sets the root container for AsWing components based on.
@@ -115,7 +118,22 @@ public class AsWingManager{
 			throw new AsWingManagerNotInited();
 		}
 		return stage;
-	}	
+	}
 	
+	public static function updateAfterMilliseconds(delay:int = 20):void{
+		if(timer == null){
+			timer = new Timer(delay, 1);
+			timer.addEventListener(TimerEvent.TIMER, __update);
+		}
+		if(!timer.running){
+			timer.reset();
+			timer.start();
+		}
+	}
+	
+	private static function __update(e:TimerEvent):void{
+		e.updateAfterEvent();
+	}
 }
+
 }

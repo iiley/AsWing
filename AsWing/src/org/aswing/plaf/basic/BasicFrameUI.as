@@ -60,7 +60,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	    resizeArrowColor = getColor("resizeArrow");
 	    resizeArrowLightColor = getColor("resizeArrowLight");
 	    resizeArrowDarkColor = getColor("resizeArrowDark");
-        frame.filters = [new DropShadowFilter(5.0, 45, 0, 1.0, 2.0, 2.0, 0.5)];
+		frame.filters = [new DropShadowFilter(5.0, 45, 0, 1.0, 2.0, 2.0, 0.5)];
     }
     
     protected function installComponents():void {

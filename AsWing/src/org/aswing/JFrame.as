@@ -132,7 +132,7 @@ public class JFrame extends JWindow{
 		this.title = title;
 		
 		state = NORMAL;
-		defaultCloseOperation = HIDE_ON_CLOSE;
+		defaultCloseOperation = DISPOSE_ON_CLOSE;
 		dragable  = true;
 		resizable = true;
 		closable  = true;
@@ -364,7 +364,7 @@ public class JFrame extends JWindow{
      * frame after invoking any registered EventListener objects.
      * </ul>
      * <p>
-     * The value is set to <code>HIDE_ON_CLOSE</code> by default.
+     * The value is set to <code>DISPOSE_ON_CLOSE</code> by default.
      * if you set a value is not three of them, think of it is will be changed to default value.
      * @param operation the operation which should be performed when the
      *        user closes the frame
@@ -376,7 +376,7 @@ public class JFrame extends JWindow{
     		&& operation != HIDE_ON_CLOSE
     		&& operation != DISPOSE_ON_CLOSE)
     	{
-    			operation = HIDE_ON_CLOSE;
+    			operation = DISPOSE_ON_CLOSE;
     	}
     	defaultCloseOperation = operation;
     }

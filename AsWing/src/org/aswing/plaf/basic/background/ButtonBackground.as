@@ -39,7 +39,7 @@ public class ButtonBackground implements GroundDecorator, UIResource{
 		if(b == null) return;
 		if(c.isOpaque()){
 			var model:ButtonModel = b.getModel();
-	    	var isPressing:Boolean = model.isArmed() || model.isSelected();
+	    	var isPressing:Boolean = model.isArmed() || model.isSelected() || !b.isEnabled();
 			BasicGraphicsUtils.drawBezel(g, bounds, isPressing, shadow, darkShadow, highlight, lightHighlight);
 			bounds.grow(-2, -2);
 			BasicGraphicsUtils.paintButtonBackGround(b, g, bounds);

@@ -74,6 +74,8 @@ public class BasicButtonUI extends BaseComponentUI
         LookAndFeel.installBasicProperties(b, pp);
         setTextShiftOffset();
         button.mouseChildren = false;
+        //Because the bug of http://www.rgenerat.org/iileyblog/?p=60 we need set it true here
+        b.cacheAsBitmap = true;
  	}
 	
  	protected function uninstallDefaults(b:AbstractButton):void{
@@ -198,13 +200,12 @@ public class BasicButtonUI extends BaseComponentUI
         	textField.text = "";
         	textField.visible = false;
         }
-        //Because the bug of http://www.rgenerat.org/iileyblog/?p=60 we can't use it yet
-        /*if(b.getModel().isRollOver() && !b.getModel().isArmed()){
+        if(b.getModel().isRollOver() && !b.getModel().isArmed()){
         	b.filters = [new GlowFilter(0x88FF88, 0.7, 
         		6.0, 6.0, 2, 1, false, false)];
         }else{
         	b.filters = [];
-        }*/
+        }
     }
     
     protected function getIconToLayout():Icon{
@@ -232,7 +233,11 @@ public class BasicButtonUI extends BaseComponentUI
 			AsWingUtils.applyTextFont(textField, font);
 			b.setFontValidated(true);
 		}
-    	AsWingUtils.applyTextColor(textField, button.getForeground());
+		if(!b.isEnabled()){
+    		AsWingUtils.applyTextColor(textField, button.getBackground().darker());
+		}else{
+    		AsWingUtils.applyTextColor(textField, button.getForeground());
+		}
 		textField.x = textRect.x;
 		textField.y = textRect.y;
 		if(b.getMnemonicIndex() >= 0){
@@ -240,12 +245,6 @@ public class BasicButtonUI extends BaseComponentUI
 				new TextFormat(null, null, null, null, null, true), 
 				b.getMnemonicIndex());
 		}
-			    	
-    	if(!model.isEnabled()){
-    		b.filters = [new BlurFilter()];
-    	}else{
-    		b.filters = null;
-    	}
     }
     
     /**
