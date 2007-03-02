@@ -35,11 +35,11 @@ public class JTabbedPane extends AbstractTabbedPane
 		
 		updateUI();
 	}
-	
-    override public function updateUI():void{
-    	setUI(TabbedPaneUI(UIManager.getUI(this)));
-    }
-	
+
+	override public function updateUI():void{
+		setUI(UIManager.getUI(this));
+	}
+		
 	override public function getUIClassID():String{
 		return "TabbedPaneUI";
 	}
@@ -71,6 +71,19 @@ public class JTabbedPane extends AbstractTabbedPane
     public function getTabPlacement():int{
     	return tabPlacement;
     }
+    
+	/**
+	 * Generally you should not set layout to JTabbedPane.
+	 * @param layout layoutManager for JTabbedPane
+	 * @throws ArgumentError when you set a non-TabbedPaneUI layout to JTabbedPane.
+	 */
+	override public function setLayout(layout:LayoutManager):void{
+		if(layout is ComponentUI){
+			super.setLayout(layout);
+		}else{
+			throw ArgumentError("Cannot set non-AccordionUI layout to JAccordion!");
+		}
+	}
     
     /**
      * Not support this function.
