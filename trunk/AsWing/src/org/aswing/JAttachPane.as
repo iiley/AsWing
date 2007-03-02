@@ -83,25 +83,6 @@ public class JAttachPane extends FloorPane {
 		}
 	}
 	
-	/**
-	 * Sets the path to attach displayObject from library of loader with loaderpath.
-	 * This method will cause <code>reload()</code> action if the path 
-	 * is different from old one.
-	 * @param path the linkageID of a displayObject.
-	 * @param loadpath the path of the swf path with library.
-	 * @see #reload()
-	 */
-	public function setPathAndLoaderPath(path:String, loadpath:String=null):void{
-		if(path != this.path || loadpath != this.loadpath){
-			this.loadpath = loadpath;
-			this.path = path;
-			this.loader = null;
-			this.loading = false;
-			setLoaded(false);
-			reload();
-		}
-	}
-	
 	override protected function loadFloor():void{
 		if (contains(getFloorMC())){
 			setLoaded(true);
@@ -116,32 +97,9 @@ public class JAttachPane extends FloorPane {
 	 */
 	override protected function createFloor():DisplayObject{
 		if (this.getPath() != null){
-			if (loadpath != null && !loading){
-				return createLoader();
-			}else{
-				return getAttachDisplayObject();
-			}
+			return getAttachDisplayObject();
 		}
 		return null;
-	}
-	
-	private function createLoader():DisplayObject{
-		if (loader == null){
-			loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit, false, 0, true);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError, false, 0, true);
-		}
-		loader.load(new URLRequest(loadpath));
-		loading = true;
-		return null;		
-	}
-	
-	private function __onLoadInit(e:Event):void{
-		setLoaded(false);
-		reload();
-	}
-	
-	private function __onLoadError(e:IOErrorEvent):void{
 	}
 	
 	private function getAttachDisplayObject():DisplayObject{
