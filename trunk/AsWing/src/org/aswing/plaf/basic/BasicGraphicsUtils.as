@@ -148,7 +148,7 @@ public class BasicGraphicsUtils{
     public static function paintButtonBackGround(c:AbstractButton, g:Graphics2D, b:IntRectangle):void{
 		var bgColor:ASColor = (c.getBackground() == null ? ASColor.WHITE : c.getBackground());
 		if(c.isOpaque()){
-			if(c.getModel().isArmed() || c.getModel().isSelected()){
+			if(c.getModel().isArmed() || c.getModel().isSelected() || !c.isEnabled()){
 				g.fillRectangle(new SolidBrush(bgColor), b.x, b.y, b.width, b.height);
 			}else{
 				drawControlBackground(g, b, bgColor, Math.PI/2);

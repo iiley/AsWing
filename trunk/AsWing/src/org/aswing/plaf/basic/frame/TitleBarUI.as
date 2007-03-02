@@ -16,7 +16,7 @@ import org.aswing.JButton;
 import org.aswing.JFrame;
 import org.aswing.plaf.basic.frame.FrameTitleBar;
 import org.aswing.plaf.basic.frame.TitleBarLayout;
-import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.*;
 import flash.events.Event;
 import org.aswing.event.*;
 import flash.text.*;
@@ -24,6 +24,7 @@ import flash.display.StageScaleMode;
 import flash.geom.Rectangle;
 import org.aswing.plaf.UIResource;
 import flash.geom.Matrix;
+import org.aswing.Insets;
 
 /**
  * Basic Frame title bar UI.
@@ -102,6 +103,12 @@ public class TitleBarUI extends BaseComponentUI{
 		iconifiedButton = new JButton(null, iconifiedIcon);
 		resizeButton    = new JButton(null, maximizeIcon);
 		closeButton     = new JButton(null, closeIcon);
+		iconifiedButton.setBackgroundDecorator(DefaultEmptyDecoraterResource.INSTANCE);
+		resizeButton.setBackgroundDecorator(DefaultEmptyDecoraterResource.INSTANCE);
+		closeButton.setBackgroundDecorator(DefaultEmptyDecoraterResource.INSTANCE);
+		iconifiedButton.setMargin(new InsetsUIResource(1, 1, 1, 1));
+		resizeButton.setMargin(new InsetsUIResource(1, 1, 1, 1));
+		closeButton.setMargin(new InsetsUIResource(1, 1, 1, 1));
 		titleBar.append(iconifiedButton);
 		titleBar.append(resizeButton);
 		titleBar.append(closeButton);
