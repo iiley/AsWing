@@ -12,8 +12,8 @@ import org.aswing.plaf.*;
 import org.aswing.plaf.basic.icon.ArrowIcon;
 import org.aswing.util.*;
 
-public class BasicTabbedPaneUI extends TabbedPaneUI
-{
+public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
+	
 	private static var topBlankSpace:Number = 4;
 	
     private var shadow:ASColor;
@@ -171,26 +171,26 @@ public class BasicTabbedPaneUI extends TabbedPaneUI
     }
     //----------------------------LayoutManager Implementation-----------------------------
     
-    override public function addLayoutComponent(comp:Component, constraints:Object):void{
+    public function addLayoutComponent(comp:Component, constraints:Object):void{
     	tabbedPane.repaint();
     }
 	
-    override public function removeLayoutComponent(comp:Component):void{
+    public function removeLayoutComponent(comp:Component):void{
     	tabbedPane.repaint();
     }
 	
-    override public function preferredLayoutSize(target:Container):IntDimension{
+    public function preferredLayoutSize(target:Container):IntDimension{
     	return null;
     }
 
-    override public function minimumLayoutSize(target:Container):IntDimension{
+    public function minimumLayoutSize(target:Container):IntDimension{
     	return null;
     }
 	    
-    override public function layoutContainer(target:Container):void{
+    public function layoutContainer(target:Container):void{
     }
     
-    override public function invalidateLayout(target:Container):void{
+    public function invalidateLayout(target:Container):void{
     	if(target != tabbedPane){
     		trace("Error : BasicTabbedPaneUI Can't layout " + target);
     		return;
@@ -200,6 +200,19 @@ public class BasicTabbedPaneUI extends TabbedPaneUI
     	tabBarSize = null;
     	tabBoundArray = null;
     }	
+	
+	public function maximumLayoutSize(target:Container):IntDimension
+	{
+		return IntDimension.createBigDimension();
+	}
+	
+	public function getLayoutAlignmentX(target:Container):Number{
+		return 0;
+	}
+	
+	public function getLayoutAlignmentY(target:Container):Number{
+		return 0;
+	}
 	
 }
 }
