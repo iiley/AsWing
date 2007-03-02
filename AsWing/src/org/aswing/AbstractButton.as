@@ -130,7 +130,7 @@ public class AbstractButton extends Component
 		setName("AbstractButton");
 		
     	paintBorder = true;
-    	rolloverEnabled = false;
+    	rolloverEnabled = true;
     	
     	verticalAlignment = CENTER;
     	horizontalAlignment = CENTER;
