@@ -20,6 +20,7 @@ public class LoadIcon extends FloorIcon
 {
 	private var loader:Loader;
 	private var c:Component;
+	private var url:String;
 	
 	/**
 	 * LoadIcon(url:String, width:Number, height:Number, scale:Boolean)<br>
@@ -34,7 +35,9 @@ public class LoadIcon extends FloorIcon
 	 * specified by front two params, default is false
 	 */
 	public function LoadIcon(url:String, width:Number=0, height:Number=0, scale:Boolean=false){
-		super(url, width, height, scale);
+		this.url = url;
+		super(getLoader(), width, height, scale);
+		this.setLoaded(false);
 	}
 	
 	/**
@@ -55,16 +58,11 @@ public class LoadIcon extends FloorIcon
 	 */
 	private function __onLoadInit(e:Event):void{
 		this.setLoaded(true);
-		c.updateUI();
+		c.repaint();
 	}
 	
 	private function __onLoadError(e:IOErrorEvent):void{
 		this.setLoaded(true);
-	}
-	
-	override public function getDisplay():DisplayObject
-	{
-		return getLoader();
 	}
 	
 	override public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void
@@ -74,9 +72,9 @@ public class LoadIcon extends FloorIcon
 	}
 	
 	override protected function reload():void{
-		if (this.getPath() != null){
+		if (url != null){
 			setLoaded(false);
-			loader.load(new URLRequest(this.getPath()));
+			loader.load(new URLRequest(url));
 		}
 	}
 }

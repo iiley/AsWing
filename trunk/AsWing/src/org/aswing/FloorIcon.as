@@ -20,13 +20,14 @@ public class FloorIcon implements Icon
 	private var height:Number;
 	private var scale:Boolean; 
 	private var sizeInited:Boolean;
+	private var floorMC:DisplayObject;
 	private var maskMC:Sprite;
 	private var floorLoaded:Boolean;
 	
 	/**
-	 * FloorIcon(path:String,, width:Number, height:Number, scale:Boolean)<br>
-	 * FloorIcon(path:String, width:Number, height:Number)<br>)<br>
-	 * FloorIcon(linkage:String)<br>
+	 * FloorIcon(floorMC:DisplayObject,, width:Number, height:Number, scale:Boolean)<br>
+	 * FloorIcon(floorMC:DisplayObject, width:Number, height:Number)<br>)<br>
+	 * FloorIcon(floorMC:DisplayObject)<br>
 	 * <p>
 	 * Creates a FloorIcon with a path to load external content.
 	 * @param path the path of the external content.
@@ -36,8 +37,8 @@ public class FloorIcon implements Icon
 	 * the mc will be scale to this height when paint.
 	 * @param scale (optional)whether scale MC to fix the width and height specified. Default is true
 	 */
-	public function FloorIcon(path:String, width:Number=0, height:Number=0, scale:Boolean=false){
-		this.path = path
+	public function FloorIcon(floorMC:DisplayObject=null, width:Number=0, height:Number=0, scale:Boolean=false){
+		this.floorMC = floorMC;
 		this.width = width;
 		this.height = height;
 		this.scale = scale;
@@ -46,6 +47,8 @@ public class FloorIcon implements Icon
 		if (width==0 || height==0){
 			sizeInited = false;
 		}
+		maskMC = createMask();
+		setLoaded(floorMC != null);
 	}
 	
 	protected function setSizeInited(b:Boolean):void{
@@ -74,17 +77,6 @@ public class FloorIcon implements Icon
 	
 	protected function setHeight():void{
 		this.height = height;
-	}
-	
-	public function setPath(path:String):void{
-		if(path != this.path){
-			this.path = path;
-			reload();
-		}
-	}
-	
-	public function getPath():String{
-		return path;
 	}
 	
 	/**
@@ -122,7 +114,6 @@ public class FloorIcon implements Icon
 				floor.mask = maskMC;
 			}
 		}else{
-			maskMC = createMask();
 			reload();
 		}
 	}
@@ -133,7 +124,6 @@ public class FloorIcon implements Icon
 	 * @see org.aswing.AttachIcon
 	 */
 	protected function reload():void{
-    	throw new ImpMissError();
 	}
 	
 	/**
@@ -164,7 +154,7 @@ public class FloorIcon implements Icon
 	 */	
 	public function getDisplay():DisplayObject
 	{
-		return null;
+		return floorMC;
 	}
 	
 }

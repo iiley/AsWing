@@ -20,8 +20,8 @@ public class AttachIcon extends FloorIcon
 {
 	private var attachErrored:Boolean;
 	private var loader:Loader;
-	private var c:Component;
 	private var attachMC:DisplayObject;
+	private var linkage:String;
 	
 	/**
 	 * AttachIcon(linkage:String, loader:Loader, width:Number, height:Number, scale:Boolean)<br>
@@ -41,32 +41,10 @@ public class AttachIcon extends FloorIcon
 	 * @param scale (optional)whether scale MC to fix the width and height specified. Default is true
 	 */
 	public function AttachIcon(linkage:String, loader:Loader=null, width:Number=0, height:Number=0, scale:Boolean=false){
+		this.linkage = linkage;
 		this.loader = loader;
 		this.attachErrored = false;
-		super(linkage, width, height, scale);
-	}
-	
-	/**
-	 * update the icon when the displayObject is not null
-	 * @see #updateIcon();
-	 * @see org.aswing.LoadIcon
-	 * @see org.aswing.AttachIcon
-	 */
-	override public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void{
-		this.c = c;
-		super.updateIcon(c, g, x, y);
-	}
-	
-	/**
-	 * update the icon when the displayObject is not null
-	 * @see #updateIcon();
-	 * @see org.aswing.LoadIcon
-	 * @see org.aswing.AttachIcon
-	 */
-	override protected function reload():void{
-		if (this.getDisplay() != null){
-			setLoaded(true);
-		}
+		super(getAttachDisplayObject(), width, height, scale);
 	}
 	
 	/**
@@ -77,11 +55,12 @@ public class AttachIcon extends FloorIcon
 		try{
 			var classReference:Class;
 			if (loader == null){
-				classReference = getDefinitionByName(this.getPath()) as Class;
+				classReference = getDefinitionByName(linkage) as Class;
 			}else{
-				classReference = loader.contentLoaderInfo.applicationDomain.getDefinition(this.getPath()) as Class;
+				classReference = loader.contentLoaderInfo.applicationDomain.getDefinition(linkage) as Class;
 			}
 			attachMC = new classReference();
+			setLoaded(true);			
 			return attachMC;
 		}catch(e:Error){
 			attachErrored = true;
@@ -90,15 +69,6 @@ public class AttachIcon extends FloorIcon
 		}
 		return null;
 	}
-	
-	override public function getDisplay():DisplayObject
-	{
-		if (attachMC!=null)
-			return attachMC;
-		else if (attachErrored)
-			return null;
-		else
-			return getAttachDisplayObject();
-	}	
+
 }
 }
