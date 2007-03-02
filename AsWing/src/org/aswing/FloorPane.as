@@ -92,7 +92,6 @@ public class FloorPane extends Container
 	 */
     public static const RIGHT:int   = AsWingConstants.RIGHT;
     
-    protected var path:String;
 	private var floorEnabled:Boolean;
 	private var floorMC:DisplayObject;
 	private var floorMCMask:Sprite;
@@ -124,10 +123,10 @@ public class FloorPane extends Container
 	 * </ul>
 	 * @see #setPath()
 	 */
-	public function FloorPane(path:String, prefferSizeStrategy:int=PREFER_SIZE_BOTH) {
+	public function FloorPane(floorMC:DisplayObject=null, prefferSizeStrategy:int=PREFER_SIZE_BOTH) {
 		super();
 
-		this.path = path;
+		this.floorMC = floorMC;
 		this.prefferSizeStrategy = prefferSizeStrategy;
 		
     	verticalAlignment = TOP;
@@ -145,25 +144,6 @@ public class FloorPane extends Container
 		setFocusable(false);
 	}
 
-	
-	/**
-	 * Sets the path to load/attach image/animation file or symbol.
-	 * This method will cause <code>reload()</code> action if the path 
-	 * is different from old one.
-	 * @param path the path of external image/animation file or the linkageID of a symbol.
-	 * @see #reload()
-	 */
-	public function setPath(path:String):void{
-		if(path != this.path){
-			this.path = path;
-			reload();
-		}
-	}
-	
-	public function getPath():String{
-		return path;
-	}
-	
 	/**
 	 * Sets the preffered size counting strategy. Must be one of below:
 	 * <ul>
@@ -635,7 +615,7 @@ public class FloorPane extends Container
 	 * Subclass must override this method to make loading.
 	 */
 	protected function loadFloor():void{
-    	throw new ImpMissError();		
+		setLoaded(floorMC != null);
 	}
 	
 	/**
@@ -644,7 +624,7 @@ public class FloorPane extends Container
 	 * Subclass must override this method to make creating.
 	 */
 	protected function createFloor():DisplayObject{
-		return null;
+		return floorMC;
 	}	
 	
 }

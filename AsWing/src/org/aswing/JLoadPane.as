@@ -72,6 +72,7 @@ public class JLoadPane extends FloorPane
 	private var loader:Loader;
 	private var loadedError:Boolean;
 	private var lockroot:Boolean;
+	private var path:String;
 	
 	/**
 	 * JLoadPane(path:String, prefferSizeStrategy:Number) <br>
@@ -88,19 +89,29 @@ public class JLoadPane extends FloorPane
 	 * @see #setPath()
 	 */
 	public function JLoadPane(path:String, prefferSizeStrategy:int) {
-		super(path, prefferSizeStrategy);
+		super(createFloor(), prefferSizeStrategy);
 		setName("JLoadPane");
 		loadedError = false;
 	}
 	
+	
 	/**
-	 * Returns the loader.
-	 * @return the loader.
-	 * @see #getFloorMC()
+	 * Sets the path to load/attach image/animation file or symbol.
+	 * This method will cause <code>reload()</code> action if the path 
+	 * is different from old one.
+	 * @param path the path of external image/animation file or the linkageID of a symbol.
+	 * @see #reload()
 	 */
-	override public function getFloorMC():DisplayObject{
-		return loader;
+	public function setPath(path:String):void{
+		if(path != this.path){
+			this.path = path;
+			reload();
+		}
 	}
+	
+	public function getPath():String{
+		return path;
+	}	
 	
 	/**
 	 * Returns is error loaded.

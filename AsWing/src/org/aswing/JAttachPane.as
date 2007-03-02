@@ -28,8 +28,8 @@ import flash.net.URLRequest;
 public class JAttachPane extends FloorPane {
 	
 	private var loader:Loader;
-	private var loadpath:String;
 	private var loading:Boolean;
+	private var path:String;
 	/**
 	 * JAttachPane(path:String, prefferSizeStrategy:int) <br>
 	 * JAttachPane(path:String) prefferSizeStrategy default to PREFER_SIZE_BOTH<br>
@@ -45,10 +45,10 @@ public class JAttachPane extends FloorPane {
 	 * @see #setPath()
 	 */
 	public function JAttachPane(path:String, prefferSizeStrategy:int) {
-		super(path, prefferSizeStrategy);
+		this.path = path;
 		this.loader = null;
-		this.loadpath = null;
 		this.loading = false;
+		super(getAttachDisplayObject(), prefferSizeStrategy);		
 		setName("JAttachPane");
 	}
 	
@@ -59,10 +59,12 @@ public class JAttachPane extends FloorPane {
 	 * @param path the linkageID of a displayObject.
 	 * @see #reload()
 	 */
-	override public function setPath(path:String):void{
+	public function setPath(path:String):void{
 		this.loader = null;
-		this.loadpath = null;
-		super.setPath(path);
+		if(path != this.path){
+			this.path = path;
+			reload();
+		}
 	}
 	
 	/**
@@ -77,10 +79,13 @@ public class JAttachPane extends FloorPane {
 		if(path != this.path || loader != this.loader){
 			this.path = path;
 			this.loader = loader;
-			this.loadpath = null;
 			setLoaded(false);
 			reload();
 		}
+	}
+	
+	public function getPath():String{
+		return path;
 	}
 	
 	override protected function loadFloor():void{
