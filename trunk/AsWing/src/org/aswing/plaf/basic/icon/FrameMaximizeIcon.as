@@ -18,9 +18,8 @@ public class FrameMaximizeIcon extends FrameIcon{
 		super();
 	}	
 
-	override public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void
+	override public function updateIconImp(c:Component, g:Graphics2D, x:int, y:int):void
 	{
-		super.updateIcon(c, g, x, y);
 		var w:Number = width/1.5;
 		var borderBrush:SolidBrush = new SolidBrush(getColor());
 		g.beginFill(borderBrush);

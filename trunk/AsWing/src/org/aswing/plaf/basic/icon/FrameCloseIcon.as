@@ -20,9 +20,8 @@ public class FrameCloseIcon extends FrameIcon
 		super();
 	}
 	
-	override public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void
+	override public function updateIconImp(c:Component, g:Graphics2D, x:int, y:int):void
 	{
-		super.updateIcon(c, g, x, y);
 		var w:Number = width/2;
 		g.drawLine(
 			new Pen(getColor(), w/3), 

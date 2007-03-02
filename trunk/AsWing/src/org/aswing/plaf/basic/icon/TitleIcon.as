@@ -9,6 +9,7 @@ import org.aswing.*;
 import flash.display.DisplayObject;
 import org.aswing.plaf.UIResource;
 import flash.geom.Point;
+import flash.display.Shape;
 
 /**
  * The default frame title icon.
@@ -18,8 +19,15 @@ public class TitleIcon implements Icon, UIResource{
 	
 	private static const WIDTH:int = 16;
 	private static const HEIGHT:int = 12;
+	protected var shape:Shape;
+	
+	public function TitleIcon(){
+		shape = new Shape();
+	}
 	
 	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void{
+		shape.graphics.clear();
+		g = new Graphics2D(shape.graphics);
 		//This is just for test the icon
 		//TODO draw a real beautiful icon for AsWing frame title
 		//g.fillCircleRingWithThickness(new SolidBrush(ASColor.GREEN), x + WIDTH/2, y + WIDTH/2, WIDTH/2, WIDTH/4);
@@ -61,7 +69,7 @@ public class TitleIcon implements Icon, UIResource{
 	
 	public function getDisplay():DisplayObject
 	{
-		return null;
+		return shape;
 	}
 	
 }

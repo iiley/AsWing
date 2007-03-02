@@ -8,6 +8,7 @@ import org.aswing.graphics.Graphics2D;
 import org.aswing.*;
 import flash.display.DisplayObject;
 import org.aswing.plaf.UIResource;
+import flash.display.Shape;
 
 /**
  * Frame title bar icon base.
@@ -19,6 +20,7 @@ public class FrameIcon implements Icon, UIResource{
 	
 	protected var width:int;
 	protected var height:int;
+	protected var shape:Shape;
 	
 	private var color:ASColor;
 		
@@ -28,6 +30,7 @@ public class FrameIcon implements Icon, UIResource{
 	public function FrameIcon(width:int=DEFAULT_ICON_WIDTH){
 		this.width = width;
 		height = width;
+		shape = new Shape();
 	}
 	
 	public function getColor():ASColor{
@@ -39,7 +42,11 @@ public class FrameIcon implements Icon, UIResource{
 		if(color == null){
 			color = c.getUI().getColor("Frame.activeCaptionText");
 		}
+		shape.graphics.clear();
+		updateIconImp(c, new Graphics2D(shape.graphics), x, y);
 	}
+	
+	public function updateIconImp(c:Component, g:Graphics2D, x:int, y:int):void{}
 	
 	public function getIconHeight():int
 	{
@@ -53,7 +60,7 @@ public class FrameIcon implements Icon, UIResource{
 	
 	public function getDisplay():DisplayObject
 	{
-		return null;
+		return shape;
 	}
 	
 }

@@ -74,7 +74,7 @@ public class BasicLookAndFeel extends LookAndFeel
 				"activeCaptionText", 0x000000, /* Text color for text in captions (title bars). */
 				"activeCaptionBorder", 0xC0C0C0, /* Border color for caption (title bar) window borders. */
 				"inactiveCaption", 0xE7E7E7, /* Color for captions (title bars) when not active. */
-				"inactiveCaptionText", 0x666666, /* Text color for text in inactive captions (title bars). */
+				"inactiveCaptionText", 0x888888, /* Text color for text in inactive captions (title bars). */
 				"inactiveCaptionBorder", 0x888888, /* Border color for inactive caption (title bar) window borders. */
 				"window", 0xCCCCCC, /* Default color for the interior of windows */
 				"windowBorder", 0x000000, /* ??? */
