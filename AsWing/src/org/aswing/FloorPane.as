@@ -143,7 +143,15 @@ public class FloorPane extends Container
 		offsetY = 0;
 		setFocusable(false);
 	}
-
+	
+	public function setFloorMC(floorMC:DisplayObject):void{
+		if (this.floorMC != floorMC){
+			removeFloorMCs();
+			this.floorMC = floorMC;
+			this.reload();
+		}
+	}
+	
 	/**
 	 * Sets the preffered size counting strategy. Must be one of below:
 	 * <ul>
@@ -580,7 +588,7 @@ public class FloorPane extends Container
 	
 	protected function removeFloorMCs():void{
 		var floor:DisplayObject = getFloorMC();
-		if (floor != null){
+		if (floor != null && this.contains(floor)){
 			floor.mask = null;
 			this.removeChild(floor);
 		}
@@ -615,6 +623,9 @@ public class FloorPane extends Container
 	 * Subclass must override this method to make loading.
 	 */
 	protected function loadFloor():void{
+		if (floorMC != null){
+			setFloorOriginalSize(new IntDimension(floorMC.width, floorMC.height));
+		}
 		setLoaded(floorMC != null);
 	}
 	

@@ -89,6 +89,7 @@ public class JLoadPane extends FloorPane
 	 * @see #setPath()
 	 */
 	public function JLoadPane(path:String, prefferSizeStrategy:int) {
+		this.path = path;
 		super(createFloor(), prefferSizeStrategy);
 		setName("JLoadPane");
 		loadedError = false;
