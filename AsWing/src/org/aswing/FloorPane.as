@@ -144,6 +144,14 @@ public class FloorPane extends Container
 		setFocusable(false);
 	}
 	
+	
+	/**
+	 * set the floorMC of the pane
+	 * This method will cause <code>reload()</code> action if the floorMC 
+	 * is different from old one.
+	 * @param floorMC the displayObject of the pane.
+	 * @see #reload()
+	 */ 
 	public function setFloorMC(floorMC:DisplayObject):void{
 		if (this.floorMC != floorMC){
 			removeFloorMCs();

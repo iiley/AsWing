@@ -84,6 +84,10 @@ public class JAttachPane extends FloorPane {
 		}
 	}
 	
+	/**
+	 * return the path of the attach
+	 * @return the path of the attach
+	 */ 
 	public function getPath():String{
 		return path;
 	}
@@ -107,6 +111,10 @@ public class JAttachPane extends FloorPane {
 		return null;
 	}
 	
+	/**
+	 * return the DisplayObject the pane attach
+	 * @return the DisplayObject the pane attach
+	 */ 
 	private function getAttachDisplayObject():DisplayObject{
 		try{
 			var classReference:Class;
@@ -120,7 +128,7 @@ public class JAttachPane extends FloorPane {
 			dispatchEvent(new AttachEvent(AttachEvent.ATTACHED));
 			return attachMC;
 		}catch(e:Error){
-			trace("createFloor error:"+e.toString());
+			trace("JAttachPane getAttachDisplayObject error:"+e.toString());
 			return null;
 		}
 		return null

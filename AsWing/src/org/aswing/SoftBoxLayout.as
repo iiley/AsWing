@@ -140,7 +140,7 @@ public class SoftBoxLayout extends EmptyLayout{
      * Gets gap.
      * @return gap
      */
-    public function getGap():Number {
+    public function getGap():int {
     	return gap;	
     }
     
