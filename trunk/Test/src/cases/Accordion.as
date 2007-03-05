@@ -64,7 +64,7 @@ public class Accordion extends Sprite
 		//accordion.setEnabledAt(0, false);
 		accordion.setVisibleAt(1, false);
 		
-		frame.setSizeWH(400, 300);
+		frame.setSizeWH(500, 370);
 		frame.show();
 	}
 

@@ -17,6 +17,7 @@ public class ComboBox extends Sprite{
 		super();
 		
 		frame = new JFrame(null, "ComboBoxTest");
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		var listData:Array = ["11111111111111",
 								"22222222222222222",
