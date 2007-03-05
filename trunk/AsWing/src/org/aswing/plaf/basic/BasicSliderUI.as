@@ -700,13 +700,21 @@ public class BasicSliderUI extends BaseComponentUI{
 		var my:int = mp.y;
 		var thumbR:IntRectangle = thumbRect;
 		
-		var thumbMin:int, thumbMax:int, thumbPos:int;
+		var thumbMin:int, thumbMax:int, thumbPos:int, minPos:int, maxPos:int;
 		var halfThumbLength:int;
 		var sliderValue:int;
 		var paintThumbRect:IntRectangle = thumbRect.clone();
 		if(isVertical()){
 			halfThumbLength = thumbRect.height / 2;
 			thumbPos = my - offset;
+			if(!slider.getInverted()){
+				maxPos = yPositionForValue(slider.getMinimum()) - halfThumbLength;
+				minPos = yPositionForValue(slider.getMaximum() - slider.getExtent()) - halfThumbLength;
+			}else{
+				minPos = yPositionForValue(slider.getMinimum()) - halfThumbLength;
+				maxPos = yPositionForValue(slider.getMaximum() - slider.getExtent()) - halfThumbLength;
+			}
+			thumbPos = Math.max(minPos, Math.min(maxPos, thumbPos));
 			sliderValue = valueForYPosition(thumbPos + halfThumbLength);
 			slider.setValue(sliderValue);
 			thumbRect.y = yPositionForValue(slider.getValue()) - halfThumbLength;
@@ -714,6 +722,14 @@ public class BasicSliderUI extends BaseComponentUI{
 		}else{
 			halfThumbLength = thumbRect.width / 2;
 			thumbPos = mx - offset;
+			if(slider.getInverted()){
+				maxPos = xPositionForValue(slider.getMinimum()) - halfThumbLength;
+				minPos = xPositionForValue(slider.getMaximum() - slider.getExtent()) - halfThumbLength;
+			}else{
+				minPos = xPositionForValue(slider.getMinimum()) - halfThumbLength;
+				maxPos = xPositionForValue(slider.getMaximum() - slider.getExtent()) - halfThumbLength;
+			}
+			thumbPos = Math.max(minPos, Math.min(maxPos, thumbPos));
 			sliderValue = valueForXPosition(thumbPos + halfThumbLength);
 			slider.setValue(sliderValue);
 			thumbRect.x = xPositionForValue(slider.getValue()) - halfThumbLength;
