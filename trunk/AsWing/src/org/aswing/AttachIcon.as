@@ -64,7 +64,7 @@ public class AttachIcon extends FloorIcon
 			return attachMC;
 		}catch(e:Error){
 			attachErrored = true;
-			trace("createFloor error:"+e.toString());
+			trace("AttachIcon getAttachDisplayObject error:"+e.toString());
 			return null;
 		}
 		return null;

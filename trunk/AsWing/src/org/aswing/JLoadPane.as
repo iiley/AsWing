@@ -110,6 +110,10 @@ public class JLoadPane extends FloorPane
 		}
 	}
 	
+	/**
+	 * return the path of image/animation file
+	 * @return the path of image/animation file
+	 */ 
 	public function getPath():String{
 		return path;
 	}	
@@ -189,7 +193,7 @@ public class JLoadPane extends FloorPane
 	
 	private function __onLoadError(e:IOErrorEvent):void{
 		loadedError = true;
-		//dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.toString()));
+		dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.toString()));
 	}
 	
 	private function __onLoadInit(e:Event):void{

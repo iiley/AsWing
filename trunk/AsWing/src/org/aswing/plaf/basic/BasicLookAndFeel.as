@@ -63,7 +63,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
 			   "AccordionUI",org.aswing.plaf.basic.BasicAccordionUI,
 			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,
-			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI   
+			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,
+			   "SpacerUI", org.aswing.plaf.basic.BasicSpacerUI		      
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -381,6 +382,15 @@ public class BasicLookAndFeel extends LookAndFeel
 	    	"SplitPane.presentDragColor", new ASColorUIResource(0x000000, 40)
 	    ];
 	    table.putDefaults(comDefaults);	
+	    
+	    // *** Spacer
+	    comDefaults = [
+		    "Spacer.background", table.get("window"),
+		    "Spacer.foreground", table.get("window"),
+	    	"Spacer.opaque", false,
+	    	"Spacer.focusable", false
+	    ];
+	    table.putDefaults(comDefaults);
 	    
 	    // *** ComboBox
 	    comDefaults = [
