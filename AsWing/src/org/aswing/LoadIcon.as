@@ -8,7 +8,6 @@ import org.aswing.graphics.Graphics2D;
 import flash.display.DisplayObject;
 import flash.display.Loader;
 import flash.events.*;
-import mx.validators.ValidationResult;
 import flash.net.URLRequest;
 import flash.display.Sprite;
 
