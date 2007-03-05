@@ -2,7 +2,6 @@ package org.aswing
 {
 import org.aswing.graphics.Graphics2D;
 import flash.display.DisplayObject;
-import mx.validators.ValidationResult;
 import flash.display.Sprite;
 import org.aswing.error.ImpMissError;
 
