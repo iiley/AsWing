@@ -40,7 +40,7 @@ package cases
 			pop2.getContentPane().append(defaultButton);
 			pop2.getContentPane().append(new JButton("Normal Button"));
 			pop2.setSizeWH(200, 200);
-			pop2.setLocationXY(200, 10);
+			pop2.setLocationXY(200, 140);
 			pop2.setDefaultButton(defaultButton);
 			defaultButton.addActionListener(
 				function(e:Event):void{
@@ -49,6 +49,9 @@ package cases
 			//pop1.addEventListener(MouseEvent.MOUSE_DOWN, __top1);
 			//pop1.addEventListener(AWEvent.RELEASE, __top1Released);
 			//pop2.addEventListener(MouseEvent.MOUSE_DOWN, __top2);
+			
+			__pop1Listener(null);
+			__pop2Listener(null);
 		}
 		
 		private function __pop1Listener(e:Event):void{
