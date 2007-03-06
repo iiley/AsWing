@@ -13,6 +13,11 @@ import org.aswing.graphics.Graphics2D;
  * <p>
  * You can either return a display object to be the icon or just return null and paint the picture 
  * in <code>updateIcon</code> method use the component g(Graphics).
+ * </p>
+ * But, you'd better to return a display object here, because if you just paint graphics 
+ * to the target component graphics, there's a situation that your painted graphics maybe 
+ * not eyeable, that is when the component has a background decorator with a display object, 
+ * it will cover this graphics. If you return a display object here, it will be no problem of this case.
  */
 public interface Icon extends Decorator
 {	
