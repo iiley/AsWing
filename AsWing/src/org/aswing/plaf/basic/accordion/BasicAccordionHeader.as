@@ -5,12 +5,13 @@
 package org.aswing.plaf.basic.accordion{
 
 import org.aswing.*;
+import org.aswing.plaf.basic.tabbedpane.Tab;
 	
 /**
  * BasicAccordionHeader implemented with a JButton 
  * @author iiley
  */
-public class BasicAccordionHeader implements AccordionHeader{
+public class BasicAccordionHeader implements Tab{
 	
 	protected var button:AbstractButton;
 	

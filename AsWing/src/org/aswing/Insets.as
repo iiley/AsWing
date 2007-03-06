@@ -103,6 +103,10 @@ public class Insets{
 		}
 	}
 	
+	public function clone():Insets{
+		return new Insets(top, left, bottom, right);
+	}
+	
 	public function toString():String{
 		return "Insets(top:"+top+", left:"+left+", bottom:"+bottom+", right:"+right+")";
 	}

@@ -9,6 +9,7 @@ import org.aswing.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.accordion.*;
+import org.aswing.plaf.basic.tabbedpane.Tab;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -95,7 +96,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     
 	protected function uninstallComponents():void{
 		for(var i:int=0; i<headers.length; i++){
-			var header:AccordionHeader = getHeader(i);
+			var header:Tab = getHeader(i);
 			headerContainer.removeChild(header.getComponent());
     		header.getComponent().removeEventListener(MouseEvent.CLICK, __tabClick);
 		}
@@ -118,7 +119,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     }
     
    	override public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void{
-    	var header:AccordionHeader = getSelectedHeader();
+    	var header:Tab = getSelectedHeader();
     	if(header != null){
     		header.getComponent().paintFocusRect(true);
     	}else{
@@ -133,21 +134,21 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     /**
      * Just override this method if you want other LAF headers.
      */
-    protected function createNewHeader():AccordionHeader{
-    	var header:AccordionHeader = new BasicAccordionHeader();
+    protected function createNewHeader():Tab{
+    	var header:Tab = new BasicAccordionHeader();
     	header.getComponent().setFocusable(false);
     	return header;
     }
         
-    protected function getHeader(i:int):AccordionHeader{
-    	return AccordionHeader(headers[i]);
+    protected function getHeader(i:int):Tab{
+    	return Tab(headers[i]);
     }
 
     protected function synTabs():void{
     	var comCount:int = accordion.getComponentCount();
     	if(comCount != headers.length){
     		var i:int;
-    		var header:AccordionHeader;
+    		var header:Tab;
     		if(comCount > headers.length){
     			for(i = headers.length; i<comCount; i++){
     				header = createNewHeader();
@@ -160,7 +161,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     			}
     		}else{
     			for(i = headers.length-comCount; i>0; i--){
-    				header = AccordionHeader(headers.pop());
+    				header = Tab(headers.pop());
     				header.getComponent().removeEventListener(MouseEvent.CLICK, __tabClick);
     				headerContainer.removeChild(header.getComponent());
     			}
@@ -170,7 +171,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
         
     protected function synHeaderProperties():void{
     	for(var i:int=0; i<headers.length; i++){
-    		var header:AccordionHeader = getHeader(i);
+    		var header:Tab = getHeader(i);
     		header.setTextAndIcon(accordion.getTitleAt(i), accordion.getIconAt(i));
     		setHeaderProperties(header);
     		header.getComponent().setEnabled(accordion.isEnabledAt(i));
@@ -179,7 +180,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	}
     }
     
-    protected function setHeaderProperties(header:AccordionHeader):void{
+    protected function setHeaderProperties(header:Tab):void{
     	header.setHorizontalAlignment(accordion.getHorizontalAlignment());
     	header.setHorizontalTextPosition(accordion.getHorizontalTextPosition());
     	header.setIconTextGap(accordion.getIconTextGap());
@@ -192,7 +193,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	accordion.bringToTop(headerContainer);
     }
     
-    protected function getSelectedHeader():AccordionHeader{
+    protected function getSelectedHeader():Tab{
     	if(accordion.getSelectedIndex() >= 0){
     		return getHeader(accordion.getSelectedIndex());
     	}else{
@@ -259,7 +260,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	var child:Component;
     	
     	for(i=0; i<n; i++){
-    		var header:AccordionHeader = getHeader(i);
+    		var header:Tab = getHeader(i);
     		var tab:Component = header.getComponent();
     		var curY:int = tab.getY();
     		var desY:int = headerDestinations[i];
@@ -335,7 +336,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	var y:int = insets.top;
     	var w:int = accordion.getWidth() - x - insets.right;
     	var h:int = accordion.getHeight() - y - insets.bottom;
-		var header:AccordionHeader;
+		var header:Tab;
 		var tab:Component;
 		var size:IntDimension;
 		

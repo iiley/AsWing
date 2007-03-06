@@ -10,6 +10,7 @@ import org.aswing.event.AWEvent;
 import flash.text.*;
 import flash.filters.BlurFilter;
 import flash.utils.getTimer;
+import flash.filters.BevelFilter;
 
 /**
  * Label UI basic imp.
@@ -134,7 +135,7 @@ public class BasicLabelUI extends BaseComponentUI{
 		textField.x = textRect.x;
 		textField.y = textRect.y;
     	if(!b.isEnabled()){
-    		b.filters = [new BlurFilter()];
+    		b.filters = [new BlurFilter(2, 2, 2)];
     	}else{
     		b.filters = null;
     	}

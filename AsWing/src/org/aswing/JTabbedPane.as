@@ -19,8 +19,28 @@ import org.aswing.plaf.*;
  * @author iiley
  */	
 	
-public class JTabbedPane extends AbstractTabbedPane
-{
+public class JTabbedPane extends AbstractTabbedPane{
+
+	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+	public static const TOP:int     = AsWingConstants.TOP;
+	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+    public static const LEFT:int    = AsWingConstants.LEFT;
+	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+    public static const BOTTOM:int  = AsWingConstants.BOTTOM;
+ 	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+    public static const RIGHT:int   = AsWingConstants.RIGHT;	
 	
 	private var tabPlacement:int;
 	

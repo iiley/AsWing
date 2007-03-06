@@ -171,7 +171,7 @@ public class BasicGraphicsUtils{
         g.fillRectangle(brush, x, y, w, h);
 	}
 	
-	public static function fillGradientRect(g:Graphics2D, b:IntRectangle, c1:ASColor, c2:ASColor, direction:Number, ratios:Array):void{
+	public static function fillGradientRect(g:Graphics2D, b:IntRectangle, c1:ASColor, c2:ASColor, direction:Number, ratios:Array=null):void{
 		var x:Number = b.x;
 		var y:Number = b.y;
 		var w:Number = b.width;

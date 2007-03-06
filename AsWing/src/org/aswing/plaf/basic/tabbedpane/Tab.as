@@ -2,16 +2,16 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic.accordion{
+package org.aswing.plaf.basic.tabbedpane{
 
 import org.aswing.*;
 
 /**
- * Accordion Header
+ * TabbedPane Tab
  * @author iiley
  */
-public interface AccordionHeader{
-	
+public interface Tab{
+
 	/**
 	 * Sets text and icon to the header
 	 */
@@ -86,6 +86,7 @@ public interface AccordionHeader{
 	 * The component represent the header and can fire the selection event 
 	 * through <code>MouseEvent.CLICK</code> event.
 	 */
-	function getComponent():Component;	
+	function getComponent():Component;
+	
 }
 }

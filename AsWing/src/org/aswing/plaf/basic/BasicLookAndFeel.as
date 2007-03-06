@@ -61,7 +61,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ComboBoxUI",org.aswing.plaf.basic.BasicComboBoxUI,			   
 			   "SliderUI",org.aswing.plaf.basic.BasicSliderUI,		   
 			   "AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
-			   "AccordionUI",org.aswing.plaf.basic.BasicAccordionUI,
+			   "AccordionUI",org.aswing.plaf.basic.BasicAccordionUI,	   
+			   "TabbedPaneUI",org.aswing.plaf.basic.BasicTabbedPaneUI,
 			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,
 			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,
 			   "SpacerUI", org.aswing.plaf.basic.BasicSpacerUI		      
@@ -464,6 +465,24 @@ public class BasicLookAndFeel extends LookAndFeel
 	    	"Accordion.motionSpeed", 50, 
 			"Accordion.tabMargin", new InsetsUIResource(2, 3, 3, 2)
 	    ];
+	    table.putDefaults(comDefaults);
+	    
+	   // *** JTabbedPane
+	    comDefaults = [
+	    	"TabbedPane.background", new ASColorUIResource(0xE7E7E5),
+	    	"TabbedPane.foreground", table.get("controlText"),
+	    	"TabbedPane.opaque", false,  
+	    	"TabbedPane.focusable", true,  
+	    	"TabbedPane.shadow", new ASColorUIResource(0x888888),        
+        	"TabbedPane.darkShadow", new ASColorUIResource(0x444444),        
+        	"TabbedPane.light", table.getColor("controlHighlight"),       
+       		"TabbedPane.highlight", new ASColorUIResource(0xFFFFFF),
+		    "TabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
+		    "TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
+        	"TabbedPane.font", table.getFont("controlFont"),
+			"TabbedPane.tabMargin", new InsetsUIResource(1, 1, 1, 1),
+			"TabbedPane.baseLineThickness", 8,
+			"TabbedPane.maxTabWidth", 1000];
 	    table.putDefaults(comDefaults);
 	}
 	

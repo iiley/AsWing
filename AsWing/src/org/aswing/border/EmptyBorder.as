@@ -15,21 +15,25 @@ import flash.display.DisplayObject;
  * EmptyBorder not draw any graphics, only use to hold a blank space around component.
  * @author iiley
  */
-public class EmptyBorder implements Border{
+public class EmptyBorder extends DecorateBorder{
 	
-	public function updateBorder(com:Component, g:Graphics2D, bounds:IntRectangle):void
-	{
+	private var margin:Insets;
+	
+	public function EmptyBorder(interior:Border=null, margin:Insets=null){
+		super(interior);
+		if(margin == null){
+			this.margin = new Insets();
+		}else{
+			this.margin = margin.clone();
+		}
 	}
 	
-	public function getBorderInsets(com:Component, bounds:IntRectangle):Insets
-	{
-		return new Insets();
+	override public function updateBorderImp(com:Component, g:Graphics2D, bounds:IntRectangle):void{
 	}
 	
-	public function getDisplay():DisplayObject
-	{
-		return null;
-	}
+    override public function getBorderInsetsImp(c:Component, bounds:IntRectangle):Insets{
+    	return margin.clone();
+    }
 	
 }
 }
