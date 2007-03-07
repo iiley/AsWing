@@ -21,9 +21,9 @@ import org.aswing.geom.*;
  * Container.addChildAt(com:Component, index:int), 
  * Container.append(), Container.insert(). 
  * 
- * @eventType org.aswing.event.AWEvent.COM_ADDED
+ * @eventType org.aswing.event.ContainerEvent.COM_ADDED
  */
-[Event(name="comAdded", type="org.aswing.event.AWEvent")]
+[Event(name="comAdded", type="org.aswing.event.ContainerEvent")]
 
 /**
  * Dispatched when a component is removed from a container.
@@ -32,9 +32,9 @@ import org.aswing.geom.*;
  * Container.removeChildAt(com:Component, index:int), 
  * Container.remove(), Container.removeAt(). 
  *
- *  @eventType org.aswing.event.AWEvent.COM_REMOVED
+ *  @eventType org.aswing.event.ContainerEvent.COM_REMOVED
  */
-[Event(name="comRemoved", type="org.aswing.event.AWEvent")]
+[Event(name="comRemoved", type="org.aswing.event.ContainerEvent")]
 
 
 /**
