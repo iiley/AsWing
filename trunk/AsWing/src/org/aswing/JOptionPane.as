@@ -122,7 +122,7 @@ public class JOptionPane extends JPanel {
 	 * <p>
 	 * for example:
 	 * <pre>
-	 * var handler:Function = Delegate.create(this, __whenUserConformed);
+	 * var handler:Function = __whenUserConformed;
 	 * var pane:JOptionPane = showMessageDialog("title", "is that OK?", handler, null, JOptionPane.YES|JOptionPane.NO);
 	 * </pre>
 	 * will show a message box with yes and no buttons.
@@ -218,7 +218,7 @@ public class JOptionPane extends JPanel {
 	 * <p>
 	 * for example:
 	 * <pre>
-	 * var handler:Function = Delegate.create(this, __whenUserEntered);
+	 * var handler:Function = __whenUserEntered;
 	 * var pane:JOptionPane = showMessageDialog("title", "Please enter your name:", handler, "yournamehere");
 	 * </pre>
 	 * will show a message box with OK and CANCEL and a input Texts.
