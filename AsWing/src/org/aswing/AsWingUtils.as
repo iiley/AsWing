@@ -617,10 +617,13 @@ public class AsWingUtils{
     }
     
     /**
-     * Returns the first popup ancestor or movieclip root of c, or null if can't find the ancestor
-     * @return the first popup ancestor or movieclip root of c, or null if can't find the ancestor
+     * Returns the first popup ancestor or display object root of c, or null if can't find the ancestor
+     * @return the first popup ancestor or display object root of c, or null if can't find the ancestor
      */
-    public static function getOwnerAncestor(c:Component):Container{
+    public static function getOwnerAncestor(c:Component):DisplayObject{
+		if(c == null){
+			return null;
+		}
     	var popup:JPopup = getPopupAncestor(c);
     	if(popup == null){
     		return c.root;
