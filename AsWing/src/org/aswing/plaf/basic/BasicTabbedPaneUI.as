@@ -118,9 +118,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		prevButton = createPrevButton();
 		nextButton = createNextButton();
 		prevButton.setFocusable(false);
-		prevButton.setVisible(false);
 		nextButton.setFocusable(false);
-		nextButton.setVisible(false);
 		
 		prevButton.addActionListener(__prevButtonReleased);
 		nextButton.addActionListener(__nextButtonReleased);
@@ -378,7 +376,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		p.setBorder(new EmptyBorder(null, insets));
 		p.append(prevButton);
 		p.append(nextButton);
-		buttonMCPane.setVisible(false);
+		//buttonMCPane.setVisible(false);
 	}
 	
 	protected function removeUIAssets():void{
@@ -581,9 +579,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			buttonMCPane.revalidate();
 		}else{
 			buttonMCPane.setVisible(false);
-			trace("buttonMCPane invisible");
 		}
-		tabbedPane.bringToBottom(uiRootMC);//make it at top
+		tabbedPane.bringToTop(uiRootMC);//make it at top
 	}
 	
 	/**
