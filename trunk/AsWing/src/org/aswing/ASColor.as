@@ -54,7 +54,7 @@ public class ASColor{
 	/**
 	 * Create a ASColor
 	 */
-	public function ASColor (rbg:uint=0x000000, alpha:Number=1){
+	public function ASColor (rgb:uint=0x000000, alpha:Number=1){
 		this.rgb = rgb;
 		this.alpha = Math.min(1, Math.max(0, alpha));
 		hlsCounted = false;
