@@ -371,10 +371,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var p:JPanel = new JPanel(new SoftBoxLayout(SoftBoxLayout.X_AXIS, 0));
 		p.setOpaque(false);
 		p.setFocusable(false);
-		p.setEnabled(false);
 		p.setSizeWH(100, 100);
 		buttonHolderMC.addChild(p);
-		buttonHolderMC.mouseEnabled = false;
 		buttonMCPane = p;
 		var insets:Insets = new Insets(topBlankSpace, topBlankSpace, topBlankSpace, topBlankSpace);
 		p.setBorder(new EmptyBorder(null, insets));
