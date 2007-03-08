@@ -1857,7 +1857,9 @@ public class Component extends AWSprite
 		var g:Graphics2D = new Graphics2D(graphics);
 		
 		//fill a transparent rectangle to be the mouse trigger
-		g.fillRectangle(bg_trigger_brush, b.x, b.y, b.width, b.height);
+		if(isEnabled()){
+			g.fillRectangle(bg_trigger_brush, b.x, b.y, b.width, b.height);
+		}
 		
 		if(backgroundDecorator != null){
 			backgroundDecorator.updateDecorator(this, g, b.clone());
@@ -2201,6 +2203,7 @@ public class Component extends AWSprite
 	private function __mouseDown(e:MouseEvent):void{
 		var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
 		var target:DisplayObject = e.target as DisplayObject;
+		trace("target = " + target.name);
 		if(focusOwner == null || 
 			!(focusOwner == this || 
 				AsWingUtils.isAncestor(this, focusOwner) 
