@@ -373,6 +373,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		p.setFocusable(false);
 		p.setEnabled(false);
 		p.setSizeWH(100, 100);
+		p.setEnabled(false);
 		buttonHolderMC.addChild(p);
 		buttonMCPane = p;
 		var insets:Insets = new Insets(topBlankSpace, topBlankSpace, topBlankSpace, topBlankSpace);
