@@ -436,13 +436,13 @@ public class DefaultTableColumnModel implements TableColumnModel {
 		}
 	}
 	
-	private function fireColumnSelectionChanged(firstIndex:int, lastIndex:int):void{
+	private function fireColumnSelectionChanged(firstIndex:int, lastIndex:int, programmatic:Boolean):void{
 		var listeners:Array = listenerList;
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
 		for (var i:int = (listeners.length - 1); i >= 0; i --){
 			var lis:TableColumnModelListener = TableColumnModelListener(listeners[i]);
-			lis.columnSelectionChanged(this, firstIndex, lastIndex);
+			lis.columnSelectionChanged(this, firstIndex, lastIndex, programmatic);
 		}
 	}
 	
@@ -470,7 +470,7 @@ public class DefaultTableColumnModel implements TableColumnModel {
 	}
 	
 	private function __selectionChanged(e:SelectionEvent):void{
-		fireColumnSelectionChanged(e.getFirstIndex(), e.getLastIndex());
+		fireColumnSelectionChanged(e.getFirstIndex(), e.getLastIndex(), e.isProgrammatic());
 	}
 	
 	private function createSelectionModel():ListSelectionModel{
