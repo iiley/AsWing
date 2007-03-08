@@ -373,13 +373,14 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		p.setFocusable(false);
 		p.setEnabled(false);
 		p.setSizeWH(100, 100);
-		p.setEnabled(false);
 		buttonHolderMC.addChild(p);
+		buttonHolderMC.mouseEnabled = false;
 		buttonMCPane = p;
 		var insets:Insets = new Insets(topBlankSpace, topBlankSpace, topBlankSpace, topBlankSpace);
 		p.setBorder(new EmptyBorder(null, insets));
 		p.append(prevButton);
 		p.append(nextButton);
+		buttonMCPane.setVisible(false);
 	}
 	
 	protected function removeUIAssets():void{
@@ -559,8 +560,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		
 		//view prev and next buttons
 		if(firstIndex > 0 || lastIndex < n-1){
-			prevButton.setVisible(true);
-			nextButton.setVisible(true);
+			buttonMCPane.setVisible(true);
 			prevButton.setEnabled(firstIndex > 0);
 			nextButton.setEnabled(lastIndex < n-1);
 			var bps:IntDimension = buttonMCPane.getPreferredSize();
@@ -582,10 +582,10 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			buttonMCPane.setLocation(bpl);
 			buttonMCPane.revalidate();
 		}else{
-			prevButton.setVisible(false);
-			nextButton.setVisible(false);
+			buttonMCPane.setVisible(false);
+			trace("buttonMCPane invisible");
 		}
-		tabbedPane.bringToTop(uiRootMC);//make it at top
+		tabbedPane.bringToBottom(uiRootMC);//make it at top
 	}
 	
 	/**
