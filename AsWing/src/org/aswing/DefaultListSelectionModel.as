@@ -7,7 +7,7 @@ package org.aswing{
 
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
-import org.aswing.event.ListSelectionEvent;
+import org.aswing.event.SelectionEvent;
 
 /**
  * Default data model for list selections.
@@ -323,15 +323,15 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 	}
 
 	public function addListSelectionListener(listener:Function):void{
-		addEventListener(ListSelectionEvent.LIST_SELECTION_CHANGED, listener);
+		addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, listener);
 	}
 	
 	public function removeListSelectionListener(listener:Function):void{
-		removeEventListener(ListSelectionEvent.LIST_SELECTION_CHANGED, listener);
+		removeEventListener(SelectionEvent.LIST_SELECTION_CHANGED, listener);
 	}
 	
 	protected function fireListSelectionEvent(firstIndex:int, lastIndex:int, programmatic:Boolean):void{
-		dispatchEvent(new ListSelectionEvent(firstIndex, lastIndex, programmatic));
+		dispatchEvent(new SelectionEvent(SelectionEvent.LIST_SELECTION_CHANGED, firstIndex, lastIndex, programmatic));
 	}
 	
 	override public function toString():String{
