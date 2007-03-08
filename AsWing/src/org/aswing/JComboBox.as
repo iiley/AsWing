@@ -491,7 +491,7 @@ public class JComboBox extends Component{
 		setSelectedItem(getEditor().getValue());
 	}
 	
-	private function __listSelectionChanged(e:ListSelectionEvent):void{
+	private function __listSelectionChanged(e:SelectionEvent):void{
 		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, e.isProgrammatic()));
 	}
 	

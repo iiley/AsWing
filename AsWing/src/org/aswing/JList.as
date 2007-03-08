@@ -14,9 +14,9 @@ import org.aswing.util.*;
 
 /**
  * Dispatched when the list selection changed.
- * @eventType org.aswing.event.ListSelectionEvent.LIST_SELECTION_CHANGED
+ * @eventType org.aswing.event.SelectionEvent.LIST_SELECTION_CHANGED
  */
-[Event(name="listSelectionChanged", type="org.aswing.event.ListSelectionEvent")]
+[Event(name="listSelectionChanged", type="org.aswing.event.SelectionEvent")]
 
 /**
  * Dispatched when the list item be click.
@@ -385,19 +385,21 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	/**
 	 * Adds a listener to list selection changed.
 	 * @param listener the listener to be add.
-	 * @see org.aswing.event.ListSelectionEvent
+	 * @param priority the priority
+	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
+	 * @see org.aswing.event.SelectionEvent
 	 */	
-	public function addSelectionListener(listener:Function):void{
-		addEventListener(ListSelectionEvent.LIST_SELECTION_CHANGED, listener);
+	public function addSelectionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
+		addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, listener, false, priority, useWeakReference);
 	}
 	
 	/**
 	 * Removes a listener from list selection changed listeners.
 	 * @param listener the listener to be removed.
-	 * @see org.aswing.event.ListSelectionEvent
+	 * @see org.aswing.event.SelectionEvent
 	 */	
 	public function removeSelectionListener(listener:Function):void{
-		removeEventListener(ListSelectionEvent.LIST_SELECTION_CHANGED, listener);
+		removeEventListener(SelectionEvent.LIST_SELECTION_CHANGED, listener);
 	}
 
 	/**
@@ -1793,8 +1795,8 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		revalidate();
     }
         
-    private function __selectionListener(e:ListSelectionEvent):void{
-    	dispatchEvent(new ListSelectionEvent(e.getFirstIndex(), e.getLastIndex(), e.isProgrammatic()));
+    private function __selectionListener(e:SelectionEvent):void{
+    	dispatchEvent(new SelectionEvent(SelectionEvent.LIST_SELECTION_CHANGED, e.getFirstIndex(), e.getLastIndex(), e.isProgrammatic()));
     	revalidate();
     }
     
