@@ -73,10 +73,6 @@ public class JWindow extends JPopup{
 		
 		addEventListener(MouseEvent.MOUSE_DOWN, __activeWhenPress, true);
 		addEventListener(MouseEvent.MOUSE_DOWN, __activeWhenPressWindowSelf);
-		//TODO imp
-		//listenerToOwner[ON_WINDOW_ICONIFIED] = Delegate.create(this, __ownerIconified);
-		//listenerToOwner[ON_WINDOW_RESTORED] = Delegate.create(this, __ownerRestored);
-		//listenerToOwner[ON_WINDOW_MAXIMIZED] = listenerToOwner[ON_WINDOW_RESTORED];
 	}
 	
 	/**
