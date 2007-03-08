@@ -2203,7 +2203,6 @@ public class Component extends AWSprite
 	private function __mouseDown(e:MouseEvent):void{
 		var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
 		var target:DisplayObject = e.target as DisplayObject;
-		trace("target = " + target.name);
 		if(focusOwner == null || 
 			!(focusOwner == this || 
 				AsWingUtils.isAncestor(this, focusOwner) 
