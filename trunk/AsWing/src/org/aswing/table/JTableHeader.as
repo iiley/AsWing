@@ -316,7 +316,7 @@ public class JTableHeader extends Container implements TableColumnModelListener{
 	public function columnMarginChanged(source:TableColumnModel):void{
 		resizeAndRepaint();
 	}
-	public function columnSelectionChanged(source:TableColumnModel, firstIndex:int, lastIndex:int):void{
+	public function columnSelectionChanged(source:TableColumnModel, firstIndex:int, lastIndex:int, programmatic:Boolean):void{
 	}
 	
 	

@@ -31,6 +31,6 @@ public interface TableColumnModelListener {
      * Tells listeners that the selection model of the
      * TableColumnModel changed.
      */
-    function columnSelectionChanged(source:TableColumnModel, firstIndex:int, lastIndex:int):void;
+    function columnSelectionChanged(source:TableColumnModel, firstIndex:int, lastIndex:int, programmatic:Boolean):void;
 }
 }
