@@ -4,9 +4,8 @@
 
 package org.aswing{
 
-import org.aswing.event.ListDataEvent;
-import org.aswing.event.ListDataListener;
-import org.aswing.util.ArrayUtils;
+import org.aswing.event.*;
+import org.aswing.util.*;
 
 /**
  * Abstract list model that provide the list model events base.
