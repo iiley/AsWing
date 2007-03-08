@@ -9,7 +9,7 @@ import org.aswing.*;
 import org.aswing.event.ListItemEvent;
 import org.aswing.event.FocusKeyEvent;
 import org.aswing.event.AWEvent;
-import org.aswing.event.ListSelectionEvent;
+import org.aswing.event.SelectionEvent;
 import flash.events.MouseEvent;
 import org.aswing.graphics.*;
 import org.aswing.geom.*;
@@ -61,7 +61,7 @@ public class BasicListUI extends BaseComponentUI{
     	list.addEventListener(ListItemEvent.ITEM_MOUSE_DOWN, __onItemMouseDown);
     	list.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
     	list.addEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
-    	list.addEventListener(ListSelectionEvent.LIST_SELECTION_CHANGED, __onSelectionChanged);
+    	list.addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __onSelectionChanged);
     	list.addEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
     }
 	
@@ -79,7 +79,7 @@ public class BasicListUI extends BaseComponentUI{
     	list.removeEventListener(ListItemEvent.ITEM_MOUSE_DOWN, __onItemMouseDown);
     	list.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
     	list.removeEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
-    	list.removeEventListener(ListSelectionEvent.LIST_SELECTION_CHANGED, __onSelectionChanged);
+    	list.removeEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __onSelectionChanged);
     	list.removeEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
     }
     
@@ -194,7 +194,7 @@ public class BasicListUI extends BaseComponentUI{
     		}
     	}
     }
-    private function __onSelectionChanged(e:ListSelectionEvent):void{
+    private function __onSelectionChanged(e:SelectionEvent):void{
     	if(FocusManager.getCurrentManager().isTraversing() && list.isFocusOwner()){
     		paintCellFocusWithIndex(list.getLeadSelectionIndex());
     	}
