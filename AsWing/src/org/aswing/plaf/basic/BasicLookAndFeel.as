@@ -47,6 +47,9 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "ToggleButtonUI", org.aswing.plaf.basic.BasicToggleButtonUI,
 			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
 			   "CheckBoxUI", org.aswing.plaf.basic.BasicCheckBoxUI, 
+			   "ColorSwatchesUI", org.aswing.plaf.basic.BasicColorSwatchesUI,
+			   "ColorMixerUI", org.aswing.plaf.basic.BasicColorMixerUI,
+			   "ColorChooserUI", org.aswing.plaf.basic.BasicColorChooserUI,			   
 			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
 			   "SeparatorUI", org.aswing.plaf.basic.BasicSeparatorUI,
 			   "ViewportUI", org.aswing.plaf.basic.BasicViewportUI,
@@ -455,6 +458,39 @@ public class BasicLookAndFeel extends LookAndFeel
 		    "Adjuster.arrowLightColor", new ASColorUIResource(0x444444)
 	    ];
 	    table.putDefaults(comDefaults);
+	    
+	    // *** ColorSwatches
+	    comDefaults = [
+		    "ColorSwatches.background", new ASColorUIResource(0xEEEEEE),
+		    "ColorSwatches.foreground", table.get("controlText"),
+	    	"ColorSwatches.opaque", false,  
+	    	"ColorSwatches.focusable", false,  
+        	"ColorSwatches.font", table.getFont("controlFont"),
+	    	"ColorSwatches.border", undefined
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** ColorMixer
+	    comDefaults = [
+		    "ColorMixer.background", new ASColorUIResource(0xEEEEEE),
+		    "ColorMixer.foreground", table.get("controlText"),
+	    	"ColorMixer.opaque", false,  
+	    	"ColorMixer.focusable", false,  
+        	"ColorMixer.font", table.getFont("controlFont"),
+	    	"ColorMixer.border", undefined
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** ColorChooser
+	    comDefaults = [
+		    "ColorChooser.background", table.get("window"),
+		    "ColorChooser.foreground", table.get("controlText"),
+	    	"ColorChooser.opaque", false,  
+	    	"ColorChooser.focusable", false,  
+        	"ColorChooser.font", table.getFont("controlFont"),
+	    	"ColorChooser.border", org.aswing.plaf.basic.border.ColorChooserBorder
+	    ];
+	    table.putDefaults(comDefaults);	    
 	    
 	    // *** Accordion
 	    comDefaults = [
