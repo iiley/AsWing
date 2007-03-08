@@ -193,15 +193,15 @@ public class JColorChooser extends AbstractColorChooserPanel {
 		frame.setContentPane(chooser);
 		frame.setResizable(false);
 		
-		chooser.getOkButton().addActionListener(function(){
+		chooser.getOkButton().addActionListener(function():void{
 			okHandler(chooser.getSelectedColor());
 			frame.tryToClose();
 		});
-		chooser.getCancelButton().addActionListener(function(){
+		chooser.getCancelButton().addActionListener(function():void{
 			frame.tryToClose();
 			cancelHandler();
 		});
-		frame.addEventListener(FrameEvent.FRAME_CLOSING, function(){
+		frame.addEventListener(FrameEvent.FRAME_CLOSING, function():void{
 			cancelHandler();
 		});
 		frame.pack();

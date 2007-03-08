@@ -156,10 +156,10 @@ public class BasicColorMixerUI extends BaseComponentUI {
     	p.append(new JLabel(label));
     	p.append(component);
 
-    	component.addEventListener(AWEvent.HIDDEN, function(){
+    	component.addEventListener(AWEvent.HIDDEN, function():void{
     		p.setVisible(false);
     	});
-    	component.addEventListener(AWEvent.SHOWN, function(){
+    	component.addEventListener(AWEvent.SHOWN, function():void{
     		p.setVisible(true);
     	});
     	

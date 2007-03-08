@@ -315,18 +315,18 @@ public class BasicColorSwatchesUI extends ColorSwatchesUI {
 			fillRect(g, startX, startY+y*L, new ASColor(leftLine[y]));
 		}
 		startX += L;
-		for(var y:Number=0; y<6*2; y++){
-			fillRect(g, startX, startY+y*L, ASColor.BLACK);
+		for(var y2:Number=0; y2<6*2; y2++){
+			fillRect(g, startX, startY+y2*L, ASColor.BLACK);
 		}
 		startX += L;		
 		
 		for(var t:Number=0; t<6; t++){
 			for(var x:Number=0; x<6; x++){
-				for(var y:Number=0; y<6; y++){
-					var c:ASColor = getTileColorByTXY(t, x, y);
+				for(var y3:Number=0; y3<6; y3++){
+					var c:ASColor = getTileColorByTXY(t, x, y3);
 					fillRect(g, 
 							 startX + (t%3)*(6*L) + x*L, 
-							 startY + Math.floor(t/3)*(6*L) + y*L, 
+							 startY + Math.floor(t/3)*(6*L) + y3*L, 
 							 c);
 				}
 			}
