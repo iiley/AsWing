@@ -45,7 +45,6 @@ public class BasicColorSwatchesUI extends ColorSwatchesUI {
 		installDefaults();
 		installComponents();
 		installListeners();
-		updateSectionVisibles();
     }
     
 	override public function uninstallUI(c:Component):void{
@@ -89,6 +88,7 @@ public class BasicColorSwatchesUI extends ColorSwatchesUI {
 		colorSwatches.setLayout(new BorderLayout(4, 4));
 		colorSwatches.append(topBar, BorderLayout.NORTH);
 		colorSwatches.append(colorTilesPane, BorderLayout.CENTER);
+		createTitles();
 		updateSectionVisibles();
     }
 	private function uninstallComponents():void{
@@ -178,7 +178,7 @@ public class BasicColorSwatchesUI extends ColorSwatchesUI {
     }
     
     private var colorTilesMC:AWSprite;
-	private function __colorTilesPaneCreated(e:Event):void{
+	private function createTitles():void{
 		colorTilesMC = new AWSprite();
 		selectionRectMC = new AWSprite();
 		colorTilesPane.addChild(colorTilesMC);
@@ -393,7 +393,6 @@ public class BasicColorSwatchesUI extends ColorSwatchesUI {
     	var size:IntDimension = getColorTilesPaneSize();
     	size.change(1, 1);
 		p.setPreferredSize(size);
-		p.addEventListener(Event.ADDED_TO_STAGE, __colorTilesPaneCreated);
 		return p;
 	}
 }

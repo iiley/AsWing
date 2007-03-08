@@ -48,7 +48,6 @@ public class BasicColorChooserUI extends BaseComponentUI {
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
-		updateSectionVisibles();
     }
 	
 	private function installDefaults():void{
@@ -109,7 +108,7 @@ public class BasicColorChooserUI extends BaseComponentUI {
 	//*******************************************************************************
 	
 	private function layoutComponents():void{
-		chooser.setLayout(new BorderLayout(6, 6));
+		chooser.setLayout(new BorderLayout(6, 6));	
 		chooser.append(chooser.getTabbedPane(), BorderLayout.CENTER);
 		var bb:BevelBorder = new BevelBorder(new EmptyBorder(null, new Insets(0, 0, 2, 0)), BevelBorder.LOWERED);
 		chooser.getTabbedPane().setBorder(bb);
@@ -121,7 +120,7 @@ public class BasicColorChooserUI extends BaseComponentUI {
 		rightPane.append(new JLabel("Old"));
 		rightPane.append(AsWingUtils.createPaneToHold(previewColorLabel, new CenterLayout()));
 		rightPane.append(new JLabel("Current"));
-		chooser.append(rightPane, BorderLayout.EAST);
+		chooser.append(rightPane, BorderLayout.WEST);
 	}
 	
     private function addChooserPanels():void{
