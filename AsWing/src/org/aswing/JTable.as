@@ -2242,9 +2242,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @param  e  the event received
 	 * @see TableColumnModelListener
 	 */
-	public function columnSelectionChanged(source:TableColumnModel, firstIndex:int, lastIndex:int):void{
-		//TODO promattcily
-		dispatchEvent(new SelectionEvent(SelectionEvent.COLUMN_SELECTION_CHANGED, firstIndex, lastIndex, false));
+	public function columnSelectionChanged(source:TableColumnModel, firstIndex:int, lastIndex:int, programmatic:Boolean):void{
+		dispatchEvent(new SelectionEvent(SelectionEvent.COLUMN_SELECTION_CHANGED, firstIndex, lastIndex, programmatic));
 		
 		var isAdjusting:Boolean = false;//e.getValueIsAdjusting();
 		if (columnSelectionAdjusting && (! isAdjusting)){
