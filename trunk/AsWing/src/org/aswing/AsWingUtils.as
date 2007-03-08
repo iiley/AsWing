@@ -5,13 +5,14 @@
 package org.aswing
 {
 
+import flash.display.*;
+import flash.geom.Point;
 import flash.text.TextField;
-import flash.text.TextFormat;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
-import org.aswing.geom.*;
-import flash.display.*;
-import flash.geom.Point;	
+import flash.text.TextFormat;
+
+import org.aswing.geom.*;	
 
 /**
  * A collection of utility methods for AsWing.
@@ -134,6 +135,14 @@ public class AsWingUtils{
     public static function getStageMousePosition():IntPoint{
     	var st:Stage = AsWingManager.getStage();
     	return new IntPoint(st.mouseX, st.mouseY);
+    }
+    
+    /**
+     * Returns the center position in the stage.
+     */
+    public static function getScreenCenterPosition():IntPoint{
+    	var r:IntRectangle = getVisibleMaximizedBounds();
+    	return new IntPoint(r.x + r.width/2, r.y + r.height/2);
     }
     
     /**
@@ -569,6 +578,55 @@ public class AsWingUtils{
         return text;
     }
        
+    /**
+     * Creates and return a pane to hold the component with specified layout manager and constraints.
+     */
+    public static function createPaneToHold(com:Component, layout:LayoutManager, constraints:Object=null):Container{
+        var p:JPanel = new JPanel(layout);
+        p.setOpaque(false);
+        p.append(com, constraints);
+        return p;
+    }   
+     
+    /**
+     * Returns the MCPanel ancestor of c, or null if it is not contained inside a mcpanel yet
+     * @return the first MCPanel ancestor of c, or null.
+     */
+	public static function getAncestorComponent(c:Component):Container{
+        while(c != null){
+            if(c is Container){
+                return Container(c);
+            }
+            c = c.getParent();
+        }
+        return null;
+	}
+	
+    /**
+     * Returns the first Popup ancestor of c, or null if component is not contained inside a popup
+     * @return the first Popup ancestor of c, or null if component is not contained inside a popup
+     */
+    public static function getPopupAncestor(c:Component):JPopup{
+        while(c != null){
+            if(c is JPopup){
+                return JPopup(c);
+            }
+            c = c.getParent();
+        }
+        return null;
+    }
+    
+    /**
+     * Returns the first popup ancestor or movieclip root of c, or null if can't find the ancestor
+     * @return the first popup ancestor or movieclip root of c, or null if can't find the ancestor
+     */
+    public static function getOwnerAncestor(c:Component):Container{
+    	var popup:JPopup = getPopupAncestor(c);
+    	if(popup == null){
+    		return c.getParent();
+    	}
+    	return popup;
+    }       
 }
 
 }
