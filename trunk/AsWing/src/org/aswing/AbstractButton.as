@@ -206,6 +206,7 @@ public class AbstractButton extends Component
     	dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 0, 0));
     	dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, true, false, 0, 0));
     	dispatchEvent(new MouseEvent(MouseEvent.CLICK, true, false, 0, 0));
+    	dispatchEvent(new MouseEvent(MouseEvent.ROLL_OUT, true, false, 0, 0));
     }
     
     /**

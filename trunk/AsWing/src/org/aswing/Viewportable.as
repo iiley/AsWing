@@ -7,6 +7,21 @@ package org.aswing{
 import org.aswing.geom.*;
 
 /**
+ * Dispatched when the viewport's state changed. the state is all about:
+ * <ul>
+ * <li>view position</li>
+ * <li>verticalUnitIncrement</li>
+ * <li>verticalBlockIncrement</li>
+ * <li>horizontalUnitIncrement</li>
+ * <li>horizontalBlockIncrement</li>
+ * </ul>
+ * </p>
+ * 
+ * @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
+ */
+[Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
+
+/**
  * A viewportable object can scrolled by <code>JScrollPane</code>, 
  * <code>JScrollBar</code> to view its viewed content in a visible area.
  * 
