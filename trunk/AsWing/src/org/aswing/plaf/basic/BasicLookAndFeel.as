@@ -66,7 +66,6 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
 			   "AccordionUI",org.aswing.plaf.basic.BasicAccordionUI,	   
 			   "TabbedPaneUI",org.aswing.plaf.basic.BasicTabbedPaneUI,
-			   //"TabbedPaneUI", org.aswing.plaf.basic.BasicTabbedPaneUI,
 			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,
 			   "SpacerUI", org.aswing.plaf.basic.BasicSpacerUI		      
 		   ];
