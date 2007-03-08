@@ -623,7 +623,7 @@ public class AsWingUtils{
     public static function getOwnerAncestor(c:Component):Container{
     	var popup:JPopup = getPopupAncestor(c);
     	if(popup == null){
-    		return c.getParent();
+    		return null;
     	}
     	return popup;
     }       

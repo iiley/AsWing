@@ -108,7 +108,7 @@ public class JOptionPane extends JPanel {
 	}	
 	private function addCloseListener(button:JButton):void{
 		var f:JFrame = getFrame();
-		button.addActionListener(function(){ f.tryToClose(); });
+		button.addActionListener(function():void{ f.tryToClose(); });
 	}
 	
 	/**
@@ -157,40 +157,40 @@ public class JOptionPane extends JPanel {
 		if((buttons & OK) == OK){
 			pane.addButton(pane.getOkButton());
 			pane.addCloseListener(pane.getOkButton());
-			pane.getOkButton().addActionListener(function(){
+			pane.getOkButton().addActionListener(function():void{
 				if (handler != null) handler(JOptionPane.OK);
 			});
 		}
 		if((buttons & YES) == YES){
 			pane.addButton(pane.getYesButton());
 			pane.addCloseListener(pane.getYesButton());
-			pane.getYesButton().addActionListener(function(){
+			pane.getYesButton().addActionListener(function():void{
 				if (handler != null) handler(JOptionPane.YES);
 			});
 		}
 		if((buttons & NO) == NO){
 			pane.addButton(pane.getNoButton());
 			pane.addCloseListener(pane.getNoButton());
-			pane.getNoButton().addActionListener(function(){
+			pane.getNoButton().addActionListener(function():void{
 				if (handler != null) handler(JOptionPane.NO);
 			});
 		}
 		if((buttons & CANCEL) == CANCEL){
 			pane.addButton(pane.getCancelButton());
 			pane.addCloseListener(pane.getCancelButton());
-			pane.getCancelButton().addActionListener(function(){
+			pane.getCancelButton().addActionListener(function():void{
 				if (handler != null) handler(JOptionPane.CANCEL);
 			});
 		}
 		if((buttons & CLOSE) == CLOSE){
 			pane.addButton(pane.getCloseButton());
 			pane.addCloseListener(pane.getCloseButton());
-			pane.getCloseButton().addActionListener(function(){
+			pane.getCloseButton().addActionListener(function():void{
 				if (handler != null) handler(JOptionPane.CLOSE);
 			});
 		}
 		frame.addEventListener(FrameEvent.FRAME_CLOSING, 
-			function(){
+			function():void{
 				if (handler != null) handler(JOptionPane.CLOSE);
 			});
 		
@@ -252,12 +252,12 @@ public class JOptionPane extends JPanel {
 		var handler:Function = finishHandler;
 		
 		pane.getOkButton().addActionListener(
-			function(){
+			function():void{
 				if (handler != null) handler(pane.getInputText().getText());
 			}
 		);
 		
-		var cancelHandler:Function = function(){
+		var cancelHandler:Function = function():void{
 			if (handler != null) handler(null);
 		};
 		
