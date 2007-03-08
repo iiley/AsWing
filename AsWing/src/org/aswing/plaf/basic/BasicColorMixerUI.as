@@ -82,6 +82,7 @@ public class BasicColorMixerUI extends BaseComponentUI {
 		hexText = createHexTextField();
 		createAdjusters();
 		layoutComponents();
+		createHSAndL();
 		updateSectionVisibles();
     }
 	private function uninstallComponents():void{
@@ -410,7 +411,7 @@ public class BasicColorMixerUI extends BaseComponentUI {
 		}
 	}	
 		
-	private function __mixerPanelCreated(e:Event):void{
+	private function createHSAndL():void{
 		HSMC = new AWSprite();
 		HSPosMC = new AWSprite();
 		LMC = new AWSprite();
@@ -751,7 +752,6 @@ public class BasicColorMixerUI extends BaseComponentUI {
 	private function createMixerPanel():JPanel{
 		var p:JPanel = new JPanel();
 		p.setBorder(null); //esure there is no border
-		p.addEventListener(Event.ADDED_TO_STAGE, __mixerPanelCreated);
 		p.setPreferredSize(getMixerPaneSize());
 		return p;
 	}
