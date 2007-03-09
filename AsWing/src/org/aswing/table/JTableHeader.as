@@ -2,20 +2,12 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.Container;
 import org.aswing.geom.*;
 import org.aswing.JTable;
 import org.aswing.plaf.ComponentUI;
-import org.aswing.table.DefaultTableColumnModel;
-import org.aswing.table.DefaultTextHeaderCell;
-import org.aswing.table.GeneralTableCellFactoryUIResource;
-import org.aswing.table.TableCellFactory;
-import org.aswing.table.TableColumn;
-import org.aswing.table.TableColumnModel;
-import org.aswing.table.TableColumnModelEvent;
-import org.aswing.table.TableColumnModelListener;
 import org.aswing.UIManager;
 
 /**

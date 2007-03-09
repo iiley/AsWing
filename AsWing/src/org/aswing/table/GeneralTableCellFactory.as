@@ -2,10 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
-
-import org.aswing.table.TableCell;
-import org.aswing.table.TableCellFactory;
+package org.aswing.table{
 
 /**
  * @author iiley

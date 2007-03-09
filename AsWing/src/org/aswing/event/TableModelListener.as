@@ -4,8 +4,6 @@
 
 package org.aswing.event { 
 
-import org.aswing.event.TableModelEvent;
-
 /**
  * TableModelListener defines the interface for an object that listens
  * to changes in a TableModel.

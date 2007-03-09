@@ -2,7 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table.sorter { 
+package org.aswing.table.sorter{
 
 /**
  * @author iiley

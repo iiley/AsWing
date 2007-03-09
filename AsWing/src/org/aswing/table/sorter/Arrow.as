@@ -2,7 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table.sorter { 
+package org.aswing.table.sorter{
 
 import org.aswing.ASColor;
 import org.aswing.Component;
@@ -15,7 +15,7 @@ import flash.display.DisplayObject;
 /**
  * @author iiley
  */
-public class Arrow implements Icon {
+public class Arrow implements Icon{
 	
 	private var width:int;
 	private var arrow:int;

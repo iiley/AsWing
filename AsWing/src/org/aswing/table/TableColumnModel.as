@@ -2,18 +2,16 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.ListSelectionModel;
-import org.aswing.table.TableColumn;
-import org.aswing.table.TableColumnModelListener;
 
 /**
  * Defines the requirements for a table column model object suitable for
  * use with <code>JTable</code>.
  * @author iiley
  */
-public interface TableColumnModel {
+public interface TableColumnModel{
 
     /**
      *  Appends <code>aColumn</code> to the end of the

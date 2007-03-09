@@ -8,8 +8,6 @@ import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.util.*;
 import org.aswing.plaf.*;
-import flash.utils.getTimer;
-import flash.ui.Keyboard;
 import org.aswing.table.TableColumnModelListener;
 import org.aswing.table.TableModel;
 import org.aswing.table.TableColumnModel;
@@ -118,8 +116,7 @@ import org.aswing.table.GeneralTableCellFactoryUIResource;
  * To listen other Table events see {@link org.aswing.table.TableModel#addTableModelListener}
  * @author iiley
  */
-public class JTable extends Container implements Viewportable, TableModelListener, 
-	TableColumnModelListener, CellEditorListener, LayoutManager{
+public class JTable extends Container implements Viewportable, TableModelListener, TableColumnModelListener, CellEditorListener, LayoutManager{
 		
  	/**
  	 * The default unit/block increment, it means auto count a value.
@@ -192,7 +189,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private var horizontalUnitIncrement:int;
 	private var horizontalBlockIncrement:int;
 	/** Stored cell value before any edition. */
-	private var _storedValue : *;
+	private var _storedValue:*;
 
 	/**
 	 * Constructs a default <code>JTable</code>.
@@ -202,7 +199,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @see #initWithRowColumn()
 	 * @see #initWithModels()
 	 */
-	public function JTable(dm:TableModel=null) {
+	public function JTable(dm:TableModel=null){
 		super();
 		setName("JTable");
 		initWithModels(dm);
@@ -276,7 +273,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		return getUI() as TableUI;
 	}
 
-	protected function updateSubComponentUI(componentShell):void {
+	protected function updateSubComponentUI(componentShell:*):void {
 		if (componentShell == null) {
 			return;
 		}
@@ -285,7 +282,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			component = Component(componentShell);
 			component.updateUI();
 		}else if (componentShell is CellEditor) {
-		   ((CellEditor(componentShell))).updateUI();
+		   (CellEditor(componentShell)).updateUI();
 		}
 	}
 
@@ -1228,7 +1225,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		changeSelectionModel(rsm, rowIndex, toggle, extend, selected);
 
     	// Scroll after changing the selection as blit scrolling is immediate,
-    	// so that if we cause the repaint after the scrollV we end up painting
+    	// so that if we cause the repaint after the scroll we end up painting
     	// everything!		
 		if (false){//getAutoscrolls()){
 			var cellRect:IntRectangle = getCellRect(rowIndex, columnIndex, false);
@@ -1598,23 +1595,23 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	}
 	
 	/**
-	 * Returns a rect for the cell that lies at the intersection of
+	 * Returns a rectangle for the cell that lies at the intersection of
 	 * <code>row</code> and <code>column</code>.
 	 * If <code>includeSpacing</code> is true then the value returned
 	 * has the full height and width of the row and column
-	 * specified. If it is false, the returned rect is inset by the
+	 * specified. If it is false, the returned rectangle is inset by the
 	 * intercell spacing to return the true bounds of the rendering or
 	 * editing component as it will be set during rendering.
 	 * <p>
 	 * If the column index is valid but the row index is less
-	 * than zero the method returns a rect with the
+	 * than zero the method returns a rectangle with the
 	 * <code>y</code> and <code>height</code> values set appropriately
 	 * and the <code>x</code> and <code>width</code> values both set
 	 * to zero. In general, when either the row or column indices indicate a
-	 * cell outside the appropriate range, the method returns a rect
+	 * cell outside the appropriate range, the method returns a rectangle
 	 * depicting the closest edge of the closest cell that is within
 	 * the table's range. When both row and column indices are out
-	 * of range the returned rect covers the closest
+	 * of range the returned rectangle covers the closest
 	 * point of the closest cell.
 	 * <p>
 	 * In all cases, calculations that use this method to calculate
@@ -1637,7 +1634,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *				      spacing from the height and widths of
 	 *				      the column and row models
 	 *
-	 * @return  the rect containing the cell at location
+	 * @return  the rectangle containing the cell at location
 	 *          <code>row</code>,<code>column</code>
 	 */	
 	public function getCellRect(row:int, column:int, includeSpacing:Boolean):IntRectangle{
@@ -1768,34 +1765,34 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private function accommodateDelta(resizingColumnIndex:int, delta:int):void{
 		var columnCount:int = getColumnCount();
 		var from:int = resizingColumnIndex;
-		var to:int = columnCount;
+		var _to:int = columnCount;
 		// Use the mode to determine how to absorb the changes.
 		switch (autoResizeMode) {
 			case AUTO_RESIZE_NEXT_COLUMN: 
 				from = (from + 1);
-				to = Math.min(from + 1, columnCount);
+				_to = Math.min(from + 1, columnCount);
 				break;
 			case AUTO_RESIZE_SUBSEQUENT_COLUMNS: 
 				from = (from + 1);
-				to = columnCount;
+				_to = columnCount;
 				break;
 			case AUTO_RESIZE_LAST_COLUMN: 
 				from = (columnCount - 1);
-				to = (from + 1);
+				_to = (from + 1);
 				break;
 			case AUTO_RESIZE_ALL_COLUMNS: 
 				from = 0;
-				to = columnCount;
+				_to = columnCount;
 				break;
 			default: 
 				return ;
 		}
 		var start:int = from;
-		var end:int = to;
+		var end:int = _to;
 		var cm:TableColumnModel = columnModel;
 		var r:Resizable3 = new Resizable3Imp2(cm, start, end);
 		var totalWidth:int = 0;
-		for (var i:int = from; i < to; i++)
+		for (var i:int = from; i < _to; i++)
 		{
 			var aColumn:TableColumn = columnModel.getColumn(i);
 			var input:int = aColumn.getWidth();
@@ -2488,7 +2485,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *   even after this method is called, the total width of the columns
 	 *   is still not equal to the width of the table. When this happens
 	 *   the <code>JTable</code> does not put itself
-	 *   in AUTO_RESIZE_OFF mode to bring up a scrollV bar, or break other
+	 *   in AUTO_RESIZE_OFF mode to bring up a scroll bar, or break other
 	 *   commitments of its current auto-resize mode -- instead it
 	 *   allows its bounds to be set larger (or smaller) than the total of the
 	 *   column minimum or maximum, meaning, either that there

@@ -2,10 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
-
-import org.aswing.table.Resizable3;
-import org.aswing.table.TableColumnModel;
+package org.aswing.table{
 
 /**
  * @author iiley

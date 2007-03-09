@@ -2,10 +2,9 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.plaf.UIResource;
-import org.aswing.table.GeneralTableCellFactory;
 
 /**
  * @author iiley

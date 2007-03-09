@@ -2,13 +2,12 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 	
 import org.aswing.Component;
 import org.aswing.geom.*;
 import org.aswing.JLabel;
 import org.aswing.JTable;
-import org.aswing.table.TableCell;
 
 /**
  * Default table cell to render text

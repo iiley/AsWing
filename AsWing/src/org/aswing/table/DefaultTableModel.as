@@ -2,16 +2,15 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{ 
 
 import org.aswing.event.TableModelEvent;
-import org.aswing.table.AbstractTableModel;
 import org.aswing.util.ArrayUtils;
 
 /**
  * @author iiley
  */
-public class DefaultTableModel extends AbstractTableModel {
+public class DefaultTableModel extends AbstractTableModel{
 	
 	/**
 	 * The <code>Array</code> of <code>Arrays</code> of values.
@@ -171,14 +170,14 @@ public class DefaultTableModel extends AbstractTableModel {
 	//	  Manipulating rows
 	//*******************************
 
-	private function justifyRows(from:int, to:int):void { 
+	private function justifyRows(from:int, _to:int):void { 
 		// Sometimes the DefaultTableModel is subclassed 
 		// instead of the AbstractTableModel by mistake. 
 		// Set the number of rows for the case when getRowCount 
 		// is overridden. 
 		ArrayUtils.setSize(dataArray, getRowCount());
-		for (var i:int = from; i < to; i++) { 
-			if (dataArray[i] == null) { 
+		for (var i:int = from; i < _to; i++) { 
+			if (dataArray[i] == null) {
 				dataArray[i] = new Array(getColumnCount());
 			}
 		}
@@ -286,13 +285,13 @@ public class DefaultTableModel extends AbstractTableModel {
 		var r:int = size - shift;
 		var g:int = gcd(size, r); 
 		for(var i:int = 0; i < g; i++) {
-			var to:int = i; 
-			var tmp:* = v[a + to]; 
-			for(var from:int = (to + r) % size; from != i; from = (to + r) % size) {
-				v[a + to] = v[a + from];
-				to = from; 
+			var _to:int = i; 
+			var tmp:* = v[a + _to]; 
+			for(var from:int = (_to + r) % size; from != i; from = (_to + r) % size) {
+				v[a + _to] = v[a + from];
+				_to = from; 
 			}
-			v[a + to] = tmp;
+			v[a + _to] = tmp;
 		}
 	}
 
@@ -322,16 +321,16 @@ public class DefaultTableModel extends AbstractTableModel {
 	 * @param   to		  the destination of the rows to be moved
 	 * 
 	 */
-	public function moveRow(start:int, end:int, to:int):void { 
-		var shift:int = to - start; 
+	public function moveRow(start:int, end:int, _to:int):void { 
+		var shift:int = _to - start; 
 		var first:int, last:int; 
 		if (shift < 0) { 
-			first = to; 
+			first = _to; 
 			last = end; 
 		}
 		else { 
 			first = start; 
-			last = to + end - start;  
+			last = _to + end - start;  
 		}
 		rotate(dataArray, first, last + 1, shift); 
 

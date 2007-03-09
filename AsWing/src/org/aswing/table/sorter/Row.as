@@ -2,16 +2,14 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table.sorter { 
+package org.aswing.table.sorter{
 
-import org.aswing.table.sorter.Directive;
-import org.aswing.table.sorter.TableSorter;
 import org.aswing.table.TableModel;
 
 /**
  * @author iiley
  */
-public class Row {
+public class Row{
 	
     private var modelIndex:int;
     private var tableSorter:TableSorter;

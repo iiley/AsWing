@@ -2,15 +2,13 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
-
-import org.aswing.table.TableCell;
+package org.aswing.table{
 
 /**
  * TableCellFactory for create cells for table
  * @author iiley
  */
-public interface TableCellFactory {
+public interface TableCellFactory{
 	
 	/**
 	 * Creates a new table cell.

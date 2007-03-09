@@ -2,7 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.table.TableColumnModel;
 import org.aswing.table.TableColumnModelEvent;
@@ -13,7 +13,7 @@ import org.aswing.table.TableColumnModelEvent;
  * 
  * @author iiley
  */
-public interface TableColumnModelListener {
+public interface TableColumnModelListener{
 
     /** Tells listeners that a column was added to the model. */
     function columnAdded(e:TableColumnModelEvent):void;

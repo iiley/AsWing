@@ -2,14 +2,10 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.DefaultListSelectionModel;
 import org.aswing.ListSelectionModel;
-import org.aswing.table.TableColumn;
-import org.aswing.table.TableColumnModel;
-import org.aswing.table.TableColumnModelEvent;
-import org.aswing.table.TableColumnModelListener;
 import org.aswing.util.ArrayUtils;
 import org.aswing.event.PropertyChangeEvent;
 import org.aswing.event.SelectionEvent;
@@ -19,7 +15,8 @@ import org.aswing.event.SelectionEvent;
  * <p>
  * @author iiley
  */
-public class DefaultTableColumnModel implements TableColumnModel {
+public class DefaultTableColumnModel implements TableColumnModel{
+	
 	/** Array of TableColumn objects in this model */
 	private var tableColumns:Array;
 	/** Model for keeping track of column selections */
