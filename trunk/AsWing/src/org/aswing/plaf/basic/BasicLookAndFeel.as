@@ -175,7 +175,7 @@ public class BasicLookAndFeel extends LookAndFeel
 	    
 		// *** RadioButton
 	    comDefaults = [
-	    	"RadioButton.background", table.get("control"),
+	    	"RadioButton.background", new ASColorUIResource(0xDCDBD8),
 	    	"RadioButton.foreground", table.get("controlText"),
 	    	"RadioButton.opaque", false, 
 	    	"RadioButton.focusable", true, 
@@ -192,7 +192,7 @@ public class BasicLookAndFeel extends LookAndFeel
 	    
 		// *** CheckBox
 	    comDefaults = [
-	    	"CheckBox.background", table.get("control"),
+	    	"CheckBox.background", new ASColorUIResource(0xDCDBD8),
 	    	"CheckBox.foreground", table.get("controlText"),
 	    	"CheckBox.opaque", false, 
 	    	"CheckBox.focusable", true, 
