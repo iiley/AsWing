@@ -2,16 +2,15 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table.sorter { 
+package org.aswing.table.sorter{
 
 import org.aswing.JTable;
 import org.aswing.table.DefaultTextHeaderCell;
-import org.aswing.table.sorter.TableSorter;
 
 /**
  * @author iiley
  */
-public class SortableTextHeaderCell extends DefaultTextHeaderCell {
+public class SortableTextHeaderCell extends DefaultTextHeaderCell{
 	
 	private var tableSorter:TableSorter;
 	

@@ -2,14 +2,9 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.Component;
-import org.aswing.table.DefaultTextCell;
-import org.aswing.table.GeneralTableCellFactoryUIResource;
-import org.aswing.table.TableCell;
-import org.aswing.table.TableCellEditor;
-import org.aswing.table.TableCellFactory;
 import org.aswing.event.*;
 import flash.events.EventDispatcher;
 	

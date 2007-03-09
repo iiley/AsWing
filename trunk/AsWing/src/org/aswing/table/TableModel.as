@@ -2,7 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 	
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.event.TableModelListener;
 
@@ -12,7 +12,7 @@ import org.aswing.event.TableModelListener;
  *  
  * @author iiley
  */
-public interface TableModel {
+public interface TableModel{
 	
     /**
      * Returns the number of rows in the model. A

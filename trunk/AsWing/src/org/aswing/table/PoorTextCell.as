@@ -2,12 +2,11 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.plaf.ComponentUI;
-import org.aswing.table.TableCell;
 import org.aswing.graphics.*;
 import flash.text.*;
 
@@ -15,7 +14,7 @@ import flash.text.*;
  * A poor table cell to render text faster.
  * @author iiley
  */
-public class PoorTextCell extends Component implements TableCell {
+public class PoorTextCell extends Component implements TableCell{
 	
 	private var textField:TextField;
 	private var text:String;

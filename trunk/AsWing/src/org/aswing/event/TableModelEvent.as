@@ -48,10 +48,10 @@ public class TableModelEvent extends ModelEvent {
     /** Specifies all columns in a row or rows. */
     public static const ALL_COLUMNS:int = -1;
     
-    private var       type:String;
-    private var	      firstRow:int;
-    private var	      lastRow:int;
-    private var       column:int;
+    private var type:String;
+    private var firstRow:int;
+    private var lastRow:int;
+    private var column:int;
     
     /**
      * <pre>

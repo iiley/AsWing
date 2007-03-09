@@ -2,17 +2,15 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table.sorter { 
+package org.aswing.table.sorter{
 
-import org.aswing.table.sorter.SortableTextHeaderCell;
-import org.aswing.table.sorter.TableSorter;
 import org.aswing.table.TableCell;
 import org.aswing.table.TableCellFactory;
 
 /**
  * @author iiley
  */
-public class SortableHeaderRenderer implements TableCellFactory {
+public class SortableHeaderRenderer implements TableCellFactory{
 	
 	private var tableSorter:TableSorter;
 	private var originalRenderer:TableCellFactory;

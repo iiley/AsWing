@@ -2,11 +2,10 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.event.TableModelEvent;
 import org.aswing.event.TableModelListener;
-import org.aswing.table.TableModel;
 import org.aswing.util.ArrayUtils;
 import org.aswing.error.ImpMissError;
 
@@ -27,7 +26,7 @@ import org.aswing.error.ImpMissError;
  *  
  * @author iiley
  */
-public class AbstractTableModel implements TableModel {
+public class AbstractTableModel implements TableModel{
 
 	/** List of listeners */
 	protected var listenerList:Array;

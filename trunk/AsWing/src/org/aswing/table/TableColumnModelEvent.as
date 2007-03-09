@@ -2,15 +2,14 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 	
 import org.aswing.event.ModelEvent;
-import org.aswing.table.TableColumnModel;
 
 /**
  * @author iiley
  */
-public class TableColumnModelEvent extends ModelEvent {
+public class TableColumnModelEvent extends ModelEvent{
 	
     /** The index of the column from where it was moved or removed */
     private var	fromIndex:int;
@@ -26,10 +25,10 @@ public class TableColumnModelEvent extends ModelEvent {
      * @param from    an int specifying the first row in a range of affected rows
      * @param to      an int specifying the last row in a range of affected rows
      */
-    public function TableColumnModelEvent(source:TableColumnModel, from:int, to:int) {
+    public function TableColumnModelEvent(source:TableColumnModel, from:int, _to:int) {
 		super(source);
 		fromIndex = from;
-		toIndex = to;
+		toIndex = _to;
     }
 
     /** Returns the fromIndex.  Valid for removed or moved events */

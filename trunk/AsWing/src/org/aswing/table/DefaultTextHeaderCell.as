@@ -2,18 +2,16 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table { 
+package org.aswing.table{
 
 import org.aswing.JTable;
-import org.aswing.table.DefaultTextCell;
-import org.aswing.table.JTableHeader;
 import org.aswing.UIManager;
 
 /**
  * Default table header cell to render text
  * @author iiley
  */
-public class DefaultTextHeaderCell extends DefaultTextCell {
+public class DefaultTextHeaderCell extends DefaultTextCell{
 	
 	public function DefaultTextHeaderCell() {
 		super();

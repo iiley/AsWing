@@ -2,19 +2,14 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.table.sorter { 
+package org.aswing.table.sorter{
 
 import org.aswing.*;
 import org.aswing.event.TableModelEvent;
 import org.aswing.event.TableModelListener;
 import org.aswing.geom.*;
-import org.aswing.Icon;
 import org.aswing.table.AbstractTableModel;
 import org.aswing.table.JTableHeader;
-import org.aswing.table.sorter.Arrow;
-import org.aswing.table.sorter.Directive;
-import org.aswing.table.sorter.Row;
-import org.aswing.table.sorter.SortableHeaderRenderer;
 import org.aswing.table.TableCellFactory;
 import org.aswing.table.TableColumnModel;
 import org.aswing.table.TableModel;
