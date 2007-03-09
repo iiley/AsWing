@@ -4,46 +4,30 @@
 	
 package org.aswing{
 
-import org.aswing.ASColor;
-import org.aswing.CellEditor;
-import org.aswing.Component;
-import org.aswing.Container;
-import org.aswing.DefaultCheckBoxCellEditor;
-import org.aswing.DefaultListSelectionModel;
-import org.aswing.DefaultNumberTextFieldCellEditor;
-import org.aswing.DefaultTextFieldCellEditor;
 import org.aswing.event.*;
 import org.aswing.geom.*;
-import org.aswing.Insets;
-import org.aswing.LayoutManager;
-import org.aswing.ListSelectionModel;
-import org.aswing.plaf.TableUI;
-import org.aswing.RepaintManager;
-import org.aswing.table.DefaultTableColumnModel;
-import org.aswing.table.DefaultTableModel;
-import org.aswing.table.DefaultTextCell;
-import org.aswing.table.GeneralTableCellFactoryUIResource;
-import org.aswing.table.JTableHeader;
-import org.aswing.table.Resizable2;
-import org.aswing.table.Resizable2Imp1;
-import org.aswing.table.Resizable3;
-import org.aswing.table.Resizable3Imp1;
-import org.aswing.table.Resizable3Imp2;
-import org.aswing.table.TableCell;
-import org.aswing.table.TableCellEditor;
-import org.aswing.table.TableCellFactory;
-import org.aswing.table.TableColumn;
-import org.aswing.table.TableColumnModel;
-import org.aswing.table.TableColumnModelEvent;
-import org.aswing.table.TableColumnModelListener;
-import org.aswing.table.TableModel;
-import org.aswing.UIManager;
-import org.aswing.util.HashMap;
-import org.aswing.Viewportable;
+import org.aswing.util.*;
+import org.aswing.plaf.*;
 import flash.utils.getTimer;
 import flash.ui.Keyboard;
-import flash.text.TextField;
-import org.aswing.plaf.ComponentUI;
+import org.aswing.table.TableColumnModelListener;
+import org.aswing.table.TableModel;
+import org.aswing.table.TableColumnModel;
+import org.aswing.table.JTableHeader;
+import org.aswing.table.TableCellFactory;
+import org.aswing.table.TableCellEditor;
+import org.aswing.table.TableColumn;
+import org.aswing.table.Resizable3;
+import org.aswing.table.Resizable2;
+import org.aswing.table.TableColumnModelEvent;
+import org.aswing.table.TableCell;
+import org.aswing.table.Resizable3Imp1;
+import org.aswing.table.Resizable3Imp2;
+import org.aswing.table.Resizable2Imp1;
+import org.aswing.table.DefaultTableModel;
+import org.aswing.table.DefaultTableColumnModel;
+import org.aswing.table.DefaultTextCell;
+import org.aswing.table.GeneralTableCellFactoryUIResource;
 
 /**
  * Dispatched when the row selection changed.
@@ -145,33 +129,33 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	/**
 	 * Do not adjust column widths automatically; use a scrollbar. 
 	 */
-	public static var AUTO_RESIZE_OFF:int = 0;
+	public static const AUTO_RESIZE_OFF:int = 0;
 	/** 
 	 * When a column is adjusted in the UI, adjust the next column the opposite way.
 	 */
-	public static var AUTO_RESIZE_NEXT_COLUMN:int = 1;
+	public static const AUTO_RESIZE_NEXT_COLUMN:int = 1;
 	/**
 	 * During UI adjustment, change subsequent columns to preserve the total width;
 	 * this is the default behavior. 
 	 */
-	public static var AUTO_RESIZE_SUBSEQUENT_COLUMNS:int = 2;
+	public static const AUTO_RESIZE_SUBSEQUENT_COLUMNS:int = 2;
 	/**
 	 * During all resize operations, apply adjustments to the last column only.
 	 */
-	public static var AUTO_RESIZE_LAST_COLUMN:int = 3;
+	public static const AUTO_RESIZE_LAST_COLUMN:int = 3;
 	/**
 	 * During all resize operations, proportionately resize all columns.
 	 */
-	public static var AUTO_RESIZE_ALL_COLUMNS:int = 4;
+	public static const AUTO_RESIZE_ALL_COLUMNS:int = 4;
 		
 	/**
 	 * Only can select one most item at a time.
 	 */
-	public static var SINGLE_SELECTION:int = 0;
+	public static const SINGLE_SELECTION:int = 0;
 	/**
 	 * Can select any item at a time.
 	 */
-	public static var MULTIPLE_SELECTION:int = 1;
+	public static const MULTIPLE_SELECTION:int = 1;
 	
 	private var dataModel:TableModel;
 	
@@ -208,7 +192,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private var horizontalUnitIncrement:int;
 	private var horizontalBlockIncrement:int;
 	/** Stored cell value before any edition. */
-	private var _storedValue : Object;
+	private var _storedValue : *;
 
 	/**
 	 * Constructs a default <code>JTable</code>.
