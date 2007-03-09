@@ -65,7 +65,7 @@ public class RadioButtonIcon implements Icon, UIResource
 		brush.setColor(highlight);
 		g.fillEllipse(brush, x+1, y+1, w-2, h-2);
         
-        var colors:Array = [0xDCDBD8, 0xffffff];
+        var colors:Array = [rb.getBackground().getRGB(), 0xffffff];
 		var alphas:Array = [1, 1];
 		var ratios:Array = [0, 255];
 		var matrix:Matrix = new Matrix();
