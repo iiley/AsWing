@@ -374,8 +374,8 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		var width:int = 0;
 		var enumeration:Array = table.getColumnModel().getColumns();
 		for(var i:int=0; i<enumeration.length; i++){
-			var aColumn:TableColumn = TableColumn(enumeration[i]);
-			width = width + aColumn.getPreferredWidth();
+			var aColumn:TableColumn = enumeration[i];
+			width += aColumn.getPreferredWidth();
 		}
 		
 		var d:IntDimension = createTableSize(width);
@@ -398,8 +398,8 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		var width:int = 0;
 		var enumeration:Array = table.getColumnModel().getColumns();
 		for(var i:int=0; i<enumeration.length; i++){
-			var aColumn:TableColumn = TableColumn(enumeration[i]);
-			width = width + aColumn.getMinWidth();
+			var aColumn:TableColumn = enumeration[i];
+			width += aColumn.getMinWidth();
 		}
 		return table.getInsets().getOutsideSize(new IntDimension(width, 0));
 	}
@@ -410,7 +410,14 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	 * The preferred width is the sum of the preferred widths of each column.
 	 */
 	override public function getPreferredSize(c:Component):IntDimension {
-		return table.getInsets().getOutsideSize(getViewSize(JTable(c)));
+		var width:int = 0;
+		var enumeration:Array = table.getColumnModel().getColumns();
+		for(var i:int=0; i<enumeration.length; i++){
+			var aColumn:TableColumn = enumeration[i];
+			width += aColumn.getPreferredWidth();
+		}
+		return table.getInsets().getOutsideSize(createTableSize(width));
+		//return table.getInsets().getOutsideSize(getViewSize(JTable(c)));
 	}
 
 	/**
@@ -422,8 +429,8 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		var width:int = 0;
 		var enumeration:Array = table.getColumnModel().getColumns();
 		for(var i:int=0; i<enumeration.length; i++){
-			var aColumn:TableColumn = TableColumn(enumeration[i]);
-			width = width + aColumn.getMaxWidth();
+			var aColumn:TableColumn = enumeration[i];
+			width += aColumn.getMaxWidth();
 		}
 		return table.getInsets().getOutsideSize(createTableSize(width));
 	}	

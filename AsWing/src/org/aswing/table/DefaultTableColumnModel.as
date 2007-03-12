@@ -482,7 +482,8 @@ public class DefaultTableColumnModel implements TableColumnModel{
 		var enumeration:Array = tableColumns;
 		totalColumnWidth = 0;
 		for(var i:int=0; i<enumeration.length; i++){
-			totalColumnWidth += TableColumn(enumeration[i]).getWidth();
+			var c:TableColumn = enumeration[i];
+			totalColumnWidth += c.getWidth();
 		}
 	}
 	

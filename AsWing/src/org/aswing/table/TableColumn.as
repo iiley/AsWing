@@ -76,13 +76,13 @@ public class TableColumn extends EventDispatcher{
 		this.cellRenderer = cellRenderer;
 		this.cellEditor = cellEditor;
 		minWidth = 17;
-		maxWidth = 10000000; //default max width
+		maxWidth = 100000; //default max width
 		isResizable = true;
 		//resizedPostingDisableCount = 0;
 		headerValue = null;
 	}
 	
-	protected function firePropertyChange(propertyName:String, oldValue:*, newValue:*):void{
+	protected function firePropertyChangeIfReallyChanged(propertyName:String, oldValue:*, newValue:*):void{
 		if(oldValue != newValue){
 			this.dispatchEvent(new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE, propertyName, oldValue, newValue));
 		}
@@ -91,7 +91,7 @@ public class TableColumn extends EventDispatcher{
 	public function setModelIndex(modelIndex:int):void{
 		var old:int = this.modelIndex;
 		this.modelIndex = modelIndex;
-		firePropertyChange("modelIndex", old, modelIndex);
+		firePropertyChangeIfReallyChanged("modelIndex", old, modelIndex);
 	}
 	
 	public function getModelIndex():int{
@@ -101,7 +101,7 @@ public class TableColumn extends EventDispatcher{
 	public function setIdentifier(identifier:Object):void{
 		var old:Object = this.identifier;
 		this.identifier = identifier;
-		firePropertyChange("identifier", old, identifier);
+		firePropertyChangeIfReallyChanged("identifier", old, identifier);
 	}
 	
 	public function getIdentifier():Object{
@@ -111,7 +111,7 @@ public class TableColumn extends EventDispatcher{
 	public function setHeaderValue(headerValue:Object):void{
 		var old:Object = this.headerValue;
 		this.headerValue = headerValue;
-		firePropertyChange("headerValue", old, headerValue);
+		firePropertyChangeIfReallyChanged("headerValue", old, headerValue);
 	}
 	
 	public function getHeaderValue():Object{
@@ -121,7 +121,7 @@ public class TableColumn extends EventDispatcher{
 	public function setHeaderCellFactory(headerRenderer:TableCellFactory):void{
 		var old:TableCellFactory = this.headerRenderer;
 		this.headerRenderer = headerRenderer;
-		firePropertyChange("headerRenderer", old, headerRenderer);
+		firePropertyChangeIfReallyChanged("headerRenderer", old, headerRenderer);
 	}
 	
 	public function getHeaderCellFactory():TableCellFactory{
@@ -131,7 +131,7 @@ public class TableColumn extends EventDispatcher{
 	public function setCellFactory(cellRenderer:TableCellFactory):void{
 		var old:TableCellFactory = this.cellRenderer;
 		this.cellRenderer = cellRenderer;
-		firePropertyChange("cellRenderer", old, cellRenderer);
+		firePropertyChangeIfReallyChanged("cellRenderer", old, cellRenderer);
 	}
 	
 	public function getCellFactory():TableCellFactory{
@@ -141,7 +141,7 @@ public class TableColumn extends EventDispatcher{
 	public function setCellEditor(cellEditor:TableCellEditor):void{
 		var old:TableCellEditor = this.cellEditor;
 		this.cellEditor = cellEditor;
-		firePropertyChange("cellEditor", old, cellEditor);
+		firePropertyChangeIfReallyChanged("cellEditor", old, cellEditor);
 	}
 	
 	public function getCellEditor():TableCellEditor{ 
@@ -151,8 +151,7 @@ public class TableColumn extends EventDispatcher{
 	public function setWidth(width:int):void{
 		var old:int = this.width;
 		this.width = Math.min(Math.max(width, minWidth), maxWidth);
-		
-		firePropertyChange("width", old, this.width);
+		firePropertyChangeIfReallyChanged("width", old, this.width);
 	}
 	
 	public function getWidth():int{
@@ -162,7 +161,7 @@ public class TableColumn extends EventDispatcher{
 	public function setPreferredWidth(preferredWidth:int):void{
 		var old:int = this.preferredWidth;
 		this.preferredWidth = Math.min(Math.max(preferredWidth, minWidth), maxWidth);
-		firePropertyChange("preferredWidth", old, this.preferredWidth);
+		firePropertyChangeIfReallyChanged("preferredWidth", old, this.preferredWidth);
 	}
 	
 	public function getPreferredWidth():int{
@@ -178,7 +177,7 @@ public class TableColumn extends EventDispatcher{
 		if (preferredWidth < minWidth){
 			setPreferredWidth(minWidth);
 		}
-		firePropertyChange("minWidth", old, this.minWidth);
+		firePropertyChangeIfReallyChanged("minWidth", old, this.minWidth);
 	}
 	
 	public function getMinWidth():int{
@@ -188,15 +187,13 @@ public class TableColumn extends EventDispatcher{
 	public function setMaxWidth(maxWidth:int):void{
 		var old:int = this.maxWidth;
 		this.maxWidth = Math.max(minWidth, maxWidth);
-		if (width > maxWidth)
-		{
+		if (width > maxWidth){
 			setWidth(maxWidth);
 		}
-		if (preferredWidth > maxWidth)
-		{
+		if (preferredWidth > maxWidth){
 			setPreferredWidth(maxWidth);
 		}
-		firePropertyChange("maxWidth", old, this.maxWidth);
+		firePropertyChangeIfReallyChanged("maxWidth", old, this.maxWidth);
 	}
 	
 	public function getMaxWidth():int{
@@ -206,7 +203,7 @@ public class TableColumn extends EventDispatcher{
 	public function setResizable(isResizable:Boolean):void{
 		var old:Boolean = this.isResizable;
 		this.isResizable = isResizable;
-		firePropertyChange("isResizable", old, this.isResizable);
+		firePropertyChangeIfReallyChanged("isResizable", old, this.isResizable);
 	}
 	
 	public function getResizable():Boolean{

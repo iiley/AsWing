@@ -25,13 +25,14 @@ public class PoorTextCell extends Component implements TableCell{
 		setOpaque(true);
 		textField = new TextField();
 		textField.autoSize = TextFieldAutoSize.LEFT;
+		textField.selectable = false;
+		textField.mouseEnabled = false;
 		setFontValidated(false);
+		addChild(textField);
 	}
-	
 	
 	override protected function paint(b:IntRectangle):void{
 		var t:String = text == null ? "" : text;
-		
 		if(textField.text != t){
 			textField.text = t;
 		}
@@ -49,11 +50,13 @@ public class PoorTextCell extends Component implements TableCell{
 	}
 	
 	override public function setComBounds(b:IntRectangle):void{
+		readyToPaint = true;
 		if(!b.equals(bounds)){
 			if(b.width != bounds.width || b.height != bounds.height){
 				repaint();
 			}
 			bounds.setRect(b);
+			locate();
 			valid = false;
 		}
 	}
