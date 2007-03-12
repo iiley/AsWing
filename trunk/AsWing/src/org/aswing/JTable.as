@@ -1754,6 +1754,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var totalWidth:int = (autoResizeMode == AUTO_RESIZE_OFF ? getLastTotalColumnWidth() : (getWidth() - insets.getMarginWidth()));
 		var totalPreferred:int = getPreferredSize().width - insets.getMarginWidth();
 		var target:int = ((!inverse) ? totalWidth : totalPreferred);
+		
 		var cm:TableColumnModel = columnModel;
 		var r:Resizable3 = new Resizable3Imp1(cm, inverse);
 		adjustSizes3(target, r, inverse);
@@ -1813,14 +1814,15 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private function adjustSizes2(target:int, r:Resizable2, limitToRange:Boolean):void{
 		var totalLowerBound:int = 0;
 		var totalUpperBound:int = 0;
-		for (var i:int = 0; i < r.getElementCount(); i++){
+		var N:int = r.getElementCount();
+		for (var i:int = 0; i < N; i++){
 			totalLowerBound += r.getLowerBoundAt(i);
 			totalUpperBound += r.getUpperBoundAt(i);
 		}
 		if (limitToRange){
 			target = Math.min(Math.max(totalLowerBound, target), totalUpperBound);
 		}
-		for (var i:int = 0; i < r.getElementCount(); i++){
+		for (var i:int = 0; i < N; i++){
 			var lowerBound:int = r.getLowerBoundAt(i);
 			var upperBound:int = r.getUpperBoundAt(i);
 
@@ -1831,7 +1833,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			if (totalLowerBound == totalUpperBound){
 				newSize = lowerBound;
 			}else{
-				var f:int = (target - totalLowerBound) / (totalUpperBound - totalLowerBound);
+				var f:Number = (target - totalLowerBound) / (totalUpperBound - totalLowerBound);
 				newSize = Math.round(lowerBound + (f * (upperBound - lowerBound)));
 			}
 			r.setSizeAt(newSize, i);
@@ -2597,13 +2599,17 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	}
 	
 	private function getLastTotalColumnWidth():int{
-		if(lastTotalColumnWidth == undefined){
-			lastTotalColumnWidth = getWidth() - getInsets().getMarginWidth();
+		if(-1 == lastTotalColumnWidth){
+			if(autoResizeMode == AUTO_RESIZE_OFF){
+				lastTotalColumnWidth = getPreferredSize().width - getInsets().getMarginWidth();
+			}else{
+				lastTotalColumnWidth = getWidth() - getInsets().getMarginWidth();
+			}
 		}
 		return lastTotalColumnWidth;
 	}
 	
-	private var lastTotalColumnWidth:int;
+	private var lastTotalColumnWidth:int=-1;
 	
 	private function layoutCells():void{
 		//trace("layoutCells");

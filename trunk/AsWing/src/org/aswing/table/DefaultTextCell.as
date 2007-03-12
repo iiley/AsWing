@@ -26,27 +26,31 @@ public class DefaultTextCell extends JLabel implements TableCell{
 	/**
 	 * Simpler this method to speed up performance
 	 */
-	/*public function setBounds(b:Rectangle):void{
+	override public function setComBounds(b:IntRectangle):void{
+		readyToPaint = true;
 		if(!b.equals(bounds)){
 			if(b.width != bounds.width || b.height != bounds.height){
 				repaint();
 			}
 			bounds.setRect(b);
+			locate();
 			valid = false;
 		}
-	}*/
+	}
+	
 	/**
 	 * Simpler this method to speed up performance
 	 */
-	/*public function invalidate():void {
+	override public function invalidate():void {
 		valid = false;
-	}*/
+	}
+	
 	/**
 	 * Simpler this method to speed up performance
 	 */
-	/*public function revalidate():void {
+	override public function revalidate():void {
 		valid = false;
-	}*/
+	}
 	
 	//**********************************************************
 	//				  Implementing TableCell
