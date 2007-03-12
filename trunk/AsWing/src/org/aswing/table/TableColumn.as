@@ -45,10 +45,10 @@ import flash.events.EventDispatcher;
  */
 public class TableColumn extends EventDispatcher{
 	
-	public static var COLUMN_WIDTH_PROPERTY:String = "columWidth";
-	public static var HEADER_VALUE_PROPERTY:String = "headerValue";
-	public static var HEADER_RENDERER_PROPERTY:String = "headerRenderer";
-	public static var CELL_RENDERER_PROPERTY:String = "cellRenderer";
+	public static const COLUMN_WIDTH_PROPERTY:String = "columWidth";
+	public static const HEADER_VALUE_PROPERTY:String = "headerValue";
+	public static const HEADER_RENDERER_PROPERTY:String = "headerRenderer";
+	public static const CELL_RENDERER_PROPERTY:String = "cellRenderer";
 	
 	private var modelIndex:int;
 	private var identifier:Object;

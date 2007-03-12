@@ -2,9 +2,8 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-
-package org.aswing
-{
+package org.aswing{
+	
 import flash.display.DisplayObject;
 import flash.display.Loader;
 import flash.display.Shape;
@@ -17,13 +16,14 @@ import flash.display.Sprite;
 
 /**
  * Abstract class for A container with a decorative displayObject.
- * <p> External content will be load automatically when the pane was create on the stage if floorEnabled.
+ * <p>
+ * External content will be load automatically when the pane was create on the stage if floorEnabled.
+ * </p>
  * @see org.aswing.JLoadPane
  * @see org.aswing.JAttachPane
  * @author iiley
  */	
-public class FloorPane extends Container
-{
+public class FloorPane extends Container{
 	
 	/**
 	 * preffered size of this component will be the fit to contain both size of extenal image/animation
@@ -67,28 +67,28 @@ public class FloorPane extends Container
 	
 	
 	/**
-	 * A fast access to ASWingConstants Constant
-	 * @see org.aswing.ASWingConstants
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
 	 */
 	public static const CENTER:int  = AsWingConstants.CENTER;
 	/**
-	 * A fast access to ASWingConstants Constant
-	 * @see org.aswing.ASWingConstants
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
 	 */
 	public static const TOP:int     = AsWingConstants.TOP;
 	/**
-	 * A fast access to ASWingConstants Constant
-	 * @see org.aswing.ASWingConstants
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
 	 */
     public static const LEFT:int    = AsWingConstants.LEFT;
 	/**
-	 * A fast access to ASWingConstants Constant
-	 * @see org.aswing.ASWingConstants
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
 	 */
     public static const BOTTOM:int  = AsWingConstants.BOTTOM;
  	/**
-	 * A fast access to ASWingConstants Constant
-	 * @see org.aswing.ASWingConstants
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
 	 */
     public static const RIGHT:int   = AsWingConstants.RIGHT;
     
@@ -186,9 +186,9 @@ public class FloorPane extends Container
      * @return the <code>verticalAlignment</code> property, one of the
      *		following values: 
      * <ul>
-     * <li>ASWingConstants.CENTER (the default)
-     * <li>ASWingConstants.TOP
-     * <li>ASWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER (the default)
+     * <li>AsWingConstants.TOP
+     * <li>AsWingConstants.BOTTOM
      * </ul>
      */
     public function getVerticalAlignment():Number {
@@ -199,13 +199,13 @@ public class FloorPane extends Container
      * Sets the vertical alignment of the image/animation. 
      * @param alignment  one of the following values:
      * <ul>
-     * <li>ASWingConstants.CENTER (the default)
-     * <li>ASWingConstants.TOP
-     * <li>ASWingConstants.BOTTOM
+     * <li>AsWingConstants.CENTER (the default)
+     * <li>AsWingConstants.TOP
+     * <li>AsWingConstants.BOTTOM
      * </ul>
-     * Default is TOP.
+     * Default is CENTER.
      */
-    public function setVerticalAlignment(alignment:int=CENTER):void {
+    public function setVerticalAlignment(alignment:int=AsWingConstants.CENTER):void {
         if (alignment == verticalAlignment){
         	return;
         }else{
@@ -219,9 +219,9 @@ public class FloorPane extends Container
      * @return the <code>horizontalAlignment</code> property,
      *		one of the following values:
      * <ul>
-     * <li>ASWingConstants.RIGHT (the default)
-     * <li>ASWingConstants.LEFT
-     * <li>ASWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)
+     * <li>AsWingConstants.LEFT
+     * <li>AsWingConstants.CENTER
      * </ul>
      * Default is LEFT.
      */
@@ -233,16 +233,16 @@ public class FloorPane extends Container
      * Sets the horizontal alignment of the image/animation.
      * @param alignment  one of the following values:
      * <ul>
-     * <li>ASWingConstants.RIGHT (the default)
-     * <li>ASWingConstants.LEFT
-     * <li>ASWingConstants.CENTER
+     * <li>AsWingConstants.RIGHT (the default)
+     * <li>AsWingConstants.LEFT
+     * <li>AsWingConstants.CENTER
      * </ul>
      */
-    public function setHorizontalAlignment(alignment:int=RIGHT):void {
+    public function setHorizontalAlignment(alignment:int=AsWingConstants.RIGHT):void {
         if (alignment == horizontalAlignment){
         	return;
         }else{
-        	horizontalAlignment = alignment;     
+        	horizontalAlignment = alignment;
         	revalidate();
         }
     }

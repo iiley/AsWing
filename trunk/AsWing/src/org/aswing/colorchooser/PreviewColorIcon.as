@@ -26,7 +26,7 @@ public class PreviewColorIcon implements Icon{
 	private var height:int;
 	private var orientation:int;
 	
-	public function PreviewColorIcon(width:int, height:int, orientation:int=VERTICAL){
+	public function PreviewColorIcon(width:int, height:int, orientation:int=AsWingConstants.VERTICAL){
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;

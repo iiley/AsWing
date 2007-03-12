@@ -29,12 +29,12 @@ public class SimpleTitledBorder extends DecorateBorder
 	
 
     // Space between the border and the component's edge
-    public static var EDGE_SPACING:Number = 0;	
+    public static var EDGE_SPACING:int = 0;	
 	
 	private var title:String;
-	private var position:Number;
-	private var align:Number;
-	private var offset:Number;
+	private var position:int;
+	private var align:int;
+	private var offset:int;
 	private var font:ASFont;
 	private var color:ASColor;
 	
@@ -43,12 +43,7 @@ public class SimpleTitledBorder extends DecorateBorder
 	private var colorFontValid:Boolean;
 	
 	/**
-	 * SimpleTitledBorder(interior:Border, title:String, position:Number, align:Number, offset:Number, font:ASFont, color:ASColor)<br>
-	 * SimpleTitledBorder(interior:Border, title:String, position:Number, align:Number, offset:Number, font:ASFont)<br>
-	 * SimpleTitledBorder(interior:Border, title:String, position:Number, align:Number, offset:Number)<br>
-	 * SimpleTitledBorder(interior:Border, title:String, position:Number, align:Number,)<br>
-	 * SimpleTitledBorder(interior:Border, title:String, position:Number)<br>
-	 * SimpleTitledBorder(interior:Border, title:String)<br>
+	 * Create a simple titled border.
 	 * @param title the title text string.
 	 * @param position the position of the title(TOP or BOTTOM), default is TOP
 	 * @see #TOP
@@ -62,7 +57,7 @@ public class SimpleTitledBorder extends DecorateBorder
 	 * @param color the color of the title text
 	 * @see org.aswing.border.TitledBorder
 	 */
-	public function SimpleTitledBorder(interior:Border=null, title:String="", position:Number=TOP, align:Number=CENTER, offset:Number=0, font:ASFont=null, color:ASColor=null){
+	public function SimpleTitledBorder(interior:Border=null, title:String="", position:int=AsWingConstants.TOP, align:int=CENTER, offset:int=0, font:ASFont=null, color:ASColor=null){
 		super(interior);
 		this.title = title;
 		this.position = position;
@@ -79,11 +74,11 @@ public class SimpleTitledBorder extends DecorateBorder
 	//------------get set-------------
 	
 		
-	public function getPosition():Number {
+	public function getPosition():int {
 		return position;
 	}
 
-	public function setPosition(position:Number):void {
+	public function setPosition(position:int):void {
 		this.position = position;
 	}
 
@@ -106,11 +101,11 @@ public class SimpleTitledBorder extends DecorateBorder
 		invalidateExtent();
 	}
 
-	public function getAlign():Number {
+	public function getAlign():int {
 		return align;
 	}
 
-	public function setAlign(align:Number):void {
+	public function setAlign(align:int):void {
 		this.align = align;
 	}
 
@@ -124,11 +119,11 @@ public class SimpleTitledBorder extends DecorateBorder
 		this.invalidateColorFont();
 	}
 
-	public function getOffset():Number {
+	public function getOffset():int {
 		return offset;
 	}
 
-	public function setOffset(offset:Number):void {
+	public function setOffset(offset:int):void {
 		this.offset = offset;
 	}
 	
@@ -163,9 +158,9 @@ public class SimpleTitledBorder extends DecorateBorder
     		colorFontValid = true;
     	}
     	
-    	var width:Number = Math.ceil(textField.width);
-    	var height:Number = Math.ceil(textField.height);
-    	var x:Number = offset;
+    	var width:int = Math.ceil(textField.width);
+    	var height:int = Math.ceil(textField.height);
+    	var x:int = offset;
     	if(align == LEFT){
     		x += bounds.x;
     	}else if(align == RIGHT){
@@ -173,7 +168,7 @@ public class SimpleTitledBorder extends DecorateBorder
     	}else{
     		x += (bounds.x + bounds.width/2 - width/2);
     	}
-    	var y:Number = bounds.y + EDGE_SPACING;
+    	var y:int = bounds.y + EDGE_SPACING;
     	if(position == BOTTOM){
     		y = bounds.y + bounds.height - height + EDGE_SPACING;
     	}
@@ -185,7 +180,7 @@ public class SimpleTitledBorder extends DecorateBorder
     	var insets:Insets = new Insets();
     	var cs:IntDimension = bounds.getSize();
 		if(cs.width < getTextFieldSize().width){
-			var delta:Number = Math.ceil(getTextFieldSize().width) - cs.width;
+			var delta:int = Math.ceil(getTextFieldSize().width) - cs.width;
 			if(align == RIGHT){
 				insets.left = delta;
 			}else if(align == CENTER){

@@ -2,8 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.border
-{
+package org.aswing.border{
 	
 import flash.display.*;
 import flash.text.*;
@@ -17,8 +16,7 @@ import org.aswing.util.HashMap;
  * TitledBorder, a border with a line rectangle and a title text.
  * @author iiley
  */	
-public class TitledBorder extends DecorateBorder
-{
+public class TitledBorder extends DecorateBorder{
 		
 	public static function get DEFAULT_FONT():ASFont{
 		return UIManager.getFont("systemFont");
@@ -32,22 +30,22 @@ public class TitledBorder extends DecorateBorder
 	public static function get DEFAULT_LINE_LIGHT_COLOR():ASColor{
 		return ASColor.WHITE;
 	}
-	public static const DEFAULT_LINE_THICKNESS:Number = 1;
+	public static const DEFAULT_LINE_THICKNESS:int = 1;
 		
-	public static const TOP:Number = AsWingConstants.TOP;
-	public static const BOTTOM:Number = AsWingConstants.BOTTOM;
+	public static const TOP:int = AsWingConstants.TOP;
+	public static const BOTTOM:int = AsWingConstants.BOTTOM;
 	
-	public static const CENTER:Number = AsWingConstants.CENTER;
-	public static const LEFT:Number = AsWingConstants.LEFT;
-	public static const RIGHT:Number = AsWingConstants.RIGHT;
+	public static const CENTER:int = AsWingConstants.CENTER;
+	public static const LEFT:int = AsWingConstants.LEFT;
+	public static const RIGHT:int = AsWingConstants.RIGHT;
 	
 
     // Space between the text and the line end
-    public static var GAP:Number = 1;	
+    public static var GAP:int = 1;	
 	
 	private var title:String;
-	private var position:Number;
-	private var align:Number;
+	private var position:int;
+	private var align:int;
 	private var edge:Number;
 	private var round:Number;
 	private var font:ASFont;
@@ -60,11 +58,7 @@ public class TitledBorder extends DecorateBorder
 	private var textFieldSize:IntDimension;
 	
 	/**
-	 * TitledBorder(interior:Border, title:String, position:Number, align:Number, edge:Number, round:Number)<br>
-	 * TitledBorder(interior:Border, title:String, position:Number, align:Number, edge:Number)<br>
-	 * TitledBorder(interior:Border, title:String, position:Number, align:Number,)<br>
-	 * TitledBorder(interior:Border, title:String, position:Number)<br>
-	 * TitledBorder(interior:Border, title:String)<br>
+	 * Create a titled border.
 	 * @param title the title text string.
 	 * @param position the position of the title(TOP or BOTTOM), default is TOP
 	 * @param align the align of the title(CENTER or LEFT or RIGHT), default is CENTER
@@ -77,7 +71,7 @@ public class TitledBorder extends DecorateBorder
 	 * @see #setLineThickness()
 	 * @see #setBeveled()
 	 */
-	public function TitledBorder(interior:Border=null, title:String="", position:Number=TOP, align:Number=CENTER, edge:Number=0, round:Number=0){
+	public function TitledBorder(interior:Border=null, title:String="", position:int=AsWingConstants.TOP, align:int=CENTER, edge:Number=0, round:Number=0){
 		super(interior);
 		this.title = title;
 		this.position = position;
@@ -383,7 +377,7 @@ public class TitledBorder extends DecorateBorder
 		this.color = color;
 	}
 
-	public function getAlign():Number {
+	public function getAlign():int {
 		return align;
 	}
 	
@@ -393,11 +387,11 @@ public class TitledBorder extends DecorateBorder
 	 * @see #LEFT
 	 * @see #RIGHT
 	 */
-	public function setAlign(align:Number):void {
+	public function setAlign(align:int):void {
 		this.align = align;
 	}
 
-	public function getPosition():Number {
+	public function getPosition():int {
 		return position;
 	}
 	
@@ -406,11 +400,11 @@ public class TitledBorder extends DecorateBorder
 	 * @see #TOP
 	 * @see #BOTTOM
 	 */
-	public function setPosition(position:Number):void {
+	public function setPosition(position:int):void {
 		this.position = position;
 	}	
 	
-	public function getLineThickness():Number {
+	public function getLineThickness():int {
 		return lineThickness;
 	}
 

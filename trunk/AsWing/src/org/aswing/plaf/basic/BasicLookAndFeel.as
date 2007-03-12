@@ -67,7 +67,9 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "AccordionUI",org.aswing.plaf.basic.BasicAccordionUI,	   
 			   "TabbedPaneUI",org.aswing.plaf.basic.BasicTabbedPaneUI,
 			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,
-			   "SpacerUI", org.aswing.plaf.basic.BasicSpacerUI		      
+			   "SpacerUI", org.aswing.plaf.basic.BasicSpacerUI,
+			   "TableUI", org.aswing.plaf.basic.BasicTableUI, 
+			   "TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -518,6 +520,33 @@ public class BasicLookAndFeel extends LookAndFeel
 			"TabbedPane.tabMargin", new InsetsUIResource(1, 1, 1, 1),
 			"TabbedPane.baseLineThickness", 8,
 			"TabbedPane.maxTabWidth", 1000];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** Table
+	    comDefaults = [
+		    "Table.background", table.get("control"),
+		    "Table.foreground", table.get("controlText"),
+	    	"Table.opaque", true,  
+	    	"Table.focusable", true,
+	        "Table.font", table.getFont("controlFont"),
+		    "Table.selectionBackground", new ASColorUIResource(0x666666),
+		    "Table.selectionForeground", table.get("control"),
+	        "Table.gridColor", new ASColorUIResource(0x444444),
+	    	"Table.border", undefined
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** TableHeader
+	    comDefaults = [
+		    "TableHeader.background", new ASColorUIResource(0xE7E7E5),
+		    "TableHeader.foreground", table.get("controlText"),
+	        "TableHeader.font", table.getFont("controlFont"),
+	    	"TableHeader.opaque", false,  
+	    	"TableHeader.focusable", true,
+	        "TableHeader.gridColor", new ASColorUIResource(0x444444),
+	    	"TableHeader.border", undefined//,
+	    	//"TableHeader.cellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder
+	    ];
 	    table.putDefaults(comDefaults);
 	}
 	

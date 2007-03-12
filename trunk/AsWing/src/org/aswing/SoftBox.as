@@ -20,7 +20,7 @@ public class SoftBox extends JPanel {
      * @param align (optional)the alignment value, default is LEFT
 	 * @see org.aswing.SoftBoxLayout
 	 */
-	public function SoftBox(axis:int, gap:int=0, align:int=SoftBoxLayout.LEFT){
+	public function SoftBox(axis:int, gap:int=0, align:int=AsWingConstants.LEFT){
 		super();
 		setName("SoftBox");
 		setLayout(new SoftBoxLayout(axis, gap, align));
@@ -79,7 +79,7 @@ public class SoftBox extends JPanel {
      * @param align (optional)the alignment value, default is LEFT
      * @return a horizontal SoftBox.
 	 */
-	public static function createHorizontalBox(gap:int=0, align:int=SoftBoxLayout.LEFT):SoftBox{
+	public static function createHorizontalBox(gap:int=0, align:int=AsWingConstants.LEFT):SoftBox{
 		return new SoftBox(SoftBoxLayout.X_AXIS, gap, align);
 	}
 	
@@ -89,7 +89,7 @@ public class SoftBox extends JPanel {
      * @param align (optional)the alignment value, default is LEFT
      * @return a vertical SoftBox.
 	 */
-	public static function createVerticalBox(gap:int=0, align:int=SoftBoxLayout.LEFT):SoftBox{
+	public static function createVerticalBox(gap:int=0, align:int=AsWingConstants.LEFT):SoftBox{
 		return new SoftBox(SoftBoxLayout.Y_AXIS, gap, align);
 	}
 	

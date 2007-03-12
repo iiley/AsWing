@@ -45,7 +45,7 @@ public class JProgressBar extends Component
 	 * @param min (optional)the minimum value of the progress bar, default is 0
 	 * @param max (optional)the maximum value of the progress bar, default is 100
 	 */
-	public function JProgressBar(orient:int=HORIZONTAL, min:int=0, max:int=100) {
+	public function JProgressBar(orient:int=AsWingConstants.HORIZONTAL, min:int=0, max:int=100) {
 		super();
 		setName("ProgressBar");
 		
