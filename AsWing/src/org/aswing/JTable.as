@@ -260,8 +260,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @param ui  the TableUI L&F object
 	 * @throws ArgumentError when the newUI is not an <code>TableUI</code> instance.
 	 */
-	override public function setUI(newUI:ComponentUI):void {
-		if (newUI is TableUI) {
+	override public function setUI(newUI:ComponentUI):void{
+		if (newUI is TableUI){
 			super.setUI(newUI);
 		    repaint();
 		}else{
@@ -273,16 +273,17 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		return getUI() as TableUI;
 	}
 
-	protected function updateSubComponentUI(componentShell:*):void {
-		if (componentShell == null) {
+	protected function updateSubComponentUI(componentShell:*):void{
+		if (componentShell == null){
 			return;
 		}
 		var component:Component = null;
 		if (componentShell is Component) {
-			component = Component(componentShell);
+			component = componentShell as Component;
 			component.updateUI();
-		}else if (componentShell is CellEditor) {
-		   (CellEditor(componentShell)).updateUI();
+		}else if (componentShell is CellEditor){
+			var ed:CellEditor = componentShell as CellEditor;
+			ed.updateUI();
 		}
 	}
 
@@ -293,10 +294,10 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *
 	 * @see org.aswing.Component#updateUI
 	 */
-	override public function updateUI():void {
+	override public function updateUI():void{
 		// Update the UIs of the cell editors
 		var cm:TableColumnModel = getColumnModel();
-		for(var column:int = 0; column < cm.getColumnCount(); column++) {
+		for(var column:int = 0; column < cm.getColumnCount(); column++){
 			var aColumn:TableColumn = cm.getColumn(column);
 			updateSubComponentUI(aColumn.getCellEditor());
 		}
@@ -315,12 +316,12 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		}
 
 		// Update the UI of the table header
-		if (tableHeader != null && tableHeader.getParent() == null) {
+		if (tableHeader != null && tableHeader.getParent() == null){
 			tableHeader.updateUI();
 		}
 		
-		setUI(TableUI(UIManager.getUI(this)));
-		resizeAndRepaint();
+		setUI(UIManager.getUI(this));
+		//resizeAndRepaint();
 	}
 
 	/**
@@ -331,7 +332,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @see JComponent#getUIClassID
 	 * @see UIDefaults#getUI
 	 */
-	override public function getUIClassID():String {
+	override public function getUIClassID():String{
 		return "TableUI";
 	}
 	
@@ -380,13 +381,12 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * the row margin.
 	 *
 	 * @param   rowHeight new row height
-	 * @exception Error	  if <code>rowHeight</code> is less than 1
+	 * @throws  RangeError if <code>rowHeight</code> is less than 1
      * @see     #getAllRowHeight()
      */	
 	public function setRowHeight(rowHeight:int):void{
 		if (rowHeight < 1){
-			trace("Error : New row height less than 1");
-			throw new Error("New row height less than 1");
+			throw new RangeError("New row height less than 1");
 		}
 		var old:int = this.rowHeight;
 		this.rowHeight = rowHeight;
@@ -658,7 +658,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var m:TableModel = getModel();
 		if (m != null){
 			var cm:TableColumnModel = getColumnModel();
-			while ((cm.getColumnCount() > 0)){
+			while(cm.getColumnCount() > 0){
 				cm.removeColumn(cm.getColumn(0));
 			}
 			for (var i:int = 0; i < m.getColumnCount(); i++){
@@ -919,16 +919,14 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	
 	private function boundRow(row:int):int{
 		if ((row < 0) || (row >= getRowCount())){
-			trace("Error : Row index out of range");
-			throw new Error("Row index out of range");
+			throw new RangeError("Row index out of range");
 		}
 		return row;
 	}
 	
 	private function boundColumn(col:int):int{
 		if ((col < 0) || (col >= getColumnCount())){
-			trace("Error : Column index out of range");
-			throw new Error("Column index out of range");
+			throw new RangeError("Column index out of range");
 		}
 		return col;
 	}
@@ -1833,7 +1831,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			if (totalLowerBound == totalUpperBound){
 				newSize = lowerBound;
 			}else{
-				var f:int = ((target - totalLowerBound)) / (totalUpperBound - totalLowerBound);
+				var f:int = (target - totalLowerBound) / (totalUpperBound - totalLowerBound);
 				newSize = Math.round(lowerBound + (f * (upperBound - lowerBound)));
 			}
 			r.setSizeAt(newSize, i);
@@ -1857,7 +1855,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @return  false if for any reason the cell cannot be edited,
 	 *                or if the indices are invalid
 	 */	
-	public function editCellAt(row:int, column:int, clickCount:int):Boolean{
+	public function editCellAt(row:int, column:int, clickCount:int=-1):Boolean{
 		if ((cellEditor != null) && (! cellEditor.stopCellEditing())){
 			return false;
 		}
@@ -1871,7 +1869,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			removeEditor();
 		}
 		var editor:TableCellEditor = getCellEditorOfRowColumn(row, column);
-		if ((editor != null) && (clickCount == undefined || editor.isCellEditable(clickCount))){
+		if ((editor != null) && (clickCount == -1 || editor.isCellEditable(clickCount))){
 			var cb:IntRectangle = getCellRect(row, column, true);
 			cb.setLocation(getPixelLocationFromLogicLocation(cb.getLocation()));
 			editor.startCellEditing(this, getValueAt(row, column), cb);
@@ -2754,7 +2752,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private var lastColumnCellFactories:Array;
 	//track if the cell factory changed, if changed, recreate all cells
 	private function synCellClasses():void{
-		if(lastColumnCellFactories.length != getColumnCount()){
+		if(lastColumnCellFactories==null || lastColumnCellFactories.length != getColumnCount()){
 			clearCells();
 			return;
 		}
@@ -3101,6 +3099,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
     }
 
     public function invalidateLayout(target:Container):void{
-    }    
+    }
 }
 }

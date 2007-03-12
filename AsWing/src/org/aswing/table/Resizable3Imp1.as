@@ -17,19 +17,19 @@ public class Resizable3Imp1 implements Resizable3{
 		this.inverse = inverse;
 	}
 	
-    public function  getElementCount():int{ 
+    public function getElementCount():int{ 
     	return cm.getColumnCount(); 
     }
     
-    public function  getLowerBoundAt(i:int):int { 
+    public function getLowerBoundAt(i:int):int{ 
     	return cm.getColumn(i).getMinWidth(); 
     }
     
-    public function  getUpperBoundAt(i:int):int { 
+    public function getUpperBoundAt(i:int):int{ 
     	return cm.getColumn(i).getMaxWidth(); 
     }
     
-    public function  getMidPointAt(i:int):int  {
+    public function getMidPointAt(i:int):int{
         if (!inverse) {
 	    	return cm.getColumn(i).getPreferredWidth();
         }else {
@@ -37,7 +37,7 @@ public class Resizable3Imp1 implements Resizable3{
         }
     }
     
-    public function setSizeAt(s:int, i:int):void {
+    public function setSizeAt(s:int, i:int):void{
         if (!inverse) {
 			cm.getColumn(i).setWidth(s);
         }else {

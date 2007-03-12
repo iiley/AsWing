@@ -72,7 +72,7 @@ public class JAdjuster extends Component{
 	 * @param orientation (optional)the pop-up slider's orientation to either VERTICAL or HORIZONTAL.
 	 * @see org.aswing.DefaultIntegerBoundedRangeModel 
 	 */
-	public function JAdjuster(columns:int=3, orientation:int=VERTICAL){
+	public function JAdjuster(columns:int=3, orientation:int=AsWingConstants.VERTICAL){
 		super();
 		setColumns(columns);
 		setOrientation(orientation);

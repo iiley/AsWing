@@ -7,8 +7,18 @@ package org.aswing.table{
 /**
  * @author iiley
  */
-public interface Resizable3 extends Resizable2{
-	 function getMidPointAt(i:int):int;
+public interface Resizable3{
+	
+	function getMidPointAt(i:int):int;
+	
+	function getElementCount():int;
+	
+	function getLowerBoundAt(i:int):int;
+	
+	function getUpperBoundAt(i:int):int;
+	
+	function setSizeAt(newSize:int, i:int):void;
+	
 }
 
 }

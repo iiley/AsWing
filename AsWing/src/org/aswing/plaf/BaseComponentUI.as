@@ -59,10 +59,10 @@ public class BaseComponentUI implements ComponentUI
     	g.drawRectangle(new Pen(getDefaultFocusColorOutter(), 1), b.x+1.5, b.y+1.5, b.width-3, b.height-3);
 	}
 	
-    private function getDefaultFocusColorInner():ASColor{
+    protected function getDefaultFocusColorInner():ASColor{
     	return getColor("focusInner");
     }
-    private function getDefaultFocusColorOutter():ASColor{
+    protected function getDefaultFocusColorOutter():ASColor{
     	return getColor("focusOutter");
     }
     	

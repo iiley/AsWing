@@ -1,5 +1,9 @@
-package org.aswing
-{
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
+package org.aswing{
+	
 import org.aswing.plaf.*;
 import flash.events.Event;
 import org.aswing.event.*;
@@ -46,15 +50,14 @@ import org.aswing.event.*;
  * 
  * @author iiley
  */	
-public class JSplitPane extends Container
-{
+public class JSplitPane extends Container{
 	
     /**
      * Vertical split indicates the <code>Component</code>s are
      * split along the y axis.  For example the two
      * <code>Component</code>s will be split one on top of the other.
      */
-    public static const VERTICAL_SPLIT:int = AsWingConstants.VERTICAL;
+    public static const VERTICAL_SPLIT:int = 1;
 
     /**
      * Horizontal split indicates the <code>Component</code>s are
@@ -62,7 +65,7 @@ public class JSplitPane extends Container
      * <code>Component</code>s will be split one to the left of the
      * other.
      */
-    public static const HORIZONTAL_SPLIT:int = AsWingConstants.HORIZONTAL;
+    public static const HORIZONTAL_SPLIT:int = 0;
 
     /**
      * Used to add a <code>Component</code> to the left of the other
@@ -91,7 +94,7 @@ public class JSplitPane extends Container
     private var lastDividerLocation:int;
     private var resizeWeight:Number;
     private var dividerLocation:int;
-    private var dividerSize:Number;
+    private var dividerSize:int;
 	
 	/**
 	 * JSplitPane(orientation:int, continuousLayout:Boolean, leftComponent:Component, rightComponent:Component)<br>
@@ -118,7 +121,7 @@ public class JSplitPane extends Container
      *        	of a horizontally-split pane, or at the bottom of a
      *        	vertically-split pane. Default is null.
      */
-	public function JSplitPane(orientation:Number=HORIZONTAL_SPLIT, continuousLayout:Boolean=false, leftComponent:Component=null, rightComponent:Component=null) {
+	public function JSplitPane(orientation:int=HORIZONTAL_SPLIT, continuousLayout:Boolean=false, leftComponent:Component=null, rightComponent:Component=null) {
 		super();
 		this.orientation = orientation;
 		this.continuousLayout = continuousLayout;
@@ -285,7 +288,7 @@ public class JSplitPane extends Container
      *       of pixels from the left (or upper) edge of the pane to the 
      *       left (or upper) edge of the divider
      */
-    public function getLastDividerLocation():Number {
+    public function getLastDividerLocation():int {
         return lastDividerLocation;
     }
 
@@ -431,7 +434,7 @@ public class JSplitPane extends Container
      * it is height when the orientation is vertical.
      * @param newSize the size of the divider
      */
-    public function setDividerSize(newSize:Number):void{
+    public function setDividerSize(newSize:int):void{
     	if(dividerSize != newSize){
     		dividerSize = newSize;
     		repaint();
@@ -444,7 +447,7 @@ public class JSplitPane extends Container
      * @return the divider size
      * @see #setDividerSize()
      */
-    public function getDividerSize():Number{
+    public function getDividerSize():int{
     	return dividerSize;
     }
     

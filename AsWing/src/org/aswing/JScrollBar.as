@@ -61,7 +61,7 @@ public class JScrollBar extends Component{
 	 * @param min
 	 * @param max
 	 */
-	public function JScrollBar(orientation:int=VERTICAL, 
+	public function JScrollBar(orientation:int=AsWingConstants.VERTICAL, 
 		value:int=0, extent:int=10, min:int=0, max:int=100){
 		super();
 		setName("JScrollBar");

@@ -20,18 +20,18 @@ public class Resizable3Imp2 implements Resizable3{
 	}
 	
     public function getElementCount():int{ 
-    	return end-start; 
+    	return end-start;
     }
     
-    public function getLowerBoundAt(i:int):int  { 
+    public function getLowerBoundAt(i:int):int{ 
     	return cm.getColumn(i+start).getMinWidth(); 
     }
     
-    public function getUpperBoundAt(i:int):int  { 
+    public function getUpperBoundAt(i:int):int{ 
     	return cm.getColumn(i+start).getMaxWidth(); 
     }
     
-    public function getMidPointAt(i:int):int    { 
+    public function getMidPointAt(i:int):int{ 
     	return cm.getColumn(i+start).getWidth(); 
     }
     

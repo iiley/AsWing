@@ -37,7 +37,7 @@ public class JSeparator extends Component
 	 * <p>
 	 * @param orientation (optional) the orientation.
 	 */
-	public function JSeparator(orientation:int=HORIZONTAL){
+	public function JSeparator(orientation:int=AsWingConstants.HORIZONTAL){
 		super();
 		setName("JSeparator");
 		this.orientation = orientation;

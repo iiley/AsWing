@@ -51,7 +51,7 @@ public class JSlider extends Component{
 	 * @param max the max value
 	 * @param value the selected value
 	 */
-	public function JSlider(orientation:int=HORIZONTAL, min:int=0, max:int=100, value:int=50){
+	public function JSlider(orientation:int=AsWingConstants.HORIZONTAL, min:int=0, max:int=100, value:int=50){
 		super();
 		isInverted = false;
 		majorTickSpacing = 0;
