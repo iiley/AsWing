@@ -2,13 +2,13 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
+package org.aswing{
 	
 import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
 import flash.events.*;
 import flash.geom.*;
+import flash.utils.getTimer;
 
 import org.aswing.error.ImpMissError;
 import org.aswing.geom.*;
@@ -86,6 +86,13 @@ import org.aswing.dnd.*;
  */
 [Event(name="focusKeyUp", type="org.aswing.event.FocusKeyEvent")]
 
+/**
+ *  Dispatched when the component is clicked continuesly.
+ *
+ *  @eventType org.aswing.event.ClickCountEvent.CLICK_COUNT
+ */
+[Event(name="clickCount", type="org.aswing.event.ClickCountEvent")]
+
 
 /**
  * Dispatched when the component is recongnized that it can be drag start.
@@ -136,8 +143,12 @@ import org.aswing.dnd.*;
  * 
  * @author iiley
  */	
-public class Component extends AWSprite
-{
+public class Component extends AWSprite{
+	/**
+	 * The max interval time to judge whether click was continuously.
+	 */
+	private static var MAX_CLICK_INTERVAL:int = 400;
+	
 	protected var ui:ComponentUI;
 	private var clientProperty:HashMap;
 	
@@ -212,6 +223,7 @@ public class Component extends AWSprite
 		addEventListener(FocusEvent.FOCUS_IN, __focusIn);
 		addEventListener(FocusEvent.FOCUS_OUT, __focusOut);
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDown);
+		addEventListener(MouseEvent.CLICK, __mouseClick);
 	}
 	
 	private function __repaintManagerStarter(e:Event):void{
@@ -2009,12 +2021,18 @@ public class Component extends AWSprite
 	}
 	
 	/**
-	 * Removes this component from its parent.
+	 * Removes this component from its parent, 
+	 * whatever it is as a component child or only a display object child, 
+	 * or it's parent is just a display object container.
+	 * <p>
+	 * This method will remove this component in any case.
+	 * </p>
 	 */
 	public function removeFromContainer():void{
 		if(getParent() != null){
 			getParent().remove(this);
-		}else if(parent != null){
+		}
+		if(parent != null){
 			parent.removeChild(this);
 		}
 	}
@@ -2197,7 +2215,21 @@ public class Component extends AWSprite
 	//----------------------------------------------------------------
 	//               Event Handlers
 	//----------------------------------------------------------------
-	
+	private var lastClickTime:int;
+	private var _lastClickPoint:IntPoint;
+	private var clickCount:int;
+	private function __mouseClick(e:MouseEvent):void{
+		var time:int = getTimer();
+		var mousePoint:IntPoint = getMousePosition();
+		if(mousePoint.equals(_lastClickPoint) && time - lastClickTime < MAX_CLICK_INTERVAL){
+			clickCount++;
+		}else{
+			clickCount = 1;
+		}
+		lastClickTime = time;
+		dispatchEvent(new ClickCountEvent(ClickCountEvent.CLICK_COUNT, clickCount));
+		_lastClickPoint = mousePoint;
+	}
 	//retrive the focus when mouse down if not focused child or self
 	//this will works because focusIn will be fired before mouseDown
 	private function __mouseDown(e:MouseEvent):void{
