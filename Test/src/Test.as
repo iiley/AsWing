@@ -6,6 +6,7 @@ package {
 	import cases.*;
 	import sington.*;
 
+    [SWF (width="500", height="450")]
 	public class Test extends Sprite
 	{
 		
@@ -18,10 +19,7 @@ package {
 			//create other case instance here to test others
 			//for example change below with addChild(new Button());
 			//to test buttons.
-			addChild(new Accordion());
-			
-			SingtonTry.getInstance().singtonMethod();
-			//SingtonTry.getInstance().singtonMethod();
+			addChild(new Table());
 		}
 	}
 }
