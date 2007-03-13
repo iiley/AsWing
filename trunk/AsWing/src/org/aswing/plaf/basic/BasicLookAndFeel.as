@@ -538,14 +538,14 @@ public class BasicLookAndFeel extends LookAndFeel
 	    
 	     // *** TableHeader
 	    comDefaults = [
-		    "TableHeader.background", new ASColorUIResource(0xE7E7E5),
+		    "TableHeader.background", buttonBG,
 		    "TableHeader.foreground", table.get("controlText"),
 	        "TableHeader.font", table.getFont("controlFont"),
-	    	"TableHeader.opaque", false,  
-	    	"TableHeader.focusable", true,
+	    	"TableHeader.opaque", true, 
+	    	"TableHeader.focusable", true, 
 	        "TableHeader.gridColor", new ASColorUIResource(0x444444),
-	    	"TableHeader.border", undefined//,
-	    	//"TableHeader.cellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder
+	    	"TableHeader.border", undefined, 
+	    	"TableHeader.cellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder
 	    ];
 	    table.putDefaults(comDefaults);
 	}

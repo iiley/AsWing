@@ -866,7 +866,8 @@ public class AbstractButton extends Component
 		addEventListener(MouseEvent.ROLL_OUT, __rollOutListener);
 		addEventListener(MouseEvent.ROLL_OVER, __rollOverListener);
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDownListener);
-		addEventListener(ReleaseEvent.RELEASE, __mouseUpListener);
+		addEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
+		addEventListener(ReleaseEvent.RELEASE, __mouseReleaseListener);
 		addEventListener(Event.ADDED_TO_STAGE, __addedToStage);
 		addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
 	}
@@ -885,7 +886,8 @@ public class AbstractButton extends Component
 		}
 	}
 	
-	private function __rollOverListener(e:Event):void{
+	private function __rollOverListener(e:MouseEvent):void{
+		if(e.buttonDown) return;
 		if(isRollOverEnabled()) {
 			getModel().setRollOver(true);
 		}
@@ -893,7 +895,8 @@ public class AbstractButton extends Component
 			getModel().setArmed(true);
 		}
 	}
-	private function __rollOutListener(e:Event):void{
+	private function __rollOutListener(e:MouseEvent):void{
+		if(e.buttonDown) return;
 		if(isRollOverEnabled()) {
 			getModel().setRollOver(false);
 		}
@@ -904,6 +907,11 @@ public class AbstractButton extends Component
 		getModel().setPressed(true);
 	}
 	private function __mouseUpListener(e:Event):void{
+		if(isRollOverEnabled()) {
+			getModel().setRollOver(true);
+		}
+	}
+	private function __mouseReleaseListener(e:Event):void{
 		getModel().setPressed(false);
 		getModel().setArmed(false);
 	}

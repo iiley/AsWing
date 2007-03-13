@@ -307,8 +307,8 @@ public class JWindow extends JPopup{
 	private function active(programmatic:Boolean=true):void{
 		actived = true;
 		var vec:Vector = getPopupsVector();
-		for(var i:Number=0; i<vec.size(); i++){
-			var w:JWindow = JWindow(vec.get(i));
+		for(var i:int=0; i<vec.size(); i++){
+			var w:JWindow = vec.get(i) as JWindow;
 			if(w != null && w != this){
 				if(w.isActive()){
 					w.deactive(programmatic);

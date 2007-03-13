@@ -27,7 +27,6 @@ public class DefaultComboBoxCellEditor extends AbstractCellEditor{
 	public function getComboBox():JComboBox{
 		if(comboBox == null){
 			comboBox = new JComboBox();
-			comboBox.setFocusable(false);
 		}
 		return comboBox;
 	}
@@ -44,7 +43,7 @@ public class DefaultComboBoxCellEditor extends AbstractCellEditor{
      * Sets the value of this cell. 
      * @param value the new value of this cell
      */
-	public function setCellEditorValue(value:*):void{
+	override protected function setCellEditorValue(value:*):void{
 		getComboBox().setSelectedItem(value);
 	}
 	

@@ -252,10 +252,6 @@ public class TableColumn extends EventDispatcher{
 	public function removePropertyChangeListener(listener:Function):void{
 		removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, listener);
 	}
-		
-	/*public function getPropertyChangeListeners():Array{
-		return listeners.concat();
-	}*/
 	
 	public function createDefaultHeaderRenderer():TableCellFactory{
 		var factory:TableCellFactory = new GeneralTableCellFactoryUIResource(DefaultTextCell);

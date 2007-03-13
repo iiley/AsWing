@@ -1665,7 +1665,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		{
 			var rmi:int = getRowMargin();
 			var cmi:int = getColumnModel().getColumnMargin();
-			r.setRectXYWH(r.x + (cmi / 2), r.y + (rmi / 2), r.width - cmi, r.height - rmi);
+			r.setRectXYWH(r.x+cmi, r.y+rmi, r.width-cmi, r.height-rmi);
 		}
 		return r;
 	}
@@ -2618,7 +2618,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var insets:Insets = getInsets();
 		var insetsX:int = insets.left;
 		var insetsY:int = insets.top;
-		var startX:int = Math.round(insetsX - viewPosition.x);
+		var startX:int = insetsX - viewPosition.x;
 		
 		//layout table header
 		getTableHeader().setLocationXY(startX, insetsY);
@@ -2678,17 +2678,19 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var cr:int = 0; //row in visible cell table
 		var cc:int = 0; //column in visible cell table
 		
-		var startY:int = Math.round(insetsY - viewPosition.y + getTableHeader().getHeight());
+		var startY:int = insetsY - viewPosition.y + getTableHeader().getHeight();
 		
 //		trace(" header, use time : " + (getTimer() - time));
 //		time = getTimer();
 		var row:int = rMin-1;
+		var showHL:Boolean = getShowHorizontalLines();
+		var showVL:Boolean = getShowVerticalLines();
 		while((++row) <= rMax){
 			if(cr >= rowCells.length){
 				break;
 			}
 			cellRect = getCellRect(row, cMin, false);
-			if(row == getRowCount() - 1){
+			if(showHL && row == getRowCount() - 1){
 				cellRect.height -= rowMargin;
 			}
 			var column:int = cMin-1;
@@ -2701,7 +2703,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 				columnWidth = aColumn.getWidth();
 				cellRect.width = columnWidth - columnMargin;
 				tempRect.setRectXYWH(cellRect.x + startX, cellRect.y + startY, cellRect.width, cellRect.height);
-				if(column == (columnCount - 1)){
+				if(showVL && column == (columnCount - 1)){
 					tempRect.width -= columnMargin;
 				}
 				layoutCell(row, column, tempRect, cr, cc);
