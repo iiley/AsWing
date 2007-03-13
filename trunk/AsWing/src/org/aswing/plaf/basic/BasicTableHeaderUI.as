@@ -234,10 +234,11 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 	private var lastColumnCellFactories:Array;
 	private function synCreateCellInstances():void{
 		var columnCount:int = header.getColumnModel().getColumnCount();
+		var i:int;
 		if(lastColumnCellFactories==null || lastColumnCellFactories.length != columnCount){
 			removeAllCells();
 		}else{
-			for(var i:int=0; i<columnCount; i++){
+			for(i=0; i<columnCount; i++){
 				if(lastColumnCellFactories[i] != getHeaderRenderer(i)){
 					removeAllCells();
 					break;
@@ -246,7 +247,7 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		}
 		if(cells.length == 0){
 			lastColumnCellFactories = new Array(columnCount);
-			for(var i:int=0; i<columnCount; i++){
+			for(i=0; i<columnCount; i++){
 				var factory:TableCellFactory = getHeaderRenderer(i);
 				lastColumnCellFactories[i] = factory;
 				var cell:TableCell = factory.createNewCell(false);

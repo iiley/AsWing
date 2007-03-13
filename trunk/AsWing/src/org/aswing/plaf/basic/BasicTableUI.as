@@ -13,13 +13,15 @@ import org.aswing.event.*;
 import flash.ui.Keyboard;
 import flash.events.MouseEvent;
 import flash.events.Event;
+import flash.display.Shape;
 
 /**
  * @author iiley
  */
 public class BasicTableUI extends BaseComponentUI implements TableUI{
 	
-	private var table:JTable;
+	protected var table:JTable;
+	protected var gridShape:Shape;
 	
 	public function BasicTableUI() {
 		super();
@@ -201,11 +203,19 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	private function getSelectionKey():uint{
 		return Keyboard.SPACE;
 	}
+	
+	protected function createGridGraphics():Graphics2D{
+		if(gridShape == null){
+			gridShape = new Shape();
+			table.getCellPane().addChild(gridShape);
+		}
+		gridShape.graphics.clear();
+		return new Graphics2D(gridShape.graphics);
+	}
 		
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
 		super.paint(c, g, b);
-		//table.clearChildrenGraphics();
-		//g = table.getChildrenGraphics();
+		g = createGridGraphics();
 		var rowCount:int = table.getRowCount();
 		var columnCount:int = table.getColumnCount();
 		if (rowCount <= 0 || columnCount <= 0) {
@@ -213,8 +223,8 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		}
 		var extentSize:IntDimension = table.getExtentSize();
 		var viewPos:IntPoint = table.getViewPosition();
-		var startX:int = b.x - viewPos.x;
-		var startY:int = b.y - viewPos.y + table.getHeaderHeight();
+		var startX:int = - viewPos.x;
+		var startY:int = - viewPos.y;
 		
 		var vb:IntRectangle = new IntRectangle();
 		vb.setSize(extentSize);

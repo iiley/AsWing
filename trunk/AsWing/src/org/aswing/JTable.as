@@ -159,6 +159,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private var columnModel:TableColumnModel;
 	private var selectionModel:ListSelectionModel;
 	
+	protected var cellPane:Container;
 	private var tableHeader:JTableHeader;
 	private var rowCells:Array;
 	private var rowHeight:int;
@@ -226,8 +227,10 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private function initWithModels(dm:TableModel=null, cm:TableColumnModel=null, sm:ListSelectionModel=null):void{
 		setLayout(this);
 		
-		rowCells = new Array();
+		cellPane = new Container();
+		append(cellPane);
 		
+		rowCells = new Array();
 		viewPosition = new IntPoint();
 		
 		if (cm == null){
@@ -372,6 +375,14 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 */	
 	public function getTableHeader():JTableHeader{
 		return tableHeader;
+	}
+	
+	/**
+	 * Returns the container that holds the cells.
+	 * @return the container that holds the cells.
+	 */
+	public function getCellPane():Container{
+		return cellPane;
 	}
 	
 	/**
@@ -2618,10 +2629,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var insets:Insets = getInsets();
 		var insetsX:int = insets.left;
 		var insetsY:int = insets.top;
-		var startX:int = insetsX - viewPosition.x;
 		
 		//layout table header
-		getTableHeader().setLocationXY(startX, insetsY);
+		getTableHeader().setLocationXY(insetsX - viewPosition.x, insetsY);
 		getTableHeader().setSizeWH(getLastTotalColumnWidth(), getTableHeader().getPreferredHeight());
 		getTableHeader().getParent().bringToTop(getTableHeader());
 		getTableHeader().validate();
@@ -2630,6 +2640,11 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var b:IntRectangle = new IntRectangle();
 		b.setSize(getExtentSize());
 		b.setLocation(viewPosition);
+		
+		var cellPaneBounds:IntRectangle = new IntRectangle();
+		cellPaneBounds.setSize(b.getSize());
+		cellPaneBounds.setLocation(new IntPoint(insetsX, insetsY+getTableHeader().getHeight()));
+		cellPane.setComBounds(cellPaneBounds);
 
 		if (getRowCount() <= 0 || getColumnCount() <= 0) {
 			return;
@@ -2678,7 +2693,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var cr:int = 0; //row in visible cell table
 		var cc:int = 0; //column in visible cell table
 		
-		var startY:int = insetsY - viewPosition.y + getTableHeader().getHeight();
+		var startX:int = - viewPosition.x;
+		var startY:int = - viewPosition.y;
 		
 //		trace(" header, use time : " + (getTimer() - time));
 //		time = getTimer();
@@ -2827,7 +2843,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private function addCellToContainer(cell:TableCell):void{
 		var cellCom:Component = cell.getCellComponent();
 		setCellComponentProperties(cellCom);
-		append(cellCom);
+		cellPane.append(cellCom);
 	}
 	
 	private static function setCellComponentProperties(com:Component):void{
@@ -2841,8 +2857,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	}
 	
 	private function removeCellFromeContainer(cell:TableCell):void{
-		remove(cell.getCellComponent());
-	}	
+		cellPane.remove(cell.getCellComponent());
+	}
 	
 	//*****************************************************
 	//                  Events Handling
