@@ -297,7 +297,11 @@ public class Container extends Component{
 	 */	
 	override public function removeChild(child:DisplayObject):DisplayObject{
 		if(child is Component){
-			return remove(child as Component);
+			if(remove(child as Component) == null){
+				return DC_removeChild(child);
+			}else{
+				return child;
+			}
 		}else{
 			return DC_removeChild(child);
 		}
