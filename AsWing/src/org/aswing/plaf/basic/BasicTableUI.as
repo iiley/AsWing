@@ -62,8 +62,7 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	protected function installListeners():void{
 		table.addEventListener(MouseEvent.MOUSE_DOWN, __onTablePress);
 		table.addEventListener(ReleaseEvent.RELEASE, __onTableRelease);
-		//TODO imp clicked
-		//tableListener[JTable.ON_CLICKED] = Delegate.create(this, __onTableClicked);
+		table.addEventListener(ClickCountEvent.CLICK_COUNT, __onTableClicked);
 		table.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onTableKeyDown);
 		table.addEventListener(MouseEvent.MOUSE_WHEEL, __onTableMouseWheel);
 	}
@@ -80,12 +79,16 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	protected function uninstallListeners():void{
 		table.removeEventListener(MouseEvent.MOUSE_DOWN, __onTablePress);
 		table.removeEventListener(ReleaseEvent.RELEASE, __onTableRelease);
+		table.removeEventListener(ClickCountEvent.CLICK_COUNT, __onTableClicked);
 		table.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onTableKeyDown);
 		table.removeEventListener(MouseEvent.MOUSE_WHEEL, __onTableMouseWheel);
 		table.removeEventListener(MouseEvent.MOUSE_MOVE, __onTableMouseMove);
 	}
 	
 	protected function __onTablePress(e:Event):void{
+		if(table.getTableHeader().hitTestMouse()){
+			return;
+		}
 		selectMousePointed();
 		table.addEventListener(MouseEvent.MOUSE_MOVE, __onTableMouseMove);
 		var editor:TableCellEditor = table.getCellEditor();
@@ -94,11 +97,14 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		}
 	}
 	
-	private function __onTableClicked(source:JTable, clickCount:int):void{
+	private function __onTableClicked(e:ClickCountEvent):void{
+		if(table.getTableHeader().hitTestMouse()){
+			return;
+		}
 		var p:IntPoint = getMousePosOnTable();
 		var row:int = table.rowAtPoint(p);
 		var column:int = table.columnAtPoint(p);
-		if(table.editCellAt(row, column, clickCount)){
+		if(table.editCellAt(row, column, e.getCount())){
 		}
 	}
 	
@@ -112,6 +118,9 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	
 	private function __onTableMouseWheel(e:MouseEvent):void{
 		if(!table.isEnabled()){
+			return;
+		}
+		if(table.getTableHeader().hitTestMouse()){
 			return;
 		}
 		var viewPos:IntPoint = table.getViewPosition();
@@ -204,11 +213,9 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		}
 		var extentSize:IntDimension = table.getExtentSize();
 		var viewPos:IntPoint = table.getViewPosition();
-		viewPos.x = Math.round(viewPos.x);
-		viewPos.y = Math.round(viewPos.y);
-		var startX:int = Math.round(b.x - viewPos.x);
-		var startY:int = Math.round(b.y - viewPos.y + table.getHeaderHeight());
-				
+		var startX:int = b.x - viewPos.x;
+		var startY:int = b.y - viewPos.y + table.getHeaderHeight();
+		
 		var vb:IntRectangle = new IntRectangle();
 		vb.setSize(extentSize);
 		vb.setLocation(viewPos);
@@ -242,30 +249,28 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 			var x1:Number = damagedArea.x + 0.5;
 			var x2:Number = damagedArea.x + damagedArea.width - 1;
 			var y:Number = damagedArea.y + 0.5;
-			
-			g.drawLine(pen, x1, y, x2, y);
 			var rh:int = table.getRowHeight();
-			for (var row:Number = rMin; row <= rMax; row++) {
-				y += rh;
-				if(row == rowCount - 1){
+			for (var row:int = rMin; row <= rMax+1; row++) {
+				if(row == rowCount){
 					y -= 1;
 				}
 				g.drawLine(pen, x1, y, x2, y);
+				y += rh;
 			}
 		}
 		if (table.getShowVerticalLines()) {
 			var cm:TableColumnModel = table.getColumnModel();
 			var x:Number = damagedArea.x + 0.5;
 			var y1:Number = damagedArea.y + 0.5;
-			var y2:Number = y1 + damagedArea.height -1;
-			g.drawLine(pen, x, y1, x, y2);
-			for (var column:Number = cMin; column <= cMax; column++) {
-				var w:Number = cm.getColumn(column).getWidth();
-				x += w;
-				if(column == columnCount - 1){
+			var y2:Number = y1 + damagedArea.height - 1;
+			for (var column:int = cMin; column <= cMax+1; column++) {
+				if(column == columnCount){
 					x -= 1;
 				}
 				g.drawLine(pen, x, y1, x, y2);
+				if(column < columnCount){
+					x += cm.getColumn(column).getWidth();
+				}
 			}
 		}		
 	}	

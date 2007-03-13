@@ -39,7 +39,7 @@ public class DefaultCheckBoxCellEditor extends AbstractCellEditor{
      * Sets the value of this cell. 
      * @param value the new value of this cell
      */
-	public function setCellEditorValue(value:*):void{
+	override protected function setCellEditorValue(value:*):void{
 		var selected:Boolean = false;
 		if(value == true){
 			selected = true;

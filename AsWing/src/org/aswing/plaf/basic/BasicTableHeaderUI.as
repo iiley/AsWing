@@ -60,7 +60,6 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		header.addEventListener(MouseEvent.MOUSE_DOWN, __onHeaderPressed);
 		header.addEventListener(MouseEvent.CLICK, __onHeaderReleased);
 		header.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onHeaderReleasedOutSide);
-		
 	}
 	
 	override public function uninstallUI(c:Component):void {
@@ -90,15 +89,19 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 	//			 Event Handlers
 	//*************************************************
 	
-	private function __onHeaderRollover(e:Event):void{
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, 
-			__onRollOverMouseMoving);
+	private function __onHeaderRollover(e:MouseEvent):void{
+		if(!e.buttonDown){
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, 
+				__onRollOverMouseMoving);
+		}
 	}
 	
-	private function __onHeaderRollout(e:Event):void{
-		CursorManager.hideCustomCursor(resizeCursor);
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, 
-			__onRollOverMouseMoving);
+	private function __onHeaderRollout(e:MouseEvent):void{
+		if(e == null || !e.buttonDown){
+			CursorManager.hideCustomCursor(resizeCursor);
+			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, 
+				__onRollOverMouseMoving);
+		}
 	}
 	
 	private function __onRollOverMouseMoving(e:Event):void{
@@ -190,8 +193,15 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		if (renderer == null) {
 			renderer = header.getDefaultRenderer();
 		}
-		return renderer;;
+		return renderer;
 	}	
+	
+	override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+		if(c.isOpaque()){
+	 		var bgColor:ASColor = (c.getBackground() == null ? ASColor.WHITE : c.getBackground());
+	    	BasicGraphicsUtils.drawControlBackground(g, b, bgColor, Math.PI/2);
+		}
+	}
 	
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
 		super.paint(c, g, b);

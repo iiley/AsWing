@@ -430,7 +430,7 @@ public class JPopup extends JRootPane{
 		}else if(owner is DisplayObjectContainer){
 			var ownerMC:DisplayObjectContainer = DisplayObjectContainer(owner);
 			ownerMC.addChild(ground_mc);
-		}else {
+		}else{
 			throw new TypeError(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
 		}
 		if(lastLAF != UIManager.getLookAndFeel()){

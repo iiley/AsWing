@@ -22,9 +22,13 @@ public class AbstractCellEditor implements CellEditor, TableCellEditor{
 	private var listeners:Array;
 	private var clickCountToStart:int;
 	
+	protected var popup:JPopup;
+	
 	public function AbstractCellEditor(){
 		listeners = new Array();
 		clickCountToStart = 0;
+		popup = new JPopup();
+		popup.setLayout(new EmptyLayout());
 	}
 	
     /**
@@ -66,7 +70,7 @@ public class AbstractCellEditor implements CellEditor, TableCellEditor{
     * make editor display this value.
     * @param value the new value of this cell
     */
-	private function setCellEditorValue(value:*):void{		
+	protected function setCellEditorValue(value:*):void{		
 		throw new ImpMissError();
 	}
 
@@ -75,12 +79,19 @@ public class AbstractCellEditor implements CellEditor, TableCellEditor{
 	}
 
 	public function startCellEditing(owner : Container, value:*, bounds : IntRectangle) : void {
+		popup.changeOwner(AsWingUtils.getOwnerAncestor(owner));
+		var gp:IntPoint = owner.getGlobalLocation().move(bounds.x, bounds.y);
+		popup.setSizeWH(bounds.width, bounds.height);
+		popup.show();
+		popup.setGlobalLocation(gp);
+		popup.validate();
+		popup.toFront();
+		
 		var com:Component = getEditorComponent();
 		com.removeEventListener(AWEvent.ACT, __editorComponentAct);
 		com.removeEventListener(AWEvent.FOCUS_LOST, __editorComponentFocusLost);
-		com.removeFromContainer();
-		com.setBounds(bounds);
-		owner.DC_addChild(com);
+		com.setSizeWH(bounds.width, bounds.height);
+		popup.append(com);
 		setCellEditorValue(value);
 		com.requestFocus();
 		//if com is a container and can't has focus, then focus its first sub child.
@@ -151,6 +162,7 @@ public class AbstractCellEditor implements CellEditor, TableCellEditor{
 	
 	protected function removeEditorComponent():void{
 		getEditorComponent().removeFromContainer();
+		popup.dispose();
 	}
 }
 }

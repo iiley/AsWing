@@ -43,16 +43,16 @@ public class DefaultResizeBarHandler{
 		mc.addEventListener(Event.REMOVED_FROM_STAGE, __onDestroy);
 	}
 	
-	private function __onRollOver(e:Event):void{
-		if(!resizer.isResizing()){
+	private function __onRollOver(e:MouseEvent):void{
+		if(!resizer.isResizing() && !e.buttonDown){
 			resizer.startArrowCursor();
 			__rotateArrow();
 			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
 		}
 	}
 	
-	private function __onRollOut(e:Event):void{
-		if(!resizer.isResizing()){
+	private function __onRollOut(e:MouseEvent):void{
+		if(!resizer.isResizing() && !e.buttonDown){
 			mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
 			resizer.stopArrowCursor();
 		}

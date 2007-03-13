@@ -57,7 +57,7 @@ public class DefaultTextFieldCellEditor extends AbstractCellEditor{
     * Sets the value of this cell. 
     * @param value the new value of this cell
     */
-	public function setCellEditorValue(value:*):void{
+	override protected function setCellEditorValue(value:*):void{
 		getTextField().setText(value+"");
 		getTextField().selectAll();
 	}
