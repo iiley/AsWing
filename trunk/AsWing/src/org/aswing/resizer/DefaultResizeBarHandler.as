@@ -38,13 +38,14 @@ public class DefaultResizeBarHandler{
 		mc.addEventListener(MouseEvent.ROLL_OVER, __onRollOver);
 		mc.addEventListener(MouseEvent.ROLL_OUT, __onRollOut);
 		mc.addEventListener(MouseEvent.MOUSE_DOWN, __onPress);
+		mc.addEventListener(MouseEvent.MOUSE_UP, __onUp);
 		mc.addEventListener(MouseEvent.CLICK, __onRelease);
 		mc.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onReleaseOutside);
 		mc.addEventListener(Event.REMOVED_FROM_STAGE, __onDestroy);
 	}
 	
 	private function __onRollOver(e:MouseEvent):void{
-		if(!resizer.isResizing() && !e.buttonDown){
+		if(!resizer.isResizing() && (e ==null || !e.buttonDown)){
 			resizer.startArrowCursor();
 			__rotateArrow();
 			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
@@ -58,11 +59,15 @@ public class DefaultResizeBarHandler{
 		}
 	}
 	
-	private function __onPress(e:Event):void{
+	private function __onPress(e:MouseEvent):void{
 		resizer.setResizing(true);
 		startResize();
 		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
 		mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizing);
+	}
+	
+	private function __onUp(e:MouseEvent):void{
+		__onRollOver(null);
 	}
 	
 	private function __onRelease(e:Event):void{
