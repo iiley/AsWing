@@ -147,7 +147,7 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		if ((column == -1) || (row == -1)) {
 			return;
 		}
-		table.changeSelection(row, column, false, true);
+		changeSelection(row, column, false, true);
 	}
 	
 	private function makeSelectionChange(row:int, column:int):void {
@@ -166,24 +166,24 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 			var anchorCol:int = cm.getAnchorSelectionIndex();
 
 			if (table.isCellSelected(anchorRow, anchorCol)) {
-				rm.addSelectionInterval(anchorRow, row);
-				cm.addSelectionInterval(anchorCol, column);
+				rm.addSelectionInterval(anchorRow, row, false);
+				cm.addSelectionInterval(anchorCol, column, false);
 			} else {
-				rm.removeSelectionInterval(anchorRow, row);
-				rm.addSelectionInterval(row, row);
+				rm.removeSelectionInterval(anchorRow, row, false);
+				rm.addSelectionInterval(row, row, false);
 				rm.setAnchorSelectionIndex(anchorRow);
-				cm.removeSelectionInterval(anchorCol, column);
-				cm.addSelectionInterval(column, column);
+				cm.removeSelectionInterval(anchorCol, column, false);
+				cm.addSelectionInterval(column, column, false);
 				cm.setAnchorSelectionIndex(anchorCol);
 			}
 		} else {
-			table.changeSelection(row, column, ctrl, !ctrl && shift);
+			changeSelection(row, column, ctrl, !ctrl && shift);
 		}
 	}	
 	
 	private function changeSelection(rowIndex:int, columnIndex:int, toggle:Boolean, extend:Boolean):void{
 		recordFocusIndecis(rowIndex, columnIndex);
-		table.changeSelection(rowIndex, columnIndex, toggle, extend);
+		table.changeSelection(rowIndex, columnIndex, toggle, extend, false);
 	}
 	
 	private function getMousePosOnTable():IntPoint{
