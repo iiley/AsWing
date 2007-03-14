@@ -4,8 +4,7 @@ package {
 	import org.aswing.*;
 	import org.aswing.event.AWEvent;
 	import cases.*;
-	import sington.*;
-
+	
     [SWF (width="500", height="450")]
 	public class Test extends Sprite
 	{
