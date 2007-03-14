@@ -1310,7 +1310,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	 * @param listener the listener
 	 * @param priority the priority
 	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
-	 * @see org.aswing.event.AWEvent#STATE_CHANGED
+	 * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
 	 */
 	public function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
 		addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);

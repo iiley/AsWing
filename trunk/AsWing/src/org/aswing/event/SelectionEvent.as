@@ -23,6 +23,8 @@ public class SelectionEvent extends InteractiveEvent{
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
      *     <tr><td><code>getFirstIndex()</code></td><td>the first changed index.</td></tr>
      *     <tr><td><code>getLastIndex()</code></td><td>the last changed index.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
@@ -48,6 +50,8 @@ public class SelectionEvent extends InteractiveEvent{
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
      *     <tr><td><code>getFirstIndex()</code></td><td>the first changed index.</td></tr>
      *     <tr><td><code>getLastIndex()</code></td><td>the last changed index.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
@@ -73,6 +77,8 @@ public class SelectionEvent extends InteractiveEvent{
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>isProgrammatic()</code></td><td>True means this event is fired by 
+     * 		the programmatic reason, false means user mouse/keyboard interaction reason.</td></tr>
      *     <tr><td><code>getFirstIndex()</code></td><td>the first changed index.</td></tr>
      *     <tr><td><code>getLastIndex()</code></td><td>the last changed index.</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the

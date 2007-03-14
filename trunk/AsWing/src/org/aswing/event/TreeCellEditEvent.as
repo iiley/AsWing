@@ -4,25 +4,25 @@
 
 package org.aswing.event{
 
+import org.aswing.tree.TreePath;
 import flash.events.Event;
 
 /**
- * The event for table cell editing.
+ * The event for tree cell editing.
  * @author iiley
  */
-public class TableCellEditEvent extends AWEvent{
+public class TreeCellEditEvent extends AWEvent{
 
 	/**
-     *  The <code>TableCellEditEvent.EDITING_STARTED</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>tableCellEditingStarted</code> event.
+     *  The <code>TreeCellEditEvent.EDITING_STARTED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>treeCellEditingStarted</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>getRow()</code></td><td>the row be edit</td></tr>
-     *     <tr><td><code>getColumn()</code></td><td>the column be edit</td></tr>
+     *     <tr><td><code>getPath()</code></td><td>the path be edit</td></tr>
      *     <tr><td><code>getOldValue()</code></td><td>the old value</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
@@ -34,21 +34,20 @@ public class TableCellEditEvent extends AWEvent{
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType tableCellEditingStarted
+     *  @eventType treeCellEditingStarted
 	 */
-	public static const EDITING_STARTED:String = "tableCellEditingStarted";	
+	public static const EDITING_STARTED:String = "treeCellEditingStarted";	
 	
 	/**
-     *  The <code>TableCellEditEvent.EDITING_CANCELED</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>tableCellEditingCanceled</code> event.
+     *  The <code>TreeCellEditEvent.EDITING_CANCELED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>treeCellEditingCanceled</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>getRow()</code></td><td>the row be edit</td></tr>
-     *     <tr><td><code>getColumn()</code></td><td>the column be edit</td></tr>
+     *     <tr><td><code>getPath()</code></td><td>the path be edit</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -59,21 +58,20 @@ public class TableCellEditEvent extends AWEvent{
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType tableCellEditingCanceled
+     *  @eventType treeCellEditingCanceled
 	 */
-	public static const EDITING_CANCELED:String = "tableCellEditingCanceled";
+	public static const EDITING_CANCELED:String = "treeCellEditingCanceled";
 	
 	/**
-     *  The <code>TableCellEditEvent.EDITING_STOPPED</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>tableCellEditingStopped</code> event.
+     *  The <code>TreeCellEditEvent.EDITING_STOPPED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>treeCellEditingStopped</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>getRow()</code></td><td>the row be edit</td></tr>
-     *     <tr><td><code>getColumn()</code></td><td>the column be edit</td></tr>
+     *     <tr><td><code>getPath()</code></td><td>the path be edit</td></tr>
      *     <tr><td><code>getOldValue()</code></td><td>the old value</td></tr>
      *     <tr><td><code>getNewValue()</code></td><td>the new value edited</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
@@ -86,37 +84,20 @@ public class TableCellEditEvent extends AWEvent{
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType tableCellEditingStopped
+     *  @eventType treeCellEditingStopped
 	 */
-	public static const EDITING_STOPPED:String = "tableCellEditingStopped";
+	public static const EDITING_STOPPED:String = "treeCellEditingStopped";
 	
-	private var row:int;
-	private var column:int;
+	private var path:TreePath;
 	private var oldValue:*;
 	private var newValue:*;
-	
-	/**
-	 * Create a cell edit event.
-	 * @param type the type
-	 * @param row the edit row
-	 * @param column the edit column
-	 * @param oldValue the old value
-	 * @param newValue the edited new value
-	 */
-	public function TableCellEditEvent(type:String, row:int, column:int, oldValue:*=null, newValue:*=null){
-		super(type, false, false);
-		this.row = row;
-		this.column = column;
-		this.oldValue = oldValue;
-		this.newValue = newValue;
+		
+	public function TreeCellEditEvent(type:String, path:TreePath, oldValue:*=null, newValue:*=null){
+		super(type, bubbles, cancelable);
 	}
-	
-	public function getRow():int{
-		return row;
-	}
-	
-	public function getColumn():int{
-		return column;
+		
+	public function getPath():TreePath{
+		return path;
 	}
 	
 	public function getOldValue():int{
@@ -128,7 +109,7 @@ public class TableCellEditEvent extends AWEvent{
 	}
 	
 	override public function clone():Event{
-		return new TableCellEditEvent(type, row, column, oldValue, newValue);
+		return new TreeCellEditEvent(type, path, oldValue, newValue);
 	}
 }
 }

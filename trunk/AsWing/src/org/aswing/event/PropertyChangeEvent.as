@@ -42,8 +42,8 @@ public class PropertyChangeEvent extends AWEvent{
 	private var oldValue:*;
 	private var newValue:*;
 	
-	public function PropertyChangeEvent(type:String, propertyName:String, oldValue:*, newValue:*){
-		super(type, false, false);
+	public function PropertyChangeEvent(propertyName:String, oldValue:*, newValue:*){
+		super(PROPERTY_CHANGE, false, false);
 		this.propertyName = propertyName;
 		this.oldValue = oldValue;
 		this.newValue = newValue;
@@ -62,7 +62,7 @@ public class PropertyChangeEvent extends AWEvent{
 	}
 	
 	override public function clone():Event{
-		return new PropertyChangeEvent(type, propertyName, oldValue, newValue);
+		return new PropertyChangeEvent(propertyName, oldValue, newValue);
 	}
 }
 }
