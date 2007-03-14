@@ -894,8 +894,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	
 	/**
 	 *  Selects all rows, columns, and cells in the table.
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function selectAll():void{
+	public function selectAll(programmatic:Boolean=true):void{
 		if (isEditing()){
 			removeEditor();
 		}
@@ -908,23 +909,24 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			//selModel.setValueIsAdjusting(true);
 			oldLead = selModel.getLeadSelectionIndex();
 			oldAnchor = selModel.getAnchorSelectionIndex();
-			setRowSelectionInterval(0, getRowCount() - 1);
-			selModel.addSelectionInterval(oldAnchor, oldLead);
+			setRowSelectionInterval(0, getRowCount() - 1, programmatic);
+			selModel.addSelectionInterval(oldAnchor, oldLead, programmatic);
 			//selModel.setValueIsAdjusting(false);
 			selModel = columnModel.getSelectionModel();
 			//selModel.setValueIsAdjusting(true);
 			oldLead = selModel.getLeadSelectionIndex();
 			oldAnchor = selModel.getAnchorSelectionIndex();
-			setColumnSelectionInterval(0, getColumnCount() - 1);
-			selModel.addSelectionInterval(oldAnchor, oldLead);
+			setColumnSelectionInterval(0, getColumnCount() - 1, programmatic);
+			selModel.addSelectionInterval(oldAnchor, oldLead, programmatic);
 			//selModel.setValueIsAdjusting(false);
 		}
 	}
 	
 	/**
 	 * Deselects all selected columns and rows.
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function clearSelection():void{
+	public function clearSelection(programmatic:Boolean=true):void{
 		selectionModel.clearSelection();
 		columnModel.getSelectionModel().clearSelection();
 	}
@@ -952,8 +954,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *                                          [0, <code>getRowCount()</code>-1]
 	 * @param   index0 one end of the interval
 	 * @param   index1 the other end of the interval
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function setRowSelectionInterval(index0:int, index1:int):void{
+	public function setRowSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		selectionModel.setSelectionInterval(boundRow(index0), boundRow(index1));
 	}
 	
@@ -966,8 +969,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *                                          [0, <code>getColumnCount()</code>-1]
 	 * @param   index0 one end of the interval
 	 * @param   index1 the other end of the interval
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function setColumnSelectionInterval(index0:int, index1:int):void{
+	public function setColumnSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		columnModel.getSelectionModel().setSelectionInterval(boundColumn(index0), boundColumn(index1));
 	}
 	
@@ -979,8 +983,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *                                          lie outside [0, <code>getRowCount()</code>-1]
 	 * @param   index0 one end of the interval
 	 * @param   index1 the other end of the interval
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function addRowSelectionInterval(index0:int, index1:int):void{
+	public function addRowSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		selectionModel.addSelectionInterval(boundRow(index0), boundRow(index1));
 	}
 	
@@ -993,9 +998,10 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *                                          [0, <code>getColumnCount()</code>-1]
 	 * @param   index0 one end of the interval
 	 * @param   index1 the other end of the interval
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function addColumnSelectionInterval(index0:int, index1:int):void{
-		columnModel.getSelectionModel().addSelectionInterval(boundColumn(index0), boundColumn(index1));
+	public function addColumnSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
+		columnModel.getSelectionModel().addSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
 	}
 	
 	/**
@@ -1006,8 +1012,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *                                          [0, <code>getRowCount()</code>-1]
 	 * @param   index0 one end of the interval
 	 * @param   index1 the other end of the interval
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function removeRowSelectionInterval(index0:int, index1:int):void{
+	public function removeRowSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		selectionModel.removeSelectionInterval(boundRow(index0), boundRow(index1));
 	}
 	
@@ -1019,8 +1026,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *                                          [0, <code>getColumnCount()</code>-1]
 	 * @param   index0 one end of the interval
 	 * @param   index1 the other end of the interval
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function removeColumnSelectionInterval(index0:int, index1:int):void{
+	public function removeColumnSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
 		columnModel.getSelectionModel().removeSelectionInterval(boundColumn(index0), boundColumn(index1));
 	}
 	
@@ -1174,22 +1182,23 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		setViewPosition(getViewPosition().move(moveX, moveY));
 	}
 	
-	private function changeSelectionModel(sm:ListSelectionModel, index:int, toggle:Boolean, extend:Boolean, selected:Boolean):void{
+	protected function changeSelectionModel(sm:ListSelectionModel, index:int, 
+		toggle:Boolean, extend:Boolean, selected:Boolean, programmatic:Boolean=true):void{
 		if (extend){
 			if (toggle){
 				sm.setAnchorSelectionIndex(index);
 			}else{
-				sm.setSelectionInterval(sm.getAnchorSelectionIndex(), index);
+				sm.setSelectionInterval(sm.getAnchorSelectionIndex(), index, programmatic);
 			}
 		}else{
 			if (toggle){
 				if (selected){
-					sm.removeSelectionInterval(index, index);
+					sm.removeSelectionInterval(index, index, programmatic);
 				}else{
-					sm.addSelectionInterval(index, index);
+					sm.addSelectionInterval(index, index, programmatic);
 				}
 			}else{
-				sm.setSelectionInterval(index, index);
+				sm.setSelectionInterval(index, index, programmatic);
 			}
 		}
 	}
@@ -1219,8 +1228,10 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @param  columnIndex  affects the selection at <code>column</code>
 	 * @param  toggle  see description above
 	 * @param  extend  if true, extend the current selection
+     * @param programmatic indicate if this is a programmatic change
 	 */	
-	public function changeSelection(rowIndex:int, columnIndex:int, toggle:Boolean, extend:Boolean):void{
+	public function changeSelection(rowIndex:int, columnIndex:int, toggle:Boolean, 
+		extend:Boolean, programmatic:Boolean=true):void{
 		var rsm:ListSelectionModel = getSelectionModel();
 		var csm:ListSelectionModel = getColumnModel().getSelectionModel();
 		// Check the selection here rather than in each selection model.
@@ -1231,8 +1242,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		// might leave a cell in selection state if the row was
 		// selected but the column was not - as it would toggle them both.		
 		var selected:Boolean = isCellSelected(rowIndex, columnIndex);
-		changeSelectionModel(csm, columnIndex, toggle, extend, selected);
-		changeSelectionModel(rsm, rowIndex, toggle, extend, selected);
+		changeSelectionModel(csm, columnIndex, toggle, extend, selected, programmatic);
+		changeSelectionModel(rsm, rowIndex, toggle, extend, selected, programmatic);
 
     	// Scroll after changing the selection as blit scrolling is immediate,
     	// so that if we cause the repaint after the scroll we end up painting
@@ -2071,9 +2082,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		}else{
 			if (lead == (- 1)){
 				if (selectionModel.isSelectedIndex(0)){
-					selectionModel.addSelectionInterval(0, 0);
+					selectionModel.addSelectionInterval(0, 0, true);
 				}else{
-					selectionModel.removeSelectionInterval(0, 0);
+					selectionModel.removeSelectionInterval(0, 0, true);
 				}
 			}
 		}
