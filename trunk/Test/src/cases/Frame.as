@@ -47,7 +47,7 @@ package cases
 					trace("defaultButton entered!");});
 			
 			//pop1.addEventListener(MouseEvent.MOUSE_DOWN, __top1);
-			//pop1.addEventListener(AWEvent.RELEASE, __top1Released);
+			//pop1.addEventListener(ReleaseEvent.RELEASE, __top1Released);
 			//pop2.addEventListener(MouseEvent.MOUSE_DOWN, __top2);
 			
 			__pop1Listener(null);
