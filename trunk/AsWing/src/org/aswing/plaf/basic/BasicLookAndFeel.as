@@ -2,8 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic
-{
+package org.aswing.plaf.basic{
 	
 import org.aswing.*;
 import org.aswing.plaf.*;
@@ -19,8 +18,7 @@ import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
  * Undefined/UIResource instance means not set, if it is null, means that user set it to be null, so LAF value will not be use. 
  * @author iiley
  */
-public class BasicLookAndFeel extends LookAndFeel
-{
+public class BasicLookAndFeel extends LookAndFeel{
 	
 	/**
 	 * Need to extends it to make a completed LAF and implements features.
@@ -69,7 +67,8 @@ public class BasicLookAndFeel extends LookAndFeel
 			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,
 			   "SpacerUI", org.aswing.plaf.basic.BasicSpacerUI,
 			   "TableUI", org.aswing.plaf.basic.BasicTableUI, 
-			   "TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI
+			   "TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
+			   "TreeUI", org.aswing.plaf.basic.BasicTreeUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -546,6 +545,19 @@ public class BasicLookAndFeel extends LookAndFeel
 	        "TableHeader.gridColor", new ASColorUIResource(0x444444),
 	    	"TableHeader.border", undefined, 
 	    	"TableHeader.cellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** Tree
+	    comDefaults = [
+		    "Tree.background", table.get("control"),
+		    "Tree.foreground", table.get("controlText"),
+	    	"Tree.opaque", true,  
+	    	"Tree.focusable", true,
+	        "Tree.font", table.getFont("controlFont"),
+		    "Tree.selectionBackground", new ASColorUIResource(0x666666),
+		    "Tree.selectionForeground", table.get("control"),
+	    	"Tree.border", undefined
 	    ];
 	    table.putDefaults(comDefaults);
 	}

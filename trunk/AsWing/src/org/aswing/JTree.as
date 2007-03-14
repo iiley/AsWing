@@ -547,7 +547,9 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
     public function setCellEditor(cellEditor:TreeCellEditor):void {
         var oldEditor:TreeCellEditor = this.cellEditor;
 		if(oldEditor != cellEditor){
-			oldEditor.removeCellEditorListener(this);
+			if(oldEditor != null){
+				oldEditor.removeCellEditorListener(this);
+			}
 	        this.cellEditor = cellEditor;
 	        cellEditor.addCellEditorListener(this);
 	        firePropertyChange(CELL_EDITOR_PROPERTY, oldEditor, cellEditor);
@@ -947,9 +949,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * exposed (made viewable).
      *
      * @param path the <code>TreePath</code> specifying the node to select
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function setSelectionPath(path:TreePath):void {
-        getSelectionModel().setSelectionPath(path);
+    public function setSelectionPath(path:TreePath, programmatic:Boolean=true):void {
+        getSelectionModel().setSelectionPath(path, programmatic);
     }
 
     /** 
@@ -960,9 +963,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      *
      * @param paths an array of <code>TreePath</code> objects that specifies
      *		the nodes to select
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function setSelectionPaths(paths:Array):void {
-        getSelectionModel().setSelectionPaths(paths);
+    public function setSelectionPaths(paths:Array, programmatic:Boolean=true):void {
+        getSelectionModel().setSelectionPaths(paths, programmatic);
     }
 
     /**
@@ -974,7 +978,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      */
     public function setLeadSelectionPath(newPath:TreePath):void {
 		var oldValue:TreePath = leadPath;
-		if(!oldValue.equals(newPath)){
+		if((oldValue==null && newPath !=null) || !oldValue.equals(newPath)){
 			leadPath = newPath;
 			firePropertyChange(LEAD_SELECTION_PATH_PROPERTY, oldValue, newPath);
 		}
@@ -989,7 +993,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      */
     public function setAnchorSelectionPath(newPath:TreePath):void {
 		var oldValue:TreePath = anchorPath;
-		if(!oldValue.equals(newPath)){
+		if((oldValue==null && newPath !=null) || !oldValue.equals(newPath)){
 			anchorPath = newPath;
 			firePropertyChange(ANCHOR_SELECTION_PATH_PROPERTY, oldValue, newPath);
 		}
@@ -1000,9 +1004,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      *
      * @param row  the row to select, where 0 is the first row in
      *             the display
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function setSelectionRow(row:int):void {
-        setSelectionRows([row]);
+    public function setSelectionRow(row:int, programmatic:Boolean=true):void {
+        setSelectionRows([row], programmatic);
     }
 
     /**
@@ -1016,8 +1021,9 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * 
      * @param rows  an array of ints specifying the rows to select,
      *              where 0 indicates the first row in the display
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function setSelectionRows( rows:Array):void {
+    public function setSelectionRows(rows:Array, programmatic:Boolean=true):void {
         var ui:TreeUI = getTreeUI();
 
         if(ui != null && rows != null) {
@@ -1027,7 +1033,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
             for(var counter:int = 0; counter < numRows; counter++) {
                 paths[counter] = ui.getPathForRow(this, rows[counter]);
 	    	}
-            setSelectionPaths(paths);
+            setSelectionPaths(paths, programmatic);
         }
     }
 
@@ -1042,9 +1048,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * a unique object.
      *
      * @param path the <code>TreePath</code> to add
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function addSelectionPath(path:TreePath):void {
-        getSelectionModel().addSelectionPath(path);
+    public function addSelectionPath(path:TreePath, programmatic:Boolean=true):void {
+        getSelectionModel().addSelectionPath(path, programmatic);
     }
 
     /**
@@ -1059,9 +1066,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      *
      * @param paths an array of <code>TreePath</code> objects that specifies
      *		the nodes to add
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function addSelectionPaths(paths:Array):void {
-		getSelectionModel().addSelectionPaths(paths);
+    public function addSelectionPaths(paths:Array, programmatic:Boolean=true):void {
+		getSelectionModel().addSelectionPaths(paths, programmatic);
     }
 
     /**
@@ -1069,9 +1077,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      *
      * @param row  an integer specifying the row of the node to add,
      *             where 0 is the first row in the display
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function addSelectionRow(row:int):void {
-        addSelectionRows([row]);
+    public function addSelectionRow(row:int, programmatic:Boolean=true):void {
+        addSelectionRows([row], programmatic);
     }
 
     /**
@@ -1079,8 +1088,9 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * 
      * @param rows  an array of ints specifying the rows to add,
      *              where 0 indicates the first row in the display
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function addSelectionRows(rows:Array):void {
+    public function addSelectionRows(rows:Array, programmatic:Boolean=true):void {
         var ui:TreeUI = getTreeUI();
 
         if(ui != null && rows != null) {
@@ -1089,7 +1099,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 
             for(var counter:int = 0; counter < numRows; counter++)
                 paths[counter] = ui.getPathForRow(this, rows[counter]);
-            addSelectionPaths(paths);
+            addSelectionPaths(paths, programmatic);
         }
     }
 
@@ -1843,10 +1853,11 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * @param index0  an integer specifying a display row, where 0 is the
      *                first row in the display
      * @param index1  an integer specifying a second display row
+     * @param programmatic indicate if this is a programmatic change
     */
-    public function setSelectionInterval(index0:int, index1:int):void {
+    public function setSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void {
         var paths:Array = getPathBetweenRows(index0, index1);
-        getSelectionModel().setSelectionPaths(paths);
+        getSelectionModel().setSelectionPaths(paths, programmatic);
     }
 
     /**
@@ -1856,11 +1867,12 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * @param index0  an integer specifying a display row, where 0 is the
      *                first row in the display
      * @param index1  an integer specifying a second display row
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function addSelectionInterval(index0:int, index1:int):void {
+    public function addSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void {
         var paths:Array = getPathBetweenRows(index0, index1);
 
-        getSelectionModel().addSelectionPaths(paths);
+        getSelectionModel().addSelectionPaths(paths, programmatic);
     }
 
     /**
@@ -1870,11 +1882,12 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * @param index0  an integer specifying a display row, where 0 is the
      *                first row in the display
      * @param index1  an integer specifying a second display row
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function removeSelectionInterval(index0:int, index1:int):void {
+    public function removeSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void {
         var paths:Array = getPathBetweenRows(index0, index1);
 
-        this.getSelectionModel().removeSelectionPaths(paths);
+        this.getSelectionModel().removeSelectionPaths(paths, programmatic);
     }
 
     /**
@@ -1882,9 +1895,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * selection.
      * 
      * @param path  the <code>TreePath</code> identifying a node
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function removeSelectionPath(path:TreePath):void {
-        getSelectionModel().removeSelectionPath(path);
+    public function removeSelectionPath(path:TreePath, programmatic:Boolean=true):void {
+        getSelectionModel().removeSelectionPath(path, programmatic);
     }
 
     /**
@@ -1893,9 +1907,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      *
      * @param paths an array of <code>TreePath</code> objects that
      *              specifies the nodes to remove
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function removeSelectionPaths(paths:Array):void {
-        getSelectionModel().removeSelectionPaths(paths);
+    public function removeSelectionPaths(paths:Array, programmatic:Boolean=true):void {
+        getSelectionModel().removeSelectionPaths(paths, programmatic);
     }
 
     /**
@@ -1903,9 +1918,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * selection.
      * 
      * @param row  the row to remove
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function removeSelectionRow(row:int):void {
-        removeSelectionRows([row]);
+    public function removeSelectionRow(row:int, programmatic:Boolean=true):void {
+        removeSelectionRows([row], programmatic);
     }
 
     /**
@@ -1914,8 +1930,9 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      *
      * @param rows  an array of ints specifying display rows, where 0 is 
      *             the first row in the display
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function removeSelectionRows(rows:Array):void {
+    public function removeSelectionRows(rows:Array, programmatic:Boolean=true):void {
         var tree:TreeUI = getTreeUI();
 
         if(tree != null && rows != null) {
@@ -1925,15 +1942,16 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
             for(var counter:int = 0; counter < numRows; counter++){
                 paths[counter] = tree.getPathForRow(this, rows[counter]);
             }
-            removeSelectionPaths(paths);
+            removeSelectionPaths(paths, programmatic);
         }
     }
 
     /**
      * Clears the selection.
+     * @param programmatic indicate if this is a programmatic change
      */
-    public function clearSelection():void {
-        getSelectionModel().clearSelection();
+    public function clearSelection(programmatic:Boolean=true):void {
+        getSelectionModel().clearSelection(programmatic);
     }
 
     /**
@@ -2345,7 +2363,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      *		<code>TreeSelectionModel</code></code> generated by the
      *		<code>TreeSelectionModel</code>
      */
-    private function __valueChangedTreeSelectionRedirector(source:TreeSelectionModel, e:TreeSelectionEvent):void {
+    private function __valueChangedTreeSelectionRedirector(e:TreeSelectionEvent):void {
 		dispatchEvent(e.cloneWithSource(this));
     }
 

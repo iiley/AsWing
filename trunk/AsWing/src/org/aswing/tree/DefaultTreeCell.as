@@ -29,7 +29,7 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 		setHorizontalAlignment(LEFT);
 		setOpaque(true);
 		
-		if(EXPANDED_FOLDER_ICON == undefined){
+		if(EXPANDED_FOLDER_ICON == null){
 			EXPANDED_FOLDER_ICON = new TreeFolderIcon();
 			COLLAPSED_FOLDER_ICON = EXPANDED_FOLDER_ICON;
 			LEAF_ICON = new TreeLeafIcon();
@@ -84,6 +84,7 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 	//                  Implementing TableCell
 	//**********************************************************
 	public function setCellValue(value:*) : void {
+		readyToPaint = true;
 		this.value = value;
 		setText(value.toString());
 	}
