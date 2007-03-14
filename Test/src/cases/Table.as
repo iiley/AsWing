@@ -3,6 +3,7 @@ package cases{
 import org.aswing.*;
 import org.aswing.util.*;
 import org.aswing.table.*;
+import org.aswing.border.*;
 import flash.events.Event;
 import flash.display.Sprite;
 import cases.table.SexIconCell;
@@ -45,7 +46,7 @@ public class Table extends Sprite{
 		table.getColumn("name").setCellEditor(combEditor);
 		table.getColumn("male").setCellFactory(new GeneralTableCellFactory(SexIconCell));
 		table.setDefaultCellFactory("Object", new GeneralTableCellFactory(PoorTextCell));
-		//table.setBorder(new EmptyBorder(new LineBorder(null, ASColor.RED, 2), new Insets(5, 5, 5, 5)));
+		table.setBorder(new EmptyBorder(new LineBorder(null, ASColor.RED, 2), new Insets(5, 5, 5, 5)));
 		table.setRowSelectionInterval(10, 13);
 		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		var scrollPane:JScrollPane = new JScrollPane(table); 
