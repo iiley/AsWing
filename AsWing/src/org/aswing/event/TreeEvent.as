@@ -3,27 +3,50 @@
 */
 
 package org.aswing.event{
-
+	
+import org.aswing.tree.TreePath;
 import flash.events.Event;
 
 /**
- * The event for table cell editing.
+ * Tree event.
  * @author iiley
  */
-public class TableCellEditEvent extends AWEvent{
+public class TreeEvent extends AWEvent{
+	
+	/**
+     *  The <code>TreeEvent.TREE_EXPANDED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>treeExpanded</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>getPath()</code></td><td>the tree path</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>comp.addEventListener()</code> to register an event listener,
+     *       comp is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType treeExpanded
+	 */
+	public static const TREE_EXPANDED:String = "treeExpanded";
 
 	/**
-     *  The <code>TableCellEditEvent.EDITING_STARTED</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>tableCellEditingStarted</code> event.
+     *  The <code>TreeEvent.TREE_COLLAPSED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>treeCollapsed</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>getRow()</code></td><td>the row be edit</td></tr>
-     *     <tr><td><code>getColumn()</code></td><td>the column be edit</td></tr>
-     *     <tr><td><code>getOldValue()</code></td><td>the old value</td></tr>
+     *     <tr><td><code>getPath()</code></td><td>the tree path</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -34,21 +57,20 @@ public class TableCellEditEvent extends AWEvent{
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType tableCellEditingStarted
+     *  @eventType treeCollapsed
 	 */
-	public static const EDITING_STARTED:String = "tableCellEditingStarted";	
+	public static const TREE_COLLAPSED:String = "treeCollapsed";
 	
 	/**
-     *  The <code>TableCellEditEvent.EDITING_CANCELED</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>tableCellEditingCanceled</code> event.
+     *  The <code>TreeEvent.TREE_WILL_EXPAND</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>treeWillExpand</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>getRow()</code></td><td>the row be edit</td></tr>
-     *     <tr><td><code>getColumn()</code></td><td>the column be edit</td></tr>
+     *     <tr><td><code>getPath()</code></td><td>the tree path</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -59,23 +81,20 @@ public class TableCellEditEvent extends AWEvent{
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType tableCellEditingCanceled
+     *  @eventType treeWillExpand
 	 */
-	public static const EDITING_CANCELED:String = "tableCellEditingCanceled";
+	public static const TREE_WILL_EXPAND:String = "treeWillExpand";
 	
 	/**
-     *  The <code>TableCellEditEvent.EDITING_STOPPED</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>tableCellEditingStopped</code> event.
+     *  The <code>TreeEvent.TREE_WILL_COLLAPSE</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>treeWillCollapse</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>getRow()</code></td><td>the row be edit</td></tr>
-     *     <tr><td><code>getColumn()</code></td><td>the column be edit</td></tr>
-     *     <tr><td><code>getOldValue()</code></td><td>the old value</td></tr>
-     *     <tr><td><code>getNewValue()</code></td><td>the new value edited</td></tr>
+     *     <tr><td><code>getPath()</code></td><td>the tree path</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -86,49 +105,28 @@ public class TableCellEditEvent extends AWEvent{
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType tableCellEditingStopped
+     *  @eventType treeWillCollapse
 	 */
-	public static const EDITING_STOPPED:String = "tableCellEditingStopped";
+	public static const TREE_WILL_COLLAPSE:String = "treeWillCollapse";	
 	
-	private var row:int;
-	private var column:int;
-	private var oldValue:*;
-	private var newValue:*;
+	private var path:TreePath;
 	
-	/**
-	 * Create a cell edit event.
-	 * @param type the type
-	 * @param row the edit row
-	 * @param column the edit column
-	 * @param oldValue the old value
-	 * @param newValue the edited new value
-	 */
-	public function TableCellEditEvent(type:String, row:int, column:int, oldValue:*=null, newValue:*=null){
+	public function TreeEvent(type:String, path:TreePath){
 		super(type, false, false);
-		this.row = row;
-		this.column = column;
-		this.oldValue = oldValue;
-		this.newValue = newValue;
+		this.path = path;
 	}
 	
-	public function getRow():int{
-		return row;
-	}
-	
-	public function getColumn():int{
-		return column;
-	}
-	
-	public function getOldValue():int{
-		return oldValue;
-	}
-	
-	public function getNewValue():int{
-		return newValue;
+	/**
+	 * Returns a TreePath object identifying the newly expanded/collapsed node.
+	 * @return a TreePath object identifying the newly expanded/collapsed node.
+	 */
+	public function getPath():TreePath{
+		return path;
 	}
 	
 	override public function clone():Event{
-		return new TableCellEditEvent(type, row, column, oldValue, newValue);
+		return new TreeEvent(type, path);
 	}
+	
 }
 }

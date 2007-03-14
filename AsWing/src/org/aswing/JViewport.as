@@ -413,7 +413,7 @@ public class JViewport extends Container implements Viewportable{
 	 * @param listener the listener
 	 * @param priority the priority
 	 * @param useWeakReference Determines whether the reference to the listener is strong or weak.
-	 * @see org.aswing.event.AWEvent#STATE_CHANGED
+	 * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
 	 */
 	public function addStateListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
 		addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);
@@ -422,7 +422,7 @@ public class JViewport extends Container implements Viewportable{
 	/**
 	 * Removes a state listener.
 	 * @param listener the listener to be removed.
-	 * @see org.aswing.event.AWEvent#STATE_CHANGED
+	 * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
 	 */	
 	public function removeStateListener(listener:Function):void{
 		removeEventListener(InteractiveEvent.STATE_CHANGED, listener);

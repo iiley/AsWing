@@ -9,7 +9,7 @@ import org.aswing.event.*;
 import flash.events.EventDispatcher;
 	
 /**
- * Dispatched when the property changed.
+ * Dispatched when a property changed.
  * @eventType org.aswing.event.PropertyChangeEvent.PROPERTY_CHANGE
  */
 [Event(name="propertyChange", type="org.aswing.event.PropertyChangeEvent")]
@@ -84,7 +84,7 @@ public class TableColumn extends EventDispatcher{
 	
 	protected function firePropertyChangeIfReallyChanged(propertyName:String, oldValue:*, newValue:*):void{
 		if(oldValue != newValue){
-			this.dispatchEvent(new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE, propertyName, oldValue, newValue));
+			dispatchEvent(new PropertyChangeEvent(propertyName, oldValue, newValue));
 		}
 	}
 	

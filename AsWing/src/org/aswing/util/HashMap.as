@@ -14,7 +14,7 @@ import flash.utils.Dictionary;
  * <p>
  * ----------------------------------------------------------
  * This example creates a HashMap of friends. It uses the number of the friends as keys:
- * <pre>
+ * <listing>
  *     function person(name,age,sex){
  *         this.name=name;
  *         this.age=age;
@@ -24,11 +24,11 @@ import flash.utils.Dictionary;
  *     friends.put("one", new person("iiley",21,"M"));
  *     friends.put("two", new person("gothic man",22,"M"));
  *     friends.put("three", new person("rock girl",19,"F"));
- * </pre>
+ * </listing>
  * </p>
  * <p>To retrieve a friends, use the following code:
  *
- * <pre>
+ * <listing>
  *     var thisperson = friends.get("two");
  *     if (thisperson != null) {
  *         trace("two name is "+thisperson.name);
@@ -37,7 +37,7 @@ import flash.utils.Dictionary;
  *     }else{
  *         trace("two is not in friends!");
  *     }
- * </pre>
+ * </listing>
  *</p>
  * @author iiley
  */	

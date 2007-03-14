@@ -10,6 +10,7 @@ import org.aswing.Container;
 import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.table.TableCellEditor;
+import org.aswing.tree.TreeCellEditor;
 import org.aswing.util.ArrayUtils;
 import org.aswing.error.ImpMissError;
 import flash.events.Event;
@@ -17,7 +18,7 @@ import flash.events.Event;
 /**
  * @author iiley
  */
-public class AbstractCellEditor implements CellEditor, TableCellEditor{
+public class AbstractCellEditor implements CellEditor, TableCellEditor, TreeCellEditor{
 	
 	private var listeners:Array;
 	private var clickCountToStart:int;

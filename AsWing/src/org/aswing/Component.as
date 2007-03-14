@@ -1810,13 +1810,17 @@ public class Component extends AWSprite{
      */	
 	public function invalidate():void{
     	valid = false;
-    	cachedMaximumSize = null;
-    	cachedMinimumSize = null;
-    	cachedPreferredSize = null;
+    	clearPreffeSizeCaches();
     	var par:Container = getParent();
     	if(par != null && par.isValid()){
     		par.invalidate();
     	}
+	}
+	
+	protected function clearPreffeSizeCaches():void{
+    	cachedMaximumSize = null;
+    	cachedMinimumSize = null;
+    	cachedPreferredSize = null;
 	}
 	
     /**

@@ -377,7 +377,7 @@ public class TitleBarUI extends BaseComponentUI{
 		}else{
 	    	colors = [inactiveColor.darker(0.9).getRGB(), inactiveColor.getRGB()];
 		}
-		var alphas:Array = [100, 100];
+		var alphas:Array = [100/255, 100/255];
 		var ratios:Array = [75, 255];
 		var matrix:Matrix = new Matrix();
 		matrix.createGradientBox(w, h, (90/180)*Math.PI, x, y);
@@ -390,7 +390,7 @@ public class TitleBarUI extends BaseComponentUI{
 			colors = [inactiveColor.getRGB(), inactiveColor.getRGB()];
 		}
         
-		alphas = [80, 0];
+		alphas = [80/255, 0];
 		ratios = [0, 100];
         brush=new GradientBrush(GradientBrush.LINEAR, colors, alphas, ratios, matrix);
         g.fillRoundRect(brush, x, y, w, h-h/4, 4, 4, 0, 0);
