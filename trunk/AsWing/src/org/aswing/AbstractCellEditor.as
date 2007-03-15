@@ -14,6 +14,7 @@ import org.aswing.tree.TreeCellEditor;
 import org.aswing.util.ArrayUtils;
 import org.aswing.error.ImpMissError;
 import flash.events.Event;
+import flash.ui.Keyboard;
 
 /**
  * @author iiley
@@ -91,6 +92,7 @@ public class AbstractCellEditor implements CellEditor, TableCellEditor, TreeCell
 		var com:Component = getEditorComponent();
 		com.removeEventListener(AWEvent.ACT, __editorComponentAct);
 		com.removeEventListener(AWEvent.FOCUS_LOST, __editorComponentFocusLost);
+		com.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __editorComponentKeyDown);
 		com.setSizeWH(bounds.width, bounds.height);
 		popup.append(com);
 		setCellEditorValue(value);
@@ -113,6 +115,7 @@ public class AbstractCellEditor implements CellEditor, TableCellEditor, TreeCell
 		}
 		com.addEventListener(AWEvent.ACT, __editorComponentAct);
 		com.addEventListener(AWEvent.FOCUS_LOST, __editorComponentFocusLost);
+		com.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __editorComponentKeyDown);
 		com.validate();
 	}
 	
@@ -122,6 +125,12 @@ public class AbstractCellEditor implements CellEditor, TableCellEditor, TreeCell
 	
 	private function __editorComponentAct(e:Event):void{
 		stopCellEditing();
+	}
+	
+	private function __editorComponentKeyDown(e:FocusKeyEvent):void{
+		if(e.keyCode == Keyboard.ESCAPE){
+			cancelCellEditing();
+		}
 	}
 
 	public function stopCellEditing() : Boolean {
