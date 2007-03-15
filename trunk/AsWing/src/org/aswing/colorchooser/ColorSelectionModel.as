@@ -51,32 +51,46 @@ public interface ColorSelectionModel{
 
 	/**
 	 * addChangeListener(func:Function)<br>
-	 * addChangeListener(func:Function, contexObj:Object)
 	 * <p>
 	 * Add a listener to listen the Model's change event.
 	 * <p>
 	 * When the selected color changed.
 	 * 
 	 * onStateChanged(source:ColorSelectionModel)
-	 * @see org.aswing.Component#ON_STATE_CHANGED
-	 * @return the listener added.
-	 * @see org.aswing.IEventDispatcher#addEventListener()
+	 * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
+	 * @see flash.events.EventDispatcher#addEventListener()
 	 */
     function addChangeListener(func:Function):void;
     
     /**
-	 * addColorAdjustingListener(func:Function)<br>
-	 * addColorAdjustingListener(func:Function, contexObj:Object)
+	 * addColorAdjustingListener(func:Function)<br>bject)
 	 * <p>
 	 * Add a listener to listen the color adjusting event.
 	 * <p>
 	 * When user adjusting to a new color.
 	 * 
 	 * onColorAdjusting(source:ColorSelectionModel, color:ASColor)
-	 * @see org.aswing.AbstractColorChooserPanel#ON_COLOR_ADJUSTING
-	 * @return the listener added.
-	 * @see org.aswing.IEventDispatcher#addEventListener()
+	 * @see org.aswing.event.ColorChooserEvent#COLOR_ADJUSTING
+	 * @see flash.events.EventDispatcher#addEventListener()
      */
     function addColorAdjustingListener(func:Function):void;
+    
+    /**
+    * removeChangeListener(func:Fuction)<br>
+    * <p>
+    * Remove the changeListener
+    * <p>
+    * @see flash.events.EventDispatcher#removeEventListener()
+    */ 
+    function removeChangeListener(func:Function):void;
+    
+    /**
+    * removeColorAdjustingListener(func:Fuction)<br>
+    * <p>
+    * Remove the colorAdjustingListener
+    * <p>
+    * @see flash.events.EventDispatcher#removeEventListener()
+    */ 
+    function removeColorAdjustingListener(func:Function):void;
 }
 }

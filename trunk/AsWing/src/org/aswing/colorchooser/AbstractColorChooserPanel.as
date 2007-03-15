@@ -47,7 +47,7 @@ public class AbstractColorChooserPanel extends Container {
 	public function setModel(model:ColorSelectionModel):void{
 		if(model == null) return;
 		if(this.model != model){
-			uninstallListener();
+			uninstallListener(model);
 			this.model = model;
 			installListener(model);
 			repaint();
@@ -59,7 +59,9 @@ public class AbstractColorChooserPanel extends Container {
 		model.addColorAdjustingListener(__colorAdjusting);
 	}
 	
-	private function uninstallListener():void{
+	private function uninstallListener(model:ColorSelectionModel):void{
+		model.removeChangeListener(__modelValueChanged);
+		model.removeColorAdjustingListener(__colorAdjusting);
 	}
 	
 	private function __modelValueChanged(e:InteractiveEvent):void{
