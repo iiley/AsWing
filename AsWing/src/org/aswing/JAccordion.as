@@ -5,6 +5,7 @@
 package org.aswing{
 
 import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.basic.BasicAccordionUI;
 
 /**
  * Accordion Container.
@@ -25,6 +26,10 @@ public class JAccordion extends AbstractTabbedPane{
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicAccordionUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "AccordionUI";

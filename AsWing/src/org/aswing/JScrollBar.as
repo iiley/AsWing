@@ -4,6 +4,7 @@
 
 package org.aswing{
 	import org.aswing.event.InteractiveEvent;
+	import org.aswing.plaf.basic.BasicScrollBarUI;
 	
 	
 /**
@@ -75,6 +76,10 @@ public class JScrollBar extends Component{
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicScrollBarUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "ScrollBarUI";

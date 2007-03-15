@@ -41,6 +41,7 @@ import org.aswing.event.TreeCellEditEvent;
 import org.aswing.event.PropertyChangeEvent;
 import org.aswing.event.TreeEvent;
 import org.aswing.event.InteractiveEvent;
+import org.aswing.plaf.basic.BasicTreeUI;
 
 /**
  * Dispatched when a property changed.
@@ -457,6 +458,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
     override public function updateUI():void {
         setUI(UIManager.getUI(this));
         invalidate();
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicTreeUI;
     }
 
 

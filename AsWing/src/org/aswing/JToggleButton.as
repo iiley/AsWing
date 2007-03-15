@@ -4,6 +4,8 @@
 
 package org.aswing
 {
+	import org.aswing.plaf.basic.BasicToggleButtonUI;
+	
 
 /**
  * An implementation of a two-state button.  
@@ -23,6 +25,10 @@ public class JToggleButton extends AbstractButton
 	
     override public function updateUI():void{
     	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicToggleButtonUI;
     }
 	
 	override public function getUIClassID():String{

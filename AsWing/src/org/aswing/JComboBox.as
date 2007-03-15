@@ -8,6 +8,7 @@ import org.aswing.event.*;
 import org.aswing.plaf.*;
 import flash.events.Event;
 import flash.display.InteractiveObject;
+import org.aswing.plaf.basic.BasicComboBoxUI;
 
 /**
  * Dispatched when the combobox act, when value set or selection changed.
@@ -96,6 +97,10 @@ public class JComboBox extends Component{
 		editor.getEditorComponent().updateUI();
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicComboBoxUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "ComboBoxUI";

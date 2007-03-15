@@ -8,6 +8,7 @@ import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 import org.aswing.geom.IntPoint;
 import org.aswing.event.InteractiveEvent;
+import org.aswing.plaf.basic.BasicViewportUI;
 
 /**
  * Dispatched when the viewport's state changed. the state is all about:
@@ -75,6 +76,10 @@ public class JViewport extends Container implements Viewportable{
     
 	override public function updateUI():void{
     	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicViewportUI;
     }
 	
 	override public function getUIClassID():String{

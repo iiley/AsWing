@@ -5,6 +5,7 @@
 package org.aswing.colorchooser { 
 import org.aswing.colorchooser.AbstractColorChooserPanel;
 import org.aswing.UIManager;
+import org.aswing.plaf.basic.BasicColorMixerUI;
 
 /**
  * @author iiley
@@ -23,5 +24,10 @@ public class JColorMixer extends AbstractColorChooserPanel {
 	override public function getUIClassID():String{
 		return "ColorMixerUI";
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicColorMixerUI;
+    }
+
 }
 }

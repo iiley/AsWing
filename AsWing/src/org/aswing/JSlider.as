@@ -5,6 +5,7 @@
 package org.aswing{
 	
 import org.aswing.event.InteractiveEvent;
+import org.aswing.plaf.basic.BasicSliderUI;
 
 /**
  * Dispatched when the slider's state changed. 
@@ -69,6 +70,10 @@ public class JSlider extends Component{
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicSliderUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "SliderUI";

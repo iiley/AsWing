@@ -4,6 +4,8 @@
 
 package org.aswing
 {
+	import org.aswing.plaf.basic.BasicPanelUI;
+	
 	
 /**
  * 
@@ -22,6 +24,10 @@ public class JPanel extends Container
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicPanelUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "PanelUI";

@@ -5,6 +5,7 @@
 package org.aswing { 
 
 import org.aswing.plaf.*;
+import org.aswing.plaf.basic.BasicToolBarUI;
 
 /**
  * <code>JToolBar</code> provides a component that is useful for
@@ -52,6 +53,10 @@ public class JToolBar extends Container {
 
     override public function updateUI():void{
     	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicToolBarUI;
     }
     	
 	override public function getUIClassID():String{

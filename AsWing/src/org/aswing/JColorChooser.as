@@ -7,6 +7,7 @@ package org.aswing {
 import org.aswing.colorchooser.AbstractColorChooserPanel;
 import org.aswing.geom.*;
 import org.aswing.event.*;
+import org.aswing.plaf.basic.BasicColorChooserUI;
 
 /**
  * JColorChooser provides a pane of controls designed to allow a user to manipulate and 
@@ -35,6 +36,10 @@ public class JColorChooser extends AbstractColorChooserPanel {
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicColorChooserUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "ColorChooserUI";

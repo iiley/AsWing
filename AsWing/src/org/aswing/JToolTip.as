@@ -11,6 +11,7 @@ import flash.events.*;
 import flash.geom.*;
 import org.aswing.event.*;
 import flash.display.*;
+import org.aswing.plaf.basic.BasicToolTipUI;
 
 /**
  * Dispatched when the tip text changed.
@@ -114,6 +115,10 @@ public class JToolTip extends Container{
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicToolTipUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "ToolTipUI";

@@ -10,6 +10,7 @@ import org.aswing.geom.IntPoint;
 import org.aswing.event.InteractiveEvent;
 import flash.text.*;
 import flash.events.Event;
+import org.aswing.plaf.basic.BasicTextAreaUI;
 
 /**
  * Dispatched when the viewport's state changed. the state is all about:
@@ -87,6 +88,10 @@ public class JTextArea extends JTextComponent implements Viewportable{
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicTextAreaUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "TextAreaUI";

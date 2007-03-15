@@ -6,6 +6,7 @@ package org.aswing
 {
 	
 import org.aswing.plaf.*;
+import org.aswing.plaf.basic.BasicTabbedPaneUI;
 	
 /**
  * A component that lets the user switch between a group of components by
@@ -59,6 +60,10 @@ public class JTabbedPane extends AbstractTabbedPane{
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicTabbedPaneUI;
+    }
 		
 	override public function getUIClassID():String{
 		return "TabbedPaneUI";
