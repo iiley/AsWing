@@ -68,7 +68,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 			   "SpacerUI", org.aswing.plaf.basic.BasicSpacerUI,
 			   "TableUI", org.aswing.plaf.basic.BasicTableUI, 
 			   "TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
-			   "TreeUI", org.aswing.plaf.basic.BasicTreeUI
+			   "TreeUI", org.aswing.plaf.basic.BasicTreeUI, 
+			   "ToolBarUI", org.aswing.plaf.basic.BasicToolBarUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -558,6 +559,15 @@ public class BasicLookAndFeel extends LookAndFeel{
 		    "Tree.selectionBackground", new ASColorUIResource(0x666666),
 		    "Tree.selectionForeground", table.get("control"),
 	    	"Tree.border", undefined
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** ToolBar
+	    comDefaults = [
+		    "ToolBar.background", table.get("window"),
+		    "ToolBar.foreground", table.get("windowText"),
+	    	"ToolBar.opaque", true, 
+	    	"ToolBar.focusable", false 
 	    ];
 	    table.putDefaults(comDefaults);
 	}
