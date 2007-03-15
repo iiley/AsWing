@@ -142,6 +142,7 @@ public class FloorPane extends Container{
 		offsetX = 0;
 		offsetY = 0;
 		setFocusable(false);
+		reload();
 	}
 	
 	
@@ -471,8 +472,6 @@ public class FloorPane extends Container{
 				actualScale = 0;
 			}
 			setMaskFloor(maskFloor);
-		}else{
-			reload();
 		}
 	}
 	
