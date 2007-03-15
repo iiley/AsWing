@@ -52,6 +52,14 @@ public class DefaultColorSelectionModel extends EventDispatcher implements Color
     	addEventListener(ColorChooserEvent.COLOR_ADJUSTING, func);
     }
 	
+    public function removeChangeListener(func:Function):void{
+    	removeEventListener(InteractiveEvent.STATE_CHANGED, func);
+    }
+
+    public function removeColorAdjustingListener(func:Function):void{
+    	removeEventListener(ColorChooserEvent.COLOR_ADJUSTING, func);    	
+    }
+	
 	private function fireStateChanged():void{
 		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED));
 	}
