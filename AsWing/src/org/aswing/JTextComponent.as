@@ -83,6 +83,7 @@ public class JTextComponent extends Component{
 	override public function setEnabled(b:Boolean):void{
 		super.setEnabled(b);
 		getTextField().selectable = b;
+		getTextField().mouseEnabled = b;
 	}
 	
 	public function setEditable(b:Boolean):void{
