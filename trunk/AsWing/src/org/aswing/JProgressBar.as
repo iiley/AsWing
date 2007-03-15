@@ -8,6 +8,7 @@ import org.aswing.event.*;
 import org.aswing.util.Timer;
 import org.aswing.event.*;
 import flash.events.Event;
+import org.aswing.plaf.basic.BasicProgressBarUI;
 
 /**
  * Dispatched when the scrollBar's state changed. 
@@ -64,6 +65,10 @@ public class JProgressBar extends Component
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicProgressBarUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "ProgressBarUI";

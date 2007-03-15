@@ -9,6 +9,7 @@ import org.aswing.resizer.*;
 import org.aswing.event.*;
 import org.aswing.plaf.*;
 import flash.events.MouseEvent;
+import org.aswing.plaf.basic.BasicFrameUI;
 
 /**
  * Dispatched when the frame's state changed. the state is all about:
@@ -145,6 +146,10 @@ public class JFrame extends JWindow{
 	
 	override public function updateUI():void{
     	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicFrameUI;
     }
     
 	

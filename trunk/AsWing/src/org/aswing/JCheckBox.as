@@ -3,6 +3,8 @@
 */
 
 package org.aswing{
+	import org.aswing.plaf.basic.BasicCheckBoxUI;
+	
 	
 /**
  * An implementation of a check box -- an item that can be selected or
@@ -21,6 +23,10 @@ public class JCheckBox extends JToggleButton{
 	override public function getUIClassID():String{
 		return "CheckBoxUI";
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicCheckBoxUI;
+    }
 	
 }
 }

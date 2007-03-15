@@ -5,6 +5,7 @@
 package org.aswing
 {
 import org.aswing.geom.*;
+import org.aswing.plaf.basic.BasicSpacerUI;
 	
 public class JSpacer extends Component
 {
@@ -22,6 +23,10 @@ public class JSpacer extends Component
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicSpacerUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "SpacerUI";

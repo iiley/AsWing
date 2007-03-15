@@ -8,6 +8,7 @@ import org.aswing.geom.*;
 import org.aswing.event.FocusKeyEvent;
 import flash.ui.Keyboard;
 import org.aswing.event.AWEvent;
+import org.aswing.plaf.basic.BasicTextFieldUI;
 
 /**
  * Dispatched when the user input ENTER in the textfield.
@@ -37,6 +38,10 @@ public class JTextField extends JTextComponent{
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicTextFieldUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "TextFieldUI";

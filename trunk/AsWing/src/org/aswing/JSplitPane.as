@@ -7,6 +7,7 @@ package org.aswing{
 import org.aswing.plaf.*;
 import flash.events.Event;
 import org.aswing.event.*;
+import org.aswing.plaf.basic.BasicSplitPaneUI;
 
 /**
  * Dispatched when the divider moved.
@@ -135,6 +136,10 @@ public class JSplitPane extends Container{
 
     override public function updateUI():void{
     	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicSplitPaneUI;
     }
 
 	override public function getUIClassID():String{

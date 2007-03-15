@@ -7,6 +7,7 @@ package org.aswing{
 import org.aswing.geom.*;
 import org.aswing.event.*;
 import org.aswing.error.*;
+import org.aswing.plaf.basic.BasicScrollPaneUI;
 
 /**
  * Dispatched when one of the scrollpane's scrollbar state changed.
@@ -101,6 +102,10 @@ public class JScrollPane extends Container{
 	
     override public function updateUI():void{
     	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicScrollPaneUI;
     }
     	
 	override public function getUIClassID():String{

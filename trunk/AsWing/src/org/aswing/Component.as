@@ -340,6 +340,17 @@ public class Component extends AWSprite{
     public function updateUI():void{
     	throw new ImpMissError();
     }
+    
+    /**
+     * Returns the default basic ui class for this component.
+     * If there is not a ui class specified in L&F for this component, 
+     * this method will be called to return a default one.
+     * @return the default basic ui class. 
+     */
+    public function getDefaultBasicUIClass():Class{
+    	throw new ImpMissError();
+    	return null;
+    }
 
     /**
      * Sets the look and feel delegate for this component.

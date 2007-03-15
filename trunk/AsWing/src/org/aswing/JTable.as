@@ -26,6 +26,7 @@ import org.aswing.table.DefaultTableModel;
 import org.aswing.table.DefaultTableColumnModel;
 import org.aswing.table.DefaultTextCell;
 import org.aswing.table.GeneralTableCellFactoryUIResource;
+import org.aswing.plaf.basic.BasicTableUI;
 
 /**
  * Dispatched when the row selection changed.
@@ -332,6 +333,10 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		setUI(UIManager.getUI(this));
 		//resizeAndRepaint();
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicTableUI;
+    }
 
 	/**
 	 * Returns the suffix used to construct the name of the L&F class used to

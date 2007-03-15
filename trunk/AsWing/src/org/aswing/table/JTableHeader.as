@@ -9,6 +9,7 @@ import org.aswing.geom.*;
 import org.aswing.JTable;
 import org.aswing.plaf.ComponentUI;
 import org.aswing.UIManager;
+import org.aswing.plaf.basic.BasicTableHeaderUI;
 
 /**
  * This is the object which manages the header of the <code>JTable</code>.
@@ -52,6 +53,11 @@ public class JTableHeader extends Container implements TableColumnModelListener{
 		resizeAndRepaint();
 		invalidate();
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicTableHeaderUI;
+    }
+
 	
 	override public function getUIClassID():String{
 		return uiClassID;

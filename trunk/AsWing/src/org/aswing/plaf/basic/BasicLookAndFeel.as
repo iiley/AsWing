@@ -40,7 +40,10 @@ public class BasicLookAndFeel extends LookAndFeel{
 	
 	protected function initClassDefaults(table:UIDefaults):void{
 		var uiDefaults:Array = [
-			   "ButtonUI", org.aswing.plaf.basic.BasicButtonUI, 
+				// Basic ui is referenced in component class
+				//if you created your ui, you must specified 
+				//it in your LAF class like below commented.
+			   /*"ButtonUI", org.aswing.plaf.basic.BasicButtonUI, 
 			   "PanelUI", org.aswing.plaf.basic.BasicPanelUI, 
 			   "ToggleButtonUI", org.aswing.plaf.basic.BasicToggleButtonUI,
 			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
@@ -69,7 +72,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			   "TableUI", org.aswing.plaf.basic.BasicTableUI, 
 			   "TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
 			   "TreeUI", org.aswing.plaf.basic.BasicTreeUI, 
-			   "ToolBarUI", org.aswing.plaf.basic.BasicToolBarUI
+			   "ToolBarUI", org.aswing.plaf.basic.BasicToolBarUI*/
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -122,9 +125,9 @@ public class BasicLookAndFeel extends LookAndFeel{
 	protected function initCommonUtils(table:UIDefaults):void{
 		ResizerController.setDefaultResizerClass(DefaultResizer);
 		var arrowColors:Array = [
-		    "resizeArrow", table.get("inactiveCaption"),
-		    "resizeArrowLight", table.get("window"),
-		    "resizeArrowDark", table.get("activeCaptionText"),
+			"resizeArrow", table.get("inactiveCaption"),
+			"resizeArrowLight", table.get("window"),
+			"resizeArrowDark", table.get("activeCaptionText"),
 		];
 		table.putDefaults(arrowColors);
 	}
@@ -132,444 +135,444 @@ public class BasicLookAndFeel extends LookAndFeel{
 	protected function initComponentDefaults(table:UIDefaults):void{
 		var buttonBG:ASColorUIResource = new ASColorUIResource(0xE7E7E5);
 		// *** Button
-	    var comDefaults:Array = [
-	    	"Button.background", buttonBG,
-	    	"Button.foreground", table.get("controlText"),
-	    	"Button.opaque", true,  
-	    	"Button.focusable", true,  
-	    	"Button.shadow", table.getColor("controlShadow"),        
-        	"Button.darkShadow", table.getColor("controlDkShadow"),        
-        	"Button.light", table.getColor("controlHighlight"),       
-       		"Button.highlight", table.getColor("controlLtHighlight"),
-        	"Button.font", table.getFont("controlFont"),
+		var comDefaults:Array = [
+			"Button.background", buttonBG,
+			"Button.foreground", table.get("controlText"),
+			"Button.opaque", true,  
+			"Button.focusable", true,  
+			"Button.shadow", table.getColor("controlShadow"),		
+			"Button.darkShadow", table.getColor("controlDkShadow"),		
+			"Button.light", table.getColor("controlHighlight"),	   
+	   		"Button.highlight", table.getColor("controlLtHighlight"),
+			"Button.font", table.getFont("controlFont"),
 			"Button.bg", org.aswing.plaf.basic.background.ButtonBackground,
 			"Button.margin", new InsetsUIResource(2, 3, 3, 2), 
 			"Button.textShiftOffset", 1
 		];
-	    table.putDefaults(comDefaults);
-	    
+		table.putDefaults(comDefaults);
+		
 		// *** Panel
-	    comDefaults = [
-	    	"Panel.background", table.get("window"),
-	    	"Panel.foreground", table.get("windowText"),
-	    	"Panel.opaque", false,  
-	    	"Panel.focusable", false,
-        	"Panel.font", table.getFont("windowFont")
+		comDefaults = [
+			"Panel.background", table.get("window"),
+			"Panel.foreground", table.get("windowText"),
+			"Panel.opaque", false,  
+			"Panel.focusable", false,
+			"Panel.font", table.getFont("windowFont")
 		];
-	    table.putDefaults(comDefaults);
-	    
+		table.putDefaults(comDefaults);
+		
 		// *** ToggleButton
-	    comDefaults = [
-	    	"ToggleButton.background", buttonBG,
-	    	"ToggleButton.foreground", table.get("controlText"),
-	    	"ToggleButton.opaque", true, 
-	    	"ToggleButton.focusable", true, 
-	    	"ToggleButton.shadow", table.getColor("controlShadow"),        
-        	"ToggleButton.darkShadow", table.getColor("controlDkShadow"),        
-        	"ToggleButton.light", table.getColor("controlHighlight"),       
-       		"ToggleButton.highlight", table.getColor("controlLtHighlight"),
-        	"ToggleButton.font", table.getFont("controlFont"),
+		comDefaults = [
+			"ToggleButton.background", buttonBG,
+			"ToggleButton.foreground", table.get("controlText"),
+			"ToggleButton.opaque", true, 
+			"ToggleButton.focusable", true, 
+			"ToggleButton.shadow", table.getColor("controlShadow"),		
+			"ToggleButton.darkShadow", table.getColor("controlDkShadow"),		
+			"ToggleButton.light", table.getColor("controlHighlight"),	   
+	   		"ToggleButton.highlight", table.getColor("controlLtHighlight"),
+			"ToggleButton.font", table.getFont("controlFont"),
 			"ToggleButton.bg", org.aswing.plaf.basic.background.ToggleButtonBackground,
 			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2), 
 			"ToggleButton.textShiftOffset", 1
 		];
-	    table.putDefaults(comDefaults);
-	    
+		table.putDefaults(comDefaults);
+		
 		// *** RadioButton
-	    comDefaults = [
-	    	"RadioButton.background", new ASColorUIResource(0xDCDBD8),
-	    	"RadioButton.foreground", table.get("controlText"),
-	    	"RadioButton.opaque", false, 
-	    	"RadioButton.focusable", true, 
-	    	"RadioButton.shadow", table.getColor("controlShadow"),        
-        	"RadioButton.darkShadow", table.getColor("controlDkShadow"),        
-        	"RadioButton.light", table.getColor("controlHighlight"),       
-       		"RadioButton.highlight", table.getColor("controlLtHighlight"),
-        	"RadioButton.font", table.getFont("controlFont"),
-		    "RadioButton.icon", org.aswing.plaf.basic.icon.RadioButtonIcon,
+		comDefaults = [
+			"RadioButton.background", new ASColorUIResource(0xDCDBD8),
+			"RadioButton.foreground", table.get("controlText"),
+			"RadioButton.opaque", false, 
+			"RadioButton.focusable", true, 
+			"RadioButton.shadow", table.getColor("controlShadow"),		
+			"RadioButton.darkShadow", table.getColor("controlDkShadow"),		
+			"RadioButton.light", table.getColor("controlHighlight"),	   
+	   		"RadioButton.highlight", table.getColor("controlLtHighlight"),
+			"RadioButton.font", table.getFont("controlFont"),
+			"RadioButton.icon", org.aswing.plaf.basic.icon.RadioButtonIcon,
 			"RadioButton.margin", new InsetsUIResource(0, 0, 0, 0), 
 			"RadioButton.textShiftOffset", 1
 		];
-	    table.putDefaults(comDefaults);
-	    
+		table.putDefaults(comDefaults);
+		
 		// *** CheckBox
-	    comDefaults = [
-	    	"CheckBox.background", new ASColorUIResource(0xDCDBD8),
-	    	"CheckBox.foreground", table.get("controlText"),
-	    	"CheckBox.opaque", false, 
-	    	"CheckBox.focusable", true, 
-	    	"CheckBox.shadow", table.getColor("controlShadow"),        
-        	"CheckBox.darkShadow", table.getColor("controlDkShadow"),        
-        	"CheckBox.light", table.getColor("controlHighlight"),       
-       		"CheckBox.highlight", table.getColor("controlLtHighlight"),
-        	"CheckBox.font", table.getFont("controlFont"),
-		    "CheckBox.icon", org.aswing.plaf.basic.icon.CheckBoxIcon,
+		comDefaults = [
+			"CheckBox.background", new ASColorUIResource(0xDCDBD8),
+			"CheckBox.foreground", table.get("controlText"),
+			"CheckBox.opaque", false, 
+			"CheckBox.focusable", true, 
+			"CheckBox.shadow", table.getColor("controlShadow"),		
+			"CheckBox.darkShadow", table.getColor("controlDkShadow"),		
+			"CheckBox.light", table.getColor("controlHighlight"),	   
+	   		"CheckBox.highlight", table.getColor("controlLtHighlight"),
+			"CheckBox.font", table.getFont("controlFont"),
+			"CheckBox.icon", org.aswing.plaf.basic.icon.CheckBoxIcon,
 			"CheckBox.margin", new InsetsUIResource(0, 0, 0, 0), 
 			"CheckBox.textShiftOffset", 1
 		];
-	    table.putDefaults(comDefaults);
-	    
+		table.putDefaults(comDefaults);
+		
 	   // *** JTabbedPane
-	    comDefaults = [
-	    	"TabbedPane.background", new ASColorUIResource(0xE7E7E5),
-	    	"TabbedPane.foreground", table.get("controlText"),
-	    	"TabbedPane.opaque", false,  
-	    	"TabbedPane.focusable", true,  
-	    	"TabbedPane.shadow", new ASColorUIResource(0x888888),        
-        	"TabbedPane.darkShadow", new ASColorUIResource(0x444444),        
-        	"TabbedPane.light", table.getColor("controlHighlight"),       
-       		"TabbedPane.highlight", new ASColorUIResource(0xFFFFFF),
-		    "TabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
-		    "TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
-        	"TabbedPane.font", table.getFont("controlFont"),
+		comDefaults = [
+			"TabbedPane.background", new ASColorUIResource(0xE7E7E5),
+			"TabbedPane.foreground", table.get("controlText"),
+			"TabbedPane.opaque", false,  
+			"TabbedPane.focusable", true,  
+			"TabbedPane.shadow", new ASColorUIResource(0x888888),		
+			"TabbedPane.darkShadow", new ASColorUIResource(0x444444),		
+			"TabbedPane.light", table.getColor("controlHighlight"),	   
+	   		"TabbedPane.highlight", new ASColorUIResource(0xFFFFFF),
+			"TabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
+			"TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
+			"TabbedPane.font", table.getFont("controlFont"),
 			"TabbedPane.border", null,
 			"TabbedPane.tabMargin", new InsetsUIResource(1, 1, 1, 1),
 			"TabbedPane.baseLineThickness", 8,
 			"TabbedPane.maxTabWidth", 1000,
-		    //"TabbedPane.itemDecorator", org.aswing.plaf.basic.background.TabbedPaneItem			
+			//"TabbedPane.itemDecorator", org.aswing.plaf.basic.background.TabbedPaneItem			
 		];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** Separator
-	    comDefaults = [
-		    "Separator.background", table.get("window"),
-		    "Separator.foreground", table.get("windowText"),
-	    	"Separator.opaque", false, 
-	    	"Separator.focusable", false 
-	    ];
-	    table.putDefaults(comDefaults);	    
-	    
-	    // *** ScrollBar
-	    comDefaults = [
-	    	"ScrollBar.background", new ASColorUIResource(0xD0D0D0),
-	    	"ScrollBar.foreground", table.get("controlText"),
-    		"ScrollBar.opaque", true,  
-    		"ScrollBar.focusable", true, 
-        	"ScrollBar.font", table.getFont("controlFont"),
-		    "ScrollBar.thumbBackground", table.get("control"),
-		    "ScrollBar.thumbShadow", table.get("controlShadow"),
-		    "ScrollBar.thumbDarkShadow", table.get("controlDkShadow"),
-		    "ScrollBar.thumbHighlight", table.get("controlHighlight"),
-		    "ScrollBar.thumbLightHighlight", table.get("controlLtHighlight"),
-		    "ScrollBar.thumbDecorator", org.aswing.plaf.basic.background.ScrollBarThumb,
-		    "ScrollBar.arrowShadowColor", new ASColorUIResource(0x000000),
-		    "ScrollBar.arrowLightColor", new ASColorUIResource(0x444444)
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** ScrollPane
-	    comDefaults = [
-	    	"ScrollPane.opaque", false,  
-	    	"ScrollPane.focusable", false  
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** ProgressBar
-	    comDefaults = [
-		    "ProgressBar.background", table.get("window"),
-		    "ProgressBar.foreground", table.get("windowText"),
-	    	"ProgressBar.opaque", false,
-	    	"ProgressBar.focusable", false,        	
-	    	"ProgressBar.font", new ASFontUIResource("Tahoma", 9),
+		table.putDefaults(comDefaults);
+		
+		// *** Separator
+		comDefaults = [
+			"Separator.background", table.get("window"),
+			"Separator.foreground", table.get("windowText"),
+			"Separator.opaque", false, 
+			"Separator.focusable", false 
+		];
+		table.putDefaults(comDefaults);		
+		
+		// *** ScrollBar
+		comDefaults = [
+			"ScrollBar.background", new ASColorUIResource(0xD0D0D0),
+			"ScrollBar.foreground", table.get("controlText"),
+			"ScrollBar.opaque", true,  
+			"ScrollBar.focusable", true, 
+			"ScrollBar.font", table.getFont("controlFont"),
+			"ScrollBar.thumbBackground", table.get("control"),
+			"ScrollBar.thumbShadow", table.get("controlShadow"),
+			"ScrollBar.thumbDarkShadow", table.get("controlDkShadow"),
+			"ScrollBar.thumbHighlight", table.get("controlHighlight"),
+			"ScrollBar.thumbLightHighlight", table.get("controlLtHighlight"),
+			"ScrollBar.thumbDecorator", org.aswing.plaf.basic.background.ScrollBarThumb,
+			"ScrollBar.arrowShadowColor", new ASColorUIResource(0x000000),
+			"ScrollBar.arrowLightColor", new ASColorUIResource(0x444444)
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ScrollPane
+		comDefaults = [
+			"ScrollPane.opaque", false,  
+			"ScrollPane.focusable", false  
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ProgressBar
+		comDefaults = [
+			"ProgressBar.background", table.get("window"),
+			"ProgressBar.foreground", table.get("windowText"),
+			"ProgressBar.opaque", false,
+			"ProgressBar.focusable", false,			
+			"ProgressBar.font", new ASFontUIResource("Tahoma", 9),
 			"ProgressBar.border", org.aswing.plaf.basic.border.ProgressBarBorder,
-		    "ProgressBar.iconDecorator", org.aswing.plaf.basic.background.ProgressBarIcon,
+			"ProgressBar.iconDecorator", org.aswing.plaf.basic.background.ProgressBarIcon,
 			"ProgressBar.progressColor", new ASColorUIResource(0x3366CC)
-	    ];
-	    table.putDefaults(comDefaults);	    
-	    
+		];
+		table.putDefaults(comDefaults);		
+		
 		// *** Panel
-	    comDefaults = [
-	    	"Viewport.background", table.get("window"),
-	    	"Viewport.foreground", table.get("windowText"),
-	    	"Viewport.opaque", false, 
-	    	"Viewport.focusable", true, 
-        	"Viewport.font", table.getFont("windowFont")
+		comDefaults = [
+			"Viewport.background", table.get("window"),
+			"Viewport.foreground", table.get("windowText"),
+			"Viewport.opaque", false, 
+			"Viewport.focusable", true, 
+			"Viewport.font", table.getFont("windowFont")
 		];
-	    table.putDefaults(comDefaults);
-	    
+		table.putDefaults(comDefaults);
+		
 	   // *** Label
-	    comDefaults = [
-		    "Label.background", table.get("control"),
-		    "Label.foreground", table.get("controlText"),
-	    	"Label.opaque", false, 
-	    	"Label.focusable", false, 
-        	"Label.font", table.getFont("controlFont")
+		comDefaults = [
+			"Label.background", table.get("control"),
+			"Label.foreground", table.get("controlText"),
+			"Label.opaque", false, 
+			"Label.focusable", false, 
+			"Label.font", table.getFont("controlFont")
 		];
-	    table.putDefaults(comDefaults);
-	    
+		table.putDefaults(comDefaults);
+		
 	   // *** TextField
-	    comDefaults = [
-		    "TextField.background", new ASColorUIResource(0xF3F3F3),
-		    "TextField.foreground", new ASColorUIResource(0x000000),
-	    	"TextField.opaque", true,  
-	    	"TextField.focusable", true,
-	        "TextField.light", new ASColorUIResource(0xDCDEDD),
-	        "TextField.shadow", new ASColorUIResource(0x666666),
-        	"TextField.font", table.getFont("controlFont"),
+		comDefaults = [
+			"TextField.background", new ASColorUIResource(0xF3F3F3),
+			"TextField.foreground", new ASColorUIResource(0x000000),
+			"TextField.opaque", true,  
+			"TextField.focusable", true,
+			"TextField.light", new ASColorUIResource(0xDCDEDD),
+			"TextField.shadow", new ASColorUIResource(0x666666),
+			"TextField.font", table.getFont("controlFont"),
 			"TextField.bg", org.aswing.plaf.basic.background.TextComponentBackBround,
-		    "TextField.border", org.aswing.plaf.basic.border.TextFieldBorder
+			"TextField.border", org.aswing.plaf.basic.border.TextFieldBorder
 		];
-	    table.putDefaults(comDefaults);
-	    
+		table.putDefaults(comDefaults);
+		
 	   // *** TextArea
-	    comDefaults = [
-		    "TextArea.background", new ASColorUIResource(0xF3F3F3),
-		    "TextArea.foreground", new ASColorUIResource(0x000000),
-	    	"TextArea.opaque", true,  
-	    	"TextArea.focusable", true,
-	        "TextArea.light", new ASColorUIResource(0xDCDEDD),
-	        "TextArea.shadow", new ASColorUIResource(0x666666),
-        	"TextArea.font", table.getFont("controlFont"),
+		comDefaults = [
+			"TextArea.background", new ASColorUIResource(0xF3F3F3),
+			"TextArea.foreground", new ASColorUIResource(0x000000),
+			"TextArea.opaque", true,  
+			"TextArea.focusable", true,
+			"TextArea.light", new ASColorUIResource(0xDCDEDD),
+			"TextArea.shadow", new ASColorUIResource(0x666666),
+			"TextArea.font", table.getFont("controlFont"),
 			"TextArea.bg", org.aswing.plaf.basic.background.TextComponentBackBround,
-		    "TextArea.border", org.aswing.plaf.basic.border.TextAreaBorder
+			"TextArea.border", org.aswing.plaf.basic.border.TextAreaBorder
 		];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** Frame
-	    comDefaults = [
-		    "Frame.background", table.get("window"),
-		    "Frame.foreground", table.get("windowText"),
-	    	"Frame.opaque", true,  
-	    	"Frame.focusable", true,
-		    "Frame.activeCaption", table.get("activeCaption"),
-		    "Frame.activeCaptionText", table.get("activeCaptionText"),
-		    "Frame.activeCaptionBorder", table.get("activeCaptionBorder"),
-		    "Frame.inactiveCaption", table.get("inactiveCaption"),
-		    "Frame.inactiveCaptionText", table.get("inactiveCaptionText"),
-		    "Frame.inactiveCaptionBorder", table.get("inactiveCaptionBorder"),
-		    "Frame.resizeArrow", table.get("inactiveCaption"),
-		    "Frame.resizeArrowLight", table.get("window"),
-		    "Frame.resizeArrowDark", table.get("activeCaptionText"),		    
-		    "Frame.titleBarUI", org.aswing.plaf.basic.frame.TitleBarUI,
-		    "Frame.resizer", org.aswing.resizer.DefaultResizer,
-		    "Frame.font", table.get("windowFont"),
-		    "Frame.border", org.aswing.plaf.basic.border.FrameBorder,
-		    "Frame.icon", org.aswing.plaf.basic.icon.TitleIcon,
-		    "Frame.iconifiedIcon", org.aswing.plaf.basic.icon.FrameIconifiedIcon,
-		    "Frame.normalIcon", org.aswing.plaf.basic.icon.FrameNormalIcon,
-		    "Frame.maximizeIcon", org.aswing.plaf.basic.icon.FrameMaximizeIcon,
-		    "Frame.closeIcon", org.aswing.plaf.basic.icon.FrameCloseIcon
-	    ];
-	    table.putDefaults(comDefaults);	    
-	    
-	    // *** ToolTip
-	    comDefaults = [
-		    "ToolTip.background", new ASColorUIResource(0xFFFFD5),
-		    "ToolTip.foreground", table.get("controlText"),
-	    	"ToolTip.opaque", true, 
-	    	"ToolTip.focusable", false, 
-	    	"ToolTip.borderColor", table.get("controlText"),
-        	"ToolTip.font", table.getFont("controlFont"),
-		    "ToolTip.border", org.aswing.plaf.basic.border.ToolTipBorder
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** List
-	    comDefaults = [
-	        "List.font", table.getFont("controlFont"),
-		    "List.background", table.get("control"),
-		    "List.foreground", table.get("controlText"),
-	    	"List.opaque", false, 
-	    	"List.focusable", true, 
-	        "List.selectionBackground", new ASColorUIResource(0x444444),
-		    "List.selectionForeground", table.get("control")
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** SplitPane
-	    comDefaults = [
-		    "SplitPane.background", table.get("window"), 
-		    "SplitPane.foreground", table.get("controlDkShadow"), 
-	    	"SplitPane.opaque", false, 
-	    	"SplitPane.focusable", true, 
-	        "SplitPane.font", table.getFont("windowFont"), 
-	    	"SplitPane.border", undefined, 
-	    	"SplitPane.presentDragColor", new ASColorUIResource(0x000000, 40)
-	    ];
-	    table.putDefaults(comDefaults);	
-	    
-	    // *** Spacer
-	    comDefaults = [
-		    "Spacer.background", table.get("window"),
-		    "Spacer.foreground", table.get("window"),
-	    	"Spacer.opaque", false,
-	    	"Spacer.focusable", false
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** ComboBox
-	    comDefaults = [
-	        "ComboBox.font", table.getFont("controlFont"),
-		    "ComboBox.background", table.get("control"),
-		    "ComboBox.foreground", table.get("controlText"),
-	    	"ComboBox.opaque", true, 
-	    	"ComboBox.focusable", true, 
-	    	"ComboBox.shadow", table.getColor("controlShadow"),        
-	    	"ComboBox.darkShadow", table.getColor("controlDkShadow"),        
-	    	"ComboBox.light", table.getColor("controlHighlight"),       
+		table.putDefaults(comDefaults);
+		
+		// *** Frame
+		comDefaults = [
+			"Frame.background", table.get("window"),
+			"Frame.foreground", table.get("windowText"),
+			"Frame.opaque", true,  
+			"Frame.focusable", true,
+			"Frame.activeCaption", table.get("activeCaption"),
+			"Frame.activeCaptionText", table.get("activeCaptionText"),
+			"Frame.activeCaptionBorder", table.get("activeCaptionBorder"),
+			"Frame.inactiveCaption", table.get("inactiveCaption"),
+			"Frame.inactiveCaptionText", table.get("inactiveCaptionText"),
+			"Frame.inactiveCaptionBorder", table.get("inactiveCaptionBorder"),
+			"Frame.resizeArrow", table.get("inactiveCaption"),
+			"Frame.resizeArrowLight", table.get("window"),
+			"Frame.resizeArrowDark", table.get("activeCaptionText"),			
+			"Frame.titleBarUI", org.aswing.plaf.basic.frame.TitleBarUI,
+			"Frame.resizer", org.aswing.resizer.DefaultResizer,
+			"Frame.font", table.get("windowFont"),
+			"Frame.border", org.aswing.plaf.basic.border.FrameBorder,
+			"Frame.icon", org.aswing.plaf.basic.icon.TitleIcon,
+			"Frame.iconifiedIcon", org.aswing.plaf.basic.icon.FrameIconifiedIcon,
+			"Frame.normalIcon", org.aswing.plaf.basic.icon.FrameNormalIcon,
+			"Frame.maximizeIcon", org.aswing.plaf.basic.icon.FrameMaximizeIcon,
+			"Frame.closeIcon", org.aswing.plaf.basic.icon.FrameCloseIcon
+		];
+		table.putDefaults(comDefaults);		
+		
+		// *** ToolTip
+		comDefaults = [
+			"ToolTip.background", new ASColorUIResource(0xFFFFD5),
+			"ToolTip.foreground", table.get("controlText"),
+			"ToolTip.opaque", true, 
+			"ToolTip.focusable", false, 
+			"ToolTip.borderColor", table.get("controlText"),
+			"ToolTip.font", table.getFont("controlFont"),
+			"ToolTip.border", org.aswing.plaf.basic.border.ToolTipBorder
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** List
+		comDefaults = [
+			"List.font", table.getFont("controlFont"),
+			"List.background", table.get("control"),
+			"List.foreground", table.get("controlText"),
+			"List.opaque", false, 
+			"List.focusable", true, 
+			"List.selectionBackground", new ASColorUIResource(0x444444),
+			"List.selectionForeground", table.get("control")
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** SplitPane
+		comDefaults = [
+			"SplitPane.background", table.get("window"), 
+			"SplitPane.foreground", table.get("controlDkShadow"), 
+			"SplitPane.opaque", false, 
+			"SplitPane.focusable", true, 
+			"SplitPane.font", table.getFont("windowFont"), 
+			"SplitPane.border", undefined, 
+			"SplitPane.presentDragColor", new ASColorUIResource(0x000000, 40)
+		];
+		table.putDefaults(comDefaults);	
+		
+		// *** Spacer
+		comDefaults = [
+			"Spacer.background", table.get("window"),
+			"Spacer.foreground", table.get("window"),
+			"Spacer.opaque", false,
+			"Spacer.focusable", false
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ComboBox
+		comDefaults = [
+			"ComboBox.font", table.getFont("controlFont"),
+			"ComboBox.background", table.get("control"),
+			"ComboBox.foreground", table.get("controlText"),
+			"ComboBox.opaque", true, 
+			"ComboBox.focusable", true, 
+			"ComboBox.shadow", table.getColor("controlShadow"),		
+			"ComboBox.darkShadow", table.getColor("controlDkShadow"),		
+			"ComboBox.light", table.getColor("controlHighlight"),	   
 	   		"ComboBox.highlight", table.getColor("controlLtHighlight"),
-		    "ComboBox.border", org.aswing.plaf.basic.border.ComboBoxBorder,
-		    "ComboBox.arrowShadowColor", new ASColorUIResource(0x000000),
-		    "ComboBox.arrowLightColor", new ASColorUIResource(0x444444)
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** Slider
-	    comDefaults = [
-		    "Slider.background", table.getFont("controlFont"),
-		    "Slider.foreground", table.get("controlText"),
-	    	"Slider.opaque", false,  
-	    	"Slider.focusable", true,  
-		    "Slider.shadow", table.getColor("controlShadow"),
-	        "Slider.darkShadow", table.getColor("controlDkShadow"),
-	        "Slider.light", table.getColor("controlHighlight"),
-	        "Slider.highlight", table.getColor("controlLtHighlight"),
-        	"Slider.font", table.getFont("controlFont"),
-	    	"Slider.thumbIcon", org.aswing.plaf.basic.icon.SliderThumbIcon,
-		    "Slider.tickColor", table.get("controlDkShadow"),
-		    "Slider.progressColor", new ASColorUIResource(0xC4C4FE),
-		    "Slider.thumb", table.get("control"),
-		    "Slider.thumbShadow", table.get("controlShadow"),
-		    "Slider.thumbDarkShadow", table.get("controlDkShadow"),
-		    "Slider.thumbHighlight", table.get("controlHighlight"),
-		    "Slider.thumbLightHighlight", table.get("controlLtHighlight")
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** Adjuster
-	    comDefaults = [
-		    "Adjuster.background", buttonBG,
-		    "Adjuster.foreground", table.get("controlText"),
-	    	"Adjuster.opaque", false,  
-	    	"Adjuster.focusable", true,  
-		    "Adjuster.shadow", table.getColor("controlShadow"),
-	        "Adjuster.darkShadow", table.getColor("controlDkShadow"),
-	        "Adjuster.light", table.getColor("controlHighlight"),
-	        "Adjuster.highlight", table.getColor("controlLtHighlight"),
-        	"Adjuster.font", table.getFont("controlFont"), 
-	    	"Adjuster.thumbIcon", org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon,
-		    "Adjuster.tickColor", table.get("controlDkShadow"),
-		    "Adjuster.progressColor", new ASColorUIResource(0xC4C4EE),
-		    "Adjuster.thumb", table.get("control"),
-		    "Adjuster.thumbShadow", table.get("controlShadow"),
-		    "Adjuster.thumbDarkShadow", table.get("controlDkShadow"),
-		    "Adjuster.thumbHighlight", table.get("controlHighlight"),
-		    "Adjuster.thumbLightHighlight", table.get("controlLtHighlight"),
-		    "Adjuster.arrowShadowColor", new ASColorUIResource(0x000000),
-		    "Adjuster.arrowLightColor", new ASColorUIResource(0x444444)
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** ColorSwatches
-	    comDefaults = [
-		    "ColorSwatches.background", new ASColorUIResource(0xEEEEEE),
-		    "ColorSwatches.foreground", table.get("controlText"),
-	    	"ColorSwatches.opaque", false,  
-	    	"ColorSwatches.focusable", false,  
-        	"ColorSwatches.font", table.getFont("controlFont"),
-	    	"ColorSwatches.border", undefined
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** ColorMixer
-	    comDefaults = [
-		    "ColorMixer.background", new ASColorUIResource(0xEEEEEE),
-		    "ColorMixer.foreground", table.get("controlText"),
-	    	"ColorMixer.opaque", false,  
-	    	"ColorMixer.focusable", false,  
-        	"ColorMixer.font", table.getFont("controlFont"),
-	    	"ColorMixer.border", undefined
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	    // *** ColorChooser
-	    comDefaults = [
-		    "ColorChooser.background", table.get("window"),
-		    "ColorChooser.foreground", table.get("controlText"),
-	    	"ColorChooser.opaque", false,  
-	    	"ColorChooser.focusable", false,  
-        	"ColorChooser.font", table.getFont("controlFont"),
-	    	"ColorChooser.border", org.aswing.plaf.basic.border.ColorChooserBorder
-	    ];
-	    table.putDefaults(comDefaults);	    
-	    
-	    // *** Accordion
-	    comDefaults = [
-		    "Accordion.background", table.get("window"),
-		    "Accordion.foreground", table.get("windowText"),
-	    	"Accordion.opaque", false,  
-	    	"Accordion.focusable", true,
-	    	"Accordion.motionSpeed", 50, 
+			"ComboBox.border", org.aswing.plaf.basic.border.ComboBoxBorder,
+			"ComboBox.arrowShadowColor", new ASColorUIResource(0x000000),
+			"ComboBox.arrowLightColor", new ASColorUIResource(0x444444)
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** Slider
+		comDefaults = [
+			"Slider.background", table.getFont("controlFont"),
+			"Slider.foreground", table.get("controlText"),
+			"Slider.opaque", false,  
+			"Slider.focusable", true,  
+			"Slider.shadow", table.getColor("controlShadow"),
+			"Slider.darkShadow", table.getColor("controlDkShadow"),
+			"Slider.light", table.getColor("controlHighlight"),
+			"Slider.highlight", table.getColor("controlLtHighlight"),
+			"Slider.font", table.getFont("controlFont"),
+			"Slider.thumbIcon", org.aswing.plaf.basic.icon.SliderThumbIcon,
+			"Slider.tickColor", table.get("controlDkShadow"),
+			"Slider.progressColor", new ASColorUIResource(0xC4C4FE),
+			"Slider.thumb", table.get("control"),
+			"Slider.thumbShadow", table.get("controlShadow"),
+			"Slider.thumbDarkShadow", table.get("controlDkShadow"),
+			"Slider.thumbHighlight", table.get("controlHighlight"),
+			"Slider.thumbLightHighlight", table.get("controlLtHighlight")
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** Adjuster
+		comDefaults = [
+			"Adjuster.background", buttonBG,
+			"Adjuster.foreground", table.get("controlText"),
+			"Adjuster.opaque", false,  
+			"Adjuster.focusable", true,  
+			"Adjuster.shadow", table.getColor("controlShadow"),
+			"Adjuster.darkShadow", table.getColor("controlDkShadow"),
+			"Adjuster.light", table.getColor("controlHighlight"),
+			"Adjuster.highlight", table.getColor("controlLtHighlight"),
+			"Adjuster.font", table.getFont("controlFont"), 
+			"Adjuster.thumbIcon", org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon,
+			"Adjuster.tickColor", table.get("controlDkShadow"),
+			"Adjuster.progressColor", new ASColorUIResource(0xC4C4EE),
+			"Adjuster.thumb", table.get("control"),
+			"Adjuster.thumbShadow", table.get("controlShadow"),
+			"Adjuster.thumbDarkShadow", table.get("controlDkShadow"),
+			"Adjuster.thumbHighlight", table.get("controlHighlight"),
+			"Adjuster.thumbLightHighlight", table.get("controlLtHighlight"),
+			"Adjuster.arrowShadowColor", new ASColorUIResource(0x000000),
+			"Adjuster.arrowLightColor", new ASColorUIResource(0x444444)
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ColorSwatches
+		comDefaults = [
+			"ColorSwatches.background", new ASColorUIResource(0xEEEEEE),
+			"ColorSwatches.foreground", table.get("controlText"),
+			"ColorSwatches.opaque", false,  
+			"ColorSwatches.focusable", false,  
+			"ColorSwatches.font", table.getFont("controlFont"),
+			"ColorSwatches.border", undefined
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ColorMixer
+		comDefaults = [
+			"ColorMixer.background", new ASColorUIResource(0xEEEEEE),
+			"ColorMixer.foreground", table.get("controlText"),
+			"ColorMixer.opaque", false,  
+			"ColorMixer.focusable", false,  
+			"ColorMixer.font", table.getFont("controlFont"),
+			"ColorMixer.border", undefined
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ColorChooser
+		comDefaults = [
+			"ColorChooser.background", table.get("window"),
+			"ColorChooser.foreground", table.get("controlText"),
+			"ColorChooser.opaque", false,  
+			"ColorChooser.focusable", false,  
+			"ColorChooser.font", table.getFont("controlFont"),
+			"ColorChooser.border", org.aswing.plaf.basic.border.ColorChooserBorder
+		];
+		table.putDefaults(comDefaults);		
+		
+		// *** Accordion
+		comDefaults = [
+			"Accordion.background", table.get("window"),
+			"Accordion.foreground", table.get("windowText"),
+			"Accordion.opaque", false,  
+			"Accordion.focusable", true,
+			"Accordion.motionSpeed", 50, 
 			"Accordion.tabMargin", new InsetsUIResource(2, 3, 3, 2)
-	    ];
-	    table.putDefaults(comDefaults);
-	    
+		];
+		table.putDefaults(comDefaults);
+		
 	   // *** JTabbedPane
-	    comDefaults = [
-	    	"TabbedPane.background", new ASColorUIResource(0xE7E7E5),
-	    	"TabbedPane.foreground", table.get("controlText"),
-	    	"TabbedPane.opaque", false,  
-	    	"TabbedPane.focusable", true,  
-	    	"TabbedPane.shadow", new ASColorUIResource(0x888888),        
-        	"TabbedPane.darkShadow", new ASColorUIResource(0x444444),        
-        	"TabbedPane.light", table.getColor("controlHighlight"),       
-       		"TabbedPane.highlight", new ASColorUIResource(0xFFFFFF),
-		    "TabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
-		    "TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
-        	"TabbedPane.font", table.getFont("controlFont"),
+		comDefaults = [
+			"TabbedPane.background", new ASColorUIResource(0xE7E7E5),
+			"TabbedPane.foreground", table.get("controlText"),
+			"TabbedPane.opaque", false,  
+			"TabbedPane.focusable", true,  
+			"TabbedPane.shadow", new ASColorUIResource(0x888888),		
+			"TabbedPane.darkShadow", new ASColorUIResource(0x444444),		
+			"TabbedPane.light", table.getColor("controlHighlight"),	   
+	   		"TabbedPane.highlight", new ASColorUIResource(0xFFFFFF),
+			"TabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
+			"TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
+			"TabbedPane.font", table.getFont("controlFont"),
 			"TabbedPane.tabMargin", new InsetsUIResource(1, 1, 1, 1),
 			"TabbedPane.baseLineThickness", 8,
 			"TabbedPane.maxTabWidth", 1000];
-	    table.putDefaults(comDefaults);
-	    
-	     // *** Table
-	    comDefaults = [
-		    "Table.background", table.get("control"),
-		    "Table.foreground", table.get("controlText"),
-	    	"Table.opaque", true,  
-	    	"Table.focusable", true,
-	        "Table.font", table.getFont("controlFont"),
-		    "Table.selectionBackground", new ASColorUIResource(0x666666),
-		    "Table.selectionForeground", table.get("control"),
-	        "Table.gridColor", new ASColorUIResource(0x444444),
-	    	"Table.border", undefined
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	     // *** TableHeader
-	    comDefaults = [
-		    "TableHeader.background", buttonBG,
-		    "TableHeader.foreground", table.get("controlText"),
-	        "TableHeader.font", table.getFont("controlFont"),
-	    	"TableHeader.opaque", true, 
-	    	"TableHeader.focusable", true, 
-	        "TableHeader.gridColor", new ASColorUIResource(0x444444),
-	    	"TableHeader.border", undefined, 
-	    	"TableHeader.cellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	     // *** Tree
-	    comDefaults = [
-		    "Tree.background", table.get("control"),
-		    "Tree.foreground", table.get("controlText"),
-	    	"Tree.opaque", true,  
-	    	"Tree.focusable", true,
-	        "Tree.font", table.getFont("controlFont"),
-		    "Tree.selectionBackground", new ASColorUIResource(0x666666),
-		    "Tree.selectionForeground", table.get("control"),
-	    	"Tree.border", undefined
-	    ];
-	    table.putDefaults(comDefaults);
-	    
-	     // *** ToolBar
-	    comDefaults = [
-		    "ToolBar.background", table.get("window"),
-		    "ToolBar.foreground", table.get("windowText"),
-	    	"ToolBar.opaque", true, 
-	    	"ToolBar.focusable", false 
-	    ];
-	    table.putDefaults(comDefaults);
+		table.putDefaults(comDefaults);
+		
+		 // *** Table
+		comDefaults = [
+			"Table.background", table.get("control"),
+			"Table.foreground", table.get("controlText"),
+			"Table.opaque", true,  
+			"Table.focusable", true,
+			"Table.font", table.getFont("controlFont"),
+			"Table.selectionBackground", new ASColorUIResource(0x666666),
+			"Table.selectionForeground", table.get("control"),
+			"Table.gridColor", new ASColorUIResource(0x444444),
+			"Table.border", undefined
+		];
+		table.putDefaults(comDefaults);
+		
+		 // *** TableHeader
+		comDefaults = [
+			"TableHeader.background", buttonBG,
+			"TableHeader.foreground", table.get("controlText"),
+			"TableHeader.font", table.getFont("controlFont"),
+			"TableHeader.opaque", true, 
+			"TableHeader.focusable", true, 
+			"TableHeader.gridColor", new ASColorUIResource(0x444444),
+			"TableHeader.border", undefined, 
+			"TableHeader.cellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder
+		];
+		table.putDefaults(comDefaults);
+		
+		 // *** Tree
+		comDefaults = [
+			"Tree.background", table.get("control"),
+			"Tree.foreground", table.get("controlText"),
+			"Tree.opaque", true,  
+			"Tree.focusable", true,
+			"Tree.font", table.getFont("controlFont"),
+			"Tree.selectionBackground", new ASColorUIResource(0x666666),
+			"Tree.selectionForeground", table.get("control"),
+			"Tree.border", undefined
+		];
+		table.putDefaults(comDefaults);
+		
+		 // *** ToolBar
+		comDefaults = [
+			"ToolBar.background", table.get("window"),
+			"ToolBar.foreground", table.get("windowText"),
+			"ToolBar.opaque", true, 
+			"ToolBar.focusable", false 
+		];
+		table.putDefaults(comDefaults);
 	}
 	
 }

@@ -3,6 +3,8 @@
 */
 
 package org.aswing{
+	import org.aswing.plaf.basic.BasicRadioButtonUI;
+	
 	
 /**
  * An implementation of a radio button -- an item that can be selected or
@@ -27,6 +29,10 @@ public class JRadioButton extends JToggleButton{
 		super(text, icon);
 		setName("JRadioButton");
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicRadioButtonUI;
+    }
     
 	override public function getUIClassID():String{
 		return "RadioButtonUI";

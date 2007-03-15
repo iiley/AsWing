@@ -10,6 +10,7 @@ import org.aswing.dnd.*;
 import org.aswing.event.*;
 import flash.events.MouseEvent;
 import org.aswing.util.*;
+import org.aswing.plaf.basic.BasicListUI;
 
 
 /**
@@ -283,6 +284,10 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     	}
     	
     	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicListUI;
     }
     	
 	override public function getUIClassID():String{

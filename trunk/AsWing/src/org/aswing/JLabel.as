@@ -3,6 +3,8 @@
 */
 
 package org.aswing{
+	import org.aswing.plaf.basic.BasicLabelUI;
+	
 
 /**
  * A display area for a short text string or an image, 
@@ -115,6 +117,10 @@ public class JLabel extends Component{
 	
     override public function updateUI():void{
     	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicLabelUI;
     }
 	
 	override public function getUIClassID():String{

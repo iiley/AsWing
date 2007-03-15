@@ -63,7 +63,11 @@ public class UIDefaults extends HashMap
 	 * @return target's UI object, or null if there is not his UI object
 	 */
 	public function getUI(target:Component):ComponentUI{
-		return ComponentUI(getInstance(target.getUIClassID()));
+		var ui:ComponentUI = getInstance(target.getUIClassID()) as ComponentUI;
+		if(ui == null){
+			ui = getCreateInstance(target.getDefaultBasicUIClass()) as ComponentUI;
+		}
+		return ui;
 	}
 	
 	public function getBoolean(key:String):Boolean{

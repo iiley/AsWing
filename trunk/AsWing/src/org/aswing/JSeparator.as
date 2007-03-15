@@ -4,6 +4,8 @@
 
 package org.aswing
 {
+	import org.aswing.plaf.basic.BasicSeparatorUI;
+	
 	
 /**
  * <code>JSeparator</code> provides a general purpose component for
@@ -52,6 +54,10 @@ public class JSeparator extends Component
 	override public function getUIClassID():String{
 		return "SeparatorUI";
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicSeparatorUI;
+    }
 	
 	public function getOrientation():Number{
 		return orientation;

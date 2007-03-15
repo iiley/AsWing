@@ -4,6 +4,7 @@
 
 package org.aswing.colorchooser { 
 import org.aswing.*;
+import org.aswing.plaf.basic.BasicColorSwatchesUI;
 
 /**
  * @author iiley
@@ -18,6 +19,10 @@ public class JColorSwatches extends AbstractColorChooserPanel {
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicColorSwatchesUI;
+    }
 	
 	override public function getUIClassID():String{
 		return "ColorSwatchesUI";
