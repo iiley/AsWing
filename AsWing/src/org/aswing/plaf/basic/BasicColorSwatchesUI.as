@@ -114,9 +114,22 @@ public class BasicColorSwatchesUI extends ColorSwatchesUI {
 		alphaAdjuster.addActionListener(__adjusterAction);
 	}
     private function uninstallListeners():void{
+    	noColorButton.removeActionListener(__noColorButtonAction);
+    	
     	colorSwatches.removeEventListener(InteractiveEvent.STATE_CHANGED, __colorSelectionChanged);
     	colorSwatches.removeEventListener(AWEvent.HIDDEN, __colorSwatchesUnShown);
     	colorSwatches.removeEventListener(MouseEvent.MOUSE_MOVE, __colorTilesPaneMouseMove); 
+    	
+		colorTilesPane.removeEventListener(MouseEvent.ROLL_OVER, __colorTilesPaneRollOver);
+		colorTilesPane.removeEventListener(MouseEvent.ROLL_OUT, __colorTilesPaneRollOut);
+		colorTilesPane.removeEventListener(DragAndDropEvent.DRAG_EXIT, __colorTilesPaneRollOut);
+		colorTilesPane.removeEventListener(ReleaseEvent.RELEASE, __colorTilesPaneReleased);   
+		
+		colorHexText.removeActionListener(__hexTextAction);
+		colorHexText.getTextField().removeEventListener(Event.CHANGE, __hexTextChanged);	
+		
+		alphaAdjuster.removeStateListener(__adjusterValueChanged);
+		alphaAdjuster.removeActionListener(__adjusterAction);		
     }
     
     //------------------------------------------------------------------------------
