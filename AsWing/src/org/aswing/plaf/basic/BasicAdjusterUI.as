@@ -157,6 +157,7 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	}
 	
 	protected function initInputText():void{
+		inputText.setColumns(adjuster.getColumns());
 		inputText.setForeground(null);//make it grap the property from parent
 		inputText.setFont(adjuster.getFont());
 	}
