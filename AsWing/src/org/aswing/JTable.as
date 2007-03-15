@@ -160,6 +160,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private var selectionModel:ListSelectionModel;
 	
 	protected var cellPane:Container;
+	protected var headerPane:Container;
 	private var tableHeader:JTableHeader;
 	private var rowCells:Array;
 	private var rowHeight:int;
@@ -230,6 +231,10 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		cellPane = new Container();
 		cellPane.setEnabled(false);
 		append(cellPane);
+		
+		headerPane = new Container();
+		headerPane.setEnabled(false);
+		append(headerPane);
 		
 		rowCells = new Array();
 		viewPosition = new IntPoint();
@@ -362,7 +367,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			this.tableHeader = tableHeader;
 			if (tableHeader != null){
 				tableHeader.setTable(this);
-				append(tableHeader);
+				headerPane.append(tableHeader);
 			}
 			//firePropertyChange("tableHeader", old, tableHeader);
 		}
@@ -2642,10 +2647,19 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var insetsX:int = insets.left;
 		var insetsY:int = insets.top;
 		
+		var headerHeight:int = getTableHeader().getPreferredHeight();
+		
+		headerPane.setComBoundsXYWH(
+			insetsX, insetsY, 
+			getWidth() - insets.getMarginWidth(), 
+			headerHeight
+		);
+		
 		//layout table header
-		getTableHeader().setLocationXY(insetsX - viewPosition.x, insetsY);
-		getTableHeader().setSizeWH(getLastTotalColumnWidth(), getTableHeader().getPreferredHeight());
-		getTableHeader().getParent().bringToTop(getTableHeader());
+		getTableHeader().setLocationXY(- viewPosition.x, 0);
+		getTableHeader().setSizeWH(
+			getLastTotalColumnWidth(), 
+			headerHeight);
 		getTableHeader().validate();
 		getTableHeader().paintImmediately();
 		
