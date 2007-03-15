@@ -32,19 +32,20 @@ public class JToolBar extends Container {
 	public static const VERTICAL:int  = AsWingConstants.VERTICAL;
 	
 	private var margin:Insets;
-    private var floatable:Boolean;
+    private var gap:int;
     private var orientation:int;
-    private var title:String;
     
     /**
      * Creates a new tool bar with specified <code>orientation</code>.
      * title is only shown when the tool bar is undocked. 
      * @param orientation orientation  the initial orientation -- it must be
      *		either <code>HORIZONTAL</code> or <code>VERTICAL</code>
+     * @param gap the gap between toolbar children
      */
-	public function JToolBar(orientation:int=AsWingConstants.HORIZONTAL) {
+	public function JToolBar(orientation:int=AsWingConstants.HORIZONTAL, gap:int=2) {
 		super();
 		this.orientation = orientation;
+		this.gap = gap;
 		setLayoutWidthOrientation();
 		updateUI();
 	}
@@ -55,6 +56,25 @@ public class JToolBar extends Container {
     	
 	override public function getUIClassID():String{
 		return "ToolBarUI";
+	}
+	
+	/**
+	 * Sets the gap.
+	 * @param gap the gap between toolbar children
+	 */
+	public function setGap(gap:int):void{
+		if(this.gap != gap){
+			this.gap = gap;
+			revalidate();
+		}
+	}
+	
+	/**
+	 * Returns the gap.
+	 * @return gap the gap between toolbar children
+	 */
+	public function getGap():int{
+		return gap;
 	}
 	
      /**
@@ -133,9 +153,9 @@ public class JToolBar extends Container {
     
     private function setLayoutWidthOrientation():void{
 	    if(orientation == VERTICAL){
-	    	setLayout(new SoftBoxLayout(SoftBoxLayout.Y_AXIS));
+	    	setLayout(new SoftBoxLayout(SoftBoxLayout.Y_AXIS, gap));
 	    }else{
-	    	setLayout(new SoftBoxLayout(SoftBoxLayout.X_AXIS));
+	    	setLayout(new SoftBoxLayout(SoftBoxLayout.X_AXIS, gap));
 	    }
     }
 	
