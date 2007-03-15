@@ -5,7 +5,7 @@ package {
 	import org.aswing.event.AWEvent;
 	import cases.*;
 	
-    [SWF (width="500", height="450")]
+    [SWF (width="400", height="450")]
 	public class Test extends Sprite
 	{
 		
@@ -18,7 +18,7 @@ package {
 			//create other case instance here to test others
 			//for example change below with addChild(new Button());
 			//to test buttons.
-			addChild(new TreeBig());
+			addChild(new ToolBar());
 		}
 	}
 }

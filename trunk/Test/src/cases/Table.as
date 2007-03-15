@@ -48,7 +48,7 @@ public class Table extends Sprite{
 		table.setDefaultCellFactory("Object", new GeneralTableCellFactory(PoorTextCell));
 		table.setBorder(new EmptyBorder(new LineBorder(null, ASColor.RED, 2), new Insets(5, 5, 5, 5)));
 		table.setRowSelectionInterval(10, 13);
-		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		var scrollPane:JScrollPane = new JScrollPane(table); 
 		
 		frame.getContentPane().append(scrollPane, BorderLayout.CENTER);
@@ -56,7 +56,7 @@ public class Table extends Sprite{
 		button.addActionListener(__changeAutoResizeMode);
 		frame.getContentPane().append(button, BorderLayout.SOUTH);
 		
-		frame.setSizeWH(500, 450);
+		frame.setSizeWH(400, 450);
 		frame.show();
 	}
 	
@@ -76,7 +76,7 @@ public class Table extends Sprite{
 		}else{
 			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		}
-		frame.setTitle("random " + Math.random());
+		frame.setTitle("resize mode changed " + Math.random());
 	}
 	
 }
