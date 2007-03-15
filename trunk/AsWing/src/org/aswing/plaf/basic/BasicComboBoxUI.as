@@ -195,6 +195,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	var distToTop:int = upDest.y - visibleBounds.y;
     	var dest:IntPoint;
     	var gp:IntPoint = box.getGlobalLocation();
+    	trace("gp = " + gp);
     	if(distToBottom > 0 || (distToBottom < 0 && distToTop < 0 && distToBottom > distToTop)){
     		moveDir = 1;
     		gp.y += box.getHeight();
@@ -202,7 +203,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	}else{
     		moveDir = -1;
 			scrollRect = new Rectangle(0, 0, popupPane.getWidth(), 0);
-    		gp.y += height;
     	}
     	popupPane.setGlobalLocation(gp);
     	popupPane.scrollRect = scrollRect;

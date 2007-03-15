@@ -1304,7 +1304,21 @@ public class Component extends AWSprite{
 	override public function get x():Number{
 		return getX();
 	}
+
+	/**
+	 * @see #setY()
+	 */
+	override public function set y(value:Number):void{
+		setY(value);
+	}
 	
+	/**
+	 * @see #getY()
+	 */
+	override public function get y():Number{
+		return getY();
+	}
+		
 	/**
 	 * @see setWidth()
 	 */
