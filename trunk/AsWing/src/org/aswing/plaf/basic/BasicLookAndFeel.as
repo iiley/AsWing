@@ -232,10 +232,10 @@ public class BasicLookAndFeel extends LookAndFeel{
 	    
 	    // *** Separator
 	    comDefaults = [
-		    "Separator.background", new ASColorUIResource(0x000000),
-		    "Separator.foreground", new ASColorUIResource(0x000000),
-	    	"Separator.opaque", false,
-	    	"Separator.focusable", false
+		    "Separator.background", table.get("window"),
+		    "Separator.foreground", table.get("windowText"),
+	    	"Separator.opaque", false, 
+	    	"Separator.focusable", false 
 	    ];
 	    table.putDefaults(comDefaults);	    
 	    
