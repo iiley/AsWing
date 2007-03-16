@@ -14,6 +14,7 @@ import org.aswing.util.Vector;
 import flash.ui.Keyboard;
 import flash.display.Shape;
 import flash.events.MouseEvent;
+import flash.utils.getTimer;
 
 /**
  * @author iiley
@@ -690,19 +691,20 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		rendererShape.graphics.clear();
 		return new Graphics2D(rendererShape.graphics);
 	}
-	
+		
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
 		super.paint(c, g, b);
+		
 		var viewSize:IntDimension = getViewSize(tree);
 		rendererPane.setComBoundsXYWH(0, b.y, viewSize.width, b.height);
 		rendererPane.validate();
 		checkCreateCells();
 		var viewPosition:IntPoint = tree.getViewPosition();
 		lastViewPosition.setLocation(viewPosition);
-		var x:int = Math.round(viewPosition.x);
-		var y:int = Math.round(viewPosition.y);
+		var x:int = viewPosition.x;
+		var y:int = viewPosition.y;
 		var ih:int = tree.getRowHeight();
-		var startIndex:int = Math.floor(y/ih);
+		var startIndex:int = y/ih;
 		var startY:int = startIndex*ih - y;
 		var rowCount:int = getRowCount(tree);
 		
@@ -728,11 +730,13 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		var boundsBuffer:IntRectangle = new IntRectangle();
 		var treeModel:TreeModel = tree.getModel();
 		g = createRendererPaneGraphics();
-		for(var i:int = 0; i<cells.getSize(); i++){
-			var cell:TreeCell = TreeCell(cells.get(i));
+		var n:int = cells.getSize();
+		var paintingN:int = paintingEnumerator.length;
+		for(var i:int = 0; i<n; i++){
+			var cell:TreeCell = cells.get(i);
 			var path:TreePath = paintingEnumerator[i];
 			var cellCom:Component = cell.getCellComponent();
-			if(i < paintingEnumerator.length){
+			if(i < paintingN){
 				leaf = treeModel.isLeaf(path.getLastPathComponent());
 				if(leaf){
 					expanded = false;
