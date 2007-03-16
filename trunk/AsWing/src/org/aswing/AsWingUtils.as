@@ -239,10 +239,10 @@ public class AsWingUtils{
      * 
      */
     public static function applyTextColor(text:TextField, color:ASColor):void{
-        if(text.textColor != color.getRGB()){
+        if(text.textColor !== color.getRGB()){
         	text.textColor = color.getRGB();
         }
-        if(text.alpha != color.getAlpha()){
+        if(text.alpha !== color.getAlpha()){
         	text.alpha = color.getAlpha();
         }
     }    

@@ -33,7 +33,7 @@ public class PoorTextCell extends Component implements TableCell{
 	
 	override protected function paint(b:IntRectangle):void{
 		var t:String = text == null ? "" : text;
-		if(textField.text != t){
+		if(textField.text !== t){
 			textField.text = t;
 		}
 		if(!isFontValidated()){
