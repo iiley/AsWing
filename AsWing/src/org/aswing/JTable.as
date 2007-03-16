@@ -25,8 +25,10 @@ import org.aswing.table.Resizable2Imp1;
 import org.aswing.table.DefaultTableModel;
 import org.aswing.table.DefaultTableColumnModel;
 import org.aswing.table.DefaultTextCell;
+import org.aswing.table.PoorTextCell;
 import org.aswing.table.GeneralTableCellFactoryUIResource;
 import org.aswing.plaf.basic.BasicTableUI;
+import flash.utils.getTimer;
 
 /**
  * Dispatched when the row selection changed.
@@ -205,6 +207,12 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	public function JTable(dm:TableModel=null){
 		super();
 		setName("JTable");
+		
+		verticalUnitIncrement = AUTO_INCREMENT;
+		verticalBlockIncrement = AUTO_INCREMENT;
+		horizontalUnitIncrement = AUTO_INCREMENT;
+		horizontalBlockIncrement = AUTO_INCREMENT;
+		
 		initWithModels(dm);
 	}
 
@@ -229,11 +237,11 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private function initWithModels(dm:TableModel=null, cm:TableColumnModel=null, sm:ListSelectionModel=null):void{
 		setLayout(this);
 		
-		cellPane = new Container();
+		cellPane = new CellPane();
 		cellPane.setEnabled(false);
 		append(cellPane);
 		
-		headerPane = new Container();
+		headerPane = new CellPane();
 		headerPane.setEnabled(false);
 		append(headerPane);
 		
@@ -2373,10 +2381,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		setCellEditor(null);
 		setEditingColumn(-1);
 		setEditingRow(-1);
-		//setSurrendersFocusOnKeystroke(false);
 		setPreferredScrollableViewportSize(new IntDimension(450, 400));
-		//var toolTipManager:ToolTipManager = ToolTipManager.sharedInstance();
-		//toolTipManager.registerComponent(this);
 		//setAutoscrolls(true);
 	}
 	public function createDefaultDataModel():TableModel{
@@ -2393,7 +2398,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	}
 	public function createDefaultCellFactories():void{
 		defaultRenderersByColumnClass = new HashMap();
-		defaultRenderersByColumnClass.put("Object", new GeneralTableCellFactoryUIResource(DefaultTextCell));
+		defaultRenderersByColumnClass.put("Object", new GeneralTableCellFactoryUIResource(PoorTextCell));
 	}
 	public function createDefaultEditors():void{
 		defaultEditorsByColumnClass = new HashMap();
@@ -2644,9 +2649,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private var lastTotalColumnWidth:int=-1;
 	
 	private function layoutCells():void{
-		//trace("layoutCells");
-		// table viewport bounds
-		//var time:int = getTimer();
 		var insets:Insets = getInsets();
 		var insetsX:int = insets.left;
 		var insetsY:int = insets.top;
@@ -2726,8 +2728,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var startX:int = - viewPosition.x;
 		var startY:int = - viewPosition.y;
 		
-//		trace(" header, use time : " + (getTimer() - time));
-//		time = getTimer();
 		var row:int = rMin-1;
 		var showHL:Boolean = getShowHorizontalLines();
 		var showVL:Boolean = getShowVerticalLines();
@@ -2774,7 +2774,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 				cell.getCellComponent().setVisible(false);
 			}
 		}
-		//trace((rMax-rMin)*(cMax-cMin)+ " cells, use time : " + (getTimer() - time));
 	}
 	
 	private function layoutCell(row:int, column:int, cellRect:IntRectangle, cr:int, cc:int):void{
@@ -2800,7 +2799,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
         cell.getCellComponent().setComBounds(cellRect);
         cell.getCellComponent().setVisible(true);
         cell.getCellComponent().validate();
-    	//cell.getCellComponent().paintImmediately();
+    	cell.getCellComponent().paintImmediately();
 	}
 	
 	private var lastColumnCellFactories:Array;
