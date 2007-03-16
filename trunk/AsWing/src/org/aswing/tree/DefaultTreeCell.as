@@ -43,7 +43,7 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 		if(!b.equals(bounds)){
 			bounds.setRect(b);
 			locate();
-	    	valid = false;
+			valid = false;
 		}
 	}
 	
@@ -52,36 +52,36 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 	 */
 	override public function invalidate():void {
 		clearPreffeSizeCaches();
-    	valid = false;
-    }
-    
-    /**
+		valid = false;
+	}
+	
+	/**
 	 * Simpler this method to speed up performance
 	 */
-    override public function revalidate():void {
-    	valid = false;
-    }
-    
-    /**
-     * do nothing, because paintImmediately will be called in by Tree
-     * @see #paintImmediately()
-     */
-    override public function repaint():void{
-    	//do nothing, because paintImmediately will be called in by Tree
-    }
-    
-    public function getExpandedFolderIcon():Icon{
-    	return EXPANDED_FOLDER_ICON;
-    }
-    public function getCollapsedFolderIcon():Icon{
-    	return COLLAPSED_FOLDER_ICON;
-    }
-    public function getLeafIcon():Icon{
-    	return LEAF_ICON;
-    }
-    
+	override public function revalidate():void {
+		valid = false;
+	}
+	
+	/**
+	 * do nothing, because paintImmediately will be called in by Tree
+	 * @see #paintImmediately()
+	 */
+	override public function repaint():void{
+		//do nothing, because paintImmediately will be called in by Tree
+	}
+	
+	public function getExpandedFolderIcon():Icon{
+		return EXPANDED_FOLDER_ICON;
+	}
+	public function getCollapsedFolderIcon():Icon{
+		return COLLAPSED_FOLDER_ICON;
+	}
+	public function getLeafIcon():Icon{
+		return LEAF_ICON;
+	}
+	
 	//**********************************************************
-	//                  Implementing TableCell
+	//				  Implementing TableCell
 	//**********************************************************
 	public function setCellValue(value:*) : void {
 		readyToPaint = true;
