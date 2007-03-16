@@ -44,11 +44,12 @@ public class PoorTextCell extends Component implements TableCell{
 		textField.x = b.x;
 		textField.y = b.y;
 		if(isOpaque()){
+			graphics.clear();
 			var g:Graphics2D = new Graphics2D(graphics);
 			g.fillRectangle(new SolidBrush(getBackground()), b.x, b.y, b.width, b.height);
 		}
 	}
-	
+		
 	override public function setComBounds(b:IntRectangle):void{
 		readyToPaint = true;
 		if(!b.equals(bounds)){
