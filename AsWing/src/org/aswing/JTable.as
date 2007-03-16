@@ -2361,7 +2361,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	//*********************************************************
 
 	private function initializeLocalVars():void{
-		setOpaque(false);
 		createDefaultCellFactories();
 		createDefaultEditors();
 		setTableHeader(createDefaultTableHeader());
