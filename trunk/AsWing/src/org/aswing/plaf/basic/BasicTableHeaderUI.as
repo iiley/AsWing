@@ -58,8 +58,7 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		header.addEventListener(MouseEvent.ROLL_OVER, __onHeaderRollover);
 		header.addEventListener(MouseEvent.ROLL_OUT, __onHeaderRollout);
 		header.addEventListener(MouseEvent.MOUSE_DOWN, __onHeaderPressed);
-		header.addEventListener(MouseEvent.CLICK, __onHeaderReleased);
-		header.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onHeaderReleasedOutSide);
+		header.addEventListener(ReleaseEvent.RELEASE, __onHeaderReleased);
 	}
 	
 	override public function uninstallUI(c:Component):void {
@@ -81,8 +80,7 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		header.removeEventListener(MouseEvent.ROLL_OVER, __onHeaderRollover);
 		header.removeEventListener(MouseEvent.ROLL_OUT, __onHeaderRollout);
 		header.removeEventListener(MouseEvent.MOUSE_DOWN, __onHeaderPressed);
-		header.removeEventListener(MouseEvent.CLICK, __onHeaderReleased);
-		header.removeEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onHeaderReleasedOutSide);
+		header.removeEventListener(ReleaseEvent.RELEASE, __onHeaderReleased);
 	}
 	
 	//*************************************************
@@ -144,13 +142,9 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 			__onMouseMoving);
 		header.setResizingColumn(null);
 		resizing = false;
+		__onRollOverMouseMoving(null);
 	}
-	
-	private function __onHeaderReleasedOutSide(e:Event):void{
-		__onHeaderReleased(null);
-		__onHeaderRollout(null);
-	}
-	
+		
 	private function __onMouseMoving(e:MouseEvent):void{
 		var mouseX:int = header.getMousePosition().x;
 		var resizingColumn:TableColumn = header.getResizingColumn();
@@ -175,10 +169,10 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		var r:IntRectangle = header.getHeaderRect(column);
 		r.grow(-3, 0);
 		//if r contains p
-		if ((p.x > r.x && p.x < r.x+r.width) && (p.y > r.y && p.y < r.y+r.height)) {
+		if ((p.x > r.x && p.x < r.x+r.width)) {
 			return null;
 		}
-		var midPoint:Number = r.x + r.width / 2;
+		var midPoint:int = r.x + r.width / 2;
 		var columnIndex:int;
 		columnIndex = (p.x < midPoint) ? column - 1 : column;
 		if (columnIndex == -1) {

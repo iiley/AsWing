@@ -529,8 +529,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 		comDefaults = [
 			"Table.background", table.get("control"),
 			"Table.foreground", table.get("controlText"),
-			"Table.opaque", true,  
-			"Table.focusable", true,
+			"Table.opaque", true, 
+			"Table.focusable", true, 
 			"Table.font", table.getFont("controlFont"),
 			"Table.selectionBackground", new ASColorUIResource(0x666666),
 			"Table.selectionForeground", table.get("control"),
