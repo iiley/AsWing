@@ -16,11 +16,11 @@ public class CellPane extends Container{
 	}
 	
 	override public function revalidate():void{
-		this.valid = false;
+		valid = true;
 	}
 	
 	override public function invalidate():void{
-		this.valid = false;
+		valid = true;
 	}
 	
 	override public function validate():void {

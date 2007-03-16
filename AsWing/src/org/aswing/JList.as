@@ -210,7 +210,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	private var selectionForeground:ASColor;
 	private var selectionBackground:ASColor;
 	
-	protected var cellPane:Container;
+	protected var cellPane:CellPane;
 	private var cellFactory:ListCellFactory;
 	private var model:ListModel;
 	private var selectionModel:ListSelectionModel;
@@ -233,7 +233,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		
 		setName("JList");
 		layout = this;
-		cellPane = new Container();
+		cellPane = new CellPane();
 		append(cellPane);
 		viewPosition = new IntPoint(0, 0);
 		setSelectionModel(new DefaultListSelectionModel());

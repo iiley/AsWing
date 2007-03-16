@@ -25,7 +25,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 	/** Object responsible for handling sizing and expanded issues. */
 	protected var treeState:AbstractLayoutCache;	
 	
-	protected var rendererPane:Container;	
+	protected var rendererPane:CellPane;	
 	/** Total distance that will be indented.  The sum of leftChildIndent
 	  * and rightChildIndent. 
 	  */
@@ -121,7 +121,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 	}
 		
 	protected function installComponents():void{
-		rendererPane = new Container();
+		rendererPane = new CellPane();
 		rendererPane.setLayout(new EmptyLayout());
 		tree.append(rendererPane);
 	}
@@ -695,6 +695,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		super.paint(c, g, b);
 		var viewSize:IntDimension = getViewSize(tree);
 		rendererPane.setComBoundsXYWH(0, b.y, viewSize.width, b.height);
+		rendererPane.validate();
 		checkCreateCells();
 		var viewPosition:IntPoint = tree.getViewPosition();
 		lastViewPosition.setLocation(viewPosition);
