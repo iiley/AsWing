@@ -1,5 +1,5 @@
-package org.aswing.plaf.basic
-{
+package org.aswing.plaf.basic{
+	
 import flash.events.*;
 
 import org.aswing.*;
@@ -11,8 +11,7 @@ import org.aswing.plaf.basic.splitpane.*;
 import flash.display.Sprite;
 import flash.geom.Point;
 
-public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
-{
+public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	
 	private var sp:JSplitPane;
 	private var divider:Divider;
@@ -24,7 +23,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 	private var presentDragColor:ASColor;
 	
 	private var startDragPos:IntPoint;
-	private var startLocation:Number;
+	private var startLocation:int;
 	private var startDividerPos:IntPoint;
 	private var dragRepresentationMC:Sprite;
 	private var pressFlag:Boolean;  //the flag for pressed left or right collapseButton	
@@ -56,7 +55,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
         LookAndFeel.installColorsAndFont(sp, pp);
         LookAndFeel.installBorderAndBFDecorators(sp, pp);
         LookAndFeel.installBasicProperties(sp, pp);
-        presentDragColor = UIManager.getColor(pp+"presentDragColor");
+        presentDragColor = getColor(pp+"presentDragColor");
         lastContentSize = new IntDimension();
         sp.setLayout(this);
     }
@@ -134,7 +133,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 	/**
 	 * Override this method to return a different default divider size for your UI
 	 */
-    private function getDefaultDividerSize():Number{
+    private function getDefaultDividerSize():int{
     	return 10;
     }
     /**
@@ -149,7 +148,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
      * of the children components.
      */
     override public function resetToPreferredSizes(jc:JSplitPane):void{
-    	var loc:Number = jc.getDividerLocation();
+    	var loc:int = jc.getDividerLocation();
     	if(isVertical()){
     		if(jc.getLeftComponent() == null){
     			loc = 0;
@@ -179,9 +178,9 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
     	rect = sp.getInsets().getInsideBounds(rect);
     	var lc:Component = sp.getLeftComponent();
     	var rc:Component = sp.getRightComponent();
-    	var dvSize:Number = getDividerSize();
-    	var lcSize:Number = 0;
-    	var rcSize:Number = 0;
+    	var dvSize:int = getDividerSize();
+    	var lcSize:int = 0;
+    	var rcSize:int = 0;
     	location = Math.floor(location);
     	if(location < 0){
     		//collapse left
@@ -266,7 +265,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
     	divider.revalidateIfNecessary();
     }
     
-    public function getMinimumDividerLocation():Number{
+    public function getMinimumDividerLocation():int{
     	var leftCom:Component = sp.getLeftComponent();
     	if(leftCom == null){
     		return 0;
@@ -279,10 +278,10 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
     	}
     }
     
-    public function getMaximumDividerLocation():Number{
+    public function getMaximumDividerLocation():int{
     	var rightCom:Component = sp.getRightComponent();
     	var insets:Insets = sp.getInsets();
-    	var rightComSize:Number = 0;
+    	var rightComSize:int = 0;
     	if(rightCom != null){
     		rightComSize = isVertical() ? rightCom.getMinimumHeight() : rightCom.getMinimumWidth();
     	}
@@ -297,16 +296,16 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
     	return sp.getOrientation() == JSplitPane.VERTICAL_SPLIT;
     }
     
-    private function getDividerSize():Number{
-    	var si:Number = sp.getDividerSize();
-    	if(isNaN(si)){
+    private function getDividerSize():int{
+    	var si:int = sp.getDividerSize();
+    	if(si < 0){
     		return getDefaultDividerSize();
     	}else{
     		return si;
     	}
     }
     
-    private function restrictDividerLocation(loc:Number):Number{
+    private function restrictDividerLocation(loc:int):int{
     	return Math.max(
 				getMinimumDividerLocation(), 
 				Math.min(loc, getMaximumDividerLocation()));
@@ -435,19 +434,19 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 	}
 	
 	private function validateDivMoveWithCurrentMousePos():void{
-		var newLocation:Number = startLocation + getCurrentMovedDistance();
+		var newLocation:int = startLocation + getCurrentMovedDistance();
 		sp.setDividerLocation(newLocation);
 	}
 	
-	private function getCurrentMovedDistance():Number{
+	private function getCurrentMovedDistance():int{
 		var mouseP:IntPoint = sp.getMousePosition();
-		var delta:Number = 0;
+		var delta:int = 0;
 		if(isVertical()){
 			delta = mouseP.y - startDragPos.y;
 		}else{
 			delta = mouseP.x - startDragPos.x;
 		}
-		var newLocation:Number = startLocation + delta;
+		var newLocation:int = startLocation + delta;
 		newLocation = Math.max(
 			getMinimumDividerLocation(), 
 			Math.min(newLocation, getMaximumDividerLocation()));
@@ -514,16 +513,16 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager
 		var layouted:Boolean = false;
 		if(!size.equals(lastContentSize)){
 			//re weight the split
-			var deltaSize:Number = 0;
+			var deltaSize:int = 0;
 			if(isVertical()){
 				deltaSize = size.height - lastContentSize.height;
 			}else{
 				deltaSize = size.width - lastContentSize.width;
 			}
 			lastContentSize = size.clone();
-			var locationDelta:Number = deltaSize*sp.getResizeWeight();
+			var locationDelta:int = deltaSize*sp.getResizeWeight();
 			layouted = (locationDelta != 0);
-			var newLocation:Number = sp.getDividerLocation()+locationDelta;
+			var newLocation:int = sp.getDividerLocation()+locationDelta;
 			
 			newLocation = Math.max(
 				getMinimumDividerLocation(), 

@@ -15,7 +15,7 @@ public class TreePath{
       */
     private var parentPath:TreePath;
     /** Last path component. */
-    private var lastPathComponent:Object;
+    private var lastPathComponent:*;
     
     /**
      * Constructs a path from an array of Objects, uniquely identifying 
@@ -26,7 +26,7 @@ public class TreePath{
      * represent the path. The DefaultTreeModel returns an array of 
      * TreeNode objects. The first TreeNode in the path is the root of the
      * tree, the last TreeNode is the node identified by the path.
-     *
+     * </p>
      * @param path  an array of Objects representing the path to a node
      */
     public function TreePath(path:Array) {
@@ -46,7 +46,7 @@ public class TreePath{
      * Constructs a new TreePath, which is the path identified by
      * <code>parent</code> ending in <code>lastElement</code>.
      */
-    public static function createTreePath(parent:TreePath, lastElement:Object):TreePath {
+    public static function createTreePath(parent:TreePath, lastElement:*):TreePath {
 		if(lastElement == null){
 			trace("path in TreePath must be non null.");
 			throw new Error("path in TreePath must be non null.");
@@ -62,7 +62,7 @@ public class TreePath{
      * TreePath. The first element (index 0) is the root.
      *
      * @return an array of Objects representing the TreePath
-     * @see #TreePath(Object[])
+     * @see #TreePath(*[])
      */
     public function getPath():Array {
 		var i:Number = getPathCount();
@@ -80,9 +80,9 @@ public class TreePath{
      * DefaultTreeModel this will return an instance of TreeNode.
      *
      * @return the Object at the end of the path
-     * @see #TreePath(Object[])
+     * @see #TreePath(*[])
      */
-    public function getLastPathComponent():Object {
+    public function getLastPathComponent():* {
 		return lastPathComponent;
     }
 
@@ -91,7 +91,7 @@ public class TreePath{
      *
      * @return an int giving a count of items the path
      */
-    public function getPathCount():Number {
+    public function getPathCount():int {
         var result:Number = 0;
         for(var path:TreePath = this; path != null; path = path.parentPath) {
             result++;
@@ -108,8 +108,8 @@ public class TreePath{
      *         
      * @see #TreePath(Object[])
      */
-    public function getPathComponent(element:Number):Object {
-        var pathLength:Number = getPathCount();
+    public function getPathComponent(element:int):* {
+        var pathLength:int = getPathCount();
 
         if(element < 0 || element >= pathLength){
             return undefined;
@@ -117,7 +117,7 @@ public class TreePath{
 
         var path:TreePath = this;
 
-        for(var i:Number = pathLength-1; i != element; i--) {
+        for(var i:int = pathLength-1; i != element; i--) {
            path = path.parentPath;
         }
 		return path.lastPathComponent;
@@ -131,7 +131,7 @@ public class TreePath{
      *
      * @param o the Object to compare
      */
-    public function equals(o:Object):Boolean {
+    public function equals(o:*):Boolean {
 		if(o == this){
 		    return true;
 		}
@@ -194,7 +194,7 @@ public class TreePath{
      * This will throw a NullPointerException
      * if child is null.
      */
-    public function pathByAddingChild(child:Object):TreePath {
+    public function pathByAddingChild(child:*):TreePath {
 		if(child == null){
 			trace("Null child not allowed");
 	    	throw new Error("Null child not allowed");

@@ -626,7 +626,7 @@ public class Component extends AWSprite{
      * The background color affects each component differently.
      *
      * @param c the color to become this component's color;
-     *          if this parameter is <code>null/undefined</code> and it has parent, then this
+     *          if this parameter is <code>null</code> and it has parent, then this
      *          component will inherit the background color of its parent
      * @see #getBackground()
 	 */
@@ -660,7 +660,7 @@ public class Component extends AWSprite{
      * The foreground color affects each component differently.
      *
      * @param c the color to become this component's color;
-     *          if this parameter is <code>null/undefined</code> and it has parent, then this
+     *          if this parameter is <code>null</code> and it has parent, then this
      *          component will inherit the foreground color of its parent
      * @see #getForeground()
 	 */
@@ -826,7 +826,7 @@ public class Component extends AWSprite{
 	
 	/**
 	 * <p>Stores the bounds value of this component into "return value" rv and returns rv. 
-	 * If rv is null or undefined a new IntRectangle object is allocated. 
+	 * If rv is null a new IntRectangle object is allocated. 
 	 * 
 	 * @param rv the return value, modified to the component's bounds.
 	 * 
@@ -891,7 +891,7 @@ public class Component extends AWSprite{
 	
 	/**
 	 * Stores the location value of this component into "return value" rv and returns rv. 
-	 * If p is null or undefined a new Point object is allocated. 
+	 * If p is null a new Point object is allocated. 
 	 * @param rv the return value, modified to the component's location.
 	 */
 	public function getLocation(rv:IntPoint=null):IntPoint{
@@ -905,7 +905,7 @@ public class Component extends AWSprite{
 	
 	/**
 	 * Stores the global location value of this component into "return value" p and returns p. 
-	 * If p is null or undefined a new Point object is allocated. 
+	 * If p is null a new Point object is allocated. 
 	 * @param p the return value, modified to the component's global location.
 	 * @see #getLocation()
 	 * @see #setGlobalLocation()
@@ -973,7 +973,7 @@ public class Component extends AWSprite{
 	
 	/**
 	 * Stores the size value of this component into "return value" rv and returns rv. 
-	 * If rv is null or undefined a new IntDimension object is allocated. 
+	 * If rv is null a new IntDimension object is allocated. 
 	 * @param rv the return value, modified to the component's size.
 	 */	
 	public function getSize(rv:IntDimension=null):IntDimension{

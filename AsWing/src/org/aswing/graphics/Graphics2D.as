@@ -397,7 +397,7 @@ public class Graphics2D {
 	 * @param y the left top the rectangle bounds' y corrdinate.
 	 * @param width the width of rectangle bounds.
 	 * @param height the height of rectangle bounds.
-	 * @param radius the radius of the top left corner, if other corner radius is undefined, will use this radius as default
+	 * @param radius the radius of the top left corner, if other corner radius is -1, will use this radius as default
 	 * @param topRightRadius	 the radius of the top right corner, if omitted, use the top left as default.
 	 * @param bottomLeftRadius   the radius of the bottom left corner, if omitted, use the top left as default.
 	 * @param bottomRightRadius  the radius of the bottom right corner, if omitted, use the top left as default.
@@ -617,7 +617,7 @@ public class Graphics2D {
 	 * @param y the y corrdinate of the roundRect.
 	 * @param width  the width corrdinate of roundRect.
 	 * @param height the width corrdinate of roundRect.
-	 * @param radius the radius of the top left corner, if other corner radius is undefined, will use this radius as default
+	 * @param radius the radius of the top left corner, if other corner radius is -1, will use this radius as default
 	 * @param topRightRadius	 (optional)the radius of the top right corner, if omitted, use the top left as default.
 	 * @param bottomLeftRadius   (optional)the radius of the bottom left corner, if omitted, use the top left as default.
 	 * @param bottomRightRadius  (optional)the radius of the bottom right corner, if omitted, use the top left as default.

@@ -128,7 +128,7 @@ public class JWindow extends JPopup{
 	/**
 	 * Sets the window's content pane.
 	 * @param cp the content pane you want to set to the window.
-	 * @throws Error when cp is null or undefined
+	 * @throws Error when cp is null
 	 */
 	public function setContentPane(cp:Container):void{
 		if(cp != contentPane){
