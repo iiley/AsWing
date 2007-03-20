@@ -36,9 +36,9 @@ public class StringUtils
  	 * remove only the blankspace on targetString's left
  	 */
  	public static function trimLeft(targetString:String):String{
- 		var tempIndex:Number = 0;
+ 		var tempIndex:int = 0;
  		var tempChar:String = "";
- 		for(var i:Number=0 ; i<targetString.length ; i++){
+ 		for(var i:int=0 ; i<targetString.length ; i++){
  			tempChar = targetString.charAt(i);
  			if(tempChar != " "){
  				tempIndex = i;
@@ -52,9 +52,9 @@ public class StringUtils
  	 * remove only the blankspace on targetString's right
  	 */
  	public static function trimRight(targetString:String):String{
- 		var tempIndex:Number = targetString.length-1;
+ 		var tempIndex:int = targetString.length-1;
  		var tempChar:String = "";
- 		for(var i:Number=targetString.length-1 ; i>=0 ; i--){
+ 		for(var i:int=targetString.length-1 ; i>=0 ; i--){
  			tempChar = targetString.charAt(i);
  			if(tempChar != " "){
  				tempIndex = i;

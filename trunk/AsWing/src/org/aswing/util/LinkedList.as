@@ -215,7 +215,7 @@ public class LinkedList implements List
 	}
 	
 	/**
-	 * Returns undefined if out of bounds
+	 * Returns null if out of bounds
 	 */
 	public function removeRange(fromIndex : int, toIndex : int) : Array {
 		if(fromIndex > toIndex){
@@ -224,10 +224,10 @@ public class LinkedList implements List
 			toIndex = temp; 
 		}
 		if(fromIndex < 0 || fromIndex >= size()){
-			return undefined;
+			return null;
 		}
 		if(toIndex < 0 || toIndex >= size()){
-			return undefined;
+			return null;
 		}
 		var preNode:ListNode = getNodeAt(fromIndex - 1);
 		var nexNode:ListNode = getNodeAt(toIndex + 1);

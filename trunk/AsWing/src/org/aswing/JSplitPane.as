@@ -130,6 +130,7 @@ public class JSplitPane extends Container{
 		this.setRightComponent(rightComponent);
 		resizeWeight = 0.5;
 		lastDividerLocation = dividerLocation = 1;
+		dividerSize = -1;
 		oneTouchExpandable = false;
 		updateUI();
 	}
@@ -448,7 +449,7 @@ public class JSplitPane extends Container{
     }
     
     /**
-     * Returns the divider size. default it is undefined, means the UI will manage this.
+     * Returns the divider size. default it is -1, means the UI will manage this.
      * @return the divider size
      * @see #setDividerSize()
      */

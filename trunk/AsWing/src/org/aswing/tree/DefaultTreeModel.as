@@ -230,8 +230,8 @@ public class DefaultTreeModel implements TreeModel {
      * model has changed below the node <code>node</code> (PENDING).
      * @param node (optional). Default is root.
      */
-    public function reload(node:TreeNode):void {
-    	if(node == undefined) node = root;
+    public function reload(node:TreeNode=null):void {
+    	if(node == null) node = root;
         if(node != null) {
             fireTreeStructureChanged(this, getPathToRoot(node), null, null);
         }

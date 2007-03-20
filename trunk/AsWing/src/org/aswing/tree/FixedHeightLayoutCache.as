@@ -248,12 +248,7 @@ public class FixedHeightLayoutCache extends AbstractLayoutCache{
 	override public function getVisiblePathsFrom(path:TreePath, totalCount:int):Array {
 		if(path == null)
 			return null;
-			
-		if(totalCount == undefined){
-			trace("Error : totalCount is undefined!!");
-			return null;
-		}
-	
+				
 		var node:FHTreeStateNode = getNodeForPath(path, true, false);
 	
 		if(node != null) {

@@ -42,7 +42,7 @@ public class Stack extends Vector
      * @return     the object at the top of this stack (the last item 
      *             of the <tt>Vector</tt> object). undefined is there is no items.
 	 */
-	public function peek():Object{
+	public function peek():*{
 		return _elements[_elements.length-1];
 	}
 	

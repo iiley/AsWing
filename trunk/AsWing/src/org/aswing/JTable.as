@@ -220,7 +220,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * Initializes the <code>JTable</code> with
 	 * <code>dm</code> as the data model, <code>cm</code> as the
 	 * column model, and <code>sm</code> as the selection model.
-	 * If any of the parameters are <code>null/undefined</code> this method
+	 * If any of the parameters are <code>null</code> this method
 	 * will initialize the table with the corresponding default model.
 	 * The <code>autoCreateColumnsFromModel</code> flag is set to false
 	 * if <code>cm</code> is non-null, otherwise it is set to true
@@ -1894,7 +1894,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *
 	 * @param   row                             the row to be edited
 	 * @param   column                          the column to be edited
-	 * @param	clickCount						the click count, if force to edite, pass undefined to this param.
+	 * @param	clickCount						the click count, if force to edite, pass -1 to this param.
 	 * @return  false if for any reason the cell cannot be edited,
 	 *                or if the indices are invalid
 	 */	
