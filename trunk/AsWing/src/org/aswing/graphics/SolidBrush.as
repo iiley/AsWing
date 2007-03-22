@@ -16,7 +16,6 @@ import org.aswing.graphics.IBrush;
 public class SolidBrush implements IBrush{
 	
 	private var color:ASColor;
-	private var alpha:Number;
 	
 	public function SolidBrush(color:ASColor){
 		this.color = color;
@@ -27,21 +26,21 @@ public class SolidBrush implements IBrush{
 	}
 	
 	/**
-	 * 
+	 * Sets the color
 	 */
 	public function setColor(color:ASColor):void{		
 		this.color = color;	
 	}
 	
 	/**
-	 * 
+	 * Begins fill
 	 */
 	public function beginFill(target:Graphics):void{
 		target.beginFill(color.getRGB(), color.getAlpha());
 	}
 	
 	/**
-	 * 
+	 * Ends fill
 	 */
 	public function endFill(target:Graphics):void{
 		target.endFill();
