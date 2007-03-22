@@ -437,9 +437,8 @@ public class FloorPane extends Container{
 			var floor:DisplayObject = getFloorMC();
 			var b:IntRectangle = getPaintBounds();
 			var s:IntDimension = countFloorSize();
-			
-			floorMCMask.x = b.x + this.x;
-			floorMCMask.y = b.y + this.y;
+			floorMCMask.x = b.x;
+			floorMCMask.y = b.y;
 			floorMCMask.width = b.width;
 			floorMCMask.height = b.height;
 			if(scaleMode == SCALE_STRETCH_PANE){
@@ -572,6 +571,7 @@ public class FloorPane extends Container{
 			floorMCMask = createFloorMask();
 			if (floorMC != null){			
 				this.addChild(floorMC);
+				this.addChild(floorMCMask);
 				setLoaded(false);
 				loadFloor();
 			}
@@ -598,6 +598,7 @@ public class FloorPane extends Container{
 		if (floor != null && this.contains(floor)){
 			floor.mask = null;
 			this.removeChild(floor);
+			this.removeChild(floorMCMask);
 		}
 	}
 	
