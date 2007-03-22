@@ -4,6 +4,7 @@ import org.aswing.graphics.Graphics2D;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import org.aswing.error.ImpMissError;
+import flash.geom.Rectangle;
 
 /**
  * Abstract class for A icon with a decorative displayObject.
@@ -20,7 +21,7 @@ public class FloorIcon implements Icon
 	private var scale:Boolean; 
 	private var sizeInited:Boolean;
 	private var floorMC:DisplayObject;
-	private var maskMC:Sprite;
+	private var scrollRect:Rectangle;
 	private var floorLoaded:Boolean;
 	
 	/**
@@ -46,8 +47,9 @@ public class FloorIcon implements Icon
 		if (width==0 || height==0){
 			sizeInited = false;
 		}
-		maskMC = createMask();
+		scrollRect = createScrollRect();
 		setLoaded(floorMC != null);
+		reload();
 	}
 	
 	protected function setSizeInited(b:Boolean):void{
@@ -100,20 +102,16 @@ public class FloorIcon implements Icon
 			floor.x = x;
 			floor.y = y;
 			if(floor.width == width && floor.height == height){
-				floor.mask = null;
+				floor.scrollRect = null;
 			}else if(scale){
 				floor.width = width;
 				floor.height = height;
-				floor.mask = null;
+				floor.scrollRect = null;
 			}else{
-				maskMC.x = c.x+x;
-				maskMC.y = c.y+y;
-				maskMC.width = width;
-				maskMC.height = height;
-				floor.mask = maskMC;
+				scrollRect.width = width;
+				scrollRect.height = height;
+				floor.scrollRect = scrollRect;
 			}
-		}else{
-			reload();
 		}
 	}
 	
@@ -128,14 +126,11 @@ public class FloorIcon implements Icon
 	/**
 	 * create the mask of the displayObject
 	 */
-	protected function createMask():Sprite{
-		if (maskMC == null){
-			maskMC = new Sprite();
-			maskMC.graphics.beginFill(0xFF0000);
-			maskMC.graphics.drawRect(0, 0, 1, 1);
-			maskMC.visible = false;
+	protected function createScrollRect():Rectangle{
+		if (scrollRect == null){
+			scrollRect = new Rectangle(0,0,1,1);
 		}
-		return maskMC;
+		return scrollRect;
 	}
 	
 	public function getIconHeight():int
