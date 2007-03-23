@@ -118,6 +118,16 @@ public class KeyboardManager{
 	}
 	
 	/**
+	 * Returns whether or not the key is down. 
+	 * This method is same to <code>getInstance().isKeyDown()</code> 
+	 * @param the key code
+	 * @return true if the specified key is down, false if not.
+	 */
+	public static function isDown(keyCode:uint):Boolean{
+		return getInstance().isKeyDown(keyCode);
+	}
+	
+	/**
 	 * Sets the mnemonic modifier key codes, the default is [Ctrl, Shift], however 
 	 * for normal UI frameworks, it is [Alt], but because the flashplayer or explorer will 
 	 * eat [Alt] for thier own mnemonic modifier, so we set our default to [Ctrl, Shift].
