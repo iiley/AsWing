@@ -107,6 +107,9 @@ public class AsWingUtils{
      * @return whether or not the ancestor is the child's ancestor.
      */
     public static function isAncestor(ancestor:Component, child:Component):Boolean{
+    	if(ancestor == null || child == null) 
+    		return false;
+    		
     	var pa:DisplayObjectContainer = child.parent;
     	while(pa != null){
     		if(pa == ancestor){
@@ -122,6 +125,9 @@ public class AsWingUtils{
      * @return whether or not the ancestor is the child's ancestor.
      */
     public static function isAncestorDisplayObject(ancestor:DisplayObjectContainer, child:DisplayObject):Boolean{
+    	if(ancestor == null || child == null) 
+    		return false;
+    		
     	var pa:DisplayObjectContainer = child.parent;
     	while(pa != null){
     		if(pa == ancestor){
