@@ -4,9 +4,9 @@
 
 package org.aswing.util
 {
-	
-import flash.utils.Dictionary;	
-	
+
+import flash.utils.Dictionary;
+
 /**
  * To successfully store and retrieve (key->value) mapping from a HashMap.
  * HashMap accept any type of object to be the key: number, string, Object etc... 
@@ -46,12 +46,10 @@ public class HashMap
 
     private var length:int;
     private var content:Dictionary;
-    private var keyContent:Dictionary;
 		
  	public function HashMap(){
         length = 0;
         content = new Dictionary();
-        keyContent = new Dictionary();
  	}
 
  	//-------------------public methods--------------------
@@ -76,7 +74,7 @@ public class HashMap
  	public function keys():Array{
   		var temp:Array = new Array(length);
   		var index:int = 0;
-  		for each(var i:* in keyContent){
+  		for(var i:* in content){
    			temp[index] = i;
    			index ++;
   		}
@@ -175,7 +173,6 @@ public class HashMap
  			}
  			var oldValue:* = this.get(key);
    			content[key]=value;
-   			keyContent[key]=key;
    			return oldValue;
   		}
  	}
@@ -196,7 +193,6 @@ public class HashMap
  		}
   		var temp:* = content[key];
    		delete content[key];
-   		delete keyContent[key];
    		length--;
   		return temp;
  	}
@@ -207,7 +203,6 @@ public class HashMap
  	public function clear():void{
   		length = 0;
   		content = new Dictionary();
-  		keyContent = new Dictionary();
  	}
 
  	/**
@@ -215,7 +210,7 @@ public class HashMap
  	 */
  	public function clone():HashMap{
   		var temp:HashMap = new HashMap();
-  		for each(var i:* in keyContent){
+  		for(var i:* in content){
    			temp.put(i, content[i]);
   		}
   		return temp;
