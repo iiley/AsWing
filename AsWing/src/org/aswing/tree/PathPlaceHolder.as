@@ -8,8 +8,8 @@ import org.aswing.tree.TreePath;
  * @author iiley
  */
 public class PathPlaceHolder {
-    var isNew:Boolean;
-    var path:TreePath;
+    internal var isNew:Boolean;
+    internal var path:TreePath;
 
     public function PathPlaceHolder(path:TreePath, isNew:Boolean) {
 		this.path = path;
