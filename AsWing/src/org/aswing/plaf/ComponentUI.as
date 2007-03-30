@@ -191,7 +191,7 @@ public interface ComponentUI
      * then it will call <code>UIManager.get</code> to get it from LAF defaults.
      * @return the default property of specifiled key.
      */
-    function getDefault(key:String):*;;
+    function getDefault(key:String):*;
 	
 	function getBoolean(key:String):Boolean;
 	
@@ -215,7 +215,9 @@ public interface ComponentUI
 	
 	function getInsets(key:String):Insets;
 	
-	function getInstance(key:String):Object;  
+	function getInstance(key:String):Object;
+	
+	function getClass(key:String):Class;
 }
 	
 }
