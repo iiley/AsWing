@@ -457,7 +457,7 @@ public class JSplitPane extends Container{
     	return dividerSize;
     }
     
-	override protected function insertImp(i:int, com:Component, constraints:Object=null, forceChildIndex:int=-1):void{
+	override protected function insertImp(i:int, com:Component, constraints:Object=null):void{
 		var toRemove:Component;
 		if(constraints == LEFT){
 			toRemove = leftComponent;

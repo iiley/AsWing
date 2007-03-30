@@ -9,6 +9,9 @@ import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.*;
 import org.aswing.event.*;
+import org.aswing.geom.*;
+import flash.display.Shape;
+import flash.display.DisplayObjectContainer;
 
 /**
  * Dispatched when the mouse released or released out side.
@@ -45,9 +48,142 @@ public class AWSprite extends Sprite
 	private var foregroundChild:DisplayObject;
 	private var backgroundChild:DisplayObject;
 	
-	public function AWSprite(){
+	private var clipMasked:Boolean = false;
+	private var clipMaskRect:IntRectangle;
+	private var content:Sprite;
+	private var maskShape:Shape;
+	private var usingBitmap:Boolean;
+	
+	public function AWSprite(clipMasked:Boolean=false){
 		super();
+		usingBitmap = false;
+		clipMaskRect = new IntRectangle();
+		setClipMasked(clipMasked);
 		addEventListener(MouseEvent.MOUSE_DOWN, __awSpriteMouseDownListener);
+	}
+	
+	protected function d_addChild(child:DisplayObject):DisplayObject{
+		return super.addChild(child);
+	}
+	
+	protected function d_addChildAt(child:DisplayObject, index:int):DisplayObject{
+		return super.addChildAt(child, index);
+	}
+	
+	override public function addChildAt(child:DisplayObject, index:int):DisplayObject{
+		if(usingBitmap){
+			return content.addChildAt(child, index);
+		}else{
+			return d_addChildAt(child, index);
+		}
+	}
+	
+	protected function d_removeChild(child:DisplayObject):DisplayObject{
+		return super.removeChild(child);
+	}
+	
+	override public function removeChild(child:DisplayObject):DisplayObject{
+		if(usingBitmap){
+			return content.removeChild(child);
+		}else{
+			return d_removeChild(child);
+		}
+	}
+	
+	protected function d_removeChildAt(index:int):DisplayObject{
+		return super.removeChildAt(index);
+	}
+	
+	override public function removeChildAt(index:int):DisplayObject{
+		if(usingBitmap){
+			return content.removeChildAt(index);
+		}else{
+			return d_removeChildAt(index);
+		}
+	}
+	
+	protected function d_getChildAt(index:int):DisplayObject{
+		return super.getChildAt(index);
+	}
+	
+	override public function getChildAt(index:int):DisplayObject{
+		if(usingBitmap){
+			return content.getChildAt(index);
+		}else{
+			return d_getChildAt(index);
+		}
+	}
+	
+	protected function d_getChildByName(name:String):DisplayObject{
+		return super.getChildByName(name);
+	}
+	
+	override public function getChildByName(name:String):DisplayObject{
+		if(usingBitmap){
+			return content.getChildByName(name);
+		}else{
+			return d_getChildByName(name);
+		}
+	}
+	
+	protected function d_getChildIndex(child:DisplayObject):int{
+		return super.getChildIndex(child);
+	}
+	
+	override public function getChildIndex(child:DisplayObject):int{
+		if(usingBitmap){
+			return content.getChildIndex(child);
+		}else{
+			return d_getChildIndex(child);
+		}
+	}
+	
+	protected function d_setChildIndex(child:DisplayObject, index:int):void{
+		super.setChildIndex(child, index);
+	}
+	
+	override public function setChildIndex(child:DisplayObject, index:int):void{
+		if(usingBitmap){
+			content.setChildIndex(child, index);
+		}else{
+			d_setChildIndex(child, index);
+		}
+	}
+	
+	protected function d_swapChildren(child1:DisplayObject, child2:DisplayObject):void{
+		super.swapChildren(child1, child2);
+	}
+	
+	override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void{
+		if(usingBitmap){
+			content.swapChildren(child1, child2);
+		}else{
+			d_swapChildren(child1, child2);
+		}
+	}
+	
+	protected function d_swapChildrenAt(index1:int, index2:int):void{
+		super.swapChildrenAt(index1, index2);
+	}
+	
+	override public function swapChildrenAt(index1:int, index2:int):void{
+		if(usingBitmap){
+			content.swapChildrenAt(index1, index2);
+		}else{
+			d_swapChildrenAt(index1, index2);
+		}
+	}
+	
+	protected function get d_numChildren():int{
+		return super.numChildren;
+	}
+	
+	override public function get numChildren():int{
+		if(usingBitmap){
+			return content.numChildren;
+		}else{
+			return d_numChildren;
+		}
 	}
 	
 	/**
@@ -67,10 +203,17 @@ public class AWSprite extends Sprite
 	 */
 	public override function addChild(dis:DisplayObject):DisplayObject{
 		if(foregroundChild != null){
-			return addChildAt(dis, getChildIndex(foregroundChild));
-		}else{
-			return super.addChild(dis);
+			if(usingBitmap){
+				return content.addChildAt(dis, content.getChildIndex(foregroundChild));
+			}
+			d_addChild(dis);
+			d_swapChildren(dis, foregroundChild);
+			return dis;
 		}
+		if(usingBitmap){
+			return content.addChild(dis);
+		}
+		return d_addChild(dis);
 	}
 	
 	/**
@@ -190,6 +333,141 @@ public class AWSprite extends Sprite
 	 */
 	protected function getForegroundChild():DisplayObject{
 		return foregroundChild;
+	}
+
+	/**
+	 * Sets whether the component clip should be masked by its bounds. By default it is true.
+	 * <p>
+	 * AsWing A3 use <code>scrollRect</code> property to do the clip mask.
+	 * </p>
+	 * @param m whether the component clip should be masked.
+	 * @see #isClipMasked()
+	 */
+	public function setClipMasked(m:Boolean):void{
+		if(m != clipMasked){
+			clipMasked = m;
+			if(clipMasked){
+				checkCreateMaskShape();
+				if(maskShape.parent != this){
+					d_addChild(maskShape);
+					mask = maskShape;
+				}
+				setClipMaskRect(clipMaskRect);
+			}else{
+				if(maskShape != null && maskShape.parent == this){
+					d_removeChild(maskShape);
+				}
+				mask = null;
+			}
+		}
+	}
+	
+	protected function setClipMaskRect(b:IntRectangle):void{
+		if(maskShape){
+			maskShape.x = b.x;
+			maskShape.y = b.y;
+			maskShape.height = b.height;
+			maskShape.width = b.width;
+		}
+		clipMaskRect.setRect(b);
+	}
+	
+	private function setUsingBitmap(b:Boolean):void{
+		if(usingBitmap != b){
+			usingBitmap = b;
+			usingBitmapChanged();
+		}
+	}
+	
+	private function usingBitmapChanged():void{
+		if(usingBitmap){
+			if(!content){
+				content = new Sprite();
+				content.tabEnabled = false;
+				content.mouseEnabled = false;
+			}
+			//move children from this to content
+			var children:Array = new Array();
+			var n:int = d_numChildren;
+			for(var i:int=0; i<n; i++){
+				if(d_getChildAt(i) != maskShape){
+					children.push(d_getChildAt(i));
+				}
+			}
+			for(var i:int=0; i<children.length; i++){
+				content.addChild(children[i]);
+			}
+			
+			d_addChild(content);
+			if(clipMasked){
+				super.mask = null;
+				content.mask = maskShape;
+			}
+		}else{
+			d_removeChild(content);
+			
+			//move children from content to this
+			var children:Array = new Array();
+			var n:int = content.numChildren;
+			for(var i:int=0; i<n; i++){
+				children.push(content.getChildAt(i));
+			}
+			for(var i:int=0; i<children.length; i++){
+				d_addChild(children[i]);
+			}
+			
+			if(clipMasked){
+				content.mask = null;
+				super.mask = maskShape;
+			}
+		}
+	}
+	
+	override public function set mask(value:DisplayObject):void{
+		if(usingBitmap){
+			content.mask = value;
+		}else{
+			super.mask = value;
+		}
+	}
+	
+	override public function get mask():DisplayObject{
+		if(usingBitmap){
+			return content.mask;
+		}else{
+			return super.mask;
+		}
+	}
+	
+	override public function set filters(value:Array):void{
+		super.filters = value;
+		setUsingBitmap(super.cacheAsBitmap);
+	}
+	
+	override public function set cacheAsBitmap(value:Boolean):void{
+		super.cacheAsBitmap = value;
+		setUsingBitmap(value);
+	}
+	
+	private function checkCreateMaskShape():void{
+		if(!maskShape){
+			maskShape = new Shape();
+			maskShape.graphics.beginFill(0);
+			maskShape.graphics.drawRect(0, 0, 1, 1);
+			maskShape.graphics.endFill();
+		}
+	}
+	
+	/**
+	 * Returns whether the component clip should be masked by its bounds. By default it is true.
+	 * <p>
+	 * AsWing A3 use <code>scrollRect</code> property to do the clip mask.
+	 * </p>
+	 * @return whether the component clip should be masked.
+	 * @see #setClipMasked()
+	 */
+	public function isClipMasked():Boolean{
+		return clipMasked;
 	}
 	
 	private var pressedTarget:DisplayObject;
