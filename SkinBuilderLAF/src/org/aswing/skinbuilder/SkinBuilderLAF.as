@@ -90,12 +90,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		var comDefaults:Array = [
 			"Button.defaultImage", Button_defaultImage,
 			"Button.pressedImage", Button_pressedImage,
-			//"Button.disabledImage", Button_disabledImage,
-			//"Button.selectedImage", Button_selectedImage,
-			//"Button.disabledSelectedImage", Button_disabledSelectedImage,
+			//"Button.disabledImage", Button_disabledImage
 			"Button.rolloverImage", Button_rolloverImage,
-			//"Button.rolloverSelectedImage", Button_rolloverSelectedImage,
-			
 			"Button.bg", SkinButtonBackground,
 			"Button.margin", new InsetsUIResource(2, 3, 3, 2)
 		];
