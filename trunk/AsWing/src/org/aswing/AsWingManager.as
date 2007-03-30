@@ -38,7 +38,7 @@ public class AsWingManager{
      */
     public static function setRoot(root:DisplayObjectContainer):void{
         ROOT = root;
-        if(stage == null){
+        if(stage == null && root.stage != null){
         	initStage(root.stage);
         }
     }
