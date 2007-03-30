@@ -3,14 +3,15 @@
 */
 
 package org.aswing.skinbuilder{
-	
+
+import org.aswing.plaf.*;
 import org.aswing.plaf.basic.*;
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.Graphics2D;
 import flash.display.*;
 
-public class SkinButtonUI extends BasicButtonUI implements GroundDecorator{
+public class SkinButtonBackground implements GroundDecorator, UIResource{
 	
     protected var defaultImage:Sprite;
     protected var pressedImage:Sprite;
@@ -22,22 +23,26 @@ public class SkinButtonUI extends BasicButtonUI implements GroundDecorator{
     
     protected var lastViewedImage:Sprite;
     protected var imageContainer:Sprite;
-	
-	public function SkinButtonUI(){
-		super();
+    protected var setuped:Boolean;
+    
+	public function SkinButtonBackground(){
+		setuped = false;
 		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
 	}
 	
- 	override protected function installDefaults(b:AbstractButton):void{
-        super.installDefaults(b);
+    protected function getPropertyPrefix():String {
+        return "Button.";
+    }
+	
+	protected function setupAssets(ui:ComponentUI):void{
         var pp:String = getPropertyPrefix();
-        defaultImage  = getInstance(pp+"defaultImage") as Sprite;
-        pressedImage  = getInstance(pp+"pressedImage") as Sprite;
-        disabledImage = getInstance(pp+"disabledImage") as Sprite;
-        selectedImage         = getInstance(pp+"selectedImage") as Sprite;
-        disabledSelectedImage = getInstance(pp+"disabledSelectedImage") as Sprite;
-        rolloverImage         = getInstance(pp+"rolloverImage") as Sprite;
-        rolloverSelectedImage = getInstance(pp+"rolloverSelectedImage") as Sprite;
+        defaultImage  = ui.getInstance(pp+"defaultImage") as Sprite;
+        pressedImage  = ui.getInstance(pp+"pressedImage") as Sprite;
+        disabledImage = ui.getInstance(pp+"disabledImage") as Sprite;
+        selectedImage         = ui.getInstance(pp+"selectedImage") as Sprite;
+        disabledSelectedImage = ui.getInstance(pp+"disabledSelectedImage") as Sprite;
+        rolloverImage         = ui.getInstance(pp+"rolloverImage") as Sprite;
+        rolloverSelectedImage = ui.getInstance(pp+"rolloverSelectedImage") as Sprite;
         
         addStateImage(defaultImage);
         addStateImage(pressedImage);
@@ -48,8 +53,7 @@ public class SkinButtonUI extends BasicButtonUI implements GroundDecorator{
         addStateImage(rolloverSelectedImage);
         defaultImage.visible = true;
         lastViewedImage = defaultImage;
-        button.setBackgroundDecorator(this);
- 	}
+	}
  	
  	private function addStateImage(img:Sprite):void{
         if(img != null){
@@ -63,6 +67,17 @@ public class SkinButtonUI extends BasicButtonUI implements GroundDecorator{
  	}
  	
  	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
+ 		if(!setuped){
+ 			setupAssets(com.getUI());
+ 			setuped = true;
+ 		}
+ 		
+ 		var button:AbstractButton = AbstractButton(com)
+ 		
+ 		imageContainer.visible = button.isOpaque();
+ 		if(!button.isOpaque()){
+ 			return;
+ 		}
  		var model:ButtonModel = button.getModel();
  		var image:Sprite = defaultImage;
  		var tmpImage:Sprite = null;
