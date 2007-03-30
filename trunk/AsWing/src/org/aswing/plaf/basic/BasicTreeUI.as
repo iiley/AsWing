@@ -686,7 +686,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 	protected function createRendererPaneGraphics():Graphics2D{
 		if(rendererShape == null){
 			rendererShape = new Shape();
-			rendererPane.DC_addChild(rendererShape);
+			rendererPane.addChild(rendererShape);
 		}
 		rendererShape.graphics.clear();
 		return new Graphics2D(rendererShape.graphics);

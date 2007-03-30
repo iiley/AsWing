@@ -74,8 +74,6 @@ public class BasicButtonUI extends BaseComponentUI
         LookAndFeel.installBasicProperties(b, pp);
         setTextShiftOffset();
         button.mouseChildren = false;
-        //Because the bug of http://www.rgenerat.org/iileyblog/?p=60 we need set it true here
-        b.cacheAsBitmap = true;
  	}
 	
  	protected function uninstallDefaults(b:AbstractButton):void{

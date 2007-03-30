@@ -224,7 +224,7 @@ public class Container extends Component{
 	 * @param forceChildIndex the index to force the child to be added(for DisplayContainer scope), 
 	 * 			default -1 means not force.
 	 */
-	protected function insertImp(i:int, com:Component, constraints:Object=null, forceChildIndex:int=-1):void{
+	protected function insertImp(i:int, com:Component, constraints:Object=null):void{
 		if(i > getComponentCount()){
 			throw new RangeError("illegal component position when insert comp to container");
 		}
@@ -240,15 +240,12 @@ public class Container extends Component{
 		}
 		if(i < 0){
 			children.push(com);
-			DC_addChild(com);
+			addChild(com);
 		}else{
-			if(forceChildIndex >= 0){
-				DC_addChildAt(com, forceChildIndex);
-			}else{
-				DC_addChildAt(com, getChildIndexWithComponentIndex(i));
-			}
+			addChildAt(com, getChildIndexWithComponentIndex(i));
 			children.splice(i, 0, com);
 		}
+		com.container = this;
 		layout.addLayoutComponent(com, (constraints == null) ? com.getConstraints() : constraints);
 		dispatchEvent(new ContainerEvent(ContainerEvent.COM_ADDED, this, com));
 		
@@ -258,131 +255,46 @@ public class Container extends Component{
 	}
 	
 	/**
-	 * If <code>dis</code> is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be added.
-	 * Otherwise it will be call <code>super.addChild()</code> as a normal DisplayObject to be added.
-	 * @inheritDoc 
-	 * @see #append()
-	 * @see #DC_addChild()
-	 */
-	override public function addChild(dis:DisplayObject):DisplayObject{
-		if(dis is Component){
-			append(dis as Component);
-			return dis;
-		}else{
-			return DC_addChild(dis);
-		}
-	}
-
-	/**
-	 * If <code>dis</code> is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be added.
-	 * Otherwise it will be call <code>super.addChild()</code> as a normal DisplayObject to be added.
-	 * @inheritDoc 
-	 * @see #insert()
-	 * @see #DC_addChildAt()
-	 */	
-	override public function addChildAt(dis:DisplayObject, index:int):DisplayObject{
-		if(dis is Component){
-			insertImp(getComponentIndexWithChildIndex(index), dis as Component, null, index);
-			return dis;
-		}else{
-			return DC_addChildAt(dis, index);
-		}
-	}
-	
-	/**
-	 * If <code>child</code> is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be removed.
-	 * Otherwise it will be call <code>super.removeChild()</code> as a normal DisplayObject to be removed.
-	 * @inheritDoc 
-	 * @see #DC_removeChild()
+	 * Removes a normal display object child.
+	 * <p>
+	 * If <code>child</code> is a <code>Component</code> child instance, 
+	 * a <code>ArgumentError</code> error will be thrown. Becasue you should call 
+	 * <code>remove</code> to remove a component child.
+	 * </p>
+	 * @param child the child to be removed.
+	 * @inheritDoc
+	 * @see #remove()
+	 * @throws ArgumentError if the child is a component child of this container.
 	 */	
 	override public function removeChild(child:DisplayObject):DisplayObject{
-		if(child is Component){
-			if(remove(child as Component) == null){
-				return DC_removeChild(child);
-			}else{
-				return child;
-			}
-		}else{
-			return DC_removeChild(child);
-		}
+		checkChildRemoval(child);
+		return super.removeChild(child);
 	}
 	
 	/**
-	 * If the child at the index is a <code>Component</code> instance, it will be trated as a <code>Component</code> to be removed.
-	 * Otherwise it will be call <code>super.removeChild()</code> as a normal DisplayObject to be removed.
+	 * Removes a normal display object child with index.
+	 * <p>
+	 * If <code>child</code> is a <code>Component</code> child instance, 
+	 * a <code>ArgumentError</code> error will be thrown. Becasue you should call 
+	 * <code>removeAt</code> to remove a component child.
+	 * </p>
+	 * @param index the index of the child to be removed.
 	 * @inheritDoc 
-	 * @see #DC_removeChildAt()
+	 * @see #removeAt()
+	 * @throws ArgumentError if the child is a component child of this container.
 	 */		
 	override public function removeChildAt(index:int):DisplayObject{
-		var child:DisplayObject = getChildAt(index);
-		return removeChild(child);
-	}
-	
-	/**
-	 * Directly call <code>DisplayObjectContainer.addChild</code>.
-	 * It will not judge whether the <code>dis</code> is a component or not.
-	 * @see #addChild()
-	 */
-	public function DC_addChild(dis:DisplayObject):DisplayObject{
-		return super.addChild(dis);
-	}
-	
-	/**
-	 * Directly call <code>DisplayObjectContainer.addChildAt</code>.
-	 * It will not judge whether the <code>dis</code> is a component or not.
-	 * @see #addChildAt()
-	 */	
-	public function DC_addChildAt(dis:DisplayObject, index:int):DisplayObject{
-		return super.addChildAt(dis, index);
-	}
-	
-	/**
-	 * Directly call <code>DisplayObjectContainer.removeChild</code>.
-	 * It will not judge whether the <code>dis</code> is a component or not.
-	 * @see #removeChild()
-	 */	
-	public function DC_removeChild(dis:DisplayObject):DisplayObject{
-		return super.removeChild(dis);
-	}
-	
-	/**
-	 * Directly call <code>DisplayObjectContainer.removeChildAt</code>.
-	 * It will not judge whether the <code>dis</code> is a component or not.
-	 * @see #removeChildAt()
-	 */	
-	public function DC_removeChildAt(index:int):DisplayObject{
+		checkChildRemoval(getChildAt(index));
 		return super.removeChildAt(index);
 	}
 	
-	protected function getChildIndexWithComponentIndex(index:int):int{
-		var count:int = getComponentCount();
-		if(index < 0 || index > count){
-			throw new RangeError("Out of index counting bounds, it should be >=0 and <= component count!");
-		}
-		if(index == count){
-			return getHighestIndexUnderForeground();
-		}else{
-			return getChildIndex(getComponent(index));
-		}
-	}
-	
-	protected function getComponentIndexWithChildIndex(index:int):int{
-		var count:int = numChildren;
-		if(index < 0 || index > count){
-			throw new RangeError("Out of index counting bounds, it should be >=0 and <= numChildren!");
-		}
-		if(index == count){
-			return getComponentCount();
-		}else{
-			var aboveCount:int = 0;
-			for(var i:int=index; i<count; i++){
-				if(getChildAt(i) is Component){
-					aboveCount++;
-				}
+	private function checkChildRemoval(child:DisplayObject):void{
+		if(child is Component){
+			var c:Component = child as Component;
+			if(c.getParent() != null){
+				throw new ArgumentError("You should call remove method to remove a component child!");
 			}
-			return getComponentCount() - aboveCount;
 		}
-		return 0;
 	}
 	
 	/**
@@ -414,7 +326,8 @@ public class Container extends Component{
 		if(com != null){
 			layout.removeLayoutComponent(com);
 			children.splice(i, 1);
-			DC_removeChild(com);
+			super.removeChild(com);
+			com.container = null;
 			dispatchEvent(new ContainerEvent(ContainerEvent.COM_REMOVED, this, com));
 			
 			if (valid) {
@@ -492,6 +405,37 @@ public class Container extends Component{
 		}
 		return false;
     }
+	
+	protected function getChildIndexWithComponentIndex(index:int):int{
+		var count:int = getComponentCount();
+		if(index < 0 || index > count){
+			throw new RangeError("Out of index counting bounds, it should be >=0 and <= component count!");
+		}
+		if(index == count){
+			return getHighestIndexUnderForeground();
+		}else{
+			return getChildIndex(getComponent(index));
+		}
+	}
+	
+	protected function getComponentIndexWithChildIndex(index:int):int{
+		var count:int = numChildren;
+		if(index < 0 || index > count){
+			throw new RangeError("Out of index counting bounds, it should be >=0 and <= numChildren!");
+		}
+		if(index == count){
+			return getComponentCount();
+		}else{
+			var aboveCount:int = 0;
+			for(var i:int=index; i<count; i++){
+				if(getChildAt(i) is Component){
+					aboveCount++;
+				}
+			}
+			return getComponentCount() - aboveCount;
+		}
+		return 0;
+	}    
 		
 	/**
 	 * call the ui, if ui return null, ehn call layout to count.

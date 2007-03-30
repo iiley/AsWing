@@ -166,7 +166,7 @@ public class AbstractTabbedPane extends Container{
 	/**
 	 * This will call insertTab()
 	 */
-	override protected function insertImp(i:int, com:Component, constraints:Object=null, forceChildIndex:int=-1):void{
+	override protected function insertImp(i:int, com:Component, constraints:Object=null):void{
 		var title:String = null;
 		var icon:Icon = null;
 		if(constraints == null){

@@ -150,12 +150,14 @@ public class Component extends AWSprite{
 	private static var MAX_CLICK_INTERVAL:int = 400;
 	
 	protected var ui:ComponentUI;
+	internal var container:Container;
 	private var clientProperty:HashMap;
 	
 	private var awmlID:String;
 	private var awmlIndex:Number;
 	private var awmlNamespace:String;
 	
+	private var clipBounds:IntRectangle;
 	private var alignmentX:Number;
 	private var alignmentY:Number;
 	private var minimumSize:IntDimension;
@@ -171,8 +173,6 @@ public class Component extends AWSprite{
 	protected var bounds:IntRectangle;
 	protected var readyToPaint:Boolean;
 	
-	private var clipBounds:IntRectangle;
-	private var clipMasked:Boolean;
 	private var background:ASColor;
 	private var foreground:ASColor;
 	private var backgroundDecorator:GroundDecorator;
@@ -192,14 +192,13 @@ public class Component extends AWSprite{
 	
 	public function Component()
 	{
-		super();
+		super(true);
 		setName("Component");
 		ui = null;
 		clientProperty = null;
 		alignmentX = 0;
 		alignmentY = 0;
 		bounds = new IntRectangle();
-		clipMasked = true;
 		opaque = false;
 		opaqueSet = false;
 		valid = false;
@@ -1078,6 +1077,54 @@ public class Component extends AWSprite{
 		return enabled;
 	}
 	
+
+	
+	/**
+	 * Sets the clip bounds, a rectangle mask to make specified bounds visible.
+	 * Null to make the componet mask whole rectangle(show all).
+	 * @param b the bounds to be the masked clip, null to make it show all. Default is null.
+	 */
+	public function setClipBounds(b:IntRectangle):void{
+		var changed:Boolean = false;
+		if(b == null && clipBounds != null){
+			clipBounds = null;
+			changed = true;
+		}else{
+			if(!b.equals(clipBounds)){
+				clipBounds = b.clone();
+				changed = true;
+			}
+		}
+		if(changed){
+			layoutClipAndTrigger(null);
+		}
+	}
+	
+	/**
+	 * Returns the clip bounds.
+	 * @see #setClipBounds()
+	 */
+	public function getClipBounds():IntRectangle{
+		if(clipBounds == null){
+			return null;
+		}
+		return clipBounds.clone();
+	}
+	
+	/**
+	 * Sets the clip size, a rectangle mask to make specified bounds visible.
+	 * This will be only in effect after component created and before next layout time.
+	 * @see #setClipBounds()
+	 */	
+	public function setClipSize(size:IntDimension):void{
+		var bounds:IntRectangle = new IntRectangle();
+		if(clipBounds != null){
+			bounds.setLocation(clipBounds.getLocation());
+		}
+		bounds.setSize(size);
+		setClipBounds(bounds);
+	}		
+	
     /**
      * Returns whether this Component can be focused.
      *
@@ -1251,10 +1298,6 @@ public class Component extends AWSprite{
 	protected function locate():void{
 		var _x:Number = getX();
 		var _y:Number = getY();
-		if(scrollRect != null){
-			_x += scrollRect.x;
-			_y += scrollRect.y;
-		}
 		d_x = _x;
 		d_y = _y;
 	}
@@ -1698,79 +1741,6 @@ public class Component extends AWSprite{
 		}
 	}
 	
-	/**
-	 * Sets whether the component clip should be masked by its bounds. By default it is true.
-	 * <p>
-	 * AsWing A3 use <code>scrollRect</code> property to do the clip mask.
-	 * </p>
-	 * @param m whether the component clip should be masked.
-	 * @see #isClipMasked()
-	 */
-	public function setClipMasked(m:Boolean):void{
-		if(m != clipMasked){
-			clipMasked = m;
-			layoutClipAndTrigger(null);
-		}
-	}
-	
-	/**
-	 * Returns whether the component clip should be masked by its bounds. By default it is true.
-	 * <p>
-	 * AsWing A3 use <code>scrollRect</code> property to do the clip mask.
-	 * </p>
-	 * @return whether the component clip should be masked.
-	 * @see #setClipMasked()
-	 */
-	public function isClipMasked():Boolean{
-		return clipMasked;
-	}	
-	
-	/**
-	 * Sets the clip bounds, a rectangle mask to make specified bounds visible.
-	 * Null to make the componet mask whole rectangle(show all).
-	 * @param b the bounds to be the masked clip, null to make it show all. Default is null.
-	 */
-	public function setClipBounds(b:IntRectangle):void{
-		var changed:Boolean = false;
-		if(b == null && clipBounds != null){
-			clipBounds = null;
-			changed = true;
-		}else{
-			if(!b.equals(clipBounds)){
-				clipBounds = b.clone();
-				changed = true;
-			}
-		}
-		if(changed){
-			layoutClipAndTrigger(null);
-		}
-	}
-	
-	/**
-	 * Returns the clip bounds.
-	 * @see #setClipBounds()
-	 */
-	public function getClipBounds():IntRectangle{
-		if(clipBounds == null){
-			return null;
-		}
-		return clipBounds.clone();
-	}
-	
-	/**
-	 * Sets the clip size, a rectangle mask to make specified bounds visible.
-	 * This will be only in effect after component created and before next layout time.
-	 * @see #setClipBounds()
-	 */	
-	public function setClipSize(size:IntDimension):void{
-		var bounds:IntRectangle = new IntRectangle();
-		if(clipBounds != null){
-			bounds.setLocation(clipBounds.getLocation());
-		}
-		bounds.setSize(size);
-		setClipBounds(bounds);
-	}
-	
     /**
      * Supports deferred automatic layout.  
      * <p> 
@@ -1939,7 +1909,6 @@ public class Component extends AWSprite{
 		}
 	}
 	
-	private var lastScrollRect:IntRectangle;
 	private function layoutClipAndTrigger(paintBounds:IntRectangle):void{
 		if(paintBounds == null){
 			paintBounds = getPaintBoundsInRoot();
@@ -1952,21 +1921,7 @@ public class Component extends AWSprite{
 			paintBounds.width = Math.min(paintBounds.width, clipBounds.width);
 			paintBounds.height = Math.min(paintBounds.height, clipBounds.height);
 		}
-		//this means the trigger and mask??
-		//TODO check this
-		if(clipMasked){
-			if(!paintBounds.equals(lastScrollRect)){
-				scrollRect = paintBounds.toRectangle();
-				lastScrollRect = paintBounds;
-				locate();
-			}
-		}else{
-			if(lastScrollRect != null){
-				scrollRect = null;
-				lastScrollRect = null;
-				locate();
-			}
-		}
+		setClipMaskRect(paintBounds);
 	}
 
 	/**
@@ -2027,11 +1982,12 @@ public class Component extends AWSprite{
 	}	
 	
 	/**
-	 * Returns the parent component, if it parent is not a component, null will be returned
+	 * Returns the <code>Container</code> parent, 
+	 * if it parent is not a <code>Container</code>, null will be returned.
+	 * @return the <code>Container</code> parent
 	 */
 	public function getParent():Container{
-		var pa:Container = parent as Container;
-		return pa;
+		return container;
 	}
 	
 	/**
