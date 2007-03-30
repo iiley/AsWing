@@ -14,7 +14,7 @@ import org.aswing.graphics.*;
  */	
 public class BasicRadioButtonUI extends BasicToggleButtonUI{
 	
-	private var defaultIcon:Icon;
+	protected var defaultIcon:Icon;
 	
 	public function BasicRadioButtonUI(){
 		super();
