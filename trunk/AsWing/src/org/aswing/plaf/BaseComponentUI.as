@@ -195,6 +195,13 @@ public class BaseComponentUI implements ComponentUI
 		}
 		return UIManager.getInstance(key);
 	}
+	
+	public function getClass(key:String):Class{
+		if(containsDefaultsKey(key)){
+			return defaults.getConstructor(key);
+		}
+		return UIManager.getClass(key);
+	}
 }
 
 }
