@@ -23,15 +23,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	override protected function initClassDefaults(table:UIDefaults):void{
 		super.initClassDefaults(table);
 		var uiDefaults:Array = [
-				// Basic ui is referenced in component class
-				//if you created your ui, you must specified 
-				//it in your LAF class like below commented.
-			   //"ButtonUI", SkinButtonUI
-			   /*"PanelUI", org.aswing.plaf.basic.BasicPanelUI, 
-			   "ToggleButtonUI", org.aswing.plaf.basic.BasicToggleButtonUI,
-			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
-			   "CheckBoxUI", org.aswing.plaf.basic.BasicCheckBoxUI, 
-			   "ColorSwatchesUI", org.aswing.plaf.basic.BasicColorSwatchesUI,
+			   "RadioButtonUI", SkinRadioButtonUI,  
+			   "CheckBoxUI", SkinCheckBoxUI, 
+			   /*"ColorSwatchesUI", org.aswing.plaf.basic.BasicColorSwatchesUI,
 			   "ColorMixerUI", org.aswing.plaf.basic.BasicColorMixerUI,
 			   "ColorChooserUI", org.aswing.plaf.basic.BasicColorChooserUI,			   
 			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
@@ -60,6 +54,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		table.putDefaults(uiDefaults);
 	}
 	
+	//=========================== Button ==========================
 	[Embed(source="Button_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_defaultImage:Class;
@@ -71,6 +66,23 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="Button_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_rolloverImage:Class;
+	
+	//=========================== ToggleButton ==========================
+	[Embed(source="ToggleButton_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ToggleButton_defaultImage:Class;
+	
+	[Embed(source="ToggleButton_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ToggleButton_pressedImage:Class;
+	
+	[Embed(source="ToggleButton_selectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ToggleButton_selectedImage:Class;
+	
+	[Embed(source="ToggleButton_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ToggleButton_rolloverImage:Class;
 
 	override protected function initComponentDefaults(table:UIDefaults):void{
 		super.initComponentDefaults(table);
@@ -85,8 +97,21 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			//"Button.rolloverSelectedImage", Button_rolloverSelectedImage,
 			
 			"Button.bg", SkinButtonBackground,
-			"Button.margin", new InsetsUIResource(2, 3, 3, 2), 
-			"Button.textShiftOffset", 1
+			"Button.margin", new InsetsUIResource(2, 3, 3, 2)
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ToggleButton
+		comDefaults = [
+			"ToggleButton.defaultImage", ToggleButton_defaultImage,
+			"ToggleButton.pressedImage", ToggleButton_pressedImage,
+			//"ToggleButton.disabledImage", ToggleButton_disabledImage,
+			"ToggleButton.selectedImage", ToggleButton_selectedImage,
+			//"ToggleButton.disabledSelectedImage", ToggleButton_disabledSelectedImage,
+			"ToggleButton.rolloverImage", ToggleButton_rolloverImage,
+			//"ToggleButton.rolloverSelectedImage", ToggleButton_rolloverSelectedImage,
+			"ToggleButton.bg", SkinToggleButtonBackground,
+			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2)
 		];
 		table.putDefaults(comDefaults);
 	}	
