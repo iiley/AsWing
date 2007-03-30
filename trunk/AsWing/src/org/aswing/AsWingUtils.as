@@ -66,21 +66,30 @@ public class AsWingUtils{
     	TEXT_FIELD.type = TextFieldType.DYNAMIC;
     }
     
-    public static function createSprite(parent:DisplayObjectContainer, name:String=null):Sprite{
+    /**
+     * Create a sprite at specified parent with specified name.
+     * The created sprite default property is mouseEnabled=false.
+     */ 
+    public static function createSprite(parent:DisplayObjectContainer=null, name:String=null):Sprite{
     	var sp:Sprite = new Sprite();
     	if(name != null){
     		sp.name = name;
     	}
-    	parent.addChild(sp);
+    	sp.mouseEnabled = false;
+    	if(parent != null){
+    		parent.addChild(sp);
+    	}
     	return sp;
     }
     
-    public static function createShape(parent:DisplayObjectContainer, name:String=null):Shape{
+    public static function createShape(parent:DisplayObjectContainer=null, name:String=null):Shape{
     	var sp:Shape = new Shape();
     	if(name != null){
     		sp.name = name;
     	}
-    	parent.addChild(sp);
+    	if(parent != null){
+    		parent.addChild(sp);
+    	}
     	return sp;
     }
     
