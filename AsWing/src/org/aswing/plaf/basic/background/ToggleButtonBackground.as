@@ -21,10 +21,10 @@ public class ToggleButtonBackground implements GroundDecorator, UIResource
 	
 
 	private function reloadColors(ui:ComponentUI):void{
-		shadow = ui.getColor("Button.shadow");
-		darkShadow = ui.getColor("Button.darkShadow");
-		highlight = ui.getColor("Button.light");
-		lightHighlight = ui.getColor("Button.highlight");
+		shadow = ui.getColor("ToggleButton.shadow");
+		darkShadow = ui.getColor("ToggleButton.darkShadow");
+		highlight = ui.getColor("ToggleButton.light");
+		lightHighlight = ui.getColor("ToggleButton.highlight");
 	}
 	
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
