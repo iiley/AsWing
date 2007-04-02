@@ -12,7 +12,6 @@ import org.aswing.geom.IntDimension;
 import org.aswing.Component;
 import org.aswing.plaf.*;
 import org.aswing.event.AWEvent;
-import flash.filters.*;
 import flash.utils.getTimer;
 import flash.text.*;
 import org.aswing.event.FocusKeyEvent;
@@ -197,12 +196,6 @@ public class BasicButtonUI extends BaseComponentUI
         }else{
         	textField.text = "";
         	textField.visible = false;
-        }
-        if(b.getModel().isRollOver() && !b.getModel().isArmed()){
-        	b.filters = [new GlowFilter(0x88FF88, 0.7, 
-        		6.0, 6.0, 2, 1, false, false)];
-        }else{
-        	b.filters = [];
         }
     }
     
