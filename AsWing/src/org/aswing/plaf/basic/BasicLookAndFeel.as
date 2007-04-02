@@ -344,6 +344,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"Frame.resizeArrowLight", table.get("window"),
 			"Frame.resizeArrowDark", table.get("activeCaptionText"),			
 			"Frame.titleBarUI", org.aswing.plaf.basic.frame.TitleBarUI,
+			"Frame.titleBarLayout", org.aswing.plaf.basic.frame.TitleBarLayout, 
 			"Frame.resizer", org.aswing.resizer.DefaultResizer,
 			"Frame.font", table.get("windowFont"),
 			"Frame.border", org.aswing.plaf.basic.border.FrameBorder,

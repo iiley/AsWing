@@ -10,8 +10,9 @@ import org.aswing.FlowLayout;
 import org.aswing.geom.IntDimension;
 import org.aswing.Insets;
 import org.aswing.LayoutManager;
+import org.aswing.plaf.UIResource;
 
-public class TitleBarLayout extends FlowLayout{
+public class TitleBarLayout extends FlowLayout implements UIResource{
 	
 	private static const ICON_TITLE_WIDTH:int = 50;
 	private static const ICON_TITLE_HEIGHT:int = 20;
@@ -25,7 +26,7 @@ public class TitleBarLayout extends FlowLayout{
 		return getHgap();
 	}
 	
-	private function fitSize(size:IntDimension):IntDimension{
+	protected function fitSize(target:Container, size:IntDimension):IntDimension{
     	size.change(ICON_TITLE_WIDTH, 0);
     	size.height = Math.max(size.height, ICON_TITLE_HEIGHT);
     	return size;
@@ -51,7 +52,7 @@ public class TitleBarLayout extends FlowLayout{
 		var insets:Insets = target.getInsets();
 		dim.width += insets.left + insets.right + getHgap()*2;
 		dim.height += insets.top + insets.bottom + getVgap()*2;
-		return fitSize(dim);
+		return fitSize(target, dim);
     }
 
     override public function minimumLayoutSize(target:Container):IntDimension {

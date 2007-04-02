@@ -82,7 +82,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
 	}
 	
     private function configureScrollBarColors():void{
-		var pp:String = getPropertyPrefix();    	
+		var pp:String = getPropertyPrefix();
     	LookAndFeel.installColorsAndFont(scrollbar, pp);
 		arrowShadowColor = getColor(pp + "arrowShadowColor");
 		arrowLightColor = getColor(pp + "arrowLightColor");

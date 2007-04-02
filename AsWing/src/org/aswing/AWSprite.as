@@ -346,6 +346,7 @@ public class AWSprite extends Sprite
 	public function setClipMasked(m:Boolean):void{
 		if(m != clipMasked){
 			clipMasked = m;
+			setUsingBitmap(cacheAsBitmap && clipMasked)
 			if(clipMasked){
 				checkCreateMaskShape();
 				if(maskShape.parent != this){
@@ -441,12 +442,12 @@ public class AWSprite extends Sprite
 	
 	override public function set filters(value:Array):void{
 		super.filters = value;
-		setUsingBitmap(super.cacheAsBitmap);
+		setUsingBitmap(super.cacheAsBitmap && clipMasked);
 	}
 	
 	override public function set cacheAsBitmap(value:Boolean):void{
 		super.cacheAsBitmap = value;
-		setUsingBitmap(value);
+		setUsingBitmap(value && clipMasked);
 	}
 	
 	private function checkCreateMaskShape():void{
