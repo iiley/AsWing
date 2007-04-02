@@ -57,100 +57,198 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//=====================================================================
 	//=========================== Button scale-9 ==========================
 	//=====================================================================
-	[Embed(source="Button_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/Button_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_defaultImage:Class;
 	
-	[Embed(source="Button_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/Button_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_pressedImage:Class;
 	
-	[Embed(source="Button_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/Button_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_rolloverImage:Class;
 	
-	[Embed(source="Button_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/Button_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_disabledImage:Class;
 	
 	//===========================================================================
 	//=========================== ToggleButton scale-9 ==========================
 	//===========================================================================
-	[Embed(source="ToggleButton_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/ToggleButton_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_defaultImage:Class;
 	
-	[Embed(source="ToggleButton_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/ToggleButton_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_pressedImage:Class;
 	
-	[Embed(source="ToggleButton_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/ToggleButton_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_disabledImage:Class;
 	
-	[Embed(source="ToggleButton_selectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/ToggleButton_selectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_selectedImage:Class;
 	
-	[Embed(source="ToggleButton_disabledSelectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/ToggleButton_disabledSelectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_disabledSelectedImage:Class;
 	
-	[Embed(source="ToggleButton_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/ToggleButton_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_rolloverImage:Class;
 	
-	[Embed(source="ToggleButton_rolloverSelectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+	[Embed(source="assets/ToggleButton_rolloverSelectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_rolloverSelectedImage:Class;
 	
 	//==================================================================
 	//=========================== RadioButton ==========================
 	//==================================================================
-	[Embed(source="RadioButton_defaultImage.png")]
+	[Embed(source="assets/RadioButton_defaultImage.png")]
 	private var RadioButton_defaultImage:Class;
 	
-	[Embed(source="RadioButton_pressedImage.png")]
+	[Embed(source="assets/RadioButton_pressedImage.png")]
 	private var RadioButton_pressedImage:Class;
 	
-	[Embed(source="RadioButton_disabledImage.png")]
+	[Embed(source="assets/RadioButton_disabledImage.png")]
 	private var RadioButton_disabledImage:Class;
 	
-	[Embed(source="RadioButton_selectedImage.png")]
+	[Embed(source="assets/RadioButton_selectedImage.png")]
 	private var RadioButton_selectedImage:Class;
 	
-	[Embed(source="RadioButton_disabledSelectedImage.png")]
+	[Embed(source="assets/RadioButton_disabledSelectedImage.png")]
 	private var RadioButton_disabledSelectedImage:Class;
 	
-	[Embed(source="RadioButton_rolloverImage.png")]
+	[Embed(source="assets/RadioButton_rolloverImage.png")]
 	private var RadioButton_rolloverImage:Class;
 	
-	[Embed(source="RadioButton_rolloverSelectedImage.png")]
+	[Embed(source="assets/RadioButton_rolloverSelectedImage.png")]
 	private var RadioButton_rolloverSelectedImage:Class;
 	
 	//===============================================================
 	//=========================== CheckBox ==========================
 	//===============================================================
-	[Embed(source="CheckBox_defaultImage.png")]
+	[Embed(source="assets/CheckBox_defaultImage.png")]
 	private var CheckBox_defaultImage:Class;
 	
-	[Embed(source="CheckBox_pressedImage.png")]
+	[Embed(source="assets/CheckBox_pressedImage.png")]
 	private var CheckBox_pressedImage:Class;
 	
-	[Embed(source="CheckBox_disabledImage.png")]
+	[Embed(source="assets/CheckBox_disabledImage.png")]
 	private var CheckBox_disabledImage:Class;
 	
-	[Embed(source="CheckBox_selectedImage.png")]
+	[Embed(source="assets/CheckBox_selectedImage.png")]
 	private var CheckBox_selectedImage:Class;
 	
-	[Embed(source="CheckBox_disabledSelectedImage.png")]
+	[Embed(source="assets/CheckBox_disabledSelectedImage.png")]
 	private var CheckBox_disabledSelectedImage:Class;
 	
-	[Embed(source="CheckBox_rolloverImage.png")]
+	[Embed(source="assets/CheckBox_rolloverImage.png")]
 	private var CheckBox_rolloverImage:Class;
 	
-	[Embed(source="CheckBox_rolloverSelectedImage.png")]
+	[Embed(source="assets/CheckBox_rolloverSelectedImage.png")]
 	private var CheckBox_rolloverSelectedImage:Class;
+	
+	//===============================================================
+	//=========================== ScrollBar ==========================
+	//===============================================================
+	//========= Left Arrow Images =======
+	[Embed(source="assets/ScrollBar_arrowLeft_defaultImage.png")]
+	private var ScrollBar_arrowLeft_defaultImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowLeft_pressedImage.png")]
+	private var ScrollBar_arrowLeft_pressedImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowLeft_disabledImage.png")]
+	private var ScrollBar_arrowLeft_disabledImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowLeft_rolloverImage.png")]
+	private var ScrollBar_arrowLeft_rolloverImage:Class;
+	
+	//========= Right Arrow Images =======
+	[Embed(source="assets/ScrollBar_arrowRight_defaultImage.png")]
+	private var ScrollBar_arrowRight_defaultImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowRight_pressedImage.png")]
+	private var ScrollBar_arrowRight_pressedImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowRight_disabledImage.png")]
+	private var ScrollBar_arrowRight_disabledImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowRight_rolloverImage.png")]
+	private var ScrollBar_arrowRight_rolloverImage:Class;
+	
+	//========= Up Arrow Images =======
+	[Embed(source="assets/ScrollBar_arrowUp_defaultImage.png")]
+	private var ScrollBar_arrowUp_defaultImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowUp_pressedImage.png")]
+	private var ScrollBar_arrowUp_pressedImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowUp_disabledImage.png")]
+	private var ScrollBar_arrowUp_disabledImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowUp_rolloverImage.png")]
+	private var ScrollBar_arrowUp_rolloverImage:Class;
+	
+	//========= Down Arrow Images ======= scale-9 
+	[Embed(source="assets/ScrollBar_arrowDown_defaultImage.png")]
+	private var ScrollBar_arrowDown_defaultImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowDown_pressedImage.png")]
+	private var ScrollBar_arrowDown_pressedImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowDown_disabledImage.png")]
+	private var ScrollBar_arrowDown_disabledImage:Class;
+	
+	[Embed(source="assets/ScrollBar_arrowDown_rolloverImage.png")]
+	private var ScrollBar_arrowDown_rolloverImage:Class;
+	
+	//========= Background Images scale-9 ======= 
+	[Embed(source="assets/ScrollBar_verticalBGImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_verticalBGImage:Class;
+	
+	[Embed(source="assets/ScrollBar_horizotalBGImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_horizotalBGImage:Class;
+	
+	//========= Thumb Images scale-9 ======= 
+	//vertical
+	[Embed(source="assets/ScrollBar_thumbVertical_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_thumbVertical_defaultImage:Class;
+	
+	[Embed(source="assets/ScrollBar_thumbVertical_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_thumbVertical_pressedImage:Class;
+	
+	[Embed(source="assets/ScrollBar_thumbVertical_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_thumbVertical_rolloverImage:Class;
+	
+	[Embed(source="assets/ScrollBar_thumbVertical_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_thumbVertical_disabledImage:Class;
+	//horizontal
+	[Embed(source="assets/ScrollBar_thumbHorizontal_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_thumbHorizontal_defaultImage:Class;
+	
+	[Embed(source="assets/ScrollBar_thumbHorizontal_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_thumbHorizontal_pressedImage:Class;
+	
+	[Embed(source="assets/ScrollBar_thumbHorizontal_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_thumbHorizontal_rolloverImage:Class;
+	
+	[Embed(source="assets/ScrollBar_thumbHorizontal_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ScrollBar_thumbHorizontal_disabledImage:Class;
 
 	override protected function initComponentDefaults(table:UIDefaults):void{
 		super.initComponentDefaults(table);
@@ -201,7 +299,48 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"CheckBox.rolloverImage", CheckBox_rolloverImage,
 			"CheckBox.rolloverSelectedImage", CheckBox_rolloverSelectedImage
 		];
-		table.putDefaults(comDefaults);				
+		table.putDefaults(comDefaults);
+		
+		// *** ScrollBar
+		comDefaults = [
+			"ScrollBar.opaque", false, 
+			"ScrollBar.thumbDecorator", SkinScrollBarThumb, 
+			"ScrollBar.arrowSize", 16, //modify this when your arrow images size changed
+			
+			"ScrollBar.verticalBGImage", ScrollBar_verticalBGImage, 
+			"ScrollBar.horizotalBGImage", ScrollBar_horizotalBGImage, 
+			
+			"ScrollBar.arrowLeft.defaultImage", ScrollBar_arrowLeft_defaultImage, 
+			"ScrollBar.arrowLeft.pressedImage", ScrollBar_arrowLeft_pressedImage, 
+			"ScrollBar.arrowLeft.disabledImage", ScrollBar_arrowLeft_disabledImage, 
+			"ScrollBar.arrowLeft.rolloverImage", ScrollBar_arrowLeft_rolloverImage, 
+			
+			"ScrollBar.arrowRight.defaultImage", ScrollBar_arrowRight_defaultImage, 
+			"ScrollBar.arrowRight.pressedImage", ScrollBar_arrowRight_pressedImage, 
+			"ScrollBar.arrowRight.disabledImage", ScrollBar_arrowRight_disabledImage, 
+			"ScrollBar.arrowRight.rolloverImage", ScrollBar_arrowRight_rolloverImage, 
+			
+			"ScrollBar.arrowUp.defaultImage", ScrollBar_arrowUp_defaultImage, 
+			"ScrollBar.arrowUp.pressedImage", ScrollBar_arrowUp_pressedImage, 
+			"ScrollBar.arrowUp.disabledImage", ScrollBar_arrowUp_disabledImage, 
+			"ScrollBar.arrowUp.rolloverImage", ScrollBar_arrowUp_rolloverImage, 
+			
+			"ScrollBar.arrowDown.defaultImage", ScrollBar_arrowDown_defaultImage, 
+			"ScrollBar.arrowDown.pressedImage", ScrollBar_arrowDown_pressedImage, 
+			"ScrollBar.arrowDown.disabledImage", ScrollBar_arrowDown_disabledImage, 
+			"ScrollBar.arrowDown.rolloverImage", ScrollBar_arrowDown_rolloverImage, 
+			
+			"ScrollBar.thumbVertical.defaultImage", ScrollBar_thumbVertical_defaultImage, 
+			"ScrollBar.thumbVertical.pressedImage", ScrollBar_thumbVertical_pressedImage, 
+			"ScrollBar.thumbVertical.disabledImage", ScrollBar_thumbVertical_disabledImage, 
+			"ScrollBar.thumbVertical.rolloverImage", ScrollBar_thumbVertical_rolloverImage, 
+			
+			"ScrollBar.thumbHorizontal.defaultImage", ScrollBar_thumbHorizontal_defaultImage, 
+			"ScrollBar.thumbHorizontal.pressedImage", ScrollBar_thumbHorizontal_pressedImage, 
+			"ScrollBar.thumbHorizontal.disabledImage", ScrollBar_thumbHorizontal_disabledImage, 
+			"ScrollBar.thumbHorizontal.rolloverImage", ScrollBar_thumbHorizontal_rolloverImage
+		];
+		table.putDefaults(comDefaults);			
 	}	
 }
 }

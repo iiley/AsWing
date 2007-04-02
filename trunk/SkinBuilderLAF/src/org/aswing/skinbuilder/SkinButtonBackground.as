@@ -13,21 +13,12 @@ import flash.display.*;
 
 public class SkinButtonBackground implements GroundDecorator, UIResource{
 	
-    protected var defaultImage:Sprite;
-    protected var pressedImage:Sprite;
-    protected var disabledImage:Sprite;
-    protected var selectedImage:Sprite;
-    protected var disabledSelectedImage:Sprite;
-    protected var rolloverImage:Sprite;
-    protected var rolloverSelectedImage:Sprite;
-    
-    protected var lastViewedImage:Sprite;
-    protected var imageContainer:Sprite;
+    protected var stateAsset:ButtonStateObject;
     protected var setuped:Boolean;
     
 	public function SkinButtonBackground(){
 		setuped = false;
-		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
+		stateAsset = new ButtonStateObject();
 	}
 	
     protected function getPropertyPrefix():String {
@@ -35,35 +26,22 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
     }
 	
 	protected function setupAssets(ui:ComponentUI):void{
+		stateAsset.setDefaultImage(getAsset(ui, "defaultImage"));
+		stateAsset.setPressedImage(getAsset(ui, "pressedImage"));
+		stateAsset.setDisabledImage(getAsset(ui, "disabledImage"));
+		stateAsset.setSelectedImage(getAsset(ui, "selectedImage"));
+		stateAsset.setDisabledSelectedImage(getAsset(ui, "disabledSelectedImage"));
+		stateAsset.setRolloverImage(getAsset(ui, "rolloverImage"));
+		stateAsset.setRolloverSelectedImage(getAsset(ui, "rolloverSelectedImage"));
+	}
+	
+	private function getAsset(ui:ComponentUI, extName:String):DisplayObject{
         var pp:String = getPropertyPrefix();
-        defaultImage  = ui.getInstance(pp+"defaultImage") as Sprite;
-        pressedImage  = ui.getInstance(pp+"pressedImage") as Sprite;
-        disabledImage = ui.getInstance(pp+"disabledImage") as Sprite;
-        selectedImage         = ui.getInstance(pp+"selectedImage") as Sprite;
-        disabledSelectedImage = ui.getInstance(pp+"disabledSelectedImage") as Sprite;
-        rolloverImage         = ui.getInstance(pp+"rolloverImage") as Sprite;
-        rolloverSelectedImage = ui.getInstance(pp+"rolloverSelectedImage") as Sprite;
-        
-        addStateImage(defaultImage);
-        addStateImage(pressedImage);
-        addStateImage(disabledImage);
-        addStateImage(selectedImage);
-        addStateImage(disabledSelectedImage);
-        addStateImage(rolloverImage);
-        addStateImage(rolloverSelectedImage);
-        defaultImage.visible = true;
-        lastViewedImage = defaultImage;
+        return ui.getInstance(pp+extName) as DisplayObject;
 	}
  	
- 	private function addStateImage(img:Sprite):void{
-        if(img != null){
-        	imageContainer.addChild(img);
-        	img.visible = false;
-        }
- 	}
- 	
  	public function getDisplay():DisplayObject{
- 		return imageContainer;
+ 		return stateAsset;
  	}
  	
  	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
@@ -74,43 +52,16 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
  		
  		var button:AbstractButton = AbstractButton(com)
  		
- 		imageContainer.visible = button.isOpaque();
+ 		stateAsset.visible = button.isOpaque();
  		if(!button.isOpaque()){
  			return;
  		}
  		var model:ButtonModel = button.getModel();
- 		var image:Sprite = defaultImage;
- 		var tmpImage:Sprite = null;
- 		
-		if(!model.isEnabled()){
-			if(model.isSelected()){
-				tmpImage = disabledSelectedImage;
-			}else{
-				tmpImage = disabledImage;
-			}
-		}else if(model.isPressed() && model.isArmed()){
-			tmpImage = pressedImage;
-		}else if(button.isRollOverEnabled() && model.isRollOver()){
-			if(model.isSelected()) {
-				tmpImage = rolloverSelectedImage;
-			}else{
-				tmpImage = rolloverImage;
-			}
-		}else if(model.isSelected()){
-			tmpImage = selectedImage;
-		}
-		if(tmpImage != null){
-			image = tmpImage;
-		}
-		if(image != lastViewedImage){
-			lastViewedImage.visible = false;
-			image.visible = true;
-			lastViewedImage = image;
-		}
-		imageContainer.x = bounds.x;
-		imageContainer.y = bounds.y;
-		image.width = bounds.width;
-		image.height = bounds.height;
+ 		stateAsset.setEnabled(model.isEnabled());
+ 		stateAsset.setPressed(model.isPressed() && model.isArmed());
+ 		stateAsset.setSelected(model.isSelected());
+ 		stateAsset.setRollovered(button.isRollOverEnabled() && model.isRollOver());
+ 		stateAsset.updateRepresent(bounds);
  	}
 }
 }
