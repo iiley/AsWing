@@ -116,7 +116,11 @@ public class UIManager
 	
 	public static function getInstance(key:String):Object{
 		return getDefaults().getInstance(key);
-	}		
+	}
+	
+	public static function getClass(key:String):Class{
+		return getDefaults().getConstructor(key);
+	}
 }
 
 }
