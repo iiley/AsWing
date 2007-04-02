@@ -13,60 +13,45 @@ import flash.display.*;
 
 public class SkinRadioButtonUI extends BasicRadioButtonUI implements Icon, UIResource{
 	
-    protected var defaultImage:Sprite;
-    protected var pressedImage:Sprite;
-    protected var disabledImage:Sprite;
-    protected var selectedImage:Sprite;
-    protected var disabledSelectedImage:Sprite;
-    protected var rolloverImage:Sprite;
-    protected var rolloverSelectedImage:Sprite;
-    
-    protected var lastViewedImage:Sprite;
-    protected var imageContainer:Sprite;
+    protected var stateAsset:ButtonStateObject;
+    protected var setuped:Boolean;
     
     protected var defaultIconWidth:int;
     protected var defaultIconHeight:int;
 	
 	public function SkinRadioButtonUI(){
 		super();
-		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
+		setuped = false;
+		stateAsset = new ButtonStateObject();
 	}
 	
  	override protected function installDefaults(b:AbstractButton):void{
         super.installDefaults(b);
         var pp:String = getPropertyPrefix();
-        defaultImage  = getInstance(pp+"defaultImage") as Sprite;
-        pressedImage  = getInstance(pp+"pressedImage") as Sprite;
-        disabledImage = getInstance(pp+"disabledImage") as Sprite;
-        selectedImage         = getInstance(pp+"selectedImage") as Sprite;
-        disabledSelectedImage = getInstance(pp+"disabledSelectedImage") as Sprite;
-        rolloverImage         = getInstance(pp+"rolloverImage") as Sprite;
-        rolloverSelectedImage = getInstance(pp+"rolloverSelectedImage") as Sprite;
+		var defaultImage:DisplayObject  = getInstance(pp+"defaultImage") as DisplayObject;
+		var pressedImage:DisplayObject  = getInstance(pp+"pressedImage") as DisplayObject;
+		var disabledImage:DisplayObject = getInstance(pp+"disabledImage") as DisplayObject;
+        var selectedImage:DisplayObject         = getInstance(pp+"selectedImage") as DisplayObject;
+        var disabledSelectedImage:DisplayObject = getInstance(pp+"disabledSelectedImage") as DisplayObject;
+        var rolloverImage:DisplayObject         = getInstance(pp+"rolloverImage") as DisplayObject;
+        var rolloverSelectedImage:DisplayObject = getInstance(pp+"rolloverSelectedImage") as DisplayObject;
         
-        addStateImage(defaultImage);
-        addStateImage(pressedImage);
-        addStateImage(disabledImage);
-        addStateImage(selectedImage);
-        addStateImage(disabledSelectedImage);
-        addStateImage(rolloverImage);
-        addStateImage(rolloverSelectedImage);
-        defaultImage.visible = true;
-        lastViewedImage = defaultImage;
+        stateAsset.setDefaultImage(defaultImage);
+        stateAsset.setPressedImage(pressedImage);
+        stateAsset.setDisabledImage(disabledImage);
+        stateAsset.setSelectedImage(selectedImage);
+        stateAsset.setDisabledSelectedImage(disabledSelectedImage);
+        stateAsset.setRolloverImage(rolloverImage);
+        stateAsset.setRolloverSelectedImage(rolloverSelectedImage);
+        
         defaultIconWidth = defaultImage.width;
         defaultIconHeight = defaultImage.height;
         //this is the importance
         defaultIcon = this;
  	}
  	
- 	private function addStateImage(img:Sprite):void{
-        if(img != null){
-        	imageContainer.addChild(img);
-        	img.visible = false;
-        }
- 	}
- 	
  	public function getDisplay():DisplayObject{
- 		return imageContainer;
+ 		return stateAsset;
  	}
  	
 	public function getIconWidth():int{
@@ -79,36 +64,13 @@ public class SkinRadioButtonUI extends BasicRadioButtonUI implements Icon, UIRes
 	
 	public function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void{
  		var model:ButtonModel = button.getModel();
- 		var image:Sprite = defaultImage;
- 		var tmpImage:Sprite = null;
- 		
-		if(!model.isEnabled()){
-			if(model.isSelected()){
-				tmpImage = disabledSelectedImage;
-			}else{
-				tmpImage = disabledImage;
-			}
-		}else if(model.isPressed() && model.isArmed()){
-			tmpImage = pressedImage;
-		}else if(button.isRollOverEnabled() && model.isRollOver()){
-			if(model.isSelected()) {
-				tmpImage = rolloverSelectedImage;
-			}else{
-				tmpImage = rolloverImage;
-			}
-		}else if(model.isSelected()){
-			tmpImage = selectedImage;
-		}
-		if(tmpImage != null){
-			image = tmpImage;
-		}
-		if(image != lastViewedImage){
-			lastViewedImage.visible = false;
-			image.visible = true;
-			lastViewedImage = image;
-		}
-		imageContainer.x = x;
-		imageContainer.y = y;		
+ 		stateAsset.setEnabled(model.isEnabled());
+ 		stateAsset.setPressed(model.isPressed() && model.isArmed());
+ 		stateAsset.setSelected(model.isSelected());
+ 		stateAsset.setRollovered(button.isRollOverEnabled() && model.isRollOver());
+		stateAsset.x = x;
+		stateAsset.y = y;
+		stateAsset.updateRepresent();
 	}
 }
 }
