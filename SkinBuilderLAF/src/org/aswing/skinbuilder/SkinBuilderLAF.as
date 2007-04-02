@@ -153,7 +153,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var CheckBox_rolloverSelectedImage:Class;
 	
 	//===============================================================
-	//=========================== ScrollBar ==========================
+	//=========================== ScrollBar =========================
 	//===============================================================
 	//========= Left Arrow Images =======
 	[Embed(source="assets/ScrollBar_arrowLeft_defaultImage.png")]
@@ -194,7 +194,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/ScrollBar_arrowUp_rolloverImage.png")]
 	private var ScrollBar_arrowUp_rolloverImage:Class;
 	
-	//========= Down Arrow Images ======= scale-9 
+	//========= Down Arrow Images =======
 	[Embed(source="assets/ScrollBar_arrowDown_defaultImage.png")]
 	private var ScrollBar_arrowDown_defaultImage:Class;
 	
@@ -250,6 +250,77 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ScrollBar_thumbHorizontal_disabledImage:Class;
 
+	//===========================================================================
+	//=========================== Frame =========================================
+	//===========================================================================
+	//Backgorund scale-9 (Include title bar background all in one picture)
+	[Embed(source="assets/Frame_activeBG.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var Frame_activeBG:Class;
+	
+	[Embed(source="assets/Frame_inactiveBG.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var Frame_inactiveBG:Class;
+	
+	//========= Frame_iconifiedIcon Images =======
+	[Embed(source="assets/Frame_iconifiedIcon_defaultImage.png")]
+	private var Frame_iconifiedIcon_defaultImage:Class;
+	
+	[Embed(source="assets/Frame_iconifiedIcon_pressedImage.png")]
+	private var Frame_iconifiedIcon_pressedImage:Class;
+	
+	[Embed(source="assets/Frame_iconifiedIcon_disabledImage.png")]
+	private var Frame_iconifiedIcon_disabledImage:Class;
+	
+	[Embed(source="assets/Frame_iconifiedIcon_rolloverImage.png")]
+	private var Frame_iconifiedIcon_rolloverImage:Class;
+	
+	//========= Frame_normalIcon Images =======
+	[Embed(source="assets/Frame_normalIcon_defaultImage.png")]
+	private var Frame_normalIcon_defaultImage:Class;
+	
+	[Embed(source="assets/Frame_normalIcon_pressedImage.png")]
+	private var Frame_normalIcon_pressedImage:Class;
+	
+	[Embed(source="assets/Frame_normalIcon_disabledImage.png")]
+	private var Frame_normalIcon_disabledImage:Class;
+	
+	[Embed(source="assets/Frame_normalIcon_rolloverImage.png")]
+	private var Frame_normalIcon_rolloverImage:Class;
+	
+	//========= Frame_maximizeIcon Images =======
+	[Embed(source="assets/Frame_maximizeIcon_defaultImage.png")]
+	private var Frame_maximizeIcon_defaultImage:Class;
+	
+	[Embed(source="assets/Frame_maximizeIcon_pressedImage.png")]
+	private var Frame_maximizeIcon_pressedImage:Class;
+	
+	[Embed(source="assets/Frame_maximizeIcon_disabledImage.png")]
+	private var Frame_maximizeIcon_disabledImage:Class;
+	
+	[Embed(source="assets/Frame_maximizeIcon_rolloverImage.png")]
+	private var Frame_maximizeIcon_rolloverImage:Class;
+	
+	//========= Down Arrow Images =======
+	[Embed(source="assets/Frame_closeIcon_defaultImage.png")]
+	private var Frame_closeIcon_defaultImage:Class;
+	
+	[Embed(source="assets/Frame_closeIcon_pressedImage.png")]
+	private var Frame_closeIcon_pressedImage:Class;
+	
+	[Embed(source="assets/Frame_closeIcon_disabledImage.png")]
+	private var Frame_closeIcon_disabledImage:Class;
+	
+	[Embed(source="assets/Frame_closeIcon_rolloverImage.png")]
+	private var Frame_closeIcon_rolloverImage:Class;
+	
+	
+	
+
+	//===========================================================================
+	//=========================== initComponentDefaults =========================
+	//===========================================================================
+	
 	override protected function initComponentDefaults(table:UIDefaults):void{
 		super.initComponentDefaults(table);
 		// *** Button
@@ -339,6 +410,46 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ScrollBar.thumbHorizontal.pressedImage", ScrollBar_thumbHorizontal_pressedImage, 
 			"ScrollBar.thumbHorizontal.disabledImage", ScrollBar_thumbHorizontal_disabledImage, 
 			"ScrollBar.thumbHorizontal.rolloverImage", ScrollBar_thumbHorizontal_rolloverImage
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** Frame
+		comDefaults = [
+			"Frame.background", table.get("window"),
+			"Frame.foreground", table.get("windowText"),
+			"Frame.opaque", false, 
+			"Frame.bg", SkinFrameBackground, //this will use Frame.activeBG and Frame.inactiveBG
+			"Frame.margin", new InsetsUIResource(2, 3, 3, 2), //modify this to fit the frame bg image
+			"Frame.titleBarHeight", 20, //modify this to fit title bar height of bg image
+			"Frame.activeBG", Frame_activeBG, 
+			"Frame.inactiveBG", Frame_inactiveBG, 
+			"Frame.titleBarLayout", SkinFrameTitleBarLayout, 
+			"Frame.border", SkinFrameEmptyBorder, //this border will use Frame.margin property
+			"Frame.buttonSize", 14, //modify this to fit title bar button size below
+			"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
+			"Frame.normalIcon", SkinFrameNormalIcon,
+			"Frame.maximizeIcon", SkinFrameMaximizeIcon, 
+			"Frame.closeIcon", SkinFrameCloseIcon, 
+			
+			"Frame.iconifiedIcon.defaultImage", Frame_iconifiedIcon_defaultImage, 
+			"Frame.iconifiedIcon.pressedImage", Frame_iconifiedIcon_pressedImage, 
+			"Frame.iconifiedIcon.disabledImage", Frame_iconifiedIcon_disabledImage, 
+			"Frame.iconifiedIcon.rolloverImage", Frame_iconifiedIcon_rolloverImage, 
+			
+			"Frame.normalIcon.defaultImage", Frame_normalIcon_defaultImage, 
+			"Frame.normalIcon.pressedImage", Frame_normalIcon_pressedImage, 
+			"Frame.normalIcon.disabledImage", Frame_normalIcon_disabledImage, 
+			"Frame.normalIcon.rolloverImage", Frame_normalIcon_rolloverImage, 
+			
+			"Frame.maximizeIcon.defaultImage", Frame_maximizeIcon_defaultImage, 
+			"Frame.maximizeIcon.pressedImage", Frame_maximizeIcon_pressedImage, 
+			"Frame.maximizeIcon.disabledImage", Frame_maximizeIcon_disabledImage, 
+			"Frame.maximizeIcon.rolloverImage", Frame_maximizeIcon_rolloverImage,
+			
+			"Frame.closeIcon.defaultImage", Frame_closeIcon_defaultImage, 
+			"Frame.closeIcon.pressedImage", Frame_closeIcon_pressedImage, 
+			"Frame.closeIcon.disabledImage", Frame_closeIcon_disabledImage, 
+			"Frame.closeIcon.rolloverImage", Frame_closeIcon_rolloverImage
 		];
 		table.putDefaults(comDefaults);			
 	}	
