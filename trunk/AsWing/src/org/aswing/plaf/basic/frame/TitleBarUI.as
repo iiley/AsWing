@@ -25,6 +25,7 @@ import flash.geom.Rectangle;
 import org.aswing.plaf.UIResource;
 import flash.geom.Matrix;
 import org.aswing.Insets;
+import org.aswing.LayoutManager;
 
 /**
  * Basic Frame title bar UI.
@@ -76,8 +77,7 @@ public class TitleBarUI extends BaseComponentUI{
     }
     
     protected function installDefaults():void{
-    	
-		titleBar.setLayout(new TitleBarLayout());
+		titleBar.setLayout(getInstance("Frame.titleBarLayout") as LayoutManager);
 		if(frame.getIcon() != null && frame.getIcon() is UIResource){
 			frame.setIcon(getIcon("Frame.icon"));
 		}
