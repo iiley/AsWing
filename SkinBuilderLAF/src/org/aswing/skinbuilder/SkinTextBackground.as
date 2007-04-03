@@ -72,7 +72,7 @@ public class SkinTextBackground implements GroundDecorator, UIResource{
 		lastViewedImage.height = c.height;
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return imageContainer;
 	}
 	
