@@ -14,8 +14,8 @@ import org.aswing.plaf.UIResource;
 
 public class TitleBarLayout extends FlowLayout implements UIResource{
 	
-	private static const ICON_TITLE_WIDTH:int = 50;
-	private static const ICON_TITLE_HEIGHT:int = 20;
+	protected static const ICON_TITLE_WIDTH:int = 50;
+	protected static const ICON_TITLE_HEIGHT:int = 20;
 	
 	
 	public function TitleBarLayout() {

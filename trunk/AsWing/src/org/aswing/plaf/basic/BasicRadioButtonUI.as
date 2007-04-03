@@ -25,6 +25,15 @@ public class BasicRadioButtonUI extends BasicToggleButtonUI{
 		defaultIcon = getIcon(getPropertyPrefix() + "icon");
 	}
 	
+	override protected function uninstallDefaults(b:AbstractButton):void{
+		super.uninstallDefaults(b);
+		if(defaultIcon.getDisplay()){
+    		if(button.contains(defaultIcon.getDisplay())){
+    			button.removeChild(defaultIcon.getDisplay());
+    		}
+		}
+	}
+	
     override protected function getPropertyPrefix():String {
         return "RadioButton.";
     }
@@ -35,6 +44,11 @@ public class BasicRadioButtonUI extends BasicToggleButtonUI{
     
     override protected function getIconToLayout():Icon{
     	if(button.getIcon() == null){
+    		if(defaultIcon.getDisplay()){
+	    		if(!button.contains(defaultIcon.getDisplay())){
+	    			button.addChild(defaultIcon.getDisplay());
+	    		}
+    		}
     		return defaultIcon;
     	}else{
     		return button.getIcon();

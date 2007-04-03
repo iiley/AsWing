@@ -290,7 +290,7 @@ public class BasicButtonUI extends BaseComponentUI
 		}
     }
     
-    private function setIconVisible(icon:Icon, visible:Boolean):void{
+    protected function setIconVisible(icon:Icon, visible:Boolean):void{
     	if(icon.getDisplay() != null){
     		icon.getDisplay().visible = visible;
     	}

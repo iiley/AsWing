@@ -142,8 +142,8 @@ public class AbstractButton extends Component
     	this.analyzeMnemonic();
     	this.defaultIcon = icon;
     	this.installIcon(defaultIcon);
-    	setText(text);
-    	setIcon(icon);
+    	//setText(text);
+    	//setIcon(icon);
     	initSelfHandlers();
 	}
 
