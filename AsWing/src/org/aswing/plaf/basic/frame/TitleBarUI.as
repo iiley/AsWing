@@ -96,7 +96,10 @@ public class TitleBarUI extends BaseComponentUI{
 		
         titleBar.setBackground(activeColor);
         titleBar.setForeground(activeTextColor);
-        titleBar.setOpaque(true);
+        if(!titleBar.isOpaqueSet()){
+	        titleBar.setOpaque(getBoolean("Frame.titleBarOpaque"));
+	        titleBar.setOpaqueSet(false);
+        }
     }
     
 	protected function installComponents() : void {
