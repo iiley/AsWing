@@ -35,6 +35,10 @@ public class SkinFrameBackground implements GroundDecorator, UIResource{
 			reloadAssets(com.getUI());
 		}
 		var frame:JFrame = JFrame(com);
+		imageContainer.visible = frame.isOpaque();
+		if(!imageContainer.visible){
+			return;
+		}
 		activeBG.visible = frame.isActive();
 		inactiveBG.visible = !frame.isActive();
 		imageContainer.x = bounds.x;
