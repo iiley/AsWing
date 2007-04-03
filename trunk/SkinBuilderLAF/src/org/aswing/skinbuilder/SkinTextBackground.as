@@ -54,10 +54,6 @@ public class SkinTextBackground implements GroundDecorator, UIResource{
 			loaded = true;
 		}
 		var text:JTextComponent = JTextComponent(c);
-		imageContainer.visible = text.isOpaque();
-		if(!imageContainer.visible){
-			return;
-		}
 		
 		var image:DisplayObject = null;
 		if(!text.isEnabled()){
