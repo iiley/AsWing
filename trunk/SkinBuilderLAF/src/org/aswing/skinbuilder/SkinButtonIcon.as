@@ -82,16 +82,20 @@ public class SkinButtonIcon implements Icon, UIResource{
 	public function getIconHeight():int{
 		if(height >= 0){
 			return height;
-		}else{
+		}else if(stateAsset.height > 0){
 			return stateAsset.height;
+		}else{
+			return 22; //default value
 		}
 	}
 	
 	public function getIconWidth():int{
 		if(width >= 0){
 			return width;
-		}else{
+		}else if(stateAsset.width > 0){
 			return stateAsset.width;
+		}else{
+			return 22; //default value
 		}
 	}
 	
