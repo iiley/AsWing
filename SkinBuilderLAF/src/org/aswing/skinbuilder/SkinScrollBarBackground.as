@@ -42,10 +42,6 @@ public class SkinScrollBarBackground implements GroundDecorator, UIResource{
 	
 	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
 		var bar:JScrollBar = JScrollBar(com);
-		imageContainer.visible = bar.isOpaque();
-		if(!imageContainer.visible){
-			return;
-		}
 		imageContainer.x = bounds.x;
 		imageContainer.y = bounds.y;
 		var image:DisplayObject;

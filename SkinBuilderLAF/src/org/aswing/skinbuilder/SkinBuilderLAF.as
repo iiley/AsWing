@@ -393,8 +393,14 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	
 	[Embed(source="assets/Frame_closeIcon_rolloverImage.png")]
 	private var Frame_closeIcon_rolloverImage:Class;
+		
 	
-	
+	//=====================================================================
+	//=========================== ToolTip scale-9 ========================
+	//=====================================================================
+	[Embed(source="assets/ToolTip_bgImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="68")]
+	private var ToolTip_bgImage:Class;
 	
 
 	//===========================================================================
@@ -405,6 +411,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		super.initComponentDefaults(table);
 		// *** Button
 		var comDefaults:Array = [
+			"Button.opaque", false, 
 			"Button.defaultImage", Button_defaultImage,
 			"Button.pressedImage", Button_pressedImage,
 			"Button.disabledImage", Button_disabledImage,
@@ -417,6 +424,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** ToggleButton
 		comDefaults = [
+			"ToggleButton.opaque", false, 
 			"ToggleButton.defaultImage", ToggleButton_defaultImage,
 			"ToggleButton.pressedImage", ToggleButton_pressedImage,
 			"ToggleButton.disabledImage", ToggleButton_disabledImage,
@@ -455,7 +463,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** ScrollBar
 		comDefaults = [
-			"ScrollBar.opaque", true, 
+			"ScrollBar.opaque", false, 
 			"ScrollBar.thumbDecorator", SkinScrollBarThumb, 
 			"ScrollBar.arrowSize", 16, //modify this when your arrow images size changed
 			
@@ -497,6 +505,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** TextField
 		comDefaults = [
+			"TextField.opaque", false, 
 			"TextField.bg", SkinTextFieldBackground,
 			"TextField.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
 			"TextField.defaultImage", TextField_defaultImage, 
@@ -507,6 +516,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** TextArea
 		comDefaults = [
+			"TextArea.opaque", false, 
 			"TextArea.bg", SkinTextFieldBackground,
 			"TextArea.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
 			"TextArea.defaultImage", TextArea_defaultImage, 
@@ -553,7 +563,16 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Frame.closeIcon.disabledImage", Frame_closeIcon_disabledImage, 
 			"Frame.closeIcon.rolloverImage", Frame_closeIcon_rolloverImage
 		];
-		table.putDefaults(comDefaults);			
+		table.putDefaults(comDefaults);
+		
+		// *** ToolTip
+		comDefaults = [
+			"ToolTip.opaque", false, 
+			"ToolTip.bg", SkinToolTipBackground, 
+			"ToolTip.bgImage", ToolTip_bgImage, 
+			"ToolTip.border", new SkinEmptyBorder(2, 2, 2, 2) //modify this to fit the bg image
+		];
+		table.putDefaults(comDefaults);
 	}	
 }
 }
