@@ -32,7 +32,7 @@ public class AssetBackground implements GroundDecorator{
 		asset.height = bounds.height;		
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return asset;
 	}
 }

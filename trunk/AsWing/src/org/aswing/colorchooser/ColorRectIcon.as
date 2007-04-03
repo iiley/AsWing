@@ -34,14 +34,14 @@ public class ColorRectIcon implements Icon {
 	/**
 	 * Return the icon's width.
 	 */
-	public function getIconWidth():int{
+	public function getIconWidth(c:Component):int{
 		return width;
 	}
 	
 	/**
 	 * Return the icon's height.
 	 */
-	public function getIconHeight():int{
+	public function getIconHeight(c:Component):int{
 		return height;
 	}
 	
@@ -63,7 +63,7 @@ public class ColorRectIcon implements Icon {
 		}
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}	
 }

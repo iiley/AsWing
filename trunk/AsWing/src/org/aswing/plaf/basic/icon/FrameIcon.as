@@ -48,17 +48,17 @@ public class FrameIcon implements Icon, UIResource{
 	
 	public function updateIconImp(c:Component, g:Graphics2D, x:int, y:int):void{}
 	
-	public function getIconHeight():int
+	public function getIconHeight(c:Component):int
 	{
 		return width;
 	}
 	
-	public function getIconWidth():int
+	public function getIconWidth(c:Component):int
 	{
 		return height;
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return shape;
 	}

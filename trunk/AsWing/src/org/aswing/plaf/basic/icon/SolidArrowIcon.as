@@ -41,12 +41,12 @@ public class SolidArrowIcon implements Icon, UIResource
 		return new Point(op.x+Math.cos(direction)*distance, op.y+Math.sin(direction)*distance);
 	}
 	
-	public function getIconHeight():int
+	public function getIconHeight(c:Component):int
 	{
 		return height;
 	}
 	
-	public function getIconWidth():int
+	public function getIconWidth(c:Component):int
 	{
 		return width;
 	}
@@ -55,7 +55,7 @@ public class SolidArrowIcon implements Icon, UIResource
 		this.arrow = arrow;
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return null;
 	}

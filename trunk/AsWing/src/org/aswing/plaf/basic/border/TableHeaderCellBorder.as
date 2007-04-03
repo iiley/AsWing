@@ -42,7 +42,7 @@ public class TableHeaderCellBorder implements Border, UIResource{
 		return new Insets(0, 0, 1, 1);
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return null;
 	}

@@ -13,6 +13,7 @@ import org.aswing.graphics.Graphics2D;
  * <p>
  * You can either return a display object to be the border or just return null and paint the border 
  * in <code>updateBorder</code> method use the component g(Graphics).
+ * </p>
  */
 public interface Border extends Decorator
 {

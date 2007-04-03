@@ -90,7 +90,7 @@ public class FloorIcon implements Icon
 	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void
 	{
 		if (isLoaded()){
-			var floor:DisplayObject = getDisplay();
+			var floor:DisplayObject = getDisplay(c);
 			if(!isSizeInited()){
 				this.width = floor.width;
 				this.height = floor.height;
@@ -139,12 +139,12 @@ public class FloorIcon implements Icon
 		return maskMC;
 	}
 	
-	public function getIconHeight():int
+	public function getIconHeight(c:Component):int
 	{
 		return height;
 	}
 	
-	public function getIconWidth():int
+	public function getIconWidth(c:Component):int
 	{
 		return width;
 	}
@@ -152,7 +152,7 @@ public class FloorIcon implements Icon
 	/**
 	 * Returns the display object which is used as the component decorator.
 	 */	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return floorMC;
 	}

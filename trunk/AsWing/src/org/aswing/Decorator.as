@@ -14,8 +14,13 @@ public interface Decorator
 {
 	/**
 	 * Returns the display object which is used as the component decorator.
+	 * <p>
+	 * For same component, this method must return same display object.
+	 * </p>
+	 * @param c the component which will use this decorator.
+	 * @return the display object
 	 */
-	function getDisplay():DisplayObject;
+	function getDisplay(c:Component):DisplayObject;
 	
 }
 

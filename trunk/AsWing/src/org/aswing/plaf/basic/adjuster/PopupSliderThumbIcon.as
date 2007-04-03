@@ -5,6 +5,7 @@
 package org.aswing.plaf.basic.adjuster{
 	
 import org.aswing.plaf.basic.icon.SliderThumbIcon;
+import org.aswing.Component;
 
 public class PopupSliderThumbIcon extends SliderThumbIcon
 {
@@ -17,12 +18,12 @@ public class PopupSliderThumbIcon extends SliderThumbIcon
 		return "Adjuster.";
 	}	
 	
-	override public function getIconHeight():int
+	override public function getIconHeight(c:Component):int
 	{
 		return 12;
 	}
 	
-	override public function getIconWidth():int
+	override public function getIconWidth(c:Component):int
 	{
 		return 6;
 	}	

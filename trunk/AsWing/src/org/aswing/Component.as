@@ -401,13 +401,13 @@ public class Component extends AWSprite{
 	 */
 	public function setBorder(b:Border):void{
 		if(b != border){
-			if(border != null && border.getDisplay() != null){
-				removeChild(border.getDisplay());
+			if(border != null && border.getDisplay(this) != null){
+				removeChild(border.getDisplay(this));
 			}
 			border = b;
 			
-			if(border != null && border.getDisplay() != null){
-				addChild(border.getDisplay());
+			if(border != null && border.getDisplay(this) != null){
+				addChild(border.getDisplay(this));
 			}
 			
 			repaint();
@@ -445,7 +445,7 @@ public class Component extends AWSprite{
 		if(bg != backgroundDecorator){
 			backgroundDecorator = bg;
 			if(bg != null){
-				setBackgroundChild(bg.getDisplay());
+				setBackgroundChild(bg.getDisplay(this));
 			}else{
 				setBackgroundChild(null);
 			}
@@ -471,7 +471,7 @@ public class Component extends AWSprite{
 		if(fg != foregroundDecorator){
 			foregroundDecorator = fg;
 			if(fg != null){
-				setForegroundChild(fg.getDisplay());
+				setForegroundChild(fg.getDisplay(this));
 			}else{
 				setForegroundChild(null);
 			}

@@ -49,7 +49,7 @@ public class ToggleButtonBackground implements GroundDecorator, UIResource
 		}
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return null;
 	}

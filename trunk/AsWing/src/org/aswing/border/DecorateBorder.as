@@ -84,11 +84,11 @@ public class DecorateBorder implements Border{
      * You should override this method to return the display object.
      * @see #getDisplayImp()
      */	   
-	final public function getDisplay():DisplayObject
+	final public function getDisplay(c:Component):DisplayObject
 	{
 		var inter:Border = getInterior();
 		if(inter != null){
-			var interDis:DisplayObject = inter.getDisplay();
+			var interDis:DisplayObject = inter.getDisplay(c);
 			var selfDis:DisplayObject = getDisplayImp();
 			if(interDis == null){
 				return selfDis;

@@ -141,10 +141,11 @@ public class AbstractButton extends Component
     	this.text = text;
     	this.analyzeMnemonic();
     	this.defaultIcon = icon;
-    	this.installIcon(defaultIcon);
     	//setText(text);
     	//setIcon(icon);
     	initSelfHandlers();
+    	updateUI();
+    	installIcon(defaultIcon);
 	}
 
     /**
@@ -473,13 +474,13 @@ public class AbstractButton extends Component
 	}
 	
 	protected function installIcon(icon:Icon):void{
-		if(icon != null && icon.getDisplay() != null){
-			addChild(icon.getDisplay());
+		if(icon != null && icon.getDisplay(this) != null){
+			addChild(icon.getDisplay(this));
 		}
 	}
 	protected function uninstallIcon(icon:Icon):void{
-		if(icon != null && icon.getDisplay() != null){
-			removeChild(icon.getDisplay());
+		if(icon != null && icon.getDisplay(this) != null){
+			removeChild(icon.getDisplay(this));
 		}
 	}
 	

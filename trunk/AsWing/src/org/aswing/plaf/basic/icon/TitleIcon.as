@@ -57,17 +57,17 @@ public class TitleIcon implements Icon, UIResource{
 		g.fillPolygon(new SolidBrush(innerRect), points);		
 	}
 	
-	public function getIconHeight():int
+	public function getIconHeight(c:Component):int
 	{
 		return HEIGHT;
 	}
 	
-	public function getIconWidth():int
+	public function getIconWidth(c:Component):int
 	{
 		return WIDTH + 2;
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return shape;
 	}

@@ -22,7 +22,7 @@ public class SolidBackground implements GroundDecorator{
 		g.fillRectangle(new SolidBrush(color), bounds.x, bounds.y, bounds.width, bounds.height);	
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return null;
 	}

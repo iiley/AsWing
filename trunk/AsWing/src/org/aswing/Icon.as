@@ -23,24 +23,32 @@ public interface Icon extends Decorator
 {	
 	/**
 	 * Returuns the icon width.
+	 * <p>
+	 * For same component param, this method must return same value.
+	 * </p>
+	 * @param c the component which owns the icon.
 	 * @return the width of the icon.
 	 */
-	function getIconWidth():int;
+	function getIconWidth(c:Component):int;
 	
 	/**
 	 * Returns the icon height.
+	 * <p>
+	 * For same component param, this method must return same value.
+	 * </p>
+	 * @param c the component which owns the icon.
 	 * @return the height of the icon.
 	 */
-	function getIconHeight():int;
+	function getIconHeight(c:Component):int;
 	
 	/**
 	 * Updates the icon.
-	 * @param com the component which owns the icon.
+	 * @param c the component which owns the icon.
 	 * @param g the graphics of the component, you can paint picture onto it.
 	 * @param x the x coordinates of the icon should be.
 	 * @param y the y coordinates of the icon should be.
 	 */
-	function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void;	
+	function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void;	
 }
 
 }
