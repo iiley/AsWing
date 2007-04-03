@@ -24,12 +24,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		super.initClassDefaults(table);
 		var uiDefaults:Array = [
 			   "RadioButtonUI", SkinRadioButtonUI,  
-			   "CheckBoxUI", SkinCheckBoxUI, 
-			   /*"ColorSwatchesUI", org.aswing.plaf.basic.BasicColorSwatchesUI,
-			   "ColorMixerUI", org.aswing.plaf.basic.BasicColorMixerUI,
-			   "ColorChooserUI", org.aswing.plaf.basic.BasicColorChooserUI,			   
+			   "CheckBoxUI", SkinCheckBoxUI, 		   
 			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
-			   "SeparatorUI", org.aswing.plaf.basic.BasicSeparatorUI,
+			   /*"SeparatorUI", org.aswing.plaf.basic.BasicSeparatorUI,
 			   "ViewportUI", org.aswing.plaf.basic.BasicViewportUI,
 			   "ScrollPaneUI", org.aswing.plaf.basic.BasicScrollPaneUI, 
 			   "LabelUI",org.aswing.plaf.basic.BasicLabelUI, 
@@ -54,6 +51,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		table.putDefaults(uiDefaults);
 	}
 	
+	
 	//=====================================================================
 	//=========================== Button scale-9 ==========================
 	//=====================================================================
@@ -72,6 +70,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/Button_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_disabledImage:Class;
+	
 	
 	//===========================================================================
 	//=========================== ToggleButton scale-9 ==========================
@@ -104,6 +103,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_rolloverSelectedImage:Class;
 	
+	
 	//==================================================================
 	//=========================== RadioButton ==========================
 	//==================================================================
@@ -128,6 +128,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/RadioButton_rolloverSelectedImage.png")]
 	private var RadioButton_rolloverSelectedImage:Class;
 	
+	
 	//===============================================================
 	//=========================== CheckBox ==========================
 	//===============================================================
@@ -151,6 +152,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	
 	[Embed(source="assets/CheckBox_rolloverSelectedImage.png")]
 	private var CheckBox_rolloverSelectedImage:Class;
+	
 	
 	//===============================================================
 	//=========================== ScrollBar =========================
@@ -250,6 +252,39 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ScrollBar_thumbHorizontal_disabledImage:Class;
 
+	
+	//=====================================================================
+	//=========================== TextField scale-9 =======================
+	//=====================================================================
+	[Embed(source="assets/TextField_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var TextField_defaultImage:Class;
+	
+	[Embed(source="assets/TextField_uneditableImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var TextField_uneditableImage:Class;
+	
+	[Embed(source="assets/TextField_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var TextField_disabledImage:Class;
+	
+	
+	//=====================================================================
+	//=========================== TextArea scale-9 ========================
+	//=====================================================================
+	[Embed(source="assets/TextArea_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var TextArea_defaultImage:Class;
+	
+	[Embed(source="assets/TextArea_uneditableImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var TextArea_uneditableImage:Class;
+	
+	[Embed(source="assets/TextArea_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var TextArea_disabledImage:Class;
+	
+	
 	//===========================================================================
 	//=========================== Frame =========================================
 	//===========================================================================
@@ -330,7 +365,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Button.disabledImage", Button_disabledImage,
 			"Button.rolloverImage", Button_rolloverImage,
 			"Button.bg", SkinButtonBackground,
-			"Button.margin", new InsetsUIResource(2, 3, 3, 2)
+			"Button.margin", new InsetsUIResource(2, 3, 3, 2) //modify this to fit the image border margin
 		];
 		table.putDefaults(comDefaults);
 		
@@ -344,7 +379,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ToggleButton.rolloverImage", ToggleButton_rolloverImage,
 			"ToggleButton.rolloverSelectedImage", ToggleButton_rolloverSelectedImage,
 			"ToggleButton.bg", SkinToggleButtonBackground,
-			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2)
+			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2) //modify this to fit the image border margin
 		];
 		table.putDefaults(comDefaults);
 
@@ -374,10 +409,11 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** ScrollBar
 		comDefaults = [
-			"ScrollBar.opaque", false, 
+			"ScrollBar.opaque", true, 
 			"ScrollBar.thumbDecorator", SkinScrollBarThumb, 
 			"ScrollBar.arrowSize", 16, //modify this when your arrow images size changed
 			
+			"ScrollBar.bg", SkinScrollBarBackground, 
 			"ScrollBar.verticalBGImage", ScrollBar_verticalBGImage, 
 			"ScrollBar.horizotalBGImage", ScrollBar_horizotalBGImage, 
 			
@@ -413,18 +449,37 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		];
 		table.putDefaults(comDefaults);
 		
+		// *** TextField
+		comDefaults = [
+			"TextField.bg", SkinTextFieldBackground,
+			"TextField.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
+			"TextField.defaultImage", TextField_defaultImage, 
+			"TextField.uneditableImage", TextField_uneditableImage, 
+			"TextField.disabledImage", TextField_disabledImage
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** TextArea
+		comDefaults = [
+			"TextArea.bg", SkinTextFieldBackground,
+			"TextArea.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
+			"TextArea.defaultImage", TextArea_defaultImage, 
+			"TextArea.uneditableImage", TextArea_uneditableImage, 
+			"TextArea.disabledImage", TextArea_disabledImage
+		];
+		table.putDefaults(comDefaults);
+		
 		// *** Frame
 		comDefaults = [
 			"Frame.background", table.get("window"),
 			"Frame.foreground", table.get("windowText"),
 			"Frame.opaque", false, 
 			"Frame.bg", SkinFrameBackground, //this will use Frame.activeBG and Frame.inactiveBG
-			"Frame.margin", new InsetsUIResource(2, 3, 3, 2), //modify this to fit the frame bg image
 			"Frame.titleBarHeight", 20, //modify this to fit title bar height of bg image
+			"Frame.border", new SkinEmptyBorder(22, 6, 6, 6), //modify this to fit the frame bg image
 			"Frame.activeBG", Frame_activeBG, 
 			"Frame.inactiveBG", Frame_inactiveBG, 
 			"Frame.titleBarLayout", SkinFrameTitleBarLayout, 
-			"Frame.border", SkinFrameEmptyBorder, //this border will use Frame.margin property
 			"Frame.buttonSize", 14, //modify this to fit title bar button size below
 			"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
 			"Frame.normalIcon", SkinFrameNormalIcon,

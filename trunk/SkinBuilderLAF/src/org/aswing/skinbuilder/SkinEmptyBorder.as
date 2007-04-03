@@ -11,17 +11,9 @@ import org.aswing.error.ImpMissError;
 
 public class SkinEmptyBorder extends EmptyBorder implements UIResource{
 	
-	public function SkinEmptyBorder(){
-		super();
+	public function SkinEmptyBorder(top:int=0, left:int=0, bottom:int=0, right:int=0){
+		super(null, new Insets(top, left, bottom, right));
 	}
 	
-	protected function getDefaultsKey():String{
-    	throw new ImpMissError();
-    	return null;	
-	}
-	
-    override public function getBorderInsetsImp(c:Component, bounds:IntRectangle):Insets{
-    	return c.getUI().getInsets(getDefaultsKey());
-    }	
 }
 }

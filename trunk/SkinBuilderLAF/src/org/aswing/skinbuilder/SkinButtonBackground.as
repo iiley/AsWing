@@ -53,7 +53,7 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
  		var button:AbstractButton = AbstractButton(com)
  		
  		stateAsset.visible = button.isOpaque();
- 		if(!button.isOpaque()){
+ 		if(!stateAsset.visible){
  			return;
  		}
  		var model:ButtonModel = button.getModel();
