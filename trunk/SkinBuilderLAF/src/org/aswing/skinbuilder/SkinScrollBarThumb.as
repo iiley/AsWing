@@ -74,7 +74,7 @@ public class SkinScrollBarThumb implements GroundDecorator, UIResource{
 		paint();
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return thumb;
 	}
 	

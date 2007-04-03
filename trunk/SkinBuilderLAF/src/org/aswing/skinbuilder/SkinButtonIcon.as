@@ -19,15 +19,15 @@ import org.aswing.error.ImpMissError;
  */
 public class SkinButtonIcon implements Icon, UIResource{
 	
-	private var width:int = -1;
-	private var height:int = -1;
+	private var forceWidth:int = -1;
+	private var forceHeight:int = -1;
 	
     protected var stateAsset:ButtonStateObject;
     protected var setuped:Boolean;
     
-	public function SkinButtonIcon(width:int=-1, height:int=-1){
-		this.width = width;
-		this.height = height;
+	public function SkinButtonIcon(forceWidth:int=-1, forceHeight:int=-1){
+		this.forceWidth = forceWidth;
+		this.forceHeight = forceHeight;
 		setuped = false;
 		stateAsset = new ButtonStateObject();
 	}
@@ -55,19 +55,21 @@ public class SkinButtonIcon implements Icon, UIResource{
         stateAsset.setRolloverImage(rolloverImage);
         stateAsset.setRolloverSelectedImage(rolloverSelectedImage);
 	}
+	
+	protected function checkSetup(c:Component):void{
+		if(!setuped){
+			setupAssets(c.getUI());
+			setuped = true;
+		}		
+	}
  	
- 	public function getDisplay():DisplayObject{
+ 	public function getDisplay(c:Component):DisplayObject{
+ 		checkSetup(c);
  		return stateAsset;
  	}
  	
 	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void{
-		if(!setuped){
-			setupAssets(c.getUI());
-			setuped = true;
-			if(width < 0){
-				c.revalidate();
-			}
-		}
+		checkSetup(c);
 		var button:AbstractButton = AbstractButton(c);
  		var model:ButtonModel = button.getModel();
  		stateAsset.setEnabled(model.isEnabled());
@@ -79,23 +81,21 @@ public class SkinButtonIcon implements Icon, UIResource{
 		stateAsset.updateRepresent();
  	}
 	
-	public function getIconHeight():int{
-		if(height >= 0){
-			return height;
-		}else if(stateAsset.height > 0){
-			return stateAsset.height;
+	public function getIconHeight(c:Component):int{
+ 		checkSetup(c);
+		if(forceHeight >= 0){
+			return forceHeight;
 		}else{
-			return 22; //default value
+			return stateAsset.height;
 		}
 	}
 	
-	public function getIconWidth():int{
-		if(width >= 0){
-			return width;
-		}else if(stateAsset.width > 0){
-			return stateAsset.width;
+	public function getIconWidth(c:Component):int{
+ 		checkSetup(c);
+		if(forceWidth >= 0){
+			return forceWidth;
 		}else{
-			return 22; //default value
+			return stateAsset.width;
 		}
 	}
 	

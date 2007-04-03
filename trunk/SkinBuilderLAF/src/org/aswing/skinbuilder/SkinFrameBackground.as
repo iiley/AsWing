@@ -42,7 +42,7 @@ public class SkinFrameBackground implements GroundDecorator, UIResource{
 		activeBG.height = inactiveBG.height = com.height;
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return imageContainer;
 	}
 	

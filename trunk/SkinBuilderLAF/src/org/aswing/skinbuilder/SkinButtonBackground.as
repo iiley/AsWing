@@ -40,7 +40,7 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
         return ui.getInstance(pp+extName) as DisplayObject;
 	}
  	
- 	public function getDisplay():DisplayObject{
+ 	public function getDisplay(c:Component):DisplayObject{
  		return stateAsset;
  	}
  	

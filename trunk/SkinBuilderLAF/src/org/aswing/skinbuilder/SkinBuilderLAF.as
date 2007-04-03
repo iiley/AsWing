@@ -23,8 +23,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	override protected function initClassDefaults(table:UIDefaults):void{
 		super.initClassDefaults(table);
 		var uiDefaults:Array = [
-			   "RadioButtonUI", SkinRadioButtonUI,  
-			   "CheckBoxUI", SkinCheckBoxUI, 		   
+			   //"RadioButtonUI", SkinRadioButtonUI,  
+			   //"CheckBoxUI", SkinCheckBoxUI, 		   
 			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
 			   /*"SeparatorUI", org.aswing.plaf.basic.BasicSeparatorUI,
 			   "ViewportUI", org.aswing.plaf.basic.BasicViewportUI,
@@ -439,6 +439,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 
 		// *** RadioButton
 		comDefaults = [
+			"RadioButton.icon", SkinRadioButtonIcon,
 			"RadioButton.defaultImage", RadioButton_defaultImage,
 			"RadioButton.pressedImage", RadioButton_pressedImage,
 			"RadioButton.disabledImage", RadioButton_disabledImage,
@@ -451,6 +452,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 
 		// *** CheckBox
 		comDefaults = [
+			"CheckBox.icon", SkinCheckBoxIcon,
 			"CheckBox.defaultImage", CheckBox_defaultImage,
 			"CheckBox.pressedImage", CheckBox_pressedImage,
 			"CheckBox.disabledImage", CheckBox_disabledImage,

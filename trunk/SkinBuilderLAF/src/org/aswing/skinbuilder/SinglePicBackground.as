@@ -13,13 +13,10 @@ import flash.display.Sprite;
 import org.aswing.error.ImpMissError;
 
 public class SinglePicBackground implements GroundDecorator, UIResource{
-	
-	protected var imageContainer:Sprite;
 	protected var image:DisplayObject;
 	protected var loaded:Boolean;
 	
 	public function SinglePicBackground(){
-		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
 		loaded = false;
 	}
 	
@@ -28,14 +25,15 @@ public class SinglePicBackground implements GroundDecorator, UIResource{
 		return null;
 	}
 	
-	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+	protected function checkLoad(c:Component):void{
 		if(!loaded){
 			image = c.getUI().getInstance(getDefaltsKey()) as DisplayObject;
-			if(image){
-				imageContainer.addChild(image);
-			}
 			loaded = true;
 		}
+	}
+	
+	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+		checkLoad(c);
 		if(image){
 			//not use bounds, avoid border margin
 			image.width = c.width;
@@ -43,8 +41,9 @@ public class SinglePicBackground implements GroundDecorator, UIResource{
 		}
 	}
 	
-	public function getDisplay():DisplayObject{
-		return imageContainer;
+	public function getDisplay(c:Component):DisplayObject{
+		checkLoad(c);
+		return image;
 	}
 	
 }
