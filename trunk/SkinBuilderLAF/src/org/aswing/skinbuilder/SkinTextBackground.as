@@ -71,10 +71,9 @@ public class SkinTextBackground implements GroundDecorator, UIResource{
 			lastViewedImage = image;
 			lastViewedImage.visible = true;
 		}
-		imageContainer.x = bounds.x;
-		imageContainer.y = bounds.y;
-		lastViewedImage.width = bounds.width;
-		lastViewedImage.height = bounds.height;
+		//not use bounds, avoid the border
+		lastViewedImage.width = c.width;
+		lastViewedImage.height = c.height;
 	}
 	
 	public function getDisplay():DisplayObject{

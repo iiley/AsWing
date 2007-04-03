@@ -64,6 +64,9 @@ public class SkinButtonIcon implements Icon, UIResource{
 		if(!setuped){
 			setupAssets(c.getUI());
 			setuped = true;
+			if(width < 0){
+				c.revalidate();
+			}
 		}
 		var button:AbstractButton = AbstractButton(c);
  		var model:ButtonModel = button.getModel();
