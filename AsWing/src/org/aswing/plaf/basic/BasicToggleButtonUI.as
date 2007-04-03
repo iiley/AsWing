@@ -36,6 +36,12 @@ public class BasicToggleButtonUI extends BasicButtonUI{
 		var model:ButtonModel = b.getModel();
 		var icon:Icon = null;
         
+        var icons:Array = getIcons();
+        for(var i:int=0; i<icons.length; i++){
+        	var ico:Icon = icons[i];
+			setIconVisible(ico, false);
+        }
+        
         if(!model.isEnabled()) {
 			if(model.isSelected()) {
 				icon = b.getDisabledSelectedIcon();
@@ -68,6 +74,7 @@ public class BasicToggleButtonUI extends BasicButtonUI{
 			icon = getIconToLayout();
 		}
         if(icon != null){
+			setIconVisible(icon, true);
 			icon.updateIcon(b, g, iconRect.x, iconRect.y);
         }
     }
