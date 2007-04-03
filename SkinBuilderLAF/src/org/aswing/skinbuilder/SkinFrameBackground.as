@@ -35,16 +35,11 @@ public class SkinFrameBackground implements GroundDecorator, UIResource{
 			reloadAssets(com.getUI());
 		}
 		var frame:JFrame = JFrame(com);
-		imageContainer.visible = frame.isOpaque();
-		if(!imageContainer.visible){
-			return;
-		}
 		activeBG.visible = frame.isActive();
 		inactiveBG.visible = !frame.isActive();
-		imageContainer.x = bounds.x;
-		imageContainer.y = bounds.y;
-		activeBG.width = inactiveBG.width = bounds.width;
-		activeBG.height = inactiveBG.height = bounds.height;
+		//not use bounds, avoid the border
+		activeBG.width = inactiveBG.width = com.width;
+		activeBG.height = inactiveBG.height = com.height;
 	}
 	
 	public function getDisplay():DisplayObject{
