@@ -323,7 +323,9 @@ public class TitledBorder extends DecorateBorder{
 	}
 
 	public function setLineColor(lineColor:ASColor):void {
-		this.lineColor = lineColor;
+		if (lineColor != null){
+			this.lineColor = lineColor;
+		}
 	}
 	
 	public function getLineLightColor():ASColor{
@@ -331,7 +333,9 @@ public class TitledBorder extends DecorateBorder{
 	}
 	
 	public function setLineLightColor(lineLightColor:ASColor):void{
-		this.lineLightColor = lineLightColor;
+		if (lineLightColor != null){
+			this.lineLightColor = lineLightColor;
+		}
 	}
 	
 	public function isBeveled():Boolean{
