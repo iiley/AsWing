@@ -52,30 +52,31 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	}
 
 	override protected function initSystemColorDefaults(table:UIDefaults):void{
+		super.initSystemColorDefaults(table);
 			var defaultSystemColors:Array = [
-				"activeCaption", 0xF2F2F2, /* Color for captions (title bars) when they are active. */
-				"activeCaptionText", 0x000000, /* Text color for text in captions (title bars). */
-				"activeCaptionBorder", 0xC0C0C0, /* Border color for caption (title bar) window borders. */
-				"inactiveCaption", 0xE7E7E7, /* Color for captions (title bars) when not active. */
+				//"activeCaption", 0xF2F2F2, /* Color for captions (title bars) when they are active. */
+				"activeCaptionText", 0xFFFFFF, /* Text color for text in captions (title bars). */
+				//"activeCaptionBorder", 0xC0C0C0, /* Border color for caption (title bar) window borders. */
+				//"inactiveCaption", 0xE7E7E7, /* Color for captions (title bars) when not active. */
 				"inactiveCaptionText", 0x888888, /* Text color for text in inactive captions (title bars). */
-				"inactiveCaptionBorder", 0x888888, /* Border color for inactive caption (title bar) window borders. */
+				//"inactiveCaptionBorder", 0x888888, /* Border color for inactive caption (title bar) window borders. */
 				"window", 0xECE9D8, /* Default color for the interior of windows */
-				"windowBorder", 0x000000, /* ??? */
-				"windowText", 0x000000, /* ??? */
-				"menu", 0xCCCCCC, /* Background color for menus */
-				"menuText", 0x000000, /* Text color for menus  */
-				"text", 0xC0C0C0, /* Text background color */
-				"textText", 0x000000, /* Text foreground color */
-				"textHighlight", 0x000080, /* Text background color when selected */
-				"textHighlightText", 0xFFFFFF, /* Text color when selected */
-				"textInactiveText", 0x808080, /* Text color when disabled */
-				"control", 0xF4F4F4,//0xEFEFEF, /* Default color for controls (buttons, sliders, etc) */
-				"controlText", 0x000000, /* Default color for text in controls */
-				"controlHighlight", 0xEEEEEE, /* Specular highlight (opposite of the shadow) */
-				"controlLtHighlight", 0x666666, /* Highlight color for controls */
-				"controlShadow", 0xC7C7C5, /* Shadow color for controls */
-				"controlDkShadow", 0x666666, /* Dark shadow color for controls */
-				"scrollbar", 0xE0E0E0 /* Scrollbar background (usually the "track") */
+				//"windowBorder", 0x000000, /* ??? */
+				"windowText", 0xFFFFFF, /* ??? */
+				//"menu", 0xCCCCCC, /* Background color for menus */
+				//"menuText", 0x000000, /* Text color for menus  */
+				//"text", 0xC0C0C0, /* Text background color */
+				//"textText", 0x000000, /* Text foreground color */
+				//"textHighlight", 0x000080, /* Text background color when selected */
+				//"textHighlightText", 0xFFFFFF, /* Text color when selected */
+				//"textInactiveText", 0x808080, /* Text color when disabled */
+				//"control", 0xF4F4F4,//0xEFEFEF, /* Default color for controls (buttons, sliders, etc) */
+				//"controlText", 0x000000, /* Default color for text in controls */
+				//"controlHighlight", 0xEEEEEE, /* Specular highlight (opposite of the shadow) */
+				//"controlLtHighlight", 0x666666, /* Highlight color for controls */
+				//"controlShadow", 0xC7C7C5, /* Shadow color for controls */
+				//"controlDkShadow", 0x666666, /* Dark shadow color for controls */
+				//"scrollbar", 0xE0E0E0 /* Scrollbar background (usually the "track") */
 			];
 					
 			for(var i:Number=0; i<defaultSystemColors.length; i+=2){
@@ -84,6 +85,17 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			table.put("focusInner", new ASColorUIResource(0x40FF40, 10));
 			table.put("focusOutter", new ASColorUIResource(0x40FF40, 20));
 	}
+	
+	override protected function initSystemFontDefaults(table:UIDefaults):void{
+		super.initSystemFontDefaults(table);
+		var defaultSystemFonts:Array = [
+				"systemFont", new ASFontUIResource("Tahoma", 11), 
+				"menuFont", new ASFontUIResource("Tahoma", 11), 
+				"controlFont", new ASFontUIResource("Tahoma", 11), 
+				"windowFont", new ASFontUIResource("Tahoma", 11, true)
+		];
+		table.putDefaults(defaultSystemFonts);
+	}	
 	
 	//=====================================================================
 	//=========================== Button scale-9 ==========================
