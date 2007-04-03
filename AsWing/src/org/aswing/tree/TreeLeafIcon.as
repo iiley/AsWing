@@ -22,11 +22,11 @@ public class TreeLeafIcon implements Icon, UIResource{
 	public function TreeLeafIcon(){
 	}
 	
-	public function getIconWidth() : int {
+	public function getIconWidth(c:Component) : int {
 		return 16;
 	}
 
-	public function getIconHeight() : int {
+	public function getIconHeight(c:Component) : int {
 		return 16;
 	}
 
@@ -44,7 +44,7 @@ public class TreeLeafIcon implements Icon, UIResource{
         g.fillEllipse(brush, b.x, b.y, b.width, b.height);
 	}
 
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}
 }

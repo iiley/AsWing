@@ -25,11 +25,11 @@ public class Arrow implements Icon{
 		this.width = size;
 	}
 	
-	public function getIconWidth() : int {
+	public function getIconWidth(c:Component) : int {
 		return width;
 	}
 
-	public function getIconHeight() : int {
+	public function getIconHeight(c:Component) : int {
 		return width;
 	}
 
@@ -55,7 +55,7 @@ public class Arrow implements Icon{
 		return new Point(p.x+Math.cos(dir)*dis, p.y+Math.sin(dir)*dis)
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}
 }

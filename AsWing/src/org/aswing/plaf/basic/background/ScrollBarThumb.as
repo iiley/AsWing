@@ -97,7 +97,7 @@ public class ScrollBarThumb implements GroundDecorator, UIResource
     	}		
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return thumb;
 	}
 

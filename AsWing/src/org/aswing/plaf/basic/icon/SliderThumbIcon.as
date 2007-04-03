@@ -78,16 +78,16 @@ public class SliderThumbIcon implements Icon, UIResource{
 		if(!enabled){
 	    	g.beginDraw(new Pen(borderC));
 	    	g.beginFill(new SolidBrush(fillC));
-	    	g.rectangle(1, 1, getIconWidth()-2, getIconHeight()-2);
+	    	g.rectangle(1, 1, getIconWidth(null)-2, getIconHeight(null)-2);
 	    	g.endFill();
 	    	g.endDraw();
 		}else{
     		BasicGraphicsUtils.drawControlBackground(
     			g, 
-    			new IntRectangle(0, 0, getIconWidth(), getIconHeight()), 
+    			new IntRectangle(0, 0, getIconWidth(null), getIconHeight(null)), 
     			fillC,
     			0);
-			g.drawRectangle(new Pen(borderC), 0.5, 0.5, getIconWidth()-1, getIconHeight()-1);
+			g.drawRectangle(new Pen(borderC), 0.5, 0.5, getIconWidth(null)-1, getIconHeight(null)-1);
 		}
 	}
 	
@@ -105,17 +105,17 @@ public class SliderThumbIcon implements Icon, UIResource{
 		}
 	}
 	
-	public function getIconHeight():int
+	public function getIconHeight(c:Component):int
 	{
 		return 18;
 	}
 	
-	public function getIconWidth():int
+	public function getIconWidth(c:Component):int
 	{
 		return 8;
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return thumb;
 	}

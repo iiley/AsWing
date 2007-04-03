@@ -34,21 +34,21 @@ public class DefaultEmptyDecoraterResource implements Icon, Border, GroundDecora
 	/**
 	 * return null
 	 */
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}	
 	
 	/**
 	 * return 0
 	 */
-	public function getIconWidth():int{
+	public function getIconWidth(c:Component):int{
 		return 0;
 	}
 	
 	/**
 	 * return 0
 	 */
-	public function getIconHeight():int{
+	public function getIconHeight(c:Component):int{
 		return 0;
 	}
 	

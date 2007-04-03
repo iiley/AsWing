@@ -62,8 +62,8 @@ public class BasicProgressBarUI extends BaseComponentUI
 		var pp:String = getPropertyPrefix();    			
 		iconDecorator = getGroundDecorator(pp + "iconDecorator");
 		if(iconDecorator != null){
-			if(iconDecorator.getDisplay() != null){
-				sprite.addChild(iconDecorator.getDisplay());
+			if(iconDecorator.getDisplay(progressBar) != null){
+				sprite.addChild(iconDecorator.getDisplay(progressBar));
 			}
 		}
 		progressBar.addChild(sprite);

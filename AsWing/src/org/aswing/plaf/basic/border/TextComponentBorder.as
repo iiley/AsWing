@@ -51,7 +51,7 @@ public class TextComponentBorder implements Border, UIResource{
 		return new Insets(2, 2, 2, 2);
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return null;
 	}

@@ -21,7 +21,6 @@ public class RadioButtonIcon implements Icon, UIResource
     private var lightHighlight:ASColor;
 	
 	public function RadioButtonIcon(){
-		
 	}
 	
 	private function reloadColors(ui:ComponentUI):void{
@@ -53,8 +52,8 @@ public class RadioButtonIcon implements Icon, UIResource
 			inner = darkShadow;
 		}
 		
-		var w:Number = getIconWidth();
-		var h:Number = getIconHeight();
+		var w:Number = getIconWidth(c);
+		var h:Number = getIconHeight(c);
 		var cx:Number = x + w/2;
 		var cy:Number = y + h/2;
 		var xr:Number = w/2;
@@ -81,15 +80,15 @@ public class RadioButtonIcon implements Icon, UIResource
 		}
 	}
 	
-	public function getIconHeight():int{
+	public function getIconHeight(c:Component):int{
 		return 13;
 	}
 	
-	public function getIconWidth():int{
+	public function getIconWidth(c:Component):int{
 		return 13;
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}
 	

@@ -144,18 +144,18 @@ class ToolBarButtonBgAdapter implements GroundDecorator, UIResource{
 			|| (btn.getModel().isRollOver() && !btn.getModel().isPressed())){
 			needPaint = true;
 		}
-		var dis:DisplayObject = getDisplay();
+		var dis:DisplayObject = getDisplay(c);
 		if(dis != null) dis.visible = needPaint;
 		if(needPaint){
 			originalBg.updateDecorator(c, g, bounds);
 		}
 	}
 	
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		if(originalBg == null){
 			return null;
 		}
-		return originalBg.getDisplay();
+		return originalBg.getDisplay(c);
 	}
 	
 }

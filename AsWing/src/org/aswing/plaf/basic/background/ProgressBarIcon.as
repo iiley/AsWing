@@ -79,7 +79,7 @@ public class ProgressBarIcon implements GroundDecorator, UIResource
 		g.endFill();
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return null;
 	}	

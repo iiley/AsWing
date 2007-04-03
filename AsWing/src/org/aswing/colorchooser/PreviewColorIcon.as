@@ -62,11 +62,11 @@ public class PreviewColorIcon implements Icon{
 		return currentColor;
 	}
 	
-	public function getIconWidth() : int {
+	public function getIconWidth(c:Component) : int {
 		return width;
 	}
 
-	public function getIconHeight() : int {
+	public function getIconHeight(c:Component) : int {
 		return height;
 	}
 
@@ -124,7 +124,7 @@ public class PreviewColorIcon implements Icon{
 		g.drawLine(new Pen(ASColor.RED, 2), x+1, y+h-1, x+w-1, y+1);
 	}
 
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}
 

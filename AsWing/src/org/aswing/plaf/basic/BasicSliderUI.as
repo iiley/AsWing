@@ -100,17 +100,17 @@ public class BasicSliderUI extends BaseComponentUI{
 	protected function installComponents():void{
 		var pp:String = getPropertyPrefix();
 		thumbIcon = getIcon(pp+"thumbIcon");
-		if(thumbIcon.getDisplay()==null){
+		if(thumbIcon.getDisplay(slider)==null){
 			throw new Error("Slider thumb icon must has its own display object(getDisplay()!=null)!");
 		}
 		progressCanvas = new Shape();
 		slider.addChild(progressCanvas);
-		slider.addChild(thumbIcon.getDisplay());
+		slider.addChild(thumbIcon.getDisplay(slider));
 	}
 	
 	protected function uninstallComponents():void{
 		slider.removeChild(progressCanvas);
-		slider.removeChild(thumbIcon.getDisplay());
+		slider.removeChild(thumbIcon.getDisplay(slider));
 		thumbIcon = null;
 		progressCanvas = null;
 	}
@@ -224,9 +224,9 @@ public class BasicSliderUI extends BaseComponentUI{
 	
 	protected function getThumbSize():IntDimension{
 		if(isVertical()){
-			return new IntDimension(thumbIcon.getIconHeight(), thumbIcon.getIconWidth());
+			return new IntDimension(thumbIcon.getIconHeight(slider), thumbIcon.getIconWidth(slider));
 		}else{
-			return new IntDimension(thumbIcon.getIconWidth(), thumbIcon.getIconHeight());
+			return new IntDimension(thumbIcon.getIconWidth(slider), thumbIcon.getIconHeight(slider));
 		}
 	}
 	
@@ -417,10 +417,10 @@ public class BasicSliderUI extends BaseComponentUI{
 	
 	protected function paintThumb(g:Graphics2D, drawRect:IntRectangle):void{
 		if(isVertical()){
-			thumbIcon.getDisplay().rotation = 90;
-			thumbIcon.updateIcon(slider, g, drawRect.x+thumbIcon.getIconHeight(), drawRect.y);
+			thumbIcon.getDisplay(slider).rotation = 90;
+			thumbIcon.updateIcon(slider, g, drawRect.x+thumbIcon.getIconHeight(slider), drawRect.y);
 		}else{
-			thumbIcon.getDisplay().rotation = 0;
+			thumbIcon.getDisplay(slider).rotation = 0;
 			thumbIcon.updateIcon(slider, g, drawRect.x, drawRect.y);
 		}
 	}

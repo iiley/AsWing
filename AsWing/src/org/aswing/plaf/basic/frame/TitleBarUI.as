@@ -300,13 +300,13 @@ public class TitleBarUI extends BaseComponentUI{
 		
 		if(paintedIcon != icon){
 			if(paintedIcon != null){
-				if(paintedIcon.getDisplay() != null){
-					titleBar.removeChild(paintedIcon.getDisplay());
+				if(paintedIcon.getDisplay(c) != null){
+					titleBar.removeChild(paintedIcon.getDisplay(c));
 				}
 			}
 			if(icon != null){
-				if(icon.getDisplay() != null){
-					titleBar.addChild(icon.getDisplay());
+				if(icon.getDisplay(c) != null){
+					titleBar.addChild(icon.getDisplay(c));
 				}
 			}
 		}
@@ -334,7 +334,7 @@ public class TitleBarUI extends BaseComponentUI{
 
         // layout the text and icon
         var title:String = frame.getTitle();
-        var text:String = AsWingUtils.layoutCompoundLabel(
+        var text:String = AsWingUtils.layoutCompoundLabel(c, 
             c.getFont(), title, icon, 
             AsWingConstants.CENTER, AsWingConstants.LEFT,
             AsWingConstants.CENTER, AsWingConstants.RIGHT,

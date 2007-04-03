@@ -23,11 +23,11 @@ public class TreeFolderIcon implements Icon, UIResource{
 	public function TreeFolderIcon(){
 	}
 	
-	public function getIconWidth() : int {
+	public function getIconWidth(c:Component) : int {
 		return 16;
 	}
 
-	public function getIconHeight() : int {
+	public function getIconHeight(c:Component) : int {
 		return 16;
 	}
 
@@ -46,7 +46,7 @@ public class TreeFolderIcon implements Icon, UIResource{
         g.fillRectangle(brush, b.x, b.y, b.width, b.height);
 	}
 
-	public function getDisplay():DisplayObject{
+	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}
 

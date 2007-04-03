@@ -20,7 +20,7 @@ public class JToggleButton extends AbstractButton
 		super(text, icon);
 		setName("JToggleButton");
     	setModel(new ToggleButtonModel());
-		updateUI();
+		//updateUI();
 	}
 	
     override public function updateUI():void{

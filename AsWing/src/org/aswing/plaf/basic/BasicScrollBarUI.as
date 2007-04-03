@@ -97,8 +97,8 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		var pp:String = getPropertyPrefix();    			
 		thumbDecorator = getGroundDecorator(pp + "thumbDecorator");
 		if(thumbDecorator != null){
-			if(thumbDecorator.getDisplay() != null){
-				thumMC.addChild(thumbDecorator.getDisplay());
+			if(thumbDecorator.getDisplay(scrollbar) != null){
+				thumMC.addChild(thumbDecorator.getDisplay(scrollbar));
 			}
 		}
 		scrollbar.addChild(thumMC);

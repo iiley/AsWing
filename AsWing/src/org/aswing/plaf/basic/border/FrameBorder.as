@@ -58,7 +58,7 @@ public class FrameBorder implements Border, UIResource{
 		return new Insets(w, w, w, w);
 	}
 	
-	public function getDisplay():DisplayObject
+	public function getDisplay(c:Component):DisplayObject
 	{
 		return null;
 	}

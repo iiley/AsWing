@@ -269,6 +269,7 @@ public class AsWingUtils{
      * relative to the viewR rectangle.
      */
     public static function layoutCompoundLabel(
+    	c:Component, 
     	f:ASFont, 
         text:String,
         icon:Icon,
@@ -283,8 +284,8 @@ public class AsWingUtils{
     {
     	var textFormat:TextFormat = f.getTextFormat();
         if (icon != null) {
-            iconR.width = icon.getIconWidth();
-            iconR.height = icon.getIconHeight();
+            iconR.width = icon.getIconWidth(c);
+            iconR.height = icon.getIconHeight(c);
         }else {
             iconR.width = iconR.height = 0;
         }

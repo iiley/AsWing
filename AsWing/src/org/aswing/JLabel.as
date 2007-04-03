@@ -128,13 +128,13 @@ public class JLabel extends Component{
 	}
 
 	protected function installIcon(icon:Icon):void{
-		if(icon != null && icon.getDisplay() != null){
-			addChild(icon.getDisplay());
+		if(icon != null && icon.getDisplay(this) != null){
+			addChild(icon.getDisplay(this));
 		}
 	}
 	protected function uninstallIcon(icon:Icon):void{
-		if(icon != null && icon.getDisplay() != null){
-			removeChild(icon.getDisplay());
+		if(icon != null && icon.getDisplay(this) != null){
+			removeChild(icon.getDisplay(this));
 		}
 	}
 	

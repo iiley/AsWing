@@ -95,7 +95,7 @@ public class BasicLabelUI extends BaseComponentUI{
     	textRect.x = textRect.y = textRect.width = textRect.height = 0;
         iconRect.x = iconRect.y = iconRect.width = iconRect.height = 0;
         // layout the text and icon
-        var text:String = AsWingUtils.layoutCompoundLabel(
+        var text:String = AsWingUtils.layoutCompoundLabel(c, 
             c.getFont(), b.getText(), getIconToLayout(), 
             b.getVerticalAlignment(), b.getHorizontalAlignment(),
             b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
@@ -171,8 +171,8 @@ public class BasicLabelUI extends BaseComponentUI{
     }
     
     private function setIconVisible(icon:Icon, visible:Boolean):void{
-    	if(icon.getDisplay() != null){
-    		icon.getDisplay().visible = visible;
+    	if(icon.getDisplay(label) != null){
+    		icon.getDisplay(label).visible = visible;
     	}
     }
     
@@ -196,7 +196,7 @@ public class BasicLabelUI extends BaseComponentUI{
     	textRect.x = textRect.y = textRect.width = textRect.height = 0;
         iconRect.x = iconRect.y = iconRect.width = iconRect.height = 0;
         
-        AsWingUtils.layoutCompoundLabel(
+        AsWingUtils.layoutCompoundLabel(b, 
             b.getFont(), text, icon, 
             b.getVerticalAlignment(), b.getHorizontalAlignment(),
             b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
