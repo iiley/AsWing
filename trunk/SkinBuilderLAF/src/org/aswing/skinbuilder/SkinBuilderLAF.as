@@ -55,20 +55,20 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//=====================================================================
 	//=========================== Button scale-9 ==========================
 	//=====================================================================
-	[Embed(source="assets/Button_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/Button_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
 	private var Button_defaultImage:Class;
 	
-	[Embed(source="assets/Button_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/Button_pressedImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
 	private var Button_pressedImage:Class;
 	
-	[Embed(source="assets/Button_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/Button_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
 	private var Button_rolloverImage:Class;
 	
-	[Embed(source="assets/Button_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/Button_disabledImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
 	private var Button_disabledImage:Class;
 	
 	
