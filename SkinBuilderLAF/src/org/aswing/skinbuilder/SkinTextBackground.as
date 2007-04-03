@@ -9,6 +9,7 @@ import org.aswing.*;
 import org.aswing.geom.IntRectangle;
 import flash.display.DisplayObject;
 import org.aswing.plaf.*;
+import org.aswing.error.ImpMissError;
 import flash.display.Sprite;
 
 public class SkinTextBackground implements GroundDecorator, UIResource{
@@ -33,9 +34,9 @@ public class SkinTextBackground implements GroundDecorator, UIResource{
     
     protected function reloadAssets(ui:ComponentUI):void{
     	var pp:String = getPropertyPrefix();
-    	addImage(defaultImage = ui.getInstance(pp+"defaultImage"));
-    	addImage(uneditableImage = ui.getInstance(pp+"uneditableImage"));
-    	addImage(disabledImage = ui.getInstance(pp+"disabledImage"));
+    	addImage(defaultImage = ui.getInstance(pp+"defaultImage") as DisplayObject);
+    	addImage(uneditableImage = ui.getInstance(pp+"uneditableImage") as DisplayObject);
+    	addImage(disabledImage = ui.getInstance(pp+"disabledImage") as DisplayObject);
     	defaultImage.visible = true;
     	lastViewedImage = defaultImage;
     }
