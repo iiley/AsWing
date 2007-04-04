@@ -390,12 +390,13 @@ public class AWSprite extends Sprite
 			//move children from this to content
 			var children:Array = new Array();
 			var n:int = d_numChildren;
-			for(var i:int=0; i<n; i++){
+			var i:int;
+			for(i=0; i<n; i++){
 				if(d_getChildAt(i) != maskShape){
 					children.push(d_getChildAt(i));
 				}
 			}
-			for(var i:int=0; i<children.length; i++){
+			for(i=0; i<children.length; i++){
 				content.addChild(children[i]);
 			}
 			
@@ -410,10 +411,11 @@ public class AWSprite extends Sprite
 			//move children from content to this
 			var children:Array = new Array();
 			var n:int = content.numChildren;
-			for(var i:int=0; i<n; i++){
+			var i:int;
+			for(i=0; i<n; i++){
 				children.push(content.getChildAt(i));
 			}
-			for(var i:int=0; i<children.length; i++){
+			for(i=0; i<children.length; i++){
 				d_addChild(children[i]);
 			}
 			
