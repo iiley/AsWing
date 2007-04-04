@@ -795,20 +795,21 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		if(cells.getSize() == needNum/* || !displayable*/){
 			return;
 		}
-		
+		var i:int;
+		var cell:TreeCell;
 		//create needed
 		if(cells.getSize() < needNum){
 			var addNum:int = needNum - cells.getSize();
-			for(var i:int=0; i<addNum; i++){
-				var cell:TreeCell = tree.getCellFactory().createNewCell();
+			for(i=0; i<addNum; i++){
+				cell = tree.getCellFactory().createNewCell();
 				rendererPane.append(cell.getCellComponent());
 				cells.append(cell);
 			}
 		}else if(cells.getSize() > needNum){ //remove mored
 			var removeIndex:int = needNum;
 			var removed:Array = cells.removeRange(removeIndex, cells.getSize()-1);
-			for(var i:int=0; i<removed.length; i++){
-				var cell:TreeCell = TreeCell(removed[i]);
+			for(i=0; i<removed.length; i++){
+				cell = TreeCell(removed[i]);
 				rendererPane.remove(cell.getCellComponent());
 			}
 		}

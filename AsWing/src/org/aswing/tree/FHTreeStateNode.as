@@ -296,10 +296,11 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 	 * <code>amount</code>.
 	 */
 	public function adjustRowBy(amount:int, startIndex:int=-2):void {
+		var counter:int;
 		if(startIndex == -2){
 		    row += amount;
 		    if(expanded) {
-				for(var counter:int = getChildCount() - 1; counter >= 0; counter--){
+				for(counter = getChildCount() - 1; counter >= 0; counter--){
 				    (FHTreeStateNode(getChildAt(counter))).adjustRowBy(amount);
 				}
 		    }
@@ -307,7 +308,7 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 		    // Could check isVisible, but probably isn't worth it.
 		    if(expanded) {
 				// children following startIndex.
-				for(var counter:int = getChildCount() - 1; counter >= startIndex; counter--)
+				for(counter = getChildCount() - 1; counter >= startIndex; counter--)
 				    (FHTreeStateNode(getChildAt(counter))).adjustRowBy(amount);
 		    }
 		    // Parent

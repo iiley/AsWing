@@ -215,12 +215,13 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 		    var validCount:int = 0;
 		    var beginLeadPath:TreePath = leadPath;
 		    var cPaths:Vector = new Vector();
+		    var path:TreePath;
 	
 		    lastPaths.clear();
 		    leadPath = null;
 		    /* Find the paths that are new. */
 		    for(newCounter = 0; newCounter < newCount; newCounter++) {
-		    	var path:TreePath = paths[newCounter]; 
+		    	path = paths[newCounter]; 
 				if(path != null && lastPaths.get(path) == null) {
 				    validCount++;
 				    lastPaths.put(path, true);
@@ -252,7 +253,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 	
 		    /* Get the paths that were selected but no longer selected. */
 		    for(oldCounter = 0; oldCounter < oldCount; oldCounter++){
-		    	var path:TreePath = selection[oldCounter];
+		    	path = selection[oldCounter];
 				if(path != null &&  lastPaths.get(path) == null){
 			    	cPaths.append(new PathPlaceHolder(path, false));
 				}
