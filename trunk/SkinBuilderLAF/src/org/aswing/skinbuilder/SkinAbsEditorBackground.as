@@ -3,16 +3,15 @@
 */
 
 package org.aswing.skinbuilder{
-
+	
 import org.aswing.graphics.Graphics2D;
-import org.aswing.*;
 import org.aswing.geom.IntRectangle;
-import flash.display.DisplayObject;
+import org.aswing.*;
+import flash.display.*;
 import org.aswing.plaf.*;
 import org.aswing.error.ImpMissError;
-import flash.display.Sprite;
 
-public class SkinTextBackground implements GroundDecorator, UIResource{
+public class SkinAbsEditorBackground implements GroundDecorator, UIResource{
 	
 	protected var imageContainer:Sprite;
 	protected var defaultImage:DisplayObject;
@@ -22,7 +21,7 @@ public class SkinTextBackground implements GroundDecorator, UIResource{
 	
 	protected var loaded:Boolean;
 	
-	public function SkinTextBackground(){
+	public function SkinAbsEditorBackground(){
 		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
 		loaded = false;
 	}
@@ -30,6 +29,11 @@ public class SkinTextBackground implements GroundDecorator, UIResource{
 	protected function getPropertyPrefix():String {
         throw new ImpMissError();
         return null;
+    }
+	
+    protected function isEditable(c:Component):Boolean{
+        var text:EditableComponent = EditableComponent(c);
+        return text.isEditable();
     }
     
     protected function reloadAssets(ui:ComponentUI):void{
@@ -53,12 +57,11 @@ public class SkinTextBackground implements GroundDecorator, UIResource{
 			reloadAssets(c.getUI());
 			loaded = true;
 		}
-		var text:JTextComponent = JTextComponent(c);
 		
 		var image:DisplayObject = null;
-		if(!text.isEnabled()){
+		if(!c.isEnabled()){
 			image = disabledImage;
-		}else if(!text.isEditable()){
+		}else if(!isEditable(c)){
 			image = uneditableImage;
 		}
 		if(image == null) image = defaultImage;

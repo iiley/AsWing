@@ -15,13 +15,18 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
 	
     protected var stateAsset:ButtonStateObject;
     protected var setuped:Boolean;
+    protected var fixedPrefix:String;
     
-	public function SkinButtonBackground(){
+	public function SkinButtonBackground(fixedPrefix:String=null){
 		setuped = false;
+		this.fixedPrefix = fixedPrefix;
 		stateAsset = new ButtonStateObject();
 	}
 	
     protected function getPropertyPrefix():String {
+    	if(fixedPrefix != null){
+    		return fixedPrefix;
+    	}
         return "Button.";
     }
 	

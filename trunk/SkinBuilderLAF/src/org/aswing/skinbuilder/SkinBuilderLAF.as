@@ -22,31 +22,19 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	
 	override protected function initClassDefaults(table:UIDefaults):void{
 		super.initClassDefaults(table);
-		var uiDefaults:Array = [
-			   //"RadioButtonUI", SkinRadioButtonUI,  
-			   //"CheckBoxUI", SkinCheckBoxUI, 		   
-			   "ScrollBarUI", org.aswing.plaf.basic.BasicScrollBarUI, 
-			   /*"SeparatorUI", org.aswing.plaf.basic.BasicSeparatorUI,
-			   "ViewportUI", org.aswing.plaf.basic.BasicViewportUI,
-			   "ScrollPaneUI", org.aswing.plaf.basic.BasicScrollPaneUI, 
-			   "LabelUI",org.aswing.plaf.basic.BasicLabelUI, 
-			   "TextFieldUI",org.aswing.plaf.basic.BasicTextFieldUI, 
-			   "TextAreaUI",org.aswing.plaf.basic.BasicTextAreaUI, 
-			   "FrameUI",org.aswing.plaf.basic.BasicFrameUI, 
-			   "ToolTipUI",org.aswing.plaf.basic.BasicToolTipUI, 
-			   "ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,			   			   
-			   "ListUI",org.aswing.plaf.basic.BasicListUI,		   			   
-			   "ComboBoxUI",org.aswing.plaf.basic.BasicComboBoxUI,			   
-			   "SliderUI",org.aswing.plaf.basic.BasicSliderUI,		   
-			   "AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
-			   "AccordionUI",org.aswing.plaf.basic.BasicAccordionUI,	   
-			   "TabbedPaneUI",org.aswing.plaf.basic.BasicTabbedPaneUI,
-			   "SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,
-			   "SpacerUI", org.aswing.plaf.basic.BasicSpacerUI,
-			   "TableUI", org.aswing.plaf.basic.BasicTableUI, 
-			   "TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
-			   "TreeUI", org.aswing.plaf.basic.BasicTreeUI, 
-			   "ToolBarUI", org.aswing.plaf.basic.BasicToolBarUI*/
+		var uiDefaults:Array = [ 
+			   "ScrollBarUI", SkinScrollBarUI, 
+			   //"ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,
+			   "ComboBoxUI", SkinComboBoxUI,	   
+			   //"SliderUI",org.aswing.plaf.basic.BasicSliderUI,		   
+			   //"AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
+			   "AccordionUI", SkinAccordionUI, 
+			   //"TabbedPaneUI",org.aswing.plaf.basic.BasicTabbedPaneUI,
+			   //"SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,/
+			   //"TableUI", org.aswing.plaf.basic.BasicTableUI, 
+			   //"TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
+			   //"TreeUI", org.aswing.plaf.basic.BasicTreeUI, 
+			   //"ToolBarUI", org.aswing.plaf.basic.BasicToolBarUI*/
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -97,9 +85,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		table.putDefaults(defaultSystemFonts);
 	}	
 	
-	//=====================================================================
-	//=========================== Button scale-9 ==========================
-	//=====================================================================
+	//----------------------------------------------------------------------
+	//___________________________ Button scale-9 ___________________________
+	//======================================================================
 	[Embed(source="assets/Button_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
 		scaleGridLeft="6", scaleGridRight="68")]
 	private var Button_defaultImage:Class;
@@ -117,9 +105,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var Button_disabledImage:Class;
 	
 	
-	//===========================================================================
-	//=========================== ToggleButton scale-9 ==========================
-	//===========================================================================
+	//----------------------------------------------------------------------------
+	//___________________________ ToggleButton scale-9 ___________________________
+	//============================================================================
 	[Embed(source="assets/ToggleButton_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var ToggleButton_defaultImage:Class;
@@ -149,9 +137,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var ToggleButton_rolloverSelectedImage:Class;
 	
 	
-	//==================================================================
-	//=========================== RadioButton ==========================
-	//==================================================================
+	//-------------------------------------------------------------------
+	//___________________________ RadioButton ___________________________
+	//===================================================================
 	[Embed(source="assets/RadioButton_defaultImage.png")]
 	private var RadioButton_defaultImage:Class;
 	
@@ -174,9 +162,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var RadioButton_rolloverSelectedImage:Class;
 	
 	
-	//===============================================================
-	//=========================== CheckBox ==========================
-	//===============================================================
+	//----------------------------------------------------------------
+	//___________________________ CheckBox ___________________________
+	//================================================================
 	[Embed(source="assets/CheckBox_defaultImage.png")]
 	private var CheckBox_defaultImage:Class;
 	
@@ -199,9 +187,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var CheckBox_rolloverSelectedImage:Class;
 	
 	
-	//===============================================================
-	//=========================== ScrollBar =========================
-	//===============================================================
+	//------------------------------------------------------------------
+	//___________________________ ScrollBar ____________________________
+	//==================================================================
 	//========= Left Arrow Images =======
 	[Embed(source="assets/ScrollBar_arrowLeft_defaultImage.png")]
 	private var ScrollBar_arrowLeft_defaultImage:Class;
@@ -298,8 +286,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var ScrollBar_thumbHorizontal_disabledImage:Class;
 
 	
-	//=====================================================================
-	//=========================== TextField scale-9 =======================
+	//---------------------------------------------------------------------
+	//___________________________ TextField scale-9 _______________________
 	//=====================================================================
 	[Embed(source="assets/TextField_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
@@ -314,9 +302,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var TextField_disabledImage:Class;
 	
 	
-	//=====================================================================
-	//=========================== TextArea scale-9 ========================
-	//=====================================================================
+	//------------------------------------------------------------------------
+	//___________________________ TextArea scale-9 ___________________________
+	//========================================================================
 	[Embed(source="assets/TextArea_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var TextArea_defaultImage:Class;
@@ -330,9 +318,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var TextArea_disabledImage:Class;
 	
 	
-	//===========================================================================
-	//=========================== Frame =========================================
-	//===========================================================================
+	//--------------------------------------------------------------
+	//___________________________ Frame ____________________________
+	//==============================================================
 	//Backgorund scale-9 (Include title bar background all in one picture)
 	[Embed(source="assets/Frame_activeBG.png", scaleGridTop="31", scaleGridBottom="100", 
 		scaleGridLeft="5", scaleGridRight="254")]
@@ -395,17 +383,69 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var Frame_closeIcon_rolloverImage:Class;
 		
 	
-	//=====================================================================
-	//=========================== ToolTip scale-9 ========================
-	//=====================================================================
+	//----------------------------------------------------------------------
+	//___________________________ ToolTip scale-9 __________________________
+	//======================================================================
 	[Embed(source="assets/ToolTip_bgImage.png", scaleGridTop="6", scaleGridBottom="18", 
 		scaleGridLeft="6", scaleGridRight="68")]
 	private var ToolTip_bgImage:Class;
 	
+	
+	//------------------------------------------------------------------------
+	//___________________________ ComboBox scale-9 ___________________________
+	//========================================================================
+	
+	//========= Background Images =======
+	[Embed(source="assets/ComboBox_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ComboBox_defaultImage:Class;
+	
+	[Embed(source="assets/ComboBox_uneditableImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ComboBox_uneditableImage:Class;
+	
+	[Embed(source="assets/ComboBox_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var ComboBox_disabledImage:Class;
+	
+	//========= Arrow Button Images =======
+	[Embed(source="assets/ComboBox_arrowButton_defaultImage.png")]
+	private var ComboBox_arrowButton_defaultImage:Class;
+	
+	[Embed(source="assets/ComboBox_arrowButton_pressedImage.png")]
+	private var ComboBox_arrowButton_pressedImage:Class;
+	
+	[Embed(source="assets/ComboBox_arrowButton_disabledImage.png")]
+	private var ComboBox_arrowButton_disabledImage:Class;
+	
+	[Embed(source="assets/ComboBox_arrowButton_rolloverImage.png")]
+	private var ComboBox_arrowButton_rolloverImage:Class;
+	
 
-	//===========================================================================
-	//=========================== initComponentDefaults =========================
-	//===========================================================================
+	//----------------------------------------------------------------------
+	//___________________________ Accordion header scale-9 ___________________________
+	//======================================================================
+	[Embed(source="assets/Accordion_header_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
+	private var Accordion_header_defaultImage:Class;
+	
+	[Embed(source="assets/Accordion_header_pressedImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
+	private var Accordion_header_pressedImage:Class;
+	
+	[Embed(source="assets/Accordion_header_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
+	private var Accordion_header_rolloverImage:Class;
+	
+	[Embed(source="assets/Accordion_header_disabledImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
+	private var Accordion_header_disabledImage:Class;
+	
+	
+	
+	//-----------------------------------------------------------------------------
+	//___________________________ initComponentDefaults ___________________________
+	//=============================================================================
 	
 	override protected function initComponentDefaults(table:UIDefaults):void{
 		super.initComponentDefaults(table);
@@ -573,6 +613,31 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ToolTip.bg", SkinToolTipBackground, 
 			"ToolTip.bgImage", ToolTip_bgImage, 
 			"ToolTip.border", new SkinEmptyBorder(2, 2, 2, 2) //modify this to fit the bg image
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ComboBox
+		comDefaults = [
+			"ComboBox.opaque", false, 
+			"ComboBox.bg", SkinComboBoxBackground,
+			"ComboBox.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
+			"ComboBox.defaultImage", ComboBox_defaultImage, 
+			"ComboBox.uneditableImage", ComboBox_uneditableImage, 
+			"ComboBox.disabledImage", ComboBox_disabledImage, 
+			"ComboBox.arrowButton.defaultImage", ComboBox_arrowButton_defaultImage,
+			"ComboBox.arrowButton.pressedImage", ComboBox_arrowButton_pressedImage,
+			"ComboBox.arrowButton.disabledImage", ComboBox_arrowButton_disabledImage,
+			"ComboBox.arrowButton.rolloverImage", ComboBox_arrowButton_rolloverImage
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** Accordion
+		comDefaults = [
+			"Accordion.tabMargin", new InsetsUIResource(2, 3, 3, 2),  //modify this to fit header image
+			"Accordion.header.defaultImage", Accordion_header_defaultImage,
+			"Accordion.header.pressedImage", Accordion_header_pressedImage,
+			"Accordion.header.disabledImage", Accordion_header_disabledImage,
+			"Accordion.header.rolloverImage", Accordion_header_rolloverImage
 		];
 		table.putDefaults(comDefaults);
 	}	
