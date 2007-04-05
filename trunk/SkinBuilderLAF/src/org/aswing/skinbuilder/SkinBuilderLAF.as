@@ -104,6 +104,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		scaleGridLeft="6", scaleGridRight="68")]
 	private var Button_disabledImage:Class;
 	
+	[Embed(source="assets/Button_DefaultButton_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
+	private var Button_DefaultButton_defaultImage:Class;
 	
 	//----------------------------------------------------------------------------
 	//___________________________ ToggleButton scale-9 ___________________________
@@ -455,7 +458,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Button.defaultImage", Button_defaultImage,
 			"Button.pressedImage", Button_pressedImage,
 			"Button.disabledImage", Button_disabledImage,
-			"Button.rolloverImage", Button_rolloverImage,
+			"Button.rolloverImage", Button_rolloverImage, 
+			"Button.DefaultButton.defaultImage", Button_DefaultButton_defaultImage, 
 			"Button.bg", SkinButtonBackground,
 			"Button.margin", new InsetsUIResource(2, 3, 3, 2), //modify this to fit the image border margin 
 			"Button.textShiftOffset", 0

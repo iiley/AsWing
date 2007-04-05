@@ -8,7 +8,8 @@ public class SkinFrameTitleBarLayout extends TitleBarLayout{
 
 	public function SkinFrameTitleBarLayout(){
 		super();
-		setHgap(2);
+		setHgap(0);
+		setVgap(0);
 	}
 
 	override protected function fitSize(target:Container, size:IntDimension):IntDimension{

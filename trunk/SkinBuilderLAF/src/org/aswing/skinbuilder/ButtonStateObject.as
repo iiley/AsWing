@@ -22,11 +22,13 @@ public class ButtonStateObject extends Sprite{
     protected var disabledSelectedImage:DisplayObject;
     protected var rolloverImage:DisplayObject;
     protected var rolloverSelectedImage:DisplayObject;
+    protected var defaultButtonImage:DisplayObject;
     
     protected var enabled:Boolean = true;
     protected var pressed:Boolean = false;
     protected var selected:Boolean = false;
     protected var rollovered:Boolean = false;
+    protected var defaultButton:Boolean = false;
     
     protected var lastViewedImage:DisplayObject;
     
@@ -60,6 +62,8 @@ public class ButtonStateObject extends Sprite{
 			}
 		}else if(selected){
 			tmpImage = selectedImage;
+		}else if(defaultButton){
+			tmpImage = defaultButtonImage;
 		}
 		if(tmpImage != null){
 			image = tmpImage;
@@ -93,6 +97,10 @@ public class ButtonStateObject extends Sprite{
 		this.rollovered = b;
 	}
 	
+	public function setDefaultButton(b:Boolean):void{
+		this.defaultButton = b;
+	}
+	
 	protected function checkAsset(image:DisplayObject):void{
 		if(image != null && contains(image)){
 			throw new Error("You are set a already exists asset!");
@@ -105,6 +113,12 @@ public class ButtonStateObject extends Sprite{
 			return super.addChild(child);
 		}
 		return null;
+	}
+	
+	public function setDefaultButtonImage(image:DisplayObject):void{
+		checkAsset(defaultButtonImage);
+		defaultButtonImage = image;
+		addChild(image);
 	}
 	
 	public function setDefaultImage(image:DisplayObject):void{
