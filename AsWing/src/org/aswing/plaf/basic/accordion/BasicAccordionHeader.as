@@ -16,7 +16,11 @@ public class BasicAccordionHeader implements Tab{
 	protected var button:AbstractButton;
 	
 	public function BasicAccordionHeader(){
-		button = new JButton();
+		button = createHeaderButton();
+	}
+	
+	protected function createHeaderButton():AbstractButton{
+		return new JButton();
 	}
 	
 	public function setTextAndIcon(text : String, icon : Icon) : void {

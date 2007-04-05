@@ -44,7 +44,7 @@ import org.aswing.plaf.basic.BasicComboBoxUI;
  * @see DefaultComboBoxEditor
  * @author iiley
  */
-public class JComboBox extends Component{
+public class JComboBox extends Component implements EditableComponent{
 	
 	private var editor:ComboBoxEditor;
 	private var editable:Boolean;

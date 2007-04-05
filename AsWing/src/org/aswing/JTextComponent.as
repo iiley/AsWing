@@ -30,7 +30,7 @@ import flash.ui.Keyboard;
  * @see JTextField
  * @see JTextArea
  */
-public class JTextComponent extends Component{
+public class JTextComponent extends Component implements EditableComponent{
 	
 	private var textField:TextField;
 	private var editable:Boolean;

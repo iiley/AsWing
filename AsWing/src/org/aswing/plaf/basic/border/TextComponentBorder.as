@@ -39,8 +39,8 @@ public class TextComponentBorder implements Border, UIResource{
 		var y1:Number = r.y;
 		var w:Number = r.width;
 		var h:Number = r.height;
-		var textCom:JTextComponent = JTextComponent(c);
-		if(textCom.isEditable() && textCom.isEnabled()){
+		var textCom:EditableComponent = EditableComponent(c);
+		if(textCom.isEditable() && c.isEnabled()){
 			g.drawRectangle(new Pen(shadow, 1), x1+0.5, y1+0.5, w-1, h-1);
 		}
 		g.drawRectangle(new Pen(light, 1), x1+1.5, y1+1.5, w-3, h-3);		
