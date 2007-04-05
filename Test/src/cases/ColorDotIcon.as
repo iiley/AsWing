@@ -24,17 +24,17 @@ package cases
 			g.fillCircle(new SolidBrush(color), x+size/2, y+size/2, size/2);
 		}
 		
-		public function getIconHeight():int
+		public function getIconHeight(com:Component):int
 		{
 			return size;
 		}
 		
-		public function getIconWidth():int
+		public function getIconWidth(com:Component):int
 		{
 			return size;
 		}
 		
-		public function getDisplay():DisplayObject
+		public function getDisplay(com:Component):DisplayObject
 		{
 			return null;
 		}

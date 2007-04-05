@@ -24,17 +24,17 @@ package cases
 			g.fillRectangle(new SolidBrush(color), x, y, width, height);
 		}
 		
-		public function getIconHeight():int
+		public function getIconHeight(com:Component):int
 		{
 			return height;
 		}
 		
-		public function getIconWidth():int
+		public function getIconWidth(com:Component):int
 		{
 			return width;
 		}
 		
-		public function getDisplay():DisplayObject
+		public function getDisplay(com:Component):DisplayObject
 		{
 			return null;
 		}
