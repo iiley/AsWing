@@ -37,7 +37,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	protected var minimumSize:IntDimension;
 	protected var tabBoundArray:Array;
 	protected var drawnTabBoundArray:Array;
-	protected var baseLineThickness:int = -1;
+	protected var contentMargin:Insets = null;
 	protected var maxTabWidth:int = -1;
 	//both the 2 values are just the values considering when placement is TOP
 	protected var tabBorderInsets:Insets;
@@ -97,8 +97,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		windowBG = getColor("window");
 		if(windowBG == null) windowBG = tabbedPane.getBackground();
 		
-		baseLineThickness = getInt(pp+"baseLineThickness");
-		if(baseLineThickness == -1) baseLineThickness = 8;
+		contentMargin = getInsets(pp+"contentMargin");
+		if(contentMargin == null) contentMargin = new Insets(8, 2, 2, 2);
 		maxTabWidth = getInt(pp+"maxTabWidth");
 		if(maxTabWidth == -1) maxTabWidth = 1000;
 		
@@ -298,11 +298,11 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		}
 		maxTabSize = tabBarSize.clone();
 		if(isHorizontalPlacing){
-			tabBarSize.height += (topBlankSpace + baseLineThickness);
+			tabBarSize.height += (topBlankSpace + contentMargin.top);
 			//blank space at start and end for selected tab expanding
 			tabBarSize.width += (tabBorderInsets.left + tabBorderInsets.right);
 		}else{
-			tabBarSize.width += (topBlankSpace + baseLineThickness);
+			tabBarSize.width += (topBlankSpace + contentMargin.top);
 			//blank space at start and end for selected tab expanding
 			tabBarSize.height += (tabBorderInsets.left + tabBorderInsets.right);
 		}
@@ -600,9 +600,9 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			tb.x += topBlankSpace;
 		}else if(placement == JTabbedPane.RIGHT){
 			tb.width = maxTabSize.width;
-			tb.x += baseLineThickness;
+			tb.x += contentMargin.top;
 		}else if(placement == JTabbedPane.BOTTOM){
-			tb.y += baseLineThickness;
+			tb.y += contentMargin.top;
 			tb.height = maxTabSize.height;
 		}else{
 			tb.height = maxTabSize.height;
@@ -643,26 +643,27 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     	if(isTabHorizontalPlacing()){
     		var isTop:Boolean = (placement == JTabbedPane.TOP);
     		if(isTop){
-    			b.y = b.y + b.height - baseLineThickness;
+    			b.y = b.y + b.height - contentMargin.top;
     		}
-    		b.height = baseLineThickness;
+    		b.height = contentMargin.top;
     		b.width = fullB.width;
     		b.x = fullB.x;
     		BasicGraphicsUtils.fillGradientRect(g, b, 
     			tabbedPane.getBackground(), windowBG, 
     			isTop ? Math.PI/2 : -Math.PI/2);
     		pen = new Pen(darkShadow, 1);
+    		pen.setCaps(CapsStyle.SQUARE);
 			if(isTop){
-    			g.drawLine(pen, b.x, b.y + 0.5, b.x+b.width, b.y+0.5);
+				g.drawRectangle(pen, b.x+0.5, b.y+0.5, fullB.width-1, fullB.rightBottom().y - b.y-1);
 			}else{
-				g.drawLine(pen, b.x, b.y + b.height - 0.5, b.x+b.width, b.y + b.height - 0.5);
+				g.drawRectangle(pen, fullB.x+0.5, fullB.y+0.5, fullB.width-1, b.y+b.height-fullB.y-1);
 			}
     	}else{
     		var isLeft:Boolean = (placement == JTabbedPane.LEFT);
     		if(isLeft){
-    			b.x = b.x + b.width - baseLineThickness;
+    			b.x = b.x + b.width - contentMargin.top;
     		}
-    		b.width = baseLineThickness;
+    		b.width = contentMargin.top;
     		b.height = fullB.height;
     		b.y = fullB.y;
     		
@@ -670,10 +671,11 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     			tabbedPane.getBackground(), windowBG, 
     			isLeft ? 0 : -Math.PI);
     		pen = new Pen(darkShadow, 1);
+    		pen.setCaps(CapsStyle.SQUARE);
 			if(isLeft){
-    			g.drawLine(pen, b.x+0.5, b.y, b.x+0.5, b.y+b.height);
+    			g.drawRectangle(pen, b.x+0.5, b.y+0.5, fullB.rightTop().x-b.x-1, b.height-1);
 			}else{
-				g.drawLine(pen, b.x+b.width-0.5, b.y, b.x+b.width-0.5, b.y+b.height);
+				g.drawRectangle(pen, fullB.x+0.5, fullB.y+0.5, b.x+b.width-fullB.x-1, b.height-1);
 			}
     		
     	}
@@ -724,6 +726,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     		BasicGraphicsUtils.drawControlBackground(g, b, getTabColor(index), Math.PI/2);
     		
     		pen = new Pen(darkShadow, 1);
+    		pen.setCaps(CapsStyle.SQUARE);
     		g.beginDraw(pen);
     		g.moveTo(x2, y1);
     		g.lineTo(x1, y1);
@@ -734,6 +737,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     		BasicGraphicsUtils.drawControlBackground(g, b, getTabColor(index), Math.PI/2);
     		
     		pen = new Pen(darkShadow, 1);
+    		pen.setCaps(CapsStyle.SQUARE);
     		g.beginDraw(pen);
     		g.moveTo(x1, y1);
     		g.lineTo(x2, y1);
@@ -744,6 +748,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     		BasicGraphicsUtils.drawControlBackground(g, b, getTabColor(index), -Math.PI/2);
     		
     		pen = new Pen(darkShadow, 1);
+    		pen.setCaps(CapsStyle.SQUARE);
     		g.beginDraw(pen);
     		g.moveTo(x1, y1);
     		g.lineTo(x1, y2);
@@ -754,6 +759,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     		BasicGraphicsUtils.drawControlBackground(g, b, getTabColor(index), Math.PI/2);
     		
     		pen = new Pen(darkShadow, 1);
+    		pen.setCaps(CapsStyle.SQUARE);
     		g.beginDraw(pen);
     		g.moveTo(x1, y2);
     		g.lineTo(x1, y1);
@@ -908,17 +914,21 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var paneBounds:IntRectangle = insets.getInsideBounds(new IntRectangle(0, 0, tabbedPane.getWidth(), tabbedPane.getHeight()));
 		var tbs:IntDimension = getTabBarSize();
 		if(isTabHorizontalPlacing()){
-			paneBounds.height -= tbs.height;
+			paneBounds.height -= (tbs.height + contentMargin.bottom);
+			paneBounds.x += contentMargin.left;
+			paneBounds.width -= (contentMargin.left + contentMargin.right);
 		}else{
-			paneBounds.width -= tbs.width;
+			paneBounds.width -= (tbs.width + contentMargin.bottom);
+			paneBounds.y += contentMargin.right;
+			paneBounds.height -= (contentMargin.left + contentMargin.right);
 		}
 		var placement:int = tabbedPane.getTabPlacement();
 		if(placement == JTabbedPane.LEFT){
 			paneBounds.x += tbs.width;
 		}else if(placement == JTabbedPane.RIGHT){
-			//do not need offset
+			paneBounds.x += contentMargin.bottom;
 		}else if(placement == JTabbedPane.BOTTOM){
-			//do not need offset
+			paneBounds.y += contentMargin.bottom;
 		}else{ //others value are all considered as TOP
 			paneBounds.y += tbs.height;
 		}
