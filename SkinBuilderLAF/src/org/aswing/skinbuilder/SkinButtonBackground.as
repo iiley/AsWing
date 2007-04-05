@@ -55,12 +55,13 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
  			setuped = true;
  		}
  		
- 		var button:AbstractButton = AbstractButton(com)
+ 		var button:AbstractButton = AbstractButton(com);
  		var model:ButtonModel = button.getModel();
  		stateAsset.setEnabled(model.isEnabled());
  		stateAsset.setPressed(model.isPressed() && model.isArmed());
  		stateAsset.setSelected(model.isSelected());
  		stateAsset.setRollovered(button.isRollOverEnabled() && model.isRollOver());
+ 		stateAsset.setDefaultButton(button is JButton && JButton(button).isDefaultButton());
  		stateAsset.updateRepresent(bounds);
  	}
 }
