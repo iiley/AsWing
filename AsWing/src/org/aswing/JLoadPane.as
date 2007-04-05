@@ -185,6 +185,13 @@ public class JLoadPane extends FloorPane
 	public function getLoader():Loader{
 		return loader;
 	}
+	
+	/**
+	 * Return the content of the loader
+	 */ 
+	override public function getFloorMC():DisplayObject{
+		return loader.content;
+	}
 	//-----------------------------------------------
 
 	private function __onLoadComplete(e:Event):void{
