@@ -4,7 +4,7 @@
 
 package org.aswing.skinbuilder{
 
-public class SkinTextAreaBackground extends SkinTextBackground{
+public class SkinTextAreaBackground extends SkinAbsEditorBackground{
 	
 	public function SkinTextAreaBackground(){
 		super();

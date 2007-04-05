@@ -23,18 +23,24 @@ public class SkinButtonIcon implements Icon, UIResource{
 	private var forceHeight:int = -1;
 	
     protected var stateAsset:ButtonStateObject;
+    protected var fixedPrefix:String;
     protected var setuped:Boolean;
     
-	public function SkinButtonIcon(forceWidth:int=-1, forceHeight:int=-1){
+	public function SkinButtonIcon(forceWidth:int=-1, forceHeight:int=-1, fixedPrefix:String=null){
 		this.forceWidth = forceWidth;
 		this.forceHeight = forceHeight;
 		setuped = false;
+		this.fixedPrefix = fixedPrefix;
 		stateAsset = new ButtonStateObject();
 	}
 	
 	protected function getPropertyPrefix():String {
-        throw new ImpMissError();
-        return null;
+		if(fixedPrefix != null){
+			return fixedPrefix;
+		}else{
+        	throw new ImpMissError();
+        	return null;
+  		}
     }
 	
 	protected function setupAssets(ui:ComponentUI):void{

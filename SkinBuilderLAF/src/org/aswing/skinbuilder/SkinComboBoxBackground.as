@@ -3,15 +3,17 @@
 */
 
 package org.aswing.skinbuilder{
-
-public class SkinTextFieldBackground extends SkinAbsEditorBackground{
 	
-	public function SkinTextFieldBackground(){
+import org.aswing.*;
+
+public class SkinComboBoxBackground extends SkinAbsEditorBackground{
+	
+	public function SkinComboBoxBackground(){
 		super();
 	}
 	
 	override protected function getPropertyPrefix():String {
-        return "TextField.";
+        return "ComboBox.";
     }
 }
 }
