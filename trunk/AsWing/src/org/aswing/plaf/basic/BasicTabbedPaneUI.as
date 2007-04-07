@@ -41,6 +41,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	protected var maxTabWidth:int = -1;
 	//both the 2 values are just the values considering when placement is TOP
 	protected var tabBorderInsets:Insets;
+	protected var contentRoundLineThickness:int;
 	
 	protected var tabs:Array;
 	
@@ -101,6 +102,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		if(contentMargin == null) contentMargin = new Insets(8, 2, 2, 2);
 		maxTabWidth = getInt(pp+"maxTabWidth");
 		if(maxTabWidth == -1) maxTabWidth = 1000;
+		
+		contentRoundLineThickness = getInt(getPropertyPrefix() + "contentRoundLineThickness");
 		
 		var tabMargin:Insets = getInsets(pp+"tabMargin");
 		if(tabMargin == null) tabMargin = new InsetsUIResource(1, 1, 1, 1);		
@@ -640,6 +643,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     	var b:IntRectangle = tabBarBounds.clone();
     	var placement:int = tabbedPane.getTabPlacement();
     	var pen:Pen;
+    	var lineT:Number = contentRoundLineThickness;
+    	var hlt:Number = lineT/2;
     	if(isTabHorizontalPlacing()){
     		var isTop:Boolean = (placement == JTabbedPane.TOP);
     		if(isTop){
@@ -651,12 +656,12 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     		BasicGraphicsUtils.fillGradientRect(g, b, 
     			tabbedPane.getBackground(), windowBG, 
     			isTop ? Math.PI/2 : -Math.PI/2);
-    		pen = new Pen(darkShadow, 1);
+    		pen = new Pen(darkShadow, lineT);
     		pen.setCaps(CapsStyle.SQUARE);
 			if(isTop){
-				g.drawRectangle(pen, b.x+0.5, b.y+0.5, fullB.width-1, fullB.rightBottom().y - b.y-1);
+				g.drawRectangle(pen, b.x+hlt, b.y+hlt, fullB.width-lineT, fullB.rightBottom().y - b.y-lineT);
 			}else{
-				g.drawRectangle(pen, fullB.x+0.5, fullB.y+0.5, fullB.width-1, b.y+b.height-fullB.y-1);
+				g.drawRectangle(pen, fullB.x+hlt, fullB.y+hlt, fullB.width-lineT, b.y+b.height-fullB.y-lineT);
 			}
     	}else{
     		var isLeft:Boolean = (placement == JTabbedPane.LEFT);
@@ -670,12 +675,12 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     		BasicGraphicsUtils.fillGradientRect(g, b, 
     			tabbedPane.getBackground(), windowBG, 
     			isLeft ? 0 : -Math.PI);
-    		pen = new Pen(darkShadow, 1);
+    		pen = new Pen(darkShadow, lineT);
     		pen.setCaps(CapsStyle.SQUARE);
 			if(isLeft){
-    			g.drawRectangle(pen, b.x+0.5, b.y+0.5, fullB.rightTop().x-b.x-1, b.height-1);
+    			g.drawRectangle(pen, b.x+hlt, b.y+hlt, fullB.rightTop().x-b.x-lineT, b.height-lineT);
 			}else{
-				g.drawRectangle(pen, fullB.x+0.5, fullB.y+0.5, b.x+b.width-fullB.x-1, b.height-1);
+				g.drawRectangle(pen, fullB.x+hlt, fullB.y+hlt, b.x+b.width-fullB.x-lineT, b.height-lineT);
 			}
     		
     	}
@@ -693,18 +698,18 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     		if(isTabHorizontalPlacing()){
     			b.x -= tabBorderInsets.left;
     			b.width += (tabBorderInsets.left + tabBorderInsets.right);
-	    		b.height += Math.round(topBlankSpace/2+2);
+	    		b.height += Math.round(topBlankSpace/2+contentRoundLineThickness);
     			if(placement == JTabbedPane.BOTTOM){
-	    			b.y -= 2;
+	    			b.y -= contentRoundLineThickness;
     			}else{
 	    			b.y -= Math.round(topBlankSpace/2);
     			}
     		}else{
     			b.y -= tabBorderInsets.left;
     			b.height += (tabBorderInsets.left + tabBorderInsets.right);
-	    		b.width += Math.round(topBlankSpace/2+2);
+	    		b.width += Math.round(topBlankSpace/2+contentRoundLineThickness);
     			if(placement == JTabbedPane.RIGHT){
-	    			b.x -= 2;
+	    			b.x -= contentRoundLineThickness;
     			}else{
 	    			b.x -= Math.round(topBlankSpace/2);
     			}

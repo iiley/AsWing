@@ -523,7 +523,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
 			"TabbedPane.font", table.getFont("controlFont"),
 			"TabbedPane.tabMargin", new InsetsUIResource(1, 1, 1, 1),
-			"TabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2),
+			"TabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2), 
+			"TabbedPane.contentRoundLineThickness", 1, 
 			"TabbedPane.maxTabWidth", 1000];
 		table.putDefaults(comDefaults);
 		
