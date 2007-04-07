@@ -23,6 +23,10 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
 		stateAsset = new ButtonStateObject();
 	}
 	
+	public function getStateAsset():ButtonStateObject{
+		return stateAsset;
+	}
+	
     protected function getPropertyPrefix():String {
     	if(fixedPrefix != null){
     		return fixedPrefix;

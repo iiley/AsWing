@@ -15,9 +15,13 @@ public class SkinAccordionHeader extends BasicAccordionHeader{
 	}
 
 	override protected function createHeaderButton():AbstractButton{
-		var tb:JToggleButton = new JToggleButton();
-		tb.setBackgroundDecorator(new SkinButtonBackground("Accordion.header."));
+		var tb:JButton = new JButton();
+		tb.setBackgroundDecorator(new SkinButtonBackground(getPropertyPrefix()));
 		return tb;
+	}
+	
+	protected function getPropertyPrefix():String{
+		return "Accordion.header.";
 	}
 	
 	override public function setSelected(b:Boolean):void{
