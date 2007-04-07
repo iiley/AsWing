@@ -29,7 +29,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			   //"SliderUI",org.aswing.plaf.basic.BasicSliderUI,		   
 			   //"AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
 			   "AccordionUI", SkinAccordionUI, 
-			   //"TabbedPaneUI",org.aswing.plaf.basic.BasicTabbedPaneUI,
+			   "TabbedPaneUI", SkinTabbedPaneUI,
 			   //"SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,/
 			   //"TableUI", org.aswing.plaf.basic.BasicTableUI, 
 			   //"TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
@@ -444,6 +444,128 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		scaleGridLeft="6", scaleGridRight="68")]
 	private var Accordion_header_disabledImage:Class;
 	
+	[Embed(source="assets/Accordion_header_selectedImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="68")]
+	private var Accordion_header_selectedImage:Class;
+	
+
+	//----------------------------------------------------------------------
+	//___________________________ TabbedPane _______________________________
+	//======================================================================
+	//========= header top scale-9 =======
+	[Embed(source="assets/TabbedPane_top_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_top_tab_defaultImage:Class;
+	
+	[Embed(source="assets/TabbedPane_top_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_top_tab_pressedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_top_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_top_tab_rolloverImage:Class;
+	
+	[Embed(source="assets/TabbedPane_top_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_top_tab_disabledImage:Class;
+	
+	[Embed(source="assets/TabbedPane_top_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_top_tab_selectedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_top_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_top_tab_rolloverSelectedImage:Class;
+	
+	//========= header bottom scale-9 =======
+	[Embed(source="assets/TabbedPane_bottom_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_bottom_tab_defaultImage:Class;
+	
+	[Embed(source="assets/TabbedPane_bottom_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_bottom_tab_pressedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_bottom_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_bottom_tab_rolloverImage:Class;
+	
+	[Embed(source="assets/TabbedPane_bottom_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_bottom_tab_disabledImage:Class;
+	
+	[Embed(source="assets/TabbedPane_bottom_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_bottom_tab_selectedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_bottom_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var TabbedPane_bottom_tab_rolloverSelectedImage:Class;
+	
+	//========= header left scale-9 =======
+	[Embed(source="assets/TabbedPane_left_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_left_tab_defaultImage:Class;
+	
+	[Embed(source="assets/TabbedPane_left_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_left_tab_pressedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_left_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_left_tab_rolloverImage:Class;
+	
+	[Embed(source="assets/TabbedPane_left_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_left_tab_disabledImage:Class;
+	
+	[Embed(source="assets/TabbedPane_left_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_left_tab_selectedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_left_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_left_tab_rolloverSelectedImage:Class;
+	
+	//========= header right scale-9 =======
+	[Embed(source="assets/TabbedPane_right_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_right_tab_defaultImage:Class;
+	
+	[Embed(source="assets/TabbedPane_right_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_right_tab_pressedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_right_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_right_tab_rolloverImage:Class;
+	
+	[Embed(source="assets/TabbedPane_right_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_right_tab_disabledImage:Class;
+	
+	[Embed(source="assets/TabbedPane_right_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_right_tab_selectedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_right_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_right_tab_rolloverSelectedImage:Class;
+	
+	//========= Background Image scale-9 =======
+	[Embed(source="assets/TabbedPane_top_contentRoundImage.png", scaleGridTop="20", scaleGridBottom="80", 
+		scaleGridLeft="20", scaleGridRight="80")]
+	private var TabbedPane_top_contentRoundImage:Class;
+	[Embed(source="assets/TabbedPane_bottom_contentRoundImage.png", scaleGridTop="20", scaleGridBottom="80", 
+		scaleGridLeft="20", scaleGridRight="80")]
+	private var TabbedPane_bottom_contentRoundImage:Class;
+	[Embed(source="assets/TabbedPane_left_contentRoundImage.png", scaleGridTop="20", scaleGridBottom="80", 
+		scaleGridLeft="20", scaleGridRight="80")]
+	private var TabbedPane_left_contentRoundImage:Class;
+	[Embed(source="assets/TabbedPane_right_contentRoundImage.png", scaleGridTop="20", scaleGridBottom="80", 
+		scaleGridLeft="20", scaleGridRight="80")]
+	private var TabbedPane_right_contentRoundImage:Class;
+	
 	
 	
 	//-----------------------------------------------------------------------------
@@ -641,7 +763,49 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Accordion.header.defaultImage", Accordion_header_defaultImage,
 			"Accordion.header.pressedImage", Accordion_header_pressedImage,
 			"Accordion.header.disabledImage", Accordion_header_disabledImage,
-			"Accordion.header.rolloverImage", Accordion_header_rolloverImage
+			"Accordion.header.rolloverImage", Accordion_header_rolloverImage, 
+			"Accordion.header.selectedImage", Accordion_header_selectedImage
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** TabbedPane
+		comDefaults = [
+			"TabbedPane.tabMargin", new InsetsUIResource(2, 3, 3, 2),  //modify this to fit header image
+			"TabbedPane.top.tab.defaultImage", TabbedPane_top_tab_defaultImage,
+			"TabbedPane.top.tab.pressedImage", TabbedPane_top_tab_pressedImage,
+			"TabbedPane.top.tab.disabledImage", TabbedPane_top_tab_disabledImage,
+			"TabbedPane.top.tab.rolloverImage", TabbedPane_top_tab_rolloverImage, 
+			"TabbedPane.top.tab.selectedImage", TabbedPane_top_tab_selectedImage, 
+			"TabbedPane.top.tab.rolloverSelectedImage", TabbedPane_top_tab_rolloverSelectedImage, 
+			
+			"TabbedPane.bottom.tab.defaultImage", TabbedPane_bottom_tab_defaultImage,
+			"TabbedPane.bottom.tab.pressedImage", TabbedPane_bottom_tab_pressedImage,
+			"TabbedPane.bottom.tab.disabledImage", TabbedPane_bottom_tab_disabledImage,
+			"TabbedPane.bottom.tab.rolloverImage", TabbedPane_bottom_tab_rolloverImage, 
+			"TabbedPane.bottom.tab.selectedImage", TabbedPane_bottom_tab_selectedImage, 
+			"TabbedPane.bottom.tab.rolloverSelectedImage", TabbedPane_bottom_tab_rolloverSelectedImage, 
+			
+			"TabbedPane.left.tab.defaultImage", TabbedPane_left_tab_defaultImage,
+			"TabbedPane.left.tab.pressedImage", TabbedPane_left_tab_pressedImage,
+			"TabbedPane.left.tab.disabledImage", TabbedPane_left_tab_disabledImage,
+			"TabbedPane.left.tab.rolloverImage", TabbedPane_left_tab_rolloverImage, 
+			"TabbedPane.left.tab.selectedImage", TabbedPane_left_tab_selectedImage, 
+			"TabbedPane.left.tab.rolloverSelectedImage", TabbedPane_left_tab_rolloverSelectedImage, 
+			
+			"TabbedPane.right.tab.defaultImage", TabbedPane_right_tab_defaultImage,
+			"TabbedPane.right.tab.pressedImage", TabbedPane_right_tab_pressedImage,
+			"TabbedPane.right.tab.disabledImage", TabbedPane_right_tab_disabledImage,
+			"TabbedPane.right.tab.rolloverImage", TabbedPane_right_tab_rolloverImage, 
+			"TabbedPane.right.tab.selectedImage", TabbedPane_right_tab_selectedImage, 
+			"TabbedPane.right.tab.rolloverSelectedImage", TabbedPane_right_tab_rolloverSelectedImage,  
+			
+			"TabbedPane.contentMargin", new InsetsUIResource(14, 4, 4, 4), //modify this to fit TabbedPane_contentRoundImage
+			"TabbedPane.top.contentRoundImage", TabbedPane_top_contentRoundImage, 
+			"TabbedPane.bottom.contentRoundImage", TabbedPane_bottom_contentRoundImage, 
+			"TabbedPane.left.contentRoundImage", TabbedPane_left_contentRoundImage, 
+			"TabbedPane.right.contentRoundImage", TabbedPane_right_contentRoundImage, 
+			"TabbedPane.contentRoundLineThickness", 4, //modify this to fit contentRoundImage
+			"TabbedPane.bg", null //bg is managed by SkinTabbedPaneUI
 		];
 		table.putDefaults(comDefaults);
 	}	
