@@ -31,10 +31,10 @@ public class SkinScrollBarUI extends BasicScrollBarUI{
 	override protected function createIcons():void{
 		var pp:String = getPropertyPrefix();
 		var size:int = scrollBarWidth;
-    	leftIcon = new SkinScrollBarArrowIcon(pp+"arrowLeft.", size);
-    	rightIcon = new SkinScrollBarArrowIcon(pp+"arrowRight.", size);
-    	upIcon = new SkinScrollBarArrowIcon(pp+"arrowUp.", size);
-    	downIcon = new SkinScrollBarArrowIcon(pp+"arrowDown.", size);
+    	leftIcon = new SkinButtonIcon(size, size, pp+"arrowLeft.");
+    	rightIcon = new SkinButtonIcon(size, size, pp+"arrowRight.");
+    	upIcon = new SkinButtonIcon(size, size, pp+"arrowUp.");
+    	downIcon = new SkinButtonIcon(size, size, pp+"arrowDown.");
     }
 }
 }

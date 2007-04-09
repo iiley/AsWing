@@ -566,6 +566,32 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		scaleGridLeft="20", scaleGridRight="80")]
 	private var TabbedPane_right_contentRoundImage:Class;
 	
+	//========= Left Arrow Images =======
+	[Embed(source="assets/TabbedPane_arrowLeft_defaultImage.png")]
+	private var TabbedPane_arrowLeft_defaultImage:Class;
+	
+	[Embed(source="assets/TabbedPane_arrowLeft_pressedImage.png")]
+	private var TabbedPane_arrowLeft_pressedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_arrowLeft_disabledImage.png")]
+	private var TabbedPane_arrowLeft_disabledImage:Class;
+	
+	[Embed(source="assets/TabbedPane_arrowLeft_rolloverImage.png")]
+	private var TabbedPane_arrowLeft_rolloverImage:Class;
+	
+	//========= Right Arrow Images =======
+	[Embed(source="assets/TabbedPane_arrowRight_defaultImage.png")]
+	private var TabbedPane_arrowRight_defaultImage:Class;
+	
+	[Embed(source="assets/TabbedPane_arrowRight_pressedImage.png")]
+	private var TabbedPane_arrowRight_pressedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_arrowRight_disabledImage.png")]
+	private var TabbedPane_arrowRight_disabledImage:Class;
+	
+	[Embed(source="assets/TabbedPane_arrowRight_rolloverImage.png")]
+	private var TabbedPane_arrowRight_rolloverImage:Class;
+	
 	
 	
 	//-----------------------------------------------------------------------------
@@ -798,6 +824,16 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"TabbedPane.right.tab.rolloverImage", TabbedPane_right_tab_rolloverImage, 
 			"TabbedPane.right.tab.selectedImage", TabbedPane_right_tab_selectedImage, 
 			"TabbedPane.right.tab.rolloverSelectedImage", TabbedPane_right_tab_rolloverSelectedImage,  
+			
+			"TabbedPane.arrowLeft.defaultImage", TabbedPane_arrowLeft_defaultImage, 
+			"TabbedPane.arrowLeft.pressedImage", TabbedPane_arrowLeft_pressedImage, 
+			"TabbedPane.arrowLeft.disabledImage", TabbedPane_arrowLeft_disabledImage, 
+			"TabbedPane.arrowLeft.rolloverImage", TabbedPane_arrowLeft_rolloverImage, 
+			
+			"TabbedPane.arrowRight.defaultImage", TabbedPane_arrowRight_defaultImage, 
+			"TabbedPane.arrowRight.pressedImage", TabbedPane_arrowRight_pressedImage, 
+			"TabbedPane.arrowRight.disabledImage", TabbedPane_arrowRight_disabledImage, 
+			"TabbedPane.arrowRight.rolloverImage", TabbedPane_arrowRight_rolloverImage, 
 			
 			"TabbedPane.contentMargin", new InsetsUIResource(14, 4, 4, 4), //modify this to fit TabbedPane_contentRoundImage
 			"TabbedPane.top.contentRoundImage", TabbedPane_top_contentRoundImage, 
