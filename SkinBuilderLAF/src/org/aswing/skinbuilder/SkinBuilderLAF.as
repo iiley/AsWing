@@ -592,6 +592,49 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/TabbedPane_arrowRight_rolloverImage.png")]
 	private var TabbedPane_arrowRight_rolloverImage:Class;
 	
+
+	//----------------------------------------------------------------------
+	//_______________________________ Slider _______________________________
+	//======================================================================
+	//========= track scale-9 =======
+	[Embed(source="assets/Slider_vertical_trackImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var Slider_vertical_trackImage:Class;
+	[Embed(source="assets/Slider_vertical_trackDisabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var Slider_vertical_trackDisabledImage:Class;
+	[Embed(source="assets/Slider_vertical_trackProgressImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var Slider_vertical_trackProgressImage:Class;
+	[Embed(source="assets/Slider_vertical_trackProgressDisabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var Slider_vertical_trackProgressDisabledImage:Class;
+	
+	[Embed(source="assets/Slider_horizontal_trackImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var Slider_horizontal_trackImage:Class;
+	[Embed(source="assets/Slider_horizontal_trackDisabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var Slider_horizontal_trackDisabledImage:Class;
+	[Embed(source="assets/Slider_horizontal_trackProgressImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var Slider_horizontal_trackProgressImage:Class;
+	[Embed(source="assets/Slider_horizontal_trackProgressDisabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="12", scaleGridRight="88")]
+	private var Slider_horizontal_trackProgressDisabledImage:Class;
+	
+	//========= Thumb Images =======
+	[Embed(source="assets/Slider_thumb_defaultImage.png")]
+	private var Slider_thumb_defaultImage:Class;
+	
+	[Embed(source="assets/Slider_thumb_pressedImage.png")]
+	private var Slider_thumb_pressedImage:Class;
+	
+	[Embed(source="assets/Slider_thumb_disabledImage.png")]
+	private var Slider_thumb_disabledImage:Class;
+	
+	[Embed(source="assets/Slider_thumb_rolloverImage.png")]
+	private var Slider_thumb_rolloverImage:Class;
 	
 	
 	//-----------------------------------------------------------------------------
@@ -842,6 +885,27 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"TabbedPane.right.contentRoundImage", TabbedPane_right_contentRoundImage, 
 			"TabbedPane.contentRoundLineThickness", 4, //modify this to fit contentRoundImage
 			"TabbedPane.bg", null //bg is managed by SkinTabbedPaneUI
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** Slider
+		comDefaults = [
+			"Slider.vertical.trackImage", Slider_vertical_trackImage,
+			"Slider.vertical.trackDisabledImage", Slider_vertical_trackDisabledImage,
+			"Slider.vertical.trackProgressImage", Slider_vertical_trackProgressImage,
+			"Slider.vertical.trackProgressDisabledImage", Slider_vertical_trackProgressDisabledImage,
+			
+			"Slider.horizontal.trackImage", Slider_vertical_trackImage,
+			"Slider.horizontal.trackDisabledImage", Slider_vertical_trackDisabledImage,
+			"Slider.horizontal.trackProgressImage", Slider_vertical_trackProgressImage,
+			"Slider.horizontal.trackProgressDisabledImage", Slider_vertical_trackProgressDisabledImage,
+			
+			"Slider.thumb.defaultImage", Slider_thumb_defaultImage,
+			"Slider.thumb.pressedImage", Slider_thumb_pressedImage,
+			"Slider.thumb.disabledImage", Slider_thumb_disabledImage,
+			"Slider.thumb.rolloverImage", Slider_thumb_rolloverImage,
+			
+			"Slider.thumbIcon", SkinSliderThumbIcon
 		];
 		table.putDefaults(comDefaults);
 	}	

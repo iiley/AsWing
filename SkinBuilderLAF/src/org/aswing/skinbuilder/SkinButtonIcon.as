@@ -62,7 +62,7 @@ public class SkinButtonIcon implements Icon, UIResource{
         stateAsset.setRolloverSelectedImage(rolloverSelectedImage);
 	}
 	
-	protected function checkSetup(c:Component):void{
+	public function checkSetup(c:Component):void{
 		if(!setuped){
 			setupAssets(c.getUI());
 			setuped = true;
