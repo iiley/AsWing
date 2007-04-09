@@ -11,7 +11,6 @@ import flash.display.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 import org.aswing.ASColor;
-import org.aswing.JSlider;
 import org.aswing.geom.IntRectangle;
 
 public class SliderThumbIcon implements Icon, UIResource{
@@ -98,11 +97,8 @@ public class SliderThumbIcon implements Icon, UIResource{
 		}
 		thumb.x = x;
 		thumb.y = y;
-		var slider:JSlider = c as JSlider;
-		if(slider != null){
-			disabledButton.visible = !slider.isEnabled();
-			enabledButton.visible = slider.isEnabled();
-		}
+		disabledButton.visible = !c.isEnabled();
+		enabledButton.visible = c.isEnabled();
 	}
 	
 	public function getIconHeight(c:Component):int

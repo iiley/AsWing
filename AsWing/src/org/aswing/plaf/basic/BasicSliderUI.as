@@ -44,7 +44,7 @@ public class BasicSliderUI extends BaseComponentUI{
 	private static var scrollSpeedThrottle:Number = 60; // delay in milli seconds
 	private static var initialScrollSpeedThrottle:Number = 500; // first delay in milli seconds
 	
-	private var progressCanvas:Shape;
+	protected var progressCanvas:Shape;
 	
 	public function BasicSliderUI(){
 		super();
