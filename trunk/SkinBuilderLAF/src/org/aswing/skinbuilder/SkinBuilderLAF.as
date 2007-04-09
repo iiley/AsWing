@@ -59,7 +59,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 				//"textHighlightText", 0xFFFFFF, /* Text color when selected */
 				//"textInactiveText", 0x808080, /* Text color when disabled */
 				//"control", 0xF4F4F4,//0xEFEFEF, /* Default color for controls (buttons, sliders, etc) */
-				//"controlText", 0x000000, /* Default color for text in controls */
+				"controlText", 0x002a37, /* Default color for text in controls */
 				//"controlHighlight", 0xEEEEEE, /* Specular highlight (opposite of the shadow) */
 				//"controlLtHighlight", 0x666666, /* Highlight color for controls */
 				//"controlShadow", 0xC7C7C5, /* Shadow color for controls */
@@ -655,7 +655,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Button.rolloverImage", Button_rolloverImage, 
 			"Button.DefaultButton.defaultImage", Button_DefaultButton_defaultImage, 
 			"Button.bg", SkinButtonBackground,
-			"Button.margin", new InsetsUIResource(2, 3, 3, 2), //modify this to fit the image border margin 
+			"Button.margin", new InsetsUIResource(3, 3, 3, 2), //modify this to fit the image border margin 
 			"Button.textShiftOffset", 0
 		];
 		table.putDefaults(comDefaults);
