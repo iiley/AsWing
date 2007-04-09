@@ -51,6 +51,20 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
     	topTabCom = tab.getComponent();
     	return tab;
     }
+    
+	override protected function createNextButton():AbstractButton{
+		var b:JButton = new JButton();
+		b.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix() + "arrowRight."));
+		b.setBackgroundDecorator(null);
+		return b;
+	}
+	
+	override protected function createPrevButton():AbstractButton{
+		var b:JButton = new JButton();
+		b.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix() + "arrowLeft."));
+		b.setBackgroundDecorator(null);
+		return b;
+	}
 
 	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{}
 	public function getDisplay(c:Component):DisplayObject{
