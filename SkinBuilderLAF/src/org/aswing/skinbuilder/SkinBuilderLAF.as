@@ -89,23 +89,23 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//___________________________ Button scale-9 ___________________________
 	//======================================================================
 	[Embed(source="assets/Button_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_defaultImage:Class;
 	
 	[Embed(source="assets/Button_pressedImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_pressedImage:Class;
 	
 	[Embed(source="assets/Button_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_rolloverImage:Class;
 	
 	[Embed(source="assets/Button_disabledImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_disabledImage:Class;
 	
 	[Embed(source="assets/Button_DefaultButton_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="67")]
 	private var Button_DefaultButton_defaultImage:Class;
 	
 	//----------------------------------------------------------------------------
@@ -173,6 +173,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	
 	[Embed(source="assets/CheckBox_pressedImage.png")]
 	private var CheckBox_pressedImage:Class;
+	
+	[Embed(source="assets/CheckBox_pressedSelectedImage.png")]
+	private var CheckBox_pressedSelectedImage:Class;
 	
 	[Embed(source="assets/CheckBox_disabledImage.png")]
 	private var CheckBox_disabledImage:Class;
@@ -597,7 +600,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//_______________________________ Slider _______________________________
 	//======================================================================
 	//========= track scale-9 =======
-	[Embed(source="assets/Slider_vertical_trackImage.png", scaleGridTop="12", scaleGridBottom="14", 
+	/*[Embed(source="assets/Slider_vertical_trackImage.png", scaleGridTop="12", scaleGridBottom="14", 
 		scaleGridLeft="12", scaleGridRight="88")]
 	private var Slider_vertical_trackImage:Class;
 	[Embed(source="assets/Slider_vertical_trackDisabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
@@ -634,7 +637,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var Slider_thumb_disabledImage:Class;
 	
 	[Embed(source="assets/Slider_thumb_rolloverImage.png")]
-	private var Slider_thumb_rolloverImage:Class;
+	private var Slider_thumb_rolloverImage:Class;*/
 	
 	
 	//-----------------------------------------------------------------------------
@@ -690,6 +693,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"CheckBox.icon", SkinCheckBoxIcon,
 			"CheckBox.defaultImage", CheckBox_defaultImage,
 			"CheckBox.pressedImage", CheckBox_pressedImage,
+			"CheckBox.pressedSelectedImage", CheckBox_pressedSelectedImage,
 			"CheckBox.disabledImage", CheckBox_disabledImage,
 			"CheckBox.selectedImage", CheckBox_selectedImage,
 			"CheckBox.disabledSelectedImage", CheckBox_disabledSelectedImage,
@@ -889,7 +893,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		table.putDefaults(comDefaults);
 		
 		// *** Slider
-		comDefaults = [
+		/*comDefaults = [
 			"Slider.vertical.trackImage", Slider_vertical_trackImage,
 			"Slider.vertical.trackDisabledImage", Slider_vertical_trackDisabledImage,
 			"Slider.vertical.trackProgressImage", Slider_vertical_trackProgressImage,
@@ -907,7 +911,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			
 			"Slider.thumbIcon", SkinSliderThumbIcon
 		];
-		table.putDefaults(comDefaults);
+		table.putDefaults(comDefaults);*/
 	}	
 }
 }

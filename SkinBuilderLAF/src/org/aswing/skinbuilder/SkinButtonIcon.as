@@ -47,6 +47,7 @@ public class SkinButtonIcon implements Icon, UIResource{
         var pp:String = getPropertyPrefix();
 		var defaultImage:DisplayObject  = ui.getInstance(pp+"defaultImage") as DisplayObject;
 		var pressedImage:DisplayObject  = ui.getInstance(pp+"pressedImage") as DisplayObject;
+		var pressedSelectedImage:DisplayObject  = ui.getInstance(pp+"pressedSelectedImage") as DisplayObject;
 		var disabledImage:DisplayObject = ui.getInstance(pp+"disabledImage") as DisplayObject;
         var selectedImage:DisplayObject         = ui.getInstance(pp+"selectedImage") as DisplayObject;
         var disabledSelectedImage:DisplayObject = ui.getInstance(pp+"disabledSelectedImage") as DisplayObject;
@@ -55,6 +56,7 @@ public class SkinButtonIcon implements Icon, UIResource{
         
         stateAsset.setDefaultImage(defaultImage);
         stateAsset.setPressedImage(pressedImage);
+        stateAsset.setPressedSelectedImage(pressedSelectedImage);
         stateAsset.setDisabledImage(disabledImage);
         stateAsset.setSelectedImage(selectedImage);
         stateAsset.setDisabledSelectedImage(disabledSelectedImage);

@@ -17,6 +17,7 @@ public class ButtonStateObject extends Sprite{
 	
     protected var defaultImage:DisplayObject;
     protected var pressedImage:DisplayObject;
+    protected var pressedSelectedImage:DisplayObject;
     protected var disabledImage:DisplayObject;
     protected var selectedImage:DisplayObject;
     protected var disabledSelectedImage:DisplayObject;
@@ -53,7 +54,11 @@ public class ButtonStateObject extends Sprite{
 				tmpImage = disabledImage;
 			}
 		}else if(pressed){
-			tmpImage = pressedImage;
+			if(selected && pressedSelectedImage){
+				tmpImage = pressedSelectedImage;
+			}else{
+				tmpImage = pressedImage;
+			}
 		}else if(rollovered){
 			if(selected && rolloverSelectedImage){
 				tmpImage = rolloverSelectedImage;
@@ -130,6 +135,12 @@ public class ButtonStateObject extends Sprite{
 	public function setPressedImage(image:DisplayObject):void{
 		checkAsset(pressedImage);
 		pressedImage = image;
+		addChild(image);
+	}
+	
+	public function setPressedSelectedImage(image:DisplayObject):void{
+		checkAsset(pressedSelectedImage);
+		pressedSelectedImage = image;
 		addChild(image);
 	}
 	
