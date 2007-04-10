@@ -22,7 +22,7 @@ import org.aswing.plaf.basic.BasicSliderUI;
  * <code>setMajorTickSpacing</code> and <code>setMinorTickSpacing</code>. 
  * @author iiley
  */
-public class JSlider extends Component{
+public class JSlider extends Component implements Orientable{
     /** 
      * Horizontal orientation.
      */

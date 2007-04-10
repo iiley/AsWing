@@ -2,10 +2,9 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
-	import org.aswing.plaf.basic.BasicSeparatorUI;
+package org.aswing{
 	
+import org.aswing.plaf.basic.BasicSeparatorUI;
 	
 /**
  * <code>JSeparator</code> provides a general purpose component for
@@ -19,8 +18,7 @@ package org.aswing
  * 
  * @author iiley
  */	
-public class JSeparator extends Component
-{
+public class JSeparator extends Component implements Orientable{
 	
     /** 
      * Horizontal orientation.
@@ -59,7 +57,7 @@ public class JSeparator extends Component
     	return org.aswing.plaf.basic.BasicSeparatorUI;
     }
 	
-	public function getOrientation():Number{
+	public function getOrientation():int{
 		return orientation;
 	}
 	

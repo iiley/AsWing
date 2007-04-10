@@ -51,14 +51,14 @@ import org.aswing.plaf.basic.BasicSplitPaneUI;
  * 
  * @author iiley
  */	
-public class JSplitPane extends Container{
+public class JSplitPane extends Container implements Orientable{
 	
     /**
      * Vertical split indicates the <code>Component</code>s are
      * split along the y axis.  For example the two
      * <code>Component</code>s will be split one on top of the other.
      */
-    public static const VERTICAL_SPLIT:int = 1;
+    public static const VERTICAL_SPLIT:int = AsWingConstants.VERTICAL;
 
     /**
      * Horizontal split indicates the <code>Component</code>s are
@@ -66,7 +66,7 @@ public class JSplitPane extends Container{
      * <code>Component</code>s will be split one to the left of the
      * other.
      */
-    public static const HORIZONTAL_SPLIT:int = 0;
+    public static const HORIZONTAL_SPLIT:int = AsWingConstants.HORIZONTAL;
 
     /**
      * Used to add a <code>Component</code> to the left of the other
@@ -298,12 +298,11 @@ public class JSplitPane extends Container{
         return lastDividerLocation;
     }
 
-
     /**
      * Sets the orientation, or how the splitter is divided. The options
      * are:<ul>
-     * <li>JSplitPane.VERTICAL_SPLIT  (above/below orientation of components)
-     * <li>JSplitPane.HORIZONTAL_SPLIT  (left/right orientation of components)
+     * <li>JSplitPane.VERTICAL_SPLIT  (above/below orientation of components)</li>
+     * <li>JSplitPane.HORIZONTAL_SPLIT  (left/right orientation of components)</li>
      * </ul>
      *
      * @param orientation an integer specifying the orientation
@@ -455,6 +454,13 @@ public class JSplitPane extends Container{
      */
     public function getDividerSize():int{
     	return dividerSize;
+    }
+    
+    override public function setEnabled(b:Boolean):void{
+    	super.setEnabled(b);
+    	if(dividerComponent){
+    		dividerComponent.setEnabled(b);
+    	}
     }
     
 	override protected function insertImp(i:int, com:Component, constraints:Object=null):void{

@@ -389,6 +389,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"SplitPane.foreground", table.get("controlDkShadow"), 
 			"SplitPane.opaque", false, 
 			"SplitPane.focusable", true, 
+			"SplitPane.defaultDividerSize", 10, 
 			"SplitPane.font", table.getFont("windowFont"), 
 			"SplitPane.border", undefined, 
 			"SplitPane.presentDragColor", new ASColorUIResource(0x000000, 40)

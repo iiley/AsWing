@@ -27,7 +27,7 @@ import org.aswing.plaf.basic.BasicToolBarUI;
  * 
  * @author iiley
  */
-public class JToolBar extends Container {
+public class JToolBar extends Container implements Orientable{
 	
 	public static const HORIZONTAL:int = AsWingConstants.HORIZONTAL;
 	public static const VERTICAL:int  = AsWingConstants.VERTICAL;

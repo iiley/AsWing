@@ -28,7 +28,7 @@ import org.aswing.plaf.basic.BasicAdjusterUI;
  * 
  * @author iiley
  */
-public class JAdjuster extends Component{
+public class JAdjuster extends Component implements Orientable{
 
 	/** 
 	 * Horizontal orientation.

@@ -13,20 +13,21 @@ import flash.geom.Point;
 
 public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	
-	private var sp:JSplitPane;
-	private var divider:Divider;
-	private var lastContentSize:IntDimension;
-	private var spLis:Object;
-	private var mouseLis:Object;
-	private var vSplitCursor:Cursor;
-	private var hSplitCursor:Cursor;
-	private var presentDragColor:ASColor;
+	protected var sp:JSplitPane;
+	protected var divider:Divider;
+	protected var lastContentSize:IntDimension;
+	protected var spLis:Object;
+	protected var mouseLis:Object;
+	protected var vSplitCursor:Cursor;
+	protected var hSplitCursor:Cursor;
+	protected var presentDragColor:ASColor;
+	protected var defaultDividerSize:int;
 	
-	private var startDragPos:IntPoint;
-	private var startLocation:int;
-	private var startDividerPos:IntPoint;
-	private var dragRepresentationMC:Sprite;
-	private var pressFlag:Boolean;  //the flag for pressed left or right collapseButton	
+	protected var startDragPos:IntPoint;
+	protected var startLocation:int;
+	protected var startDividerPos:IntPoint;
+	protected var dragRepresentationMC:Sprite;
+	protected var pressFlag:Boolean;  //the flag for pressed left or right collapseButton	
 	
 	public function BasicSplitPaneUI() {
 		super();
@@ -50,21 +51,22 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
         uninstallListeners();
     }
     
-    private function installDefaults():void {
+    protected function installDefaults():void {
     	var pp:String = getPropertyPrefix();
         LookAndFeel.installColorsAndFont(sp, pp);
         LookAndFeel.installBorderAndBFDecorators(sp, pp);
         LookAndFeel.installBasicProperties(sp, pp);
         presentDragColor = getColor(pp+"presentDragColor");
+        defaultDividerSize = getInt(pp+"defaultDividerSize");
         lastContentSize = new IntDimension();
         sp.setLayout(this);
     }
 
-    private function uninstallDefaults():void {
+    protected function uninstallDefaults():void {
         LookAndFeel.uninstallBorderAndBFDecorators(sp);
     }
 	
-	private function installComponents():void{
+	protected function installComponents():void{
 		vSplitCursor = createSplitCursor(true);
 		hSplitCursor = createSplitCursor(false);
 		divider = createDivider();
@@ -83,7 +85,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		divider.getCollapseRightButton().addActionListener(__collapseRight);
 	}
 	
-	private function uninstallComponents():void{
+	protected function uninstallComponents():void{
 		sp.remove(divider);
 		divider.removeEventListener(MouseEvent.MOUSE_DOWN, __div_pressed);
 		divider.removeEventListener(ReleaseEvent.RELEASE, __div_released);
@@ -99,12 +101,12 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		divider = null;
 	}
 	
-	private function installListeners():void{
+	protected function installListeners():void{
 		sp.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __on_splitpane_key_down);
 		sp.addEventListener(InteractiveEvent.STATE_CHANGED, __div_location_changed);
 	}
 	
-	private function uninstallListeners():void{
+	protected function uninstallListeners():void{
 		sp.removeEventListener(KeyboardEvent.KEY_DOWN, __on_splitpane_key_down);
 		sp.removeEventListener(InteractiveEvent.STATE_CHANGED, __div_location_changed);
 	}
@@ -126,20 +128,20 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	/**
 	 * Override this method to return a different divider for your UI
 	 */
-	private function createDivider():Divider{
+	protected function createDivider():Divider{
 		return new Divider(sp);
 	}
     
 	/**
 	 * Override this method to return a different default divider size for your UI
 	 */
-    private function getDefaultDividerSize():int{
-    	return 10;
+    protected function getDefaultDividerSize():int{
+    	return defaultDividerSize;
     }
     /**
 	 * Override this method to return a different default DividerDragingRepresention for your UI
 	 */
-    private function paintDividerDragingRepresention(g:Graphics2D):void{
+    protected function paintDividerDragingRepresention(g:Graphics2D):void{
 		g.fillRectangle(new SolidBrush(presentDragColor.changeAlpha(0.4)), 0, 0, divider.getWidth(), divider.getHeight());
     }
 	
@@ -292,11 +294,11 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		}
     }
     
-    private function isVertical():Boolean{
+    protected function isVertical():Boolean{
     	return sp.getOrientation() == JSplitPane.VERTICAL_SPLIT;
     }
     
-    private function getDividerSize():int{
+    protected function getDividerSize():int{
     	var si:int = sp.getDividerSize();
     	if(si < 0){
     		return getDefaultDividerSize();
@@ -305,14 +307,14 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
     	}
     }
     
-    private function restrictDividerLocation(loc:int):int{
+    protected function restrictDividerLocation(loc:int):int{
     	return Math.max(
 				getMinimumDividerLocation(), 
 				Math.min(loc, getMaximumDividerLocation()));
     }
     //-----------------------------------------------------------------------
     
-	private function __collapseLeft(e:AWEvent) : void {
+	protected function __collapseLeft(e:AWEvent) : void {
 		pressFlag = true;
 		if(sp.getDividerLocation() == int.MAX_VALUE){
 			sp.setDividerLocation(sp.getLastDividerLocation());
@@ -326,7 +328,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		}
 	}
 
-	private function __collapseRight(e:AWEvent) : void {
+	protected function __collapseRight(e:AWEvent) : void {
 		pressFlag = true;		
 		if(sp.getDividerLocation() < 0){
 			sp.setDividerLocation(sp.getLastDividerLocation());
@@ -340,7 +342,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		}
 	}
 	
-	private function __on_splitpane_key_down(e:FocusKeyEvent):void{
+	protected function __on_splitpane_key_down(e:FocusKeyEvent):void{
 		var code:uint = e.keyCode;
 		var dir:Number = 0;
 		if(code == KeyStroke.VK_HOME.getCode()){
@@ -369,7 +371,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		sp.setDividerLocation(restrictDividerLocation(sp.getDividerLocation() + dir));
 	}
     
-    private function __div_location_changed(e:InteractiveEvent):void{
+    protected function __div_location_changed(e:InteractiveEvent):void{
     	layoutWithLocation(sp.getDividerLocation());
         if(sp.getDividerLocation() >= 0 && sp.getDividerLocation() != int.MAX_VALUE){
         	divider.setEnabled(true);
@@ -378,7 +380,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
         }
     }
 	
-	private function __div_pressed(e:MouseEvent) : void {
+	protected function __div_pressed(e:MouseEvent) : void {
 		if (e.target != divider){
 			pressFlag = true;
 			return;
@@ -390,7 +392,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		sp.addEventListener(MouseEvent.MOUSE_MOVE, __div_mouse_moving);
 	}
 
-	private function __div_released(e:ReleaseEvent) : void {
+	protected function __div_released(e:ReleaseEvent) : void {
 		if (e.target != divider) return;		
 		if (pressFlag){
 			pressFlag = false;
@@ -407,7 +409,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		sp.removeEventListener(MouseEvent.MOUSE_MOVE, __div_mouse_moving);
 	}
 
-	private function __div_mouse_moving(e:MouseEvent) : void {
+	protected function __div_mouse_moving(e:MouseEvent) : void {
 		if(!sp.isContinuousLayout()){
 			if(dragRepresentationMC == null){
 				dragRepresentationMC = new Sprite();
@@ -433,12 +435,12 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		}
 	}
 	
-	private function validateDivMoveWithCurrentMousePos():void{
+	protected function validateDivMoveWithCurrentMousePos():void{
 		var newLocation:int = startLocation + getCurrentMovedDistance();
 		sp.setDividerLocation(newLocation);
 	}
 	
-	private function getCurrentMovedDistance():int{
+	protected function getCurrentMovedDistance():int{
 		var mouseP:IntPoint = sp.getMousePosition();
 		var delta:int = 0;
 		if(isVertical()){
@@ -453,7 +455,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		return newLocation - startLocation;
 	}
 
-	private function __div_rollover(e:Event) : void {
+	protected function __div_rollover(e:Event) : void {
 		if(isVertical()){
 			CursorManager.showCustomCursor(vSplitCursor);
 		}else{
@@ -461,7 +463,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		}
 	}
 
-	private function __div_rollout(e:Event) : void {
+	protected function __div_rollout(e:Event) : void {
 		if(isVertical()){
 			CursorManager.hideCustomCursor(vSplitCursor);
 		}else{
