@@ -664,6 +664,71 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var Tree_folderCollapsedControlImage:Class;
 	
 	
+	//------------------------------------------------------------------
+	//___________________________ SplitPane ____________________________
+	//==================================================================
+	//========= Left Arrow Images =======
+	[Embed(source="assets/SplitPane_arrowLeft_defaultImage.png")]
+	private var SplitPane_arrowLeft_defaultImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowLeft_pressedImage.png")]
+	private var SplitPane_arrowLeft_pressedImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowLeft_disabledImage.png")]
+	private var SplitPane_arrowLeft_disabledImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowLeft_rolloverImage.png")]
+	private var SplitPane_arrowLeft_rolloverImage:Class;
+	
+	//========= Right Arrow Images =======
+	[Embed(source="assets/SplitPane_arrowRight_defaultImage.png")]
+	private var SplitPane_arrowRight_defaultImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowRight_pressedImage.png")]
+	private var SplitPane_arrowRight_pressedImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowRight_disabledImage.png")]
+	private var SplitPane_arrowRight_disabledImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowRight_rolloverImage.png")]
+	private var SplitPane_arrowRight_rolloverImage:Class;
+	
+	//========= Up Arrow Images =======
+	[Embed(source="assets/SplitPane_arrowUp_defaultImage.png")]
+	private var SplitPane_arrowUp_defaultImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowUp_pressedImage.png")]
+	private var SplitPane_arrowUp_pressedImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowUp_disabledImage.png")]
+	private var SplitPane_arrowUp_disabledImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowUp_rolloverImage.png")]
+	private var SplitPane_arrowUp_rolloverImage:Class;
+	
+	//========= Down Arrow Images =======
+	[Embed(source="assets/SplitPane_arrowDown_defaultImage.png")]
+	private var SplitPane_arrowDown_defaultImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowDown_pressedImage.png")]
+	private var SplitPane_arrowDown_pressedImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowDown_disabledImage.png")]
+	private var SplitPane_arrowDown_disabledImage:Class;
+	
+	[Embed(source="assets/SplitPane_arrowDown_rolloverImage.png")]
+	private var SplitPane_arrowDown_rolloverImage:Class;
+	
+	//========= Background Images scale-9 ======= 
+	[Embed(source="assets/SplitPane_divider_verticalBGImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var SplitPane_divider_verticalBGImage:Class;
+	
+	[Embed(source="assets/SplitPane_divider_horizotalBGImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		scaleGridLeft="6", scaleGridRight="67")]
+	private var SplitPane_divider_horizotalBGImage:Class;
+	
+	
 	
 	//-----------------------------------------------------------------------------
 	//___________________________ initComponentDefaults ___________________________
@@ -955,6 +1020,36 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Tree.folderCollapsedControlImage", Tree_folderCollapsedControlImage
 		];
 		table.putDefaults(comDefaults);
+		
+		// *** SplitPane
+		comDefaults = [
+			"SplitPane.presentDragColor", new ASColorUIResource(0x000000, 40), 
+			
+			"SplitPane.defaultDividerSize", 10, //modify this to fit the divier images
+			"SplitPane.divider.verticalBGImage", SplitPane_divider_verticalBGImage, 
+			"SplitPane.divider.horizotalBGImage", SplitPane_divider_horizotalBGImage, 
+			
+			"SplitPane.arrowLeft.defaultImage", SplitPane_arrowLeft_defaultImage, 
+			"SplitPane.arrowLeft.pressedImage", SplitPane_arrowLeft_pressedImage, 
+			"SplitPane.arrowLeft.disabledImage", SplitPane_arrowLeft_disabledImage, 
+			"SplitPane.arrowLeft.rolloverImage", SplitPane_arrowLeft_rolloverImage, 
+			
+			"SplitPane.arrowRight.defaultImage", SplitPane_arrowRight_defaultImage, 
+			"SplitPane.arrowRight.pressedImage", SplitPane_arrowRight_pressedImage, 
+			"SplitPane.arrowRight.disabledImage", SplitPane_arrowRight_disabledImage, 
+			"SplitPane.arrowRight.rolloverImage", SplitPane_arrowRight_rolloverImage, 
+			
+			"SplitPane.arrowUp.defaultImage", SplitPane_arrowUp_defaultImage, 
+			"SplitPane.arrowUp.pressedImage", SplitPane_arrowUp_pressedImage, 
+			"SplitPane.arrowUp.disabledImage", SplitPane_arrowUp_disabledImage, 
+			"SplitPane.arrowUp.rolloverImage", SplitPane_arrowUp_rolloverImage, 
+			
+			"SplitPane.arrowDown.defaultImage", SplitPane_arrowDown_defaultImage, 
+			"SplitPane.arrowDown.pressedImage", SplitPane_arrowDown_pressedImage, 
+			"SplitPane.arrowDown.disabledImage", SplitPane_arrowDown_disabledImage, 
+			"SplitPane.arrowDown.rolloverImage", SplitPane_arrowDown_rolloverImage
+		];
+		table.putDefaults(comDefaults);	
 	}	
 }
 }
