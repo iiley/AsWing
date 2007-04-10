@@ -8,12 +8,12 @@ import org.aswing.plaf.basic.icon.SolidArrowIcon;
 public class Divider extends Container
 {
 	
-	private var icon:Icon;
-	private var leftButton:AbstractButton;
-	private var rightButton:AbstractButton;
-	private var leftIcon:SolidArrowIcon;
-	private var rightIcon:SolidArrowIcon;
-	private var sp:JSplitPane;
+	protected var icon:Icon;
+	protected var leftButton:AbstractButton;
+	protected var rightButton:AbstractButton;
+	protected var leftIcon:SolidArrowIcon;
+	protected var rightIcon:SolidArrowIcon;
+	protected var sp:JSplitPane;
 	
 	public function Divider(sp:JSplitPane){
 		super();
@@ -34,12 +34,7 @@ public class Divider extends Container
 		return sp;
 	}
 	
-	override protected function paint(b:IntRectangle):void{
-		super.paint(b);
-		var g:Graphics2D = new Graphics2D(this.graphics);
-		if(icon != null){
-			icon.updateIcon(this, g, b.x, b.y);
-		}
+	protected function layoutButtons():void{
 		if(sp.isOneTouchExpandable()){
 			if(sp.getOrientation() == JSplitPane.VERTICAL_SPLIT){
 				leftIcon.setArrow(-Math.PI/2);
@@ -64,14 +59,25 @@ public class Divider extends Container
 		}
 	}
 	
-	private function createCollapseLeftButton():AbstractButton{
+	override protected function paint(b:IntRectangle):void{
+		super.paint(b);
+		var g:Graphics2D = new Graphics2D(this.graphics);
+		if(icon != null){
+			icon.updateIcon(this, g, b.x, b.y);
+		}
+		layoutButtons();
+	}
+	
+	protected function createCollapseLeftButton():AbstractButton{
 		leftIcon = new SolidArrowIcon(Math.PI, 8, sp.getForeground());
 		return createButton(leftIcon);
 	}
-	private function createCollapseRightButton():AbstractButton{
+	
+	protected function createCollapseRightButton():AbstractButton{
 		rightIcon = new SolidArrowIcon(0, 8, sp.getForeground());
 		return createButton(rightIcon);
 	}
+	
 	private function createButton(icon:Icon):AbstractButton{
 		var btn:JButton = new JButton();
 		btn.setOpaque(false);

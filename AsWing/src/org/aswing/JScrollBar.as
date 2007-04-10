@@ -3,9 +3,9 @@
 */
 
 package org.aswing{
-	import org.aswing.event.InteractiveEvent;
-	import org.aswing.plaf.basic.BasicScrollBarUI;
 	
+import org.aswing.event.InteractiveEvent;
+import org.aswing.plaf.basic.BasicScrollBarUI;
 	
 /**
  * Dispatched when the scrollBar's state changed. 
@@ -27,7 +27,7 @@ package org.aswing{
  * </p>
  * @author iiley
  */	
-public class JScrollBar extends Component{
+public class JScrollBar extends Component implements Orientable{
 	
     /** 
      * Horizontal orientation.
