@@ -43,7 +43,13 @@ public class SkinScrollBarThumb implements GroundDecorator, UIResource{
 		initSelfHandlers();
 	}
 	
-	private function reloadAssets(ui:ComponentUI):void{
+	private function checkReloadAssets(c:Component):void{
+		if(verticalContainer){
+			return;
+		}
+		verticalContainer = new ButtonStateObject();
+		horizontalContainer = new ButtonStateObject();
+		var ui:ComponentUI = c.getUI();
 		verticalContainer.setDefaultImage(getAsset(ui, "thumbVertical.defaultImage"));
 		verticalContainer.setPressedImage(getAsset(ui, "thumbVertical.pressedImage"));
 		verticalContainer.setDisabledImage(getAsset(ui, "thumbVertical.disabledImage"));
@@ -60,21 +66,19 @@ public class SkinScrollBarThumb implements GroundDecorator, UIResource{
         return ui.getInstance("ScrollBar."+exName) as DisplayObject;
     }
 	
-	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
-		if(!verticalContainer){
-			verticalContainer = new ButtonStateObject();
-			horizontalContainer = new ButtonStateObject();
-		}
+	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+		checkReloadAssets(c);
 		thumb.x = bounds.x;
 		thumb.y = bounds.y;
 		size = bounds.getSize();
-		var sb:JScrollBar = JScrollBar(com);
+		var sb:JScrollBar = JScrollBar(c);
 		enabled = sb.isEnabled();
 		verticle = (sb.getOrientation() == JScrollBar.VERTICAL);
 		paint();
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{
+		checkReloadAssets(c);
 		return thumb;
 	}
 	

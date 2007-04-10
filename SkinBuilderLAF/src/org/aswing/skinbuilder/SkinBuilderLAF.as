@@ -640,6 +640,31 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var Slider_thumb_rolloverImage:Class;*/
 	
 	
+	//----------------------------------------------------------------------
+	//___________________________ TabbedPane _______________________________
+	//======================================================================
+	//========= Icon Images =======
+	[Embed(source="assets/Tree_leafImage.png")]
+	private var Tree_leafImage:Class;
+	
+	[Embed(source="assets/Tree_folderExpandedImage.png")]
+	private var Tree_folderExpandedImage:Class;
+	
+	[Embed(source="assets/Tree_folderCollapsedImage.png")]
+	private var Tree_folderCollapsedImage:Class;
+	
+	//========= Control Images =======
+	[Embed(source="assets/Tree_leafControlImage.png")]
+	private var Tree_leafControlImage:Class;
+	
+	[Embed(source="assets/Tree_folderExpandedControlImage.png")]
+	private var Tree_folderExpandedControlImage:Class;
+	
+	[Embed(source="assets/Tree_folderCollapsedControlImage.png")]
+	private var Tree_folderCollapsedControlImage:Class;
+	
+	
+	
 	//-----------------------------------------------------------------------------
 	//___________________________ initComponentDefaults ___________________________
 	//=============================================================================
@@ -912,6 +937,24 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Slider.thumbIcon", SkinSliderThumbIcon
 		];
 		table.putDefaults(comDefaults);*/
+		
+		 // *** Tree
+		comDefaults = [
+			"Tree.leafIcon", SkinTreeLeafIcon, 
+			"Tree.folderExpandedIcon", SkinTreeFolderExpandedIcon, 
+			"Tree.folderCollapsedIcon", SkinTreeFolderCollapsedIcon, 
+			"Tree.leafImage", Tree_leafImage, 
+			"Tree.folderExpandedImage", Tree_folderExpandedImage, 
+			"Tree.folderCollapsedImage", Tree_folderCollapsedImage, 
+			
+			"Tree.leftChildIndent", 15, //modify this to fit control images width
+			"Tree.rightChildIndent", 0, 
+			"Tree.expandControl", SkinTreeExpandControl, 
+			"Tree.leafControlImage", Tree_leafControlImage, 
+			"Tree.folderExpandedControlImage", Tree_folderExpandedControlImage, 
+			"Tree.folderCollapsedControlImage", Tree_folderCollapsedControlImage
+		];
+		table.putDefaults(comDefaults);
 	}	
 }
 }
