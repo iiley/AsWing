@@ -440,12 +440,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * @see UIDefaults#getUI()
      */
     override public function setUI(ui:ComponentUI):void {
-        if (this.ui != ui) {
-		    settingUI = true;
-		    //TODO check if need add expand/collpase listener to first
-			super.setUI(ui);
-			settingUI = false;
-        }
+	    settingUI = true;
+	    //TODO check if need add expand/collpase listener to first
+		super.setUI(ui);
+		settingUI = false;
     }
 
     /**
