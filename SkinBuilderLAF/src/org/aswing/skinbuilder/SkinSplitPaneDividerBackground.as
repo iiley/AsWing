@@ -4,10 +4,10 @@
 
 package org.aswing.skinbuilder{
 
-public class SkinScrollBarBackground extends OrientableComponentBackground{
+public class SkinSplitPaneDividerBackground extends OrientableComponentBackground{
 	
 	override protected function getPropertyPrefix():String {
-        return "ScrollBar.";
+        return "SplitPane.divider.";
     }
 	
 }
