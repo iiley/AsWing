@@ -15,6 +15,7 @@ import flash.ui.Keyboard;
 import flash.display.Shape;
 import flash.events.MouseEvent;
 import flash.utils.getTimer;
+import org.aswing.plaf.basic.tree.ExpandControl;
 
 /**
  * @author iiley
@@ -54,6 +55,8 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 	protected var validCachedViewSize:Boolean;
 	protected var viewSize:IntDimension;
 	protected var lastViewPosition:IntPoint;
+	
+	protected var expandControl:ExpandControl;
 	
 	public function BasicTreeUI() {
 		super();
@@ -105,8 +108,8 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 			tree.setSelectionForeground(getColor(pp+"selectionForeground"));
 		}
 		
-		setLeftChildIndent(10);
-		setRightChildIndent(0);
+		setLeftChildIndent(getInt(pp+"leftChildIndent"));
+		setRightChildIndent(getInt(pp+"rightChildIndent"));
 		updateDepthOffset();
 		treeState = new FixedHeightLayoutCache();
 		treeState.setModel(tree.getModel());
@@ -115,6 +118,8 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		treeState.setRowHeight(tree.getRowHeight());
 		editor = tree.getCellEditor();
 		setRootVisible(tree.isRootVisible());
+		
+		expandControl = getInstance(pp+"expandControl") as ExpandControl;
 	}
 	
 	protected function uninstallDefaults():void {
@@ -737,7 +742,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 			var path:TreePath = paintingEnumerator[i];
 			var cellCom:Component = cell.getCellComponent();
 			if(i < paintingN){
-				leaf = treeModel.isLeaf(path.getLastPathComponent());
+				leaf = treeModel.isLeaf(path.getLastPathComponent())
 				if(leaf){
 					expanded = false;
 				}else {
@@ -770,22 +775,9 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 	
 	protected function paintExpandControl(g:Graphics2D, bounds:IntRectangle, path:TreePath,
 					  row:int, expanded:Boolean, leaf:Boolean):void{
-		if(leaf){
-			return;
+		if(expandControl){
+			expandControl.paintExpandControl(tree, g, bounds, totalChildIndent, path, row, expanded, leaf);
 		}
-		var w:int = totalChildIndent;
-		var cx:Number = bounds.x - w/2;
-		var cy:Number = bounds.y + bounds.height/2;
-		var r:Number = 4;
-		var trig:Array;
-		if(!expanded){
-			cx -= 2;
-			trig = [new IntPoint(cx, cy-r), new IntPoint(cx, cy+r), new IntPoint(cx+r, cy)];
-		}else{
-			cy -= 2;
-			trig = [new IntPoint(cx-r, cy), new IntPoint(cx+r, cy), new IntPoint(cx, cy+r)];
-		}
-		g.fillPolygon(new SolidBrush(ASColor.BLACK), trig);
 	}
 	
 	protected function checkCreateCells():void{

@@ -12,6 +12,8 @@ import org.aswing.plaf.basic.icon.*;
 import org.aswing.plaf.basic.frame.*;
 import org.aswing.resizer.*;
 import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
+import org.aswing.tree.TreeLeafIcon;
+import org.aswing.plaf.basic.tree.BasicExpandControl;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -563,7 +565,13 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"Tree.focusable", true,
 			"Tree.font", table.getFont("controlFont"),
 			"Tree.selectionBackground", new ASColorUIResource(0x666666),
-			"Tree.selectionForeground", table.get("control"),
+			"Tree.selectionForeground", table.get("control"), 
+			"Tree.leafIcon", org.aswing.tree.TreeLeafIcon, 
+			"Tree.folderExpandedIcon", org.aswing.tree.TreeFolderIcon, 
+			"Tree.folderCollapsedIcon", org.aswing.tree.TreeFolderIcon, 
+			"Tree.leftChildIndent", 10, 
+			"Tree.rightChildIndent", 0, 
+			"Tree.expandControl", org.aswing.plaf.basic.tree.BasicExpandControl, 
 			"Tree.border", undefined
 		];
 		table.putDefaults(comDefaults);
