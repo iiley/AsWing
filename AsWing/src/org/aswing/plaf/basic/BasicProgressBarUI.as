@@ -2,25 +2,23 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic
-{
+package org.aswing.plaf.basic{
+	
 import flash.text.*;
-
 import org.aswing.*;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.background.ProgressBarIcon;
+import org.aswing.util.DepthManager;
 
-public class BasicProgressBarUI extends BaseComponentUI
-{
-	private var sprite:AWSprite;
-	private var iconDecorator:GroundDecorator;
-	private var stringText:TextField;
-	private var stateListener:Object;
+public class BasicProgressBarUI extends BaseComponentUI{
 	
-	private var progressBar:JProgressBar;
+	protected var iconDecorator:GroundDecorator;
+	protected var stringText:TextField;
+	protected var stateListener:Object;
+	protected var progressBar:JProgressBar;
 	
 	public function BasicProgressBarUI() {
 		super();
@@ -56,22 +54,15 @@ public class BasicProgressBarUI extends BaseComponentUI
 	}
 	
 	protected function installComponents():void{
-		sprite = new AWSprite();
 		stringText = new TextField();
 		stringText.autoSize = TextFieldAutoSize.CENTER;
-		var pp:String = getPropertyPrefix();    			
-		iconDecorator = getGroundDecorator(pp + "iconDecorator");
-		if(iconDecorator != null){
-			if(iconDecorator.getDisplay(progressBar) != null){
-				sprite.addChild(iconDecorator.getDisplay(progressBar));
-			}
-		}
-		progressBar.addChild(sprite);
+		stringText.mouseEnabled = false;
+		stringText.tabEnabled = false;
+		stringText.selectable = false;
 		progressBar.addChild(stringText);
 	}
 	
 	protected function uninstallComponents():void{
-		progressBar.removeChild(sprite);
 		stringText = null;
 		iconDecorator = null;
 	}
@@ -83,14 +74,13 @@ public class BasicProgressBarUI extends BaseComponentUI
 		progressBar.removeEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged);
 	}
 	
-	private function __stateChanged(source:JProgressBar):void{
+	protected function __stateChanged(source:JProgressBar):void{
 		source.repaint();
 	}
 	
     override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
 		super.paint(c, g, b);
 		var sp:JProgressBar = JProgressBar(c);
-		paintIcon(c, g, b)
 		if(sp.getString() != null && sp.getString().length>0){
 			stringText.text = sp.getString();
 	    	AsWingUtils.applyTextFontAndColor(stringText, sp.getFont(), sp.getForeground());
@@ -104,21 +94,11 @@ public class BasicProgressBarUI extends BaseComponentUI
 				stringText.x = Math.round(b.x + (b.width - stringText.width)/2);
 				stringText.y = Math.round(b.y + (b.height - stringText.height)/2);
 			}
+			DepthManager.bringToTop(stringText);
 		}else{
 			stringText.text = "";
 		}
 	}
-		
-    /**
-     * LAF notice.
-     * 
-     * Override this method to paint diff thumb in your LAF.
-     */
-    private function paintIcon(c:Component, g:Graphics2D, r:IntRectangle):void{
-    	if(iconDecorator != null){
-    		iconDecorator.updateDecorator(c, g, r);
-    	}
-    }		
 
     //--------------------------Dimensions----------------------------
     
@@ -150,10 +130,10 @@ public class BasicProgressBarUI extends BaseComponentUI
 		return c.getInsets().getOutsideSize(new IntDimension(1, 1));
     }
     
-    private function getPreferredInnerHorizontal():IntDimension{
+    protected function getPreferredInnerHorizontal():IntDimension{
     	return new IntDimension(80, 12);
     }
-    private function getPreferredInnerVertical():IntDimension{
+    protected function getPreferredInnerVertical():IntDimension{
     	return new IntDimension(12, 80);
     }	
 	

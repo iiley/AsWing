@@ -277,10 +277,10 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"ProgressBar.focusable", false,			
 			"ProgressBar.font", new ASFontUIResource("Tahoma", 9),
 			"ProgressBar.border", org.aswing.plaf.basic.border.ProgressBarBorder,
-			"ProgressBar.iconDecorator", org.aswing.plaf.basic.background.ProgressBarIcon,
+			"ProgressBar.fg", org.aswing.plaf.basic.background.ProgressBarIcon,
 			"ProgressBar.progressColor", new ASColorUIResource(0x3366CC)
 		];
-		table.putDefaults(comDefaults);		
+		table.putDefaults(comDefaults);
 		
 		// *** Panel
 		comDefaults = [
