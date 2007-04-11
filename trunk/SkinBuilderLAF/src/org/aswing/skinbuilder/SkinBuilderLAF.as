@@ -30,7 +30,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			   //"AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
 			   "AccordionUI", SkinAccordionUI, 
 			   "TabbedPaneUI", SkinTabbedPaneUI,
-			   //"SplitPaneUI", org.aswing.plaf.basic.BasicSplitPaneUI,/
+			   "SplitPaneUI", SkinSplitPaneUI,
 			   //"TableUI", org.aswing.plaf.basic.BasicTableUI, 
 			   //"TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
 			   //"TreeUI", org.aswing.plaf.basic.BasicTreeUI, 

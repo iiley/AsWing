@@ -23,6 +23,7 @@ public class OrientableComponentBackground implements GroundDecorator, UIResourc
 	
 	public function OrientableComponentBackground(){
 		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
+		imageContainer.mouseChildren = false;
 		loaded = false;
 	}
 	
