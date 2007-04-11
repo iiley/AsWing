@@ -9,7 +9,7 @@ import org.aswing.*;
 import org.aswing.plaf.*;
 
 
-public class SkinSplitPaneDivider extends Divider{
+public class SkinSplitPaneDivider extends Divider implements Orientable{
 	
 	protected var leftIco:SkinButtonIcon;
 	protected var rightIco:SkinButtonIcon;
@@ -34,6 +34,13 @@ public class SkinSplitPaneDivider extends Divider{
 	override public function getUI():ComponentUI{
 		return sp.getUI();
 	}
+	
+    public function setOrientation(ori:int):void{
+    }
+
+    public function getOrientation():int{
+    	return sp.getOrientation();
+    }
 	
 	override protected function layoutButtons():void{
 		if(sp.isOneTouchExpandable()){
