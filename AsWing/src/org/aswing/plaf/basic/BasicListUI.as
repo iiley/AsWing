@@ -131,7 +131,11 @@ public class BasicListUI extends BaseComponentUI{
 			return;
 		}
     	var viewPos:IntPoint = list.getViewPosition();
-    	viewPos.y -= e.delta*list.getVerticalUnitIncrement();
+    	if(e.shiftKey){
+    		viewPos.x -= e.delta*list.getHorizontalUnitIncrement();
+    	}else{
+    		viewPos.y -= e.delta*list.getVerticalUnitIncrement();
+    	}
     	list.setViewPosition(viewPos);
     }
     

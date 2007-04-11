@@ -482,7 +482,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 	
 	private function __onMouseWheel(e:MouseEvent):void{
 		var pos:IntPoint = tree.getViewPosition();
-		if(KeyboardManager.getInstance().isKeyDown(Keyboard.SHIFT)){
+		if(e.shiftKey){
 			pos.x -= tree.getHorizontalUnitIncrement()*e.delta;
 		}else{
 			pos.y -= tree.getVerticalUnitIncrement()*e.delta;

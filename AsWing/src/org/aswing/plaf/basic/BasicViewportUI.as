@@ -9,6 +9,7 @@ import org.aswing.event.*;
 import org.aswing.plaf.BaseComponentUI;
 import org.aswing.geom.IntPoint;
 import flash.ui.Keyboard;
+import flash.events.MouseEvent;
 
 public class BasicViewportUI extends BaseComponentUI{
 	
@@ -47,10 +48,25 @@ public class BasicViewportUI extends BaseComponentUI{
 	
 	protected function installListeners():void{
 		viewport.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
+		viewport.addEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
 	}
 	
 	protected function uninstallListeners():void{
 		viewport.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
+		viewport.removeEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
+	}
+	
+	private function __onMouseWheel(e:MouseEvent):void{
+		if(!(viewport.isEnabled() && viewport.isShowing())){
+			return;
+		}
+    	var viewPos:IntPoint = viewport.getViewPosition();
+    	if(e.shiftKey){
+    		viewPos.x -= e.delta*viewport.getHorizontalUnitIncrement();
+    	}else{
+    		viewPos.y -= e.delta*viewport.getVerticalUnitIncrement();
+    	}
+    	viewport.setViewPosition(viewPos);
 	}
 	
 	private function __onKeyDown(e:FocusKeyEvent):void{
