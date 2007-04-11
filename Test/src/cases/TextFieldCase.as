@@ -16,6 +16,7 @@ package cases
 			panel.setLayout(new FlowLayout());
 			var text:JTextField = new JTextField("input");
 			text.setCachePreferSizes(false);
+			text.setToolTipText("Text tool tip");
 			panel.append(text);
 			text.addActionListener(__revalidate);
 			panel.append(new JTextField("JTextField1", 8));

@@ -20,9 +20,8 @@ public class SplitPane extends Sprite
 		sp.setLeftComponent(new JButton("Left"));
 		sp.setRightComponent(new JButton("Right"));
 		//sp.setBottomComponent(new JButton("Bottom"));
-		sp.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-		sp.setOneTouchExpandable(true);		
-		sp.setDividerSize(10);
+		sp.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		sp.setOneTouchExpandable(false);
 		pane.append(sp, BorderLayout.CENTER);
 		pane.setSizeWH(300,300);
 		this.addChild(pane);

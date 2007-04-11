@@ -18,19 +18,7 @@ package
 			//create other case instance here to test others
 			//for example change below with addChild(new Button());
 			//to test buttons.
-			addChild(new TabbedPane());
-			
-			var sprite:Sprite = new Sprite();
-			sprite.graphics.beginFill(0xff0000);
-			sprite.graphics.drawRect(0, 0, 200, 20);
-			sprite.graphics.endFill();
-			//addChild(sprite);
-			sprite.rotation = -90;
-			sprite.y = sprite.height;
-			sprite.height = 100;
-			sprite.y = sprite.height;
-			trace("width " + sprite.width);
-			trace("height " + sprite.height);
+			addChild(new ProgressBar());
 		}
 		
 	}

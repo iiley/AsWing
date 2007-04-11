@@ -19,7 +19,7 @@ public class ProgressBar extends Sprite
 		pane = new JPanel(new BorderLayout());
 		pane.setSizeWH(400,300);
 		progBar = new JProgressBar(JProgressBar.HORIZONTAL);
-		progBar.setPreferredSize(new IntDimension(100, 12));
+		progBar.setPreferredWidth(100);
 		indeterminateBar = new JProgressBar(JProgressBar.VERTICAL);
 		indeterminateBar.setIndeterminate(true);
 		scrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, 0, 0, 100);
@@ -35,9 +35,9 @@ public class ProgressBar extends Sprite
 	
 	private function initAsHorizontal():void{
 		pane.append(progBar, BorderLayout.SOUTH);
-		progBar.setBorder(new BevelBorder(null, BevelBorder.RAISED));
+		//progBar.setBorder(new BevelBorder(null, BevelBorder.RAISED));
 		pane.append(indeterminateBar, BorderLayout.EAST);
-		indeterminateBar.setBorder(new BevelBorder());
+		//indeterminateBar.setBorder(new BevelBorder());
 	}
 	
 	private function initAsVertical():void{

@@ -18,7 +18,7 @@ package {
 			//create other case instance here to test others
 			//for example change below with addChild(new Button());
 			//to test buttons.
-			addChild(new ToolBar());
+			addChild(new ProgressBar());
 		}
 	}
 }
