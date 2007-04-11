@@ -17,8 +17,7 @@ import org.aswing.plaf.basic.BasicProgressBarUI;
  */
 [Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
 
-public class JProgressBar extends Component
-{
+public class JProgressBar extends Component implements Orientable{
 
     /** 
      * Horizontal orientation.
