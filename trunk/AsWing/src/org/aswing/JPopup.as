@@ -84,6 +84,8 @@ public class JPopup extends JRootPane{
 		visible = false;
 		addEventListener(Event.ADDED_TO_STAGE, __popupOntoDisplayList);
 		addEventListener(Event.REMOVED_FROM_STAGE, __popupOfffromDisplayList);
+		addEventListener(PopupEvent.POPUP_OPENED, __popupOpenAddListenerStage);
+		addEventListener(PopupEvent.POPUP_CLOSED, __popupOpenRemoveListenerStage);
 	}
 	
 	private function __popupOntoDisplayList(e:Event):void{
@@ -390,7 +392,8 @@ public class JPopup extends JRootPane{
 	 */
 	public function resetModalMC():void{
 		if(!isModal()){
-			modalMC.y = 1000000;
+			modalMC.width = 0;
+			modalMC.height = 0;
 			modalMC.visible = false;
 			return;
 		}
@@ -421,6 +424,18 @@ public class JPopup extends JRootPane{
 	}
 	
 	//--------------------------------------------------------
+	
+	private function __popupOpenAddListenerStage(e:Event):void{
+		AsWingManager.getStage().addEventListener(Event.RESIZE, __resetModelMCWhenStageResized);
+	}
+	
+	private function __popupOpenRemoveListenerStage(e:Event):void{
+		AsWingManager.getStage().removeEventListener(Event.RESIZE, __resetModelMCWhenStageResized);
+	}
+	
+	private function __resetModelMCWhenStageResized(e:Event){
+		resetModalMC();
+	}
 	
 	private function equipPopupContents():void{
 		if(owner is JPopup){
