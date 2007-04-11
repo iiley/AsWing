@@ -26,19 +26,20 @@ public class TreeBig extends Sprite
 	
 		parent = new DefaultMutableTreeNode(createItem("folder1"));
 		root.append(parent);
-		for(var i:int=0; i<100; i++){
+		var i:int;
+		for(i=0; i<100; i++){
 			parent.append(new DefaultMutableTreeNode(createItem("item one " + i)));
 		}
 		
 		parent = new DefaultMutableTreeNode(createItem("folder2"));
 		root.append(parent);
-		for(var i:int=0; i<500; i++){
+		for(i=0; i<500; i++){
 			parent.append(new DefaultMutableTreeNode(createItem("item two " + i)));
 		}
 
 		parent = new DefaultMutableTreeNode(createItem("folder3"));
 		root.append(parent);
-		for(var i:int=0; i<100; i++){
+		for(i=0; i<100; i++){
 			parent.append(new DefaultMutableTreeNode(createItem("item three " + i)));
 		}
 				
