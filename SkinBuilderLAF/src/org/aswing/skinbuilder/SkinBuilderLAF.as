@@ -24,7 +24,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		super.initClassDefaults(table);
 		var uiDefaults:Array = [ 
 			   "ScrollBarUI", SkinScrollBarUI, 
-			   //"ProgressBarUI", org.aswing.plaf.basic.BasicProgressBarUI,
+			   "ProgressBarUI", SkinProgressBarUI,
 			   "ComboBoxUI", SkinComboBoxUI,	   
 			   //"SliderUI",org.aswing.plaf.basic.BasicSliderUI,		   
 			   //"AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
@@ -730,6 +730,25 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	
 	
 	
+	//------------------------------------------------------------------
+	//___________________________ ProgressBar __________________________
+	//==================================================================
+	//========= Background Images scale-9 or not ======= 
+	[Embed(source="assets/ProgressBar_verticalBGImage.png")]
+	private var ProgressBar_verticalBGImage:Class;
+	
+	[Embed(source="assets/ProgressBar_horizotalBGImage.png")]
+	private var ProgressBar_horizotalBGImage:Class;
+	
+	//========= Foreground Images scale-9 ======= 
+	[Embed(source="assets/ProgressBar_verticalFGImage.png", scaleGridTop="2", scaleGridBottom="202", 
+		scaleGridLeft="1", scaleGridRight="15")]
+	private var ProgressBar_verticalFGImage:Class;
+	
+	[Embed(source="assets/ProgressBar_horizotalFGImage.png", scaleGridTop="1", scaleGridBottom="15", 
+		scaleGridLeft="2", scaleGridRight="202")]
+	private var ProgressBar_horizotalFGImage:Class;
+	
 	//-----------------------------------------------------------------------------
 	//___________________________ initComponentDefaults ___________________________
 	//=============================================================================
@@ -1049,7 +1068,20 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"SplitPane.arrowDown.disabledImage", SplitPane_arrowDown_disabledImage, 
 			"SplitPane.arrowDown.rolloverImage", SplitPane_arrowDown_rolloverImage
 		];
-		table.putDefaults(comDefaults);	
+		table.putDefaults(comDefaults);
+		
+		// *** ProgressBar
+		comDefaults = [
+			"ProgressBar.border", null, 
+			"ProgressBar.foreground", table.get("controlText"),
+			"ProgressBar.bg", SkinProgressBarBackground, 
+			"ProgressBar.fg", SkinProgressBarForeground,
+			"ProgressBar.verticalBGImage", ProgressBar_verticalBGImage, 
+			"ProgressBar.horizotalBGImage", ProgressBar_horizotalBGImage, 
+			"ProgressBar.verticalFGImage", ProgressBar_verticalFGImage, 
+			"ProgressBar.horizotalFGImage", ProgressBar_horizotalFGImage
+		];
+		table.putDefaults(comDefaults);
 	}	
 }
 }
