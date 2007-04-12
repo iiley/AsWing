@@ -11,16 +11,19 @@ import org.aswing.graphics.*;
 import org.aswing.Icon;
 import flash.geom.Point;
 import flash.display.DisplayObject;
+import flash.display.Shape;
 
 /**
  * @author iiley
  */
 public class Arrow implements Icon{
 	
+	private var shape:Shape;
 	private var width:int;
 	private var arrow:int;
 	
 	public function Arrow(descending:Boolean, size:int){
+		shape = new Shape();
 		arrow = descending ? Math.PI/2 : -Math.PI/2;
 		this.width = size;
 	}
@@ -34,6 +37,8 @@ public class Arrow implements Icon{
 	}
 
 	public function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void{
+		shape.graphics.clear();
+		g = new Graphics2D(shape.graphics);
 		var center:Point = new Point(x, com.getHeight()/2);
 		var w:Number = width;
 		var ps1:Array = new Array();
@@ -56,7 +61,7 @@ public class Arrow implements Icon{
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{
-		return null;
+		return shape;
 	}
 }
 }
