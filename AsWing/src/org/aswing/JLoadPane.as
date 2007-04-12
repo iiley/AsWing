@@ -133,6 +133,11 @@ public class JLoadPane extends FloorPane
 		}
 	}
 	
+	override protected function removeFloorMCs():void{
+		super.removeFloorMCs();
+		if (loader != null) loader.unload();
+	}
+	
 	/**
 	 * Create the floor mc.
 	 * <p> here it is empty.
@@ -187,10 +192,17 @@ public class JLoadPane extends FloorPane
 	}
 	
 	/**
-	 * Return the content of the loader
+	 * Return the content of the pane
 	 */ 
 	override public function getFloorMC():DisplayObject{
-		return loader.content;
+		return loader;
+	}
+	
+	/**
+	 * Return the mc have loaded
+	 */ 
+	public function getLoadedMC():DisplayObject{
+		return getLoader().content;
 	}
 	//-----------------------------------------------
 
