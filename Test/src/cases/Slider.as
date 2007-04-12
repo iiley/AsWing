@@ -46,7 +46,7 @@ public class Slider extends Sprite
 		
 		slider3 = new JSlider(JSlider.HORIZONTAL);
 		slider3.setShowValueTip(true);
-		slider3.setValues(0, 0, 0, 91);
+		slider3.setValues(0, 0, 0, 100);
 		slider3.setToolTipText("This Slider has a value tip!");
 		slider3.setPaintTicks(true);
 		slider3.setPaintTrack(true);
