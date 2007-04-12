@@ -27,14 +27,12 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			   "ProgressBarUI", SkinProgressBarUI,
 			   "ComboBoxUI", SkinComboBoxUI,	   
 			   "SliderUI", SkinSliderUI,		   
-			   //"AdjusterUI",org.aswing.plaf.basic.BasicAdjusterUI,	   
+			   "AdjusterUI", SkinAdjusterUI,	   
 			   "AccordionUI", SkinAccordionUI, 
 			   "TabbedPaneUI", SkinTabbedPaneUI,
 			   "SplitPaneUI", SkinSplitPaneUI,
 			   //"TableUI", org.aswing.plaf.basic.BasicTableUI, 
-			   //"TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
-			   //"TreeUI", org.aswing.plaf.basic.BasicTreeUI, 
-			   //"ToolBarUI", org.aswing.plaf.basic.BasicToolBarUI*/
+			   //"TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -759,6 +757,78 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/ProgressBar_horizotalFGImage.png")]
 	private var ProgressBar_horizotalFGImage:Class;
 	
+	
+
+	//----------------------------------------------------------------------
+	//_______________________________ Adjuster _____________________________
+	//======================================================================
+	//========= Arrow Images =======
+	[Embed(source="assets/Adjuster_arrow_defaultImage.png")]
+	private var Adjuster_arrow_defaultImage:Class;
+	
+	[Embed(source="assets/Adjuster_arrow_pressedImage.png")]
+	private var Adjuster_arrow_pressedImage:Class;
+	
+	[Embed(source="assets/Adjuster_arrow_disabledImage.png")]
+	private var Adjuster_arrow_disabledImage:Class;
+	
+	[Embed(source="assets/Adjuster_arrow_rolloverImage.png")]
+	private var Adjuster_arrow_rolloverImage:Class;
+	
+	//========= Track scale-9 or not =======
+	[Embed(source="assets/Adjuster_Slider_vertical_trackImage.png", scaleGridTop="6", scaleGridBottom="106", 
+		scaleGridLeft="2", scaleGridRight="10")]
+	private var Adjuster_Slider_vertical_trackImage:Class;
+	[Embed(source="assets/Adjuster_Slider_vertical_trackDisabledImage.png", scaleGridTop="6", scaleGridBottom="106", 
+		scaleGridLeft="2", scaleGridRight="10")]
+	private var Adjuster_Slider_vertical_trackDisabledImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_vertical_trackProgressImage.png")]
+	private var Adjuster_Slider_vertical_trackProgressImage:Class;
+	[Embed(source="assets/Adjuster_Slider_vertical_trackProgressDisabledImage.png")]
+	private var Adjuster_Slider_vertical_trackProgressDisabledImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_horizontal_trackImage.png", scaleGridTop="2", scaleGridBottom="10", 
+		scaleGridLeft="6", scaleGridRight="106")]
+	private var Adjuster_Slider_horizontal_trackImage:Class;
+	[Embed(source="assets/Adjuster_Slider_horizontal_trackDisabledImage.png", scaleGridTop="2", scaleGridBottom="10", 
+		scaleGridLeft="6", scaleGridRight="106")]
+	private var Adjuster_Slider_horizontal_trackDisabledImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_horizontal_trackProgressImage.png")]
+	private var Adjuster_Slider_horizontal_trackProgressImage:Class;
+	[Embed(source="assets/Adjuster_Slider_horizontal_trackProgressDisabledImage.png")]
+	private var Adjuster_Slider_horizontal_trackProgressDisabledImage:Class;
+	
+	//========= Thumb Images =======
+	[Embed(source="assets/Adjuster_Slider_thumbHorizontal_defaultImage.png")]
+	private var Adjuster_Slider_thumbHorizontal_defaultImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_thumbHorizontal_pressedImage.png")]
+	private var Adjuster_Slider_thumbHorizontal_pressedImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_thumbHorizontal_disabledImage.png")]
+	private var Adjuster_Slider_thumbHorizontal_disabledImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_thumbHorizontal_rolloverImage.png")]
+	private var Adjuster_Slider_thumbHorizontal_rolloverImage:Class;
+	
+	
+	[Embed(source="assets/Adjuster_Slider_thumbVertical_defaultImage.png")]
+	private var Adjuster_Slider_thumbVertical_defaultImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_thumbVertical_pressedImage.png")]
+	private var Adjuster_Slider_thumbVertical_pressedImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_thumbVertical_disabledImage.png")]
+	private var Adjuster_Slider_thumbVertical_disabledImage:Class;
+	
+	[Embed(source="assets/Adjuster_Slider_thumbVertical_rolloverImage.png")]
+	private var Adjuster_Slider_thumbVertical_rolloverImage:Class;
+	
+	
+	
+	
 	//-----------------------------------------------------------------------------
 	//___________________________ initComponentDefaults ___________________________
 	//=============================================================================
@@ -1096,6 +1166,42 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ProgressBar.horizotalBGImage", ProgressBar_horizotalBGImage, 
 			"ProgressBar.verticalFGImage", ProgressBar_verticalFGImage, 
 			"ProgressBar.horizotalFGImage", ProgressBar_horizotalFGImage
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** Adjuster
+		comDefaults = [
+			"Adjuster.arrow.defaultImage", Adjuster_arrow_defaultImage, 
+			"Adjuster.arrow.pressedImage", Adjuster_arrow_pressedImage, 
+			"Adjuster.arrow.disabledImage", Adjuster_arrow_disabledImage, 
+			"Adjuster.arrow.rolloverImage", Adjuster_arrow_rolloverImage, 
+			
+			"Adjuster.Slider.vertical.trackImage", Adjuster_Slider_vertical_trackImage,
+			"Adjuster.Slider.vertical.trackDisabledImage", Adjuster_Slider_vertical_trackDisabledImage,
+			"Adjuster.Slider.vertical.trackProgressImage", Adjuster_Slider_vertical_trackProgressImage,
+			"Adjuster.Slider.vertical.trackProgressDisabledImage", Adjuster_Slider_vertical_trackProgressDisabledImage,
+			
+			"Adjuster.Slider.horizontal.trackImage", Adjuster_Slider_horizontal_trackImage,
+			"Adjuster.Slider.horizontal.trackDisabledImage", Adjuster_Slider_horizontal_trackDisabledImage,
+			"Adjuster.Slider.horizontal.trackProgressImage", Adjuster_Slider_horizontal_trackProgressImage,
+			"Adjuster.Slider.horizontal.trackProgressDisabledImage", Adjuster_Slider_horizontal_trackProgressDisabledImage,
+			
+			"Adjuster.Slider.thumbVertical.defaultImage", Adjuster_Slider_thumbVertical_defaultImage,
+			"Adjuster.Slider.thumbVertical.pressedImage", Adjuster_Slider_thumbVertical_pressedImage,
+			"Adjuster.Slider.thumbVertical.disabledImage", Adjuster_Slider_thumbVertical_disabledImage,
+			"Adjuster.Slider.thumbVertical.rolloverImage", Adjuster_Slider_thumbVertical_rolloverImage,
+			
+			"Adjuster.Slider.thumbHorizontal.defaultImage", Adjuster_Slider_thumbHorizontal_defaultImage,
+			"Adjuster.Slider.thumbHorizontal.pressedImage", Adjuster_Slider_thumbHorizontal_pressedImage,
+			"Adjuster.Slider.thumbHorizontal.disabledImage", Adjuster_Slider_thumbHorizontal_disabledImage,
+			"Adjuster.Slider.thumbHorizontal.rolloverImage", Adjuster_Slider_thumbHorizontal_rolloverImage,
+			
+			"Adjuster.Slider.thumbIcon", SkinSliderThumb, 
+			
+			"Adjuster.Slider.background", table.getFont("controlFont"),
+			"Adjuster.Slider.foreground", table.get("controlText"),
+			"Adjuster.Slider.opaque", false,  
+			"Adjuster.Slider.focusable", true
 		];
 		table.putDefaults(comDefaults);
 	}	
