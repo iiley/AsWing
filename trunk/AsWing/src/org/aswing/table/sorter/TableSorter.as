@@ -288,7 +288,7 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
 	 * @return the index in model from the sorter model index
 	 */
     public function modelIndex(viewIndex:int):int {
-        return getViewToModel()[viewIndex].modelIndex;
+        return getViewToModel()[viewIndex].getModelIndex();
     }
 
     private function getModelToView():Array { //int[]

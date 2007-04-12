@@ -48,5 +48,9 @@ public class Row{
         }
         return 0;
     }
+    
+    public function getModelIndex():int{
+    	return modelIndex;
+    }
 }
 }
