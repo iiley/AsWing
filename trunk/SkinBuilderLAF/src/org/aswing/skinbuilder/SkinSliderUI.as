@@ -28,12 +28,15 @@ public class SkinSliderUI extends BasicSliderUI{
 	
 	protected var trackContainer:Sprite;
 	protected var progressContainer:Sprite;
+	protected var thumIconSize:IntDimension;
+	protected var trackOriginalLength:int;
 	
 	public function SkinSliderUI(){
 		super();
 	}
 	
 	override protected function installComponents():void{
+		progressCanvas = new Shape();//to make super class runnable
 		var pp:String = getPropertyPrefix();
 		vertical_trackImage = getInstance(pp+"vertical.trackImage") as DisplayObject;
 		vertical_trackDisabledImage = getInstance(pp+"vertical.trackDisabledImage") as DisplayObject;
@@ -44,22 +47,65 @@ public class SkinSliderUI extends BasicSliderUI{
 		horizontal_trackProgressImage = getInstance(pp+"horizontal.trackProgressImage") as DisplayObject;
 		horizontal_trackProgressDisabledImage = getInstance(pp+"horizontal.trackProgressDisabledImage") as DisplayObject;
 		
+		trackOriginalLength = horizontal_trackImage.width;
+		
 		trackContainer = AsWingUtils.createSprite(null, "trackContainer");
 		progressContainer = AsWingUtils.createSprite(null, "progressContainer");
 		slider.addChild(trackContainer);
 		slider.addChild(progressContainer);
 		
 		thumbIcon = getIcon(pp+"thumbIcon");
-		if(thumbIcon.getDisplay(slider)==null){
+		var thumbAsset:DisplayObject = thumbIcon.getDisplay(slider);
+		if(thumbAsset == null){
 			throw new Error("Slider thumb icon must has its own display object(getDisplay()!=null)!");
 		}
-		slider.addChild(thumbIcon.getDisplay(slider));
+		slider.addChild(thumbAsset);
+		thumIconSize = new IntDimension(thumbIcon.getIconWidth(slider), thumbIcon.getIconHeight(slider));
 	}
 	
 	override protected function uninstallComponents():void{
 		slider.removeChild(trackContainer);
 		slider.removeChild(progressContainer);
 		slider.removeChild(thumbIcon.getDisplay(slider));
+		progressCanvas = null;
+	}
+	
+
+	override protected function getPrefferedLength():int{
+		return trackOriginalLength;
+	}
+		
+	override protected function getThumbSize():IntDimension{
+		if(isVertical()){
+			return new IntDimension(thumIconSize.height, thumIconSize.width);
+		}else{
+			return new IntDimension(thumIconSize.width, thumIconSize.height);
+		}
+	}
+	
+	override protected function countTrackRect(b:IntRectangle):void{
+		var thumbSize:IntDimension = getThumbSize();
+		var drawRect:IntRectangle;
+		var left:int = thumIconSize.width/2;
+		var mwidth:int = thumIconSize.width;
+		if(isVertical()){
+			trackDrawRect.setRectXYWH(b.x, b.y, 
+				thumbSize.width, b.height);
+			trackRect.setRectXYWH(b.x, b.y+left, 
+				thumbSize.width, b.height-mwidth);
+		}else{
+			trackDrawRect.setRectXYWH(b.x, b.y, 
+				b.width, thumbSize.height);
+			trackRect.setRectXYWH(b.x+left, b.y, 
+				b.width-mwidth, thumbSize.height);
+			trace("trackDrawRect : " + trackDrawRect);
+			trace("trackRect : " + trackRect);
+			trace("thumIconSize : " + thumIconSize);
+		}
+	}
+	
+	override protected function paintThumb(g:Graphics2D, drawRect:IntRectangle):void{
+		thumbIcon.updateIcon(slider, g, drawRect.x, drawRect.y);
 	}
 
 	override protected function paintTrack(g:Graphics2D, drawRect:IntRectangle):void{
@@ -116,7 +162,7 @@ public class SkinSliderUI extends BasicSliderUI{
 		}
 		progressContainer.addChild(tImage);
 				
-		var rect:IntRectangle = trackDrawRect.clone();
+		var rect:IntRectangle = trackRect.clone();
 		var width:int;
 		var height:int;
 		var x:int;
