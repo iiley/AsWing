@@ -98,9 +98,6 @@ public class SkinSliderUI extends BasicSliderUI{
 				b.width, thumbSize.height);
 			trackRect.setRectXYWH(b.x+left, b.y, 
 				b.width-mwidth, thumbSize.height);
-			trace("trackDrawRect : " + trackDrawRect);
-			trace("trackRect : " + trackRect);
-			trace("thumIconSize : " + thumIconSize);
 		}
 	}
 	
