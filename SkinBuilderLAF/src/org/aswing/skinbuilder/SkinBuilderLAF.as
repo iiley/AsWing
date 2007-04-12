@@ -734,19 +734,19 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//___________________________ ProgressBar __________________________
 	//==================================================================
 	//========= Background Images scale-9 or not ======= 
-	[Embed(source="assets/ProgressBar_verticalBGImage.png")]
+	[Embed(source="assets/ProgressBar_verticalBGImage.png", scaleGridTop="2", scaleGridBottom="202", 
+		scaleGridLeft="2", scaleGridRight="14")]
 	private var ProgressBar_verticalBGImage:Class;
 	
-	[Embed(source="assets/ProgressBar_horizotalBGImage.png")]
+	[Embed(source="assets/ProgressBar_horizotalBGImage.png", scaleGridTop="2", scaleGridBottom="14", 
+		scaleGridLeft="2", scaleGridRight="202")]
 	private var ProgressBar_horizotalBGImage:Class;
 	
-	//========= Foreground Images scale-9 ======= 
-	[Embed(source="assets/ProgressBar_verticalFGImage.png", scaleGridTop="2", scaleGridBottom="202", 
-		scaleGridLeft="1", scaleGridRight="15")]
+	//========= Foreground Images scale-9 or not ======= 
+	[Embed(source="assets/ProgressBar_verticalFGImage.png")]
 	private var ProgressBar_verticalFGImage:Class;
 	
-	[Embed(source="assets/ProgressBar_horizotalFGImage.png", scaleGridTop="1", scaleGridBottom="15", 
-		scaleGridLeft="2", scaleGridRight="202")]
+	[Embed(source="assets/ProgressBar_horizotalFGImage.png")]
 	private var ProgressBar_horizotalFGImage:Class;
 	
 	//-----------------------------------------------------------------------------
@@ -1076,6 +1076,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ProgressBar.foreground", table.get("controlText"),
 			"ProgressBar.bg", SkinProgressBarBackground, 
 			"ProgressBar.fg", SkinProgressBarForeground,
+			"ProgressBar.fgMargin", new InsetsUIResource(2, 2, 2, 2), //modify this to margin fg
 			"ProgressBar.verticalBGImage", ProgressBar_verticalBGImage, 
 			"ProgressBar.horizotalBGImage", ProgressBar_horizotalBGImage, 
 			"ProgressBar.verticalFGImage", ProgressBar_verticalFGImage, 
