@@ -6,6 +6,7 @@ package org.aswing.table.sorter{
 
 import org.aswing.JTable;
 import org.aswing.table.DefaultTextHeaderCell;
+import org.aswing.UIManager;
 
 /**
  * @author iiley
@@ -16,6 +17,8 @@ public class SortableTextHeaderCell extends DefaultTextHeaderCell{
 	
 	public function SortableTextHeaderCell(tableSorter:TableSorter) {
 		super();
+		setBorder(UIManager.getBorder("TableHeader.sortableCellBorder"));
+		setBackgroundDecorator(UIManager.getGroundDecorator("TableHeader.sortableCellBackground"));
 		this.tableSorter = tableSorter;
 		setHorizontalTextPosition(LEFT);
 		setIconTextGap(6);

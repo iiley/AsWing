@@ -554,7 +554,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"TableHeader.focusable", true, 
 			"TableHeader.gridColor", new ASColorUIResource(0x444444),
 			"TableHeader.border", undefined, 
-			"TableHeader.cellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder
+			"TableHeader.cellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder, 
+			"TableHeader.sortableCellBorder", org.aswing.plaf.basic.border.TableHeaderCellBorder
 		];
 		table.putDefaults(comDefaults);
 		

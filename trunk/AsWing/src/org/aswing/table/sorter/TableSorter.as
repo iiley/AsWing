@@ -56,7 +56,7 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
 	 * TableSorter(tableModel:TableModel)<br>
 	 * TableSorter()<br>
 	 */
-    public function TableSorter(tableModel:TableModel, tableHeader:JTableHeader) {
+    public function TableSorter(tableModel:TableModel, tableHeader:JTableHeader=null) {
         super();
         initStatics();
         columnComparators  = new HashMap();
@@ -253,7 +253,7 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
 	 */
     public function getComparator(column:int):Function {
         var columnType:String = tableModel.getColumnClass(column);
-        var comparator:Function = Function(columnComparators.get(columnType));
+        var comparator:Function = columnComparators.get(columnType) as Function;
         if (comparator != null) {
             return comparator;
         }

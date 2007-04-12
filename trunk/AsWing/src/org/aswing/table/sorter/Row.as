@@ -11,8 +11,8 @@ import org.aswing.table.TableModel;
  */
 public class Row{
 	
-    private var modelIndex:int;
-    private var tableSorter:TableSorter;
+	public var modelIndex:int;
+	public var tableSorter:TableSorter;
 
     public function Row(tableSorter:TableSorter, index:int) {
     	this.tableSorter = tableSorter;

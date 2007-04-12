@@ -17,6 +17,7 @@ public class DefaultTextHeaderCell extends DefaultTextCell{
 		super();
 		setHorizontalAlignment(CENTER);
 		setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+		setBackgroundDecorator(UIManager.getGroundDecorator("TableHeader.cellBackground"));
 		setOpaque(false);
 	}
 	
