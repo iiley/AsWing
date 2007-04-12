@@ -12,8 +12,8 @@ Tree,
 ToolBar, 
 SplitPane, 
 ProgressBar,
-
 Adjuster, 
-
 Table, 
+
+Table sorter arrow bug
 Cursors
