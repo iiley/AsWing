@@ -56,7 +56,7 @@ public class JProgressBar extends Component implements Orientable{
 		indeterminate = false;
 		string = null;
 		
-		indeterminatePaintTimer = new Timer(50);
+		indeterminatePaintTimer = new Timer(40);
 		indeterminatePaintTimer.addActionListener(__indeterminateInterval);
 		addEventListener(Event.ADDED_TO_STAGE, __progressAddedToStage);
 		addEventListener(Event.REMOVED_FROM_STAGE, __progressRemovedFromStage);
