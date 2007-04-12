@@ -13,11 +13,12 @@ import org.aswing.plaf.*;
 
 public class SkinProgressBarForeground implements GroundDecorator, UIResource{
 
-	private var verticalImage:DisplayObject;
-	private var horizotalImage:DisplayObject;
-	private var imageContainer:Sprite;
-	private var loaded:Boolean;
-	private var indeterminatePercent:Number;
+	protected var verticalImage:DisplayObject;
+	protected var horizotalImage:DisplayObject;
+	protected var imageContainer:Sprite;
+	protected var fgMargin:Insets;
+	protected var loaded:Boolean;
+	protected var indeterminatePercent:Number;
 	
 	public function SkinProgressBarForeground(){
 		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
@@ -31,6 +32,7 @@ public class SkinProgressBarForeground implements GroundDecorator, UIResource{
 			var ui:ComponentUI = c.getUI();
 			verticalImage = ui.getInstance(getPropertyPrefix()+"verticalFGImage") as DisplayObject;
 			horizotalImage = ui.getInstance(getPropertyPrefix()+"horizotalFGImage") as DisplayObject;
+			fgMargin = ui.getInsets(getPropertyPrefix()+"fgMargin");
 			loaded = true;
 		}
 	}
@@ -42,8 +44,6 @@ public class SkinProgressBarForeground implements GroundDecorator, UIResource{
 	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
 		checkReloadAssets(com);
 		var bar:JProgressBar = JProgressBar(com);
-		imageContainer.x = bounds.x;
-		imageContainer.y = bounds.y;
 		var image:DisplayObject;
 		var removeImage:DisplayObject;
 		if(bar.getOrientation() == AsWingConstants.HORIZONTAL){
@@ -67,13 +67,19 @@ public class SkinProgressBarForeground implements GroundDecorator, UIResource{
 		var percent:Number;
 		if(bar.isIndeterminate()){
 			percent = indeterminatePercent;
-			indeterminatePercent += 0.1;
+			indeterminatePercent += 0.05;
 			if(indeterminatePercent > 1){
 				indeterminatePercent = 0;
 			}
 		}else{
 			percent = bar.getPercentComplete();
 		}
+		var bounds:IntRectangle = bounds.clone();
+		if(fgMargin != null){
+			bounds = fgMargin.getInsideBounds(bounds);
+		}
+		imageContainer.x = bounds.x;
+		imageContainer.y = bounds.y;
 		if(image){
 			if(bar.getOrientation() == AsWingConstants.HORIZONTAL){
 				image.width = Math.round(bounds.width * percent);
