@@ -827,6 +827,24 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var Adjuster_Slider_thumbVertical_rolloverImage:Class;
 	
 	
+
+	//----------------------------------------------------------------------
+	//_______________________________ Table Header _________________________
+	//======================================================================
+	//========= Cell Background Images =======
+	[Embed(source="assets/TableHeader_cell_defaultImage.png")]
+	private var TableHeader_cell_defaultImage:Class;
+	
+	[Embed(source="assets/TableHeader_cell_pressedImage.png")]
+	private var TableHeader_cell_pressedImage:Class;
+	
+	[Embed(source="assets/TableHeader_cell_disabledImage.png")]
+	private var TableHeader_cell_disabledImage:Class;
+	
+	[Embed(source="assets/TableHeader_cell_rolloverImage.png")]
+	private var TableHeader_cell_rolloverImage:Class;
+	
+	
 	
 	
 	//-----------------------------------------------------------------------------
@@ -1202,6 +1220,25 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Adjuster.Slider.foreground", table.get("controlText"),
 			"Adjuster.Slider.opaque", false,  
 			"Adjuster.Slider.focusable", true
+		];
+		table.putDefaults(comDefaults);
+		
+		 // *** TableHeader
+		comDefaults = [
+			"TableHeader.opaque", false, 
+			"TableHeader.focusable", true, 
+			"TableHeader.gridColor", new ASColorUIResource(0x444444),
+			"TableHeader.border", undefined, 
+			"TableHeader.cellBorder", undefined, 
+			"TableHeader.sortableCellBorder", undefined, 
+			
+			"TableHeader.cellBackground", SkinTableHeaderCellBackground,
+			"TableHeader.sortableCellBackground", SkinTableHeaderSortableCellBackground, 
+			
+			"TableHeader.cell.defaultImage", TableHeader_cell_defaultImage,
+			"TableHeader.cell.pressedImage", TableHeader_cell_pressedImage,
+			"TableHeader.cell.disabledImage", TableHeader_cell_disabledImage,
+			"TableHeader.cell.rolloverImage", TableHeader_cell_rolloverImage
 		];
 		table.putDefaults(comDefaults);
 	}	

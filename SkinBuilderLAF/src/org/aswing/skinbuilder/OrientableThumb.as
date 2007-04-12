@@ -68,6 +68,7 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 		horizontalContainer.setPressedImage(getAsset(ui, "thumbHorizontal.pressedImage"));
 		horizontalContainer.setDisabledImage(getAsset(ui, "thumbHorizontal.disabledImage"));
 		horizontalContainer.setRolloverImage(getAsset(ui, "thumbHorizontal.rolloverImage"));
+		thumb.mouseEnabled = c.isEnabled();
 	}
 	
 	
@@ -141,6 +142,7 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 			horizontalContainer.setRollovered(rollover);
 			horizontalContainer.updateRepresent(size != null ? size.getBounds() : null);
 		}
+		thumb.mouseEnabled = enabled;
 	}
 
 	private function initSelfHandlers():void{
