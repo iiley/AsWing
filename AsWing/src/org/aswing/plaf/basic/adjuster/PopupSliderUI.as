@@ -31,18 +31,5 @@ public class PopupSliderUI extends BasicSliderUI{
 	override protected function getPrefferedLength():int{
 		return 100;
 	}
-
-    public function getTrackMargin():Insets{
-    	var b:IntRectangle = slider.getPaintBounds();
-    	countTrackRect(b);
-    	
-    	var insets:Insets = new Insets();
-    	insets.top = trackRect.y - b.y;
-    	insets.bottom = b.y + b.height - trackRect.y - trackRect.height;
-    	insets.left = trackRect.x - b.x;
-    	insets.right = b.x + b.width - trackRect.x - trackRect.width;
-    	return insets;
-    }
-    	
 }
 }

@@ -19,7 +19,7 @@ import flash.display.Sprite;
  * Basic slider ui imp.
  * @author iiley
  */
-public class BasicSliderUI extends BaseComponentUI{
+public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	
 	protected var slider:JSlider;
 	protected var thumbIcon:Icon;
@@ -739,6 +739,18 @@ public class BasicSliderUI extends BaseComponentUI{
 		progressCanvas.graphics.clear();
 		paintTrackProgress(new Graphics2D(progressCanvas.graphics), trackDrawRect);
 	}
+
+    public function getTrackMargin():Insets{
+    	var b:IntRectangle = slider.getPaintBounds();
+    	countTrackRect(b);
+    	
+    	var insets:Insets = new Insets();
+    	insets.top = trackRect.y - b.y;
+    	insets.bottom = b.y + b.height - trackRect.y - trackRect.height;
+    	insets.left = trackRect.x - b.x;
+    	insets.right = b.x + b.width - trackRect.x - trackRect.width;
+    	return insets;
+    }	
 	
 	//---------------------
 	

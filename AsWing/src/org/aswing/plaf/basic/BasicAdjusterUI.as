@@ -5,7 +5,7 @@
 package org.aswing.plaf.basic{
 	
 import org.aswing.*;
-import org.aswing.plaf.AdjusterUI;
+import org.aswing.plaf.*;
 import org.aswing.graphics.*;
 import org.aswing.geom.*;
 import org.aswing.border.BevelBorder;
@@ -31,7 +31,7 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	protected var popup:JPopup;
 	protected var inputText:JTextField;
 	protected var popupSlider:JSlider;
-	protected var popupSliderUI:PopupSliderUI;
+	protected var popupSliderUI:SliderUI;
 	protected var startMousePoint:IntPoint;
 	protected var startValue:Number;
 	
@@ -176,7 +176,7 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 		return btn;
 	}
 	
-	protected function createPopupSliderUI():PopupSliderUI{
+	protected function createPopupSliderUI():SliderUI{
 		return new PopupSliderUI();
 	}
 	
