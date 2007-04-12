@@ -58,6 +58,8 @@ public class JProgressBar extends Component implements Orientable{
 		
 		indeterminatePaintTimer = new Timer(50);
 		indeterminatePaintTimer.addActionListener(__indeterminateInterval);
+		addEventListener(Event.ADDED_TO_STAGE, __progressAddedToStage);
+		addEventListener(Event.REMOVED_FROM_STAGE, __progressRemovedFromStage);
 		updateUI();
 	}
 	
@@ -303,6 +305,14 @@ public class JProgressBar extends Component implements Orientable{
 		model.addStateListener(__onModelStateChanged);		
 	}
 	
+	private function __progressAddedToStage(e:Event):void{
+		__validateIndeterminateIntervalIfNecessary();
+	}
+	
+	private function __progressRemovedFromStage(e:Event):void{
+		__validateIndeterminateIntervalIfNecessary();
+	}
+	
 	private function __onModelStateChanged(event:InteractiveEvent):void{
 		repaint();
 	}
@@ -312,7 +322,7 @@ public class JProgressBar extends Component implements Orientable{
 	}
 	
 	private function __validateIndeterminateIntervalIfNecessary():void{
-		if(isIndeterminate()){
+		if(isIndeterminate() && isOnStage()){
 			if(!indeterminatePaintTimer.isRunning()){
 				indeterminatePaintTimer.start();
 			}
