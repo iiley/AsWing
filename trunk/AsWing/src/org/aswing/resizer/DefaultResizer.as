@@ -28,7 +28,7 @@ public class DefaultResizer implements Resizer, UIResource{
 	//-----------resize equiments--------------
 	private var resizeMC:Sprite;
 	
-	private var resizeArrowCursor:Shape;
+	private var resizeArrowCursor:DisplayObject;
 	private var boundsShape:Shape;
 	
 	private var topResizeMC:AWSprite;
@@ -203,21 +203,8 @@ public class DefaultResizer implements Resizer, UIResource{
 		var r:Number = RESIZE_MC_WIDTH;
 		resizeMC = new Sprite();
 		resizeMC.name = "resizer";
-		resizeArrowCursor = new Shape();
+		resizeArrowCursor = Cursor.createCursor(Cursor.H_RESIZE_CURSOR);
 		resizeArrowCursor.name = "resizeCursor";
-		
-		var w:Number = 1; //arrowAxisHalfWidth
-		var arrowPoints:Array = [{x:-r*2, y:0}, {x:-r, y:-r}, {x:-r, y:-w},
-								 {x:r, y:-w}, {x:r, y:-r}, {x:r*2, y:0},
-								 {x:r, y:r}, {x:r, y:w}, {x:-r, y:w},
-								 {x:-r, y:r}];
-								 
-		var gdi:Graphics2D;
-		gdi = new Graphics2D(resizeArrowCursor.graphics);
-		gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(0.4), 4), arrowPoints);
-		gdi.fillPolygon(new SolidBrush(resizeArrowLightColor), arrowPoints);
-		gdi.drawPolygon(new Pen(resizeArrowDarkColor, 1), arrowPoints);
-		
 		boundsShape = new Shape();
 		boundsShape.name = "bounds";
 		
@@ -252,7 +239,7 @@ public class DefaultResizer implements Resizer, UIResource{
 		DefaultResizeBarHandler.createHandler(this, bottomRightResizeMC, 45, createResizeStrategy(1, 1));
 		
 		var brush:SolidBrush = new SolidBrush(new ASColor(0, 0));
-		gdi = new Graphics2D(topResizeMC.graphics);
+		var gdi:Graphics2D = new Graphics2D(topResizeMC.graphics);
 		gdi.fillRectangle(brush, 0, 0, r, r);
 		gdi = new Graphics2D(leftResizeMC.graphics);
 		gdi.fillRectangle(brush, 0, 0, r, r);

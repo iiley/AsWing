@@ -10,6 +10,7 @@ import org.aswing.plaf.*;
 import org.aswing.plaf.basic.splitpane.*;
 import flash.display.Sprite;
 import flash.geom.Point;
+import flash.display.DisplayObject;
 
 public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	
@@ -18,8 +19,8 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	protected var lastContentSize:IntDimension;
 	protected var spLis:Object;
 	protected var mouseLis:Object;
-	protected var vSplitCursor:Cursor;
-	protected var hSplitCursor:Cursor;
+	protected var vSplitCursor:DisplayObject;
+	protected var hSplitCursor:DisplayObject;
 	protected var presentDragColor:ASColor;
 	protected var defaultDividerSize:int;
 	
@@ -115,12 +116,12 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	 * Override this method to return a different splitCursor for your UI<br>
 	 * Credit to Kristof Neirynck for added this.
 	 */
-	protected function createSplitCursor(vertical:Boolean):Cursor{
-		var result:Cursor;
+	protected function createSplitCursor(vertical:Boolean):DisplayObject{
+		var result:DisplayObject;
 		if(vertical){
-			result = new Cursor(Cursor.V_RESIZE_CURSOR);
+			result = Cursor.createCursor(Cursor.V_MOVE_CURSOR);
 		}else{
-			result = new Cursor(Cursor.H_RESIZE_CURSOR);
+			result = Cursor.createCursor(Cursor.H_MOVE_CURSOR);
 		}
 		return result;
 	}

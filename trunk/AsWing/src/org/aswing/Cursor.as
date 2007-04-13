@@ -1,59 +1,57 @@
-package org.aswing
-{
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
+package org.aswing{
+
 import flash.display.Sprite;
 import org.aswing.graphics.*;
+import flash.display.*;
 
-public class Cursor extends Sprite
-{
+/**
+ * The Cursor definited from Look and Feels.
+ * @author iiley
+ */
+public class Cursor{
+	
 	/**
-	 * Horizontal resize cursor
+	 * Horizontal resize cursor key.
 	 */
-	public static var H_RESIZE_CURSOR:int = 0;
+	public static var H_RESIZE_CURSOR:String = "System.hResizeCursor";
 
 	/**
-	 * Vertical resize cursor<br>
-	 * Credit to Kristof Neirynck for added V_RESIZE_CURSOR implementation.
+	 * Vertical resize cursor key.
 	 */
-	public static var V_RESIZE_CURSOR:int = 1;
+	public static var V_RESIZE_CURSOR:String = "System.vResizeCursor";
 	
-	private var type:int;
+	/**
+	 * Horizontal move cursor key.
+	 */
+	public static var H_MOVE_CURSOR:String = "System.hMoveCursor";
+
+	/**
+	 * Vertical move cursor key.
+	 */
+	public static var V_MOVE_CURSOR:String = "System.vMoveCursor";
 	
-	private var resizeArrowColor:ASColor;
-	private var resizeArrowLightColor:ASColor;
-	private var resizeArrowDarkColor:ASColor;
-	
-	public function Cursor(type:int){
-		this.type = type;
-	    resizeArrowColor = UIManager.getColor("Frame.resizeArrow");
-	    resizeArrowLightColor = UIManager.getColor("Frame.resizeArrowLight");
-	    resizeArrowDarkColor = UIManager.getColor("Frame.resizeArrowDark");
-	    paint();
-	}
-	
-	private function paint():void{
-		var w:Number = 1; //arrowAxisHalfWidth
-		var r:Number = 4;
-		var arrowPoints:Array;
-		
-		switch (type) {
-			case H_RESIZE_CURSOR:
-				arrowPoints = [{x:-r*2, y:0}, {x:-r, y:-r}, {x:-r, y:-w},
-								 {x:r, y:-w}, {x:r, y:-r}, {x:r*2, y:0},
-								 {x:r, y:r}, {x:r, y:w}, {x:-r, y:w},
-								 {x:-r, y:r}];
-				break;
-			case V_RESIZE_CURSOR:
-				arrowPoints = [{y:-r*2, x:0}, {y:-r, x:-r}, {y:-r, x:-w},
-								 {y:r, x:-w}, {y:r, x:-r}, {y:r*2, x:0},
-								 {y:r, x:r}, {y:r, x:w}, {y:-r, x:w},
-								 {y:-r, x:r}];
-				break;			
+	/**
+	 * Create a cursor from the look and feel defined system cursor.
+	 * @param the type of the cursor
+	 * @return a cursor, or null if there is not such cursor of this type.
+	 */
+	public static function createCursor(type:String):DisplayObject{
+		var cursor:DisplayObject = UIManager.getInstance(type) as DisplayObject;
+		if(cursor == null){
+			return null;
+		}else if(cursor is Bitmap){
+			var sp:Sprite = AsWingUtils.createSprite(null, "bmCursorAdap");
+			sp.addChild(cursor);
+			cursor.x = -cursor.width/2;
+			cursor.y = -cursor.height/2;
+			return sp;
+		}else{
+			return cursor;
 		}
-		
-		var gdi:Graphics2D = new Graphics2D(this.graphics);
-		gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(0.4), 4), arrowPoints);
-		gdi.fillPolygon(new SolidBrush(resizeArrowLightColor), arrowPoints);
-		gdi.drawPolygon(new Pen(resizeArrowDarkColor, 1), arrowPoints);	
 	}
 }
 }
