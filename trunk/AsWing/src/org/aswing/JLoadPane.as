@@ -181,8 +181,8 @@ public class JLoadPane extends FloorPane
 	 */
 	public function getProgress():Object{
 		var object:Object = new Object();
-		object.bytesLoaded = loader.loaderInfo.bytesLoaded;
-		object.bytesTotal = loader.loaderInfo.bytesTotal;
+		object.bytesLoaded = loader.contentLoaderInfo.bytesLoaded;
+		object.bytesTotal = loader.contentLoaderInfo.bytesTotal;
 		return object;
 	}
 	
