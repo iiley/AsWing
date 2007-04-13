@@ -20,7 +20,7 @@ public class Arrow implements Icon{
 	
 	private var shape:Shape;
 	private var width:int;
-	private var arrow:int;
+	private var arrow:Number;
 	
 	public function Arrow(descending:Boolean, size:int){
 		shape = new Shape();
