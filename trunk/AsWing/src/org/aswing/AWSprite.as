@@ -381,6 +381,9 @@ public class AWSprite extends Sprite
 	}
 	
 	private function usingBitmapChanged():void{
+		var children:Array;
+		var n:int;
+		var i:int;
 		if(usingBitmap){
 			if(!content){
 				content = new Sprite();
@@ -388,9 +391,8 @@ public class AWSprite extends Sprite
 				content.mouseEnabled = false;
 			}
 			//move children from this to content
-			var children:Array = new Array();
-			var n:int = d_numChildren;
-			var i:int;
+			children = new Array();
+			n = d_numChildren;
 			for(i=0; i<n; i++){
 				if(d_getChildAt(i) != maskShape){
 					children.push(d_getChildAt(i));
@@ -409,9 +411,8 @@ public class AWSprite extends Sprite
 			d_removeChild(content);
 			
 			//move children from content to this
-			var children:Array = new Array();
-			var n:int = content.numChildren;
-			var i:int;
+			children = new Array();
+			n = content.numChildren;
 			for(i=0; i<n; i++){
 				children.push(content.getChildAt(i));
 			}
