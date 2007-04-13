@@ -14,6 +14,6 @@ SplitPane,
 ProgressBar,
 Adjuster, 
 Table, 
+Cursors, 
 
-Table sorter arrow bug
-Cursors
+The art design
