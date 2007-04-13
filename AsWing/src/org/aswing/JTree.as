@@ -2208,9 +2208,10 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 				    expandedStack.push(stack);
 				}
 		    }
+		    var cValue:Object;
 		    if(!state) {
 				// collapse last path.
-				var cValue:Object = expandedState.get(path);
+				cValue = expandedState.get(path);
 		
 				if(cValue != null && cValue==true) {
 				    try {
@@ -2227,7 +2228,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 				}
 		    }else {
 				// Expand last path.
-				var cValue:Object = expandedState.get(path);
+				cValue = expandedState.get(path);
 				
 				if(cValue == null || !(cValue==true)) {
 				    try {
