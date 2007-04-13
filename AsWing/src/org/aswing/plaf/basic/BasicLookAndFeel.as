@@ -14,6 +14,7 @@ import org.aswing.resizer.*;
 import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
 import org.aswing.tree.TreeLeafIcon;
 import org.aswing.plaf.basic.tree.BasicExpandControl;
+import org.aswing.plaf.basic.cursor.H_ResizeCursor;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -132,6 +133,16 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"resizeArrowDark", table.get("activeCaptionText"),
 		];
 		table.putDefaults(arrowColors);
+		
+		var cursors:Array = [
+			"System.hResizeCursor", org.aswing.plaf.basic.cursor.H_ResizeCursor,
+			"System.vResizeCursor", org.aswing.plaf.basic.cursor.V_ResizeCursor,
+			"System.hMoveCursor", org.aswing.plaf.basic.cursor.H_ResizeCursor,
+			"System.vMoveCursor", org.aswing.plaf.basic.cursor.V_ResizeCursor
+		];
+		table.putDefaults(cursors);
+		
+		
 	}
 	
 	protected function initComponentDefaults(table:UIDefaults):void{

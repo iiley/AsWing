@@ -12,6 +12,7 @@ import org.aswing.table.*;
 import flash.events.MouseEvent;
 import org.aswing.event.ReleaseEvent;
 import flash.events.Event;
+import flash.display.DisplayObject;
 
 /**
  * @author iiley
@@ -21,14 +22,14 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 	private var header:JTableHeader;
 	private var cells:Array;
 	private var mouseXOffset:int;
-	private var resizeCursor:Cursor;
+	private var resizeCursor:DisplayObject;
 	private var resizing:Boolean;
 	
 	public function BasicTableHeaderUI() {
 		super();
 		mouseXOffset = 0;
 		resizing = false;
-		resizeCursor = new Cursor(Cursor.H_RESIZE_CURSOR);
+		resizeCursor = Cursor.createCursor(Cursor.H_MOVE_CURSOR);
 	}
 	
 	protected function getPropertyPrefix():String {
