@@ -617,6 +617,7 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 	    var lastChild:FHTreeStateNode = null;
 		var counter:int = 0;
 		var maxCounter:int = getChildCount();
+		var lastChildEndRow:int;
 	    for(;counter < maxCounter; counter++) {
 			child = FHTreeStateNode(getChildAt(counter));
 			if(child.row > row) {
@@ -628,7 +629,7 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 					return true;
 			    }else {
 					// May have been in last childs bounds.
-					var  lastChildEndRow:int = 1 + child.row - (child.childIndex - lastChild.childIndex);
+					lastChildEndRow = 1 + child.row - (child.childIndex - lastChild.childIndex);
 		
 					if(row < lastChildEndRow) {
 					    return lastChild.getPathForRow(row, lastChildEndRow, info);
@@ -647,7 +648,7 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 	    // Not in children, but we should have it, offset from
 	    // nextRow.
 	    if(lastChild != null) {
-			var lastChildEndRow:int = nextRow - (childCount - lastChild.childIndex) + 1;
+			lastChildEndRow = nextRow - (childCount - lastChild.childIndex) + 1;
 	
 			if(row < lastChildEndRow) {
 			    return lastChild.getPathForRow(row, lastChildEndRow, info);

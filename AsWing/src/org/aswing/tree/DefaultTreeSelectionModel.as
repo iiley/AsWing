@@ -562,12 +562,13 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 		// This is currently rather expensive.  Needs
 		// to be better support from ListSelectionModel to speed this up.
 		if(rowMapper != null && selection != null) {
+			var counter:int;
 		    var rows:Array = rowMapper.getRowsForPaths(selection);
 	
 		    if (rows != null) {
 				var invisCount:int = 0;
 		
-				for (var counter:int = rows.length - 1; counter >= 0; counter--) {
+				for (counter = rows.length - 1; counter >= 0; counter--) {
 				    if (rows[counter] == -1) {
 						invisCount++;
 				    }
@@ -577,7 +578,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 						rows = null;
 				    }else {
 						var tempRows:Array = new Array(rows.length - invisCount);
-						var counter:int = rows.length - 1;
+						counter = rows.length - 1;
 						var visCounter:int = 0;
 						for (; counter >= 0; counter--) {
 						    if (rows[counter] != -1) {
