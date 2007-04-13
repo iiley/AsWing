@@ -122,7 +122,7 @@ public class JSplitPane extends Container implements Orientable{
      *        	of a horizontally-split pane, or at the bottom of a
      *        	vertically-split pane. Default is null.
      */
-	public function JSplitPane(orientation:int=HORIZONTAL_SPLIT, continuousLayout:Boolean=false, leftComponent:Component=null, rightComponent:Component=null) {
+	public function JSplitPane(orientation:int=AsWingConstants.HORIZONTAL, continuousLayout:Boolean=false, leftComponent:Component=null, rightComponent:Component=null) {
 		super();
 		this.orientation = orientation;
 		this.continuousLayout = continuousLayout;
