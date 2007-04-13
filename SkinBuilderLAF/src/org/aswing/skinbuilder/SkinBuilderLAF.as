@@ -81,7 +81,43 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 				"windowFont", new ASFontUIResource("Tahoma", 11, true)
 		];
 		table.putDefaults(defaultSystemFonts);
-	}	
+	}
+	
+	override protected function initCommonUtils(table:UIDefaults):void{
+		super.initCommonUtils(table);
+		
+		var arrowColors:Array = [
+			"resizeArrow", new ASColorUIResource(0xF2F2F2),
+			"resizeArrowLight", new ASColorUIResource(0xCCCCCC),
+			"resizeArrowDark", new ASColorUIResource(0x000000)
+		];
+		table.putDefaults(arrowColors);
+		
+		var cursors:Array = [
+			"System.hResizeCursor", System_hResizeCursor,
+			"System.vResizeCursor", System_vResizeCursor,
+			"System.hMoveCursor", System_hMoveCursor,
+			"System.vMoveCursor", System_vMoveCursor
+		];
+		table.putDefaults(cursors);
+	}
+	
+	//----------------------------------------------------------------------
+	//___________________________ System ___________________________________
+	//======================================================================
+	[Embed(source="assets/System_hResizeCursor.png")]
+	private var System_hResizeCursor:Class;
+	
+	[Embed(source="assets/System_vResizeCursor.png")]
+	private var System_vResizeCursor:Class;
+	
+	[Embed(source="assets/System_hMoveCursor.png")]
+	private var System_hMoveCursor:Class;
+	
+	[Embed(source="assets/System_vMoveCursor.png")]
+	private var System_vMoveCursor:Class;
+	
+	
 	
 	//----------------------------------------------------------------------
 	//___________________________ Button scale-9 ___________________________
