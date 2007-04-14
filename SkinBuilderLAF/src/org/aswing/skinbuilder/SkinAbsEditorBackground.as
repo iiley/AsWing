@@ -23,6 +23,7 @@ public class SkinAbsEditorBackground implements GroundDecorator, UIResource{
 	
 	public function SkinAbsEditorBackground(){
 		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
+		imageContainer.mouseChildren = false;
 		loaded = false;
 	}
 	

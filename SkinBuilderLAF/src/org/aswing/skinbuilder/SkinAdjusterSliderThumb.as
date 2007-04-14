@@ -4,10 +4,10 @@
 
 package org.aswing.skinbuilder{
 
-public class SkinSliderThumb extends OrientableThumb{
-
+public class SkinAdjusterSliderThumb extends OrientableThumb{
+	
     override protected function getPropertyPrefix():String{
-    	return "Slider.";
+    	return "Adjuster.Slider.";
     }
 }
 }
