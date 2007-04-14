@@ -141,6 +141,9 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 			inputText.setText(text);
 		}
 		layoutAdjuster();
+		getInputText().setEditable(adjuster.isEditable());
+		getInputText().setEnabled(adjuster.isEnabled());
+		arrowButton.setEnabled(adjuster.isEnabled());
 	}
 	
 	

@@ -70,6 +70,7 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
             textField.setBorder(null);
             textField.setOpaque(false);
             textField.setFocusable(false);
+            textField.setBackgroundDecorator(null);
             initHandler();
         }
         return textField;

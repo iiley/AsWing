@@ -105,6 +105,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
 		super.paint(c, g, b);
 		layoutCombobox();
+		dropDownButton.setEnabled(box.isEnabled());
 	}
         
     override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
