@@ -283,46 +283,46 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	private var ScrollBar_arrowDown_rolloverImage:Class;
 	
 	//========= Background Images scale-9 ======= 
-	[Embed(source="assets/ScrollBar_verticalBGImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_verticalBGImage.png", scaleGridTop="10", scaleGridBottom="223", 
+		scaleGridLeft="7", scaleGridRight="9")]
 	private var ScrollBar_verticalBGImage:Class;
 	
-	[Embed(source="assets/ScrollBar_horizotalBGImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_horizotalBGImage.png", scaleGridTop="7", scaleGridBottom="9", 
+		scaleGridLeft="10", scaleGridRight="223")]
 	private var ScrollBar_horizotalBGImage:Class;
 	
 	//========= Thumb Images scale-9 ======= 
 	//vertical
-	[Embed(source="assets/ScrollBar_thumbVertical_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_thumbVertical_defaultImage.png", scaleGridTop="6", scaleGridBottom="22", 
+		scaleGridLeft="6", scaleGridRight="10")]
 	private var ScrollBar_thumbVertical_defaultImage:Class;
 	
-	[Embed(source="assets/ScrollBar_thumbVertical_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_thumbVertical_pressedImage.png", scaleGridTop="6", scaleGridBottom="22", 
+		scaleGridLeft="6", scaleGridRight="10")]
 	private var ScrollBar_thumbVertical_pressedImage:Class;
 	
-	[Embed(source="assets/ScrollBar_thumbVertical_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_thumbVertical_rolloverImage.png", scaleGridTop="6", scaleGridBottom="22", 
+		scaleGridLeft="6", scaleGridRight="10")]
 	private var ScrollBar_thumbVertical_rolloverImage:Class;
 	
-	[Embed(source="assets/ScrollBar_thumbVertical_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_thumbVertical_disabledImage.png", scaleGridTop="6", scaleGridBottom="22", 
+		scaleGridLeft="6", scaleGridRight="10")]
 	private var ScrollBar_thumbVertical_disabledImage:Class;
 	//horizontal
-	[Embed(source="assets/ScrollBar_thumbHorizontal_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_thumbHorizontal_defaultImage.png", scaleGridTop="6", scaleGridBottom="10", 
+		scaleGridLeft="6", scaleGridRight="22")]
 	private var ScrollBar_thumbHorizontal_defaultImage:Class;
 	
-	[Embed(source="assets/ScrollBar_thumbHorizontal_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_thumbHorizontal_pressedImage.png", scaleGridTop="6", scaleGridBottom="10", 
+		scaleGridLeft="6", scaleGridRight="22")]
 	private var ScrollBar_thumbHorizontal_pressedImage:Class;
 	
-	[Embed(source="assets/ScrollBar_thumbHorizontal_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_thumbHorizontal_rolloverImage.png", scaleGridTop="6", scaleGridBottom="10", 
+		scaleGridLeft="6", scaleGridRight="22")]
 	private var ScrollBar_thumbHorizontal_rolloverImage:Class;
 	
-	[Embed(source="assets/ScrollBar_thumbHorizontal_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ScrollBar_thumbHorizontal_disabledImage.png", scaleGridTop="6", scaleGridBottom="10", 
+		scaleGridLeft="6", scaleGridRight="22")]
 	private var ScrollBar_thumbHorizontal_disabledImage:Class;
 
 	
