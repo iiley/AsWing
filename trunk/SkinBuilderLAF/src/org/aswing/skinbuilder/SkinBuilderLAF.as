@@ -329,32 +329,32 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//---------------------------------------------------------------------
 	//___________________________ TextField scale-9 _______________________
 	//=====================================================================
-	[Embed(source="assets/TextField_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/TextField_defaultImage.png", scaleGridTop="3", scaleGridBottom="80", 
+		scaleGridLeft="6", scaleGridRight="160")]
 	private var TextField_defaultImage:Class;
 	
-	[Embed(source="assets/TextField_uneditableImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/TextField_uneditableImage.png", scaleGridTop="3", scaleGridBottom="80", 
+		scaleGridLeft="6", scaleGridRight="160")]
 	private var TextField_uneditableImage:Class;
 	
-	[Embed(source="assets/TextField_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/TextField_disabledImage.png", scaleGridTop="3", scaleGridBottom="80", 
+		scaleGridLeft="6", scaleGridRight="160")]
 	private var TextField_disabledImage:Class;
 	
 	
 	//------------------------------------------------------------------------
 	//___________________________ TextArea scale-9 ___________________________
 	//========================================================================
-	[Embed(source="assets/TextArea_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/TextArea_defaultImage.png", scaleGridTop="3", scaleGridBottom="80", 
+		scaleGridLeft="6", scaleGridRight="160")]
 	private var TextArea_defaultImage:Class;
 	
-	[Embed(source="assets/TextArea_uneditableImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/TextArea_uneditableImage.png", scaleGridTop="3", scaleGridBottom="80", 
+		scaleGridLeft="6", scaleGridRight="160")]
 	private var TextArea_uneditableImage:Class;
 	
-	[Embed(source="assets/TextArea_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/TextArea_disabledImage.png", scaleGridTop="3", scaleGridBottom="80", 
+		scaleGridLeft="6", scaleGridRight="160")]
 	private var TextArea_disabledImage:Class;
 	
 	
@@ -436,16 +436,16 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//========================================================================
 	
 	//========= Background Images =======
-	[Embed(source="assets/ComboBox_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ComboBox_defaultImage.png", scaleGridTop="3", scaleGridBottom="20", 
+		scaleGridLeft="3", scaleGridRight="131")]
 	private var ComboBox_defaultImage:Class;
 	
-	[Embed(source="assets/ComboBox_uneditableImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ComboBox_uneditableImage.png", scaleGridTop="3", scaleGridBottom="20", 
+		scaleGridLeft="3", scaleGridRight="131")]
 	private var ComboBox_uneditableImage:Class;
 	
-	[Embed(source="assets/ComboBox_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ComboBox_disabledImage.png", scaleGridTop="3", scaleGridBottom="20", 
+		scaleGridLeft="3", scaleGridRight="131")]
 	private var ComboBox_disabledImage:Class;
 	
 	//========= Arrow Button Images =======
@@ -491,101 +491,101 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//======================================================================
 	//========= header top scale-9 =======
 	[Embed(source="assets/TabbedPane_top_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_top_tab_defaultImage:Class;
 	
 	[Embed(source="assets/TabbedPane_top_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_top_tab_pressedImage:Class;
 	
 	[Embed(source="assets/TabbedPane_top_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_top_tab_rolloverImage:Class;
 	
 	[Embed(source="assets/TabbedPane_top_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_top_tab_disabledImage:Class;
 	
 	[Embed(source="assets/TabbedPane_top_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_top_tab_selectedImage:Class;
 	
 	[Embed(source="assets/TabbedPane_top_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_top_tab_rolloverSelectedImage:Class;
 	
 	//========= header bottom scale-9 =======
 	[Embed(source="assets/TabbedPane_bottom_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_bottom_tab_defaultImage:Class;
 	
 	[Embed(source="assets/TabbedPane_bottom_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_bottom_tab_pressedImage:Class;
 	
 	[Embed(source="assets/TabbedPane_bottom_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_bottom_tab_rolloverImage:Class;
 	
 	[Embed(source="assets/TabbedPane_bottom_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_bottom_tab_disabledImage:Class;
 	
 	[Embed(source="assets/TabbedPane_bottom_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_bottom_tab_selectedImage:Class;
 	
 	[Embed(source="assets/TabbedPane_bottom_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
-		scaleGridLeft="12", scaleGridRight="88")]
+		scaleGridLeft="12", scaleGridRight="45")]
 	private var TabbedPane_bottom_tab_rolloverSelectedImage:Class;
 	
 	//========= header left scale-9 =======
-	[Embed(source="assets/TabbedPane_left_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_left_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_left_tab_defaultImage:Class;
 	
-	[Embed(source="assets/TabbedPane_left_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_left_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_left_tab_pressedImage:Class;
 	
-	[Embed(source="assets/TabbedPane_left_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_left_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_left_tab_rolloverImage:Class;
 	
-	[Embed(source="assets/TabbedPane_left_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_left_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_left_tab_disabledImage:Class;
 	
-	[Embed(source="assets/TabbedPane_left_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_left_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_left_tab_selectedImage:Class;
 	
-	[Embed(source="assets/TabbedPane_left_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_left_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_left_tab_rolloverSelectedImage:Class;
 	
 	//========= header right scale-9 =======
-	[Embed(source="assets/TabbedPane_right_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_right_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_right_tab_defaultImage:Class;
 	
-	[Embed(source="assets/TabbedPane_right_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_right_tab_pressedImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_right_tab_pressedImage:Class;
 	
-	[Embed(source="assets/TabbedPane_right_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_right_tab_rolloverImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_right_tab_rolloverImage:Class;
 	
-	[Embed(source="assets/TabbedPane_right_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_right_tab_disabledImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_right_tab_disabledImage:Class;
 	
-	[Embed(source="assets/TabbedPane_right_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_right_tab_selectedImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_right_tab_selectedImage:Class;
 	
-	[Embed(source="assets/TabbedPane_right_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="88", 
+	[Embed(source="assets/TabbedPane_right_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="45", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_right_tab_rolloverSelectedImage:Class;
 	
@@ -799,17 +799,17 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//_______________________________ Adjuster _____________________________
 	//======================================================================
 	//========= Arrow Images =======
-	[Embed(source="assets/Adjuster_arrow_defaultImage.png")]
-	private var Adjuster_arrow_defaultImage:Class;
+	[Embed(source="assets/Adjuster_arrowButton_defaultImage.png")]
+	private var Adjuster_arrowButton_defaultImage:Class;
 	
-	[Embed(source="assets/Adjuster_arrow_pressedImage.png")]
-	private var Adjuster_arrow_pressedImage:Class;
+	[Embed(source="assets/Adjuster_arrowButton_pressedImage.png")]
+	private var Adjuster_arrowButton_pressedImage:Class;
 	
-	[Embed(source="assets/Adjuster_arrow_disabledImage.png")]
-	private var Adjuster_arrow_disabledImage:Class;
+	[Embed(source="assets/Adjuster_arrowButton_disabledImage.png")]
+	private var Adjuster_arrowButton_disabledImage:Class;
 	
-	[Embed(source="assets/Adjuster_arrow_rolloverImage.png")]
-	private var Adjuster_arrow_rolloverImage:Class;
+	[Embed(source="assets/Adjuster_arrowButton_rolloverImage.png")]
+	private var Adjuster_arrowButton_rolloverImage:Class;
 	
 	//========= Track scale-9 or not =======
 	[Embed(source="assets/Adjuster_Slider_vertical_trackImage.png", scaleGridTop="6", scaleGridBottom="106", 
@@ -989,9 +989,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** TextField
 		comDefaults = [
-			"TextField.opaque", false, 
+			"TextField.opaque", true, 
 			"TextField.bg", SkinTextFieldBackground,
-			"TextField.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
+			"TextField.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"TextField.defaultImage", TextField_defaultImage, 
 			"TextField.uneditableImage", TextField_uneditableImage, 
 			"TextField.disabledImage", TextField_disabledImage
@@ -1000,9 +1000,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** TextArea
 		comDefaults = [
-			"TextArea.opaque", false, 
+			"TextArea.opaque", true, 
 			"TextArea.bg", SkinTextFieldBackground,
-			"TextArea.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
+			"TextArea.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"TextArea.defaultImage", TextArea_defaultImage, 
 			"TextArea.uneditableImage", TextArea_uneditableImage, 
 			"TextArea.disabledImage", TextArea_disabledImage
@@ -1062,7 +1062,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		comDefaults = [
 			"ComboBox.opaque", false, 
 			"ComboBox.bg", SkinComboBoxBackground,
-			"ComboBox.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
+			"ComboBox.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"ComboBox.defaultImage", ComboBox_defaultImage, 
 			"ComboBox.uneditableImage", ComboBox_uneditableImage, 
 			"ComboBox.disabledImage", ComboBox_disabledImage, 
@@ -1125,12 +1125,12 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"TabbedPane.arrowRight.disabledImage", TabbedPane_arrowRight_disabledImage, 
 			"TabbedPane.arrowRight.rolloverImage", TabbedPane_arrowRight_rolloverImage, 
 			
-			"TabbedPane.contentMargin", new InsetsUIResource(14, 4, 4, 4), //modify this to fit TabbedPane_contentRoundImage
+			"TabbedPane.contentMargin", new InsetsUIResource(4, 4, 4, 4), //modify this to fit TabbedPane_contentRoundImage
 			"TabbedPane.top.contentRoundImage", TabbedPane_top_contentRoundImage, 
 			"TabbedPane.bottom.contentRoundImage", TabbedPane_bottom_contentRoundImage, 
 			"TabbedPane.left.contentRoundImage", TabbedPane_left_contentRoundImage, 
 			"TabbedPane.right.contentRoundImage", TabbedPane_right_contentRoundImage, 
-			"TabbedPane.contentRoundLineThickness", 4, //modify this to fit contentRoundImage
+			"TabbedPane.contentRoundLineThickness", 1, //modify this to fit contentRoundImage
 			"TabbedPane.bg", null //bg is managed by SkinTabbedPaneUI
 		];
 		table.putDefaults(comDefaults);
@@ -1225,10 +1225,10 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** Adjuster
 		comDefaults = [
-			"Adjuster.arrow.defaultImage", Adjuster_arrow_defaultImage, 
-			"Adjuster.arrow.pressedImage", Adjuster_arrow_pressedImage, 
-			"Adjuster.arrow.disabledImage", Adjuster_arrow_disabledImage, 
-			"Adjuster.arrow.rolloverImage", Adjuster_arrow_rolloverImage, 
+			"Adjuster.arrowButton.defaultImage", Adjuster_arrowButton_defaultImage, 
+			"Adjuster.arrowButton.pressedImage", Adjuster_arrowButton_pressedImage, 
+			"Adjuster.arrowButton.disabledImage", Adjuster_arrowButton_disabledImage, 
+			"Adjuster.arrowButton.rolloverImage", Adjuster_arrowButton_rolloverImage, 
 			
 			"Adjuster.Slider.vertical.trackImage", Adjuster_Slider_vertical_trackImage,
 			"Adjuster.Slider.vertical.trackDisabledImage", Adjuster_Slider_vertical_trackDisabledImage,
@@ -1250,7 +1250,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Adjuster.Slider.thumbHorizontal.disabledImage", Adjuster_Slider_thumbHorizontal_disabledImage,
 			"Adjuster.Slider.thumbHorizontal.rolloverImage", Adjuster_Slider_thumbHorizontal_rolloverImage,
 			
-			"Adjuster.Slider.thumbIcon", SkinSliderThumb, 
+			"Adjuster.Slider.thumbIcon", SkinAdjusterSliderThumb, 
 			
 			"Adjuster.Slider.background", table.getFont("controlFont"),
 			"Adjuster.Slider.foreground", table.get("controlText"),

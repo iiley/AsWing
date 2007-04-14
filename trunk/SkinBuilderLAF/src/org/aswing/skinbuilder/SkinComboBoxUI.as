@@ -16,9 +16,10 @@ public class SkinComboBoxUI extends BasicComboBoxUI{
 	override protected function createDropDownButton():Component{
 		var btn:JButton = new JButton();
 		btn.setBorder(null);
-		btn.setBackground(null);
 		btn.setOpaque(false);
-		btn.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix()));
+		btn.setMargin(new Insets());
+		btn.setBackgroundDecorator(null);
+		btn.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix()+"arrowButton."));
 		return btn;
 	}
 }
