@@ -123,54 +123,54 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//___________________________ Button scale-9 ___________________________
 	//======================================================================
 	[Embed(source="assets/Button_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="67")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Button_defaultImage:Class;
 	
 	[Embed(source="assets/Button_pressedImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="67")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Button_pressedImage:Class;
 	
 	[Embed(source="assets/Button_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="67")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Button_rolloverImage:Class;
 	
 	[Embed(source="assets/Button_disabledImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="67")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Button_disabledImage:Class;
 	
 	[Embed(source="assets/Button_DefaultButton_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="67")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Button_DefaultButton_defaultImage:Class;
 	
 	//----------------------------------------------------------------------------
 	//___________________________ ToggleButton scale-9 ___________________________
 	//============================================================================
-	[Embed(source="assets/ToggleButton_defaultImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ToggleButton_defaultImage.png", scaleGridTop="6", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var ToggleButton_defaultImage:Class;
 	
-	[Embed(source="assets/ToggleButton_pressedImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ToggleButton_pressedImage.png", scaleGridTop="6", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var ToggleButton_pressedImage:Class;
 	
-	[Embed(source="assets/ToggleButton_disabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ToggleButton_disabledImage.png", scaleGridTop="6", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var ToggleButton_disabledImage:Class;
 	
-	[Embed(source="assets/ToggleButton_selectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ToggleButton_selectedImage.png", scaleGridTop="6", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var ToggleButton_selectedImage:Class;
 	
-	[Embed(source="assets/ToggleButton_disabledSelectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ToggleButton_disabledSelectedImage.png", scaleGridTop="6", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var ToggleButton_disabledSelectedImage:Class;
 	
-	[Embed(source="assets/ToggleButton_rolloverImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ToggleButton_rolloverImage.png", scaleGridTop="6", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var ToggleButton_rolloverImage:Class;
 	
-	[Embed(source="assets/ToggleButton_rolloverSelectedImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/ToggleButton_rolloverSelectedImage.png", scaleGridTop="6", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var ToggleButton_rolloverSelectedImage:Class;
 	
 	
@@ -463,26 +463,26 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	
 
 	//----------------------------------------------------------------------
-	//___________________________ Accordion header scale-9 ___________________________
+	//___________________________ 51 header scale-9 ___________________________
 	//======================================================================
 	[Embed(source="assets/Accordion_header_defaultImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Accordion_header_defaultImage:Class;
 	
 	[Embed(source="assets/Accordion_header_pressedImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Accordion_header_pressedImage:Class;
 	
 	[Embed(source="assets/Accordion_header_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Accordion_header_rolloverImage:Class;
 	
 	[Embed(source="assets/Accordion_header_disabledImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Accordion_header_disabledImage:Class;
 	
 	[Embed(source="assets/Accordion_header_selectedImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="6", scaleGridRight="68")]
+		scaleGridLeft="6", scaleGridRight="51")]
 	private var Accordion_header_selectedImage:Class;
 	
 
