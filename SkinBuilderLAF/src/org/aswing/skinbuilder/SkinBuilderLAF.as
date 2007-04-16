@@ -44,9 +44,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 				"activeCaptionText", 0xFFFFFF, /* Text color for text in captions (title bars). */
 				//"activeCaptionBorder", 0xC0C0C0, /* Border color for caption (title bar) window borders. */
 				//"inactiveCaption", 0xE7E7E7, /* Color for captions (title bars) when not active. */
-				"inactiveCaptionText", 0x888888, /* Text color for text in inactive captions (title bars). */
+				"inactiveCaptionText", 0xDDDDDD, /* Text color for text in inactive captions (title bars). */
 				//"inactiveCaptionBorder", 0x888888, /* Border color for inactive caption (title bar) window borders. */
-				"window", 0xECE9D8, /* Default color for the interior of windows */
+				"window", 0xCACDCC, /* Default color for the interior of windows */
 				//"windowBorder", 0x000000, /* ??? */
 				"windowText", 0xFFFFFF, /* ??? */
 				//"menu", 0xCCCCCC, /* Background color for menus */
@@ -362,12 +362,12 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//___________________________ Frame ____________________________
 	//==============================================================
 	//Backgorund scale-9 (Include title bar background all in one picture)
-	[Embed(source="assets/Frame_activeBG.png", scaleGridTop="31", scaleGridBottom="100", 
-		scaleGridLeft="5", scaleGridRight="254")]
+	[Embed(source="assets/Frame_activeBG.png", scaleGridTop="28", scaleGridBottom="271", 
+		scaleGridLeft="9", scaleGridRight="467")]
 	private var Frame_activeBG:Class;
 	
-	[Embed(source="assets/Frame_inactiveBG.png", scaleGridTop="31", scaleGridBottom="100", 
-		scaleGridLeft="5", scaleGridRight="254")]
+	[Embed(source="assets/Frame_inactiveBG.png", scaleGridTop="28", scaleGridBottom="269", 
+		scaleGridLeft="9", scaleGridRight="467")]
 	private var Frame_inactiveBG:Class;
 	
 	//========= Frame_iconifiedIcon Images =======
@@ -948,8 +948,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		// *** ScrollBar
 		comDefaults = [
 			"ScrollBar.opaque", false, 
-			"ScrollBar.thumbDecorator", SkinScrollBarThumb, 
-			"ScrollBar.arrowSize", 16, //modify this when your arrow images size changed
+			"ScrollBar.thumbDecorator", SkinScrollBarThumb,
 			
 			"ScrollBar.bg", SkinScrollBarBackground, 
 			"ScrollBar.verticalBGImage", ScrollBar_verticalBGImage, 
@@ -1015,8 +1014,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Frame.foreground", table.get("windowText"),
 			"Frame.opaque", true, 
 			"Frame.bg", SkinFrameBackground, //this will use Frame.activeBG and Frame.inactiveBG
-			"Frame.titleBarHeight", 31, //modify this to fit title bar height of bg image
-			"Frame.border", new SkinEmptyBorder(0, 5, 5, 5), //modify this to fit the frame bg image
+			"Frame.titleBarHeight", 28, //modify this to fit title bar height of bg image
+			"Frame.border", new SkinEmptyBorder(0, 4, 5, 4), //modify this to fit the frame bg image
 			"Frame.activeBG", Frame_activeBG, 
 			"Frame.inactiveBG", Frame_inactiveBG, 
 			"Frame.titleBarLayout", SkinFrameTitleBarLayout, 
@@ -1275,6 +1274,15 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"TableHeader.cell.pressedImage", TableHeader_cell_pressedImage,
 			"TableHeader.cell.disabledImage", TableHeader_cell_disabledImage,
 			"TableHeader.cell.rolloverImage", TableHeader_cell_rolloverImage
+		];
+		table.putDefaults(comDefaults);
+		
+		 // *** ToolBar
+		comDefaults = [
+			"ToolBar.background", table.get("window"),
+			"ToolBar.foreground", table.get("windowText"),
+			"ToolBar.opaque", false, 
+			"ToolBar.focusable", false 
 		];
 		table.putDefaults(comDefaults);
 	}	
