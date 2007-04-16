@@ -2,13 +2,19 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
+package org.aswing{
+
 import org.aswing.geom.*;
 import org.aswing.plaf.basic.BasicSpacerUI;
-	
-public class JSpacer extends Component
-{
+
+/**
+ * <code>JSpacer</code> provides basic functionality to create empty spaces between
+ * other components.
+ * 
+ * @author iiley
+ * @author Igor Sadovskiy
+ */
+public class JSpacer extends Component{
 	
 	/**
 	 * JSpacer(prefSize:Dimension)<br>
