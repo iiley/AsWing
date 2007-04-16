@@ -20,7 +20,8 @@ public class Windows extends JPanel{
 		append(frameButton);
 		
 		popButton.addActionListener(__showPopup);
-		popup = new JPopup(ComSet.WINDOW, true);
+		//TODO modify ComSetSkin yo ComSet when you are deploy ComSet
+		popup = new JPopup(ComSetSkin.WINDOW, true);
 		var closeButton:JButton = new JButton("Close");
 		var cancelbutton:JButton = new JButton("Do nothing");
 		popup.setLayout(new FlowLayout());
@@ -32,7 +33,8 @@ public class Windows extends JPanel{
 		popup.setLocationXY(100, 100);
 		
 		frameButton.addActionListener(__showFrame);
-		frame = new JFrame(ComSet.WINDOW, "A Frame");
+		//TODO modify ComSetSkin yo ComSet when you are deploy ComSet
+		frame = new JFrame(ComSetSkin.WINDOW, "A Frame");
 		var pane:JPanel = new JPanel();
 		pane.append(new JLabel("Default button is close button(Press Enter to act)"));
 		var closeButton2:JButton = new JButton("Close");
