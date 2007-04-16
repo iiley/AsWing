@@ -2,17 +2,16 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
-	import org.aswing.plaf.basic.BasicPanelUI;
-	
+package org.aswing{
+
+import org.aswing.plaf.basic.BasicPanelUI;
 	
 /**
- * 
+ * The general container - panel.
  * @author iiley
  */
-public class JPanel extends Container
-{
+public class JPanel extends Container{
+	
 	public function JPanel(layout:LayoutManager=null){
 		super();
 		setName("JPanel");
@@ -31,7 +30,6 @@ public class JPanel extends Container
 	
 	override public function getUIClassID():String{
 		return "PanelUI";
-	}	
-	
+	}
 }
 }

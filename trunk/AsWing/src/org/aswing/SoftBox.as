@@ -5,6 +5,8 @@
 package org.aswing { 
 
 /**
+ * A <code>JPanel</code> with <code>SoftBoxLayout</code>.
+ * 
  * @author iiley
  */
 public class SoftBox extends JPanel {

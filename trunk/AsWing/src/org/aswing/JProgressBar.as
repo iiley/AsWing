@@ -17,6 +17,13 @@ import org.aswing.plaf.basic.BasicProgressBarUI;
  */
 [Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
 
+/**
+ * A component that, by default, displays an integer value within a bounded 
+ * interval. A progress bar typically communicates the progress of some 
+ * work by displaying its percentage of completion and possibly a textual
+ * display of this percentage.
+ * @author iiley
+ */
 public class JProgressBar extends Component implements Orientable{
 
     /** 

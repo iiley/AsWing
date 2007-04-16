@@ -11,6 +11,18 @@ import org.aswing.border.EmptyBorder;
 import org.aswing.event.*;
 import org.aswing.geom.IntPoint;
 
+/**
+ * JOptionPane makes it easy to pop up a standard dialog box that prompts users 
+ * for a value or informs them of something.
+ * <p>
+ * There's some shortcut to do there with static methods like <code>showMessageDialog</code>, 
+ * <code>showInputDialog</code>. But if you want to make a hole control of JOptionPane, 
+ * you can create a JOptionPane by yourself and append it into a your JFrame.
+ * </p>
+ * @see #showMessageDialog()
+ * @see #showInputDialog()
+ * @author iiley
+ */
 public class JOptionPane extends JPanel {
 	public static var OK_STR:String = "OK";
 	public static var CANCEL_STR:String = "Cancel";

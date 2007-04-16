@@ -9,6 +9,8 @@ import org.aswing.JPanel;
 import org.aswing.JSpacer;
 
 /**
+ * A <code>JPanel</code> with <code>BoxLayout</code>.
+ * 
  * @author iiley
  */
 public class Box extends JPanel{
