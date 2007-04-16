@@ -42,7 +42,7 @@ public class PoorTextCell extends Component implements TableCell{
 		}
 		AsWingUtils.applyTextColor(textField, getForeground());
 		textField.x = b.x;
-		textField.y = b.y;
+		textField.y = b.y + (b.height-textField.height)/2;
 		if(isOpaque()){
 			graphics.clear();
 			var g:Graphics2D = new Graphics2D(graphics);

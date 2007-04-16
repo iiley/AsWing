@@ -120,6 +120,7 @@ public class AbstractCellEditor implements CellEditor, TableCellEditor, TreeCell
 	}
 	
 	private function __editorComponentFocusLost(e:Event):void{
+		trace("__editorComponentFocusLost");
 		cancelCellEditing();
 	}
 	

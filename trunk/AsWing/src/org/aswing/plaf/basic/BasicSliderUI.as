@@ -272,10 +272,10 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 
 		if ( !slider.getInverted() ) {
 			xPosition = trackLeft;
-			xPosition += pixelsPerValue * (value - min);
+			xPosition += Math.round(pixelsPerValue * (value - min));
 		}else {
 			xPosition = trackRight;
-			xPosition -= pixelsPerValue * (value - min);
+			xPosition -= Math.round(pixelsPerValue * (value - min));
 		}
 
 		xPosition = Math.max( trackLeft, xPosition );
@@ -296,11 +296,11 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 
 		if ( !slider.getInverted() ) {
 			yPosition = trackTop;
-			yPosition += pixelsPerValue * (max - value);
+			yPosition += Math.round(pixelsPerValue * (max - value));
 		}
 		else {
 			yPosition = trackTop;
-			yPosition += pixelsPerValue * (value - min);
+			yPosition += Math.round(pixelsPerValue * (value - min));
 		}
 
 		yPosition = Math.max( trackTop, yPosition );
@@ -330,7 +330,7 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 			var distanceFromTrackTop:int = yPos - trackTop;
 			var valueRange:int = maxValue - minValue;
 			var valuePerPixel:Number = valueRange / trackLength;
-			var valueFromTrackTop:int = distanceFromTrackTop * valuePerPixel;
+			var valueFromTrackTop:int = Math.round(distanceFromTrackTop * valuePerPixel);
 	
 			value = inverted ? minValue + valueFromTrackTop : maxValue - valueFromTrackTop;
 		}
@@ -358,7 +358,7 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 			var distanceFromTrackLeft:int = xPos - trackLeft;
 			var valueRange:int = maxValue - minValue;
 			var valuePerPixel:Number = valueRange / trackLength;
-			var valueFromTrackLeft:int = distanceFromTrackLeft * valuePerPixel;
+			var valueFromTrackLeft:int = Math.round(distanceFromTrackLeft * valuePerPixel);
 			
 			value = inverted ? maxValue - valueFromTrackLeft : minValue + valueFromTrackLeft;
 		}
@@ -658,8 +658,8 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 			isDragging = false;
 			countThumbRect();
 		}
-		offset = 0;
 		slider.setValueIsAdjusting(false);
+		offset = 0;
 	}
 	
 	private function __startHandleDrag():void{
