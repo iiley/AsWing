@@ -14,6 +14,7 @@ import org.aswing.FloorPane;
 import flash.display.DisplayObject;
 import org.aswing.geom.IntDimension;
 import org.aswing.JSlider;
+import org.aswing.JProgressBar;
 
 public class Scrolls extends JPanel{
 	[Embed(source="princess.jpg")]
@@ -22,8 +23,6 @@ public class Scrolls extends JPanel{
 	public function Scrolls(){
 		super();
 		name = "Scrolls";
-		setOpaque(true);
-		//setBackground(new ASColor(0xEEEEEE));
 		
 		var scrollPane:JScrollPane = new JScrollPane(new FloorPane(new imgClass() as DisplayObject));
 		scrollPane.setPreferredSize(new IntDimension(300, 300));
@@ -35,6 +34,11 @@ public class Scrolls extends JPanel{
 		slider.setMajorTickSpacing(20);
 		slider.setMinorTickSpacing(4);
 		slider.setPaintTicks(true);
+		slider.setShowValueTip(true);
+		
+		var progress:JProgressBar = new JProgressBar();
+		progress.setIndeterminate(true);
+		append(progress);
 	}
 	
 }

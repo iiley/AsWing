@@ -1,4 +1,4 @@
-package cases.table{
+package componetset{
 
 import org.aswing.table.DefaultTextCell;
 import cases.*;
