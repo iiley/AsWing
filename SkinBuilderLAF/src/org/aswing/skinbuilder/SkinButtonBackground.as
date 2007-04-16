@@ -35,6 +35,7 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
     }
 	
 	protected function setupAssets(ui:ComponentUI):void{
+		stateAsset.setDefaultButtonImage(getAsset(ui, "DefaultButton.defaultImage"));
 		stateAsset.setDefaultImage(getAsset(ui, "defaultImage"));
 		stateAsset.setPressedImage(getAsset(ui, "pressedImage"));
 		stateAsset.setPressedSelectedImage(getAsset(ui, "pressedSelectedImage"));
