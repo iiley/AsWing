@@ -11,6 +11,7 @@ import org.aswing.plaf.basic.splitpane.*;
 import flash.display.Sprite;
 import flash.geom.Point;
 import flash.display.DisplayObject;
+import flash.display.Shape;
 
 public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	
@@ -27,7 +28,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	protected var startDragPos:IntPoint;
 	protected var startLocation:int;
 	protected var startDividerPos:IntPoint;
-	protected var dragRepresentationMC:Sprite;
+	protected var dragRepresentationMC:Shape;
 	protected var pressFlag:Boolean;  //the flag for pressed left or right collapseButton	
 	
 	public function BasicSplitPaneUI() {
@@ -143,7 +144,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	 * Override this method to return a different default DividerDragingRepresention for your UI
 	 */
     protected function paintDividerDragingRepresention(g:Graphics2D):void{
-		g.fillRectangle(new SolidBrush(presentDragColor.changeAlpha(0.4)), 0, 0, divider.getWidth(), divider.getHeight());
+		g.fillRectangle(new SolidBrush(presentDragColor.changeAlpha(0.4)), 0, 0, 1, 1);
     }
 	
     /**
@@ -413,7 +414,7 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	protected function __div_mouse_moving(e:MouseEvent) : void {
 		if(!sp.isContinuousLayout()){
 			if(dragRepresentationMC == null){
-				dragRepresentationMC = new Sprite();
+				dragRepresentationMC = new Shape();
 				var g:Graphics2D = new Graphics2D(dragRepresentationMC.graphics);
 				paintDividerDragingRepresention(g);
 			}
@@ -428,9 +429,11 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 				newGlobalPos.x += getCurrentMovedDistance();
 			}
 			var newPoint:Point = newGlobalPos.toPoint();
-			dragRepresentationMC.parent.globalToLocal(newPoint);
+			newPoint = dragRepresentationMC.parent.globalToLocal(newPoint);
 			dragRepresentationMC.x = Math.round(newPoint.x);
 			dragRepresentationMC.y = Math.round(newPoint.y);
+			dragRepresentationMC.width = divider.width;
+			dragRepresentationMC.height = divider.height;
 		}else{
 			validateDivMoveWithCurrentMousePos();
 		}

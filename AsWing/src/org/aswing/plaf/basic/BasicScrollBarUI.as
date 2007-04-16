@@ -166,11 +166,11 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		scrollTimer = null;
     }
 	    
-    private function isVertical():Boolean{
+    protected function isVertical():Boolean{
     	return scrollbar.getOrientation() == JScrollBar.VERTICAL;
     }
     
-    private function getThumbRect():IntRectangle{
+    protected function getThumbRect():IntRectangle{
     	return thumbRect.clone();
     }
     
@@ -566,14 +566,14 @@ public class BasicScrollBarUI extends BaseComponentUI{
     }
 	
 	//--------------------------Layout----------------------------
-	private function layoutVScrollbar(sb:JScrollBar):void{
+	protected function layoutVScrollbar(sb:JScrollBar):void{
     	var rd:IntRectangle = sb.getPaintBounds();
     	var w:int = scrollBarWidth;
     	decrButton.setComBoundsXYWH(rd.x, rd.y, w, w);
     	incrButton.setComBoundsXYWH(rd.x, rd.y + rd.height - w, w, w);
 	}
 	
-	private function layoutHScrollbar(sb:JScrollBar):void{
+	protected function layoutHScrollbar(sb:JScrollBar):void{
     	var rd:IntRectangle = sb.getPaintBounds();
     	var w:int = scrollBarWidth;
     	decrButton.setComBoundsXYWH(rd.x, rd.y, w, w);
