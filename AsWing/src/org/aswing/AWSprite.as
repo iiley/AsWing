@@ -240,6 +240,14 @@ public class AWSprite extends Sprite
 		}
 	}
 	
+	override public function hitTestPoint(x:Number, y:Number, shapeFlag:Boolean=false):Boolean{
+		return maskShape.hitTestPoint(x, y, shapeFlag);
+	}
+	
+	override public function hitTestObject(obj:DisplayObject):Boolean{
+		return maskShape.hitTestObject(obj);
+	}
+	
 	/**
 	 * Brings a child to top.
 	 * This method will keep foreground child on top, if you bring a other object 
