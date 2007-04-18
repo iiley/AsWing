@@ -433,7 +433,7 @@ public class JPopup extends JRootPane{
 		AsWingManager.getStage().removeEventListener(Event.RESIZE, __resetModelMCWhenStageResized);
 	}
 	
-	private function __resetModelMCWhenStageResized(e:Event){
+	private function __resetModelMCWhenStageResized(e:Event):void{
 		resetModalMC();
 	}
 	

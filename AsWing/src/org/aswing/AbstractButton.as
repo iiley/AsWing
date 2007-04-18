@@ -112,7 +112,6 @@ public class AbstractButton extends Component
     private var       rolloverSelectedIcon:Icon;
     
     // Display properties
-    private var    paintBorder:Boolean;
     private var    rolloverEnabled:Boolean;
 
     // Icon/Label Alignment
@@ -124,12 +123,10 @@ public class AbstractButton extends Component
 
     private var        iconTextGap:int;	
 	
-	public function AbstractButton(text:String="", icon:Icon=null)
-	{
+	public function AbstractButton(text:String="", icon:Icon=null){
 		super();
 		setName("AbstractButton");
 		
-    	paintBorder = true;
     	rolloverEnabled = true;
     	
     	verticalAlignment = CENTER;
