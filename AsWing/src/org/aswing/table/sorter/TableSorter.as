@@ -400,6 +400,9 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
         }
         var columnModel:TableColumnModel = h.getColumnModel();
         var viewColumn:int = columnModel.getColumnIndexAtX(h.getMousePosition().x);
+        if(viewColumn == -1){
+        	return;
+        }
         var column:int = columnModel.getColumn(viewColumn).getModelIndex();
         if (column != -1 && isColumnSortable(column)) {
             var status:int = getSortingStatus(column);
