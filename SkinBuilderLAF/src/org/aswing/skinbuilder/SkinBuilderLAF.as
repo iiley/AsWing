@@ -926,6 +926,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"RadioButton.icon", SkinRadioButtonIcon,
 			"RadioButton.defaultImage", RadioButton_defaultImage,
 			"RadioButton.pressedImage", RadioButton_pressedImage,
+			"RadioButton.pressedSelectedImage", RadioButton_pressedSelectedImage,
 			"RadioButton.disabledImage", RadioButton_disabledImage,
 			"RadioButton.selectedImage", RadioButton_selectedImage,
 			"RadioButton.disabledSelectedImage", RadioButton_disabledSelectedImage,
