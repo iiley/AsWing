@@ -183,6 +183,9 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/RadioButton_pressedImage.png")]
 	private var RadioButton_pressedImage:Class;
 	
+	[Embed(source="assets/RadioButton_pressedSelectedImage.png")]
+	private var RadioButton_pressedSelectedImage:Class;
+	
 	[Embed(source="assets/RadioButton_disabledImage.png")]
 	private var RadioButton_disabledImage:Class;
 	
