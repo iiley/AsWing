@@ -108,7 +108,8 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 			return;
 		}
 		var p:IntPoint = header.getMousePosition();
-		if(canResize(getResizingColumn(p, header.columnAtPoint(p)))){
+		if(header.getTable().hitTestMouse() && 
+			canResize(getResizingColumn(p, header.columnAtPoint(p)))){
 			CursorManager.showCustomCursor(resizeCursor, true);
 		}else{
 			CursorManager.hideCustomCursor(resizeCursor);
