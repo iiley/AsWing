@@ -1,4 +1,4 @@
-/*
+﻿/*
  Copyright aswing.org, see the LICENCE.txt.
 */
 
@@ -10,6 +10,8 @@ import org.aswing.plaf.basic.background.*;
 import org.aswing.plaf.basic.border.*;
 import org.aswing.plaf.basic.icon.*;
 import org.aswing.plaf.basic.frame.*;
+import org.aswing.plaf.basic.cursor.*;
+import org.aswing.tree.*;
 import org.aswing.resizer.*;
 import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
 import org.aswing.tree.TreeLeafIcon;
