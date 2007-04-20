@@ -20,6 +20,7 @@ public class JRootPane extends Container{
 	private var defaultButton:JButton;
 	private var mnemonics:HashMap;
 	private var mnemonicJustActed:Boolean;
+	private var keymap:KeyMap;
 	
 	//TODO imp
 	private var menuBar:*;
@@ -30,6 +31,7 @@ public class JRootPane extends Container{
 		mnemonicJustActed = false;
 		layout = new BorderLayout();
 		mnemonics = new HashMap();
+		keymap = new KeyMap();
 		addEventListener(TextEvent.TEXT_INPUT, __textInput, true);
 		addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
 		addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
@@ -58,6 +60,28 @@ public class JRootPane extends Container{
 	 */
 	public function setMenuBar(menuBar:*):void{
 		//TODO imp
+	}
+	
+	/**
+	 * Returns the key -> action map of this window.
+	 * When a window is actived, it's keymap will be in working, or it is out of working.
+	 * @see org.aswing.KeyMap
+	 * @see org.aswing.KeyboardController
+	 */
+	public function getKeyMap():KeyMap{
+		return keymap;
+	}
+	
+	/**
+	 * Sets whether or not the kay map action will be fired.
+	 * @param b true to make it work, false not.
+	 */
+	public function setKeyMapActived(b:Boolean):void{
+		if(b){
+			KeyboardManager.getInstance().registerKeyMap(getKeyMap());
+		}else{
+			KeyboardManager.getInstance().unregisterKeyMap(getKeyMap());
+		}
 	}
 	
 	/**

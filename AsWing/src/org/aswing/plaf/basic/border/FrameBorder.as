@@ -33,6 +33,19 @@ public class FrameBorder implements Border, UIResource{
 		var frame:JFrame = JFrame(c);
 		var color:ASColor = frame.getFrameUI().isPaintActivedFrame() ? activeColor : inactiveColor;
 		
+		//draw the shadow
+		g.beginDraw(new Pen(new ASColor(0, 0.3), 4));
+		g.moveTo(b.x + b.width - 3, b.y + 14);
+		g.lineTo(b.x + b.width - 2, b.y+16);
+		g.lineTo(b.x + b.width - 2, b.y+b.height-2 - 9);
+		g.curveTo(b.x + b.width - 2, b.y+b.height-2, b.x + b.width - 2 - 9,  b.y+b.height-2);
+		g.lineTo(b.x + 10, b.y+b.height-2);
+		g.lineTo(b.x + 8, b.y+b.height-3);
+		g.endDraw();
+		b = b.clone();
+		b.width -= 3;
+		b.height -= 3;
+		
 		//fill alpha rect
 		g.drawRoundRect(
 			new Pen(color, 1), 
@@ -55,7 +68,7 @@ public class FrameBorder implements Border, UIResource{
 	public function getBorderInsets(com:Component, bounds:IntRectangle):Insets
 	{
 		var w:int = GLASS + 3;
-		return new Insets(w, w, w, w);
+		return new Insets(w, w, w+3, w+3);
 	}
 	
 	public function getDisplay(c:Component):DisplayObject

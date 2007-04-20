@@ -15,6 +15,8 @@ import org.aswing.border.EmptyBorder;
 /**
  * The default empty border to be the component border as default. So it can be 
  * replaced by LAF specified.
+ * 
+ * @author iiley
  */
 public class DefaultEmptyDecoraterResource implements Icon, Border, GroundDecorator, UIResource
 {

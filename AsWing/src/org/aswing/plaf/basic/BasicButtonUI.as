@@ -80,12 +80,7 @@ public class BasicButtonUI extends BaseComponentUI
  	}
  	
  	protected function installComponents(b:AbstractButton):void{
- 		textField = new TextField();
- 		textField.selectable = false;
- 		textField.mouseEnabled = false;
- 		textField.mouseWheelEnabled = false;
- 		textField.autoSize = TextFieldAutoSize.LEFT;
- 		b.addChild(textField);
+ 		textField = AsWingUtils.createLabel(b, "label");
  	}
 	
  	protected function uninstallComponents(b:AbstractButton):void{

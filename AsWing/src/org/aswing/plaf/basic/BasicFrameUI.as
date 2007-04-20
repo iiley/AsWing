@@ -17,7 +17,6 @@ import flash.events.Event;
 import flash.display.DisplayObjectContainer;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
-import flash.filters.*;
 
 /**
  * Basic frame ui imp.
@@ -60,7 +59,6 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	    resizeArrowColor = getColor("resizeArrow");
 	    resizeArrowLightColor = getColor("resizeArrowLight");
 	    resizeArrowDarkColor = getColor("resizeArrowDark");
-		frame.filters = [new DropShadowFilter(5.0, 45, 0, 1.0, 2.0, 2.0, 0.5)];
     }
     
     protected function installComponents():void {
@@ -68,7 +66,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     	frame.insert(0, titleBar, WindowLayout.TITLE);
     	
     	if(frame.getResizer() == null || frame.getResizer() is UIResource){
-	    	var resizer:Resizer = UIManager.getInstance("Frame.resizer") as Resizer;
+	    	var resizer:Resizer = getInstance("Frame.resizer") as Resizer;
 	    	frame.setResizer(resizer);
     	}
     	boundsMC = new Sprite();

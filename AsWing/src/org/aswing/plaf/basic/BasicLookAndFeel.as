@@ -93,13 +93,15 @@ public class BasicLookAndFeel extends LookAndFeel{
 				"window", 0xCCCCCC, /* Default color for the interior of windows */
 				"windowBorder", 0x000000, /* ??? */
 				"windowText", 0x000000, /* ??? */
-				"menu", 0xCCCCCC, /* Background color for menus */
+				"menu", 0xEEEEEE, /* Background color for menus */
 				"menuText", 0x000000, /* Text color for menus  */
 				"text", 0xC0C0C0, /* Text background color */
 				"textText", 0x000000, /* Text foreground color */
 				"textHighlight", 0x000080, /* Text background color when selected */
 				"textHighlightText", 0xFFFFFF, /* Text color when selected */
 				"textInactiveText", 0x808080, /* Text color when disabled */
+				"selectionBackground", 0x3C73CE, //0x316AC5, 
+				"selectionForeground", 0xFFFFFF, 
 				"control", 0xF4F4F4,//0xEFEFEF, /* Default color for controls (buttons, sliders, etc) */
 				"controlText", 0x000000, /* Default color for text in controls */
 				"controlHighlight", 0xEEEEEE, /* Specular highlight (opposite of the shadow) */
@@ -391,8 +393,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"List.foreground", table.get("controlText"),
 			"List.opaque", false, 
 			"List.focusable", true, 
-			"List.selectionBackground", new ASColorUIResource(0x444444),
-			"List.selectionForeground", table.get("control")
+		    "List.selectionBackground", table.get("selectionBackground"),
+		    "List.selectionForeground", table.get("selectionForeground")
 		];
 		table.putDefaults(comDefaults);
 		
@@ -551,8 +553,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"Table.opaque", true, 
 			"Table.focusable", true, 
 			"Table.font", table.getFont("controlFont"),
-			"Table.selectionBackground", new ASColorUIResource(0x666666),
-			"Table.selectionForeground", table.get("control"),
+		    "Table.selectionBackground", table.get("selectionBackground"),
+		    "Table.selectionForeground", table.get("selectionForeground"), 
 			"Table.gridColor", new ASColorUIResource(0x444444),
 			"Table.border", undefined
 		];
@@ -579,8 +581,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"Tree.opaque", true,  
 			"Tree.focusable", true,
 			"Tree.font", table.getFont("controlFont"),
-			"Tree.selectionBackground", new ASColorUIResource(0x666666),
-			"Tree.selectionForeground", table.get("control"), 
+		    "Tree.selectionBackground", table.get("selectionBackground"),
+		    "Tree.selectionForeground", table.get("selectionForeground"), 
 			"Tree.leafIcon", org.aswing.tree.TreeLeafIcon, 
 			"Tree.folderExpandedIcon", org.aswing.tree.TreeFolderIcon, 
 			"Tree.folderCollapsedIcon", org.aswing.tree.TreeFolderIcon, 
@@ -599,6 +601,114 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"ToolBar.focusable", false 
 		];
 		table.putDefaults(comDefaults);
+	    
+	     // *** MenuItem
+	    comDefaults = [
+		    "MenuItem.background", table.get("menu"),
+		    "MenuItem.foreground", table.get("menuText"),
+	    	"MenuItem.opaque", false,  
+	    	"MenuItem.focusable", false,
+	        "MenuItem.font", table.getFont("menuFont"),
+		    "MenuItem.selectionBackground", table.get("selectionBackground"),
+		    "MenuItem.selectionForeground", table.get("selectionForeground"),
+		    "MenuItem.disabledForeground", new ASColorUIResource(0x888888),
+		    "MenuItem.acceleratorFont", table.getFont("menuFont"),
+		    "MenuItem.acceleratorForeground", table.get("menuText"),
+		    "MenuItem.acceleratorSelectionForeground", table.get("menu"),
+	    	"MenuItem.border", undefined,
+	    	"MenuItem.arrowIcon", org.aswing.plaf.basic.icon.MenuItemArrowIcon,
+	    	"MenuItem.checkIcon", org.aswing.plaf.basic.icon.MenuItemCheckIcon,
+			"MenuItem.margin", new InsetsUIResource(0, 0, 0, 0)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** CheckBoxMenuItem
+	    comDefaults = [
+		    "CheckBoxMenuItem.background", table.get("menu"),
+		    "CheckBoxMenuItem.foreground", table.get("menuText"),
+	    	"CheckBoxMenuItem.opaque", false,  
+	    	"CheckBoxMenuItem.focusable", false,
+	        "CheckBoxMenuItem.font", table.getFont("menuFont"),
+		    "CheckBoxMenuItem.selectionBackground", table.get("selectionBackground"),
+		    "CheckBoxMenuItem.selectionForeground", table.get("selectionForeground"),
+		    "CheckBoxMenuItem.disabledForeground", new ASColorUIResource(0x888888),
+		    "CheckBoxMenuItem.acceleratorFont", table.getFont("menuFont"),
+		    "CheckBoxMenuItem.acceleratorForeground", table.get("menuText"),
+		    "CheckBoxMenuItem.acceleratorSelectionForeground", table.get("menu"),
+	    	"CheckBoxMenuItem.border", undefined,
+	    	"CheckBoxMenuItem.arrowIcon", org.aswing.plaf.basic.icon.MenuItemArrowIcon,
+	    	"CheckBoxMenuItem.checkIcon", org.aswing.plaf.basic.icon.CheckBoxMenuItemCheckIcon,
+			"CheckBoxMenuItem.margin", new InsetsUIResource(0, 0, 0, 0)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** RadioButtonMenuItem
+	    comDefaults = [
+		    "RadioButtonMenuItem.background", table.get("menu"),
+		    "RadioButtonMenuItem.foreground", table.get("menuText"),
+	    	"RadioButtonMenuItem.opaque", false,  
+	    	"RadioButtonMenuItem.focusable", false,
+	        "RadioButtonMenuItem.font", table.getFont("menuFont"),
+		    "RadioButtonMenuItem.selectionBackground", table.get("selectionBackground"),
+		    "RadioButtonMenuItem.selectionForeground", table.get("selectionForeground"),
+		    "RadioButtonMenuItem.disabledForeground", new ASColorUIResource(0x888888),
+		    "RadioButtonMenuItem.acceleratorFont", table.getFont("menuFont"),
+		    "RadioButtonMenuItem.acceleratorForeground", table.get("menuText"),
+		    "RadioButtonMenuItem.acceleratorSelectionForeground", table.get("menu"),
+	    	"RadioButtonMenuItem.border", undefined,
+	    	"RadioButtonMenuItem.arrowIcon", org.aswing.plaf.basic.icon.MenuItemArrowIcon,
+	    	"RadioButtonMenuItem.checkIcon", org.aswing.plaf.basic.icon.RadioButtonMenuItemCheckIcon,
+			"RadioButtonMenuItem.margin", new InsetsUIResource(0, 0, 0, 0)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** Menu
+	    comDefaults = [
+		    "Menu.background", table.get("menu"),
+		    "Menu.foreground", table.get("menuText"),
+	    	"Menu.opaque", false,  
+	    	"Menu.focusable", false,
+	        "Menu.font", table.getFont("menuFont"),
+		    "Menu.selectionBackground", table.get("selectionBackground"),
+		    "Menu.selectionForeground", table.get("selectionForeground"),
+		    "Menu.disabledForeground", new ASColorUIResource(0x888888),
+		    "Menu.acceleratorFont", table.getFont("menuFont"),
+		    "Menu.acceleratorForeground", table.get("menuText"),
+		    "Menu.acceleratorSelectionForeground", table.get("menu"),
+	    	"Menu.border", undefined,
+	    	"Menu.arrowIcon", org.aswing.plaf.basic.icon.MenuArrowIcon,
+	    	"Menu.checkIcon", org.aswing.plaf.basic.icon.MenuCheckIcon,
+			"Menu.margin", new InsetsUIResource(0, 0, 0, 0),
+			"Menu.useMenuBarBackgroundForTopLevel", true, 
+			"Menu.menuPopupOffsetX", 0, 
+			"Menu.menuPopupOffsetY", 0, 
+			"Menu.submenuPopupOffsetX", 0, 
+			"Menu.submenuPopupOffsetY", 0
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** PopupMenu
+	    comDefaults = [
+		    "PopupMenu.background", table.get("menu"),
+		    "PopupMenu.foreground", table.get("menuText"),
+	    	"PopupMenu.opaque", true,  
+	    	"PopupMenu.focusable", false,
+	        "PopupMenu.font", table.getFont("menuFont"),
+	        "PopupMenu.borderColor", table.get("controlDkShadow"),
+	    	"PopupMenu.border", org.aswing.plaf.basic.border.PopupMenuBorder
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** MenuBar
+	    comDefaults = [
+		    "MenuBar.background", table.get("menu"), 
+		    "MenuBar.foreground", table.get("menuText"), 
+	    	"MenuBar.opaque", false, 
+	    	"MenuBar.focusable", true, 
+	        "MenuBar.font", table.getFont("menuFont"), 
+	    	"MenuBar.border", undefined
+	    ];
+	    table.putDefaults(comDefaults);
 	}
 	
 }

@@ -35,7 +35,6 @@ public class FrameTitleBar extends Container{
 	}
 	
 	override public function updateUI():void{
-    	//trace("FrameTitleBar is a instanceof Container? : " + (this instanceof Container));
     	setUI(UIManager.getUI(this));
     }
 	
