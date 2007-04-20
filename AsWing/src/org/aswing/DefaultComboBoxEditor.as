@@ -64,7 +64,7 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     //------------------------------------------------------
 
     
-    private function getTextField():JTextField{
+    protected function getTextField():JTextField{
         if(textField == null){
             textField = new JTextField("", 1); //set rows 1 to ensure the JTextField has a perfer height when empty
             textField.setBorder(null);
