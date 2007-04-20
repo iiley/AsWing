@@ -1990,7 +1990,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	 * Returns is the source data is acceptale to drop in this list as build-in support
 	 */
 	/*public function isAcceptableListSourceData(dragInitiator:Component, sd:SourceData):Boolean{
-		return (sd instanceof ListSourceData) && isDragAcceptableInitiator(dragInitiator);
+		return (sd is ListSourceData) && isDragAcceptableInitiator(dragInitiator);
 	}*/
 	
 	/**

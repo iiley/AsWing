@@ -1452,6 +1452,9 @@ public class Component extends AWSprite{
      * @see #putClientProperty()
      */
     public function getClientProperty(key:*):*{
+    	if(clientProperty == null){
+    		return undefined;
+    	}
     	return clientProperty.get(key);
     }
     

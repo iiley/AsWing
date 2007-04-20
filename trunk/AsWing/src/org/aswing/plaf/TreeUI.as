@@ -13,6 +13,7 @@ import org.aswing.tree.TreePath;
 /**
  * Pluggable look and feel interface for JTree.
  * @author iiley
+ * @private
  */
 public interface TreeUI extends ComponentUI {
 	

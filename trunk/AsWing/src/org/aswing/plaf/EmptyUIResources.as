@@ -17,6 +17,7 @@ import org.aswing.GroundDecorator;
  * For example, if you define button.border = null in the LAF class, then in fact the 
  * <code>UIDefaults</code> will return <code>EmptyUIResources.BORDER</code> to you.
  * </p>
+ * @author iiley
  */
 public class EmptyUIResources
 {

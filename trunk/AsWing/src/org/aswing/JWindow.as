@@ -306,6 +306,7 @@ public class JWindow extends JPopup{
 	
 	private function active(programmatic:Boolean=true):void{
 		actived = true;
+		setKeyMapActived(true);
 		var vec:Vector = getPopupsVector();
 		for(var i:int=0; i<vec.size(); i++){
 			var w:JWindow = vec.get(i) as JWindow;
@@ -328,7 +329,7 @@ public class JWindow extends JPopup{
 		if(!AsWingUtils.isAncestor(this, focusWhenDeactive)){
 			focusWhenDeactive = null;
 		}
-		//KeyboardManager.getInstance().unregisterKeyMap(getKeyMap());
+		setKeyMapActived(false);
 		FocusManager.getCurrentManager().setActiveWindow(null);
 		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_DEACTIVATED, programmatic));
 	}

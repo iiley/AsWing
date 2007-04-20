@@ -68,11 +68,11 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
         LookAndFeel.installBorderAndBFDecorators(accordion, pp);
         LookAndFeel.installColorsAndFont(accordion, pp);
         LookAndFeel.installBasicProperties(accordion, pp);
-        motionSpeed = UIManager.getInt(pp + "motionSpeed");
+        motionSpeed = getInt(pp + "motionSpeed");
         if(motionSpeed <=0 || isNaN(motionSpeed)){
         	motionSpeed = MOTION_SPEED;
         }
-       	var tabMargin:Insets = UIManager.getInsets(pp + "tabMargin");
+       	var tabMargin:Insets = getInsets(pp + "tabMargin");
 		if(tabMargin == null){
 			tabMargin = new InsetsUIResource(1, 1, 1, 1);	
 		}

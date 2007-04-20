@@ -2,8 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
+package org.aswing{
 
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -51,8 +50,8 @@ import org.aswing.util.*;
  * Defines common behaviors for buttons and menu items.
  * @author iiley
  */
-public class AbstractButton extends Component
-{
+public class AbstractButton extends Component{
+	
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants

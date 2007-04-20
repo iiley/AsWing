@@ -69,6 +69,7 @@ public class AsWingUtils{
     /**
      * Create a sprite at specified parent with specified name.
      * The created sprite default property is mouseEnabled=false.
+     * @return the sprite
      */ 
     public static function createSprite(parent:DisplayObjectContainer=null, name:String=null):Sprite{
     	var sp:Sprite = new Sprite();
@@ -82,6 +83,32 @@ public class AsWingUtils{
     	return sp;
     }
     
+    /**
+     * Create a disabled TextField at specified parent with specified name.
+     * The created sprite default property is mouseEnabled=false, selecteable=false, editable=false 
+     * TextFieldAutoSize.LEFT etc.
+     * @return the textfield
+     */ 
+    public static function createLabel(parent:DisplayObjectContainer=null, name:String=null):TextField{
+    	var textField:TextField = new TextField();
+    	if(name != null){
+    		textField.name = name;
+    	}
+ 		textField.selectable = false;
+ 		textField.mouseEnabled = false;
+ 		textField.mouseWheelEnabled = false;
+ 		textField.autoSize = TextFieldAutoSize.LEFT;
+ 		textField.tabEnabled = false;
+    	if(parent != null){
+    		parent.addChild(textField);
+    	}
+    	return textField;
+    }    
+    
+    /**
+     * Create a shape. 
+     * @return the sprite
+    */
     public static function createShape(parent:DisplayObjectContainer=null, name:String=null):Shape{
     	var sp:Shape = new Shape();
     	if(name != null){

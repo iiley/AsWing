@@ -16,6 +16,7 @@ import flash.display.InteractiveObject;
 
 /**
  * The base class for ComponentUI.
+ * @author iiley
  */
 public class BaseComponentUI implements ComponentUI
 {

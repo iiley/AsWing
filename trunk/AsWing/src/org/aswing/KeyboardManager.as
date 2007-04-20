@@ -9,6 +9,19 @@ import flash.events.KeyboardEvent;
 import flash.events.Event;
 import org.aswing.util.*;
 import flash.ui.Keyboard;
+import flash.events.EventDispatcher;
+
+/**
+ * Dispatched when key is down.
+ * @eventType flash.events.KeyboardEvent.KEY_DOWN
+ */
+[Event(name="keyDown", type="flash.events.KeyboardEvent")]
+
+/**
+ * Dispatched when key is up.
+ * @eventType flash.events.KeyboardEvent.KEY_UP
+ */
+[Event(name="keyUp", type="flash.events.KeyboardEvent")]
 
 /**
  * KeyboardController controlls the key map for the action firing.
@@ -20,7 +33,7 @@ import flash.ui.Keyboard;
  * @see org.aswing.KeyType
  * @author iiley
  */
-public class KeyboardManager{
+public class KeyboardManager extends EventDispatcher{
 	
 	private static var instance:KeyboardManager;
 	
@@ -159,6 +172,7 @@ public class KeyboardManager{
 	}
 		
 	private function __onKeyDown(e:KeyboardEvent) : void {
+		dispatchEvent(e);
 		var code:uint = e.keyCode;
 		if(!keySequence.contains(code)){
 			keySequence.append(code);
@@ -174,6 +188,7 @@ public class KeyboardManager{
 	}
 
 	private function __onKeyUp(e:KeyboardEvent) : void {
+		dispatchEvent(e);
 		var code:uint = e.keyCode;
 		keySequence.remove(code);
 	}

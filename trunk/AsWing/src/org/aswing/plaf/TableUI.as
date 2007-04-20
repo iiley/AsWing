@@ -8,7 +8,7 @@ import org.aswing.JTable;
 import org.aswing.geom.IntDimension;
 
 /**
- * Pluginable ui for JFrame.
+ * Pluginable ui for JTable.
  * @see org.aswing.JTable
  * @author iiley
  */
