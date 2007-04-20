@@ -241,11 +241,21 @@ public class AWSprite extends Sprite
 	}
 	
 	override public function hitTestPoint(x:Number, y:Number, shapeFlag:Boolean=false):Boolean{
-		return maskShape.hitTestPoint(x, y, shapeFlag);
+		if(isClipMasked()){
+			return maskShape.hitTestPoint(x, y, shapeFlag);
+		}else{
+			//TODO use bounds to test the x, y
+			return super.hitTestPoint(x, y, shapeFlag);
+		}
 	}
 	
 	override public function hitTestObject(obj:DisplayObject):Boolean{
-		return maskShape.hitTestObject(obj);
+		if(this.isClipMasked()){
+			return maskShape.hitTestObject(obj);
+		}else{
+			//TODO use bounds to test the obj
+			return super.hitTestObject(obj);
+		}
 	}
 	
 	/**
