@@ -11,6 +11,7 @@ public class Button extends Sprite
 	{
 		super();
 		var button:JButton = new JButton("A &Button");
+		button.setRollOverEnabled(true);
 		button.setSize(button.getPreferredSize());
 		addChild(button);
 		button.addActionListener(__buttonAction);
