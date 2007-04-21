@@ -1517,7 +1517,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 				trace("Warnning : cell size not cached index = " + i + ", value = " + cell.getCellValue());
 			}
 			tryY += s.height;
-			if(tryY >= y){
+			if(tryY > y){
 				startIndex = i;
 				startY = -(s.height - (tryY - y));
 				break;
@@ -1596,10 +1596,8 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var h:int = viewHeight;
 		var sameHeight:Boolean = factory.isAllCellHasSameHeight();
 		
-		var i0:int = e.getIndex0();
-		var i1:int = e.getIndex1();
-		i0 = Math.min(i0, i1);
-		i1 = Math.max(i0, i1);
+		var i0:int = Math.min(e.getIndex0(), e.getIndex1());
+		var i1:int = Math.max(e.getIndex0(), e.getIndex1());
 		
 		if(factory.isShareCells()){
 			w = getPreferredCellWidthWhenNoCount();
@@ -1629,9 +1627,10 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 			if(i0 > lastVisibleIndex + lastVisibleIndexOffset){
 				//nothing needed
 			}else if(i0 >= firstVisibleIndex + firstVisibleIndexOffset){
-				lastVisibleIndexOffset += i1 - i0 + 1;
+				lastVisibleIndexOffset += (i1 - i0 + 1);
 			}else if(i0 < firstVisibleIndex + firstVisibleIndexOffset){
-				firstVisibleIndexOffset += lastVisibleIndexOffset = i1 - i0 + 1;
+				firstVisibleIndexOffset += (i1 - i0 + 1);
+				lastVisibleIndexOffset += (i1 - i0 + 1);
 			}
 		}
 		
@@ -1652,10 +1651,8 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var h:int = viewHeight;
 		var sameHeight:Boolean = factory.isAllCellHasSameHeight();
 		
-		var i0:int = e.getIndex0();
-		var i1:int = e.getIndex1();
-		i0 = Math.min(i0, i1);
-		i1 = Math.max(i0, i1);
+		var i0:int = Math.min(e.getIndex0(), e.getIndex1());
+		var i1:int = Math.max(e.getIndex0(), e.getIndex1());
 		
 		var i:int;
 		var s:IntDimension;
@@ -1704,9 +1701,10 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 			if(i0 > lastVisibleIndex + lastVisibleIndexOffset){
 				//nothing needed
 			}else if(i0 >= firstVisibleIndex + firstVisibleIndexOffset){
-				lastVisibleIndexOffset -= i1 - i0 + 1;
+				lastVisibleIndexOffset -= (i1 - i0 + 1);
 			}else if(i0 < firstVisibleIndex + firstVisibleIndexOffset){
-				firstVisibleIndexOffset -= lastVisibleIndexOffset = i1 - i0 + 1;
+				firstVisibleIndexOffset -= (i1 - i0 + 1);
+				lastVisibleIndexOffset -= (i1 - i0 + 1);
 			}
 		}
 		
@@ -1727,10 +1725,8 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var h:int = viewHeight;
 		var sameHeight:Boolean = factory.isAllCellHasSameHeight();
 		
-		var i0:int = e.getIndex0();
-		var i1:int = e.getIndex1();
-		i0 = Math.min(i0, i1);
-		i1 = Math.max(i0, i1);
+		var i0:int = Math.min(e.getIndex0(), e.getIndex1());
+		var i1:int = Math.max(e.getIndex0(), e.getIndex1());
 		var i:int;
 		var s:IntDimension;
 		var cell:ListCell;
