@@ -43,12 +43,12 @@ public class List extends Sprite
         
         listData = new VectorListModel(arr);
         //list40
-        list = new JList(listData, new GeneralListCellFactory(IconListCell, false, false));
-        list.setBorder(new LineBorder(null, ASColor.RED, 3));
-        //list60
         //list = new JList(listData, new GeneralListCellFactory(IconListCell, false, false));
+        //list.setBorder(new LineBorder(null, ASColor.RED, 3));
+        //list60
+        //list = new JList(listData, new GeneralListCellFactory(IconListCell, false, true));
         //list100000
-        //list = new JList(listData);
+        list = new JList(listData);
         
         var centerPane:JPanel = new JPanel(new BorderLayout());
         var scrollPane:JScrollPane = new JScrollPane(list);
@@ -85,10 +85,10 @@ public class List extends Sprite
         list.scrollToBottomLeft();
     }
     private function __removeItem(e:Event):void{
-        listData.removeAt(0);
-        list.scrollToTopLeft();
+    	//listData.append("Added Item " + Math.floor(Math.random()*1000));
+        //listData.removeAt(0);
+        listData.clear();
+        //list.scrollToTopLeft();
     }
-    
-    //测试显示如果先点击addItem 然后点击removeItem 会出现错误; 07-2-14 test by senkay
 }
 }
