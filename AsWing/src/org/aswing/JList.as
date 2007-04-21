@@ -238,7 +238,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		viewPosition = new IntPoint(0, 0);
 		setSelectionModel(new DefaultListSelectionModel());
 		firstVisibleIndex = 0;
-		lastVisibleIndex = 0;
+		lastVisibleIndex = -1;
 		firstVisibleIndexOffset = 0;
 		lastVisibleIndexOffset = 0;
 		visibleRowCount = -1;
@@ -1460,7 +1460,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var maxY:int = ir.y + ir.height;
 		var i:int;
 		//invisible last viewed
-		for(i=firstVisibleIndex+firstVisibleIndexOffset; i<startIndex; i++){
+		for(i=Math.max(0, firstVisibleIndex+firstVisibleIndexOffset); i<startIndex; i++){
 			ListCell(cells.get(i)).getCellComponent().setVisible(false);
 		}
 		var rlvi:int = lastVisibleIndex + lastVisibleIndexOffset;
@@ -1560,7 +1560,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		}
 		
 		//invisible last viewed
-		for(i=firstVisibleIndex+firstVisibleIndexOffset; i<startIndex; i++){
+		for(i=Math.max(0, firstVisibleIndex+firstVisibleIndexOffset); i<startIndex; i++){
 			ListCell(cells.get(i)).getCellComponent().setVisible(false);
 		}
 		var rlvi:int = lastVisibleIndex + lastVisibleIndexOffset;
