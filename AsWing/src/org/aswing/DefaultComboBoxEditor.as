@@ -15,7 +15,7 @@ import flash.events.FocusEvent;
 public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEditor{
 
     private var textField:JTextField;
-    private var value:*;
+    protected var value:*;
     	
 	public function DefaultComboBoxEditor(){
 	}
