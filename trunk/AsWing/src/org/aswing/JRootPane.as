@@ -21,6 +21,7 @@ public class JRootPane extends Container{
 	private var mnemonics:HashMap;
 	private var mnemonicJustActed:Boolean;
 	private var keymap:KeyMap;
+	private var mnemonicsForcedWorking:Boolean;
 	
 	//TODO imp
 	private var menuBar:*;
@@ -32,6 +33,7 @@ public class JRootPane extends Container{
 		layout = new BorderLayout();
 		mnemonics = new HashMap();
 		keymap = new KeyMap();
+		mnemonicsForcedWorking = false;
 		addEventListener(TextEvent.TEXT_INPUT, __textInput, true);
 		addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
 		addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
@@ -81,6 +83,33 @@ public class JRootPane extends Container{
 			KeyboardManager.getInstance().registerKeyMap(getKeyMap());
 		}else{
 			KeyboardManager.getInstance().unregisterKeyMap(getKeyMap());
+		}
+	}
+	
+	/**
+	 * Sets the mnemonic be forced to work or not.
+	 * <p>
+	 * true, to make the mnemonic be forced to work, it means what ever the root pane and 
+	 * it children has focused or not, it will listen the key to make mnemonic works.<br>
+	 * false, to make the mnemonic works in normal way, it means the mnenonic will only works 
+	 * when the root pane or its children has focus.
+	 * </p>
+	 * @param b forced work or not.
+	 */
+	public function setMnemonicForcedToWork(b:Boolean):void{
+		if(b != mnemonicsForcedWorking){
+			if(b){
+				removeEventListener(TextEvent.TEXT_INPUT, __textInput, true);
+				removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
+				AsWingManager.getStage().addEventListener(TextEvent.TEXT_INPUT, __textInput, true);
+				AsWingManager.getStage().addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
+			}else{
+				AsWingManager.getStage().removeEventListener(TextEvent.TEXT_INPUT, __textInput, true);
+				AsWingManager.getStage().removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
+				addEventListener(TextEvent.TEXT_INPUT, __textInput, true);
+				addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
+			}
+			mnemonicsForcedWorking = b;
 		}
 	}
 	
