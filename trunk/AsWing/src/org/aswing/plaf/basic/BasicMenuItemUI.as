@@ -259,7 +259,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 					  defaultTextIconGap);
 	}
 	
-	protected function paintMenuItem(b:JMenuItem, g:Graphics2D, r:IntRectangle, checkIcon:Icon, arrowIcon, 
+	protected function paintMenuItem(b:JMenuItem, g:Graphics2D, r:IntRectangle, checkIcon:Icon, arrowIcon:Icon, 
 		background:ASColor, foreground:ASColor, defaultTextIconGap:int):void{
 		
 		var model:ButtonModel = b.getModel();
@@ -307,10 +307,10 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 			}
 		}
 		paintIcon(b, icon, g, iconRect.x, iconRect.y);
-
+		var tc:ASColor;
 		// Draw the Text
 		if(text != null && text != "") {
-			var tc:ASColor = b.getForeground();
+			tc = b.getForeground();
 			if(isSelected){
 				tc = selectionForeground;
 			}
@@ -347,7 +347,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 	  		var accTextFieldRect:IntRectangle = new IntRectangle();
 			accTextFieldRect.x = acceleratorRect.x - accOffset;
 			accTextFieldRect.y = acceleratorRect.y;
-			var tc:ASColor = acceleratorForeground;
+			tc = acceleratorForeground;
 			if(!model.isEnabled()) {
 				if(disabledForeground != null){
 					tc = disabledForeground;
