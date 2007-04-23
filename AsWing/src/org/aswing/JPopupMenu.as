@@ -189,6 +189,7 @@ public class JPopupMenu extends Container implements MenuElement{
 				setInUse(false);
 			}
 		}
+		popup.setMnemonicForcedToWork(b);
 	}
 	
 	override public function isVisible():Boolean{
