@@ -21,7 +21,7 @@ public class NormalMenu extends Sprite{
 		
 		var bar:JMenuBar = new JMenuBar();
 		
-		fileMenu = new JMenu("File");
+		fileMenu = new JMenu("&File");
 		var newMenu:JMenu = new JMenu("New");
 		fileMenu.append(newMenu);
 		newMenu.addMenuItem("AS2 File").addActionListener(__menuItemAct);
@@ -31,14 +31,14 @@ public class NormalMenu extends Sprite{
 		openItem.addActionListener(__menuItemAct);
 		openItem.setAccelerator(new KeySequence(KeyStroke.VK_CONTROL, KeyStroke.VK_O));
 		fileMenu.append(new JSeparator(JSeparator.HORIZONTAL));
-		fileMenu.addMenuItem("Save").addActionListener(__menuItemAct);
+		fileMenu.addMenuItem("&Save").addActionListener(__menuItemAct);
 		fileMenu.addMenuItem("Save").addActionListener(__menuItemAct);
 		fileMenu.addMenuItem("Close").addActionListener(__menuItemAct);
 		fileMenu.append(new JSeparator(JSeparator.HORIZONTAL));
 		fileMenu.addMenuItem("Exit").addActionListener(__menuItemAct);
 		bar.append(fileMenu);
 		
-		var editMenu:JMenu = new JMenu("Edit");
+		var editMenu:JMenu = new JMenu("&Edit");
 		editMenu.addMenuItem("Copy").addActionListener(__menuItemAct);
 		editMenu.addMenuItem("Cut").addActionListener(__menuItemAct);
 		editMenu.addMenuItem("Paste").addActionListener(__menuItemAct);
