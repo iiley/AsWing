@@ -272,13 +272,13 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		
 		// layout the text and icon
 		var text:String = layoutMenuItem(
-			font, b.getText(), acceleratorFont, acceleratorText, b.getIcon(),
+			font, b.getDisplayText(), acceleratorFont, acceleratorText, b.getIcon(),
 			checkIcon, arrowIcon,
 			b.getVerticalAlignment(), b.getHorizontalAlignment(),
 			b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
 			viewRect, iconRect, textRect, acceleratorRect, 
 			checkIconRect, arrowIconRect,
-			b.getText() == null ? 0 : defaultTextIconGap,
+			b.getDisplayText() == null ? 0 : defaultTextIconGap,
 			defaultTextIconGap
 		);
 		
@@ -497,7 +497,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 													 arrowIcon:Icon,
 													 defaultTextIconGap:int):IntDimension{
 		var icon:Icon = b.getIcon(); 
-		var text:String = b.getText();
+		var text:String = b.getDisplayText();
 		var acceleratorText:String = getAcceleratorText(b);
 
 		var font:ASFont = b.getFont();
