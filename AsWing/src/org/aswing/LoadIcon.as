@@ -57,7 +57,8 @@ public class LoadIcon extends FloorIcon
 	 */
 	private function __onLoadInit(e:Event):void{
 		this.setLoaded(true);
-		c.repaint();
+		if (c != null)
+			c.repaint();
 	}
 	
 	private function __onLoadError(e:IOErrorEvent):void{
