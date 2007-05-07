@@ -150,8 +150,8 @@ public class JColorChooser extends AbstractColorChooserPanel {
 	 * @param (optional)location the location of the dialog to show, default is the center of the screen
 	 * @return the color chooser
 	 */
-	public static function showDialog(component:Component, title:String, initialColor:ASColor, modal:Boolean, 
-										okHandler:Function, cancelHandler:Function, location:IntPoint):JColorChooser{
+	public static function showDialog(component:Component, title:String, initialColor:ASColor, modal:Boolean=true, 
+										okHandler:Function=null, cancelHandler:Function=null, location:IntPoint=null):JColorChooser{
 		var chooser:JColorChooser = new JColorChooser();
 		chooser.setSelectedColor(initialColor);
 		var frame:JFrame = createDialog(chooser, 
@@ -191,23 +191,23 @@ public class JColorChooser extends AbstractColorChooserPanel {
 	 * @param (optional)cancelHandler the function will be called when user canceled the choosing
 	 * @return the chooser dialog
 	 */	
-	public static function createDialog(chooser:JColorChooser, component:Component, title:String, modal:Boolean, 
-										okHandler:Function, cancelHandler:Function):JFrame{
+	public static function createDialog(chooser:JColorChooser, component:Component, title:String, modal:Boolean=true, 
+										okHandler:Function=null, cancelHandler:Function=null):JFrame{
 		var frame:JFrame = new JFrame(AsWingUtils.getOwnerAncestor(component), title, modal);
 		
 		frame.setContentPane(chooser);
 		frame.setResizable(false);
 		
 		chooser.getOkButton().addActionListener(function():void{
-			okHandler(chooser.getSelectedColor());
+			if(okHandler != null) okHandler(chooser.getSelectedColor());
 			frame.tryToClose();
 		});
 		chooser.getCancelButton().addActionListener(function():void{
 			frame.tryToClose();
-			cancelHandler();
+			if(cancelHandler != null) cancelHandler();
 		});
 		frame.addEventListener(FrameEvent.FRAME_CLOSING, function():void{
-			cancelHandler();
+			if(cancelHandler != null) cancelHandler();
 		});
 		frame.pack();
 		return frame;
