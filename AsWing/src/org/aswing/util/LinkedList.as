@@ -176,11 +176,19 @@ public class LinkedList implements List
 		if(index == 0){
 			element = head.getData();
 			head = head.getNextNode();
-			head.setPrevNode(null);
+			if(head == null){
+				tail = null;
+			}else{
+				head.setPrevNode(null);
+			}
 		}else if(index == size() - 1){
 			element = tail.getData();
 			tail = tail.getPrevNode();
-			tail.setNextNode(null);
+			if(tail == null){
+				head = null;
+			}else{
+				tail.setNextNode(null);
+			}
 		}else{
 			var preNode:ListNode = getNodeAt(index-1);
 			var nexNode:ListNode = preNode.getNextNode().getNextNode();
