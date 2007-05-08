@@ -87,7 +87,7 @@ public class BasicMenuUI extends BasicMenuItemUI{
 	 * SubUI override this to do different
 	 */
 	override protected function shouldPaintSelected():Boolean{
-		return menuItem.getModel().isArmed() || menuItem.isSelected();
+		return menuItem.getModel().isRollOver() || menuItem.isSelected();
 	}
 	
 	//---------------------
