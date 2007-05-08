@@ -203,23 +203,29 @@ public class LinkedList implements List
 	public function remove(element:*):* {
 		for(var node:ListNode = head; node!=null; node=node.getNextNode()){
 			if(node.getData() == element){
-				if(node == head){
-					head = head.getNextNode();
-					head.setPrevNode(null);
-				}else if(node == tail){
-					tail = tail.getPrevNode();
-					tail.setNextNode(null);
-				}else{
-					var preNode:ListNode = node.getPrevNode();
-					var nexNode:ListNode = node.getNextNode();
-					preNode.setNextNode(nexNode);
-					nexNode.setPrevNode(preNode);
-				}
-				count --;
+				removeNode(node);
 				return node.getData();
 			}
 		}
 		return undefined;
+	}
+	
+	public function removeNode(node:ListNode):void{
+		if(node == head && node == tail){
+			head = tail = null;
+		}else if(node == head){
+			head = head.getNextNode();
+			head.setPrevNode(null);
+		}else if(node == tail){
+			tail = tail.getPrevNode();
+			tail.setNextNode(null);
+		}else{
+			var preNode:ListNode = node.getPrevNode();
+			var nexNode:ListNode = node.getNextNode();
+			preNode.setNextNode(nexNode);
+			nexNode.setPrevNode(preNode);
+		}
+		count --;
 	}
 	
 	/**
