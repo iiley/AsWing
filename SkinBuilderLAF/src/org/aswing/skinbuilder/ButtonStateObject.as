@@ -75,12 +75,14 @@ public class ButtonStateObject extends Sprite{
 		}
 		if(image != lastViewedImage){
 			if(lastViewedImage) lastViewedImage.visible = false;
-			image.visible = true;
+			if(image) image.visible = true;
 			lastViewedImage = image;
 		}
 		if(r != null){
-			image.width = r.width;
-			image.height = r.height;
+			if(image){
+				image.width = r.width;
+				image.height = r.height;
+			}
 			this.x = r.x;
 			this.y = r.y;
 		}

@@ -15,9 +15,11 @@ import org.aswing.error.ImpMissError;
 public class SinglePicBackground implements GroundDecorator, UIResource{
 	protected var image:DisplayObject;
 	protected var loaded:Boolean;
+	protected var avoidBorderMargin:Boolean;
 	
 	public function SinglePicBackground(){
 		loaded = false;
+		avoidBorderMargin = true;
 	}
 	
 	protected function getDefaltsKey():String{
@@ -36,8 +38,17 @@ public class SinglePicBackground implements GroundDecorator, UIResource{
 		checkLoad(c);
 		if(image){
 			//not use bounds, avoid border margin
-			image.width = c.width;
-			image.height = c.height;
+			if(avoidBorderMargin){
+				image.x = 0;
+				image.y = 0;
+				image.width = c.width;
+				image.height = c.height;
+			}else{
+				image.x = bounds.x;
+				image.y = bounds.y;
+				image.width = bounds.width;
+				image.height = bounds.height;
+			}
 		}
 	}
 	
