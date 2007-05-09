@@ -446,6 +446,13 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/ComboBox_uneditableImage.png", scaleGridTop="3", scaleGridBottom="20", 
 		scaleGridLeft="3", scaleGridRight="131")]
 	private var ComboBox_uneditableImage:Class;
+	//by default the rollover state is null(means same to normal state), but you can add it by remove the comments
+	//[Embed(source="assets/ComboBox_defaultRolloverImage.png", scaleGridTop="3", scaleGridBottom="20", 
+	//	scaleGridLeft="3", scaleGridRight="131")]
+	private var ComboBox_defaultRolloverImage:Class;
+	//[Embed(source="assets/ComboBox_uneditableRolloverImage.png", scaleGridTop="3", scaleGridBottom="20", 
+	//	scaleGridLeft="3", scaleGridRight="131")]
+	private var ComboBox_uneditableRolloverImage:Class;
 	
 	[Embed(source="assets/ComboBox_disabledImage.png", scaleGridTop="3", scaleGridBottom="20", 
 		scaleGridLeft="3", scaleGridRight="131")]
@@ -1109,6 +1116,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ComboBox.defaultImage", ComboBox_defaultImage, 
 			"ComboBox.uneditableImage", ComboBox_uneditableImage, 
 			"ComboBox.disabledImage", ComboBox_disabledImage, 
+			"ComboBox.defaultRolloverImage", ComboBox_defaultRolloverImage, 
+			"ComboBox.uneditableRolloverImage", ComboBox_uneditableRolloverImage, 
 			"ComboBox.arrowButton.defaultImage", ComboBox_arrowButton_defaultImage,
 			"ComboBox.arrowButton.pressedImage", ComboBox_arrowButton_pressedImage,
 			"ComboBox.arrowButton.disabledImage", ComboBox_arrowButton_disabledImage,

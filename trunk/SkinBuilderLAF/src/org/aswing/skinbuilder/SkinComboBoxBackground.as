@@ -6,7 +6,7 @@ package org.aswing.skinbuilder{
 	
 import org.aswing.*;
 
-public class SkinComboBoxBackground extends SkinAbsEditorBackground{
+public class SkinComboBoxBackground extends SkinAbsEditorRolloverEnabledBackground{
 	
 	public function SkinComboBoxBackground(){
 		super();
