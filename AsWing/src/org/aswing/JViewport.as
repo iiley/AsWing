@@ -44,6 +44,32 @@ public class JViewport extends Container implements Viewportable{
  	 */
  	public static const AUTO_INCREMENT:int = int.MIN_VALUE;
  	
+	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+	public static var CENTER:int  = AsWingConstants.CENTER;
+	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+	public static var TOP:int     = AsWingConstants.TOP;
+	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+    public static var LEFT:int    = AsWingConstants.LEFT;
+	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+    public static var BOTTOM:int  = AsWingConstants.BOTTOM;
+ 	/**
+	 * A fast access to AsWingConstants Constant
+	 * @see org.aswing.AsWingConstants
+	 */
+    public static var RIGHT:int   = AsWingConstants.RIGHT;
+ 	
 	private var verticalUnitIncrement:int;
 	private var verticalBlockIncrement:int;
 	private var horizontalUnitIncrement:int;
@@ -51,6 +77,9 @@ public class JViewport extends Container implements Viewportable{
 	
 	private var tracksHeight:Boolean;
 	private var tracksWidth:Boolean;
+	
+    private var verticalAlignment:int;
+    private var horizontalAlignment:int;
 	
 	private var view:Component;
 	
@@ -69,6 +98,10 @@ public class JViewport extends Container implements Viewportable{
 		verticalBlockIncrement = AUTO_INCREMENT;
 		horizontalUnitIncrement = AUTO_INCREMENT;
 		horizontalBlockIncrement = AUTO_INCREMENT;
+		
+    	verticalAlignment = CENTER;
+    	horizontalAlignment = CENTER;
+    	
 		if(view != null) setView(view);
 		setLayout(new ViewportLayout());
 		updateUI();
@@ -142,7 +175,72 @@ public class JViewport extends Container implements Viewportable{
 	public function isTracksHeight():Boolean{
 		return tracksHeight;
 	}
-	
+
+    /**
+     * Returns the vertical alignment of the view if the view is lower than extent height.
+     *
+     * @return the <code>verticalAlignment</code> property, one of the
+     *		following values: 
+     * <ul>
+     * <li>AsWingConstants.CENTER (the default)
+     * <li>AsWingConstants.TOP
+     * <li>AsWingConstants.BOTTOM
+     * </ul>
+     */
+    public function getVerticalAlignment():int {
+        return verticalAlignment;
+    }
+    
+    /**
+     * Sets the vertical alignment of the view if the view is lower than extent height.
+     * @param alignment  one of the following values:
+     * <ul>
+     * <li>AsWingConstants.CENTER (the default)
+     * <li>AsWingConstants.TOP
+     * <li>AsWingConstants.BOTTOM
+     * </ul>
+     */
+    public function setVerticalAlignment(alignment:int):void {
+        if (alignment == verticalAlignment){
+        	return;
+        }else{
+        	verticalAlignment = alignment;
+        	setViewPosition(getViewPosition());//make it to be restricted
+        }
+    }
+    
+    /**
+     * Returns the horizontal alignment of the view if the view is narrower than extent width.
+     * @return the <code>horizontalAlignment</code> property,
+     *		one of the following values:
+     * <ul>
+     * <li>AsWingConstants.RIGHT (the default)
+     * <li>AsWingConstants.LEFT
+     * <li>AsWingConstants.CENTER
+     * </ul>
+     */
+    public function getHorizontalAlignment():int{
+        return horizontalAlignment;
+    }
+    
+    /**
+     * Sets the horizontal alignment of the view if the view is narrower than extent width.
+     * @param alignment  one of the following values:
+     * <ul>
+     * <li>AsWingConstants.RIGHT (the default)
+     * <li>AsWingConstants.LEFT
+     * <li>AsWingConstants.CENTER
+     * </ul>
+     */
+    public function setHorizontalAlignment(alignment:int):void {
+        if (alignment == horizontalAlignment){
+        	return;
+        }else{
+        	horizontalAlignment = alignment;
+        	setViewPosition(getViewPosition());//make it to be restricted
+        }
+    }
+		
 	/**
 	 * Sets the view component.
 	 * 
@@ -358,7 +456,7 @@ public class JViewport extends Container implements Viewportable{
 	 * if it is located in a <code>JScrollPane</code>.
 	 */
 	public function scrollToBottomLeft():void{
-		setViewPosition(new IntPoint(0, getViewMaxPos().y));
+		setViewPosition(new IntPoint(0, int.MAX_VALUE));
 	}
 	/**
 	 * Scrolls to view bottom right content. 
@@ -366,7 +464,7 @@ public class JViewport extends Container implements Viewportable{
 	 * if it is located in a <code>JScrollPane</code>.
 	 */	
 	public function scrollToBottomRight():void{
-		setViewPosition(getViewMaxPos());
+		setViewPosition(new IntPoint(int.MAX_VALUE, int.MAX_VALUE));
 	}
 	/**
 	 * Scrolls to view top left content. 
@@ -382,25 +480,42 @@ public class JViewport extends Container implements Viewportable{
 	 * if it is located in a <code>JScrollPane</code>.
 	 */	
 	public function scrollToTopRight():void{
-		setViewPosition(new IntPoint(getViewMaxPos().x, 0));
+		setViewPosition(new IntPoint(int.MAX_VALUE, 0));
 	}
 	
 	/**
-	 * Restrict the view pos in valid range.(between min, max value)
-	 */
+	 * Restrict the view pos in valid range based on the align.
+	 */	
 	protected function restrictionViewPos(p:IntPoint):IntPoint{
-		var maxPos:IntPoint = getViewMaxPos();
-		p.x = Math.max(0, Math.min(maxPos.x, p.x));
-		p.y = Math.max(0, Math.min(maxPos.y, p.y));
-		return p;
-	}
-	
-	private function getViewMaxPos():IntPoint{
 		var showSize:IntDimension = getExtentSize();
 		var viewSize:IntDimension = getViewSize();
-		var p:IntPoint = new IntPoint(viewSize.width-showSize.width, viewSize.height-showSize.height);
-		if(p.x < 0) p.x = 0;
-		if(p.y < 0) p.y = 0;
+		if(showSize.width < viewSize.width){
+			p.x = Math.max(0, Math.min(viewSize.width-showSize.width, p.x));
+		}else if(showSize.width > viewSize.width){
+			if(horizontalAlignment == CENTER){
+				p.x = -(showSize.width - viewSize.width)/2;
+			}else if(horizontalAlignment == RIGHT){
+				p.x = -(showSize.width - viewSize.width);
+			}else{
+				p.x = 0;
+			}
+		}else{//equals
+			p.x = 0;
+		}
+		
+		if(showSize.height < viewSize.height){
+			p.y = Math.max(0, Math.min(viewSize.height-showSize.height, p.y));
+		}else if(showSize.height > viewSize.height){
+			if(verticalAlignment == CENTER){
+				p.y = -(showSize.height - viewSize.height)/2;
+			}else if(verticalAlignment == BOTTOM){
+				p.y = -(showSize.height - viewSize.height);
+			}else{
+				p.y = 0;
+			}
+		}else{//equals
+			p.y = 0;
+		}
 		return p;
 	}
     	
