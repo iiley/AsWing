@@ -883,8 +883,48 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/TableHeader_cell_rolloverImage.png")]
 	private var TableHeader_cell_rolloverImage:Class;
 	
+		
+	
+	//----------------------------------------------------------------------
+	//___________________ Menu containers scale-9 or not ___________________
+	//======================================================================
+	//not specified a image, so it will be solid bg, however, you can add the image
+	//[Embed(source="assets/MenuBar_bgImage.png")]
+	private var MenuBar_bgImage:Class;
+	//[Embed(source="assets/PopupMenu_bgImage.png")]
+	private var PopupMenu_bgImage:Class;
 	
 	
+		
+	
+	//----------------------------------------------------------------------
+	//______________________ MenuItemss scale-9 or not _____________________
+	//======================================================================
+	//Just defined roll over image, however, you can add other state images.
+	[Embed(source="assets/Menu_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
+	private var Menu_rolloverImage:Class;
+	
+	[Embed(source="assets/MenuItem_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
+	private var MenuItem_rolloverImage:Class;
+	
+	[Embed(source="assets/CheckBoxMenuItem_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
+	private var CheckBoxMenuItem_rolloverImage:Class;
+	
+	[Embed(source="assets/RadioButtonMenuItem_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
+		scaleGridLeft="6", scaleGridRight="51")]
+	private var RadioButtonMenuItem_rolloverImage:Class;
+	
+	[Embed(source="assets/Menu_arrowIconImage.png")]
+	private var Menu_arrowIconImage:Class;
+	
+	[Embed(source="assets/RadioButtonMenuItem_checkIconImage.png")]
+	private var RadioButtonMenuItem_checkIconImage:Class;
+	
+	[Embed(source="assets/CheckBoxMenuItem_checkIconImage.png")]
+	private var CheckBoxMenuItem_checkIconImage:Class;
 	
 	//-----------------------------------------------------------------------------
 	//___________________________ initComponentDefaults ___________________________
@@ -1289,6 +1329,78 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ToolBar.focusable", false 
 		];
 		table.putDefaults(comDefaults);
+		
+
+	     // *** MenuItem
+	    comDefaults = [
+	    	"MenuItem.opaque", false,  
+		    "MenuItem.selectionBackground", table.get("menu"),
+		    "MenuItem.selectionForeground", table.get("menuText"),
+		    "MenuItem.acceleratorSelectionForeground", table.get("menuText"),
+			"MenuItem.defaultImage", null, 
+			"MenuItem.pressedImage", null, 
+			"MenuItem.disabledImage", null,
+			"MenuItem.rolloverImage", MenuItem_rolloverImage, 
+			"MenuItem.bg", SkinMenuItemBackground, 
+			"MenuItem.margin", new InsetsUIResource(0, 0, 0, 0)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** CheckBoxMenuItem
+	    comDefaults = [
+	    	"CheckBoxMenuItem.opaque", false,  
+		    "CheckBoxMenuItem.selectionBackground", table.get("menu"),
+		    "CheckBoxMenuItem.selectionForeground", table.get("menuText"),
+		    "CheckBoxMenuItem.acceleratorSelectionForeground", table.get("menuText"),
+			"CheckBoxMenuItem.defaultImage", null, 
+			"CheckBoxMenuItem.pressedImage", null, 
+			"CheckBoxMenuItem.disabledImage", null,
+			"CheckBoxMenuItem.rolloverImage", CheckBoxMenuItem_rolloverImage, 
+			"CheckBoxMenuItem.bg", SkinCheckBoxMenuItemBackground, 
+			"CheckBoxMenuItem.checkIconImage", CheckBoxMenuItem_checkIconImage, 
+	    	"CheckBoxMenuItem.checkIcon", SkinCheckBoxMenuItemCheckIcon,
+			"CheckBoxMenuItem.margin", new InsetsUIResource(0, 0, 0, 0)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** RadioButtonMenuItem
+	    comDefaults = [
+	    	"RadioButtonMenuItem.opaque", false,  
+		    "RadioButtonMenuItem.selectionBackground", table.get("menu"),
+		    "RadioButtonMenuItem.selectionForeground", table.get("menuText"),
+		    "RadioButtonMenuItem.acceleratorSelectionForeground", table.get("menuText"),
+			"RadioButtonMenuItem.defaultImage", null, 
+			"RadioButtonMenuItem.pressedImage", null, 
+			"RadioButtonMenuItem.disabledImage", null,
+			"RadioButtonMenuItem.rolloverImage", RadioButtonMenuItem_rolloverImage, 
+			"RadioButtonMenuItem.bg", SkinRadioButtonMenuItemBackground, 
+			"RadioButtonMenuItem.checkIconImage", RadioButtonMenuItem_checkIconImage, 
+	    	"RadioButtonMenuItem.checkIcon", SkinRadioButtonMenuItemCheckIcon, 
+			"RadioButtonMenuItem.margin", new InsetsUIResource(0, 0, 0, 0)
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** Menu
+	    comDefaults = [
+			"Menu.arrowIconImage", Menu_arrowIconImage, 
+	    	"Menu.arrowIcon", SkinMenuArrowIcon
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	     // *** PopupMenu
+	    comDefaults = [
+	        "PopupMenu.bgImage", PopupMenu_bgImage, 
+	        "PopupMenu.bg", SkinPopupMenuBackground
+	    ];
+	    table.putDefaults(comDefaults);
+	    
+	    // *** MenuBar
+	    comDefaults = [
+	        "MenuBar.bgImage", MenuBar_bgImage, 
+	        "MenuBar.bg", SkinMenuBarBackground,
+	    	"MenuBar.border", undefined
+	    ];
+	    table.putDefaults(comDefaults);		
 	}	
 }
 }
