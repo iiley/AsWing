@@ -38,7 +38,12 @@ public interface MutableTreeNode extends TreeNode{
      * Resets the user object of the receiver to <code>object</code>.
      */
     function setUserObject(object:*):void;
-
+	
+	/**
+	 * Returns the user object.
+	 */
+	function getUserObject():*;
+	
     /**
      * Removes the receiver from its parent.
      */
