@@ -71,6 +71,11 @@ public class JMenuBar extends Container implements MenuElement{
     	return org.aswing.plaf.basic.BasicMenuBarUI;
     }
 	
+	/**
+	 * Adds a menu to the menu bar.
+	 * @param menu the menu to be added
+	 * @return the menu be added
+	 */
 	public function addMenu(menu:JMenu):JMenu{
 		append(menu);
 		return menu;
@@ -78,6 +83,7 @@ public class JMenuBar extends Container implements MenuElement{
 	
 	/**
 	 * Returns the menu component at index, if it is not a menu component at that index, null will be returned.
+	 * @return a menu instance or null
 	 */
 	public function getMenu(index:int):JMenu{
 		var com:Component = getComponent(index);

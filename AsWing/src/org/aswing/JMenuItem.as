@@ -65,6 +65,16 @@ public class JMenuItem extends AbstractButton implements MenuElement{
 		return "MenuItemUI";
 	}
 	
+    /**
+     * Sets the key combination which invokes the menu item's
+     * action listeners without navigating the menu hierarchy. It is the
+     * UI's responsibility to install the correct action.  Note that 
+     * when the keyboard accelerator is typed, it will work whether or
+     * not the menu is currently displayed.
+     *
+     * @param keyStroke the <code>KeyType</code> which will
+     *		serve as an accelerator 
+     */
 	public function setAccelerator(acc:KeyType):void{
 		if(accelerator != acc){
 			accelerator = acc;
@@ -73,6 +83,12 @@ public class JMenuItem extends AbstractButton implements MenuElement{
 		}
 	}
 	
+    /**
+     * Returns the <code>KeyType</code> which serves as an accelerator 
+     * for the menu item.
+     * @return a <code>KeyType</code> object identifying the
+     *		accelerator key
+     */	
 	public function getAccelerator():KeyType{
 		return accelerator;
 	}
@@ -124,7 +140,7 @@ public class JMenuItem extends AbstractButton implements MenuElement{
 	}
 	
 	//--------------------------------
-		
+	
     public function setInUse(b:Boolean):void{
     	if(menuInUse != b){
 	    	menuInUse = b;
@@ -139,15 +155,15 @@ public class JMenuItem extends AbstractButton implements MenuElement{
 	public function menuSelectionChanged(isIncluded : Boolean) : void {
 		getModel().setRollOver(isIncluded);
 	}
-
+	
 	public function getSubElements() : Array {
 		return [];
 	}
-
+	
 	public function getMenuComponent() : Component {
 		return this;
 	}
-
+	
 	public function processKeyEvent(code : uint) : void {
 		getMenuElementUI().processKeyEvent(code);
 	}	
