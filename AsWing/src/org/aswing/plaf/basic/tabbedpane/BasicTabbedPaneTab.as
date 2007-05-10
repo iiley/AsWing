@@ -10,6 +10,7 @@ import org.aswing.border.EmptyBorder;
 /**
  * BasicTabbedPaneTab implemented with a JLabel 
  * @author iiley
+ * @private
  */
 public class BasicTabbedPaneTab implements Tab{
 	

@@ -8,25 +8,7 @@ import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.util.*;
 import org.aswing.plaf.*;
-import org.aswing.table.TableColumnModelListener;
-import org.aswing.table.TableModel;
-import org.aswing.table.TableColumnModel;
-import org.aswing.table.JTableHeader;
-import org.aswing.table.TableCellFactory;
-import org.aswing.table.TableCellEditor;
-import org.aswing.table.TableColumn;
-import org.aswing.table.Resizable3;
-import org.aswing.table.Resizable2;
-import org.aswing.table.TableColumnModelEvent;
-import org.aswing.table.TableCell;
-import org.aswing.table.Resizable3Imp1;
-import org.aswing.table.Resizable3Imp2;
-import org.aswing.table.Resizable2Imp1;
-import org.aswing.table.DefaultTableModel;
-import org.aswing.table.DefaultTableColumnModel;
-import org.aswing.table.DefaultTextCell;
-import org.aswing.table.PoorTextCell;
-import org.aswing.table.GeneralTableCellFactoryUIResource;
+import org.aswing.table.*;
 import org.aswing.plaf.basic.BasicTableUI;
 import flash.utils.getTimer;
 
@@ -607,11 +589,11 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @see     #doLayout()
 	 */	
 	public function setAutoResizeMode(mode:int):void{
-		if (((((mode == AUTO_RESIZE_OFF) 
-		|| (mode == AUTO_RESIZE_NEXT_COLUMN)) 
-		|| (mode == AUTO_RESIZE_SUBSEQUENT_COLUMNS)) 
-		|| (mode == AUTO_RESIZE_LAST_COLUMN)) 
-		|| (mode == AUTO_RESIZE_ALL_COLUMNS))
+		if (mode == AUTO_RESIZE_OFF 
+			|| mode == AUTO_RESIZE_NEXT_COLUMN 
+			|| mode == AUTO_RESIZE_SUBSEQUENT_COLUMNS 
+			|| mode == AUTO_RESIZE_LAST_COLUMN 
+			|| mode == AUTO_RESIZE_ALL_COLUMNS)
 		{
 			if(mode != autoResizeMode){
 				var old:int = autoResizeMode;
@@ -945,8 +927,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
      * @param programmatic indicate if this is a programmatic change
 	 */	
 	public function clearSelection(programmatic:Boolean=true):void{
-		selectionModel.clearSelection();
-		columnModel.getSelectionModel().clearSelection();
+		selectionModel.clearSelection(programmatic);
+		columnModel.getSelectionModel().clearSelection(programmatic);
 	}
 	
 	private function boundRow(row:int):int{
@@ -975,7 +957,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
      * @param programmatic indicate if this is a programmatic change
 	 */	
 	public function setRowSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
-		selectionModel.setSelectionInterval(boundRow(index0), boundRow(index1));
+		selectionModel.setSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
 	}
 	
 	/**
@@ -990,7 +972,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
      * @param programmatic indicate if this is a programmatic change
 	 */	
 	public function setColumnSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
-		columnModel.getSelectionModel().setSelectionInterval(boundColumn(index0), boundColumn(index1));
+		columnModel.getSelectionModel().setSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
 	}
 	
 	/**
@@ -1004,7 +986,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
      * @param programmatic indicate if this is a programmatic change
 	 */	
 	public function addRowSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
-		selectionModel.addSelectionInterval(boundRow(index0), boundRow(index1));
+		selectionModel.addSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
 	}
 	
 	/**
@@ -1033,7 +1015,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
      * @param programmatic indicate if this is a programmatic change
 	 */	
 	public function removeRowSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
-		selectionModel.removeSelectionInterval(boundRow(index0), boundRow(index1));
+		selectionModel.removeSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
 	}
 	
 	/**
@@ -1047,7 +1029,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
      * @param programmatic indicate if this is a programmatic change
 	 */	
 	public function removeColumnSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
-		columnModel.getSelectionModel().removeSelectionInterval(boundColumn(index0), boundColumn(index1));
+		columnModel.getSelectionModel().removeSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
 	}
 	
 	/**
@@ -1767,28 +1749,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private function getResizingColumn():TableColumn{
 		return (((tableHeader == null) ? null : tableHeader.getResizingColumn()));
 	}
-	
-//	public @Deprecated function sizeColumnsToFit(lastColumnOnly:Boolean):void{
-//		var oldAutoResizeMode:int = autoResizeMode;
-//		setAutoResizeMode((lastColumnOnly ? AUTO_RESIZE_LAST_COLUMN : AUTO_RESIZE_ALL_COLUMNS));
-//		sizeColumnsToFit(- 1);
-//		setAutoResizeMode(oldAutoResizeMode);
-//	}
-//
-//	public function sizeColumnsToFit(resizingColumn:int):void{
-//		if (resizingColumn == (- 1)){
-//			setWidthsFromPreferredWidths(false);
-//		}else{
-//			if (autoResizeMode == AUTO_RESIZE_OFF){
-//				var aColumn:TableColumn = getColumnModel().getColumn(resizingColumn);
-//				aColumn.setPreferredWidth(aColumn.getWidth());
-//			}else{
-//				var delta:int = (getWidth() - getColumnModel().getTotalColumnWidth());
-//				accommodateDelta(resizingColumn, delta);
-//				setWidthsFromPreferredWidths(true);
-//			}
-//		}
-//	}
 	
 	private function setWidthsFromPreferredWidths(inverse:Boolean):void{
 		var insets:Insets = getInsets();

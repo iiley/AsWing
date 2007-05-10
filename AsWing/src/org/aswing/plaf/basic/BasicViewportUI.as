@@ -11,6 +11,9 @@ import org.aswing.geom.IntPoint;
 import flash.ui.Keyboard;
 import flash.events.MouseEvent;
 
+/**
+ * @private
+ */
 public class BasicViewportUI extends BaseComponentUI{
 	
 	protected var viewport:JViewport;

@@ -8,6 +8,9 @@ import org.aswing.JSplitPane;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 
+/**
+ * @private
+ */
 public class DividerIcon implements Icon
 {
 	public function DividerIcon(){

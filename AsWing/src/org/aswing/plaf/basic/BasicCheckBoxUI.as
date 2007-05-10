@@ -7,6 +7,7 @@ package org.aswing.plaf.basic{
 /**
  * Basic CheckBox implementation.
  * @author iiley
+ * @private
  */		
 public class BasicCheckBoxUI extends BasicRadioButtonUI{
 	

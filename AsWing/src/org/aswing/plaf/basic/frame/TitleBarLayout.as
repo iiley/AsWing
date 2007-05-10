@@ -12,6 +12,9 @@ import org.aswing.Insets;
 import org.aswing.LayoutManager;
 import org.aswing.plaf.UIResource;
 
+/**
+ * @private
+ */
 public class TitleBarLayout extends FlowLayout implements UIResource{
 	
 	protected static const ICON_TITLE_WIDTH:int = 50;

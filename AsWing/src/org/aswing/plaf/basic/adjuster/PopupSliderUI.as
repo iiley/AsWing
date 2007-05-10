@@ -11,6 +11,7 @@ import org.aswing.geom.IntRectangle;
 /**
  * SliderUI for JAdjuster popup slider.
  * @author iiley
+ * @private
  */
 public class PopupSliderUI extends BasicSliderUI{
 	

@@ -11,6 +11,7 @@ import org.aswing.geom.*;
 /**
  * The icon for frame iconified.
  * @author iiley
+ * @private
  */
 public class FrameIconifiedIcon extends FrameIcon{
 	

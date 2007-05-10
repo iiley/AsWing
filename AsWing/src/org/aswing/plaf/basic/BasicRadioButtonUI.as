@@ -11,6 +11,7 @@ import org.aswing.graphics.*;
 /**
  * Basic RadioButton implementation.
  * @author iiley
+ * @private
  */	
 public class BasicRadioButtonUI extends BasicToggleButtonUI{
 	

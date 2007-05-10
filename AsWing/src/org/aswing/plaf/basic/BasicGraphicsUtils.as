@@ -9,7 +9,10 @@ import org.aswing.graphics.*;
 import org.aswing.geom.*;
 import org.aswing.*;
 import flash.geom.Matrix;
-	
+
+/**
+ * @private
+ */
 public class BasicGraphicsUtils{
 		
 	/**

@@ -13,6 +13,9 @@ import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.UIResource;
 import flash.geom.Matrix;
 
+/**
+ * @private
+ */
 public class RadioButtonIcon implements Icon, UIResource
 {
 	private var shadow:ASColor;

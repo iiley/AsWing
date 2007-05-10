@@ -11,6 +11,7 @@ import org.aswing.tree.TreePath;
 
 /**
  * The tree expand control graphics
+ * @private
  */
 public interface ExpandControl{
 	

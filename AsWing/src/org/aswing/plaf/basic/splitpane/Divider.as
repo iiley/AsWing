@@ -5,6 +5,9 @@ import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.basic.icon.SolidArrowIcon;
 
+/**
+ * @private
+ */
 public class Divider extends Container
 {
 	

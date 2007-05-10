@@ -13,6 +13,7 @@ import org.aswing.geom.*;
 /**
  * The basic scroll pane ui imp.
  * @author iiley
+ * @private
  */
 public class BasicScrollPaneUI extends BaseComponentUI{
 

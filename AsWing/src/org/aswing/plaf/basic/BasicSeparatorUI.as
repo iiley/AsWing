@@ -17,6 +17,7 @@ import org.aswing.plaf.BaseComponentUI;
  * is a "combined" view/controller.
  *
  * @author senkay
+ * @private
  */
 public class BasicSeparatorUI extends BaseComponentUI
 {

@@ -19,6 +19,7 @@ import org.aswing.plaf.basic.tree.ExpandControl;
 
 /**
  * @author iiley
+ * @private
  */
 public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensions, TreeModelListener{
 	

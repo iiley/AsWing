@@ -8,6 +8,9 @@ import org.aswing.*;
 import org.aswing.plaf.BaseComponentUI;
 import org.aswing.geom.IntDimension;
 
+/**
+ * @private
+ */
 public class BasicSpacerUI extends BaseComponentUI
 {
 	public function BasicSpacerUI(){

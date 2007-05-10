@@ -22,6 +22,7 @@ import flash.events.TimerEvent;
 /**
  * Basic accordion ui imp.
  * @author iiley
+ * @private
  */
 public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 	

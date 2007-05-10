@@ -10,6 +10,9 @@ import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.tree.TreePath;
 
+/**
+ * @private
+ */
 public class BasicExpandControl implements ExpandControl, UIResource{
 	
 	public function paintExpandControl(c:Component, g:Graphics2D, bounds:IntRectangle, 

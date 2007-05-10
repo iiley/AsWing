@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 
 /**
  * @author iiley
+ * @private
  */
 public class BasicTableHeaderUI extends BaseComponentUI{
 	

@@ -13,6 +13,9 @@ import org.aswing.plaf.*;
 import org.aswing.plaf.basic.background.ProgressBarIcon;
 import org.aswing.util.DepthManager;
 
+/**
+ * @private
+ */
 public class BasicProgressBarUI extends BaseComponentUI{
 	
 	protected var iconDecorator:GroundDecorator;

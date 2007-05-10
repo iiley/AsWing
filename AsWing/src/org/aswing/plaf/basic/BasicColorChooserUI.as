@@ -20,6 +20,7 @@ import org.aswing.plaf.BaseComponentUI;
 
 /**
  * @author iiley
+ * @private
  */
 public class BasicColorChooserUI extends BaseComponentUI {
 	

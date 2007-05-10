@@ -18,6 +18,10 @@ import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.BaseComponentUI;
+
+/**
+ * @private
+ */
 public class BasicColorSwatchesUI extends ColorSwatchesUI {
 	
 	private var colorSwatches:JColorSwatches;

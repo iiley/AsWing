@@ -8,6 +8,9 @@ import org.aswing.*;
 import org.aswing.border.*;
 import org.aswing.plaf.UIResource;
 
+/**
+ * @private
+ */
 public class ColorChooserBorder extends EmptyBorder implements UIResource{
 {
 	public function ColorChooserBorder(){

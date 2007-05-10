@@ -11,6 +11,7 @@ import org.aswing.geom.*;
 /**
  * The icon for frame normal.
  * @author iiley
+ * @private
  */
 public class FrameNormalIcon extends FrameIcon
 {

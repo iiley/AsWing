@@ -13,6 +13,7 @@ import org.aswing.geom.*;
 /**
  * The icon for frame close.
  * @author iiley
+ * @private
  */
 public class FrameCloseIcon extends FrameIcon
 {

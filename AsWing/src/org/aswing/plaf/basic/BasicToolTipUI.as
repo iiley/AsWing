@@ -9,6 +9,9 @@ import org.aswing.*;
 import org.aswing.event.ToolTipEvent;
 import flash.filters.DropShadowFilter;
 
+/**
+ * @private
+ */
 public class BasicToolTipUI extends BaseComponentUI{
 	
 	protected var tooltip:JToolTip;

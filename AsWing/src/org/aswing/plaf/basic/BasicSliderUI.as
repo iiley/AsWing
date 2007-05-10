@@ -18,6 +18,7 @@ import flash.display.Sprite;
 /**
  * Basic slider ui imp.
  * @author iiley
+ * @private
  */
 public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	

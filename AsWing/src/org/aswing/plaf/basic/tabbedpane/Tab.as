@@ -9,6 +9,7 @@ import org.aswing.*;
 /**
  * TabbedPane Tab
  * @author iiley
+ * @private
  */
 public interface Tab{
 

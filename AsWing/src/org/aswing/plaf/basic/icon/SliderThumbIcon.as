@@ -13,6 +13,9 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
 import org.aswing.ASColor;
 import org.aswing.geom.IntRectangle;
 
+/**
+ * @private
+ */
 public class SliderThumbIcon implements Icon, UIResource{
 	
 	protected var thumb:Sprite;

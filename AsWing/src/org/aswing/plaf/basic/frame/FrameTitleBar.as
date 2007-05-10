@@ -9,6 +9,7 @@ import org.aswing.*;
 /**
  * the title bar for frame.
  * @author iiley
+ * @private
  */
 public class FrameTitleBar extends Container{
 		

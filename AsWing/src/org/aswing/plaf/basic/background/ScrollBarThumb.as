@@ -19,6 +19,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
 /**
  * The thumb decorator for JScrollBar.
  * @author iiley
+ * @private
  */
 public class ScrollBarThumb implements GroundDecorator, UIResource
 {

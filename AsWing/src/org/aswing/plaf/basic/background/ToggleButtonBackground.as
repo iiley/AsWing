@@ -9,6 +9,9 @@ import org.aswing.graphics.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 import org.aswing.plaf.*;
 
+/**
+ * @private
+ */
 public class ToggleButtonBackground implements GroundDecorator, UIResource
 {
     private var shadow:ASColor;

@@ -14,6 +14,7 @@ import flash.display.Shape;
 /**
  * The default frame title icon.
  * @author iiley
+ * @private
  */
 public class TitleIcon implements Icon, UIResource{
 	

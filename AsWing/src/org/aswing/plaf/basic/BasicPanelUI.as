@@ -8,6 +8,10 @@ package org.aswing.plaf.basic
 import org.aswing.*;
 import org.aswing.plaf.BaseComponentUI;
 
+/**
+ * @private
+ * @author iiley
+ */
 public class BasicPanelUI extends BaseComponentUI
 {
 	public function BasicPanelUI()

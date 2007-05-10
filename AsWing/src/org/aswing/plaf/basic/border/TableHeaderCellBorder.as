@@ -11,6 +11,9 @@ import flash.display.DisplayObject;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.ComponentUI;
 
+/**
+ * @private
+ */
 public class TableHeaderCellBorder implements Border, UIResource{
 	
 	private var shadow:ASColor;
