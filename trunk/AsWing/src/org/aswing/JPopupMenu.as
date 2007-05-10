@@ -257,6 +257,9 @@ public class JPopupMenu extends Container implements MenuElement{
 		popup.pack();
 	}
 	
+	/**
+	 * Dispose(close) the popup.
+	 */
 	public function dispose():void{
 		popup.dispose();
 		if(isPopupMenu()){
