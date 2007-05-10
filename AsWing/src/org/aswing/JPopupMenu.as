@@ -35,8 +35,6 @@ public class JPopupMenu extends Container implements MenuElement{
 	protected var popup:JPopup;
 	protected var menuInUse:Boolean;
 	
-	private var mouseListenerTimer:Timer;
-	
 	/**
 	 * Create a popup menu
 	 * @see org.aswing.JPopup
@@ -58,10 +56,7 @@ public class JPopupMenu extends Container implements MenuElement{
 		
 		popup.addEventListener(ContainerEvent.COM_ADDED, __popMenuChildAdd);
 		popup.addEventListener(ContainerEvent.COM_REMOVED, __popMenuChildRemove);
-		
-		mouseListenerTimer = new Timer(40, false);
-		mouseListenerTimer.addActionListener(__mouseListenerTimerAct);
-		
+				
 		updateUI();
 	}
 
@@ -428,11 +423,11 @@ public class JPopupMenu extends Container implements MenuElement{
 	private function __popupShown(e:PopupEvent) : void {
 		var source:* = e.target;
 		showingMenuPopups.add(source);
-		//to delay a time to add the listener to avoid listening in a mouse down event
-		mouseListenerTimer.restart();
+		//to delay to next frame to add the listener to avoid listening in a mouse down event
+		AsWingManager.callNextFrame(__addMouseDownListenerToStage);
 	}
 	
-	private function __mouseListenerTimerAct(e:Event):void{
+	private function __addMouseDownListenerToStage():void{
 		if(showingMenuPopups.size()>0 && !popupMenuMouseDownListening){
 			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown);
 			popupMenuMouseDownListening = true;

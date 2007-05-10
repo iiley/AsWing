@@ -9,6 +9,7 @@ import org.aswing.error.AsWingManagerNotInited;
 import org.aswing.geom.IntDimension;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
+import flash.events.Event;
 
 /**
  * The main manager for AsWing framework.
@@ -26,6 +27,7 @@ public class AsWingManager{
     private static var INITIAL_STAGE_WIDTH:int;
     private static var INITIAL_STAGE_HEIGHT:int;
     private static var timer:Timer;
+    private static var nextFrameCalls:Array = new Array();
     
     /**
      * Sets the root container for AsWing components based on.
@@ -96,6 +98,7 @@ public class AsWingManager{
 			RepaintManager.getInstance().init(stage);
 			KeyboardManager.getInstance().init(stage);
 			FocusManager.getCurrentManager().init(stage);
+			stage.addEventListener(Event.ENTER_FRAME, __enterFrame);
 		}
 	}
 	
@@ -120,6 +123,10 @@ public class AsWingManager{
 		return stage;
 	}
 	
+	/**
+	 * Force the screen to be updated after a time.
+	 * @param delay the time
+	 */
 	public static function updateAfterMilliseconds(delay:int = 20):void{
 		if(timer == null){
 			timer = new Timer(delay, 1);
@@ -131,8 +138,25 @@ public class AsWingManager{
 		}
 	}
 	
+	/**
+	 * Adds a function to the queue to be invoked at next enter frame time
+	 * @param func the function to be invoked at next frame
+	 */
+	public static function callNextFrame(func:Function):void{
+		nextFrameCalls.push(func);
+	}
+	
 	private static function __update(e:TimerEvent):void{
 		e.updateAfterEvent();
+	}
+	
+	private static function __enterFrame(e:Event):void{
+		var calls:Array = nextFrameCalls;
+		nextFrameCalls = new Array();
+		for(var i:int=0; i<calls.length; i++){
+			var func:Function = calls[i];
+			func();
+		}
 	}
 }
 
