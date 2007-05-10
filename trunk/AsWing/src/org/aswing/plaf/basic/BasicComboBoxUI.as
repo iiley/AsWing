@@ -176,12 +176,18 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		getPopup().setSizeWH(width, height);
 		getPopup().show();
 		startMoveToView();
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped, true);
+		AsWingManager.callNextFrame(__addMouseDownListenerToStage);
+    }
+    
+    private function __addMouseDownListenerToStage():void{
+    	if(getPopup().isVisible()){
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped);
+    	}
     }
     
     private function hidePopup():void{
     	if(getPopup().isVisible()){
-	    	AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped, true);
+	    	AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped);
 			popupTimer.stop();
 			getPopup().dispose();
     	}
