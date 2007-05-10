@@ -11,6 +11,7 @@ import org.aswing.geom.*;
 /**
  * The icon for frame maximize.
  * @author iiley
+ * @private
  */
 public class FrameMaximizeIcon extends FrameIcon{
 

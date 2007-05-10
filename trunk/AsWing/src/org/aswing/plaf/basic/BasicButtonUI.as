@@ -20,6 +20,7 @@ import flash.ui.Keyboard;
 /**
  * Basic Button implementation.
  * @author iiley
+ * @private
  */
 public class BasicButtonUI extends BaseComponentUI
 {

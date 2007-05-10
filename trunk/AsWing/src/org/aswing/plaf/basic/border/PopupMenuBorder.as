@@ -6,6 +6,9 @@ import flash.display.*;
 import org.aswing.plaf.*;
 import org.aswing.graphics.*;
 
+/**
+ * @private
+ */
 public class PopupMenuBorder implements Border, UIResource{
 	
 	protected var color:ASColor;

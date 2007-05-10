@@ -9,6 +9,9 @@ import org.aswing.graphics.*;
 import org.aswing.UIManager;
 import org.aswing.ASColor;
 
+/**
+ * @private
+ */
 public class V_ResizeCursor extends Shape{
 	
 	private var resizeArrowColor:ASColor;

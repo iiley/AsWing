@@ -13,6 +13,7 @@ import org.aswing.plaf.*;
 /**
  * Basic ToggleButton implementation.
  * @author iiley
+ * @private
  */	
 public class BasicToggleButtonUI extends BasicButtonUI{
 	

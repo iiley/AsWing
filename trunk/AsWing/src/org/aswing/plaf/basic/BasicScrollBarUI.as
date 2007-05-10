@@ -19,6 +19,7 @@ import flash.ui.Keyboard;
 /**
  * The basic scrollbar ui.
  * @author iiley
+ * @private
  */
 public class BasicScrollBarUI extends BaseComponentUI{
 	

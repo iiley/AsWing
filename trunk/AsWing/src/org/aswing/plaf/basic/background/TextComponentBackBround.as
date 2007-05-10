@@ -9,6 +9,9 @@ import flash.display.DisplayObject;
 import org.aswing.plaf.UIResource;
 import flash.geom.Matrix;
 
+/**
+ * @private
+ */
 public class TextComponentBackBround implements GroundDecorator, UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, r:IntRectangle):void{

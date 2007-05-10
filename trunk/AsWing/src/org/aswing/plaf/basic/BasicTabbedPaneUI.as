@@ -18,6 +18,9 @@ import org.aswing.plaf.basic.tabbedpane.*;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.event.FocusKeyEvent;
 
+/**
+ * @private
+ */
 public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	
 	protected static var topBlankSpace:int = 4;

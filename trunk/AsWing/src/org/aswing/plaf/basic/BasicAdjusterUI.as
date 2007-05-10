@@ -23,6 +23,7 @@ import flash.display.InteractiveObject;
 /**
  * Basic adjust ui imp.
  * @author iiley
+ * @private
  */
 public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	

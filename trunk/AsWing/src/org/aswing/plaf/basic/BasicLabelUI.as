@@ -15,6 +15,7 @@ import flash.filters.BevelFilter;
 /**
  * Label UI basic imp.
  * @author iiley
+ * @private
  */
 public class BasicLabelUI extends BaseComponentUI{
 	

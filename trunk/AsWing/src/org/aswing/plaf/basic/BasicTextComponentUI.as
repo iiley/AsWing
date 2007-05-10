@@ -13,6 +13,7 @@ import org.aswing.error.ImpMissError;
 /**
  * The base class for text component UIs.
  * @author iiley
+ * @private
  */
 public class BasicTextComponentUI extends BaseComponentUI{
 	

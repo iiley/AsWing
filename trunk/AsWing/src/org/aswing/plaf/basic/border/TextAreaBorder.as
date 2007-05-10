@@ -3,7 +3,10 @@
 */
 
 package org.aswing.plaf.basic.border{
-	
+
+/**
+ * @private
+ */
 public class TextAreaBorder extends TextComponentBorder{
 	
 	public function TextAreaBorder(){

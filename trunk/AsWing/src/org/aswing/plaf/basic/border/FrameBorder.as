@@ -13,6 +13,7 @@ import org.aswing.plaf.UIResource;
 /**
  * Basic frame border
  * @author iiley
+ * @private
  */
 public class FrameBorder implements Border, UIResource{
 	

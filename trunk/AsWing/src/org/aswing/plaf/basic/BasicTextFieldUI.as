@@ -3,7 +3,10 @@
 */
 
 package org.aswing.plaf.basic{
-	
+
+/**
+ * @private
+ */
 public class BasicTextFieldUI extends BasicTextComponentUI{
 	
 	public function BasicTextFieldUI(){

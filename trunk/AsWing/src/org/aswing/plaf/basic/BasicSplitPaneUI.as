@@ -13,6 +13,9 @@ import flash.geom.Point;
 import flash.display.DisplayObject;
 import flash.display.Shape;
 
+/**
+ * @private
+ */
 public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	
 	protected var sp:JSplitPane;

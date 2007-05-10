@@ -11,6 +11,7 @@ import org.aswing.event.ContainerEvent;
 /**
  * ToolBar basic ui imp.
  * @author iiley
+ * @private
  */
 public class BasicToolBarUI extends BaseComponentUI{
 	

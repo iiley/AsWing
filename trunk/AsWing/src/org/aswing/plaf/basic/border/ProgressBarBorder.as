@@ -11,6 +11,9 @@ import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 
+/**
+ * @private
+ */
 public class ProgressBarBorder extends LineBorder implements UIResource
 {
 	private var color:ASColor;

@@ -11,6 +11,9 @@ import flash.display.DisplayObject;
 import org.aswing.plaf.*;
 import org.aswing.error.ImpMissError;
 
+/**
+ * @private
+ */
 public class TextComponentBorder implements Border, UIResource{
 
     private var light:ASColor;

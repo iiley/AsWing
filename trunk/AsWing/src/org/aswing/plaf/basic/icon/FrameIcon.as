@@ -13,6 +13,7 @@ import flash.display.Shape;
 /**
  * Frame title bar icon base.
  * @author iiley
+ * @private
  */
 public class FrameIcon implements Icon, UIResource{
 		

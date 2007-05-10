@@ -12,6 +12,9 @@ import flash.display.DisplayObject;
 import org.aswing.plaf.UIResource;
 import flash.geom.Point;
 
+/**
+ * @private
+ */
 public class ArrowIcon implements Icon, UIResource
 {
 	

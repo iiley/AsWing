@@ -19,6 +19,7 @@ import flash.ui.Keyboard;
 /**
  * List UI basic imp.
  * @author  iiley
+ * @private
  */
 public class BasicListUI extends BaseComponentUI{
 	

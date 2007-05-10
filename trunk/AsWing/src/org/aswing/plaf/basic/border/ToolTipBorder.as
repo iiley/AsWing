@@ -11,6 +11,9 @@ import org.aswing.Component;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.geom.IntRectangle;
 
+/**
+ * @private
+ */
 public class ToolTipBorder extends LineBorder implements UIResource
 {
 	private var color:ASColor;

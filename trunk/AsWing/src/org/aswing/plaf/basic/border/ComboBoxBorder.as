@@ -13,6 +13,9 @@ import org.aswing.EditableComponent;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.geom.IntRectangle;
 
+/**
+ * @private
+ */
 public class ComboBoxBorder extends BevelBorder implements UIResource{
 	
 	private var colorInited:Boolean;

@@ -10,6 +10,7 @@ import org.aswing.plaf.basic.tabbedpane.Tab;
 /**
  * BasicAccordionHeader implemented with a JButton 
  * @author iiley
+ * @private
  */
 public class BasicAccordionHeader implements Tab{
 	

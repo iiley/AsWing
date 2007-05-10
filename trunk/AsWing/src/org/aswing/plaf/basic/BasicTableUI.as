@@ -17,6 +17,7 @@ import flash.display.Shape;
 
 /**
  * @author iiley
+ * @private
  */
 public class BasicTableUI extends BaseComponentUI implements TableUI{
 	

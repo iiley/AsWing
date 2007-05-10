@@ -30,6 +30,7 @@ import org.aswing.LayoutManager;
 /**
  * Basic Frame title bar UI.
  * @author iiley
+ * @private
  */
 public class TitleBarUI extends BaseComponentUI{
 	

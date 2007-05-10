@@ -15,6 +15,7 @@ import org.aswing.plaf.*;
 /**
  * The barIcon decorator for ProgressBar.
  * @author senkay
+ * @private
  */
 public class ProgressBarIcon implements GroundDecorator, UIResource
 {

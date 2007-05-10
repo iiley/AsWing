@@ -13,6 +13,9 @@ import org.aswing.graphics.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 import org.aswing.plaf.*;
 
+/**
+ * @private
+ */
 public class ButtonBackground implements GroundDecorator, UIResource{
     private var shadow:ASColor;
     private var darkShadow:ASColor;

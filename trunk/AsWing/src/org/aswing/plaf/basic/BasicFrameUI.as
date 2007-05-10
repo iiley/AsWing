@@ -21,6 +21,7 @@ import flash.events.TimerEvent;
 /**
  * Basic frame ui imp.
  * @author iiley
+ * @private
  */
 public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	

@@ -22,6 +22,7 @@ import org.aswing.event.AWEvent;
 /**
  * Basic combo box ui imp.
  * @author iiley
+ * @private
  */
 public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		
