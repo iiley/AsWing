@@ -18,7 +18,7 @@ public class SkinBuilderTest extends Sprite{
 		//create other case instance here to test others
 		//for example change below with addChild(new Button());
 		//to test buttons.
-		addChild(new Buttons());
+		addChild(new NormalMenu());
 		trace("fdfs");
 	}
 }
