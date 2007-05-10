@@ -28,6 +28,9 @@ public class HashSet
 	}
 	
 	public function add(o:*):void{
+		if(!contains(o)){
+			length++;
+		}
 		container[o] = o;
 	}
 	
@@ -40,9 +43,13 @@ public class HashSet
 	}
 	
 	public function remove(o:*):Boolean{
-		var rv:Boolean = contains(o);
-		delete container[o];
-		return rv;
+		if(contains(o)){
+			delete container[o];
+			length--;
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public function clear():void{
