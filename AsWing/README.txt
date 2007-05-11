@@ -11,5 +11,6 @@ You'd better to call :
 		AsWingManager.setRoot(this);
 
 at the begin of your application code.
+Make sure to disable actionscript warning for the compiler when compile AsWing A3 lib.
 
 more infomations please visite http://www.aswing.org
