@@ -35,6 +35,16 @@ public class Cursor{
 	public static var V_MOVE_CURSOR:String = "System.vMoveCursor";
 	
 	/**
+	 * All direction resize cursor key.
+	 */
+	public static var HV_RESIZE_CURSOR:String = "System.hvResizeCursor";
+	
+	/**
+	 * All direction move cursor key.
+	 */
+	public static var HV_MOVE_CURSOR:String = "System.hvMoveCursor";
+	
+	/**
 	 * Create a cursor from the look and feel defined system cursor.
 	 * @param the type of the cursor
 	 * @return a cursor, or null if there is not such cursor of this type.
