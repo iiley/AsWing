@@ -453,7 +453,13 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//[Embed(source="assets/ComboBox_uneditableRolloverImage.png", scaleGridTop="3", scaleGridBottom="20", 
 	//	scaleGridLeft="3", scaleGridRight="131")]
 	private var ComboBox_uneditableRolloverImage:Class;
-	
+	//[Embed(source="assets/ComboBox_defaultPressedImage.png", scaleGridTop="3", scaleGridBottom="20", 
+	//	scaleGridLeft="3", scaleGridRight="131")]
+	private var ComboBox_defaultPressedImage:Class;
+	//[Embed(source="assets/ComboBox_uneditablePressedImage.png", scaleGridTop="3", scaleGridBottom="20", 
+	//	scaleGridLeft="3", scaleGridRight="131")]
+	private var ComboBox_uneditablePressedImage:Class;
+		
 	[Embed(source="assets/ComboBox_disabledImage.png", scaleGridTop="3", scaleGridBottom="20", 
 		scaleGridLeft="3", scaleGridRight="131")]
 	private var ComboBox_disabledImage:Class;
@@ -1118,6 +1124,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ComboBox.disabledImage", ComboBox_disabledImage, 
 			"ComboBox.defaultRolloverImage", ComboBox_defaultRolloverImage, 
 			"ComboBox.uneditableRolloverImage", ComboBox_uneditableRolloverImage, 
+			"ComboBox.defaultPressedImage", ComboBox_defaultPressedImage, 
+			"ComboBox.uneditablePressedImage", ComboBox_uneditablePressedImage, 
 			"ComboBox.arrowButton.defaultImage", ComboBox_arrowButton_defaultImage,
 			"ComboBox.arrowButton.pressedImage", ComboBox_arrowButton_pressedImage,
 			"ComboBox.arrowButton.disabledImage", ComboBox_arrowButton_disabledImage,
