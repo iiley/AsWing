@@ -18,6 +18,9 @@ public class OrientableComponentBackground implements GroundDecorator, UIResourc
 
 	private var verticalImage:DisplayObject;
 	private var horizotalImage:DisplayObject;
+	private var verticalDisabledImage:DisplayObject;
+	private var horizotalDisabledImage:DisplayObject;
+	private var lastImage:DisplayObject;
 	private var imageContainer:Sprite;
 	private var loaded:Boolean;
 	
@@ -32,9 +35,12 @@ public class OrientableComponentBackground implements GroundDecorator, UIResourc
 			var ui:ComponentUI = c.getUI();
 			verticalImage = ui.getInstance(getPropertyPrefix()+"verticalBGImage") as DisplayObject;
 			horizotalImage = ui.getInstance(getPropertyPrefix()+"horizotalBGImage") as DisplayObject;
+			verticalDisabledImage = ui.getInstance(getPropertyPrefix()+"verticalBGDisabledImage") as DisplayObject;
+			horizotalDisabledImage = ui.getInstance(getPropertyPrefix()+"horizotalBGDisabledImage") as DisplayObject;
 			//default
 			if(horizotalImage){
 				imageContainer.addChild(horizotalImage);
+				lastImage = horizotalImage;
 			}
 			loaded = true;
 		}
@@ -45,30 +51,34 @@ public class OrientableComponentBackground implements GroundDecorator, UIResourc
         return null;
     }
 	
-	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
-		checkReloadAssets(com);
-		var bar:Orientable = Orientable(com);
+	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+		checkReloadAssets(c);
+		var bar:Orientable = Orientable(c);
 		imageContainer.x = bounds.x;
 		imageContainer.y = bounds.y;
 		var image:DisplayObject;
-		var removeImage:DisplayObject;
 		if(bar.getOrientation() == AsWingConstants.HORIZONTAL){
-			image = horizotalImage;
-			removeImage = verticalImage;
+			if((!c.isEnabled()) && horizotalDisabledImage){
+				image = horizotalDisabledImage;
+			}else{
+				image = horizotalImage;
+			}
 		}else{
-			image = verticalImage;
-			removeImage = horizotalImage;
+			if((!c.isEnabled()) && verticalDisabledImage){
+				image = verticalDisabledImage;
+			}else{
+				image = verticalImage;
+			}
 		}
 
-		if(image){
-			if(!imageContainer.contains(image)){
+		if(image != lastImage){
+			if(lastImage){
+				imageContainer.removeChild(lastImage);
+			}
+			if(image){
 				imageContainer.addChild(image);
 			}
-		}
-		if(removeImage){
-			if(imageContainer.contains(removeImage)){
-				imageContainer.removeChild(removeImage);
-			}
+			lastImage = image;
 		}
 		if(image){
 			image.width = bounds.width;

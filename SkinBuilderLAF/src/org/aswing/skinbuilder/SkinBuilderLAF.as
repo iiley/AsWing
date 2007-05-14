@@ -293,6 +293,14 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/ScrollBar_horizotalBGImage.png", scaleGridTop="7", scaleGridBottom="9", 
 		scaleGridLeft="10", scaleGridRight="223")]
 	private var ScrollBar_horizotalBGImage:Class;
+	//by default the disabled bg state is null(means same to normal state), but you can add it by remove the comments
+	//[Embed(source="assets/ScrollBar_verticalBGDisabledImage.png", scaleGridTop="10", scaleGridBottom="223", 
+	//	scaleGridLeft="7", scaleGridRight="9")]
+	private var ScrollBar_verticalBGDisabledImage:Class;
+	
+	//[Embed(source="assets/ScrollBar_horizotalBGDisabledImage.png", scaleGridTop="7", scaleGridBottom="9", 
+	//	scaleGridLeft="10", scaleGridRight="223")]
+	private var ScrollBar_horizotalBGDisabledImage:Class;
 	
 	//========= Thumb Images scale-9 ======= 
 	//vertical
@@ -788,7 +796,14 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		scaleGridLeft="6", scaleGridRight="67")]
 	private var SplitPane_divider_horizotalBGImage:Class;
 	
+	//by default the disabled bg state is null(means same to normal state), but you can add it by remove the comments
+	//[Embed(source="assets/SplitPane_divider_verticalBGDisabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		//scaleGridLeft="6", scaleGridRight="67")]
+	private var SplitPane_divider_verticalBGDisabledImage:Class;
 	
+	//[Embed(source="assets/SplitPane_divider_horizotalBGDisabledImage.png", scaleGridTop="6", scaleGridBottom="18", 
+		//scaleGridLeft="6", scaleGridRight="67")]
+	private var SplitPane_divider_horizotalBGDisabledImage:Class;
 	
 	//------------------------------------------------------------------
 	//___________________________ ProgressBar __________________________
@@ -1010,6 +1025,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ScrollBar.bg", SkinScrollBarBackground, 
 			"ScrollBar.verticalBGImage", ScrollBar_verticalBGImage, 
 			"ScrollBar.horizotalBGImage", ScrollBar_horizotalBGImage, 
+			"ScrollBar.verticalBGDisabledImage", ScrollBar_verticalBGDisabledImage, 
+			"ScrollBar.horizotalBGDisabledImage", ScrollBar_horizotalBGDisabledImage, 
 			
 			"ScrollBar.arrowLeft.defaultImage", ScrollBar_arrowLeft_defaultImage, 
 			"ScrollBar.arrowLeft.pressedImage", ScrollBar_arrowLeft_pressedImage, 
@@ -1246,6 +1263,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"SplitPane.defaultDividerSize", 10, //modify this to fit the divier images
 			"SplitPane.divider.verticalBGImage", SplitPane_divider_verticalBGImage, 
 			"SplitPane.divider.horizotalBGImage", SplitPane_divider_horizotalBGImage, 
+			"SplitPane.divider.verticalBGDisabledImage", SplitPane_divider_verticalBGDisabledImage, 
+			"SplitPane.divider.horizotalBGDisabledImage", SplitPane_divider_horizotalBGDisabledImage, 
 			
 			"SplitPane.arrowLeft.defaultImage", SplitPane_arrowLeft_defaultImage, 
 			"SplitPane.arrowLeft.pressedImage", SplitPane_arrowLeft_pressedImage, 
