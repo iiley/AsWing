@@ -141,8 +141,10 @@ public class BasicLookAndFeel extends LookAndFeel{
 		var cursors:Array = [
 			"System.hResizeCursor", org.aswing.plaf.basic.cursor.H_ResizeCursor,
 			"System.vResizeCursor", org.aswing.plaf.basic.cursor.V_ResizeCursor,
+			"System.hvResizeCursor", org.aswing.plaf.basic.cursor.HV_ResizeCursor,
 			"System.hMoveCursor", org.aswing.plaf.basic.cursor.H_ResizeCursor,
-			"System.vMoveCursor", org.aswing.plaf.basic.cursor.V_ResizeCursor
+			"System.vMoveCursor", org.aswing.plaf.basic.cursor.V_ResizeCursor,
+			"System.hvMoveCursor", org.aswing.plaf.basic.cursor.HV_ResizeCursor	
 		];
 		table.putDefaults(cursors);
 		
