@@ -1432,6 +1432,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 			}else{
 				cellCom.setVisible(false);
 			}
+			cellCom.validate();
 		}
 		firstVisibleIndex = startIndex;
     }
@@ -1459,13 +1460,18 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var cy:int = ir.y + startY;
 		var maxY:int = ir.y + ir.height;
 		var i:int;
+		var cellCom:Component;
 		//invisible last viewed
 		for(i=Math.max(0, firstVisibleIndex+firstVisibleIndexOffset); i<startIndex; i++){
-			ListCell(cells.get(i)).getCellComponent().setVisible(false);
+			cellCom = ListCell(cells.get(i)).getCellComponent();
+			cellCom.setVisible(false);
+			cellCom.validate();
 		}
 		var rlvi:int = lastVisibleIndex + lastVisibleIndexOffset;
 		for(i=endIndex+1; i<=rlvi; i++){
-			ListCell(cells.get(i)).getCellComponent().setVisible(false);
+			cellCom = ListCell(cells.get(i)).getCellComponent();
+			cellCom.setVisible(false);
+			cellCom.validate();
 		}
 		if(endIndex < 0 || startIndex > endIndex){
 			lastVisibleIndex = -1;
@@ -1473,7 +1479,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		//visible current needed
 		for(i=startIndex; i<=endIndex; i++){
 			var cell:ListCell = ListCell(cells.get(i));
-			var cellCom:Component = cell.getCellComponent();
+			cellCom = cell.getCellComponent();
 			cellCom.setVisible(true);
 			var s:IntDimension = getCachedCellPreferSize(cell);
 			if(s == null){
@@ -1487,6 +1493,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 			}
 			cy += ih;
 			cell.setListCellStatus(this, isSelectedIndex(i), i);
+			cellCom.validate();
 		}
 		firstVisibleIndex = startIndex;
 		firstVisibleIndexOffset = lastVisibleIndexOffset = 0;
@@ -1535,11 +1542,12 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var cy:int = ir.y + startY;
 		var maxY:int = ir.y + ir.height;
 		var tempLastVisibleIndex:int = -1;
+		var cellCom:Component;
 		//visible current needed
 		var endIndex:int = startIndex;
 		for(i=startIndex; i<cellsCount; i++){
 			cell = ListCell(cells.get(i));
-			var cellCom:Component = cell.getCellComponent();
+			cellCom = cell.getCellComponent();
 			s = getCachedCellPreferSize(cell);
 			if(s == null){
 				s = cell.getCellComponent().getPreferredSize();
@@ -1549,6 +1557,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 			cellCom.setVisible(true);
 			var finalWidth:int = isTracksWidth() ? ir.width : Math.max(cellWidth, s.width);
 			cellCom.setComBoundsXYWH(cx, cy, finalWidth, s.height);
+			cellCom.validate();
 			if(cy < maxY){
 				tempLastVisibleIndex = i;
 			}
@@ -1561,11 +1570,15 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		
 		//invisible last viewed
 		for(i=Math.max(0, firstVisibleIndex+firstVisibleIndexOffset); i<startIndex; i++){
-			ListCell(cells.get(i)).getCellComponent().setVisible(false);
+			cellCom = ListCell(cells.get(i)).getCellComponent();
+			cellCom.setVisible(false);
+			cellCom.validate();
 		}
 		var rlvi:int = lastVisibleIndex + lastVisibleIndexOffset;
 		for(i=endIndex+1; i<=rlvi; i++){
-			ListCell(cells.get(i)).getCellComponent().setVisible(false);
+			cellCom = ListCell(cells.get(i)).getCellComponent();
+			cellCom.setVisible(false);
+			cellCom.validate();
 		}
 		lastVisibleIndex = tempLastVisibleIndex;
 		firstVisibleIndex = startIndex;
