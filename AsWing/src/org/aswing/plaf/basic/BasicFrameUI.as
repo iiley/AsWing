@@ -64,6 +64,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     
     protected function installComponents():void {
     	titleBar = createTitleBar();
+    	titleBar.setUIElement(true);
     	frame.insert(0, titleBar, WindowLayout.TITLE);
     	
     	if(frame.getResizer() == null || frame.getResizer() is UIResource){
@@ -99,7 +100,6 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     }
     
 	protected function uninstallComponents():void{
-		titleBar.setUI(null); //uninstall its listeners
 		frame.remove(titleBar);
 		removeBoundsMC();
 	}

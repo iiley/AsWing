@@ -125,6 +125,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		nextButton = createNextButton();
 		prevButton.setFocusable(false);
 		nextButton.setFocusable(false);
+		prevButton.setUIElement(true);
+		nextButton.setUIElement(true);
 		
 		prevButton.addActionListener(__prevButtonReleased);
 		nextButton.addActionListener(__nextButtonReleased);
@@ -376,6 +378,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		p.setOpaque(false);
 		p.setFocusable(false);
 		p.setSizeWH(100, 100);
+		p.setUIElement(true);
 		buttonHolderMC.addChild(p);
 		buttonMCPane = p;
 		var insets:Insets = new Insets(topBlankSpace, topBlankSpace, topBlankSpace, topBlankSpace);
@@ -387,6 +390,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	
 	protected function removeUIAssets():void{
 		tabbedPane.removeChild(uiRootMC);
+		tabs = new Array();
 	}
 	
 	protected function createTabBarGraphics():Graphics2D{
@@ -465,6 +469,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     
     protected function setTabProperties(header:Tab, i:int):void{
 		header.setTextAndIcon(tabbedPane.getTitleAt(i), tabbedPane.getIconAt(i));
+		header.getComponent().setUIElement(true);
 		header.getComponent().setEnabled(tabbedPane.isEnabledAt(i));
 		header.getComponent().setVisible(tabbedPane.isVisibleAt(i));
 		header.getComponent().setToolTipText(tabbedPane.getTipAt(i));

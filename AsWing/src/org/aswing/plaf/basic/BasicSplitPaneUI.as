@@ -69,12 +69,14 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 
     protected function uninstallDefaults():void {
         LookAndFeel.uninstallBorderAndBFDecorators(sp);
+        sp.setDividerLocation(0, true);
     }
 	
 	protected function installComponents():void{
 		vSplitCursor = createSplitCursor(true);
 		hSplitCursor = createSplitCursor(false);
 		divider = createDivider();
+		divider.setUIElement(true);
 		sp.append(divider, JSplitPane.DIVIDER);
 		
 		divider.addEventListener(MouseEvent.MOUSE_DOWN, __div_pressed);

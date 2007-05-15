@@ -64,6 +64,7 @@ public class BasicColorChooserUI extends BaseComponentUI {
 	private function installComponents():void{
 		addChooserPanels();
 		previewColorLabel = createPreviewColorLabel();
+		previewColorLabel.setUIElement(true);
 		previewColorIcon = createPreviewColorIcon();
 		previewColorLabel.setIcon(previewColorIcon);
 		previewColorIcon.setColor(chooser.getSelectedColor());
@@ -125,8 +126,12 @@ public class BasicColorChooserUI extends BaseComponentUI {
 	}
 	
     private function addChooserPanels():void{
-    	chooser.addChooserPanel("Color Swatches", new JColorSwatches());
-    	chooser.addChooserPanel("Color Mixer", new JColorMixer());
+    	var colorS:JColorSwatches = new JColorSwatches();
+    	var colorM:JColorMixer = new JColorMixer();
+    	colorS.setUIElement(true);
+    	colorM.setUIElement(true);
+    	chooser.addChooserPanel("Color Swatches", colorS);
+    	chooser.addChooserPanel("Color Mixer", colorM);
     }
     
 	private function createPreviewColorIcon():PreviewColorIcon{

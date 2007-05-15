@@ -642,10 +642,11 @@ public class FixedHeightLayoutCache extends AbstractLayoutCache{
 	 * Sent to completely rebuild the visible tree. All nodes are collapsed.
 	 */
 	private function rebuild(clearSelection:Boolean):void {
-		var rootUO:Object;
+		var rootUO:Object = null;
 
 		treePathMapping.clear();
-		rootUO = treeModel.getRoot();
+		if(treeModel)
+			rootUO = treeModel.getRoot();
 		//trace("rebuild rootUO : " + rootUO);
 		if(treeModel != null && rootUO != null) {
 			root = createNodeForValue(rootUO, 0);

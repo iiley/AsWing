@@ -449,8 +449,7 @@ public class JPopup extends JRootPane{
 			throw new TypeError(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
 		}
 		if(lastLAF != UIManager.getLookAndFeel()){
-			//TODO update UI
-			//ASWingUtils.updateComponentTreeUI(this);
+			AsWingUtils.updateChildrenUI(this);
 			lastLAF = UIManager.getLookAndFeel();
 		}
 	}

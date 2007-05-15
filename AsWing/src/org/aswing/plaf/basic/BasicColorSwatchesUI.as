@@ -89,6 +89,9 @@ public class BasicColorSwatchesUI extends ColorSwatchesUI {
 		barRight.append(alphaAdjuster);
 		barRight.append(noColorButton);
 		
+		topBar.setUIElement(true);
+		colorTilesPane.setUIElement(true);
+		
 		colorSwatches.setLayout(new BorderLayout(4, 4));
 		colorSwatches.append(topBar, BorderLayout.NORTH);
 		colorSwatches.append(colorTilesPane, BorderLayout.CENTER);
