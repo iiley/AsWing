@@ -36,7 +36,7 @@ public class BasicListUI extends BaseComponentUI{
     }
     
     protected function getPropertyPrefix():String {
-        return "Label.";
+        return "List.";
     }
     
     protected function installDefaults():void {
@@ -48,12 +48,12 @@ public class BasicListUI extends BaseComponentUI{
         
 		var sbg:ASColor = list.getSelectionBackground();
 		if (sbg == null || sbg is UIResource) {
-			list.setSelectionBackground(getColor("List.selectionBackground"));
+			list.setSelectionBackground(getColor(pp+"selectionBackground"));
 		}
 
 		var sfg:ASColor = list.getSelectionForeground();
 		if (sfg == null || sfg is UIResource) {
-			list.setSelectionForeground(getColor("List.selectionForeground"));
+			list.setSelectionForeground(getColor(pp+"selectionForeground"));
 		}
     }
     
@@ -100,6 +100,8 @@ public class BasicListUI extends BaseComponentUI{
     private function paintCurrentCellFocus():void{
     	if(paintFocusedCell != null){
     		paintCellFocus(paintFocusedCell.getCellComponent());
+    	}else{
+    		super.paintFocus(list, focusGraphics, focusRectangle);
     	}
     }
     
@@ -113,7 +115,8 @@ public class BasicListUI extends BaseComponentUI{
     }
     
     protected function paintCellFocus(cellComponent:Component):void{
-    	focusGraphicsOwner.clear();
+    	if(focusGraphicsOwner)
+    		focusGraphicsOwner.clear();
     	super.paintFocus(list, focusGraphics, focusRectangle);
     	super.paintFocus(list, focusGraphics, paintFocusedCell.getCellComponent().getComBounds());
     }
@@ -141,7 +144,8 @@ public class BasicListUI extends BaseComponentUI{
     }
     
     private function __onFocusLost(e:AWEvent):void{
-    	focusGraphicsOwner.clear();
+    	if(focusGraphicsOwner)
+    		focusGraphicsOwner.clear();
     }
     
     private function __onKeyDown(e:FocusKeyEvent):void{
@@ -201,6 +205,9 @@ public class BasicListUI extends BaseComponentUI{
     }
     private function __onSelectionChanged(e:SelectionEvent):void{
     	if(FocusManager.getCurrentManager().isTraversing() && list.isFocusOwner()){
+    		if(focusGraphics == null){
+    			list.paintFocusRect(true);
+    		}
     		paintCellFocusWithIndex(list.getLeadSelectionIndex());
     	}
     }
