@@ -168,6 +168,7 @@ public class Component extends AWSprite{
 	private var cachedMinimumSize:IntDimension;
 	private var cachedMaximumSize:IntDimension;
 	private var constraints:Object;
+	private var uiElement:Boolean;
 	
 	protected var valid:Boolean;
 	protected var bounds:IntRectangle;
@@ -209,6 +210,7 @@ public class Component extends AWSprite{
 		fontValidated = false;
 		readyToPaint = false;
 		toolTipText = null;
+		uiElement = false;
 		border = DefaultEmptyDecoraterResource.INSTANCE;
 		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
 		foregroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
@@ -337,7 +339,33 @@ public class Component extends AWSprite{
      * @see org.aswing.UIManager#getUI()
      */
     public function updateUI():void{
-    	throw new ImpMissError();
+    	//throw new ImpMissError();
+    }
+    
+    /**
+     * Returns true if this component is just a ui element component, 
+     * false means this component is a regular use created component.
+     * <p>
+     * If a component is a ui element, it and its children will not be called 
+     * <code>updateUI()</code> when AsWingUtils to go thought a list of component to update the UI.
+     * That is because ui element will be removed when uninstall UI, new ui elements 
+     * will be created when install UI. So it do not need to do update.
+     * </p>
+     * @return whether or not this component is a ui element component.
+     * @see #AsWingUtils#updateChildrenUI()
+     * @see #setUIElement()
+     */
+    public function isUIElement():Boolean{
+    	return uiElement;
+    }
+    
+    /**
+     * Sets the component is a ui element or not.
+     * @param b true to set this component to be treated as a element, false not.
+     * @see #isUIElement()
+     */
+    public function setUIElement(b:Boolean):void{
+    	uiElement = b;
     }
     
     /**
@@ -347,7 +375,7 @@ public class Component extends AWSprite{
      * @return the default basic ui class. 
      */
     public function getDefaultBasicUIClass():Class{
-    	throw new ImpMissError();
+    	//throw new ImpMissError();
     	return null;
     }
 
@@ -443,12 +471,14 @@ public class Component extends AWSprite{
 	 */
 	public function setBackgroundDecorator(bg:GroundDecorator):void{
 		if(bg != backgroundDecorator){
+			var old:* = backgroundDecorator;
 			backgroundDecorator = bg;
 			if(bg != null){
 				setBackgroundChild(bg.getDisplay(this));
 			}else{
 				setBackgroundChild(null);
 			}
+			dispatchEvent(new PropertyChangeEvent("backgroundDecorator", old, bg));
 		}
 	}
 	
@@ -469,12 +499,14 @@ public class Component extends AWSprite{
 	 */
 	public function setForegroundDecorator(fg:GroundDecorator):void{
 		if(fg != foregroundDecorator){
+			var old:* = backgroundDecorator;
 			foregroundDecorator = fg;
 			if(fg != null){
 				setForegroundChild(fg.getDisplay(this));
 			}else{
 				setForegroundChild(null);
 			}
+			dispatchEvent(new PropertyChangeEvent("foregroundDecorator", old, fg));
 		}
 	}
 	

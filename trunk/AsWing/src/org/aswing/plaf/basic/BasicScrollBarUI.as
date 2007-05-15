@@ -111,8 +111,8 @@ public class BasicScrollBarUI extends BaseComponentUI{
     	decrButton = createArrowButton();
     	decrButton.setName("JScrollbar_decrButton");
     	setButtonIcons();
-        //incrButton.setFocusable(false);
-        //decrButton.setFocusable(false);
+        incrButton.setUIElement(true);
+		decrButton.setUIElement(true);
         scrollbar.addChild(incrButton);
         scrollbar.addChild(decrButton);
 		scrollbar.setEnabled(scrollbar.isEnabled());

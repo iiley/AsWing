@@ -286,6 +286,9 @@ public class DefaultResizer implements Resizer, UIResource{
 	private function locate(e:Event=null):void{
 		//var x:Number = 0;
 		//var y:Number = 0;
+		if(owner == null){
+			return;
+		}
 		var w:Number = owner.getWidth();
 		var h:Number = owner.getHeight();
 		var r:Number = RESIZE_MC_WIDTH;

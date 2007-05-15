@@ -89,7 +89,7 @@ public class BasicColorMixerUI extends BaseComponentUI {
 		updateSectionVisibles();
     }
 	private function uninstallComponents():void{
-		mixerPanel.removeAll();
+		colorMixer.removeAll();
     }
         
 	private function installListeners():void{
@@ -128,6 +128,7 @@ public class BasicColorMixerUI extends BaseComponentUI {
     	var top:Container = SoftBox.createHorizontalBox(4, SoftBoxLayout.CENTER);
     	top.append(mixerPanel);
     	top.append(previewColorLabel);
+    	top.setUIElement(true);
     	colorMixer.append(top, BorderLayout.NORTH);
     	
     	var bottom:Container = SoftBox.createHorizontalBox(4, SoftBoxLayout.CENTER);
@@ -151,6 +152,7 @@ public class BasicColorMixerUI extends BaseComponentUI {
     	p.append(createLabelToComponet(getLLabel(), LAdjuster));
     	bottom.append(p);
     	
+    	bottom.setUIElement(true);
     	colorMixer.append(bottom, BorderLayout.SOUTH);
     }
     
@@ -438,7 +440,6 @@ public class BasicColorMixerUI extends BaseComponentUI {
 		LMC.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __LMCRelease);
 	}
 	private function __HSMCPress(e:Event):void{
-		//colorMixer.supplyOnPress();
 		HSMC.addEventListener(MouseEvent.MOUSE_MOVE, __HSMCDragging);
 		__HSMCDragging(null);
 	}
@@ -452,7 +453,6 @@ public class BasicColorMixerUI extends BaseComponentUI {
 	}
 	
 	private function __LMCPress(e:Event):void{
-		//colorMixer.supplyOnPress();
 		LMC.addEventListener(MouseEvent.MOUSE_MOVE, __LMCDragging);
 		__LMCDragging(null);
 	}

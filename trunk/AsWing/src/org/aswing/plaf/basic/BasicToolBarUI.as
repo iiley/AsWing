@@ -6,7 +6,7 @@ package org.aswing.plaf.basic{
 	
 import org.aswing.plaf.BaseComponentUI;
 import org.aswing.*;
-import org.aswing.event.ContainerEvent;
+import org.aswing.event.*;
 
 /**
  * ToolBar basic ui imp.
@@ -81,12 +81,14 @@ public class BasicToolBarUI extends BaseComponentUI{
     			var bgAdapter:ToolBarButtonBgAdapter = new ToolBarButtonBgAdapter(bg);
     			btn.setBackgroundDecorator(bgAdapter);
     		}
+    		btn.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, __propertyChanged);
     	}
  	}
  	
  	protected function unadaptChild(c:Component):void{
     	var btn:JButton = c as JButton;
     	if(btn != null){
+    		btn.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, __propertyChanged);
     		var bg:ToolBarButtonBgAdapter = btn.getBackgroundDecorator() as ToolBarButtonBgAdapter;
     		if(bg != null){
     			btn.setBackgroundDecorator(bg.getOriginalBg());
@@ -95,7 +97,19 @@ public class BasicToolBarUI extends BaseComponentUI{
  	}
     
     //------------------------------------------------
-    
+ 	
+ 	private function __propertyChanged(e:PropertyChangeEvent):void{
+ 		if(e.getPropertyName() == "backgroundDecorator"){
+ 			var btn:JButton = e.target as JButton;
+ 			var oldG:GroundDecorator = e.getOldValue();
+ 			var newG:GroundDecorator = e.getNewValue();
+ 			if(!(newG is ToolBarButtonBgAdapter)){
+    			var bgAdapter:ToolBarButtonBgAdapter = new ToolBarButtonBgAdapter(newG);
+    			btn.setBackgroundDecorator(bgAdapter);
+ 			}
+ 		}
+ 	}
+ 	
     private function __onComAdded(e:ContainerEvent):void{
     	adaptChild(e.getChild());
     }

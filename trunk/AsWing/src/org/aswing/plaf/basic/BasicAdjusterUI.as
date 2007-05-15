@@ -100,6 +100,8 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 		initInputText();
 		initPopupSlider();
 		arrowButton = createArrowButton();
+		arrowButton.setUIElement(true);
+		popupSlider.setUIElement(true);
 		popupSliderUI = createPopupSliderUI();
 		popupSlider.setUI(popupSliderUI);
 		popupSlider.setModel(adjuster.getModel());

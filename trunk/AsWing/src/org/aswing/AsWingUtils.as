@@ -672,7 +672,56 @@ public class AsWingUtils{
     		return c.root as DisplayObjectContainer;
     	}
     	return popup;
-    }       
+    }
+    
+    
+    /**
+     * When call <code>setLookAndFeel</code> it will not change the UIs at created components.
+     * Call this method to update all existing component's UIs.
+     * @see #updateChildrenUI()
+     * @see #updateComponentTreeUI()
+     * @see org.aswing.Component#updateUI()
+     */
+    public static function updateAllComponentUI():void{
+		if(AsWingManager.isStageInited()){
+			updateChildrenUI(AsWingManager.getStage());
+		}
+    }
+    
+    /**
+     * A simple minded look and feel change: ask each node in the tree to updateUI() -- that is, 
+     * to initialize its UI property with the current look and feel. 
+     * @param c the component used to search its owner ancestor
+     * @see org.aswing.Component#updateUI()
+     * @see #updateChildrenUI()
+     */
+    public static function updateComponentTreeUI(c:Component):void{
+        updateChildrenUI(getOwnerAncestor(c));
+    }
+    
+    /**
+     * Asks every component that is not a ui element containsed in the display object to updateUI().
+     * This function will search all components contained in the specified object.
+     * @param dis the display object
+     * @see org.aswing.Component#isUIElement()
+     */
+    public static function updateChildrenUI(dis:DisplayObject):void{
+    	if(dis == null) return;
+    	var c:Component = dis as Component;
+    	if(c){
+    		if(c.isUIElement()){
+    			return;
+    		}
+        	c.updateUI();
+     	}
+        //trace("UI updated : " + c);
+        if(dis is DisplayObjectContainer){
+            var con:DisplayObjectContainer = DisplayObjectContainer(dis);
+            for(var i:int = con.numChildren-1; i>=0; i--){
+                updateChildrenUI(con.getChildAt(i));
+            }
+        }
+    }
 }
 
 }

@@ -175,6 +175,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     		var header:Tab = getHeader(i);
     		header.setTextAndIcon(accordion.getTitleAt(i), accordion.getIconAt(i));
     		setHeaderProperties(header);
+    		header.getComponent().setUIElement(true);
     		header.getComponent().setEnabled(accordion.isEnabledAt(i));
     		header.getComponent().setVisible(accordion.isVisibleAt(i));
     		header.getComponent().setToolTipText(accordion.getTipAt(i));

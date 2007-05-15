@@ -107,12 +107,12 @@ public class TitleBarUI extends BaseComponentUI{
 		iconifiedButton = new JButton(null, iconifiedIcon);
 		resizeButton    = new JButton(null, maximizeIcon);
 		closeButton     = new JButton(null, closeIcon);
-		iconifiedButton.setBackgroundDecorator(DefaultEmptyDecoraterResource.INSTANCE);
-		resizeButton.setBackgroundDecorator(DefaultEmptyDecoraterResource.INSTANCE);
-		closeButton.setBackgroundDecorator(DefaultEmptyDecoraterResource.INSTANCE);
-		iconifiedButton.setMargin(new InsetsUIResource(1, 1, 1, 1));
-		resizeButton.setMargin(new InsetsUIResource(1, 1, 1, 1));
-		closeButton.setMargin(new InsetsUIResource(1, 1, 1, 1));
+		iconifiedButton.setBackgroundDecorator(null);
+		resizeButton.setBackgroundDecorator(null);
+		closeButton.setBackgroundDecorator(null);
+		iconifiedButton.setMargin(new Insets(1, 1, 1, 1));
+		resizeButton.setMargin(new Insets(1, 1, 1, 1));
+		closeButton.setMargin(new Insets(1, 1, 1, 1));
 		titleBar.append(iconifiedButton);
 		titleBar.append(resizeButton);
 		titleBar.append(closeButton);

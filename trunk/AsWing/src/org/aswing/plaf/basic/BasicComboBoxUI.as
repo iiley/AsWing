@@ -73,6 +73,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     
 	protected function installComponents():void{
 		dropDownButton = createDropDownButton();
+		dropDownButton.setUIElement(true);
 		box.addChild(dropDownButton);
     }
 	protected function uninstallComponents():void{
