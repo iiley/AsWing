@@ -19,7 +19,6 @@ public class SkinBuilderTest extends Sprite{
 		//for example change below with addChild(new Button());
 		//to test buttons.
 		addChild(new NormalMenu());
-		trace("fdfs");
 	}
 }
 }
