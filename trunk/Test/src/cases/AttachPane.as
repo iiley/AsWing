@@ -15,20 +15,20 @@ public class AttachPane extends Sprite
 
 	public function AttachPane(){
 		pane = new JPanel(new BorderLayout());
-		loadPane = new JLoadPane("linkmc.swf", FloorPane.PREFER_SIZE_LAYOUT);
+		loadPane = new JLoadPane("linkmc.swf", AssetPane.PREFER_SIZE_LAYOUT);
 		loadPane.addEventListener(Event.INIT, __onLoadInnit);
-		loadPane.setScaleMode(FloorPane.SCALE_FIT_PANE);
+		loadPane.setScaleMode(AssetPane.SCALE_FIT_PANE);
 		loadPane.setPreferredSize(new IntDimension(100,100));
 		loadPane.setBorder(new LineBorder(null, ASColor.BLUE));
 	//	loadPane.setPath("http://192.168.0.202/linkmc.swf");				
-		attachPane = new JAttachPane(null, FloorPane.PREFER_SIZE_BOTH);
-		attachPane.setScaleMode(FloorPane.SCALE_FIT_PANE);
-		attachPane.setVerticalAlignment(FloorPane.CENTER);
+		attachPane = new JAttachPane(null, AssetPane.PREFER_SIZE_BOTH);
+		attachPane.setScaleMode(AssetPane.SCALE_FIT_PANE);
+		attachPane.setVerticalAlignment(AssetPane.CENTER);
 		attachPane.setBorder(new LineBorder(null, ASColor.RED));
 		attachPane.setPreferredHeight(100);
 		pane.append(loadPane, BorderLayout.CENTER);
 		var preButton:JButton = new JButton();	
-		preButton.setIcon(new LoadIcon("http://ihome.1001m.com/ihomestatics/images/daily/confirm2.png"));
+		preButton.setIcon(new LoadIcon("../res/princess.jpg", 100, 20, true));
 		pane.append(preButton, BorderLayout.EAST);
 		pane.append(attachPane, BorderLayout.NORTH);
 		pane.setSizeWH(200,300);
@@ -38,10 +38,10 @@ public class AttachPane extends Sprite
 	}
 
 	private function __onLoadInnit(e:Event):void{
-		attachPane.setPathAndLoader("link_mc2", loadPane.getLoader());	
-		var southButton:JButton = new JButton();	
-		southButton.setIcon(new AttachIcon("link_mc2", loadPane.getLoader()));
-		pane.append(southButton, BorderLayout.SOUTH);		
+		//attachPane.setPathAndLoader("link_mc2", loadPane.getLoader());	
+		//var southButton:JButton = new JButton();	
+		//southButton.setIcon(new AttachIcon("link_mc2", loadPane.getLoader()));
+		//pane.append(southButton, BorderLayout.SOUTH);		
 	}
 }
 }

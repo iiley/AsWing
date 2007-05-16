@@ -13,13 +13,14 @@ public class Test extends Sprite{
 	public function Test(){
 		super();
 		//fscommand("trapallkeys", "true");
+		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.stageFocusRect = false;
 		AsWingManager.setRoot(this);
 		//create other case instance here to test others
 		//for example change below with addChild(new Button());
 		//to test buttons.
-		addChild(new NormalMenu());
+		addChild(new AttachPane());
 		
 	}
 }
