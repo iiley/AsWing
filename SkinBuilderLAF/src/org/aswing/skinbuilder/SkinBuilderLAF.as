@@ -962,6 +962,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		super.initComponentDefaults(table);
 		// *** Button
 		var comDefaults:Array = [
+			"Button.background", new ASColorUIResource(0x839DAD), //this is just for calculate disabled color
 			"Button.opaque", false, 
 			"Button.defaultImage", Button_defaultImage,
 			"Button.pressedImage", Button_pressedImage,
@@ -976,6 +977,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		
 		// *** ToggleButton
 		comDefaults = [
+			"ToggleButton.background", new ASColorUIResource(0x839DAD), //this is just for calculate disabled color
 			"ToggleButton.opaque", false, 
 			"ToggleButton.defaultImage", ToggleButton_defaultImage,
 			"ToggleButton.pressedImage", ToggleButton_pressedImage,
