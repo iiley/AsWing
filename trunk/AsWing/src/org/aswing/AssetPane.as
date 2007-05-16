@@ -13,17 +13,18 @@ import org.aswing.graphics.*;
 import org.aswing.util.*;	
 import org.aswing.error.ImpMissError;
 import flash.display.Sprite;
+import flash.display.DisplayObjectContainer;
 
 /**
- * Abstract class for A container with a decorative displayObject.
+ * Abstract class for A container with a decorative asset.
  * <p>
- * External content will be load automatically when the pane was create on the stage if floorEnabled.
+ * External content will be load automatically when the pane was created if floorEnabled.
  * </p>
  * @see org.aswing.JLoadPane
  * @see org.aswing.JAttachPane
  * @author iiley
  */	
-public class FloorPane extends Container{
+public class AssetPane extends Container{
 	
 	/**
 	 * preffered size of this component will be the fit to contain both size of extenal image/animation
@@ -92,9 +93,10 @@ public class FloorPane extends Container{
 	 */
     public static const RIGHT:int   = AsWingConstants.RIGHT;
     
-	private var floorEnabled:Boolean;
-	private var floorMC:DisplayObject;
-	private var floorMCMask:Sprite;
+	private var assetVisible:Boolean;
+	private var asset:DisplayObject;
+	private var assetContainer:DisplayObjectContainer;
+	private var assetMask:Shape;
 	private var maskFloor:Boolean;
 	private var floorLoaded:Boolean;
 	private var prefferSizeStrategy:int;
@@ -104,29 +106,30 @@ public class FloorPane extends Container{
     private var customScale:int;
     private var actualScale:int;
     private var floorOriginalSize:IntDimension;
+    private var floorOriginalScaleX:Number;
+    private var floorOriginalScaleY:Number;
     private var hadscaled:Boolean;
     private var offsetX:Number;
     private var offsetY:Number;
 	
 	/**
-	 * FloorPane(path:String, prefferSizeStrategy:int) <br>
-	 * FloorPane(path:String) prefferSizeStrategy default to PREFER_SIZE_BOTH<br>
-	 * FloorPane() path default to null,prefferSizeStrategy default to PREFER_SIZE_BOTH
+	 * AssetPane(path:String, prefferSizeStrategy:int) <br>
+	 * AssetPane(path:String) prefferSizeStrategy default to PREFER_SIZE_BOTH<br>
+	 * AssetPane() path default to null,prefferSizeStrategy default to PREFER_SIZE_IMAGE
 	 * <p>
-	 * Creates a FloorPane with a path to load external content.
-	 * @param path the path of the external content.
+	 * Creates a AssetPane with a path to load external content.
+	 * </p>
+	 * @param asset the asset to be placed on this pane.
 	 * @param prefferSizeStrategy the prefferedSize count strategy. Must be one of below:
 	 * <ul>
 	 * <li>{@link #PREFER_SIZE_BOTH}
 	 * <li>{@link #PREFER_SIZE_IMAGE}
 	 * <li>{@link #PREFER_SIZE_LAYOUT}
 	 * </ul>
-	 * @see #setPath()
+	 * @see #setAsset()
 	 */
-	public function FloorPane(floorMC:DisplayObject=null, prefferSizeStrategy:int=PREFER_SIZE_BOTH) {
+	public function AssetPane(asset:DisplayObject=null, prefferSizeStrategy:int=PREFER_SIZE_IMAGE) {
 		super();
-
-		this.floorMC = floorMC;
 		this.prefferSizeStrategy = prefferSizeStrategy;
 		
     	verticalAlignment = TOP;
@@ -137,28 +140,62 @@ public class FloorPane extends Container{
     	hadscaled = false;
     	maskFloor = true;
 		floorOriginalSize = null;
-		floorEnabled = true;
+		assetVisible = true;
 		floorLoaded = false;
 		offsetX = 0;
 		offsetY = 0;
 		setFocusable(false);
-		reload();
+		assetContainer = AsWingUtils.createSprite(this, "assetContainer");
+		assetMask = AsWingUtils.createShape(this, "assetMask");
+		assetMask.graphics.beginFill(0xFF0000);
+		assetMask.graphics.drawRect(0, 0, 1, 1);
+		assetMask.visible = false;
+		setAsset(asset);
 	}
 	
 	
 	/**
-	 * set the floorMC of the pane
-	 * This method will cause <code>reload()</code> action if the floorMC 
-	 * is different from old one.
-	 * @param floorMC the displayObject of the pane.
-	 * @see #reload()
+	 * set the asset of the pane
+	 * This method will cause old asset to be removed and new asset to be added.
+	 * @param asset the asset of the pane.
 	 */ 
-	public function setFloorMC(floorMC:DisplayObject):void{
-		if (this.floorMC != floorMC){
-			removeFloorMCs();
-			this.floorMC = floorMC;
-			this.reload();
+	public function setAsset(asset:DisplayObject):void{
+		if (this.asset != asset){
+			if(this.asset){
+				assetContainer.removeChild(this.asset);
+			}
+			this.asset = asset;
+			if(asset){
+				floorOriginalScaleX = asset.scaleX;
+				floorOriginalScaleY = asset.scaleY;
+				assetContainer.addChild(asset);
+			}
+			setLoaded(asset != null);
+			resetAsset();
 		}
+	}
+	
+	protected function resetAsset():void{
+		if (asset != null){
+			asset.scaleX = floorOriginalScaleX;
+			asset.scaleY = floorOriginalScaleY;
+			setFloorOriginalSize(new IntDimension(asset.width, asset.height));
+			asset.visible = assetVisible;
+			revalidate();
+		}
+	}
+	
+	/**
+	 * Returns the asset of the pane.
+	 * <p>
+	 * You should take care to do operation at this display object, 
+	 * if you want to remove it, you should call <code>setAsset(null)</code> instead of 
+	 * call <code>asset.parent.removeChild(asset)</code>;
+	 * </p>
+	 * @return the asset.
+	 */
+	public function getAsset():DisplayObject{
+		return asset;
 	}
 	
 	/**
@@ -345,71 +382,38 @@ public class FloorPane extends Container{
     public function getOffsetY():Number{
     	return offsetY;
     }
-		
-	/**
-	 * Returns the floor target movie clip.<br>
-	 * You should take care to do operation at this MC, if you remove it, 
-	 * the component will create another instead when next reload.
-	 * @return the movieclip where the extenal image/animation will be loaded in or 
-	 * the movieclip attached.
-	 * @see #getFloorMC()
-	 * @see org.aswing.JLoadPane
-	 * @see org.aswing.JAttachPane
-	 */
-	public function getFloorMC():DisplayObject{
-		return floorMC;
-	}
 	
 	/**
-	 * Disable the load ability.
-	 * Removes loaded image or animation(by remove the LoadTarget MovieClip). And will not load any thing from now on.
-	 * @see #getFloorMC()
-	 * @see #enableFloor()
-	 * @see #isEnabledFloor()
-	 * @see #reload()
+	 * Sets the visible of the assets.
+	 * @param b the visible property.
 	 */
-	public function disableFloor():void{
-		if(floorEnabled){
-			floorEnabled = false;
-			setLoaded(false);
-			removeFloorMCs();
+	public function setAssetVisible(b:Boolean):void{
+		assetVisible = b;
+		if(asset){
+			asset.visible = b;
 		}
 	}
 	
 	/**
-	 * Enable the load ability, can call reload to try to load content if it is not loaded yet.
-	 * @see #isEnabledFloor()
-	 * @see #enableFloor()
-	 * @see #reload()
+	 * Returns the asset visible property.
+	 * @return the asset visible property.
 	 */
-	public function enableFloor():void{
-		if(!floorEnabled){
-			floorEnabled = true;
-			reload();
-		}
+	public function isAssetVisible():Boolean{
+		return assetVisible;
 	}
 	
 	/**
-	 * Returns whether load function is enabled. Default is true.
-	 * @see #enableFloor()
-	 * @see #disableFloor()
-	 */
-	public function isEnabledFloor():Boolean{
-		return floorEnabled;
-	}
-	
-	/**
-	 * Returns is the extenal image/animation file was loaded ok.
-	 * @return true if the file loaded ok, otherwish return false
+	 * Returns is the asset was loaded ok.
+	 * @return true if the asset loaded ok, otherwise return false
 	 */
 	public function isLoaded():Boolean{
 		return floorLoaded;
 	}
 	
 	/**
-	 * Returns the extenal image/animation/symbol 's original size.
-	 * If the external content are not loaded yet, return null.
-	 * @return the extenal content's original size. null if it is not loaded yet.
+	 * Returns the asset's original size.
+	 * If the asset are not loaded yet, return null.
+	 * @return the asset original size. null if it is not loaded yet.
 	 */
 	public function getFloorOriginalSize():IntDimension{
 		if(isLoaded()){
@@ -417,10 +421,6 @@ public class FloorPane extends Container{
 		}else{
 			return null;
 		}
-	}
-	
-	override public function updateUI():void{
-		revalidate();
 	}
 	
 	/**
@@ -434,13 +434,13 @@ public class FloorPane extends Container{
 	private function fitImage():void{
 		if(isLoaded()){
 			// for child classes which redefines floorMC
-			var floor:DisplayObject = getFloorMC();
+			var floor:DisplayObject = getAsset();
 			var b:IntRectangle = getPaintBounds();
 			var s:IntDimension = countFloorSize();
-			floorMCMask.x = b.x;
-			floorMCMask.y = b.y;
-			floorMCMask.width = b.width;
-			floorMCMask.height = b.height;
+			assetMask.x = b.x;
+			assetMask.y = b.y;
+			assetMask.width = b.width;
+			assetMask.height = b.height;
 			if(scaleMode == SCALE_STRETCH_PANE){
 				floor.x = b.x - offsetX;
 				floor.y = b.y - offsetY;
@@ -470,7 +470,7 @@ public class FloorPane extends Container{
 			} else {
 				actualScale = 0;
 			}
-			setMaskFloor(maskFloor);
+			setMaskAsset(maskFloor);
 		}
 	}
 	
@@ -479,7 +479,7 @@ public class FloorPane extends Container{
 	 */
 	private function alignFloor(b:IntRectangle=null):void {
 		// for child classes which redefines floorMC
-		var floorMC:DisplayObject = getFloorMC();
+		var floorMC:DisplayObject = getAsset();
 		if (b == null) b = getPaintBounds();
 		
 		var mx:Number, my:Number;
@@ -557,62 +557,27 @@ public class FloorPane extends Container{
 	}
 	
 	/**
-	 * Reload the floor image/animation when enabledFoor. otherwish do nothing.
-	 * @see #loadFloor()
-	 * @see #createFloorMC()
-	 * @see #createFloorMaskMC()
+	 * Reload the asset. This will reset the asset to count currenty size and re-layout.
 	 * @see org.aswing.JLoadPane
 	 * @see org.aswing.JAttachPane
 	 */
 	public function reload():void{
-		if(isEnabledFloor()){
-			removeFloorMCs();
-			floorMC = createFloor();
-			floorMCMask = createFloorMask();
-			if (floorMC != null){			
-				this.addChild(floorMC);
-				this.addChild(floorMCMask);
-				setLoaded(false);
-				loadFloor();
-			}
-		}
+		resetAsset();
 	}
 	
-	public function isMaskFloor():Boolean{
+	public function isMaskAsset():Boolean{
 		return maskFloor;
 	}
 	
-	public function setMaskFloor(m:Boolean):void{
+	public function setMaskAsset(m:Boolean):void{
 		maskFloor = m;
-		var floor:DisplayObject = getFloorMC();
-		//floorMCMask.y =+ 100;
 		if(m){
-			floor.mask = floorMCMask;
+			assetMask.visible = true;
+			assetContainer.mask = assetMask;
 		}else{
-			floor.mask = null;
+			assetContainer.mask = null;
+			assetMask.visible = false;
 		}
-	}
-	
-	protected function removeFloorMCs():void{
-		var floor:DisplayObject = getFloorMC();
-		if (floor != null && this.contains(floor)){
-			floor.mask = null;
-			this.removeChild(floor);
-			this.removeChild(floorMCMask);
-		}
-	}
-	
-	/**
-	 * Creates mask shape.
-	 */
-	private function createFloorMask():Sprite{
-		if (floorMCMask == null){
-			floorMCMask = new Sprite();
-			floorMCMask.graphics.beginFill(0xFF0000);
-			floorMCMask.graphics.drawRect(0, 0, 1, 1);
-			floorMCMask.visible = false;
-		}
-		return floorMCMask;
 	}
 	
 	protected function setLoaded(b:Boolean):void{
@@ -631,20 +596,8 @@ public class FloorPane extends Container{
 	 * Subclass must override this method to make loading.
 	 */
 	protected function loadFloor():void{
-		if (floorMC != null){
-			setFloorOriginalSize(new IntDimension(floorMC.width, floorMC.height));
-		}
-		setLoaded(floorMC != null);
+
 	}
-	
-	/**
-	 * Create the floor mc.
-	 * <p> here it is empty.
-	 * Subclass must override this method to make creating.
-	 */
-	protected function createFloor():DisplayObject{
-		return floorMC;
-	}	
 	
 }
 }
