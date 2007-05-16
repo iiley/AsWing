@@ -10,7 +10,7 @@ import org.aswing.JTextArea;
 import org.aswing.SoftBox;
 import org.aswing.JScrollPane;
 import org.aswing.ASColor;
-import org.aswing.FloorPane;
+import org.aswing.AssetPane;
 import flash.display.DisplayObject;
 import org.aswing.geom.IntDimension;
 import org.aswing.JSlider;
@@ -24,7 +24,7 @@ public class Scrolls extends JPanel{
 		super();
 		name = "Scrolls";
 		
-		var scrollPane:JScrollPane = new JScrollPane(new FloorPane(new imgClass() as DisplayObject));
+		var scrollPane:JScrollPane = new JScrollPane(new AssetPane(new imgClass() as DisplayObject));
 		scrollPane.setPreferredSize(new IntDimension(300, 300));
 		
 		append(scrollPane);
