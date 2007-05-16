@@ -33,7 +33,8 @@ public class LoadIcon extends AssetIcon{
 	 * 		specified by front two params, default is false
 	 */
 	public function LoadIcon(url:*, width:Number=-1, height:Number=-1, scale:Boolean=false, context:LoaderContext=null){
-		super(getLoader(), width, height, scale);
+		super(getLoader(), width, height, false);
+		this.scale = scale;
 		if(url is URLRequest){
 			urlRequest = url;
 		}else{
@@ -64,6 +65,10 @@ public class LoadIcon extends AssetIcon{
 		if(needCountSize){
 			setWidth(loader.content.width);
 			setHeight(loader.content.height);
+		}
+		if(scale){
+			loader.content.width = width;
+			loader.content.height = height;
 		}
 		if(owner){
 			owner.repaint();
