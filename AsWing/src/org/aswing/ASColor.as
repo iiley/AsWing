@@ -315,7 +315,7 @@ public class ASColor{
 		g *= 255;
 		b *= 255;
 		var color_n:Number = (r<<16) + (g<<8) +b;
-		var color_rgb:uint = Math.max(0, Math.min(255, Math.round(color_n)));
+		var color_rgb:uint = Math.max(0, Math.min(0xFFFFFF, Math.round(color_n)));
 		c.rgb = color_rgb;
 		return c;
 	}
