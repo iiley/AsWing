@@ -246,8 +246,8 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     
     private function representMoveBounds(e:MouseEvent=null):IntPoint{
     	var par:DisplayObjectContainer = frame.parent;
-    	if(!par.contains(boundsMC)){
-    		par.addChildAt(boundsMC, par.numChildren);
+    	if(boundsMC.parent != par){
+    		par.addChild(boundsMC);
     	}
     	var currentMousePos:IntPoint = frame.getMousePosition();
     	var bounds:IntRectangle = frame.getComBounds();
@@ -283,9 +283,6 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 		g.drawRectangle(new Pen(resizeArrowLightColor, 1), x-1,y-1,w+2,h+2);
 		g.drawRectangle(new Pen(resizeArrowColor, 1), x,y,w,h);
 		g.drawRectangle(new Pen(resizeArrowDarkColor, 1), x+1,y+1,w-2,h-2);
-		if(e != null){
-			e.updateAfterEvent();
-		}
 		return bounds.leftTop();
     }
     private function __onMouseMove(e:MouseEvent):void{
