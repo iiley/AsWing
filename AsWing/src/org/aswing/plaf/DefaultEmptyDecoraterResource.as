@@ -29,8 +29,17 @@ public class DefaultEmptyDecoraterResource implements Icon, Border, GroundDecora
 	public static const DEFAULT_FOREGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0xFFFFFF);
 	public static const DEFAULT_FONT:ASFontUIResource = new ASFontUIResource();	
 	
-	public function DefaultEmptyDecoraterResource()
-	{
+	/**
+	 * Used to be a null ui resource color.
+	 */
+	public static const NULL_COLOR:ASColorUIResource = new ASColorUIResource(0);
+	
+	/**
+	 * Used to be a null ui resource font.
+	 */
+	public static const NULL_FONT:ASFontUIResource = new ASFontUIResource();
+	
+	public function DefaultEmptyDecoraterResource(){
 	}
 	
 	/**

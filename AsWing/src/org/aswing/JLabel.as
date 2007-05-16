@@ -3,9 +3,9 @@
 */
 
 package org.aswing{
-	import org.aswing.plaf.basic.BasicLabelUI;
-	
 
+import org.aswing.plaf.basic.BasicLabelUI;
+	
 /**
  * A display area for a short text string or an image, 
  * or both.

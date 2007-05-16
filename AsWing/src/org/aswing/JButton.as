@@ -17,7 +17,6 @@ public class JButton extends AbstractButton
 		super(text, icon);
 		setName("JButton");
     	setModel(new DefaultButtonModel());
-		//updateUI();
 	}
 	
 	/**

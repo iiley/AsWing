@@ -2,8 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic
-{
+package org.aswing.plaf.basic{
 
 import org.aswing.graphics.*;
 import org.aswing.geom.*;
@@ -14,7 +13,22 @@ import flash.geom.Matrix;
  * @private
  */
 public class BasicGraphicsUtils{
-		
+	
+	public static function getDisabledColor(c:Component):ASColor{
+		var bg:ASColor = c.getBackground();
+		if(bg == null) bg = ASColor.BLACK;
+		var hue:Number = bg.getHue();
+		var lum:Number = bg.getLuminance();
+		var sat:Number = bg.getSaturation();
+		if(lum < 0.1){
+			lum *= 1.4;
+		}else{
+			lum *= 0.7;
+		}
+		sat *= 0.7;
+		return ASColor.getASColorWithHLS(hue, lum, sat, bg.getAlpha());
+	}
+	
 	/**
 	 * For buttons style bezel by fill function
 	 */

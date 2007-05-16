@@ -642,7 +642,7 @@ public class Component extends AWSprite{
      * @see #setFont()
      */
 	public function getFont():ASFont{
-        if (font != null) {
+        if (font != null && font != DefaultEmptyDecoraterResource.NULL_FONT) {
             return font;
         }else if(getParent() != null){
         	return getParent().getFont();
@@ -678,7 +678,7 @@ public class Component extends AWSprite{
      * @see #setBackground()
 	 */
 	public function getBackground():ASColor{
-		if(background != null){
+		if(background != null && background != DefaultEmptyDecoraterResource.NULL_COLOR){
 			return background;
 		}else if(getParent() != null){
         	return getParent().getBackground();
@@ -714,7 +714,7 @@ public class Component extends AWSprite{
      * @see #setForeground()
 	 */
 	public function getForeground():ASColor{
-		if(foreground != null){
+		if(foreground != null && foreground != DefaultEmptyDecoraterResource.NULL_COLOR){
 			return foreground;
 		}else if(getParent() != null){
         	return getParent().getForeground();

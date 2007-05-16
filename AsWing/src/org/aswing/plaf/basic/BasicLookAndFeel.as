@@ -25,6 +25,9 @@ import org.aswing.plaf.basic.cursor.H_ResizeCursor;
  */
 public class BasicLookAndFeel extends LookAndFeel{
 	
+	protected var NULL_COLOR:ASColorUIResource = DefaultEmptyDecoraterResource.NULL_COLOR;
+	protected var NULL_FONT:ASFontUIResource = DefaultEmptyDecoraterResource.NULL_FONT;
+	
 	/**
 	 * Need to extends it to make a completed LAF and implements features.
 	 */
@@ -170,6 +173,20 @@ public class BasicLookAndFeel extends LookAndFeel{
 		];
 		table.putDefaults(comDefaults);
 		
+		// *** LabelButton
+		var comDefaults:Array = [
+			"LabelButton.background", NULL_COLOR,
+			"LabelButton.foreground", new ASColorUIResource(0x669900),
+			"LabelButton.opaque", false,  
+			"LabelButton.focusable", true,  
+			"LabelButton.rollOver", new ASColorUIResource(0xFF9966),		
+			"LabelButton.pressed", new ASColorUIResource(0x558000),		
+			"LabelButton.font", table.getFont("controlFont"),
+			"LabelButton.margin", new InsetsUIResource(0, 0, 0, 0), 
+			"LabelButton.textShiftOffset", 0
+		];
+		table.putDefaults(comDefaults);
+		
 		// *** Panel
 		comDefaults = [
 			"Panel.background", table.get("window"),
@@ -254,8 +271,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 		
 		// *** Separator
 		comDefaults = [
-			"Separator.background", table.get("window"),
-			"Separator.foreground", table.get("windowText"),
+			"Separator.background", NULL_COLOR,
+			"Separator.foreground", NULL_COLOR,
 			"Separator.opaque", false, 
 			"Separator.focusable", false 
 		];

@@ -220,11 +220,7 @@ public class BasicButtonUI extends BaseComponentUI
 			AsWingUtils.applyTextFont(textField, font);
 			b.setFontValidated(true);
 		}
-		if(!b.isEnabled()){
-    		AsWingUtils.applyTextColor(textField, button.getBackground().darker());
-		}else{
-    		AsWingUtils.applyTextColor(textField, button.getForeground());
-		}
+    	AsWingUtils.applyTextColor(textField, getTextPaintColor(b));
 		textField.x = textRect.x;
 		textField.y = textRect.y;
 		if(b.getMnemonicIndex() >= 0){
@@ -232,6 +228,14 @@ public class BasicButtonUI extends BaseComponentUI
 				new TextFormat(null, null, null, null, null, true), 
 				b.getMnemonicIndex());
 		}
+    }
+    
+    protected function getTextPaintColor(b:AbstractButton):ASColor{
+    	if(b.isEnabled()){
+    		return b.getForeground();
+    	}else{
+    		return BasicGraphicsUtils.getDisabledColor(b);
+    	}
     }
     
     /**

@@ -318,7 +318,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 				if(disabledForeground != null){
 					tc = disabledForeground;
 				}else{
-					tc = b.getBackground().brighter();
+					tc = BasicGraphicsUtils.getDisabledColor(b);
 				}
 			}
 			textField.visible = true;
@@ -352,7 +352,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 				if(disabledForeground != null){
 					tc = disabledForeground;
 				}else{
-					tc = b.getBackground().brighter();
+					tc = BasicGraphicsUtils.getDisabledColor(b);
 				}
 			} else if (isSelected) {
 				tc = acceleratorSelectionForeground;
