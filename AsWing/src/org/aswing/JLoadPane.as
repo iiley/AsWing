@@ -2,15 +2,15 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
+package org.aswing{
 	
 import flash.display.*;
 import flash.events.*;
+import flash.net.*;
+import flash.system.*;
 
 import org.aswing.geom.*;
 import org.aswing.util.*;
-import flash.net.URLRequest;
 
 /**
  * Dispatched when data has loaded successfully. The complete event is always dispatched after the init event. 
@@ -57,65 +57,66 @@ import flash.net.URLRequest;
 [Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 
 /**
- * Dispatched by a LoaderInfo object whenever a loaded object is removed by using the unload() method of the Loader object, 
- * or when a second load is performed by the same Loader object and the original content is removed prior to the load beginning. 
- * @eventType flash.events.Event.UNLOAD
- */
-[Event(name="unload", type="flash.events.Event")]
-/**
- * JLoadPane, a container load a external image/animation to be its floor.
+ * JLoadPane, a container load a external image/animation to be its asset.
  * @see org.aswing.JAttachPane
  * @author iiley
  */	
-public class JLoadPane extends FloorPane
-{
+public class JLoadPane extends AssetPane{
+	
 	private var loader:Loader;
 	private var loadedError:Boolean;
-	private var lockroot:Boolean;
-	private var path:String;
+	private var urlRequest:URLRequest;
+	private var context:LoaderContext;
 	
 	/**
-	 * JLoadPane(path:String, prefferSizeStrategy:Number) <br>
-	 * JLoadPane(path:String) prefferSizeStrategy default to PREFER_SIZE_BOTH<br>
-	 * JLoadPane() path default to null,prefferSizeStrategy default to PREFER_SIZE_BOTH<br>
 	 * Creates a JLoadPane with a path to load external image or animation file.
-	 * @param path the path of the extenal image/animation file.
+	 * @param url the path string or a URLRequst instance, null to make it do not load any thing.
 	 * @param prefferSizeStrategy the prefferedSize count strategy. Must be one of below:
 	 * <ul>
-	 * <li>{@link org.aswing.FloorPane#PREFER_SIZE_BOTH}
-	 * <li>{@link org.aswing.FloorPane#PREFER_SIZE_IMAGE}
-	 * <li>{@link org.aswing.FloorPane#PREFER_SIZE_LAYOUT}
+	 * <li>{@link org.aswing.AssetPane#PREFER_SIZE_BOTH}
+	 * <li>{@link org.aswing.AssetPane#PREFER_SIZE_IMAGE}
+	 * <li>{@link org.aswing.AssetPane#PREFER_SIZE_LAYOUT}
 	 * </ul>
+	 * @param context the loader context.
 	 * @see #setPath()
 	 */
-	public function JLoadPane(path:String, prefferSizeStrategy:int) {
-		this.path = path;
-		super(createFloor(), prefferSizeStrategy);
+	public function JLoadPane(url:*, prefferSizeStrategy:int=1, context:LoaderContext = null) {
+		super(null, prefferSizeStrategy);
 		setName("JLoadPane");
 		loadedError = false;
+		if(url is URLRequest){
+			urlRequest = url;
+		}else if(url != null){
+			urlRequest = new URLRequest(url);
+		}else{
+			urlRequest = null;
+		}
+		this.context = context;
+		loader = createLoader();
+		loadAsset();
 	}
 	
 	
 	/**
-	 * Sets the path to load/attach image/animation file or symbol.
-	 * This method will cause <code>reload()</code> action if the path 
-	 * is different from old one.
-	 * @param path the path of external image/animation file or the linkageID of a symbol.
-	 * @see #reload()
+	 * Load the asset.
+	 * @param request The absolute or relative URL of the SWF, JPEG, GIF, or PNG file to be loaded. 
+	 * 		A relative path must be relative to the main SWF file. Absolute URLs must include 
+	 * 		the protocol reference, such as http:// or file:///. Filenames cannot include disk drive specifications. 
+	 * @param context (default = null) — A LoaderContext object.
+	 * @see flash.display.Loader#load()
 	 */
-	public function setPath(path:String):void{
-		if(path != this.path){
-			this.path = path;
-			reload();
-		}
+	public function load(request:URLRequest, context:LoaderContext = null):void{
+		this.urlRequest = request;
+		this.context = context;
+		loadAsset();
 	}
 	
 	/**
 	 * return the path of image/animation file
 	 * @return the path of image/animation file
 	 */ 
-	public function getPath():String{
-		return path;
+	public function getURLRequest():URLRequest{
+		return urlRequest;
 	}	
 	
 	/**
@@ -126,102 +127,61 @@ public class JLoadPane extends FloorPane
 		return loadedError;
 	}
 	
-	override protected function loadFloor():void{
-		if (loader != null && getPath() != null){
+	protected function loadAsset():void{
+		if(urlRequest != null){
 			loadedError = false;
-			loader.load(new URLRequest(getPath()));
+			loader.load(urlRequest, context);
 		}
 	}
 	
-	override protected function removeFloorMCs():void{
-		super.removeFloorMCs();
-		if (loader != null) loader.unload();
-	}
-	
-	/**
-	 * Create the floor mc.
-	 * <p> here it is empty.
-	 * Subclass must override this method to make creating.
-	 */
-	override protected function createFloor():DisplayObject{
-		if (loader == null){
-			loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, __onLoadComplete);
-			loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit);
-			loader.contentLoaderInfo.addEventListener(Event.OPEN, __onLoadStart);
-			loader.contentLoaderInfo.addEventListener(Event.UNLOAD, __onUnload);
-			loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError);	
-			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, 	__onLoadProgress);		
-		}
+	protected function createLoader():Loader{
+		loader = new Loader();
+		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, __onLoadComplete);
+		loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit);
+		loader.contentLoaderInfo.addEventListener(Event.OPEN, __onLoadStart);
+		loader.contentLoaderInfo.addEventListener(Event.UNLOAD, __onUnload);
+		loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
+		loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError);	
+		loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, __onLoadProgress);
 		return loader;
-	}
-	
-	/**
-	 * Sets whether the _root refers of the loaded swf file is locked to itself.(default value is false)
-	 * @param b whether the _root refers of the loaded swf file is locked to itself.
-	 * @see adobe doc about this {@link http://livedocs.macromedia.com/flash/8/main/wwhelp/wwhimpl/js/html/wwhelp.htm?href=Part4_ASLR2.html}
-	 */
-	public function setLockroot(b:Boolean):void{
-		lockroot = b;
-	}
-	
-	/**
-	 * Returns a Boolean value that specifies what _root refers to when the SWF file is loaded into the pane.(default value is false)
-	 * @return whether the _root refers of the loaded swf file is locked to itself
-	 * @see adobe doc about this {@link http://livedocs.macromedia.com/flash/8/main/wwhelp/wwhimpl/js/html/wwhelp.htm?href=Part4_ASLR2.html}
-	 */
-	public function isLockroot():Boolean{
-		return lockroot;
 	}
 	
 	/**
 	 * Returns a object contains <code>bytesLoaded</code> and <code>bytesTotal</code> 
 	 * properties that indicate the current loading status.
 	 */
-	public function getProgress():Object{
-		var object:Object = new Object();
-		object.bytesLoaded = loader.contentLoaderInfo.bytesLoaded;
-		object.bytesTotal = loader.contentLoaderInfo.bytesTotal;
-		return object;
+	public function getProgress():ProgressEvent{
+		return new ProgressEvent(ProgressEvent.PROGRESS, false, false, 
+			loader.contentLoaderInfo.bytesLoaded, 
+			loader.contentLoaderInfo.bytesTotal);
 	}
 	
+	public function getAssetLoaderInfo():LoaderInfo{
+		return loader.contentLoaderInfo;
+	}
 	
 	public function getLoader():Loader{
 		return loader;
 	}
 	
-	/**
-	 * Return the content of the pane
-	 */ 
-	override public function getFloorMC():DisplayObject{
-		return loader;
-	}
-	
-	/**
-	 * Return the mc have loaded
-	 */ 
-	public function getLoadedMC():DisplayObject{
-		return getLoader().content;
-	}
 	//-----------------------------------------------
 
 	private function __onLoadComplete(e:Event):void{
+		var content:DisplayObject = loader.content;
+		loader.unload();
+		setAsset(content);
+		
 		dispatchEvent(new Event(Event.COMPLETE));
 	}
 	
 	private function __onLoadError(e:IOErrorEvent):void{
 		loadedError = true;
+		setAsset(null);
 		dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.toString()));
 	}
 	
 	private function __onLoadInit(e:Event):void{
-		setFloorOriginalSize(new IntDimension(loader.width, loader.height));
-		setLoaded(true);
-		valid = false;
 		dispatchEvent(new Event(Event.INIT));
-		revalidate();
-		validate();
 	}
 	
 	private function __onLoadProgress(e:ProgressEvent):void{
@@ -233,12 +193,11 @@ public class JLoadPane extends FloorPane
 	}
 	
 	private function __onUnload(e:Event):void{
-		dispatchEvent(new Event(Event.UNLOAD));
+		//do nothing
 	}
 	
 	private function __onLoadHttpStatus(e:HTTPStatusEvent):void{
 		dispatchEvent(new HTTPStatusEvent(HTTPStatusEvent.HTTP_STATUS,false,false,e.status));		
 	}
-	
 }
 }

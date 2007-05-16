@@ -14,124 +14,118 @@ import flash.display.Loader;
 import flash.display.Sprite;
 import flash.events.*;
 import flash.net.URLRequest;
+import flash.system.ApplicationDomain;
 
 /**
  * Dispatched when when the symbol was attached.
  * @eventType org.aswing.event.AttachEvent.ATTACHED
  */
 [Event(name="attached", type="org.aswing.event.AttachEvent")]
+
 /**
  * JAttachPane, a container attach flash symbol in library to be its floor.
  * @see org.aswing.JLoadPane
  * @author iiley
  */
-public class JAttachPane extends FloorPane {
+public class JAttachPane extends AssetPane{
 	
-	private var loader:Loader;
-	private var loading:Boolean;
-	private var path:String;
+	private var className:String;
+	private var applicationDomain:ApplicationDomain;
+	
 	/**
-	 * JAttachPane(path:String, prefferSizeStrategy:int) <br>
-	 * JAttachPane(path:String) prefferSizeStrategy default to PREFER_SIZE_BOTH<br>
-	 * JAttachPane() path default to null,prefferSizeStrategy default to PREFER_SIZE_BOTH<br>
-	 * Creates a JAttachPane with a path to attach a symbol from library
-	 * @param path the linkageID of the symbol in library
+	 * Creates a JAttachPane with a path to attach a symbol from library.
+	 * 
+	 * @param assetClassName the class name of the symbol in library
 	 * @param prefferSizeStrategy the prefferedSize count strategy. Must be one of below:
 	 * <ul>
-	 * <li>{@link org.aswing.FloorPane#PREFER_SIZE_BOTH}
-	 * <li>{@link org.aswing.FloorPane#PREFER_SIZE_IMAGE}
-	 * <li>{@link org.aswing.FloorPane#PREFER_SIZE_LAYOUT}
+	 * <li>{@link org.aswing.AssetPane#PREFER_SIZE_BOTH}
+	 * <li>{@link org.aswing.AssetPane#PREFER_SIZE_IMAGE}
+	 * <li>{@link org.aswing.AssetPane#PREFER_SIZE_LAYOUT}
 	 * </ul>
+	 * Default is PREFER_SIZE_IMAGE.
+	 * @param applicationDomain the applicationDomain for the class placed in. default is null means current domain.
 	 * @see #setPath()
 	 */
-	public function JAttachPane(path:String, prefferSizeStrategy:int) {
-		this.path = path;
-		this.loader = null;
-		this.loading = false;
-		super(getAttachDisplayObject(), prefferSizeStrategy);		
+	public function JAttachPane(assetClassName:String, prefferSizeStrategy:int=1, applicationDomain:ApplicationDomain=null) {
+		super(null, prefferSizeStrategy);		
 		setName("JAttachPane");
+		this.className = className;
+		this.applicationDomain = (applicationDomain == null ? ApplicationDomain.currentDomain : applicationDomain);
+		setAsset(createAsset());
 	}
 	
 	/**
-	 * Sets the path to attach displayObject from library of root sprite.
-	 * This method will cause <code>reload()</code> action if the path 
-	 * is different from old one.
-	 * @param path the linkageID of a displayObject.
-	 * @see #reload()
+	 * Sets the class name of the asset.
+	 * @param assetClassName the asset class name.
 	 */
-	public function setPath(path:String):void{
-		this.loader = null;
-		if(path != this.path){
-			this.path = path;
-			reload();
+	public function setAssetClassName(assetClassName:String):void{
+		if(className != assetClassName){
+			className = assetClassName;
+			setAsset(createAsset());
 		}
+	}
+	
+	/**
+	 * Sets the applicationDomain.
+	 * @param ad the applicationDomain.
+	 */
+	public function setApplicationDomain(ad:ApplicationDomain):void{
+		if(applicationDomain != ad){
+			applicationDomain = ad;
+			setAsset(createAsset());
+		}
+	}
+	
+	public function getAssetClassName():String{
+		return className;
+	}
+	
+	public function getApplicationDomain():ApplicationDomain{
+		return applicationDomain;
 	}
 	
 	/**
 	 * Sets the path to attach displayObject from library of loader.
-	 * This method will cause <code>reload()</code> action if the path 
-	 * is different from old one.
-	 * @param path the linkageID of a displayObject.
-	 * @param loader the loader object of the loader with library.
-	 * @see #reload()
+	 * @param assetClassName the linkageID of a displayObject.
+	 * @param loader the loader that its contentLoaderInfo.appliactionDomain to be used.
 	 */
-	public function setPathAndLoader(path:String, loader:Loader=null):void{
-		if(path != this.path || loader != this.loader){
-			this.path = path;
-			this.loader = loader;
-			setLoaded(false);
-			reload();
+	public function setAssetClassNameAndLoader(assetClassName:String, loader:Loader):void{
+		if(className != assetClassName 
+			|| applicationDomain != loader.contentLoaderInfo.applicationDomain){
+			className = assetClassName;
+			applicationDomain = loader.contentLoaderInfo.applicationDomain;
+			setAsset(createAsset());
 		}
 	}
 	
 	/**
-	 * return the path of the attach
-	 * @return the path of the attach
+	 * return the class name of the asset.
+	 * @return the class name.
 	 */ 
-	public function getPath():String{
-		return path;
+	public function getClassName():String{
+		return className;
 	}
 	
-	override protected function loadFloor():void{
-		if (contains(getFloorMC())){
-			setLoaded(true);
-			revalidate();
-		}
-	}
-	
-	/**
-	 * Create the floor mc.
-	 * <p> here it is empty.
-	 * Subclass must override this method to make creating.
-	 */
-	override protected function createFloor():DisplayObject{
-		if (this.getPath() != null){
-			return getAttachDisplayObject();
-		}
-		return null;
-	}
-	
-	/**
-	 * return the DisplayObject the pane attach
-	 * @return the DisplayObject the pane attach
-	 */ 
-	private function getAttachDisplayObject():DisplayObject{
-		try{
-			var classReference:Class;
-			if (loader == null){
-				classReference = getDefinitionByName(this.getPath()) as Class;
-			}else{
-				classReference = loader.contentLoaderInfo.applicationDomain.getDefinition(this.getPath()) as Class;
-			}
-			var attachMC:DisplayObject = new classReference();
-			setFloorOriginalSize(new IntDimension(attachMC.width, attachMC.height));
-			dispatchEvent(new AttachEvent(AttachEvent.ATTACHED));
-			return attachMC;
-		}catch(e:Error){
-			trace("JAttachPane getAttachDisplayObject error:"+e.toString());
+	private function createAsset():DisplayObject{
+		if(className == null){
 			return null;
 		}
-		return null
+		var classReference:Class;
+		if (applicationDomain == null){
+			classReference = getDefinitionByName(className) as Class;
+		}else{
+			classReference = applicationDomain.getDefinition(className) as Class;
+		}
+		if(classReference == null){
+			return null;
+		}
+		var attachMC:DisplayObject = new classReference() as DisplayObject;
+		if(attachMC == null){
+			return null;
+		}
+		setFloorOriginalSize(new IntDimension(attachMC.width, attachMC.height));
+		dispatchEvent(new AttachEvent(AttachEvent.ATTACHED));
+		return attachMC;
 	}
 }
 }
