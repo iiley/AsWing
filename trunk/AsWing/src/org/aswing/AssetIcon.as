@@ -13,12 +13,12 @@ import org.aswing.error.*;
  */	
 public class AssetIcon implements Icon{
 	
-	private var width:int;
-	private var height:int;
-	private var scale:Boolean; 
-	private var asset:DisplayObject;
-	private var assetContainer:DisplayObjectContainer;
-	private var maskShape:Shape;
+	protected var width:int;
+	protected var height:int;
+	protected var scale:Boolean; 
+	protected var asset:DisplayObject;
+	protected var assetContainer:DisplayObjectContainer;
+	protected var maskShape:Shape;
 	
 	/**
 	 * Creates a AssetIcon with a path to load external content.
