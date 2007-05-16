@@ -46,8 +46,6 @@ public class BasicSeparatorUI extends BaseComponentUI
 		LookAndFeel.installBorderAndBFDecorators(s, pp);
 		s.setAlignmentX(0.5);
 		s.setAlignmentY(0.5);
-		s.setBackground(null);//make it grap it from its parent
-		s.setForeground(null);
 	}
 	
 	public function uninstallDefaults(s:JSeparator):void{

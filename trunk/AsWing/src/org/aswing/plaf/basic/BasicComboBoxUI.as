@@ -115,7 +115,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 	 		var bgColor:ASColor;
 	 		bgColor = (c.getBackground() == null ? ASColor.WHITE : c.getBackground());
 	 		if(!box.isEnabled()){
-	 			bgColor = bgColor.darker();
+	 			bgColor = BasicGraphicsUtils.getDisabledColor(c);
 	 		}
 			g.fillRectangle(new SolidBrush(bgColor), b.x, b.y, b.width, b.height);
     	}
