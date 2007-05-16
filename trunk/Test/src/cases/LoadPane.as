@@ -1,14 +1,10 @@
-package cases
-{
-import flash.display.Sprite;
-import org.aswing.JPanel;
-import org.aswing.BorderLayout;
-import org.aswing.JLoadPane;
-import org.aswing.FloorPane;
-import org.aswing.JButton;
+package cases{
+
+import flash.display.*;
 import flash.events.*;
-import org.aswing.border.LineBorder;
-import org.aswing.ASColor;
+import org.aswing.*;
+import org.aswing.border.*;
+import flash.net.URLRequest;
 
 public class LoadPane extends Sprite
 {
@@ -16,26 +12,24 @@ public class LoadPane extends Sprite
 	private var loadPane:JLoadPane;
 	public function LoadPane(){
 		pane = new JPanel(new BorderLayout());
-		loadPane = new JLoadPane("http://192.168.0.202/ihomestatics/images/mail3.gif", FloorPane.CENTER);
-		loadPane.setScaleMode(FloorPane.SCALE_FIT_PANE);
+		loadPane = new JLoadPane("../res/princess.jpg");
+		loadPane.setScaleMode(AssetPane.SCALE_FIT_PANE);
 		loadPane.setBorder(new LineBorder(null,ASColor.GREEN));
 		loadPane.addEventListener(IOErrorEvent.IO_ERROR, __onIOError);
 		loadPane.addEventListener(Event.INIT, __onLoadInnit);
-		loadPane.setVerticalAlignment(FloorPane.CENTER);
-		pane.append(loadPane, BorderLayout.NORTH);
+		loadPane.setVerticalAlignment(AssetPane.CENTER);
+		pane.append(loadPane, BorderLayout.CENTER);
 		pane.append(new JButton("sadfasdfa"), BorderLayout.SOUTH);
-		pane.setSizeWH(100,100);
+		pane.setSizeWH(100,400);
 		this.addChild(pane);
 		pane.validate();
 	}
 	
 	private function __onIOError(e:Event):void{
-		loadPane.setPath("http://192.168.0.202/ihomestatics/images/mail.gif");
-		//loadPane.setPath("linkmc.swf");
+		loadPane.load(new URLRequest("../res/princess.jpg"));
 	}
 	
 	private function __onLoadInnit(e:Event):void{
-		//loadPane.setPath(null);
 	}
 }
 }
