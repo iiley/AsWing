@@ -16,20 +16,29 @@ public class LoadPane extends Sprite
 		loadPane.setScaleMode(AssetPane.SCALE_FIT_PANE);
 		loadPane.setBorder(new LineBorder(null,ASColor.GREEN));
 		loadPane.addEventListener(IOErrorEvent.IO_ERROR, __onIOError);
-		loadPane.addEventListener(Event.INIT, __onLoadInnit);
+		loadPane.addEventListener(Event.COMPLETE, __onLoadInnit);
 		loadPane.setVerticalAlignment(AssetPane.CENTER);
 		pane.append(loadPane, BorderLayout.CENTER);
-		pane.append(new JButton("sadfasdfa"), BorderLayout.SOUTH);
+		var btn:JButton = new JButton("load 2");
+		pane.append(btn, BorderLayout.SOUTH);
 		pane.setSizeWH(100,400);
 		this.addChild(pane);
 		pane.validate();
+		btn.addActionListener(__load2);
+	}
+	
+	private function __load2(e:Event):void{
+		loadPane.load(new URLRequest("../res/3.jpg"));
 	}
 	
 	private function __onIOError(e:Event):void{
-		loadPane.load(new URLRequest("../res/princess.jpg"));
+		loadPane.load(new URLRequest("../res/2.jpg"));
 	}
 	
 	private function __onLoadInnit(e:Event):void{
+		var info:LoaderInfo = loadPane.getAssetLoaderInfo();
+		trace(info.url);
+		trace(loadPane.getAsset().loaderInfo.url);
 	}
 }
 }
