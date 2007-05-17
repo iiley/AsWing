@@ -160,6 +160,13 @@ public class JLoadPane extends AssetPane{
 	}	
 	
 	/**
+	 * Re load the asset from with last url request and context.
+	 */
+	override public function reload():void{
+		loadAsset();
+	}
+	
+	/**
 	 * Returns is error loaded.
 	 * @see #ON_LOAD_ERROR
 	 */
