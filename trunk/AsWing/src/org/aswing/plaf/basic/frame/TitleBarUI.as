@@ -140,6 +140,7 @@ public class TitleBarUI extends BaseComponentUI{
 		frame.addEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged);
 		frame.addEventListener(ResizedEvent.RESIZED, __sizeChanged);
 		frame.addEventListener(MovedEvent.MOVED, __frameMoved);
+		frame.addEventListener(Event.ADDED_TO_STAGE, __frameShown);
 		
 		frame.addEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.addEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
@@ -165,6 +166,7 @@ public class TitleBarUI extends BaseComponentUI{
 		frame.removeEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged);
 		frame.removeEventListener(ResizedEvent.RESIZED, __sizeChanged);
 		frame.removeEventListener(MovedEvent.MOVED, __frameMoved);
+		frame.removeEventListener(Event.ADDED_TO_STAGE, __frameShown);
 		
 		frame.removeEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
@@ -174,7 +176,7 @@ public class TitleBarUI extends BaseComponentUI{
 	private function __activeChange(e:Event):void{
 		titleBar.repaint();
 	}	
-	private function __stageChanged(e:Event):void{
+	private function __stageChanged(e:Event=null):void{
 		if(frame.stage == null || frame.stage.scaleMode != StageScaleMode.NO_SCALE){
 			return;
 		}
@@ -213,6 +215,8 @@ public class TitleBarUI extends BaseComponentUI{
 		}
 	}
 	
+	private var stageResizeListenerAdded:Boolean = false;
+	
 	private function __stateChanged(e:Event):void{
 		var state:Number = frame.getState();
 		if(state != JFrame.ICONIFIED 
@@ -229,7 +233,10 @@ public class TitleBarUI extends BaseComponentUI{
 			stateChangeSize = true;
 			frame.setSize(frame.getInsets().getOutsideSize(iconifiedSize));
 			stateChangeSize = false;
-			frame.stage.removeEventListener(Event.RESIZE, __stageChanged);
+			if(frame.isOnStage()){
+				frame.stage.removeEventListener(Event.RESIZE, __stageChanged);
+				stageResizeListenerAdded = false;
+			}
 		}else if(state == JFrame.NORMAL){
 			stateChangeSize = true;
 			frame.setBounds(lastNormalStateBounds);
@@ -237,7 +244,10 @@ public class TitleBarUI extends BaseComponentUI{
 			if(isNeedToViewIconifiedButton())
 				iconifiedButton.setVisible(true);
 			switchToMaximizButton();
-			frame.stage.removeEventListener(Event.RESIZE, __stageChanged);
+			if(frame.isOnStage()){
+				frame.stage.removeEventListener(Event.RESIZE, __stageChanged);
+				stageResizeListenerAdded = false;
+			}
 		}else{
 			setSizeToFixMaxmimized();
 		}
@@ -265,8 +275,26 @@ public class TitleBarUI extends BaseComponentUI{
 			iconifiedButton.setVisible(true);
 		switchToNormalButton();
 		
-		frame.stage.addEventListener(Event.RESIZE, __stageChanged);
+		if(frame.isOnStage()){
+			frame.stage.addEventListener(Event.RESIZE, __stageChanged);
+			stageResizeListenerAdded = true;
+		}
 	}
+	
+	private function __frameShown(e:Event):void{
+		if(stageResizeListenerAdded){
+			return;
+		}
+		var state:int = frame.getState();
+		if(((state & JFrame.MAXIMIZED_HORIZ) == JFrame.MAXIMIZED_HORIZ) || ((state & JFrame.MAXIMIZED_VERT) == JFrame.MAXIMIZED_VERT)){
+			if(frame.isOnStage()){
+				frame.stage.addEventListener(Event.RESIZE, __stageChanged);
+				stageResizeListenerAdded = true;
+				__stageChanged();
+			}
+		}
+	}
+	
 	
 	public function isNormalIcon():Boolean{
 		return resizeButton.getIcon() == normalIcon;
