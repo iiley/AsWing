@@ -57,19 +57,29 @@ import org.aswing.util.*;
 [Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 
 /**
+ * Dispatched by a LoaderInfo object whenever a loaded object is removed by using the unload() method of the Loader object, 
+ * or when a second load is performed by the same Loader object and the original content is removed prior to the load beginning. 
+ * @eventType flash.events.Event.UNLOAD
+ */
+[Event(name="unload", type="flash.events.Event")]
+
+/**
  * JLoadPane, a container load a external image/animation to be its asset.
  * @see org.aswing.JAttachPane
  * @author iiley
  */	
 public class JLoadPane extends AssetPane{
 	
-	private var loader:Loader;
-	private var loadedError:Boolean;
-	private var urlRequest:URLRequest;
-	private var context:LoaderContext;
+	protected var loader:Loader;
+	protected var loadedError:Boolean;
+	protected var urlRequest:URLRequest;
+	protected var context:LoaderContext;
+	protected var regularAssetContainer:DisplayObjectContainer;
 	
 	/**
 	 * Creates a JLoadPane with a path to load external image or animation file.
+	 * <p>The asset of the JLoadPane will only be available after load completed. It mean 
+	 * <code>getAsset()</code> will return null before load completed.</p>
 	 * @param url the path string or a URLRequst instance, null to make it do not load any thing.
 	 * @param prefferSizeStrategy the prefferedSize count strategy. Must be one of below:
 	 * <ul>
@@ -92,13 +102,43 @@ public class JLoadPane extends AssetPane{
 			urlRequest = null;
 		}
 		this.context = context;
+		regularAssetContainer = assetContainer;
 		loader = createLoader();
 		loadAsset();
 	}
 	
+	override public function setAsset(asset:DisplayObject):void{
+		if(assetContainer == loader){
+			assetContainer = regularAssetContainer;
+			removeChild(loader);
+			loader.mask = null;
+			addChild(assetContainer);
+			applyMaskAsset();
+		}
+		super.setAsset(asset);
+	}
+	
+	/**
+	 * Sets the asset loaded by JLoadPane's loader.
+	 */
+	protected function setLoadedAsset(asset:DisplayObject):void{
+		if(assetContainer == regularAssetContainer){
+			assetContainer = loader;
+			removeChild(regularAssetContainer);
+			regularAssetContainer.mask = null;
+			addChild(assetContainer);
+			applyMaskAsset();
+		}
+		this.asset = asset;
+		storeOriginalScale();
+		resetAsset();
+		setLoaded(asset != null);
+	}
 	
 	/**
 	 * Load the asset.
+	 * <p>The asset of the JLoadPane will only be available after load completed. It mean 
+	 * <code>getAsset()</code> will return null before load completed.</p>
 	 * @param request The absolute or relative URL of the SWF, JPEG, GIF, or PNG file to be loaded. 
 	 * 		A relative path must be relative to the main SWF file. Absolute URLs must include 
 	 * 		the protocol reference, such as http:// or file:///. Filenames cannot include disk drive specifications. 
@@ -130,6 +170,7 @@ public class JLoadPane extends AssetPane{
 	protected function loadAsset():void{
 		if(urlRequest != null){
 			loadedError = false;
+			setLoaded(false);
 			loader.load(urlRequest, context);
 		}
 	}
@@ -167,16 +208,13 @@ public class JLoadPane extends AssetPane{
 	//-----------------------------------------------
 
 	private function __onLoadComplete(e:Event):void{
-		var content:DisplayObject = loader.content;
-		loader.unload();
-		setAsset(content);
-		
+		setLoadedAsset(loader.content);
 		dispatchEvent(new Event(Event.COMPLETE));
 	}
 	
 	private function __onLoadError(e:IOErrorEvent):void{
 		loadedError = true;
-		setAsset(null);
+		setLoadedAsset(loader.content);
 		dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, e.toString()));
 	}
 	
@@ -193,7 +231,7 @@ public class JLoadPane extends AssetPane{
 	}
 	
 	private function __onUnload(e:Event):void{
-		//do nothing
+		dispatchEvent(new Event(Event.UNLOAD));
 	}
 	
 	private function __onLoadHttpStatus(e:HTTPStatusEvent):void{
