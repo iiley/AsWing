@@ -93,10 +93,11 @@ public class AssetPane extends Container{
 	 */
     public static const RIGHT:int   = AsWingConstants.RIGHT;
     
+	protected var asset:DisplayObject;
+	protected var assetContainer:DisplayObjectContainer;
+	protected var assetMask:Shape;
+	
 	private var assetVisible:Boolean;
-	private var asset:DisplayObject;
-	private var assetContainer:DisplayObjectContainer;
-	private var assetMask:Shape;
 	private var maskFloor:Boolean;
 	private var floorLoaded:Boolean;
 	private var prefferSizeStrategy:int;
@@ -144,6 +145,8 @@ public class AssetPane extends Container{
 		floorLoaded = false;
 		offsetX = 0;
 		offsetY = 0;
+		floorOriginalScaleX = 1;
+		floorOriginalScaleY = 1;
 		setFocusable(false);
 		assetContainer = AsWingUtils.createSprite(this, "assetContainer");
 		assetMask = AsWingUtils.createShape(this, "assetMask");
@@ -166,8 +169,7 @@ public class AssetPane extends Container{
 			}
 			this.asset = asset;
 			if(asset){
-				floorOriginalScaleX = asset.scaleX;
-				floorOriginalScaleY = asset.scaleY;
+				storeOriginalScale();
 				assetContainer.addChild(asset);
 			}
 			setLoaded(asset != null);
@@ -175,8 +177,15 @@ public class AssetPane extends Container{
 		}
 	}
 	
+	protected function storeOriginalScale():void{
+		if(asset){
+			floorOriginalScaleX = asset.scaleX;
+			floorOriginalScaleY = asset.scaleY;
+		}
+	}
+	
 	protected function resetAsset():void{
-		if (asset != null){
+		if (asset){
 			asset.scaleX = floorOriginalScaleX;
 			asset.scaleY = floorOriginalScaleY;
 			setFloorOriginalSize(new IntDimension(asset.width, asset.height));
@@ -571,7 +580,11 @@ public class AssetPane extends Container{
 	
 	public function setMaskAsset(m:Boolean):void{
 		maskFloor = m;
-		if(m){
+		applyMaskAsset();
+	}
+	
+	protected function applyMaskAsset():void{
+		if(maskFloor){
 			assetMask.visible = true;
 			assetContainer.mask = assetMask;
 		}else{
