@@ -47,7 +47,7 @@ public class AttachIcon extends AssetIcon{
 		className = assetClassName;
 		applicationDomain = (ad == null ? ApplicationDomain.currentDomain : ad);
 
-		var classReference:Class = applicationDomain.getDefinitionByName(className) as Class;
+		var classReference:Class = applicationDomain.getDefinition(className) as Class;
 		var attachMC:DisplayObject = new classReference() as DisplayObject;
 		return attachMC;
 	}
