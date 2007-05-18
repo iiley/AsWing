@@ -82,6 +82,17 @@ public class AWSprite extends Sprite
 		return super.removeChild(child);
 	}
 	
+	/**
+	 * Returns whether or not the child is this sprite's direct child.
+	 */
+	protected function isChild(child:DisplayObject):Boolean{
+		if(usingBitmap){
+			return child.parent == content;
+		}else{
+			return child.parent == this;
+		}		
+	}
+	
 	override public function removeChild(child:DisplayObject):DisplayObject{
 		if(usingBitmap){
 			return content.removeChild(child);

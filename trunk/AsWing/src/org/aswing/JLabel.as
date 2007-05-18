@@ -5,6 +5,7 @@
 package org.aswing{
 
 import org.aswing.plaf.basic.BasicLabelUI;
+import flash.display.DisplayObject;
 	
 /**
  * A display area for a short text string or an image, 
@@ -132,8 +133,10 @@ public class JLabel extends Component{
 			addChild(icon.getDisplay(this));
 		}
 	}
+	
 	protected function uninstallIcon(icon:Icon):void{
-		if(icon != null && icon.getDisplay(this) != null){
+		var iconDis:DisplayObject = (icon == null ? null : icon.getDisplay(this));
+		if(iconDis != null && isChild(iconDis)){
 			removeChild(icon.getDisplay(this));
 		}
 	}
