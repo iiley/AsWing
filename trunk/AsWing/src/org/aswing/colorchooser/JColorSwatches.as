@@ -2,8 +2,10 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.colorchooser { 
+package org.aswing.colorchooser {
+
 import org.aswing.*;
+import org.aswing.plaf.ColorSwatchesUI;
 import org.aswing.plaf.basic.BasicColorSwatchesUI;
 
 /**
