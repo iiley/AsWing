@@ -6,6 +6,7 @@ package org.aswing{
 
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.display.DisplayObject;
 
 import org.aswing.error.ImpMissError;
 import org.aswing.event.*;
@@ -478,8 +479,10 @@ public class AbstractButton extends Component{
 			addChild(icon.getDisplay(this));
 		}
 	}
+	
 	protected function uninstallIcon(icon:Icon):void{
-		if(icon != null && icon.getDisplay(this) != null){
+		var iconDis:DisplayObject = (icon == null ? null : icon.getDisplay(this));
+		if(iconDis != null && isChild(iconDis)){
 			removeChild(icon.getDisplay(this));
 		}
 	}
