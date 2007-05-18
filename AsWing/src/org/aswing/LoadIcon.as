@@ -63,12 +63,12 @@ public class LoadIcon extends AssetIcon{
 	 */
 	private function __onComplete(e:Event):void{
 		if(needCountSize){
-			setWidth(loader.content.width);
-			setHeight(loader.content.height);
+			setWidth(loader.width);
+			setHeight(loader.height);
 		}
 		if(scale){
-			loader.content.width = width;
-			loader.content.height = height;
+			loader.width = width;
+			loader.height = height;
 		}
 		if(owner){
 			owner.repaint();
