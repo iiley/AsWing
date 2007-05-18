@@ -391,7 +391,10 @@ public class JTextArea extends JTextComponent implements Viewportable{
     			t.scrollH = 0;
 	    	}
     	}
-    	hRange = t.numLines;
+		var extent:int = t.bottomScrollV - t.scrollV + 1;
+		var maxValue:int = t.maxScrollV + extent;
+		var minValue:int = 1;
+    	hRange = maxValue - minValue;
     	return new IntDimension(wRange, hRange);
 	}
 	
