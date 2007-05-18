@@ -298,8 +298,11 @@ public class BasicLookAndFeel extends LookAndFeel{
 		
 		// *** ScrollPane
 		comDefaults = [
+			"ScrollPane.background", table.get("window"),
+			"ScrollPane.foreground", table.get("windowText"),
 			"ScrollPane.opaque", false,  
-			"ScrollPane.focusable", false  
+			"ScrollPane.focusable", false, 
+			"ScrollPane.font", table.getFont("windowFont")
 		];
 		table.putDefaults(comDefaults);
 		
