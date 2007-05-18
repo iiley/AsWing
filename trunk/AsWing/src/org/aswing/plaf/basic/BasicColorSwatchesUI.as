@@ -1,7 +1,8 @@
 /*
  Copyright aswing.org, see the LICENCE.txt.
 */
-package org.aswing.plaf.basic { 
+package org.aswing.plaf.basic{
+
 import flash.display.MovieClip;
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -11,18 +12,16 @@ import flash.ui.Mouse;
 
 import org.aswing.*;
 import org.aswing.border.BevelBorder;
-import org.aswing.colorchooser.ColorRectIcon;
-import org.aswing.colorchooser.JColorSwatches;
-import org.aswing.colorchooser.NoColorIcon;
+import org.aswing.colorchooser.*;
 import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
-import org.aswing.plaf.BaseComponentUI;
+import org.aswing.plaf.*;
 
 /**
  * @private
  */
-public class BasicColorSwatchesUI extends ColorSwatchesUI {
+public class BasicColorSwatchesUI extends BaseComponentUI implements ColorSwatchesUI{
 	
 	private var colorSwatches:JColorSwatches;
 	private var selectedColorLabel:JLabel;
@@ -375,7 +374,7 @@ public class BasicColorSwatchesUI extends ColorSwatchesUI {
 	//*******************************************************************************
 	//              Override these methods to easiy implement different look
 	//******************************************************************************
-	override public function addComponentColorSectionBar(com:Component):void{
+	public function addComponentColorSectionBar(com:Component):void{
 		barRight.append(com);
 	}	
 	
