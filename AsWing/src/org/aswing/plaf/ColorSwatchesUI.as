@@ -4,14 +4,14 @@
 
 package org.aswing.plaf{
 
-import org.aswing.plaf.BaseComponentUI;
+import org.aswing.Component;
 
 /**
  * Pluggable look and feel interface for JColorSwatchs.
  * 
  * @author iiley
  */
-public class ColorSwatchesUI extends ComponentUI{
+public interface ColorSwatchesUI extends ComponentUI{
 	
 	/**
 	 * Adds a component to this panel's sections bar.
