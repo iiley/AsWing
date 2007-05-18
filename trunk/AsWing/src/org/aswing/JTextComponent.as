@@ -145,6 +145,17 @@ public class JTextComponent extends Component implements EditableComponent{
 		}
 	}
 	
+	/**
+	 * Append text implemented by <code>replaceText</code> to avoid the 
+	 * <code>appendText()</code> method bug(the bug will make the text not be append at 
+	 * the end of the text, some times it appends to a middle position).
+	 * @param newText the text to be append to the end of the text field.
+	 */
+	public function appendByReplace(newText:String):void{
+		var n:int = getLength();
+		getTextField().replaceText(n, n, newText);
+	}
+	
 	public function replaceSelectedText(value:String):void{
 		getTextField().replaceSelectedText(value);
 	}
