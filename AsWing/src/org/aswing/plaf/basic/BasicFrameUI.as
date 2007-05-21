@@ -17,6 +17,7 @@ import flash.events.Event;
 import flash.display.DisplayObjectContainer;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
+import flash.geom.Rectangle;
 
 /**
  * Basic frame ui imp.
@@ -190,7 +191,14 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     	}
     	if(frame.isDragable() && !isMaximizedFrame()){
     		if(frame.isDragDirectly()){
-    			frame.startDrag(false, frame.getMaximizedBounds().toRectangle());
+    			var db:Rectangle = frame.getInsets().getInsideBounds(frame.getMaximizedBounds()).toRectangle();
+    			var gap:Number = titleBar.getHeight();
+    			db.x -= (frame.width - gap);
+    			db.y -= frame.getInsets().top;
+    			db.width += (frame.width - gap*2);
+    			db.height -= gap;
+    			
+    			frame.startDrag(false, db);
     		}else{
     			startMousePos = frame.getMousePosition();
     			startPos = frame.getLocation();

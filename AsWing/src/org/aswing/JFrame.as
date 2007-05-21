@@ -325,7 +325,8 @@ public class JFrame extends JWindow{
 	 */
 	public function getMaximizedBounds():IntRectangle{
 		if(maximizedBounds == null){
-			return AsWingUtils.getVisibleMaximizedBounds(this.parent);
+			var b:IntRectangle = AsWingUtils.getVisibleMaximizedBounds(this.parent);
+			return getInsets().getOutsideBounds(b);
 		}else{
 			return maximizedBounds.clone();
 		}
