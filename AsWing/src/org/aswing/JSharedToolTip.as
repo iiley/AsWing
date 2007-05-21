@@ -3,6 +3,9 @@
 */
 
 package org.aswing{
+	import flash.utils.Dictionary;
+	import flash.display.InteractiveObject;
+	
 	
 /**
  * Shared instance Tooltip to saving instances.
@@ -12,11 +15,13 @@ public class JSharedToolTip extends JToolTip{
 	
 	private static var sharedInstance:JSharedToolTip;
 	
-	private var targetedComponent:Component;
+	private var targetedComponent:InteractiveObject;
+	private var textMap:Dictionary;
 	
 	public function JSharedToolTip() {
 		super();
 		setName("JSharedToolTip");
+		textMap = new Dictionary(true);
 	}
 	
 	/**
@@ -37,13 +42,17 @@ public class JSharedToolTip extends JToolTip{
     /**
      * Registers a component for tooltip management.
      *
-     * @param component  a <code>JComponent</code> object to add
+     * @param c  a <code>InteractiveObject</code> object to add.
+     * @param (optional)tipText the text to show when tool tip display. If the c 
+     * 		is a <code>Component</code> this param is useless, if the c is only a 
+     * 		<code>InteractiveObject</code> this param is required.
      */
-	public function registerComponent(c:Component):void{
+	public function registerComponent(c:InteractiveObject, tipText:String=null):void{
 		//TODO chech whether the week works
 		listenOwner(c, true);
+		textMap[c] = tipText;
 		if(getTargetComponent() == c){
-			setTipText(c.getToolTipText());
+			setTipText(getTargetToolTipText(c));
 		}
 	}
 	
@@ -51,10 +60,11 @@ public class JSharedToolTip extends JToolTip{
     /**
      * Removes a component from tooltip control.
      *
-     * @param component  a <code>JComponent</code> object to remove
+     * @param component  a <code>InteractiveObject</code> object to remove
      */
-	public function unregisterComponent(c:Component):void{
+	public function unregisterComponent(c:InteractiveObject):void{
 		unlistenOwner(c);
+		delete textMap[c];
 		if(getTargetComponent() == c){
 			disposeToolTip();
 			targetedComponent = null;
@@ -66,10 +76,10 @@ public class JSharedToolTip extends JToolTip{
 	 * The component c may be null and will have no effect. 
 	 * <p>
 	 * This method is overrided just to call registerComponent of this class.
-	 * @param the JComponent being described
+	 * @param the InteractiveObject being described
 	 * @see #registerComponent()
 	 */
-	override public function setTargetComponent(c:Component):void{
+	override public function setTargetComponent(c:InteractiveObject):void{
 		registerComponent(c);
 	}
 	
@@ -77,20 +87,30 @@ public class JSharedToolTip extends JToolTip{
 	 * Returns the lastest targeted component. 
 	 * @return the lastest targeted component. 
 	 */
-	override public function getTargetComponent():Component{
+	override public function getTargetComponent():InteractiveObject{
 		return targetedComponent;
 	}
 	
+	protected function getTargetToolTipText(c:InteractiveObject):String{
+		if(c is Component){
+			var co:Component = c as Component;
+			return co.getToolTipText();
+		}else{
+			return textMap[c];
+		}
+	}
+	
 	//-------------
-	override protected function __compRollOver(source:Component):void{
-		if(source.getToolTipText() != null && isWaitThenPopupEnabled()){
+	override protected function __compRollOver(source:InteractiveObject):void{
+		var tipText:String = getTargetToolTipText(source);
+		if(tipText != null && isWaitThenPopupEnabled()){
 			targetedComponent = source;
-			setTipText(targetedComponent.getToolTipText());
+			setTipText(tipText);
 			startWaitToPopup();
 		}
 	}
 	
-	override protected function __compRollOut(source:Component):void{
+	override protected function __compRollOut(source:InteractiveObject):void{
 		if(source == targetedComponent && isWaitThenPopupEnabled()){
 			disposeToolTip();
 			targetedComponent = null;

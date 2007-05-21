@@ -52,7 +52,7 @@ public class JToolTip extends Container{
 	private var containerRoot:DisplayObjectContainer;
 	
 	private var tipText:String;
-	private var comp:Component;
+	private var comp:InteractiveObject;
 	private var offsets:IntPoint;
 	private var offsetsRelatedToMouse:Boolean;
 	
@@ -160,13 +160,13 @@ public class JToolTip extends Container{
 		return waitThenPopupEnabled;
 	}
 		
-	protected function __compRollOver(source:Component):void{
+	protected function __compRollOver(source:InteractiveObject):void{
 		if(source == comp && isWaitThenPopupEnabled()){
 			startWaitToPopup();
 		}
 	}
 	
-	protected function __compRollOut(source:Component):void{
+	protected function __compRollOut(source:InteractiveObject):void{
 		if(source == comp && isWaitThenPopupEnabled()){
 			disposeToolTip();
 		}
@@ -204,7 +204,7 @@ public class JToolTip extends Container{
 			var gp:Point = containerPane.localToGlobal(new Point(containerPane.mouseX, containerPane.mouseY));
 			relatePoint.setWithPoint(gp);
 		}else{
-			relatePoint = getTargetComponent().getGlobalLocation();
+			relatePoint.setWithPoint(getTargetComponent().localToGlobal(new Point(0, 0)));
 		}
 		moveLocationRelatedTo(relatePoint);
 	}
@@ -289,7 +289,7 @@ public class JToolTip extends Container{
 	 * The component c may be null and will have no effect. 
 	 * @param the JComponent being described
 	 */
-	public function setTargetComponent(c:Component):void{
+	public function setTargetComponent(c:InteractiveObject):void{
 		if(c != comp){
 			if(comp != null){
 				unlistenOwner(comp);
@@ -306,7 +306,7 @@ public class JToolTip extends Container{
 	 * The returned value may be null. 
 	 * @return the component that the tooltip describes
 	 */
-	public function getTargetComponent():Component{
+	public function getTargetComponent():InteractiveObject{
 		return comp;
 	}
 	
@@ -346,30 +346,32 @@ public class JToolTip extends Container{
 		return offsetsRelatedToMouse;
 	}
 	
-	protected function listenOwner(comp:Component, useWeakReference:Boolean = false):void{
+	protected function listenOwner(comp:InteractiveObject, useWeakReference:Boolean = false):void{
 		comp.addEventListener(MouseEvent.ROLL_OVER, ____compRollOver, false, 0, useWeakReference);
 		comp.addEventListener(MouseEvent.ROLL_OUT, ____compRollOut, false, 0, useWeakReference);
-		comp.addEventListener(AWEvent.HIDDEN, ____compRollOut, false, 0, useWeakReference);
-		comp.addEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut, false, 0, useWeakReference);
+		//not need to listener to these two event?
+		//comp.addEventListener(AWEvent.HIDDEN, ____compRollOut, false, 0, useWeakReference);
+		//comp.addEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut, false, 0, useWeakReference);
 		comp.addEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut, false, 0, useWeakReference);
 	}
-	protected function unlistenOwner(comp:Component):void{
+	protected function unlistenOwner(comp:InteractiveObject):void{
 		comp.removeEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
 		comp.removeEventListener(MouseEvent.ROLL_OUT, ____compRollOut);
-		comp.removeEventListener(AWEvent.HIDDEN, ____compRollOut);
-		comp.removeEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut);
+		//not need to listener to these two event?
+		//comp.removeEventListener(AWEvent.HIDDEN, ____compRollOut);
+		//comp.removeEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut);
 		comp.removeEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut);
 	}
 	
 	
 	//-----------can't override these------
 	private function ____compRollOver(e:Event):void{
-		var source:Component = e.currentTarget as Component;
+		var source:InteractiveObject = e.currentTarget as InteractiveObject;
 		__compRollOver(source);
 	}
 	
 	private function ____compRollOut(e:Event):void{
-		var source:Component = e.currentTarget as Component;
+		var source:InteractiveObject = e.currentTarget as InteractiveObject;
 		__compRollOut(source);
 	}
 }
