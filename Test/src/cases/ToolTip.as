@@ -26,7 +26,7 @@ public class ToolTip extends Sprite
 		panel.append(radio2);
 		panel.append(check1);
 		panel.append(check2);
-		panel.setSizeWH(200, 100);
+		panel.setSizeWH(200, 400);
 		addChild(panel);
 		panel.validate();
 		
@@ -36,6 +36,22 @@ public class ToolTip extends Sprite
 		
 		check1.setToolTipText("Check box 1 tip!");
 		check2.setToolTipText("Check box 2 tip!");
+		
+		var dot:Sprite = new Sprite();
+		dot.graphics.beginFill(0xff0000);
+		dot.graphics.drawCircle(100, 300, 40);
+		dot.graphics.endFill();
+		JSharedToolTip.getSharedInstance().registerComponent(dot, "Shared tip on a normal sprite!");
+		addChild(dot);
+		
+		var tip2:JToolTip = new JToolTip();
+		tip2.setTipText("A tip on a normal sprite!");
+		dot = new Sprite();
+		dot.graphics.beginFill(0x00ff00);
+		dot.graphics.drawCircle(100, 200, 40);
+		dot.graphics.endFill();
+		addChild(dot);
+		tip2.setTargetComponent(dot);
 	}
 	
 }
