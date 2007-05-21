@@ -14,15 +14,16 @@ import org.aswing.tree.TreeFolderIcon;
 import org.aswing.tree.TreeLeafIcon;
 
 /**
+ * The default cell for tree.
  * @author iiley
  */
 public class DefaultTreeCell extends JLabel implements TreeCell {
 	
-	private var EXPANDED_FOLDER_ICON:Icon;
-	private var COLLAPSED_FOLDER_ICON:Icon;
-	private var LEAF_ICON:Icon;
+	protected var expanded_folder_icon:Icon;
+	protected var collapsed_folder_icon:Icon;
+	protected var leaf_icon:Icon;
 	
-	private var value:*;
+	protected var value:*;
 	
 	public function DefaultTreeCell(){
 		super();
@@ -65,13 +66,13 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 	}
 	
 	public function getExpandedFolderIcon():Icon{
-		return EXPANDED_FOLDER_ICON;
+		return expanded_folder_icon;
 	}
 	public function getCollapsedFolderIcon():Icon{
-		return COLLAPSED_FOLDER_ICON;
+		return collapsed_folder_icon;
 	}
 	public function getLeafIcon():Icon{
-		return LEAF_ICON;
+		return leaf_icon;
 	}
 	
 	//**********************************************************
@@ -88,10 +89,10 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 	}
 	
 	public function setTreeCellStatus(tree : JTree, selected : Boolean, expanded : Boolean, leaf : Boolean, row : int) : void {
-		if(EXPANDED_FOLDER_ICON == null){
-			EXPANDED_FOLDER_ICON = tree.getUI().getIcon("Tree.folderExpandedIcon");
-			COLLAPSED_FOLDER_ICON = tree.getUI().getIcon("Tree.folderCollapsedIcon");
-			LEAF_ICON = tree.getUI().getIcon("Tree.leafIcon");
+		if(expanded_folder_icon == null){
+			expanded_folder_icon = tree.getUI().getIcon("Tree.folderExpandedIcon");
+			collapsed_folder_icon = tree.getUI().getIcon("Tree.folderCollapsedIcon");
+			leaf_icon = tree.getUI().getIcon("Tree.leafIcon");
 			//make it can get image from tree ui properties
 			getUI().putDefault("Tree.folderExpandedImage", tree.getUI().getDefault("Tree.folderExpandedImage"));
 			getUI().putDefault("Tree.folderCollapsedImage", tree.getUI().getDefault("Tree.folderCollapsedImage"));
