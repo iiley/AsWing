@@ -681,8 +681,11 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 	//						Paint methods
 	//**********************************************************************
 	override public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void{
-		var b:IntRectangle = treeState.getBounds(tree.getPathForRow(paintFocusedIndex), null);
-		b.setLocation(tree.getPixelLocationFromLogicLocation(b.getLocation()));
+		var ib:IntRectangle = treeState.getBounds(tree.getPathForRow(paintFocusedIndex), null);
+		if(ib != null){
+			b = ib;
+			b.setLocation(tree.getPixelLocationFromLogicLocation(b.getLocation()));
+		}
 		
 		g.drawRectangle(new Pen(getDefaultFocusColorInner(), 1), b.x+0.5, b.y+0.5, b.width-1, b.height-1);
 		g.drawRectangle(new Pen(getDefaultFocusColorOutter(), 1), b.x+1.5, b.y+1.5, b.width-3, b.height-3);
