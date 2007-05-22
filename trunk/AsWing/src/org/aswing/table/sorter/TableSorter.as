@@ -5,8 +5,7 @@
 package org.aswing.table.sorter{
 
 import org.aswing.*;
-import org.aswing.event.TableModelEvent;
-import org.aswing.event.TableModelListener;
+import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.table.AbstractTableModel;
 import org.aswing.table.JTableHeader;
@@ -124,7 +123,7 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
     public function setTableHeader(tableHeader:JTableHeader):void {
         if (this.tableHeader != null) {
             this.tableHeader.removeEventListener(MouseEvent.MOUSE_DOWN, __mousePress);
-            this.tableHeader.removeEventListener(MouseEvent.CLICK, __mouseRelease);
+            this.tableHeader.removeEventListener(ReleaseEvent.RELEASE, __mouseRelease);
             var defaultRenderer:TableCellFactory = this.tableHeader.getDefaultRenderer();
             if (defaultRenderer is SortableHeaderRenderer) {
                 this.tableHeader.setDefaultRenderer((SortableHeaderRenderer(defaultRenderer)).getTableCellFactory());
@@ -133,7 +132,7 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
         this.tableHeader = tableHeader;
         if (this.tableHeader != null) {
             this.tableHeader.addEventListener(MouseEvent.MOUSE_DOWN, __mousePress);
-            this.tableHeader.addEventListener(MouseEvent.CLICK, __mouseRelease);
+            this.tableHeader.addEventListener(ReleaseEvent.RELEASE, __mouseRelease);
             this.tableHeader.setDefaultRenderer(
                     new SortableHeaderRenderer(this.tableHeader.getDefaultRenderer(), this));
         }
@@ -391,7 +390,10 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
     	pressedPoint = header.getMousePosition();
     }
 
-    private function __mouseRelease(e:MouseEvent):void {
+    private function __mouseRelease(e:ReleaseEvent):void {
+    	if(e.isReleasedOutSide()){
+    		return;
+    	}
         var h:JTableHeader = e.currentTarget as JTableHeader;
         var point:IntPoint = h.getMousePosition();
         //if user are dragging the header, not sort

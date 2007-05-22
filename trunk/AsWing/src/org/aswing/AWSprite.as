@@ -510,11 +510,16 @@ public class AWSprite extends Sprite
 	}
 	private function __awStageMouseUpListener(e:MouseEvent):void{
 		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
-		dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE, pressedTarget));
+		var isOutSide:Boolean = false;
 		var target:DisplayObject = e.target as DisplayObject;
 		if(!(this == target || AsWingUtils.isAncestorDisplayObject(this, target))){
-			dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE_OUT_SIDE, pressedTarget));
+			isOutSide = true;
 		}
+		dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE, pressedTarget, isOutSide));
+		if(isOutSide){
+			dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE_OUT_SIDE, pressedTarget, isOutSide));
+		}
+
 		pressedTarget = null;
 	}
 	
