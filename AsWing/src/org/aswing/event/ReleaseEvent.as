@@ -57,6 +57,7 @@ public class ReleaseEvent extends AWEvent{
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>getPressTarget()</code></td><td>The object that 
      * 		is the target which is pressed and then released out side</td></tr>
+     *     <tr><td><code>isReleasedOutSide()</code></td><td>true if this is released out side</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
      *       event listener that handles the event. For example, if you use
      *       <code>comp.addEventListener()</code> to register an event listener,
@@ -72,10 +73,12 @@ public class ReleaseEvent extends AWEvent{
 	public static const RELEASE_OUT_SIDE:String = "releaseOutSide";		
 	
 	private var pressTarget:DisplayObject;
+	private var releasedOutSide:Boolean;
 	
-	public function ReleaseEvent(type:String, pressTarget:DisplayObject){
+	public function ReleaseEvent(type:String, pressTarget:DisplayObject, releasedOutSide:Boolean){
 		super(type, false, false);
 		this.pressTarget = pressTarget;
+		this.releasedOutSide = releasedOutSide;
 	}
 	
 	/**
@@ -86,8 +89,16 @@ public class ReleaseEvent extends AWEvent{
 		return pressTarget;
 	}
 	
+	/**
+	 * Returns whether or not this release is acted out side of the pressed display object.
+	 * @return true if out side or false not.
+	 */
+	public function isReleasedOutSide():Boolean{
+		return releasedOutSide;
+	}
+	
 	override public function clone():Event{
-		return new ReleaseEvent(type, getPressTarget());
+		return new ReleaseEvent(type, getPressTarget(), isReleasedOutSide());
 	}
 	
 }
