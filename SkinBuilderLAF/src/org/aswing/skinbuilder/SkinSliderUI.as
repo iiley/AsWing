@@ -132,6 +132,7 @@ public class SkinSliderUI extends BasicSliderUI{
 		trackContainer.y = drawRect.y;
 		tImage.width = drawRect.width;
 		tImage.height = drawRect.height;
+		paintTrackProgress(null, drawRect);
 	}
 	
 	override protected function paintTrackProgress(g:Graphics2D, trackDrawRect:IntRectangle):void{
