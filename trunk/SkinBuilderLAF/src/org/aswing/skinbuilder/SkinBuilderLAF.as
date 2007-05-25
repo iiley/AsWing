@@ -319,6 +319,10 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	[Embed(source="assets/ScrollBar_thumbVertical_disabledImage.png", scaleGridTop="6", scaleGridBottom="22", 
 		scaleGridLeft="6", scaleGridRight="10")]
 	private var ScrollBar_thumbVertical_disabledImage:Class;
+	
+	//[Embed(source="assets/ScrollBar_thumbVertical_iconImage.png")]
+	private var ScrollBar_thumbVertical_iconImage:Class;
+	
 	//horizontal
 	[Embed(source="assets/ScrollBar_thumbHorizontal_defaultImage.png", scaleGridTop="6", scaleGridBottom="10", 
 		scaleGridLeft="6", scaleGridRight="22")]
@@ -336,6 +340,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		scaleGridLeft="6", scaleGridRight="22")]
 	private var ScrollBar_thumbHorizontal_disabledImage:Class;
 
+	//[Embed(source="assets/ScrollBar_thumbHorizontal_iconImage.png")]
+	private var ScrollBar_thumbHorizontal_iconImage:Class;
 	
 	//---------------------------------------------------------------------
 	//___________________________ TextField scale-9 _______________________
@@ -1054,11 +1060,13 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ScrollBar.thumbVertical.pressedImage", ScrollBar_thumbVertical_pressedImage, 
 			"ScrollBar.thumbVertical.disabledImage", ScrollBar_thumbVertical_disabledImage, 
 			"ScrollBar.thumbVertical.rolloverImage", ScrollBar_thumbVertical_rolloverImage, 
+			"ScrollBar.thumbVertical.iconImage", ScrollBar_thumbVertical_iconImage, 
 			
 			"ScrollBar.thumbHorizontal.defaultImage", ScrollBar_thumbHorizontal_defaultImage, 
 			"ScrollBar.thumbHorizontal.pressedImage", ScrollBar_thumbHorizontal_pressedImage, 
 			"ScrollBar.thumbHorizontal.disabledImage", ScrollBar_thumbHorizontal_disabledImage, 
-			"ScrollBar.thumbHorizontal.rolloverImage", ScrollBar_thumbHorizontal_rolloverImage
+			"ScrollBar.thumbHorizontal.rolloverImage", ScrollBar_thumbHorizontal_rolloverImage, 
+			"ScrollBar.thumbHorizontal.iconImage", ScrollBar_thumbHorizontal_iconImage
 		];
 		table.putDefaults(comDefaults);
 		

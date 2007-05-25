@@ -29,6 +29,10 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
     protected var horizontalDisabledImage:DisplayObject;
     protected var horizontalRolloverImage:DisplayObject;
     
+    
+    protected var verticalIcon:DisplayObject;
+    protected var horizontalIcon:DisplayObject;
+    
     protected var size:IntDimension;
     protected var verticle:Boolean;
     
@@ -60,6 +64,7 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 		verticalContainer.setPressedImage(getAsset(ui, "thumbVertical.pressedImage"));
 		verticalContainer.setDisabledImage(getAsset(ui, "thumbVertical.disabledImage"));
 		verticalContainer.setRolloverImage(getAsset(ui, "thumbVertical.rolloverImage"));
+		verticalIcon = getAsset(ui, "thumbVertical.iconImage");
 		
 		var defaultHori:DisplayObject = getAsset(ui, "thumbHorizontal.defaultImage");
 		origWidth = defaultHori.width;
@@ -68,6 +73,7 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 		horizontalContainer.setPressedImage(getAsset(ui, "thumbHorizontal.pressedImage"));
 		horizontalContainer.setDisabledImage(getAsset(ui, "thumbHorizontal.disabledImage"));
 		horizontalContainer.setRolloverImage(getAsset(ui, "thumbHorizontal.rolloverImage"));
+		horizontalIcon = getAsset(ui, "thumbHorizontal.iconImage");
 		thumb.mouseEnabled = c.isEnabled();
 	}
 	
@@ -142,8 +148,32 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 			horizontalContainer.setRollovered(rollover);
 			horizontalContainer.updateRepresent(size != null ? size.getBounds() : null);
 		}
+		if(size){
+			var curIcon:DisplayObject = verticle ? verticalIcon : horizontalIcon;
+			if(lastIcon != curIcon){
+				if(lastIcon){
+					thumb.removeChild(lastIcon);
+				}
+				lastIcon = curIcon;
+				if(curIcon){
+					thumb.addChild(curIcon);
+				}
+			}
+			if(curIcon){
+				if(size.width >= curIcon.width && size.height >= curIcon.height){
+					curIcon.x = Math.round((size.width - curIcon.width)/2);
+					curIcon.y = Math.round((size.height - curIcon.height)/2);
+				}else{
+					if(lastIcon){
+						thumb.removeChild(lastIcon);
+						lastIcon = null;
+					}
+				}
+			}
+		}
 		thumb.mouseEnabled = enabled;
 	}
+	private var lastIcon:DisplayObject;
 
 	private function initSelfHandlers():void{
 		thumb.addEventListener(MouseEvent.ROLL_OUT, __rollOutListener);
