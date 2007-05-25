@@ -1096,7 +1096,6 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Frame.inactiveBG", Frame_inactiveBG, 
 			"Frame.titleBarLayout", SkinFrameTitleBarLayout, 
 			"Frame.titleBarOpaque", false, 
-			"Frame.buttonSize", 14, //modify this to fit title bar button size below
 			"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
 			"Frame.normalIcon", SkinFrameNormalIcon,
 			"Frame.maximizeIcon", SkinFrameMaximizeIcon, 
