@@ -174,7 +174,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 		table.putDefaults(comDefaults);
 		
 		// *** LabelButton
-		var comDefaults:Array = [
+		comDefaults = [
 			"LabelButton.background", NULL_COLOR,
 			"LabelButton.foreground", new ASColorUIResource(0x669900),
 			"LabelButton.opaque", false,  
