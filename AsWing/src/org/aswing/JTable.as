@@ -302,7 +302,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			updateSubComponentUI(aColumn.getCellEditor());
 		}
 		//Update the cells ui
-		for(var i:int=0; i<rowCells.length; i++){
+		var i:int;
+		for(i=0; i<rowCells.length; i++){
 			for(var j:int=0; j<rowCells[i].length; j++){
 				var cell:TableCell = rowCells[i][j];
 				cell.getCellComponent().updateUI();
@@ -311,7 +312,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 
 		// Update the UIs of all the default editors.
 		var defaultEditors:Array = defaultEditorsByColumnClass.values();
-		for(var i:int=0; i<defaultEditors.length; i++){
+		for(i=0; i<defaultEditors.length; i++){
 			updateSubComponentUI(defaultEditors[i]);
 		}
 
@@ -1250,8 +1251,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
     	// everything!		
 		if (false){//getAutoscrolls()){
 			var cellRect:IntRectangle = getCellRect(rowIndex, columnIndex, false);
-			if (cellRect != null)
-			{
+			if(cellRect){
 				scrollRectToVisible(cellRect);
 			}
 		}
@@ -1816,14 +1816,15 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var totalLowerBound:int = 0;
 		var totalUpperBound:int = 0;
 		var N:int = r.getElementCount();
-		for (var i:int = 0; i < N; i++){
+		var i:int;
+		for (i = 0; i < N; i++){
 			totalLowerBound += r.getLowerBoundAt(i);
 			totalUpperBound += r.getUpperBoundAt(i);
 		}
 		if (limitToRange){
 			target = Math.min(Math.max(totalLowerBound, target), totalUpperBound);
 		}
-		for (var i:int = 0; i < N; i++){
+		for (i = 0; i < N; i++){
 			var lowerBound:int = r.getLowerBoundAt(i);
 			var upperBound:int = r.getUpperBoundAt(i);
 
@@ -2716,13 +2717,14 @@ public class JTable extends Container implements Viewportable, TableModelListene
 				cellRect.x += columnWidth;
 			}
 			//invisible others columns
+			var cell:TableCell;
 			var cellColumnCount:int = rowCells[0].length;
 			for(cc=0; cc<cMin; cc++){
-				var cell:TableCell = rowCells[cr][cc];
+				cell = rowCells[cr][cc];
 				cell.getCellComponent().setVisible(false);
 			}
 			for(cc=cMax+1; cc < cellColumnCount; cc++){
-				var cell:TableCell = rowCells[cr][cc];
+				cell = rowCells[cr][cc];
 				cell.getCellComponent().setVisible(false);
 			}
 			cr++;
@@ -2730,14 +2732,14 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		//invisible others rows
 		for(var i:int=cr; i<rowCells.length; i++){
 			for(var c:int=columnCount-1; c>=0; c--){
-				var cell:TableCell = rowCells[i][c];
+				cell = rowCells[i][c];
 				cell.getCellComponent().setVisible(false);
 			}
 		}
 	}
 	
 	private function layoutCell(row:int, column:int, cellRect:IntRectangle, cr:int, cc:int):void{
-        var value = getValueAt(row, column);
+        var value:* = getValueAt(row, column);
 
 //        var isSelected:Boolean = false;
 //        var hasFocus:Boolean = false;
@@ -2750,7 +2752,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 //        hasFocus = (rowIsLead && colIsLead) && isFocusOwner();
         
         var cell:TableCell = rowCells[cr][cc];
-        if(cell == undefined){
+        if(cell == null){
         	trace("Logic Error : rowCells[" + cr + "][" + cc + "] = undefined");
         	trace("rowCells.length = " + rowCells.length);
         }
@@ -2793,8 +2795,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			return;
 		}
 		var columnCount:int = getColumnCount();
+		var i:int;
 		lastColumnCellFactories = new Array();
-		for(var i:int=0; i<columnCount; i++){
+		for(i=0; i<columnCount; i++){
 			lastColumnCellFactories.push(getCellFactory(0, i));
 		}
 		
@@ -2803,7 +2806,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			var addNum:int = needNum - rowCells.length;
 			//trace("----create need rows-----" + needNum);
 			//trace("----current rows-----" + rowCells.length);
-			for(var i:int=0; i<addNum; i++){
+			for(i=0; i<addNum; i++){
 				var columnCells:Array = new Array();
 				for(var c:int=0; c<columnCount; c++){
 					var cell:TableCell = TableCellFactory(lastColumnCellFactories[c]).createNewCell(false);
