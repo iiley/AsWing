@@ -47,16 +47,16 @@ import org.aswing.dnd.*;
 /**
  *  Dispatched when the component is moved.
  *
- *  @eventType org.aswing.event.AWEvent.MOVED
+ *  @eventType org.aswing.event.MovedEvent.MOVED
  */
-[Event(name="moved", type="org.aswing.event.AWEvent")]
+[Event(name="moved", type="org.aswing.event.MovedEvent")]
 	
 /**
  *  Dispatched when the component is resized.
  *
- *  @eventType org.aswing.event.AWEvent.RESIZED
+ *  @eventType org.aswing.event.ResizedEvent.RESIZED
  */
-[Event(name="resized", type="org.aswing.event.AWEvent")]
+[Event(name="resized", type="org.aswing.event.ResizedEvent")]
 
 /**
  * Dispatched when the component gained the focus from it is not the focus owner
