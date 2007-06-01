@@ -195,7 +195,7 @@ public class SoftBoxLayout extends EmptyLayout{
     	}
     	
     	var dim:IntDimension = new IntDimension(width, height);
-    	return insets.getOutsideSize(dim);;
+    	return insets.getOutsideSize(dim);
     }
 
 	/**
