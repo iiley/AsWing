@@ -1450,11 +1450,12 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var ih:int = factory.getCellHeight();
 		var startIndex:int = Math.floor(y/ih);
 		var listSize:int = m.getSize();
-		var endIndex:int = startIndex + Math.floor(ir.height / ih) + 2 - 1;
+		var startY:int = startIndex*ih - y;
+		
+		var endIndex:int = startIndex + Math.ceil((ir.height-(ih+startY))/ih);
 		if(endIndex >= listSize){
 			endIndex = listSize - 1;
 		}
-		var startY:int = startIndex*ih - y;
 		
 		var cx:int = ir.x - x;
 		var cy:int = ir.y + startY;
@@ -1467,7 +1468,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
-		var rlvi:int = lastVisibleIndex + lastVisibleIndexOffset;
+		var rlvi:int = Math.min(lastVisibleIndex+lastVisibleIndexOffset, listSize-1);
 		for(i=endIndex+1; i<=rlvi; i++){
 			cellCom = ListCell(cells.get(i)).getCellComponent();
 			cellCom.setVisible(false);
