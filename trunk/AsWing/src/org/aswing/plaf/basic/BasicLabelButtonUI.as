@@ -2,6 +2,8 @@ package org.aswing.plaf.basic{
 
 import org.aswing.*;
 import org.aswing.plaf.UIResource;
+import org.aswing.graphics.*;
+import org.aswing.geom.*;
 
 /**
  * @private
@@ -42,6 +44,15 @@ public class BasicLabelButtonUI extends BasicButtonUI{
     	}else{
     		return BasicGraphicsUtils.getDisabledColor(b);
     	}
-    }	
+    }
+    
+    /**
+     * paint normal bg
+     */
+	override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+		if(c.isOpaque()){
+			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
+		}		
+	}
 }
 }
