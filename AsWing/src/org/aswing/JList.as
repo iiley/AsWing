@@ -863,7 +863,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	
     /**
      * Sets the preferred number of rows in the list that can be displayed.
-     * -1 means display all rows.
+     * -1 means prefer to display all rows.
      * <p>
      * The default value of this property is -1.
      * The rowHeight will be counted as 20 if the cell factory produces not same height cells.
