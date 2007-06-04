@@ -2,13 +2,21 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.util
-{
+package org.aswing.util{
 	
 import flash.utils.getQualifiedClassName;
+import flash.system.ApplicationDomain;
+import flash.display.DisplayObject;
 
-public class Reflection
-{
+public class Reflection{
+	
+	public static function createDisplayObjectInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):DisplayObject{
+		if(applicationDomain == null){
+			applicationDomain = ApplicationDomain.currentDomain;
+		}
+		var assetClass:Class = applicationDomain.getDefinition(fullClassName) as Class;
+		return new assetClass() as DisplayObject;
+	}
 	
 	public static function getFullClassName(o:*):String{
 		return getQualifiedClassName(o);

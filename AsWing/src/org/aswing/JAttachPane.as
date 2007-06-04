@@ -49,7 +49,7 @@ public class JAttachPane extends AssetPane{
 	public function JAttachPane(assetClassName:String, prefferSizeStrategy:int=1, applicationDomain:ApplicationDomain=null) {
 		super(null, prefferSizeStrategy);		
 		setName("JAttachPane");
-		this.className = className;
+		this.className = assetClassName;
 		this.applicationDomain = (applicationDomain == null ? ApplicationDomain.currentDomain : applicationDomain);
 		setAsset(createAsset());
 	}
