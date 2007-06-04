@@ -90,16 +90,16 @@ public class JLoadPane extends AssetPane{
 	 * @param context the loader context.
 	 * @see #setPath()
 	 */
-	public function JLoadPane(url:*, prefferSizeStrategy:int=1, context:LoaderContext = null) {
+	public function JLoadPane(url:*=null, prefferSizeStrategy:int=1, context:LoaderContext = null) {
 		super(null, prefferSizeStrategy);
 		setName("JLoadPane");
 		loadedError = false;
-		if(url is URLRequest){
-			urlRequest = url;
-		}else if(url != null){
-			urlRequest = new URLRequest(url);
-		}else{
+		if(url == null){
 			urlRequest = null;
+		}else if(url is URLRequest){
+			urlRequest = url;
+		}else{
+			urlRequest = new URLRequest(url);
 		}
 		this.context = context;
 		regularAssetContainer = assetContainer;

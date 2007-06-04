@@ -45,6 +45,13 @@ public class AsWingManager{
         }
     }
     
+    public static function initAsStandard(root:DisplayObjectContainer):void{
+		setRoot(root);
+		stage.align = StageAlign.TOP_LEFT;
+		stage.scaleMode = StageScaleMode.NO_SCALE;
+		stage.stageFocusRect = false;
+    }
+    
     /**
      * Sets the intial stage size, this method generally do not need to use.
      * But some times, you know the manager is not initied at right time, i means 

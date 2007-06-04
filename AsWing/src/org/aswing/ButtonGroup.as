@@ -37,6 +37,18 @@ public class ButtonGroup
     public function ButtonGroup() {
     	buttons = new Array();
     }
+    
+    /**
+     * Create a button group and append the buttons in, then return the group.
+     * @return the button group.
+     */
+    public static function groupButtons(...buttons):ButtonGroup{
+    	var g:ButtonGroup = new ButtonGroup();
+    	for each(var i:AbstractButton in buttons){
+    		g.append(i);
+    	}
+    	return g;
+    }
 
     /**
 	 * Adds the button to the group.
