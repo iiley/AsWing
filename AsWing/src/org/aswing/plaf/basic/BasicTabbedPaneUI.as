@@ -889,30 +889,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			trace("Error : BasicTabbedPaneUI Can't layout " + target);
 			return null;
 		}
-		if(prefferedSize != null){
-			return prefferedSize;
-		}
-		var insets:Insets = tabbedPane.getInsets();
-		
-		var w:int = 0;
-		var h:int = 0;
-		
-		for(var i:int=tabbedPane.getComponentCount()-1; i>=0; i--){
-			var size:IntDimension = tabbedPane.getComponent(i).getMaximumSize();
-			w = Math.max(w, size.width);
-			h = Math.max(h, size.height);
-		}
-		var tbs:IntDimension = getTabBarSize();
-		if(isTabHorizontalPlacing()){
-			w = Math.max(w, tbs.width);
-			h += tbs.height;
-		}else{
-			h = Math.max(h, tbs.height);
-			w += tbs.width;
-		}
-		
-		prefferedSize = insets.getOutsideSize(new IntDimension(w, h));
-		return prefferedSize;
+		return IntDimension.createBigDimension();
 	}
 		
 	public function layoutContainer(target:Container):void{
