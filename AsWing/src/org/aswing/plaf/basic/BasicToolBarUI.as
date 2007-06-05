@@ -74,7 +74,7 @@ public class BasicToolBarUI extends BaseComponentUI{
  	}
  	
  	protected function adaptChild(c:Component):void{
-    	var btn:JButton = c as JButton;
+    	var btn:AbstractButton = c as AbstractButton;
     	if(btn != null){
     		var bg:GroundDecorator = btn.getBackgroundDecorator();
     		if(bg != null){
@@ -86,7 +86,7 @@ public class BasicToolBarUI extends BaseComponentUI{
  	}
  	
  	protected function unadaptChild(c:Component):void{
-    	var btn:JButton = c as JButton;
+    	var btn:AbstractButton = c as AbstractButton;
     	if(btn != null){
     		btn.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, __propertyChanged);
     		var bg:ToolBarButtonBgAdapter = btn.getBackgroundDecorator() as ToolBarButtonBgAdapter;
@@ -155,7 +155,7 @@ class ToolBarButtonBgAdapter implements GroundDecorator, UIResource{
 		}
 		var btn:AbstractButton = c as AbstractButton;
 		var needPaint:Boolean = false;
-		if(btn == null || btn.getModel().isArmed() 
+		if(btn == null || btn.getModel().isArmed() || btn.isSelected() 
 			|| (btn.getModel().isRollOver() && !btn.getModel().isPressed())){
 			needPaint = true;
 		}
