@@ -12,6 +12,7 @@ import org.aswing.BorderLayout;
 import org.aswing.FlowLayout;
 import org.aswing.JSeparator;
 import org.aswing.JSpacer;
+import org.aswing.JLabel;
 
 /**
  * Form is a vertical list of <code>FormRow</code>s.
@@ -86,6 +87,18 @@ public class Form extends JPanel implements LayoutManager{
 		var sp:JSpacer = JSpacer.createVerticalSpacer(height);
 		append(sp);
 		return sp;
+	}
+	
+	public function createLeftLabel(text:String):JLabel{
+		return new JLabel(text, null, JLabel.LEFT);
+	}
+	
+	public function createRightLabel(text:String):JLabel{
+		return new JLabel(text, null, JLabel.RIGHT);
+	}
+	
+	public function createCenterLabel(text:String):JLabel{
+		return new JLabel(text, null, JLabel.CENTER);
 	}
 	
 	public function centerHold(comp:Component):Container{
