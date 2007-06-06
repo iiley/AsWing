@@ -28,6 +28,10 @@ public class EmptyBorder extends DecorateBorder{
 		}
 	}
 	
+	public static function createIndent(indent:int):EmptyBorder{
+		return new EmptyBorder(null, new Insets(indent, indent, indent, indent));
+	}
+	
 	override public function updateBorderImp(com:Component, g:Graphics2D, bounds:IntRectangle):void{
 	}
 	

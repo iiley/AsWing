@@ -39,20 +39,40 @@ public class ASFont
 		return name;
 	}
 	
+	public function changeName(name:String):ASFont{
+		return new ASFont(name, size, bold, italic, underline, embedFonts);
+	}
+	
 	public function getSize():uint{
 		return size;
+	}
+	
+	public function changeSize(size:int):ASFont{
+		return new ASFont(name, size, bold, italic, underline, embedFonts);
 	}
 	
 	public function isBold():Boolean{
 		return bold;
 	}
 	
+	public function changeBold(bold:Boolean):ASFont{
+		return new ASFont(name, size, bold, italic, underline, embedFonts);
+	}
+	
 	public function isItalic():Boolean{
 		return italic;
 	}
 	
+	public function changeItalic(italic:Boolean):ASFont{
+		return new ASFont(name, size, bold, italic, underline, embedFonts);
+	}
+	
 	public function isUnderline():Boolean{
 		return underline;
+	}
+	
+	public function changeUnderline(underline:Boolean):ASFont{
+		return new ASFont(name, size, bold, italic, underline, embedFonts);
 	}
 	
 	public function isEmbedFonts():Boolean{
