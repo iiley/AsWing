@@ -96,6 +96,7 @@ public class JTextComponent extends Component implements EditableComponent{
 			}
 			invalidate();
 			invalidateColumnRowSize();
+			repaint();
 		}
 	}
 	
