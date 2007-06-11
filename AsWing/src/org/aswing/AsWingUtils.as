@@ -635,7 +635,7 @@ public class AsWingUtils{
      * Returns the MCPanel ancestor of c, or null if it is not contained inside a mcpanel yet
      * @return the first MCPanel ancestor of c, or null.
      */
-	public static function getAncestorComponent(c:Component):Container{
+	/*public static function getAncestorComponent(c:Component):Container{
         while(c != null){
             if(c is Container){
                 return Container(c);
@@ -643,7 +643,7 @@ public class AsWingUtils{
             c = c.getParent();
         }
         return null;
-	}
+	}*/
 	
     /**
      * Returns the first Popup ancestor of c, or null if component is not contained inside a popup
