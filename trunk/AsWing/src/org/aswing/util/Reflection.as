@@ -11,11 +11,18 @@ import flash.display.DisplayObject;
 public class Reflection{
 	
 	public static function createDisplayObjectInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):DisplayObject{
+		return getInstance(fullClassName, applicationDomain) as DisplayObject;
+	}
+	
+	public static function getInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):*{
 		if(applicationDomain == null){
 			applicationDomain = ApplicationDomain.currentDomain;
 		}
 		var assetClass:Class = applicationDomain.getDefinition(fullClassName) as Class;
-		return new assetClass() as DisplayObject;
+		if(assetClass != null){
+			return new assetClass();
+		}
+		return null;		
 	}
 	
 	public static function getFullClassName(o:*):String{
