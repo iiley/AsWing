@@ -402,7 +402,7 @@ public class JFrame extends JWindow{
 			fireStateChanged();
 			if(state == ICONIFIED){
 				precessIconified(programmatic);
-			}else if((state & MAXIMIZED_HORIZ == MAXIMIZED_HORIZ) || (state & MAXIMIZED_VERT == MAXIMIZED_VERT)){
+			}else if(((state & MAXIMIZED_HORIZ) == MAXIMIZED_HORIZ) || ((state & MAXIMIZED_VERT) == MAXIMIZED_VERT)){
 				precessMaximized(programmatic);
 			}else{
 				precessRestored(programmatic);
