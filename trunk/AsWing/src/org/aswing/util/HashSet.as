@@ -78,6 +78,12 @@ public class HashSet
 		return true;
 	}
 	
+	public function each(func:Function):void{
+		for each(var i:* in container){
+			func(i);
+		}
+	}
+	
 	public function toArray():Array{
 		var arr:Array = new Array(length);
 		var index:int = 0;

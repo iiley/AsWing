@@ -82,6 +82,24 @@ public class HashMap
  	}
  	
  	/**
+ 	 * Call func(key) for each key.
+ 	 * @param func the function to call
+ 	 */
+ 	public function eachKey(func:Function):void{
+ 		
+ 	}
+ 	
+ 	/**
+ 	 * Call func(value) for each value.
+ 	 * @param func the function to call
+ 	 */ 	
+ 	public function eachValue(func:Function):void{
+  		for each(var i:* in content){
+  			func(i);
+  		}
+ 	}
+ 	
+ 	/**
   	 * Returns an Array of the values in this HashMap.
   	 */
  	public function values():Array{
