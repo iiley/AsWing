@@ -86,7 +86,9 @@ public class HashMap
  	 * @param func the function to call
  	 */
  	public function eachKey(func:Function):void{
- 		
+  		for(var i:* in content){
+  			func(i);
+  		}
  	}
  	
  	/**
