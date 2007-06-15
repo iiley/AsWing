@@ -72,19 +72,19 @@ public class Form extends JPanel implements LayoutManager{
 	 * <li>
 	 * [ --child1-- ][ --child2-- ][ --child3-- ]<br/>
 	 * 3 children sit 3 columns, one by one: <br/>
-	 * <code>setColumnChildren(child1, child2, child3);</code>
+	 * <code>addRow(child1, child2, child3);</code>
 	 * </li>
 	 * 
 	 * <li>
 	 * [ ---------- ][ --child1-- ][ --child2-- ]<br/>
 	 * First blank, and then 2 children sit 2 columns: <br/>
-	 * <code>setColumnChildren(null, child1, child2);</code>
+	 * <code>addRow(null, child1, child2);</code>
 	 * </li>
 	 * 
 	 * <li>
 	 * [ ----------child1-------- ][ --child2-- ]<br/>
 	 * child1 sit first two column2, child2 sit last column: <br/>
-	 * <code>setColumnChildren(child1, child1, child2);</code>
+	 * <code>addRow(child1, child1, child2);</code>
 	 * </li>
 	 * 
 	 * </ul>
