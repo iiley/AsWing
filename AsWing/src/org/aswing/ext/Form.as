@@ -19,6 +19,7 @@ import org.aswing.JLabel;
  * Form will are tring to manage to layout <code>FormRow</code>s, if you append non-FormRow 
  * component to be child of Form, it will layouted as a <code>SoftBoxLayout</code> layouted.
  * @author iiley
+ * @see FormRow
  */
 public class Form extends JPanel implements LayoutManager{
 	
@@ -62,7 +63,33 @@ public class Form extends JPanel implements LayoutManager{
 	}
 	
 	/**
-	 * Adds a FormRow with columns children.
+	 * Adds a FormRow with columns children. Each child sit a row, null child make a column blank, 
+	 * also a child can sit a continuous serveral columns.<br/>
+	 * For the 3 case, they are:
+	 * <p>
+	 * <ul>
+	 * 
+	 * <li>
+	 * [ --child1-- ][ --child2-- ][ --child3-- ]<br/>
+	 * 3 children sit 3 columns, one by one: <br/>
+	 * <code>setColumnChildren(child1, child2, child3);</code>
+	 * </li>
+	 * 
+	 * <li>
+	 * [ ---------- ][ --child1-- ][ --child2-- ]<br/>
+	 * First blank, and then 2 children sit 2 columns: <br/>
+	 * <code>setColumnChildren(null, child1, child2);</code>
+	 * </li>
+	 * 
+	 * <li>
+	 * [ ----------child1-------- ][ --child2-- ]<br/>
+	 * child1 sit first two column2, child2 sit last column: <br/>
+	 * <code>setColumnChildren(child1, child1, child2);</code>
+	 * </li>
+	 * 
+	 * </ul>
+	 * </p>
+	 * <p>
 	 * @return the form row.
 	 */
 	public function addRow(...columns):FormRow{
