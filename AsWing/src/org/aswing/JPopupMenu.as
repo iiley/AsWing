@@ -432,7 +432,7 @@ public class JPopupMenu extends Container implements MenuElement{
 	
 	private function __addMouseDownListenerToStage():void{
 		if(showingMenuPopups.size()>0 && !popupMenuMouseDownListening){
-			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown);
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown, false, 0, true);
 			popupMenuMouseDownListening = true;
 		}
 	}

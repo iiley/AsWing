@@ -506,7 +506,7 @@ public class AWSprite extends Sprite
 	private var pressedTarget:DisplayObject;
 	private function __awSpriteMouseDownListener(e:MouseEvent):void{
 		pressedTarget = e.target as DisplayObject;
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
+		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener, false, 0, true);
 	}
 	private function __awStageMouseUpListener(e:MouseEvent):void{
 		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);

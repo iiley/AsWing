@@ -92,7 +92,7 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 	private function __onHeaderRollover(e:MouseEvent):void{
 		if(!e.buttonDown){
 			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, 
-				__onRollOverMouseMoving);
+				__onRollOverMouseMoving, false, 0, true);
 		}
 	}
 	
@@ -134,7 +134,7 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 				header.setResizingColumn(resizingColumn);
 				mouseXOffset = p.x - resizingColumn.getWidth();
 				AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, 
-					__onMouseMoving);
+					__onMouseMoving, false, 0, true);
 				resizing = true;
 			}
 		}

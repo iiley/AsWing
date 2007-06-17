@@ -426,7 +426,7 @@ public class JPopup extends JRootPane{
 	//--------------------------------------------------------
 	
 	private function __popupOpenAddListenerStage(e:Event):void{
-		AsWingManager.getStage().addEventListener(Event.RESIZE, __resetModelMCWhenStageResized);
+		AsWingManager.getStage().addEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false, 0, true);
 	}
 	
 	private function __popupOpenRemoveListenerStage(e:Event):void{

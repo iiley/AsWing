@@ -134,7 +134,7 @@ public class JToolTip extends Container{
 			timer.setInitialDelay(WAIT_TIME);
 		}
 		timer.restart();
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved);
+		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved, false, 0, true);
 	}
 	
 	/**
