@@ -664,7 +664,7 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	}
 	
 	private function __startHandleDrag():void{
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
+		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb, false, 0, true);
 		showValueTip();
 	}
 	private function __stopHandleDrag():void{

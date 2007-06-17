@@ -101,8 +101,8 @@ public class JRootPane extends Container{
 			if(b){
 				removeEventListener(TextEvent.TEXT_INPUT, __textInput, true);
 				removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
-				AsWingManager.getStage().addEventListener(TextEvent.TEXT_INPUT, __textInput, true);
-				AsWingManager.getStage().addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
+				AsWingManager.getStage().addEventListener(TextEvent.TEXT_INPUT, __textInput, true, 0, true);
+				AsWingManager.getStage().addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true, 0, true);
 			}else{
 				AsWingManager.getStage().removeEventListener(TextEvent.TEXT_INPUT, __textInput, true);
 				AsWingManager.getStage().removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);

@@ -343,7 +343,7 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 		
 		startMousePoint = adjuster.getMousePosition();
 		startValue = adjuster.getValue();
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider);
+		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider, false, 0, true);
 	}
 	
 	private function __onArrowButtonReleased(e:Event):void{
