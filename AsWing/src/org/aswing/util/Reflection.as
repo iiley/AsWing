@@ -11,10 +11,10 @@ import flash.display.DisplayObject;
 public class Reflection{
 	
 	public static function createDisplayObjectInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):DisplayObject{
-		return getInstance(fullClassName, applicationDomain) as DisplayObject;
+		return createInstance(fullClassName, applicationDomain) as DisplayObject;
 	}
 	
-	public static function getInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):*{
+	public static function createInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):*{
 		if(applicationDomain == null){
 			applicationDomain = ApplicationDomain.currentDomain;
 		}
