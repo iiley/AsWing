@@ -12,36 +12,50 @@ public class AttachPane extends Sprite
 	private var pane:JPanel;
 	private var attachPane:JAttachPane;
 	private var loadPane:JLoadPane;
-
+	private var unloadButton:JButton;
+	private var loadButton:JButton;
+	
 	public function AttachPane(){
 		pane = new JPanel(new BorderLayout());
-		loadPane = new JLoadPane("linkmc.swf", AssetPane.PREFER_SIZE_LAYOUT);
+		//the test.swf hava a linkage movieclip name link_mc
+		loadPane = new JLoadPane("../res/test.swf", AssetPane.PREFER_SIZE_LAYOUT);
 		loadPane.addEventListener(Event.INIT, __onLoadInnit);
 		loadPane.setScaleMode(AssetPane.SCALE_FIT_PANE);
 		loadPane.setPreferredSize(new IntDimension(100,100));
 		loadPane.setBorder(new LineBorder(null, ASColor.BLUE));
-	//	loadPane.setPath("http://192.168.0.202/linkmc.swf");				
 		attachPane = new JAttachPane(null, AssetPane.PREFER_SIZE_BOTH);
 		attachPane.setScaleMode(AssetPane.SCALE_FIT_PANE);
 		attachPane.setVerticalAlignment(AssetPane.CENTER);
 		attachPane.setBorder(new LineBorder(null, ASColor.RED));
 		attachPane.setPreferredHeight(100);
 		pane.append(loadPane, BorderLayout.CENTER);
-		var preButton:JButton = new JButton();	
-		preButton.setIcon(new LoadIcon("../res/princess.jpg", 100, 20, true));
-		pane.append(preButton, BorderLayout.EAST);
+		
+		unloadButton = new JButton("unload");
+		loadButton = new JButton("load");
+		unloadButton.addEventListener(MouseEvent.CLICK, __unloadButton);
+		loadButton.addEventListener(MouseEvent.CLICK, __loadButton);
+		var newpane:JPanel = new JPanel();
+		newpane.append(unloadButton);
+		newpane.append(loadButton);
+
 		pane.append(attachPane, BorderLayout.NORTH);
+		pane.append(newpane, BorderLayout.SOUTH);		
 		pane.setSizeWH(200,300);
 
 		this.addChild(pane);
 		pane.validate();
 	}
 
+	private function __unloadButton(e:Event):void{
+		attachPane.unloadAsset();
+	}
+	
+	private function __loadButton(e:Event):void{
+		attachPane.setAssetClassNameAndLoader("link_mc", loadPane.getLoader());	
+	}
+
 	private function __onLoadInnit(e:Event):void{
-		//attachPane.setPathAndLoader("link_mc2", loadPane.getLoader());	
-		//var southButton:JButton = new JButton();	
-		//southButton.setIcon(new AttachIcon("link_mc2", loadPane.getLoader()));
-		//pane.append(southButton, BorderLayout.SOUTH);		
+		attachPane.setAssetClassNameAndLoader("link_mc", loadPane.getLoader());				
 	}
 }
 }
