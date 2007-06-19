@@ -157,6 +157,8 @@ public class JLoadPane extends AssetPane{
 	 * unload the loaded asset;
 	 */ 
 	override public function unloadAsset():void{
+		this.urlRequest = null;
+		this.context = null;
 		if (this.contains(assetContainer)){
 			this.removeChild(assetContainer);
 		}
