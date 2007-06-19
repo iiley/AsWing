@@ -99,6 +99,14 @@ public class JAttachPane extends AssetPane{
 	}
 	
 	/**
+	 * unload the asset of the pane
+	 */ 
+	override public function unloadAsset():void{
+		className = null;
+		super.unloadAsset();
+	}
+	
+	/**
 	 * return the class name of the asset.
 	 * @return the class name.
 	 */ 

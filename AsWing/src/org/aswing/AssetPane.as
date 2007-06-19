@@ -177,6 +177,13 @@ public class AssetPane extends Container{
 		}
 	}
 	
+	/**
+	 * unload the asset of the pane
+	 */ 
+	public function unloadAsset():void{
+		setAsset(null);
+	}
+	
 	protected function storeOriginalScale():void{
 		if(asset){
 			floorOriginalScaleX = asset.scaleX;

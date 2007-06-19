@@ -124,8 +124,10 @@ public class JLoadPane extends AssetPane{
 	protected function setLoadedAsset(asset:DisplayObject):void{
 		if(assetContainer == regularAssetContainer){
 			assetContainer = loader;
-			removeChild(regularAssetContainer);
-			regularAssetContainer.mask = null;
+			if (this.contains(regularAssetContainer)){
+				removeChild(regularAssetContainer);
+				regularAssetContainer.mask = null;
+			}
 			addChild(assetContainer);
 			applyMaskAsset();
 		}
@@ -149,6 +151,16 @@ public class JLoadPane extends AssetPane{
 		this.urlRequest = request;
 		this.context = context;
 		loadAsset();
+	}
+	
+	/**
+	 * unload the loaded asset;
+	 */ 
+	override public function unloadAsset():void{
+		if (this.contains(assetContainer)){
+			this.removeChild(assetContainer);
+		}
+		assetContainer = regularAssetContainer;
 	}
 	
 	/**
