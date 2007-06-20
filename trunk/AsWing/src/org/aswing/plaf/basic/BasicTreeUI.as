@@ -562,7 +562,10 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 				tree.setLeadSelectionPath(path);
 				ignoreLAChange = false;
 			}else if(code == getEditionKey()){
-				tree.startEditingAtPath(path);
+				var edit:Boolean = (tree.isEditable() && editor != null);
+				if(edit){
+					tree.startEditingAtPath(path);
+				}
 				return;
 			}
 		}
