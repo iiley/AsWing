@@ -162,6 +162,14 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 		}
 	}
     //----------------------------------------------------------
+    override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+    	var bgMargin:Insets = c.getUI().getInsets(getPropertyPrefix()+"backgroundMargin");
+    	if(bgMargin){
+    		b = bgMargin.getInsideBounds(b);
+    	}
+    	super.paintBackGround(c, g, b);
+    }
+    
     /**
      * Override this method to create different title bar
      */
