@@ -2150,7 +2150,7 @@ public class Component extends AWSprite{
      */
     public function requestFocus():Boolean {
     	//TODO imp check
-    	if(isFocusable() && isEnabled() && isShowing()){
+    	if((isFocusable() || getFocusTransmit() != null) && isEnabled() && isShowing()){
     		makeFocus();
     		return true;
     	}
@@ -2168,7 +2168,11 @@ public class Component extends AWSprite{
      * @see #getInternalFocusObject()
      */
     public function makeFocus():void{
-    	stage.focus = getInternalFocusObject();
+    	if(getFocusTransmit() != null){
+    		getFocusTransmit().requestFocus();
+    	}else{
+    		stage.focus = getInternalFocusObject();
+    	}
     }
     
     /**
@@ -2256,17 +2260,12 @@ public class Component extends AWSprite{
 		dispatchEvent(new ClickCountEvent(ClickCountEvent.CLICK_COUNT, clickCount));
 		_lastClickPoint = mousePoint;
 	}
+	
 	//retrive the focus when mouse down if not focused child or self
 	//this will works because focusIn will be fired before mouseDown
 	private function __mouseDown(e:MouseEvent):void{
-		var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
-		var target:DisplayObject = e.target as DisplayObject;
-		if(focusOwner == null || 
-			!(focusOwner == this || 
-				AsWingUtils.isAncestor(this, focusOwner) 
-					&& focusOwner.contains(target))){
-			requestFocus();
-		}
+		checkRequestFocusWhenMouseDown(e);
+		
 		if(isDragEnabled()){
 			addEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
 			addEventListener(MouseEvent.ROLL_OUT, __rollOut);
@@ -2274,6 +2273,49 @@ public class Component extends AWSprite{
 			pressingPoint = getMousePosition();
 		}
 	}
+	
+	/**
+	 * Override this to return another component that the focus should be transmit to. 
+	 * return null if do not need to transmit(means self handle the focus). By default imp, this return null.
+	 * @return the component where the focus need transmit to.
+	 */
+	protected function getFocusTransmit():Component{
+		return null;
+	}
+	
+	private function checkRequestFocusWhenMouseDown(e:MouseEvent):void{
+		if(!((isFocusable() || getFocusTransmit() != null) && isEnabled())){
+			return;
+		}
+		var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+		var target:DisplayObject = e.target as DisplayObject;
+		if(focusOwner == null){
+			var focusObj:InteractiveObject = null;
+			if(AsWingManager.getStage(false) != null){
+				focusObj = AsWingManager.getStage(false).focus;
+			}
+			if(focusObj == null){
+				requestFocus();
+			}else if(!contains(focusObj)){
+				requestFocus();
+			}
+		}else if(focusOwner == this){
+			//do nothing, it is already self
+		}else if(!AsWingUtils.isAncestor(this, focusOwner)){
+			requestFocus();//request, if the current owner is not a child
+		}else if(focusOwner.contains(target)){
+			//do nothing because child is already focused, and focused child are pressed
+		}else{
+			var tarCom:Component = AsWingUtils.getOwnerComponent(target);
+			if(tarCom == this){
+				requestFocus(); //self asset pressed, so request
+			}else if(!AsWingUtils.isAncestorComponent(this, tarCom)){
+				requestFocus();//request, if the current pressed obj is not a regular child of this
+			}
+			//do nothing because child is already focused, and another not focusable child is pressed
+		}		
+	}
+	
 	private var pressingPoint:IntPoint;
 	private function __mouseUp(e:MouseEvent):void{
 		stopListernDragRec();

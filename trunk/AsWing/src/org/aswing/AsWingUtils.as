@@ -139,8 +139,8 @@ public class AsWingUtils{
     }
     
     /**
-     * Returns whether or not the ancestor is the child's ancestor.
-     * @return whether or not the ancestor is the child's ancestor.
+     * Returns whether or not the ancestor is the child's display ancestor.
+     * @return whether or not the ancestor is the child's display ancestor.
      */
     public static function isAncestor(ancestor:Component, child:Component):Boolean{
     	if(ancestor == null || child == null) 
@@ -152,6 +152,24 @@ public class AsWingUtils{
     			return true;
     		}
     		pa = pa.parent;
+    	}
+    	return false;
+    }
+    
+    /**
+     * Returns whether or not the ancestor is the child's component ancestor.
+     * @return whether or not the ancestor is the child's component ancestor.
+     */    
+    public static function isAncestorComponent(ancestor:Component, child:Component):Boolean{
+    	if(ancestor == null || child == null || !(ancestor is Container)) 
+    		return false;
+    		
+    	var pa:Container = child.getParent();
+    	while(pa != null){
+    		if(pa == ancestor){
+    			return true;
+    		}
+    		pa = pa.getParent();
     	}
     	return false;
     }
@@ -674,6 +692,16 @@ public class AsWingUtils{
     	return popup;
     }
     
+    /**
+     * Returns the component owner of specified obj.
+     * @return the component owner of specified obj.
+     */
+    public static function getOwnerComponent(dis:DisplayObject):Component{
+    	while(dis != null && !(dis is Component)){
+    		dis = dis.parent;
+    	}
+    	return dis as Component;
+    }
     
     /**
      * When call <code>setLookAndFeel</code> it will not change the UIs at created components.

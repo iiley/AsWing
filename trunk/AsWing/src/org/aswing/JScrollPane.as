@@ -350,6 +350,10 @@ public class JScrollPane extends Container{
 	 */	
 	override public function insert(i:int, com:Component, constraints:Object=null):void{
 		throw new UnsupportedError("Can not add comp to JScrollPane");	
+	}
+	
+	override protected function getFocusTransmit():Component{
+		return getViewport().getViewportPane();
 	}	
 }
 }
