@@ -2306,9 +2306,9 @@ public class Component extends AWSprite{
 	}
 	
 	private function __focusOut(e:FocusEvent):void{
-		if(e.relatedObject == null){
-			return;
-		}
+		//if(e.relatedObject == null){
+		//	return;
+		//}
 		if(e.target == getInternalFocusObject() && isFocusable()){
 			var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
 			if(this == focusOwner){

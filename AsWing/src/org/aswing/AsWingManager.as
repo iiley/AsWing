@@ -28,6 +28,7 @@ public class AsWingManager{
     private static var INITIAL_STAGE_HEIGHT:int;
     private static var timer:Timer;
     private static var nextFrameCalls:Array = new Array();
+    private static var preventNullFocus:Boolean = true;
     
     /**
      * Sets the root container for AsWing components based on.
@@ -36,7 +37,7 @@ public class AsWingManager{
      * stage resized.
      * </p>
      * Default is <code>AsWingManager.getStage()</code>.
-     * @param root the root container for AsWing components.
+     * @param root the root container for AsWing popups.
      */
     public static function setRoot(root:DisplayObjectContainer):void{
         ROOT = root;
@@ -45,11 +46,39 @@ public class AsWingManager{
         }
     }
     
-    public static function initAsStandard(root:DisplayObjectContainer):void{
+    /**
+     * Init AsWing as a standard setting.
+     * @param root the default root container for aswing popups
+     * @param _preventNullFocus set true to prevent focus transfer to null, false, not manage to do this
+     * @see #setRoot()
+     * @see #setPreventNullFocus()
+     */
+    public static function initAsStandard(root:DisplayObjectContainer, _preventNullFocus:Boolean=true):void{
 		setRoot(root);
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.stageFocusRect = false;
+		preventNullFocus = _preventNullFocus;
+    }
+    
+    /**
+     * Sets whether or not prevent focus transfer to null when user click a blank(not focusable object).
+     * The default value is true, it is suit for normal applications, if you are develop a app 
+     * that are complex and may have other interactive object is not aswing components, you may need to 
+     * set this value to false.
+     * @param prevent set true to prevent focus transfer to null, false, not manage to do this
+     */
+    public static function setPreventNullFocus(prevent:Boolean):void{
+    	preventNullFocus = prevent;
+    }
+    
+    /**
+     * Returns the preventNullFocus property.
+     * @return true means will prevent focus transfer to null, false means do not manage this.
+     * @see #setPreventNullFocus()
+     */
+    public static function isPreventNullFocus():Boolean{
+    	return preventNullFocus;
     }
     
     /**
