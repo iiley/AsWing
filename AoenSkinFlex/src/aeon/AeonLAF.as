@@ -69,8 +69,8 @@ public class AeonLAF extends BasicLookAndFeel{
 			for(var i:Number=0; i<defaultSystemColors.length; i+=2){
 				table.put(defaultSystemColors[i], new ASColorUIResource(defaultSystemColors[i+1]));
 			}
-			table.put("focusInner", new ASColorUIResource(0x40FF40, 10));
-			table.put("focusOutter", new ASColorUIResource(0x40FF40, 20));
+			table.put("focusInner", new ASColorUIResource(0x40FF40, 0.3));
+			table.put("focusOutter", new ASColorUIResource(0x40FF40, 0.4));
 	}
 	
 	override protected function initSystemFontDefaults(table:UIDefaults):void{
