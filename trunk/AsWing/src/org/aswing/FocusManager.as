@@ -128,7 +128,9 @@ public class FocusManager{
 		//prevent default focus change if the related object is not tabEnabled
 		if(focusOwner != null){
 			var tar:InteractiveObject = e.relatedObject as InteractiveObject;
-			if(tar == null || !(tar is TextField || tar.tabEnabled)){
+			if(AsWingManager.isPreventNullFocus() 
+				&& (tar == null || !(tar is TextField || tar.tabEnabled))
+				|| (tar is Component && !Component(tar).isFocusable())){
 				e.preventDefault();
 			}
 		}
