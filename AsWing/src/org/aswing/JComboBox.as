@@ -493,7 +493,9 @@ public class JComboBox extends Component implements EditableComponent{
 	
 	//----------------------------------------------------------
 	private function __editorActed(e:Event):void{
-		setSelectedItem(getEditor().getValue());
+		if(!isPopupVisible()){
+			setSelectedItem(getEditor().getValue());
+		}
 	}
 	
 	private function __listSelectionChanged(e:SelectionEvent):void{
