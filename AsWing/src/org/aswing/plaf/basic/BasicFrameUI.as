@@ -69,8 +69,12 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     	frame.insert(0, titleBar, WindowLayout.TITLE);
     	
     	if(frame.getResizer() == null || frame.getResizer() is UIResource){
-	    	var resizer:Resizer = getInstance("Frame.resizer") as Resizer;
+	    	var resizer:Resizer = getInstance(getPropertyPrefix()+"resizer") as Resizer;
 	    	frame.setResizer(resizer);
+    	}
+    	if(!frame.isDragDirectlySet()){
+    		frame.setDragDirectly(getBoolean(getPropertyPrefix()+"dragDirectly"));
+    		frame.setDragDirectlySet(false);
     	}
     	boundsMC = new Sprite();
     	boundsMC.name = "drag_bounds";
