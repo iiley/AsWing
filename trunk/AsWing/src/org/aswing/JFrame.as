@@ -113,6 +113,7 @@ public class JFrame extends JWindow{
 	private var resizable:Boolean;
 	private var closable:Boolean;
 	private var dragDirectly:Boolean;
+	private var dragDirectlySet:Boolean;
 	
 	private var resizer:Resizer;
 	
@@ -491,6 +492,7 @@ public class JFrame extends JWindow{
 	 */	
 	public function setDragDirectly(b:Boolean):void{
 		dragDirectly = b;
+		setDragDirectlySet(true);
 	}
 	
 	/**
@@ -499,6 +501,20 @@ public class JFrame extends JWindow{
 	 */	
 	public function isDragDirectly():Boolean{
 		return dragDirectly;
+	}
+	
+	/**
+	 * Sets is dragDirectly property is set by user.
+	 */
+	public function setDragDirectlySet(b:Boolean):void{
+		dragDirectlySet = b;
+	}
+	
+	/**
+	 * Return is dragDirectly property is set by user.
+	 */	
+	public function isDragDirectlySet():Boolean{
+		return dragDirectlySet;
 	}
 	
 	/**

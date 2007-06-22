@@ -373,6 +373,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"Frame.foreground", table.get("windowText"),
 			"Frame.opaque", true,  
 			"Frame.focusable", true,
+			"Frame.dragDirectly", false, 
 			"Frame.activeCaption", table.get("activeCaption"),
 			"Frame.activeCaptionText", table.get("activeCaptionText"),
 			"Frame.activeCaptionBorder", table.get("activeCaptionBorder"),
