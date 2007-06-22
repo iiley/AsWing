@@ -1084,7 +1084,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		// *** TextArea
 		comDefaults = [
 			"TextArea.opaque", true, 
-			"TextArea.bg", SkinTextFieldBackground,
+			"TextArea.bg", SkinTextAreaBackground,
 			"TextArea.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"TextArea.defaultImage", TextArea_defaultImage, 
 			"TextArea.uneditableImage", TextArea_uneditableImage, 
