@@ -195,7 +195,7 @@ public class AssetPane extends Container{
 		if (asset){
 			asset.scaleX = floorOriginalScaleX;
 			asset.scaleY = floorOriginalScaleY;
-			setFloorOriginalSize(new IntDimension(asset.width, asset.height));
+			setAssetOriginalSize(new IntDimension(asset.width, asset.height));
 			asset.visible = assetVisible;
 			revalidate();
 		}
@@ -431,7 +431,7 @@ public class AssetPane extends Container{
 	 * If the asset are not loaded yet, return null.
 	 * @return the asset original size. null if it is not loaded yet.
 	 */
-	public function getFloorOriginalSize():IntDimension{
+	public function getAssetOriginalSize():IntDimension{
 		if(isLoaded()){
 			return floorOriginalSize;
 		}else{
@@ -604,7 +604,7 @@ public class AssetPane extends Container{
 		floorLoaded = b;
 	}
 	
-	protected function setFloorOriginalSize(size:IntDimension):void{
+	protected function setAssetOriginalSize(size:IntDimension):void{
 		floorOriginalSize = new IntDimension(size.width, size.height);
 	}
 	

@@ -131,7 +131,7 @@ public class JAttachPane extends AssetPane{
 		if(attachMC == null){
 			return null;
 		}
-		setFloorOriginalSize(new IntDimension(attachMC.width, attachMC.height));
+		setAssetOriginalSize(new IntDimension(attachMC.width, attachMC.height));
 		dispatchEvent(new AttachEvent(AttachEvent.ATTACHED));
 		return attachMC;
 	}
