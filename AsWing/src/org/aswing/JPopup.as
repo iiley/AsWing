@@ -131,10 +131,13 @@ public class JPopup extends JRootPane{
 	 * changeOwner(owner:MovieClip)
 	 * <p>
 	 * Changes the owner. While the popup is displayable, you can't change the owner of it.
-	 * @param owner the new owner to apply
+	 * @param owner the new owner to apply, if null passed, it will be <code>AsWingManager.getRoot()</code>
 	 * @return true if changed successfully, false otherwise
 	 */
 	public function changeOwner(owner:*):void{
+		if(owner == null){
+			owner = AsWingManager.getRoot();
+		}
 		if(this.owner != owner){
 			this.owner = owner;
 			if(isAddedToList()){

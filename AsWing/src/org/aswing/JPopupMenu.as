@@ -236,12 +236,15 @@ public class JPopupMenu extends Container implements MenuElement{
 	 */
 	public function show(invoker:Component, x:int, y:int):void {
 		setInvoker(invoker);
-
-		var gp:IntPoint = invoker.getGlobalLocation();
-		if(gp == null){
-			gp = new IntPoint(x, y);
+		if(invoker){
+			var gp:IntPoint = invoker.getGlobalLocation();
+			if(gp == null){
+				gp = new IntPoint(x, y);
+			}else{
+				gp.move(x, y);
+			}
 		}else{
-			gp.move(x, y);
+			gp = new IntPoint(x, y);
 		}
 		pack();
 		setVisible(true);
@@ -318,7 +321,7 @@ public class JPopupMenu extends Container implements MenuElement{
 	 * @return true if this menu is a standalone popup menu, otherwise false
 	 */	
 	private function isPopupMenu():Boolean{
-		return  ((invoker != null) && !(invoker is JMenu));
+		return (!(invoker is JMenu));
 	}
 	
 	private function adjustPopupLocationToFitScreen(gp:IntPoint):IntPoint{
