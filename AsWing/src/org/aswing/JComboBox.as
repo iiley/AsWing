@@ -162,7 +162,7 @@ public class JComboBox extends Component implements EditableComponent{
 	 */
 	public function getPopupList():JList{
 		if(popupList == null){
-			popupList = new JList();
+			popupList = new JList(null, new DefaultComboBoxListCellFactory());
 			popupList.addSelectionListener(__listSelectionChanged);
 		}
 		return popupList;

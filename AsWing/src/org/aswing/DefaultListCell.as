@@ -39,12 +39,16 @@ public class DefaultListCell extends AbstractListCell{
 	protected function getJLabel():JLabel{
 		if(jlabel == null){
 			jlabel = new JLabel();
-			jlabel.setHorizontalAlignment(JLabel.LEFT);
-			jlabel.setOpaque(true);
-			jlabel.setFocusable(false);
-			jlabel.addEventListener(ResizedEvent.RESIZED, __resized);
+			initJLabel(jlabel);
 		}
 		return jlabel;
+	}
+	
+	protected function initJLabel(jlabel:JLabel):void{
+		jlabel.setHorizontalAlignment(JLabel.LEFT);
+		jlabel.setOpaque(true);
+		jlabel.setFocusable(false);
+		jlabel.addEventListener(ResizedEvent.RESIZED, __resized);
 	}
 	
 	private function __resized(e:ResizedEvent):void{
