@@ -159,10 +159,14 @@ public class JLoadPane extends AssetPane{
 	override public function unloadAsset():void{
 		this.urlRequest = null;
 		this.context = null;
-		if (this.contains(assetContainer)){
-			this.removeChild(assetContainer);
+		if(assetContainer == loader){
+			loader.unload();
+			this.asset = null;
+			setLoaded(false);
+			resetAsset();
+		}else{
+			super.unloadAsset();
 		}
-		assetContainer = regularAssetContainer;
 	}
 	
 	/**

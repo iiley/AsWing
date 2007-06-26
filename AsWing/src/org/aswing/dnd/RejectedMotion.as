@@ -16,8 +16,7 @@ import org.aswing.geom.IntPoint;
  * @author iiley
  */
 public class RejectedMotion implements DropMotion{
-	
-	
+		
 	private var timer:Timer;
 	private var initiatorPos:IntPoint;
 	private var dragObject:Sprite;

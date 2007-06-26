@@ -165,7 +165,9 @@ public class AssetPane extends Container{
 	public function setAsset(asset:DisplayObject):void{
 		if (this.asset != asset){
 			if(this.asset){
-				assetContainer.removeChild(this.asset);
+				if(this.asset.parent == assetContainer){
+					assetContainer.removeChild(this.asset);
+				}
 			}
 			this.asset = asset;
 			if(asset){
