@@ -20,5 +20,7 @@ public class DirectlyRemoveMotion implements DropMotion{
 		}
 	}
 	
+	public function forceStop():void{
+	}	
 }
 }

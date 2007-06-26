@@ -20,6 +20,11 @@ public interface DropMotion{
 	 * @param dragObject the display object to do motion
 	 */
 	function startMotionAndLaterRemove(dragInitiator:Component, dragObject:Sprite):void;
+	
+	/**
+	 * A new drag is started, so the last motion should be stopped if it is still running.
+	 */
+	function forceStop():void;
 		
 }
 }
