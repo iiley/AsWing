@@ -37,6 +37,7 @@ public class DragManager{
 	
 	private static var root:DisplayObjectContainer = null;
 	private static var dropMotion:DropMotion;
+	private static var runningMotion:DropMotion;
 	private static var dragProxyMC:Sprite;
 	private static var mouseOffset:IntPoint;
 	private static var enteredComponent:Component;
@@ -93,6 +94,10 @@ public class DragManager{
 		if(s_dragListener != null){
 			addDragListener(s_dragListener);
 		}
+		if(runningMotion){
+			runningMotion.forceStop();
+			runningMotion = null;
+		}
 		var container:DisplayObjectContainer = getDragingImageContainerRoot();
 		if(dragProxyMC == null){
 			dragProxyMC = new Sprite();
@@ -123,9 +128,9 @@ public class DragManager{
 		//initial image
 		s_dragImage.switchToRejectImage();
 		__onMouseMove(null);
-		stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
-		stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
-		stage.addEventListener(MouseEvent.MOUSE_UP, __onMouseUp);
+		stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove, false, 0, true);
+		stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown, false, 0, true);
+		stage.addEventListener(MouseEvent.MOUSE_UP, __onMouseUp, false, 0, true);
 	}
 		
 	/**
@@ -343,10 +348,11 @@ public class DragManager{
 			setDropMotion(DEFAULT_REJECT_DROP_MOTION);
 		}
 		fireDragDropEvent(s_dragInitiator, s_sourceData, globalPos, enteredComponent);
-		dropMotion.startMotionAndLaterRemove(s_dragInitiator, dragProxyMC);
 		if(enteredComponent != null){
 			enteredComponent.fireDragDropEvent(s_dragInitiator, s_sourceData, globalPos);
 		}
+		runningMotion = dropMotion;
+		runningMotion.startMotionAndLaterRemove(s_dragInitiator, dragProxyMC);
 		
 		if(s_dragListener != null){
 			removeDragListener(s_dragListener);

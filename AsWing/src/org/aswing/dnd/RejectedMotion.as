@@ -36,10 +36,22 @@ public class RejectedMotion implements DropMotion{
 		timer.start();
 	}
 	
+	public function forceStop():void{
+		finishMotion();
+	}
+	
 	public function startMotionAndLaterRemove(dragInitiator:Component, dragObject : Sprite) : void {
-		//create a new instance to do motion, avoid muiltiple motion shared instance
-		var motion:RejectedMotion = new RejectedMotion();
-		motion.startNewMotion(dragInitiator, dragObject);
+		startNewMotion(dragInitiator, dragObject);
+	}
+	
+	private function finishMotion():void{
+		if(timer.running){
+			timer.stop();
+			dragObject.alpha = 1;
+			if(dragObject.parent != null){
+				dragObject.parent.removeChild(dragObject);
+			}
+		}
 	}
 	
 	private function __enterFrame(e:TimerEvent):void{
@@ -50,11 +62,8 @@ public class RejectedMotion implements DropMotion{
 		p = dragObject.parent.localToGlobal(p);
 		p.x += (initiatorPos.x - p.x) * speed;
 		p.y += (initiatorPos.y - p.y) * speed;
-		if(Point.distance(p, initiatorPos.toPoint()) < 1){
-			dragObject.parent.removeChild(dragObject);
-			timer.stop();
-			timer.removeEventListener(TimerEvent.TIMER, __enterFrame);
-			dragObject.alpha = 1;
+		if(Point.distance(p, initiatorPos.toPoint()) < 2){
+			finishMotion();
 			return;
 		}
 		p = dragObject.parent.globalToLocal(p);
