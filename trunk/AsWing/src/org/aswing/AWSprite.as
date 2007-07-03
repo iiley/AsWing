@@ -56,6 +56,7 @@ public class AWSprite extends Sprite
 	
 	public function AWSprite(clipMasked:Boolean=false){
 		super();
+		focusRect = false;
 		usingBitmap = false;
 		clipMaskRect = new IntRectangle();
 		setClipMasked(clipMasked);

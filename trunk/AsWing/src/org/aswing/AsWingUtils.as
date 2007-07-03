@@ -73,6 +73,7 @@ public class AsWingUtils{
      */ 
     public static function createSprite(parent:DisplayObjectContainer=null, name:String=null):Sprite{
     	var sp:Sprite = new Sprite();
+		sp.focusRect = false;
     	if(name != null){
     		sp.name = name;
     	}
@@ -91,6 +92,7 @@ public class AsWingUtils{
      */ 
     public static function createLabel(parent:DisplayObjectContainer=null, name:String=null):TextField{
     	var textField:TextField = new TextField();
+    	textField.focusRect = false;
     	if(name != null){
     		textField.name = name;
     	}
