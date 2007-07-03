@@ -464,10 +464,10 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 			if(isLocationInExpandControl(path, p.x, p.y)){
 				handleExpandControlClick(path, p.x, p.y);
 			}
-		}
-		var bounds:IntRectangle = getPathBounds(tree, path);
-		if (p.x > bounds.x && p.x <= (bounds.x + bounds.width)) {
-		   selectPathForEvent(path);
+			var bounds:IntRectangle = getPathBounds(tree, path);
+			if (p.x > bounds.x && p.x <= (bounds.x + bounds.width)) {
+			   selectPathForEvent(path);
+			}
 		}
 	}
 
@@ -732,6 +732,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		var showRowCount:int = Math.min(cells.size(), rowCount);
 		var initialPath:TreePath = getClosestPathForLocation(tree, 0, showBounds.y);
 		var paintingEnumerator:Array = treeState.getVisiblePathsFrom(initialPath, showRowCount);
+		if(paintingEnumerator == null) paintingEnumerator = [];
 		var row:int = treeState.getRowContainingYLocation(showBounds.y);
 		var endY:int = showBounds.y + showBounds.height;
 		
