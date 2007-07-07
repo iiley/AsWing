@@ -295,14 +295,16 @@ public class Form extends JPanel implements LayoutManager{
     	n = getComponentCount();
     	for(i=0; i<n; i++){
     		var c:Component = getComponent(i);
-    		var row:FormRow = c as FormRow;
-    		var ph:int = c.getPreferredHeight();
-    		if(row){
-    			row.setColumnWidthes(columnWids);
-    			row.setGap(getHGap());
+    		if(c.isVisible()){
+	    		var row:FormRow = c as FormRow;
+	    		var ph:int = c.getPreferredHeight();
+	    		if(row){
+	    			row.setColumnWidthes(columnWids);
+	    			row.setGap(getHGap());
+	    		}
+	    		c.setComBoundsXYWH(sx, sy, w, ph);
+	    		sy += (ph + getVGap());
     		}
-    		c.setComBoundsXYWH(sx, sy, w, ph);
-    		sy += (ph + getVGap());
     	}
 	}
 	
