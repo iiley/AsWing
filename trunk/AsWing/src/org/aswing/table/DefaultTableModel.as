@@ -445,7 +445,11 @@ public class DefaultTableModel extends AbstractTableModel{
 	 * @return the number of rows in the model
 	 */
 	override public function getRowCount():int {
-		return dataArray.length;
+		if(dataArray){
+			return dataArray.length;
+		}else{
+			return 0;
+		}
 	}
 
 	/**
