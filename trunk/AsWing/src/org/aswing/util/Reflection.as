@@ -15,14 +15,19 @@ public class Reflection{
 	}
 	
 	public static function createInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):*{
-		if(applicationDomain == null){
-			applicationDomain = ApplicationDomain.currentDomain;
-		}
-		var assetClass:Class = applicationDomain.getDefinition(fullClassName) as Class;
+		var assetClass:Class = getClass(fullClassName, applicationDomain);
 		if(assetClass != null){
 			return new assetClass();
 		}
 		return null;		
+	}
+	
+	public static function getClass(fullClassName:String, applicationDomain:ApplicationDomain=null):Class{
+		if(applicationDomain == null){
+			applicationDomain = ApplicationDomain.currentDomain;
+		}
+		var assetClass:Class = applicationDomain.getDefinition(fullClassName) as Class;
+		return assetClass;		
 	}
 	
 	public static function getFullClassName(o:*):String{
