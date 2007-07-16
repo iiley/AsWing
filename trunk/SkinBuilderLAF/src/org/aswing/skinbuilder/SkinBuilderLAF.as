@@ -905,16 +905,20 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	//_______________________________ Table Header _________________________
 	//======================================================================
 	//========= Cell Background Images =======
-	[Embed(source="assets/TableHeader_cell_defaultImage.png")]
+	[Embed(source="assets/TableHeader_cell_defaultImage.png", scaleGridTop="2", scaleGridBottom="23", 
+		scaleGridLeft="2", scaleGridRight="78")]
 	private var TableHeader_cell_defaultImage:Class;
 	
-	[Embed(source="assets/TableHeader_cell_pressedImage.png")]
+	[Embed(source="assets/TableHeader_cell_pressedImage.png", scaleGridTop="2", scaleGridBottom="23", 
+		scaleGridLeft="2", scaleGridRight="78")]
 	private var TableHeader_cell_pressedImage:Class;
 	
-	[Embed(source="assets/TableHeader_cell_disabledImage.png")]
+	[Embed(source="assets/TableHeader_cell_disabledImage.png", scaleGridTop="2", scaleGridBottom="23", 
+		scaleGridLeft="2", scaleGridRight="78")]
 	private var TableHeader_cell_disabledImage:Class;
 	
-	[Embed(source="assets/TableHeader_cell_rolloverImage.png")]
+	[Embed(source="assets/TableHeader_cell_rolloverImage.png", scaleGridTop="2", scaleGridBottom="23", 
+		scaleGridLeft="2", scaleGridRight="78")]
 	private var TableHeader_cell_rolloverImage:Class;
 	
 		
