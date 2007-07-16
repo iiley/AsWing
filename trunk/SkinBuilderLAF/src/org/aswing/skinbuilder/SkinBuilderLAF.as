@@ -1384,7 +1384,6 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	     // *** MenuItem
 	    comDefaults = [
 	    	"MenuItem.opaque", false,  
-		    "MenuItem.selectionBackground", table.get("menu"),
 		    "MenuItem.selectionForeground", table.get("menuText"),
 		    "MenuItem.acceleratorSelectionForeground", table.get("menuText"),
 			"MenuItem.defaultImage", null, 
@@ -1399,7 +1398,6 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	     // *** CheckBoxMenuItem
 	    comDefaults = [
 	    	"CheckBoxMenuItem.opaque", false,  
-		    "CheckBoxMenuItem.selectionBackground", table.get("menu"),
 		    "CheckBoxMenuItem.selectionForeground", table.get("menuText"),
 		    "CheckBoxMenuItem.acceleratorSelectionForeground", table.get("menuText"),
 			"CheckBoxMenuItem.defaultImage", null, 
@@ -1416,7 +1414,6 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	     // *** RadioButtonMenuItem
 	    comDefaults = [
 	    	"RadioButtonMenuItem.opaque", false,  
-		    "RadioButtonMenuItem.selectionBackground", table.get("menu"),
 		    "RadioButtonMenuItem.selectionForeground", table.get("menuText"),
 		    "RadioButtonMenuItem.acceleratorSelectionForeground", table.get("menuText"),
 			"RadioButtonMenuItem.defaultImage", null, 
@@ -1430,8 +1427,14 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	    ];
 	    table.putDefaults(comDefaults);
 	    
-	     // *** Menu
+	     // *** Menu -- by default the menu will not use decorators, if you need, uncomment the lines below
 	    comDefaults = [
+	    	//"Menu.opaque", false,  
+		    //"Menu.selectionForeground", table.get("menuText"),
+		    //"Menu.acceleratorSelectionForeground", table.get("menuText"),
+			//"Menu.bg", SkinMenuBackground, 
+			//"Menu.selectedImage", MenuItem_rolloverImage, 
+			//"Menu.rolloverImage", MenuItem_rolloverImage, 
 			"Menu.arrowIconImage", Menu_arrowIconImage, 
 	    	"Menu.arrowIcon", SkinMenuArrowIcon
 	    ];
