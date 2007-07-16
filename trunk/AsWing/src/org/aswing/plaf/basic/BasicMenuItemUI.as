@@ -443,7 +443,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 				color = menuItem.getBackground();
 			}
 			g.fillRectangle(new SolidBrush(color), r.x, r.y, r.width, r.height);
-		}else if(shouldPaintSelected()){
+		}else if(shouldPaintSelected() && (menuItem.getBackgroundDecorator() == null || menuItem.getBackgroundDecorator() == DefaultEmptyDecoraterResource.INSTANCE)){
 			g.fillRectangle(new SolidBrush(color), r.x, r.y, r.width, r.height);
 		}
 	}	
