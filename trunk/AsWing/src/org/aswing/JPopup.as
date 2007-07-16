@@ -71,6 +71,7 @@ public class JPopup extends JRootPane{
 		setName("JPopup");
 		ownedEquipedPopups = new Vector();
 		ground_mc = new Sprite();
+		ground_mc.mouseEnabled = false;
 		ground_mc.name = "ground_mc";
 		ground_mc.visible = false;
 		
