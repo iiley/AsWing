@@ -178,7 +178,9 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 		var tc:Component = tab.getComponent();
 		tc.setComBounds(getDrawnTabBounds(index));
 		if(index == tabbedPane.getSelectedIndex()){
-			tc.parent.swapChildren(tc, topTabCom);
+			if (tc.parent.contains(topTabCom)){
+				tc.parent.swapChildren(tc, topTabCom);
+			}
 			topTabCom = tc;
 		}
 	}  
