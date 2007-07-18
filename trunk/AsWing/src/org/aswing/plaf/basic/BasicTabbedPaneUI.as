@@ -318,14 +318,17 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	}
 	
 	protected function getTabBoundArray():Array{
-		if(tabBoundArray != null){
+		//when tabBoundArray.lenght != tabbedPane.getComponentCount() then recalled the getTabBarSize()
+		if(tabBoundArray != null && tabBoundArray.length == tabbedPane.getComponentCount()){
 			return tabBoundArray;
+		}else{
+			invalidateLayout(tabbedPane);
+			getTabBarSize();
+			if(tabBoundArray == null){
+				trace("Debug : Error tabBoundArray == null but tabBarSize = " + tabBarSize);
+			}			
+			return tabBoundArray;			
 		}
-		getTabBarSize();
-		if(tabBoundArray == null){
-			trace("Debug : Error tabBoundArray == null but tabBarSize = " + tabBarSize);
-		}
-		return tabBoundArray;
 	}
 		
 	protected function countPreferredTabSizeAt(index:int):IntDimension{
