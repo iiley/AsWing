@@ -71,7 +71,6 @@ public class JPopup extends JRootPane{
 		setName("JPopup");
 		ownedEquipedPopups = new Vector();
 		ground_mc = new Sprite();
-		ground_mc.mouseEnabled = false;
 		ground_mc.name = "ground_mc";
 		ground_mc.visible = false;
 		
@@ -101,7 +100,16 @@ public class JPopup extends JRootPane{
 	 */
 	override public function isValidateRoot():Boolean{
 		return true;
-	}	
+	}
+	
+	/**
+	 * Sets the mouse enabled of the popup.
+	 * @param b true enabled, false, disabled.
+	 */
+	override public function setEnabled(b:Boolean):void{
+		super.setEnabled(b);
+		ground_mc.mouseEnabled = isEnabled();
+	}
 	
 	/**
 	 * This will return the owner of this JPopup, it maybe a DisplayObjectContainer maybe a JPopup.
