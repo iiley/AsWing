@@ -854,7 +854,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			w += tbs.width;
 		}
 		
-		prefferedSize = insets.getOutsideSize(new IntDimension(w, h));
+		prefferedSize = contentMargin.getOutsideSize(insets.getOutsideSize(new IntDimension(w, h)));
 		return prefferedSize;
 	}
 
@@ -883,7 +883,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			w += tbs.width;
 		}
 		
-		minimumSize = insets.getOutsideSize(new IntDimension(w, h));
+		minimumSize = contentMargin.getOutsideSize(insets.getOutsideSize(new IntDimension(w, h)));
 		return minimumSize;
 	}
 
