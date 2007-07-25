@@ -1,5 +1,8 @@
-package org.aswing.image.png{
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
 
+package org.aswing.image.png{
 
 import flash.display.BitmapData;
 import flash.geom.Rectangle;

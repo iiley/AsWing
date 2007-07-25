@@ -1,6 +1,10 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
 package org.aswing.image.png{
-	import flash.utils.ByteArray;
-	
+
+import flash.utils.ByteArray;	
 
 /**
  * Png image header chunk, which is the first chunk in a PNG datastream.
