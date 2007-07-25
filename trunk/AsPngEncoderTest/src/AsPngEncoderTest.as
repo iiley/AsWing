@@ -41,8 +41,11 @@ public class AsPngEncoderTest extends Sprite{
 		
 		sourceImageLoader = new Loader();
 		encodeImageLoader = new Loader();
-		encoders = [new Strategy8BitMedianCutAlpha(128, 4), 
-					new Strategy8BitMedianCutAlpha(256, 4),  
+		encoders = [
+					new Strategy32BitAlpha(), 
+					new Strategy32BitOpaque(), 
+					new Strategy8BitMedianCutAlpha(256, 4), 
+					new Strategy8BitMedianCutAlpha(128, 4),  
 					new Strategy8BitMedianCutAlpha(64), 
 					new Strategy8BitMedianCutAlpha(16), 
 					new Strategy8BitMedianCutAlpha(8), 
@@ -50,15 +53,15 @@ public class AsPngEncoderTest extends Sprite{
 					new Strategy8BitMedianCutAlpha(2), 
 					new Strategy8BitMedianCutOpaque(256), 
 					new Strategy8BitMedianCutOpaque(64), 
-					new Strategy32BitAlpha(), 
-					new Strategy32BitOpaque(), 
+					new Strategy8BitMedianCutOpaque(9), 
 					new Strategy8BitUniformQuantAlpha(), 
 					new Strategy8BitUniformQuant(6, 7, 6), 
 					new Strategy8BitUniformQuant(6, 6, 6), 
 					new Strategy8BitUniformQuant(8, 8, 4), 
 					new Strategy8BitUniformQuant(5, 5, 5), 
 					new Strategy8BitUniformQuant(4, 4, 4), 
-					new Strategy8BitUniformQuant(2, 2, 2)];
+					new Strategy8BitUniformQuant(2, 2, 2)
+					];
 		
 		window = new JWindow();
 		sourcePane = new AssetPane();
