@@ -1,3 +1,7 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
 package org.aswing.image.png{
 
 public class PngError extends Error{

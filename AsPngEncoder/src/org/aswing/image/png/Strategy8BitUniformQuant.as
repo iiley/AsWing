@@ -1,10 +1,14 @@
+/*
+ Copyright aswing.org, see the LICENCE.txt.
+*/
+
 package org.aswing.image.png{
 
 import flash.utils.ByteArray;
 import flash.display.BitmapData;
 
 /**
- * Uniform Quantization strategy to quatizate color to 256.
+ * Uniform Quantization strategy to quatizate color to (0, 256) opaque.
  * @author iiley
  */
 public class Strategy8BitUniformQuant extends EncodeStrategyBase{
