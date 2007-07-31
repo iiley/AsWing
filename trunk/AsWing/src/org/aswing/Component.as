@@ -2171,7 +2171,10 @@ public class Component extends AWSprite{
     	if(getFocusTransmit() != null){
     		getFocusTransmit().requestFocus();
     	}else{
-    		stage.focus = getInternalFocusObject();
+    		var ifo:InteractiveObject = getInternalFocusObject();
+    		if(ifo != stage.focus){
+    			stage.focus = ifo;
+    		}
     	}
     }
     
