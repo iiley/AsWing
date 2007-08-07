@@ -50,15 +50,19 @@ public class AsWingManager{
      * Init AsWing as a standard setting.
      * @param root the default root container for aswing popups
      * @param _preventNullFocus set true to prevent focus transfer to null, false, not manage to do this
+     * @param workWithFlex set this to true if your application ui has both AsWing components and Flex components.
      * @see #setRoot()
      * @see #setPreventNullFocus()
+     * @see RepaintManager#setAlwaysUseTimer()
      */
-    public static function initAsStandard(root:DisplayObjectContainer, _preventNullFocus:Boolean=true):void{
+    public static function initAsStandard(root:DisplayObjectContainer, 
+    	_preventNullFocus:Boolean=true, workWithFlex:Boolean=false):void{
 		setRoot(root);
 		stage.align = StageAlign.TOP_LEFT;
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.stageFocusRect = false;
 		preventNullFocus = _preventNullFocus;
+		RepaintManager.getInstance().setAlwaysUseTimer(workWithFlex);
     }
     
     /**
