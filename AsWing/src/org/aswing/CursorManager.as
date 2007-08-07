@@ -11,6 +11,9 @@ import flash.ui.Mouse;
 import org.aswing.util.DepthManager;
 import flash.events.MouseEvent;
 import flash.events.Event;
+import flash.display.InteractiveObject;
+import flash.utils.Dictionary;
+import org.aswing.util.Reflection;
 	
 /**
  * The CursorManager, manage the cursor, hide system mouse cursor, show custom cursor, 
@@ -114,5 +117,33 @@ public class CursorManager{
 		}
 	}
 	
+	private static var tiggerCursorMap:Dictionary = new Dictionary(true);
+	
+	/**
+	 * Sets the cursor when mouse on the specified trigger.
+	 * @param trigger where the cursor will shown when the mouse on the trigger
+	 * @param cursor the cursor object
+	 */
+	public static function setCursor(trigger:InteractiveObject, cursor:DisplayObject):void{
+		tiggerCursorMap[trigger] = cursor;
+		trigger.addEventListener(MouseEvent.ROLL_OVER, __triggerOver, false, 0, true);
+		trigger.addEventListener(MouseEvent.ROLL_OUT, __triggerOut, false, 0, true);
+	}
+	
+	private static function __triggerOver(e:MouseEvent):void{
+		var trigger:Object = e.currentTarget;
+		var cursor:DisplayObject = tiggerCursorMap[trigger] as DisplayObject;
+		if(cursor){
+			showCustomCursor(cursor);
+		}
+	}
+	
+	private static function __triggerOut(e:MouseEvent):void{
+		var trigger:Object = e.currentTarget;
+		var cursor:DisplayObject = tiggerCursorMap[trigger] as DisplayObject;
+		if(cursor){
+			hideCustomCursor(cursor);
+		}
+	}
 }
 }
