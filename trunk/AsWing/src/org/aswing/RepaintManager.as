@@ -38,6 +38,7 @@ public class RepaintManager
 	
 	private var timer:Timer;
 	private var renderring:Boolean;
+	private var alwaysUseTimer:Boolean;
 	
 	/**
 	 * Singleton class, 
@@ -50,6 +51,7 @@ public class RepaintManager
 		repaintQueue = new HashSet();
 		validateQueue = new HashSet();
 		renderring = false;
+		alwaysUseTimer = false;
 		timer = new Timer(40, false);
 		timer.addActionListener(__render);
 	}
@@ -70,6 +72,19 @@ public class RepaintManager
 			instance = new RepaintManager();
 		}
 		return instance;
+	}
+	
+	/**
+	 * Sets whether or not always use timer to trigger the repaint progress.
+	 * By default it is false, means use stage Event.RENDER to trigger at most time.
+	 * It is better smooth for the rendering for Event.RENDER way, but if you make AsWing 
+	 * components works with Flex component, you should change to timer way.
+	 * @param b true to make it always use timer, false not.
+	 * @param delay the timer delay, by default it is 40 ms.
+	 */
+	public function setAlwaysUseTimer(b:Boolean, delay:int=40):void{
+		alwaysUseTimer = b;
+		timer.setDelay(delay);
 	}
 		
 	/**
@@ -105,7 +120,7 @@ public class RepaintManager
 	}
 	
 	private function renderLater():void{
-		if(stage != null && !renderring){
+		if(stage != null && !renderring && !alwaysUseTimer){
 			stage.invalidate();
 		}else{
 			if(!timer.isRunning()){
