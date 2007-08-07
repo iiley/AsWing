@@ -111,7 +111,7 @@ public class BasicColorSwatchesUI extends BaseComponentUI implements ColorSwatch
 		colorTilesPane.addEventListener(MouseEvent.ROLL_OVER, __colorTilesPaneRollOver);
 		colorTilesPane.addEventListener(MouseEvent.ROLL_OUT, __colorTilesPaneRollOut);
 		colorTilesPane.addEventListener(DragAndDropEvent.DRAG_EXIT, __colorTilesPaneRollOut);
-		colorTilesPane.addEventListener(ReleaseEvent.RELEASE, __colorTilesPaneReleased);
+		colorTilesPane.addEventListener(MouseEvent.MOUSE_UP, __colorTilesPaneReleased);
 		
 		colorHexText.addActionListener(__hexTextAction);
 		colorHexText.getTextField().addEventListener(Event.CHANGE, __hexTextChanged);
@@ -129,7 +129,7 @@ public class BasicColorSwatchesUI extends BaseComponentUI implements ColorSwatch
 		colorTilesPane.removeEventListener(MouseEvent.ROLL_OVER, __colorTilesPaneRollOver);
 		colorTilesPane.removeEventListener(MouseEvent.ROLL_OUT, __colorTilesPaneRollOut);
 		colorTilesPane.removeEventListener(DragAndDropEvent.DRAG_EXIT, __colorTilesPaneRollOut);
-		colorTilesPane.removeEventListener(ReleaseEvent.RELEASE, __colorTilesPaneReleased);   
+		colorTilesPane.removeEventListener(MouseEvent.MOUSE_UP, __colorTilesPaneReleased);   
 		
 		colorHexText.removeActionListener(__hexTextAction);
 		colorHexText.getTextField().removeEventListener(Event.CHANGE, __hexTextChanged);	
@@ -184,8 +184,8 @@ public class BasicColorSwatchesUI extends BaseComponentUI implements ColorSwatch
     		lastOutMoving = true;
     	}
     }
-    private function __colorTilesPaneReleased(e:ReleaseEvent):void{
-    	var p:IntPoint = colorTilesPane.getMousePosition();
+    private function __colorTilesPaneReleased(e:MouseEvent):void{
+    	var p:IntPoint = new IntPoint(e.localX, e.localY)//colorTilesPane.getMousePosition();
     	var color:ASColor = getColorWithPosAtColorTilesPane(p);
     	if(color != null){
     		colorSwatches.setSelectedColor(color);

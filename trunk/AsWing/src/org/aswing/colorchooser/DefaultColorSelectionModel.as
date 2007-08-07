@@ -36,7 +36,7 @@ public class DefaultColorSelectionModel extends EventDispatcher implements Color
 	public function setSelectedColor(color : ASColor) : void {
 		if((selectedColor == null && color != null)
 			 || (color == null && selectedColor != null)
-			 || (!color.equals(selectedColor))){
+			 || (color != null && !color.equals(selectedColor))){
 			selectedColor = color;
 			fireStateChanged();
 		}else{
