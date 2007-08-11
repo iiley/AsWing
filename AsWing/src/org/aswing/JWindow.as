@@ -8,7 +8,9 @@ import org.aswing.util.Vector;
 import org.aswing.geom.*;
 import org.aswing.event.WindowEvent;
 import flash.events.MouseEvent;
-import flash.display.*;	
+import flash.display.*;
+import org.aswing.event.AWEvent;
+import org.aswing.event.PopupEvent;	
 
 /**
  * Dispatched when the window be set actived from not being actived.
@@ -48,6 +50,7 @@ public class JWindow extends JPopup{
 	private var focusWhenDeactive:Component;
 	private var lootActiveFrom:JWindow;
 	private var focusObject:InteractiveObject;
+	private var activable:Boolean;
 	
 	/**
 	 * Create a JWindow
@@ -66,6 +69,7 @@ public class JWindow extends JPopup{
 		focusObject = new Sprite();
 		focusObject.name = "hidden_focus_obj";
 		focusObject.visible = false;
+		activable = true;
 		addChild(focusObject);
 		
 		layout = new WindowLayout();
@@ -176,11 +180,31 @@ public class JWindow extends JPopup{
 	 */	
 	override public function setVisible(v:Boolean):void{
 		super.setVisible(v);
-		if(v){
+		if(v && isActivable()){
 			setActive(true);
 		}else{
 			lostActiveAction();
 		}
+	}
+	
+	/**
+	 * Sets whether or not this window will be set to active when user interactive 
+	 * the UI. Default value is true.<br/>
+	 * If ture, the window will try to active when shown or user pressed the window.<br/>
+	 * If false, then window will not do active when visible or user pressed the window.
+	 * @param b whether or not the window is activable.
+	 */
+	public function setActivable(b:Boolean):void{
+		activable = b;
+	}
+	
+	/**
+	 * Returns whether or not the window is activable.
+	 * @return whether or not the window is activable.
+	 * @see #setActivable()
+	 */
+	public function isActivable():Boolean{
+		return activable;
 	}
 	
 	override protected function disposeProcess():void{
@@ -298,10 +322,23 @@ public class JWindow extends JPopup{
 		return lootActiveFrom;
 	}
 	private function setLootActiveFrom(activeOwner:JWindow):void{
-		if(activeOwner != null && activeOwner.getLootActiveFrom() == this){
-			activeOwner.lootActiveFrom = lootActiveFrom;
+		if(lootActiveFrom != null){
+			lootActiveFrom.removeEventListener(PopupEvent.POPUP_CLOSED, __lootActiveFromHide);
 		}
+		var oldLookActiveFrom:JWindow = lootActiveFrom;
 		lootActiveFrom = activeOwner;
+		if(lootActiveFrom != null){
+			lootActiveFrom.addEventListener(PopupEvent.POPUP_CLOSED, __lootActiveFromHide, false, 0, true);
+		}
+		if(activeOwner != null && activeOwner.getLootActiveFrom() == this){
+			activeOwner.setLootActiveFrom(oldLookActiveFrom);
+		}
+	}
+	
+	private function __lootActiveFromHide(e:PopupEvent):void{
+		if(lootActiveFrom != null){
+			setLootActiveFrom(lootActiveFrom.lootActiveFrom);
+		}
 	}
 	
 	private function active(programmatic:Boolean=true):void{
@@ -313,7 +350,9 @@ public class JWindow extends JPopup{
 			if(w != null && w != this){
 				if(w.isActive()){
 					w.deactive(programmatic);
-					setLootActiveFrom(w);
+					if(w.isShowing()){
+						setLootActiveFrom(w);
+					}
 				}
 			}
 		}
@@ -348,8 +387,8 @@ public class JWindow extends JPopup{
 		if(getWindowOwner() != null){
 			getWindowOwner().toFront();
 		}
-		if(!isActive()){
-			toFront();
+		toFront();
+		if(isActivable() && !isActive()){
 			active(false);
 		}
 	}
