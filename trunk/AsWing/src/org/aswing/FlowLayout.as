@@ -77,6 +77,8 @@ public class FlowLayout extends EmptyLayout{
      * @see #setHgap(int)
      */
     private var vgap:int;
+    
+    private var margin:Boolean;
 
     /**
      * <p>  
@@ -88,9 +90,10 @@ public class FlowLayout extends EmptyLayout{
      * @param      align   the alignment value, default is LEFT
      * @param      hgap    the horizontal gap between components, default 5
      * @param      vgap    the vertical gap between components, default 5
+     * @param      margin  whether or not the gap will margin around
      */
-    public function FlowLayout(align:int=LEFT, hgap:int=5, vgap:int=5) {
-    	
+    public function FlowLayout(align:int=LEFT, hgap:int=5, vgap:int=5, margin:Boolean=true) {
+    	this.margin = margin;
 		this.hgap = hgap;
 		this.vgap = vgap;
         setAlignment(align);
@@ -187,8 +190,12 @@ public class FlowLayout extends EmptyLayout{
 	    	}
 		}
 		var insets:Insets = target.getInsets();
-		dim.width += insets.left + insets.right + hgap*2;
-		dim.height += insets.top + insets.bottom + vgap*2;
+		dim.width += insets.left + insets.right;
+		dim.height += insets.top + insets.bottom;
+		if(margin){
+			dim.width += hgap*2;
+			dim.height += vgap*2;
+		}
     	return dim;
     }
 
@@ -256,10 +263,12 @@ public class FlowLayout extends EmptyLayout{
     override public function layoutContainer(target:Container):void {
 		var insets:Insets = target.getInsets();
 	    var td:IntDimension = target.getSize();
-		var maxwidth:int = td.width - (insets.left + insets.right + hgap*2);
+	    var marginW:int = margin ? hgap*2 : 0;
+	    var marginH:int = margin ? vgap*2 : 0;
+		var maxwidth:int = td.width - (insets.left + insets.right + marginW);
 		var nmembers:int = target.getComponentCount();
 		var x:int = 0;
-		var y:int = insets.top + vgap;
+		var y:int = insets.top + (margin ? vgap : 0);
 		var rowh:int = 0;
 		var start:int = 0;
 
@@ -285,7 +294,7 @@ public class FlowLayout extends EmptyLayout{
 				}
 	    	}
 		}
-		moveComponents(target, insets.left + hgap, y, maxwidth - x, rowh, start, nmembers, ltr);
+		moveComponents(target, insets.left + (margin ? hgap : 0), y, maxwidth - x, rowh, start, nmembers, ltr);
     }
     
     /**
