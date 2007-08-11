@@ -190,6 +190,7 @@ public class Component extends AWSprite{
 	private var dragEnabled:Boolean;
 	private var dropTrigger:Boolean;
 	private var dragAcceptableInitiator:HashSet;
+	private var dragAcceptableInitiatorAppraiser:Function;
 	
 	public function Component()
 	{
@@ -1287,6 +1288,16 @@ public class Component extends AWSprite{
 	}
 	
 	/**
+	 * Sets a function to judge whether a component is acceptable drag initiator.
+	 * This function will be called to judge when <code>dragAcceptableInitiator</code> set 
+	 * does not contains the component.
+	 * @param the judge function
+	 */
+	public function setDragAcceptableInitiatorAppraiser(func:Function):void{
+		dragAcceptableInitiatorAppraiser = func;
+	}
+	
+	/**
 	 * Returns whether the component is acceptable drag initiator for this component.
 	 * @param com the maybe acceptable drag initiator
 	 * @return true if it is acceptable drag initiator, false not
@@ -1295,7 +1306,11 @@ public class Component extends AWSprite{
 		if(dragAcceptableInitiator != null){
 			return dragAcceptableInitiator.contains(com);
 		}else{
-			return false;
+			if(dragAcceptableInitiatorAppraiser != null){
+				return dragAcceptableInitiatorAppraiser(com);
+			}else{
+				return false;
+			}
 		}
 	}		
 
