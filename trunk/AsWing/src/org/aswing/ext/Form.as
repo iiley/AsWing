@@ -147,7 +147,7 @@ public class Form extends JPanel implements LayoutManager{
 	}
 	
 	public function flowLeftHold(gap:int, ...comps):Container{
-		var p:JPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, gap, 0));
+		var p:JPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, gap, 0, false));
 		for each(var i:Component in comps){
 			p.append(i);
 		}
@@ -155,7 +155,7 @@ public class Form extends JPanel implements LayoutManager{
 	}
 	
 	public function flowCenterHold(gap:int, ...comps):Container{
-		var p:JPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, gap, 0));
+		var p:JPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, gap, 0, false));
 		for each(var i:Component in comps){
 			p.append(i);
 		}
@@ -163,7 +163,7 @@ public class Form extends JPanel implements LayoutManager{
 	}
 	
 	public function flowRightHold(gap:int, ...comps):Container{
-		var p:JPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, gap, 0));
+		var p:JPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, gap, 0, false));
 		for each(var i:Component in comps){
 			p.append(i);
 		}
