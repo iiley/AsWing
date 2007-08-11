@@ -82,14 +82,16 @@ public class JPopup extends JRootPane{
 		ground_mc.addChild(this);
 		
 		visible = false;
-		addEventListener(Event.ADDED_TO_STAGE, __popupOntoDisplayList);
+		addEventListener(PopupEvent.POPUP_OPENED, __popupOpennedAddToList);
 		addEventListener(Event.REMOVED_FROM_STAGE, __popupOfffromDisplayList);
 		addEventListener(PopupEvent.POPUP_OPENED, __popupOpenAddListenerStage);
 		addEventListener(PopupEvent.POPUP_CLOSED, __popupOpenRemoveListenerStage);
 	}
 	
-	private function __popupOntoDisplayList(e:Event):void{
-		getPopupsVector().append(this);
+	private function __popupOpennedAddToList(e:Event):void{
+		if(!getPopupsVector().contains(this)){
+			getPopupsVector().append(this);
+		}
 	}
 	private function __popupOfffromDisplayList(e:Event):void{
 		getPopupsVector().remove(this);	
@@ -215,6 +217,15 @@ public class JPopup extends JRootPane{
 		}
 	}
 	
+	/**
+	 * JPopup pack will revalidate if necessary. 
+	 * So JPopup pack call will always make effect if preferred size has changed.
+	 */
+	override public function pack():void{
+		super.pack();
+		revalidateIfNecessary();
+	}
+	
 	private function isAddedToList():Boolean{
 		return ground_mc.parent != null;
 	}
@@ -306,15 +317,19 @@ public class JPopup extends JRootPane{
 	
 	private var lastDragPos:IntPoint;
 	override public function startDrag(lockCenter:Boolean=false, bounds:Rectangle=null):void{
-		super.startDrag(lockCenter, bounds);
-		stage.removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
-		stage.addEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
-		lastDragPos = getLocation();
+		if(stage){
+			super.startDrag(lockCenter, bounds);
+			stage.removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+			lastDragPos = getLocation();
+		}
 	}
 	
 	override public function stopDrag():void{
 		super.stopDrag();
-		stage.removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+		if(stage){
+			stage.removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+		}
 	}
 	
 	private function __dragMoving(e:MouseEvent):void{
