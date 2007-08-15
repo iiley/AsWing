@@ -147,10 +147,7 @@ public class ScrollPaneLayout extends EmptyLayout{
     			if(scrollPane.getHorizontalScrollBarPolicy() != JScrollPane.SCROLLBAR_ALWAYS){
    					hScrollBar.setVisible(false);
     				hh = 0;
-
-    				var point:IntPoint = viewport.getViewPosition();
-    				point.x = 0;
-    				viewport.setViewPosition(point);      				
+    				viewport.setViewPosition(new IntPoint(0, viewport.getViewPosition().y));    				
     			}else{
     				hScrollBar.setVisible(true); 	
     			}
@@ -175,10 +172,7 @@ public class ScrollPaneLayout extends EmptyLayout{
     			if(scrollPane.getVerticalScrollBarPolicy() != JScrollPane.SCROLLBAR_ALWAYS){
    					vScrollBar.setVisible(false);
     				vw = 0;
-    				
-    				var point:IntPoint = viewport.getViewPosition();
-    				point.y = 0;
-    				viewport.setViewPosition(point);  
+    				viewport.setViewPosition(new IntPoint(viewport.getViewPosition().x, 0));  
     			}else{
    					vScrollBar.setVisible(true);
     			}
