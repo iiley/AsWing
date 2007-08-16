@@ -701,7 +701,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		if(index >= getModel().getSize()){
 			return;
 		}
-		getSelectionModel().setSelectionInterval(index, index);
+		getSelectionModel().setSelectionInterval(index, index, programmatic);
 	}
 	
 	/**
