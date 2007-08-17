@@ -125,6 +125,9 @@ public class JLoadPane extends AssetPane{
 		if(assetContainer == regularAssetContainer){
 			assetContainer = loader;
 			if (this.contains(regularAssetContainer)){
+				if(this.asset && regularAssetContainer.contains(this.asset)){
+					regularAssetContainer.removeChild(this.asset);
+				}
 				removeChild(regularAssetContainer);
 				regularAssetContainer.mask = null;
 			}
