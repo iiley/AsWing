@@ -214,7 +214,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     		}else{
     			startMousePos = frame.getMousePosition();
     			startPos = frame.getLocation();
-    			frame.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
+    			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove, false, 0, true);
     		}
     	}
     }
@@ -224,7 +224,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     		return;
     	}
     	frame.stopDrag();
-    	frame.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
+    	AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
     	if(frame.isDragable() && !isMaximizedFrame() && !frame.isDragDirectly()){
 	    	var dest:IntPoint = representMoveBounds();
 	    	frame.setLocation(dest);
