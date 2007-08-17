@@ -8,6 +8,7 @@ fixed color chooser model bug when no color selected more than once
 fixed color JColorSwatcher bug when dispose it
 fixed JPopup memory leak bug
 fixed JWindow active transfer bug
+fixed JLoadPane set asset before old asset loaded bug.
 add JMenu mouseOver state image for SkinBuilderLAF
 make JComboBox drop down list item render mouseOver state
 added setCursor method to CursorManager
