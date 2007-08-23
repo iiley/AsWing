@@ -2,7 +2,7 @@ package{
 
 import flash.display.*;
 import org.aswing.*;
-import org.aswing.skinbuilder.*;
+//import org.aswing.skinbuilder.*;
 import cases.*;
 import cases.table.TableDemo;
 
@@ -13,7 +13,7 @@ public class SkinBuilderTest extends Sprite{
 		super();
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.stageFocusRect = false;
-		UIManager.setLookAndFeel(new SkinBuilderLAF());
+		//UIManager.setLookAndFeel(new SkinBuilderLAF());
 		AsWingManager.setRoot(this);
 		//create other case instance here to test others
 		//for example change below with addChild(new Button());

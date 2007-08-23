@@ -2,7 +2,6 @@ package{
 
 import flash.display.*;
 import org.aswing.*;
-import org.aswing.skinbuilder.*;
 import componetset.*;
 import org.aswing.border.EmptyBorder;
 
@@ -26,6 +25,7 @@ public class ComSet extends Sprite{
 		tabpane.append(new Containers());
 		tabpane.append(new HeavyComs());
 		tabpane.append(new Windows());
+		tabpane.append(new Menus());
 		tabpane.append(new Decorators());
 		
 		WINDOW.setBackgroundDecorator(new SolidBackground(UIManager.getColor("window")));

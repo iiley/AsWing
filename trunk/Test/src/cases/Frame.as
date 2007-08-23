@@ -33,7 +33,12 @@ package cases
 			pop1.setSizeWH(200, 200);
 			pop1.setLocationXY(100, 10);
 			
-			pop2 = new JFrame(pop1, "Long Title Frame, Really very Long?", true);
+			var pppp:JFrame = new JFrame(this, "xxx");
+			pppp.setSizeWH(200, 200);
+			pppp.show();
+			
+			pop2 = new JFrame(this, "Long Title Frame, Really very Long?", false);
+			pop2.setActivable(false);
 			pop2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			var defaultButton:JButton = new JButton("Default Button");
 			pop2.getContentPane().setLayout(new FlowLayout());

@@ -6,29 +6,28 @@ package cases
 
 	public class TextFieldCase extends Sprite
 	{
-		private var panel:JRootPane;
+		private var panel:JWindow;
 		
 		public function TextFieldCase()
 		{
 			super();
 			
-			panel = new JRootPane();
-			panel.setLayout(new FlowLayout());
+			panel = new JFrame(null);
+			panel.getContentPane().setLayout(new FlowLayout());
 			var text:JTextField = new JTextField("input");
 			text.setCachePreferSizes(false);
 			text.setToolTipText("Text tool tip");
-			panel.append(text);
+			panel.getContentPane().append(text);
 			text.addActionListener(__revalidate);
-			panel.append(new JTextField("JTextField1", 8));
-			panel.append(new JTextField("JTextField2", 10));
-			panel.append(new JTextField("JTextField3", 20));
-			panel.append(new JButton("&Button"));
+			panel.getContentPane().append(new JTextField("JTextField1", 8));
+			panel.getContentPane().append(new JTextField("JTextField2", 10));
+			panel.getContentPane().append(new JTextField("JTextField3", 20));
+			panel.getContentPane().append(new JButton("&Button"));
 			
 			var button:JButton = new JButton("Revalidate");
-			panel.append(button);
+			panel.getContentPane().append(button);
 			panel.setSizeWH(300, 200);
-			addChild(panel);
-			panel.validate();
+			panel.show();
 			
 			button.addActionListener(__revalidate);
 		}
