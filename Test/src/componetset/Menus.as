@@ -1,24 +1,18 @@
-package cases{
+package componetset{
 
-import flash.display.Sprite;
 import org.aswing.*;
-import flash.events.Event;
-import flash.events.KeyboardEvent;
+import flash.events.*;
 
-public class NormalMenu extends Sprite{
-	
-	public function NormalMenu(){
-		super();
-		doNormalMenuTest();
-	}
+public class Menus extends JPanel{
 	
 	private var textArea:JTextArea; 
 	private var openItem:JMenuItem;
 	private var fileMenu:JMenu;
 	private var frame:JFrame;
 	
-	public function doNormalMenuTest():void {
-		frame = new JFrame(null, "NormalMenuTest");
+	public function Menus():void {
+		super(new BorderLayout());
+		this.setName("Menus");
 		
 		var bar:JMenuBar = new JMenuBar();
 		
@@ -65,23 +59,13 @@ public class NormalMenu extends Sprite{
 		helpMenu.addMenuItem("About...").addActionListener(__aboutMenuItemAct);
 		bar.append(helpMenu);
 		
-		frame.getContentPane().append(bar, BorderLayout.NORTH);
+		append(bar, BorderLayout.NORTH);
 		textArea = new JTextArea();
-		frame.getContentPane().append(new JScrollPane(textArea), BorderLayout.CENTER);
+		append(new JScrollPane(textArea), BorderLayout.CENTER);
 		
 		KeyboardManager.getInstance().registerKeyAction(
 			new KeySequence(KeyStroke.VK_SHIFT, KeyStroke.VK_A), 
 			__keyAction);
-			
-		frame.setSizeWH(400, 400);
-		frame.show();
-		
-		frame.stage.addEventListener(KeyboardEvent.KEY_DOWN, __stageKeyDown);
-	}
-	
-	private function __stageKeyDown(e:KeyboardEvent):void{
-		var str:String = "fdsf f9jh fjdsjfl 329f%&$3 gfljgfds 232";
-		fileMenu.addMenuItem(str.substr(Math.random()*20));
 	}
 	
 	private function __keyAction() : void {
@@ -107,5 +91,6 @@ public class NormalMenu extends Sprite{
 		var source:JMenuItem = e.target as JMenuItem;
 		JOptionPane.showMessageDialog("About", "This is just a menu test demo!");
 	}
+	
 }
 }

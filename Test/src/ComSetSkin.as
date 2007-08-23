@@ -2,11 +2,12 @@ package{
 
 import flash.display.*;
 import org.aswing.*;
-import org.aswing.skinbuilder.*;
+//import org.aswing.skinbuilder.*;
 import componetset.*;
 import org.aswing.border.EmptyBorder;
 import flash.events.Event;
 import org.aswing.plaf.basic.BasicLookAndFeel;
+import org.aswing.skinbuilder.SkinBuilderLAF;
 
 [SWF (width="800", height="600")]//, backgroundColor="0xFFFFFF")]
 public class ComSetSkin extends Sprite{
@@ -29,24 +30,15 @@ public class ComSetSkin extends Sprite{
 		tabpane.append(new Containers());
 		tabpane.append(new HeavyComs());
 		tabpane.append(new Windows());
+		tabpane.append(new Menus());
 		tabpane.append(new Decorators());
-		tabpane.addStateListener(__changeLAF);
+		tabpane.setOpaque(true);
+		//tabpane.setBackground(ASColor.HALO_BLUE);
 		
 		WINDOW.setBorder(new EmptyBorder(null, new Insets(4, 4, 4, 4)));
 		WINDOW.setContentPane(tabpane);
 		WINDOW.setSizeWH(800, 600);
 		WINDOW.show();
-	}
-	
-	private function __changeLAF(e:Event):void{
-		if(tabpane.getSelectedIndex() == 2){
-			if(UIManager.getLookAndFeel() is SkinBuilderLAF){
-				UIManager.setLookAndFeel(new BasicLookAndFeel());
-			}else{
-				UIManager.setLookAndFeel(new SkinBuilderLAF());
-			}
-			AsWingUtils.updateAllComponentUI();
-		}
 	}
 }
 }

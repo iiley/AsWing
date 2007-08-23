@@ -3,6 +3,8 @@ package cases
 import flash.display.Sprite;
 import org.aswing.*;
 import flash.events.Event;
+import org.aswing.tree.DefaultTreeModel;
+import org.aswing.tree.DefaultMutableTreeNode;
 
 public class Tree extends Sprite
 {
@@ -27,6 +29,9 @@ public class Tree extends Sprite
 		pane.append(button, BorderLayout.SOUTH);
 		frame.setContentPane(pane);
 		button.addActionListener(__repaintTree);
+		
+		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("tree")));
+		tree.setRootVisible(false);
 		
 		frame.setSizeWH(200, 200);
 		frame.show();

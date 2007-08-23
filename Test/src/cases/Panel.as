@@ -4,11 +4,14 @@ package cases
 	import org.aswing.*;
 	import org.aswing.geom.IntRectangle;
 	import org.aswing.geom.IntDimension;
+	import flash.ui.ContextMenu;
+	import flash.ui.ContextMenuItem;
 
 	public class Panel extends Sprite
 	{
 		public function Panel(){
 			super();
+			var popup:JWindow = new JWindow(this);
 			var panel:JPanel = new JPanel();
 			var button:JButton = new JButton("Button");
 			panel.append(button);
@@ -16,8 +19,18 @@ package cases
 			panel.append(new JButton("Button 2"));
 			panel.append(new JButton("Button 3"));
 			panel.setSizeWH(100, 60);
-			addChild(panel);
-			panel.validate();
+			
+			popup.setContentPane(panel);
+			popup.setSizeWH(200, 200);
+			popup.show();
+			
+			var menus:ContextMenu = new ContextMenu();
+			menus.customItems.push(new ContextMenuItem("My menu item"));
+			panel.contextMenu = menus;
+			
+			menus = new ContextMenu();
+			menus.customItems.push(new ContextMenuItem("My menu item 2"));
+			button.contextMenu = menus;
 		}
 	}
 }

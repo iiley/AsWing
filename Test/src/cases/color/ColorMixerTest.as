@@ -19,17 +19,18 @@ public class ColorMixerTest extends Sprite
 		var cm:JColorMixer = new JColorMixer();
 		cm.addEventListener(InteractiveEvent.STATE_CHANGED, __colorChanged);
 		cm.setNoColorSectionVisible(true);
-		//p.append(cm, BorderLayout.CENTER);		
+		p.append(cm, BorderLayout.CENTER);		
 		var cs:JColorSwatches = new JColorSwatches();
 		cs.addEventListener(InteractiveEvent.STATE_CHANGED, __colorChanged);
 		cs.setNoColorSectionVisible(true);
-		p.append(cs, BorderLayout.CENTER);
+		//p.append(cs, BorderLayout.CENTER);
 		infoText = new JTextArea("", 10, 10);
 		
 		p.append(new JScrollPane(infoText), BorderLayout.SOUTH);
-		p.setSizeWH(500,400);
+		p.setSizeWH(400,400);
 		this.addChild(p);
 		p.validate();
+		p.x = 100;
 	}
 	
 	private function __colorChanged(e:InteractiveEvent):void{
