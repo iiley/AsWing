@@ -245,7 +245,11 @@ public class JComboBox extends Component implements EditableComponent{
 	 * Returns the editor component internal focus object.
 	 */
 	override public function getInternalFocusObject():InteractiveObject{
-		return getEditor().getEditorComponent().getInternalFocusObject();
+		if(isEditable()){
+			return getEditor().getEditorComponent().getInternalFocusObject();
+		}else{
+			return this;
+		}
 	}
 	
 	/**
@@ -284,12 +288,20 @@ public class JComboBox extends Component implements EditableComponent{
      * displays the selected item in the field,
      * but the selection cannot be modified.
      * 
-     * @param aFlag a boolean value, where true indicates that the
+     * @param b a boolean value, where true indicates that the
      *			field is editable
      */
-	public function setEditable(aFlag:Boolean):void{
-		editable = aFlag;
-		getEditor().setEditable(aFlag);
+	public function setEditable(b:Boolean):void{
+		if(editable != b){
+			editable = b;
+			getEditor().setEditable(b);
+			//editable changed, internal focus object will change too, so change the focus
+			if(isFocusable() && isFocusOwner() && stage != null){
+				if(stage.focus != getInternalFocusObject()){
+					stage.focus = getInternalFocusObject();
+				}
+			}
+		}
 	}
 	
 	/**
