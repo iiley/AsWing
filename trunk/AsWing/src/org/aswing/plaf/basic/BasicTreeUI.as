@@ -108,7 +108,8 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		if (sfg == null || sfg is UIResource) {
 			tree.setSelectionForeground(getColor(pp+"selectionForeground"));
 		}
-		
+		tree.setRowHeight(getInt(pp+"rowHeight"));
+		tree.setRowHeightSet(false);
 		setLeftChildIndent(getInt(pp+"leftChildIndent"));
 		setRightChildIndent(getInt(pp+"rightChildIndent"));
 		updateDepthOffset();
