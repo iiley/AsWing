@@ -26,9 +26,9 @@ public class Main extends JWindow{
 		hiberarchyPane = new HiberarchyPane();
 		propertyPane = new PropertyPane();
 		
-		bottom = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, hiberarchyPane, propertyPane);
+		var bottom:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, hiberarchyPane, propertyPane);
 		
-		pane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, previewPane, bottom);
+		var pane:JSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, previewPane, bottom);
 		setContentPane(pane);
 	}
 	
