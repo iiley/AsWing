@@ -98,6 +98,20 @@ public class FlowLayout extends EmptyLayout{
 		this.vgap = vgap;
         setAlignment(align);
     }
+    
+    /**
+     * Sets whether or not the gap will margin around.
+     */
+    public function setMargin(b:Boolean):void{
+    	margin = b;
+    }
+    
+    /**
+     * Returns whether or not the gap will margin around.
+     */    
+    public function getMargin(b:Boolean):Boolean{
+    	return margin;
+    }
 
     /**
      * Gets the alignment for this layout.
