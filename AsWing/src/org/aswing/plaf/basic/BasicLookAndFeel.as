@@ -611,6 +611,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"Tree.folderCollapsedIcon", org.aswing.tree.TreeFolderIcon, 
 			"Tree.leftChildIndent", 10, 
 			"Tree.rightChildIndent", 0, 
+			"Tree.rowHeight", 16, 
 			"Tree.expandControl", org.aswing.plaf.basic.tree.BasicExpandControl, 
 			"Tree.border", undefined
 		];
