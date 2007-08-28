@@ -17,3 +17,6 @@ added margin param to FlowLayout
 added setActivable method to JWindow to make it can judge whether or not become active when show or user interactive. 
 added revalidate call to JPopup.pack() to make sure the call will always make effect if preferred size has changed.
 added dragAcceptableInitiatorAppraiser property to Component to make complex drop trigger appraise
+
+___________________AsWing A3 1.1________________
+add rowHeight ui default for JTree
