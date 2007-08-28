@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
+    <classEntry path="org.aswing.guibuilder.PropertyPane"/>
     <classEntry path="org.aswing.guibuilder.Main"/>
+    <classEntry path="org.aswing.guibuilder.HiberarchyPane"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
