@@ -19,4 +19,12 @@ added revalidate call to JPopup.pack() to make sure the call will always make ef
 added dragAcceptableInitiatorAppraiser property to Component to make complex drop trigger appraise
 
 ___________________AsWing A3 1.1________________
-add rowHeight ui default for JTree
+additions:
+
+added rowHeight ui default for JTree
+added defaultMaxChars class properties for JTextField and JTextArea
+added FlowWrapLayout
+
+bugfixes:
+
+fixed JTextComponent setForeground bug
