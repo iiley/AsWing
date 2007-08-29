@@ -29,19 +29,19 @@ public class FlowLayout extends EmptyLayout{
      * This value indicates that each row of components
      * should be left-justified.
      */
-    public static const LEFT:int 	= 0;
+    public static const LEFT:int 	= AsWingConstants.LEFT;
 
     /**
      * This value indicates that each row of components
      * should be centered.
      */
-    public static const CENTER:int 	= 1;
+    public static const CENTER:int 	= AsWingConstants.CENTER;
 
     /**
      * This value indicates that each row of components
      * should be right-justified.
      */
-    public static const RIGHT:int 	= 2;
+    public static const RIGHT:int 	= AsWingConstants.RIGHT;
 
     /**
      * <code>align</code> is the property that determines
@@ -56,7 +56,7 @@ public class FlowLayout extends EmptyLayout{
      * @see #getAlignment
      * @see #setAlignment
      */
-    private var align:int;
+    protected var align:int;
 
     /**
      * The flow layout manager allows a seperation of
@@ -66,7 +66,7 @@ public class FlowLayout extends EmptyLayout{
      * @see #getHgap()
      * @see #setHgap(int)
      */
-    private var hgap:int;
+    protected var hgap:int;
 
     /**
      * The flow layout manager allows a seperation of
@@ -76,9 +76,12 @@ public class FlowLayout extends EmptyLayout{
      * @see #getHgap()
      * @see #setHgap(int)
      */
-    private var vgap:int;
+    protected var vgap:int;
     
-    private var margin:Boolean;
+    /**
+     * whether or not the gap will margin around
+     */
+    protected var margin:Boolean;
 
     /**
      * <p>  
@@ -92,7 +95,7 @@ public class FlowLayout extends EmptyLayout{
      * @param      vgap    the vertical gap between components, default 5
      * @param      margin  whether or not the gap will margin around
      */
-    public function FlowLayout(align:int=LEFT, hgap:int=5, vgap:int=5, margin:Boolean=true) {
+    public function FlowLayout(align:int=AsWingConstants.LEFT, hgap:int=5, vgap:int=5, margin:Boolean=true) {
     	this.margin = margin;
 		this.hgap = hgap;
 		this.vgap = vgap;
@@ -109,7 +112,7 @@ public class FlowLayout extends EmptyLayout{
     /**
      * Returns whether or not the gap will margin around.
      */    
-    public function getMargin(b:Boolean):Boolean{
+    public function isMargin():Boolean{
     	return margin;
     }
 
@@ -238,16 +241,16 @@ public class FlowLayout extends EmptyLayout{
      * @param rowEnd the the ending of the row
      */
     private function moveComponents(target:Container, x:int, y:int, width:int, height:int,
-                                rowStart:int, rowEnd:int, ltr:Boolean):void {
+                                rowStart:int, rowEnd:int):void {
 		switch (align) {
 			case LEFT:
-	    		x += ltr ? 0 : width;
+	    		x += 0;
 	    		break;
 			case CENTER:
 	    		x += width / 2;
 	   			break;
 			case RIGHT:
-	    		x += ltr ? width : 0;
+	    		x += width;
 	    		break;
 		}
 		for (var i:int = rowStart ; i < rowEnd ; i++) {
@@ -255,11 +258,7 @@ public class FlowLayout extends EmptyLayout{
 	    	var d:IntDimension = m.getSize();
 	    	var td:IntDimension = target.getSize();
 	    	if (m.isVisible()) {
-	        	if (ltr) {
-        	    	m.setLocation(new IntPoint(x, y + (height - d.height) / 2));
-	        	} else {
-	            	m.setLocation(new IntPoint(td.width - x - d.width, y + (height - d.height) / 2));
-                }
+        	    m.setLocation(new IntPoint(x, y + (height - d.height) / 2));
                 x += d.width + hgap;
 	    	}
 		}
@@ -286,7 +285,6 @@ public class FlowLayout extends EmptyLayout{
 		var rowh:int = 0;
 		var start:int = 0;
 
-        var ltr:Boolean = true;
 		for (var i:int = 0 ; i < nmembers ; i++) {
 	    	var m:Component = target.getComponent(i);
 	    	if (m.isVisible()) {
@@ -300,7 +298,7 @@ public class FlowLayout extends EmptyLayout{
 		    		x += d.width;
 		    		rowh = Math.max(rowh, d.height);
 				} else {
-		    		moveComponents(target, insets.left + hgap, y, maxwidth - x, rowh, start, i, ltr);
+		    		moveComponents(target, insets.left + (margin ? hgap : 0), y, maxwidth - x, rowh, start, i);
 		    		x = d.width;
 		    		y += vgap + rowh;
 		    		rowh = d.height;
@@ -308,7 +306,7 @@ public class FlowLayout extends EmptyLayout{
 				}
 	    	}
 		}
-		moveComponents(target, insets.left + (margin ? hgap : 0), y, maxwidth - x, rowh, start, nmembers, ltr);
+		moveComponents(target, insets.left + (margin ? hgap : 0), y, maxwidth - x, rowh, start, nmembers);
     }
     
     /**
