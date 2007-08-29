@@ -115,6 +115,12 @@ public class JTextComponent extends Component implements EditableComponent{
 		invalidateColumnRowSize();
 	}
 	
+	override public function setForeground(c:ASColor):void{
+		super.setForeground(c);
+    	getTextField().textColor = c.getRGB();
+    	getTextField().alpha = c.getAlpha();
+	}
+	
 	public function setText(text:String):void{
 		if(getTextField().text != text){
 			getTextField().text = text;

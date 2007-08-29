@@ -30,8 +30,6 @@ public class BasicTextComponentUI extends BaseComponentUI{
     
     override public function paint(c:Component, g:Graphics2D, r:IntRectangle):void{
     	super.paint(c, g, r);
-    	//textComponent.getTextField().textColor = c.getForeground().getRGB();
-    	textComponent.getTextField().alpha = c.getForeground().getAlpha();
     }
     
 	override public function installUI(c:Component):void{
