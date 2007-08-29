@@ -49,6 +49,8 @@ public class JTextArea extends JTextComponent implements Viewportable{
  	 */
  	public static const AUTO_INCREMENT:int = int.MIN_VALUE;
  	
+	private static var defaultMaxChars:int = 0;
+ 	
 	private var columns:int;
 	private var rows:int;
 	
@@ -67,6 +69,7 @@ public class JTextArea extends JTextComponent implements Viewportable{
 		setName("JTextField");
 		getTextField().multiline = true;
 		getTextField().text = text;
+		setMaxChars(defaultMaxChars);
 		this.rows = rows;
 		this.columns = columns;
 		viewPos = new IntPoint();
@@ -96,7 +99,24 @@ public class JTextArea extends JTextComponent implements Viewportable{
 	override public function getUIClassID():String{
 		return "TextAreaUI";
 	}
-
+	
+	/**
+	 * Sets the maxChars property for default value when <code>JTextArea</code> be created.
+	 * By default it is 0, you can change it by this method.
+	 * @param n the default maxChars to set
+	 */
+	public static function setDefaultMaxChars(n:int):void{
+		defaultMaxChars = n;
+	}
+	
+	/**
+	 * Returns the maxChars property for default value when <code>JTextArea</code> be created.
+	 * @return the default maxChars value.
+	 */
+	public static function getDefaultMaxChars():int{
+		return defaultMaxChars;
+	}	
+	
 	/**
 	 * Sets the number of columns in this JTextArea, if it changed then call parent to do layout. 
 	 * 

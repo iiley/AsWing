@@ -23,6 +23,8 @@ import org.aswing.plaf.basic.BasicTextFieldUI;
  */
 public class JTextField extends JTextComponent{
 	
+	private static var defaultMaxChars:int = 0;
+	
 	private var columns:int;
 	
 	public function JTextField(text:String="", columns:int=0){
@@ -30,6 +32,7 @@ public class JTextField extends JTextComponent{
 		setName("JTextField");
 		getTextField().multiline = false;
 		getTextField().text = text;
+		setMaxChars(defaultMaxChars);
 		this.columns = columns;
 		addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onFocusKeyDown);
 		updateUI();
@@ -46,6 +49,23 @@ public class JTextField extends JTextComponent{
 	override public function getUIClassID():String{
 		return "TextFieldUI";
 	}
+	
+	/**
+	 * Sets the maxChars property for default value when <code>JTextFeild</code> be created.
+	 * By default it is 0, you can change it by this method.
+	 * @param n the default maxChars to set
+	 */
+	public static function setDefaultMaxChars(n:int):void{
+		defaultMaxChars = n;
+	}
+	
+	/**
+	 * Returns the maxChars property for default value when <code>JTextFeild</code> be created.
+	 * @return the default maxChars value.
+	 */
+	public static function getDefaultMaxChars():int{
+		return defaultMaxChars;
+	}	
 	
 	/**
 	 * Sets the number of columns in this JTextField, if it changed then call parent to do layout. 
