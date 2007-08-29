@@ -538,6 +538,10 @@ public class Component extends AWSprite{
 	override public function set visible(value:Boolean):void{
 		setVisible(value);
 	}
+	
+	override public function get visible():Boolean{
+		return super.visible;
+	}
 		
 	/**
 	 * Set a component to be hide or shown.
