@@ -111,14 +111,18 @@ public class JTextComponent extends Component implements EditableComponent{
 	 */
 	override public function setFont(f:ASFont):void{
 		super.setFont(f);
-		f.apply(getTextField());
-		invalidateColumnRowSize();
+		if(getFont() != null){
+			getFont().apply(getTextField());
+			invalidateColumnRowSize();
+		}
 	}
 	
 	override public function setForeground(c:ASColor):void{
 		super.setForeground(c);
-    	getTextField().textColor = c.getRGB();
-    	getTextField().alpha = c.getAlpha();
+		if(getForeground() != null){
+    		getTextField().textColor = getForeground().getRGB();
+    		getTextField().alpha = getForeground().getAlpha();
+  		}
 	}
 	
 	public function setText(text:String):void{

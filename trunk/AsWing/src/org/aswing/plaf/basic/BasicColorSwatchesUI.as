@@ -412,6 +412,7 @@ public class BasicColorSwatchesUI extends BaseComponentUI implements ColorSwatch
     	var size:IntDimension = getColorTilesPaneSize();
     	size.change(1, 1);
 		p.setPreferredSize(size);
+		p.mouseChildren = false;
 		return p;
 	}
 }
