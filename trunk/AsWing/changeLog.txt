@@ -28,3 +28,5 @@ added FlowWrapLayout
 bugfixes:
 
 fixed JTextComponent setForeground bug
+fixed JTextComponent setFont null-ponter bug
+fixed JColorSwatcher black color bug
