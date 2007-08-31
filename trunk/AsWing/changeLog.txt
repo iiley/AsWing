@@ -24,6 +24,7 @@ additions:
 added rowHeight ui default for JTree
 added defaultMaxChars class properties for JTextField and JTextArea
 added FlowWrapLayout
+added a ui defaults property ScrollBar.barWidth to make JScrollBar size configurable.
 
 bugfixes:
 
