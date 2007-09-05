@@ -10,6 +10,7 @@ import flash.events.Event;
 import org.aswing.util.*;
 import flash.ui.Keyboard;
 import flash.events.EventDispatcher;
+import flash.system.IME;
 
 /**
  * Dispatched when key is down.
@@ -55,7 +56,8 @@ public class KeyboardManager extends EventDispatcher{
 		keymaps = new Vector();
 		keySequence = new Vector();
 		selfKeyMap = new KeyMap();
-		mnemonicModifier = [Keyboard.CONTROL, Keyboard.SHIFT];
+		mnemonicModifier = [Keyboard.UP];//[Keyboard.CONTROL, Keyboard.SHIFT];//ctrl+shift is not a good way
+		//because the flash can't catch key up of ctrl when ctrl+blankspace to enable the IME
 		registerKeyMap(selfKeyMap);
 	}
 	
@@ -160,7 +162,7 @@ public class KeyboardManager extends EventDispatcher{
 				return false;
 			}
 		}
-		return true;
+		return mnemonicModifier.length > 0;
 	}
 	
 	/**
