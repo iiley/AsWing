@@ -56,8 +56,7 @@ public class KeyboardManager extends EventDispatcher{
 		keymaps = new Vector();
 		keySequence = new Vector();
 		selfKeyMap = new KeyMap();
-		mnemonicModifier = [Keyboard.UP];//[Keyboard.CONTROL, Keyboard.SHIFT];//ctrl+shift is not a good way
-		//because the flash can't catch key up of ctrl when ctrl+blankspace to enable the IME
+		mnemonicModifier = [Keyboard.CONTROL, Keyboard.SHIFT];
 		registerKeyMap(selfKeyMap);
 	}
 	
@@ -193,6 +192,13 @@ public class KeyboardManager extends EventDispatcher{
 		dispatchEvent(e);
 		var code:uint = e.keyCode;
 		keySequence.remove(code);
+		//avoid IME bug that can't trigger keyup event when active IME and key up
+		if(!e.ctrlKey){
+			keySequence.remove(Keyboard.CONTROL);
+		}
+		if(!e.shiftKey){
+			keySequence.remove(Keyboard.SHIFT);
+		}
 	}
 	
 	private function __deactived(e:Event):void{
