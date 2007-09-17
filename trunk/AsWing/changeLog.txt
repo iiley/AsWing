@@ -18,7 +18,7 @@ added setActivable method to JWindow to make it can judge whether or not become 
 added revalidate call to JPopup.pack() to make sure the call will always make effect if preferred size has changed.
 added dragAcceptableInitiatorAppraiser property to Component to make complex drop trigger appraise
 
-___________________AsWing A3 1.1________________
+___________________AsWing A3 1.2________________
 additions:
 
 added rowHeight ui default for JTree
@@ -31,3 +31,4 @@ bugfixes:
 fixed JTextComponent setForeground bug
 fixed JTextComponent setFont null-ponter bug
 fixed JColorSwatcher black color bug
+fixed KeyboardManager bug for uppercase char input
