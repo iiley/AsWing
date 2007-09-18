@@ -8,10 +8,13 @@ import org.aswing.JTree;
 import org.aswing.JPanel;
 import org.aswing.JSplitPane;
 import org.aswing.AssetPane;
+import org.aswing.BorderLayout;
 
 public class Main extends JWindow{
 	
 	private var preview:Sprite;
+	private var toolBarPane:ToolBarPane;
+	private var filePane:FilePane;
 	private var hiberarchyPane:HiberarchyPane;
 	private var propertyPane:PropertyPane;
 	
@@ -23,12 +26,22 @@ public class Main extends JWindow{
 		preview.mouseEnabled = false;
 		var previewPane:AssetPane = new AssetPane(preview);
 		
+		toolBarPane = new ToolBarPane();
+		filePane = new FilePane();
 		hiberarchyPane = new HiberarchyPane();
 		propertyPane = new PropertyPane();
 		
-		var bottom:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, hiberarchyPane, propertyPane);
+		var pane:JPanel = new JPanel(new BorderLayout());
+		pane.append(toolBarPane, BorderLayout.NORTH);
+		var centerCenter:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, previewPane, propertyPane);
+		centerCenter.setResizeWeight(0.7);
+		var center:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, filePane, centerCenter);
+		center.setResizeWeight(0.2);
+		center.setOneTouchExpandable(true);
+		var main:JSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, center, hiberarchyPane);
+		main.setResizeWeight(0.7);
+		pane.append(main, BorderLayout.CENTER);
 		
-		var pane:JSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, previewPane, bottom);
 		setContentPane(pane);
 	}
 	
