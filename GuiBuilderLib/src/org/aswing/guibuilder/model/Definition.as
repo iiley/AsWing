@@ -3,7 +3,7 @@ package org.aswing.guibuilder.model{
 import org.aswing.util.HashMap;	
 
 /**
- * 组件定义
+ * Definition manager
  * @author iiley
  */
 public class Definition{

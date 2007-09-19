@@ -4,7 +4,7 @@ import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.util.Reflection;	
 
 /**
- * 属性定义
+ * Property Definition
  * @author iiley
  */
 public class ProDefinition{

@@ -4,7 +4,7 @@ import org.aswing.*;
 import org.aswing.util.Vector;	
 
 /**
- * 组件模型
+ * Component Model
  * @author iiley
  */
 public class ComModel{
