@@ -5,7 +5,7 @@ import org.aswing.Container;
 import org.aswing.util.Vector;	
 
 /**
- * 组件定义
+ * Component definition
  * @author iiley
  */
 public class ComDefinition{

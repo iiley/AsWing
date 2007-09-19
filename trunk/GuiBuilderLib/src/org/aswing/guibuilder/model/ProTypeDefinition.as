@@ -3,7 +3,8 @@ package org.aswing.guibuilder.model{
 import org.aswing.util.Reflection;	
 
 /**
- * 属性类型定义
+ * Property Type Definition
+ * @author iiley
  */
 public class ProTypeDefinition{
 	

@@ -3,7 +3,7 @@ package org.aswing.guibuilder.model{
 import org.aswing.guibuilder.PropertyEditor;	
 
 /**
- * 属性模型
+ * Property Model
  * @author iiley
  */
 public class ProModel{
