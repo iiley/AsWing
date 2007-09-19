@@ -9,6 +9,7 @@ import org.aswing.JPanel;
 import org.aswing.JSplitPane;
 import org.aswing.AssetPane;
 import org.aswing.BorderLayout;
+import flash.events.Event;
 
 public class Main extends JWindow{
 	
@@ -43,7 +44,16 @@ public class Main extends JWindow{
 		pane.append(main, BorderLayout.CENTER);
 		
 		setContentPane(pane);
+		
+		initHandlers();
 	}
 	
+	private function initHandlers():void{
+		toolBarPane.getNewPanelButton().addActionListener(__newPanel);
+	}
+	
+	private function __newPanel(e:Event):void{
+		
+	}
 }
 }
