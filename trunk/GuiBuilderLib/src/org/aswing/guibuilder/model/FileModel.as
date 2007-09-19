@@ -32,5 +32,9 @@ public class FileModel{
 	public function getName():String{
 		return name;
 	}
+	
+	public function toString():String{
+		return name;
+	}
 }
 }
