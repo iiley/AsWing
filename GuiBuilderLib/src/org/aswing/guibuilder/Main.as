@@ -10,6 +10,7 @@ import org.aswing.JSplitPane;
 import org.aswing.AssetPane;
 import org.aswing.BorderLayout;
 import flash.events.Event;
+import org.aswing.VectorListModel;
 
 public class Main extends JWindow{
 	
@@ -19,9 +20,13 @@ public class Main extends JWindow{
 	private var hiberarchyPane:HiberarchyPane;
 	private var propertyPane:PropertyPane;
 	
+	private var files:VectorListModel;
+	
 	public function Main(owner:DisplayObjectContainer){
 		super(owner, false);
 		AsWingManager.setRoot(this);
+		
+		files = new VectorListModel();
 		
 		preview = new Sprite();
 		preview.mouseEnabled = false;
@@ -45,7 +50,13 @@ public class Main extends JWindow{
 		
 		setContentPane(pane);
 		
+		initModels();
+		
 		initHandlers();
+	}
+	
+	private function initModels():void{
+		filePane.getList().setModel(files);
 	}
 	
 	private function initHandlers():void{
