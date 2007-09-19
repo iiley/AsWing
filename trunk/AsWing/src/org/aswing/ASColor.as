@@ -75,6 +75,14 @@ public class ASColor{
 	}
 	
 	/**
+	 * Returns the ARGB value representing the color.
+	 */	
+	public function getARGB():uint{
+		var a:uint = alpha*255;
+		return rgb | (a << 24);
+	}
+	
+	/**
      * Returns the red component in the range 0-255.
      * @return the red component.
      */
@@ -263,7 +271,7 @@ public class ASColor{
 	}
 	
 	/**
-	 * Returns a ASColor with with the specified red, green, blue values in the range [0 - 255] 
+	 * Returns a ASColor with the specified red, green, blue values in the range [0 - 255] 
 	 * and alpha value in range[0, 1]. 
 	 * @param r red channel
 	 * @param g green channel
@@ -272,6 +280,17 @@ public class ASColor{
 	 */
 	public static function getASColor(r:uint, g:uint, b:uint, a:Number=1):ASColor{
 		return new ASColor(getRGBWith(r, g, b), a);
+	}
+	
+	/**
+	 * Returns a ASColor with specified ARGB uint value.
+	 * @param argb ARGB value representing the color
+	 * @return the ASColor
+	 */
+	public static function getWithARGB(argb:uint):ASColor{
+		var rgb:uint = argb & 0x00FFFFFF;
+		var alpha:Number = (argb >>> 24)/255;
+		return new ASColor(rgb, alpha);
 	}
 	
 	/**
