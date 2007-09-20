@@ -17,6 +17,10 @@ public class ProModel{
 		editor = new clazz();
 	}
 	
+	public function getName():String{
+		return def.getName();
+	}
+	
 	public function getEditor():PropertyEditor{
 		return editor;
 	}

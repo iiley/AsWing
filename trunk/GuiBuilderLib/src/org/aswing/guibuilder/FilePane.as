@@ -16,6 +16,7 @@ public class FilePane extends JPanel{
 		super(new BorderLayout());
 		list = new JList();
 		list.setVisibleCellWidth(80);
+		list.setSelectionMode(JList.SINGLE_SELECTION);
 		append(new JScrollPane(list));
 		setBorder(new TitledBorder(null, "Files"));
 	}
