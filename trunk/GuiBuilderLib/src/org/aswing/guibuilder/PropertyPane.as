@@ -15,9 +15,11 @@ public class PropertyPane extends Form{
 	
 	public function setComModel(comModel:ComModel):void{
 		removeAll();
-		var pros:Array = comModel.getProperties();
-		for each(var pro:ProModel in pros){
-			addEditor(pro.getName(), pro.getEditor());
+		if(comModel != null){
+			var pros:Array = comModel.getProperties();
+			for each(var pro:ProModel in pros){
+				addEditor(pro.getName(), pro.getEditor());
+			}
 		}
 	}
 	

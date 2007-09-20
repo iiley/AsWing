@@ -30,6 +30,16 @@ public class HiberarchyPane extends JPanel{
 		append(new JScrollPane(tree), BorderLayout.CENTER);
 		var bottom:JPanel = new JPanel();
 		bottom.appendAll(addButton, removeButton, upButton, downButton);
+		append(bottom, BorderLayout.SOUTH);
+		
+		setOperatable(false);
+	}
+	
+	public function setOperatable(b:Boolean):void{
+		addButton.setEnabled(b);
+		removeButton.setEnabled(b);
+		upButton.setEnabled(b);
+		downButton.setEnabled(b);
 	}
 	
 	public function getTree():JTree{

@@ -19,6 +19,8 @@ import org.aswing.guibuilder.util.TextLoader;
 import org.aswing.event.ListItemEvent;
 import org.aswing.event.SelectionEvent;
 import org.aswing.event.TreeSelectionEvent;
+import org.aswing.border.BevelBorder;
+import org.aswing.ASColor;
 
 public class Main extends JWindow{
 	
@@ -30,6 +32,7 @@ public class Main extends JWindow{
 	
 	private var files:VectorListModel;
 	private var curFile:FileModel;
+	private var curCom:ComModel;
 	
 	public function Main(owner:DisplayObjectContainer){
 		super(owner, false);
@@ -40,6 +43,8 @@ public class Main extends JWindow{
 		preview = new Sprite();
 		preview.mouseEnabled = false;
 		var previewPane:AssetPane = new AssetPane(preview);
+		previewPane.setBackground(ASColor.GRAY.brighter());
+		previewPane.setBorder(new BevelBorder(null, BevelBorder.LOWERED));
 		
 		toolBarPane = new ToolBarPane();
 		filePane = new FilePane();
@@ -80,7 +85,23 @@ public class Main extends JWindow{
 	private function initHandlers():void{
 		toolBarPane.getNewPanelButton().addActionListener(__newPanel);
 		filePane.getList().addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __fileSelection);
-		hiberarchyPane.getTree().addEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
+		hiberarchyPane.getAddButton().addActionListener(__addChildCom);
+		hiberarchyPane.getRemoveButton().addActionListener(__removeChildCom);
+		hiberarchyPane.getUpButton().addActionListener(__upChildCom);
+		hiberarchyPane.getDownButton().addActionListener(__downChildCom);
+	}
+	
+	private function __addChildCom(e:Event):void{
+		
+	}
+	private function __removeChildCom():void{
+		
+	}
+	private function __upChildCom():void{
+		
+	}
+	private function __downChildCom():void{
+		
 	}
 	
 	private function __fileSelection(e:SelectionEvent):void{
@@ -123,12 +144,19 @@ public class Main extends JWindow{
 				preview.removeChildAt(0);
 			}
 			preview.addChild(file.getDisplay());
-			hiberarchyPane.getTree().setSelectionRow(0);
+			setCurrentCom(null);
+			if(file != null){
+				hiberarchyPane.getTree().addEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
+				hiberarchyPane.getTree().setSelectionRow(0);
+			}else{
+				hiberarchyPane.getTree().removeEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
+			}
 		}
 	}
 	
 	private function setCurrentCom(comModel:ComModel):void{
 		propertyPane.setComModel(comModel);
+		hiberarchyPane.setOperatable(comModel != null);
 	}
 }
 }
