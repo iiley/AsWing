@@ -10,14 +10,14 @@ import org.aswing.util.Vector;
  */
 public class ComDefinition{
 	
-	private var xml:XML;
+	private var xml:*;
 	private var name:String;
 	private var clazz:Class;
 	private var container:Boolean;
 	private var superDef:ComDefinition;
 	private var properties:Vector;
 	
-	public function ComDefinition(xml:XML, superDef:ComDefinition){
+	public function ComDefinition(xml:*, superDef:ComDefinition){
 		this.xml = xml;
 		this.superDef = superDef;
 		name = xml.@name;

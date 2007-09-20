@@ -9,16 +9,21 @@ import org.aswing.util.Vector;
  */
 public class ComModel{
 	
+	private static var id_counter:int = 0;
+	
 	private var def:ComDefinition;
 	private var display:Component;
 	private var children:Vector;
 	private var properties:Vector;
 	private var container:Boolean;
+	private var id:String;
 	
 	public function ComModel(def:ComDefinition=null){
 		if(def != null){
 			create(def);
 		}
+		id = "com" + id_counter;
+		id_counter++;
 	}
 	
 	public function create(def:ComDefinition):void{
@@ -46,6 +51,18 @@ public class ComModel{
 		return children.toArray();
 	}
 	
+	public function getChild(index:int):ComModel{
+		return children.get(index);
+	}
+	
+	public function getChildCount():int{
+		return children.size();
+	}
+	
+	public function getChildIndex(child:*):int{
+		return children.indexOf(child);
+	}
+	
 	/**
 	 * ProModel[]
 	 */	
@@ -65,6 +82,10 @@ public class ComModel{
 	
 	public function isContainer():Boolean{
 		return container;
+	}
+	
+	public function toString():String{
+		return id + "-[" + def.getName() + "]";
 	}
 }
 }
