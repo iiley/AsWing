@@ -1,0 +1,64 @@
+package org.aswing.guibuilder.model{
+
+/**
+ * Layout Definition
+ */
+public class LayoutDefinition{
+	
+	private var name:String;
+	private var clazz:Class;
+	private var superDef:LayoutDefinition;
+	private var properties:Vector;
+	
+	public function LayoutDefinition(xml:*, superDef:LayoutDefinition){
+		name = xml.@name;
+		clazz = Reflection.getClass(xml.@clazz);
+		
+		properties = new Vector();
+		if(superDef){
+			properties.appendAll(superDef.getProperties());
+		}
+		var proxml:* = xml.Property;
+		for each(var node:* in proxml){
+			addProDef(new ProDefinition(node));
+		}
+	}
+	
+	private function addProDef(def:ProDefinition):void{
+		for(var i:int=properties.size()-1; i>=0; i--){
+			var pro:ProDefinition = properties.get(i);
+			if(pro.getProName() == def.getProName()){
+				properties.setElementAt(i, def); //replace super define
+				return;
+			}
+		}
+		properties.append(def);
+	}
+	
+	public function getName():String{
+		return name;
+	}
+	
+	public function getSuperDefinition():ComDefinition{
+		return superDef;
+	}
+	
+	/**
+	 * 
+	 */
+	public function getClass():Class{
+		return clazz;
+	}
+	
+	/**
+	 * ProDefinition[]
+	 */
+	public function getProperties():Array{
+		return properties.toArray();
+	}
+	
+	public function toString():String{
+		return "LayoutDefintion[name:" + getName() + "]"
+	}
+}
+}

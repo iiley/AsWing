@@ -8,6 +8,8 @@ import org.aswing.util.HashMap;
  */
 public class Definition{
 	
+	public static const TAG_COM:String = "Com";
+	
 	private static var ins:Definition;
 	
 	public static function getIns():Definition{
@@ -19,6 +21,7 @@ public class Definition{
 	
 	private var protypes:HashMap;
 	private var components:HashMap;
+	private var orderComponents:Array;
 	
 	public function Definition(){
 		if(ins){
@@ -27,6 +30,7 @@ public class Definition{
 		ins = this;
 		protypes = new HashMap();
 		components = new HashMap();
+		orderComponents = new Array();
 	}
 	
 	public function init(xml:XML):void{
@@ -48,6 +52,9 @@ public class Definition{
 			var superName:String = cc.@sup;
 			var c:ComDefinition = new ComDefinition(cc, getComDefinition(superName));
 			components.put(c.getName(), c);
+			if(cc.name() == TAG_COM){
+				orderComponents.push(c);
+			}
 		}
 	}
 	
@@ -63,7 +70,14 @@ public class Definition{
 	 * Returns ComDefinition[]
 	 */
 	public function getComponents():Array{
-		return components.values();
+		return orderComponents.concat();
+	}
+	
+	/**
+	 * Returns LayoutDefinition[]
+	 */
+	public function getLayouts():Array{
+		
 	}
 }
 }
