@@ -10,6 +10,8 @@ public interface PropertyEditor{
 	
 	function getDisplay():Component;
 	
-	function applyProperty(apply:Function):void;
+	function setApplyFunction(apply:Function):void;
+	
+	function applyProperty():void;
 }
 }

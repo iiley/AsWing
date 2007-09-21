@@ -18,7 +18,12 @@ public class IntEditor implements PropertyEditor{
 		return text;
 	}
 	
-	public function applyProperty(apply:Function):void{
+	protected var apply:Function;
+	public function setApplyFunction(apply:Function):void{
+		this.apply = apply;
+	}
+	
+	public function applyProperty():void{
 		var label:String = text.getText();
 		if(label != null && label != ""){
 			var value:int = parseInt(label);

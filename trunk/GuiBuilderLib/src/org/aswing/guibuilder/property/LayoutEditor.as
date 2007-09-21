@@ -20,7 +20,12 @@ public class LayoutEditor implements PropertyEditor{
 		return display;
 	}
 	
-	public function applyProperty(apply:Function):void{
+	protected var apply:Function;
+	public function setApplyFunction(apply:Function):void{
+		this.apply = apply;
+	}
+	
+	public function applyProperty():void{
 		apply(emptyLayout);
 	}
 	
