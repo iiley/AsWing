@@ -25,6 +25,10 @@ public class ProModel{
 	
 	public function bindTo(c:ComModel):void{
 		comModel = c;
+		if(def.getDefaultValue() != ""){
+			var v:* = editor.parseValue(def.getDefaultValue());
+			__apply(v);
+		}
 	}
 	
 	public function getName():String{

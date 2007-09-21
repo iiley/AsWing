@@ -21,6 +21,11 @@ public class StringEditor implements PropertyEditor{
 		applyProperty();
 	}
 	
+	public function parseValue(str:String):*{
+		text.setText(str);
+		return str;
+	}
+	
 	public function getDisplay():Component{
 		return text;
 	}

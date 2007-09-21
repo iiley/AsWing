@@ -20,6 +20,10 @@ public class LayoutEditor implements PropertyEditor{
 		return display;
 	}
 	
+	public function parseValue(str:String):*{
+		return null;
+	}
+	
 	protected var apply:Function;
 	public function setApplyFunction(apply:Function):void{
 		this.apply = apply;

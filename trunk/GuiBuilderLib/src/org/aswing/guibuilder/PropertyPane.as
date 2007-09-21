@@ -24,7 +24,7 @@ public class PropertyPane extends Form{
 	}
 	
 	private function addEditor(name:String, editor:PropertyEditor):void{
-		addRow(createRightLabel(name), editor.getDisplay());
+		addRow(createLeftLabel(name), editor.getDisplay());
 	}
 }
 }
