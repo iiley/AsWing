@@ -4,6 +4,7 @@ import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JCheckBox;
 import org.aswing.JComboBox;
+import flash.events.Event;
 
 public class BooleanEditor implements PropertyEditor{
 	

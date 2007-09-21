@@ -8,6 +8,7 @@ import org.aswing.JTextField;
 import org.aswing.SoftBoxLayout;
 import org.aswing.geom.IntDimension;
 import org.aswing.event.AWEvent;
+import flash.events.Event;
 
 public class IntDimensionEditor implements PropertyEditor{
 	
