@@ -70,5 +70,9 @@ public class ComDefinition{
 	public function isContainer():Boolean{
 		return container;
 	}
+	
+	public function toString():String{
+		return "ComDefintion[name:" + getName() + "]"
+	}
 }
 }

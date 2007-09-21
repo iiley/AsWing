@@ -16,6 +16,7 @@ public class ComModel{
 	private var children:Vector;
 	private var properties:Vector;
 	private var container:Boolean;
+	private var parent:ComModel;
 	private var id:String;
 	
 	public function ComModel(def:ComDefinition=null){
@@ -42,6 +43,10 @@ public class ComModel{
 	
 	public function getDisplay():Component{
 		return display;
+	}
+	
+	public function getParent():ComModel{
+		return parent;
 	}
 	
 	/**
@@ -75,9 +80,22 @@ public class ComModel{
 			children.append(mod, index);
 			var con:Container = display as Container;
 			con.insert(index, mod.getDisplay());
+			mod.parent = this;
 		}else{
 			throw new Error("This is not a container, can add child!");
 		}
+	}
+	
+	public function removeChild(mod:ComModel):ComModel{
+		if(!isContainer()){
+			throw new Error("This is not a container, does not have child!");
+		}
+		if(mod.parent == this){
+			children.remove(mod);
+			mod.parent = null;
+			return mod;
+		}
+		return null;
 	}
 	
 	public function isContainer():Boolean{

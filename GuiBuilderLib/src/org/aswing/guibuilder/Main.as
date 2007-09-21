@@ -21,6 +21,8 @@ import org.aswing.event.SelectionEvent;
 import org.aswing.event.TreeSelectionEvent;
 import org.aswing.border.BevelBorder;
 import org.aswing.ASColor;
+import org.aswing.guibuilder.model.ComDefinition;
+import org.aswing.tree.TreePath;
 
 public class Main extends JWindow{
 	
@@ -29,6 +31,7 @@ public class Main extends JWindow{
 	private var filePane:FilePane;
 	private var hiberarchyPane:HiberarchyPane;
 	private var propertyPane:PropertyPane;
+	private var componentMenu:ComponentMenu;
 	
 	private var files:VectorListModel;
 	private var curFile:FileModel;
@@ -50,6 +53,7 @@ public class Main extends JWindow{
 		filePane = new FilePane();
 		hiberarchyPane = new HiberarchyPane();
 		propertyPane = new PropertyPane();
+		componentMenu = new ComponentMenu();
 		
 		var pane:JPanel = new JPanel(new BorderLayout());
 		pane.append(toolBarPane, BorderLayout.NORTH);
@@ -75,7 +79,7 @@ public class Main extends JWindow{
 		if(text != null){
 			filePane.getList().setModel(files);
 			Definition.getIns().init(new XML(text));
-			
+			componentMenu.setComponents(Definition.getIns().getComponents());
 			initHandlers();
 		}else{
 			JOptionPane.showMessageDialog("Error", "Can't find definition file!", null, this);
@@ -89,13 +93,29 @@ public class Main extends JWindow{
 		hiberarchyPane.getRemoveButton().addActionListener(__removeChildCom);
 		hiberarchyPane.getUpButton().addActionListener(__upChildCom);
 		hiberarchyPane.getDownButton().addActionListener(__downChildCom);
+		componentMenu.setItemSelectionHandler(__addChildComSelected);
+	}
+	
+	private function __addChildComSelected(def:ComDefinition):void{
+		if(curCom){
+			curFile.addComponent(curCom, new ComModel(def));
+			hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(curCom)));
+		}
 	}
 	
 	private function __addChildCom(e:Event):void{
-		
+		componentMenu.show(hiberarchyPane.getAddButton(), 0, 0);
 	}
-	private function __removeChildCom():void{
-		
+	private function __removeChildCom(e:Event):void{		
+		if(curCom){
+			if(curCom == curFile.getRoot()){
+				JOptionPane.showMessageDialog("Tip", "Can't delete root component!", null, this);
+			}else{
+				var parent:ComModel = curCom.getParent();
+				curFile.removeComponent(curCom);
+				hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(parent)));
+			}
+		}
 	}
 	private function __upChildCom():void{
 		
@@ -155,8 +175,19 @@ public class Main extends JWindow{
 	}
 	
 	private function setCurrentCom(comModel:ComModel):void{
+		this.curCom = comModel;
 		propertyPane.setComModel(comModel);
 		hiberarchyPane.setOperatable(comModel != null);
+		if(comModel != null){
+			if(comModel == curFile.getRoot()){
+				hiberarchyPane.getRemoveButton().setEnabled(false);
+				hiberarchyPane.getUpButton().setEnabled(false);
+				hiberarchyPane.getDownButton().setEnabled(false);
+			}
+			if(!comModel.isContainer()){
+				hiberarchyPane.getAddButton().setEnabled(false);
+			}
+		}
 	}
 }
 }
