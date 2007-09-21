@@ -4,7 +4,7 @@ import flash.display.DisplayObject;
 import flash.display.Sprite;
 import org.aswing.tree.*;
 import org.aswing.event.*;
-import org.aswing.util.ArrayUtils;	
+import org.aswing.util.ArrayUtils;
 
 /**
  * UI File Model
@@ -40,6 +40,36 @@ public class FileModel implements TreeModel{
 	
 	public function toString():String{
 		return name;
+	}
+	
+	public function getPath(obj:ComModel):Array{
+		var path:Array = [];
+		path.push(obj);
+		while(obj != root){
+			obj = obj.getParent();
+			path.push(obj);
+		}
+		path.reverse();
+		return path;
+	}
+	
+	public function getParentPath(obj:ComModel):Array{
+		return getPath(obj.getParent());
+	}
+	
+	public function addComponent(parent:ComModel, child:ComModel, index:int=-1):void{
+		var path:Array = getPath(parent);
+		parent.addChild(child, index);
+		if(index < 0) index = parent.getChildCount();
+		fireTreeNodesInserted(this, path, [index], [child])
+	}
+	
+	public function removeComponent(child:ComModel):void{
+		var parent:ComModel = child.getParent();
+		var path:Array = getPath(parent);
+		var index:int = parent.getChildIndex(child);
+		parent.removeChild(child);
+		fireTreeNodesRemoved(this, path, [index], [child])
 	}
 	
 	//_____________________________TreeModel Imp_______________________________
