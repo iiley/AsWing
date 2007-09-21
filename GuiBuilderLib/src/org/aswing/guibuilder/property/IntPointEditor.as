@@ -26,6 +26,13 @@ public class IntPointEditor implements PropertyEditor{
 		return pane;
 	}
 	
+	public function parseValue(str:String):*{
+		var strs:Array = str.split(",");
+		xInput.setInputText(strs[0]);
+		xInput.setInputText(strs[1]);
+		return new IntPoint(parseInt(strs[0]), parseInt(strs[1]));
+	}
+	
 	protected var apply:Function;
 	public function setApplyFunction(apply:Function):void{
 		this.apply = apply;

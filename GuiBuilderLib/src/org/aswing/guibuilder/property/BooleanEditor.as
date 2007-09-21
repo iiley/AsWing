@@ -19,6 +19,16 @@ public class BooleanEditor implements PropertyEditor{
 		applyProperty();
 	}
 	
+	public function parseValue(str:String):*{
+		var b:Boolean = str.toLowerCase() == "true";
+		if(b){
+			combo.setSelectedIndex(1);
+		}else{
+			combo.setSelectedIndex(2);
+		}
+		return b;
+	}
+	
 	public function getDisplay():Component{
 		return combo;
 	}

@@ -42,6 +42,10 @@ public class AlignEditor implements PropertyEditor{
 		applyProperty();
 	}
 	
+	public function parseValue(str:String):*{
+		return 0;
+	}
+	
 	public function getDisplay():Component{
 		return alignCombo;
 	}

@@ -29,6 +29,14 @@ public class IntDimensionEditor implements PropertyEditor{
 		applyProperty();
 	}
 	
+	public function parseValue(str:String):*{
+		var strs:Array = str.split(",");
+		var dim:IntDimension = new IntDimension(parseInt(strs[0]), parseInt(strs[1]));
+		widthInput.setInputText(strs[0]);
+		heightInput.setInputText(strs[1]);
+		return dim;
+	}
+	
 	public function getDisplay():Component{
 		return pane;
 	}

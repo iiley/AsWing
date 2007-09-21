@@ -18,6 +18,11 @@ public class IntEditor implements PropertyEditor{
 		return text;
 	}
 	
+	public function parseValue(str:String):*{
+		text.setText(str);
+		return parseInt(str);
+	}
+	
 	protected var apply:Function;
 	public function setApplyFunction(apply:Function):void{
 		this.apply = apply;

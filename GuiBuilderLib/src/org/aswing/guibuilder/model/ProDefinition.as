@@ -14,6 +14,7 @@ public class ProDefinition{
 	private var proName:String;
 	private var type:String;
 	private var action:String;
+	private var defaultValue:String;
 	
 	public function ProDefinition(xml:XML){
 		this.xml = xml;
@@ -21,6 +22,7 @@ public class ProDefinition{
 		proName = xml.@property;
 		type = xml.@type;
 		action = xml.@action;
+		defaultValue = xml.@defaultValue;
 	}
 	
 	public function getName():String{
@@ -29,6 +31,10 @@ public class ProDefinition{
 	
 	public function getProName():String{
 		return proName;
+	}
+	
+	public function getDefaultValue():String{
+		return defaultValue;
 	}
 	
 	public function getAction():String{

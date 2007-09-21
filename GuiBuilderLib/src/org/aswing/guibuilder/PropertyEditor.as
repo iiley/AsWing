@@ -13,5 +13,7 @@ public interface PropertyEditor{
 	function setApplyFunction(apply:Function):void;
 	
 	function applyProperty():void;
+	
+	function parseValue(str:String):*;
 }
 }
