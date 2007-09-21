@@ -1,0 +1,10 @@
+<AsWingUI>
+	<Com type="JPanel">
+		<Properties>
+			<Property name="x" property="X" type="int" action="revalidate" value="100">
+			</Property>
+		</Properties>
+		<Children>
+		</Children>
+	</Com>
+</AsWingUI>

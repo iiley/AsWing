@@ -1,0 +1,80 @@
+<Definition>
+
+<Types>
+
+	<Type name="Boolean" editor="org.aswing.guibuilder.property.BooleanEditor">
+	</Type>
+
+	<Type name="int" editor="org.aswing.guibuilder.property.IntEditor">
+	</Type>
+
+	<Type name="String" editor="org.aswing.guibuilder.property.StringEditor">
+	</Type>
+
+	<Type name="IntDimension" editor="org.aswing.guibuilder.property.IntDimensionEditor">
+	</Type>
+
+	<Type name="IntPoint" editor="org.aswing.guibuilder.property.IntPointEditor">
+	</Type>
+
+	<Type name="PreferSize" editor="org.aswing.guibuilder.property.PreferSizeEditor">
+	</Type>
+
+	<Type name="Align" editor="org.aswing.guibuilder.property.AlignEditor">
+	</Type>
+
+	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor">
+	</Type>
+
+</Types>
+
+<Layouts>
+	<Layout name="EmptyLayout" clazz="org.aswing.EmptyLayout">
+	</Layout>
+	<Layout name="FlowLayout" clazz="org.aswing.FlowLayout">
+		<Property name="align" property="Alignment" type="Align">
+		</Property>
+		<Property name="hgap" property="Hgap" type="int">
+		</Property>
+		<Property name="vgap" property="Vgap" type="int">
+		</Property>
+		<Property name="margin" property="Margin" type="Boolean">
+		</Property>
+	</Layout>
+	
+</Layouts>
+
+<Components>
+	<Base name="Component" clazz="org.aswing.Component">
+		<Property name="ID" property="id" type="String">
+		</Property>
+		<Property name="Opaque" property="Opaque" type="Boolean" action="repaint">
+		</Property>
+		<Property name="Location" property="Location" type="IntPoint" action="revalidate">
+		</Property>
+		<Property name="Size" property="Size" type="IntDimension" defaultValue="40,40" action="revalidate">
+		</Property>
+		<Property name="PreferSize" property="PreferredSize" type="PreferSize" action="revalidate">
+		</Property>
+		<Property name="constraints" property="Constraints" type="String" action="reAppendToParent">
+		</Property>
+	</Base>
+	
+	<Base name="Container" clazz="org.aswing.Container" sup="Component">
+		<Property name="Layout" property="Layout" type="Layout" action="reAppendChildren">
+		</Property>
+	</Base>
+	
+	<Com name="JButton" clazz="org.aswing.JButton" sup="Component">
+		<Property name="label" property="Text" type="String" defaultValue="label" action="revalidate">
+		</Property>
+	</Com>
+
+	<Com name="JPanel" clazz="org.aswing.JPanel" sup="Container">
+		<Property name="Opaque" property="Opaque" type="Boolean" defaultValue="true" action="repaint">
+		</Property>
+	</Com>
+
+</Components>
+
+</Definition>
