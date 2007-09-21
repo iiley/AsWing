@@ -3,6 +3,7 @@ package org.aswing.guibuilder.property{
 import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JComboBox;
+import flash.events.Event;
 
 public class AlignEditor implements PropertyEditor{
 	
@@ -32,15 +33,25 @@ public class AlignEditor implements PropertyEditor{
 	private var aligns:Array = ["Center", "Top", "Left", "Bottom", "Right"];
 	
 	public function AlignEditor(){
-		alignCombo = new JComboBox(aligns);	
+		alignCombo = new JComboBox(aligns);
 		alignCombo.setPreferredWidth(70);
+		alignCombo.addActionListener(__apply);
+	}
+	
+	private function __apply(e:Event):void{
+		applyProperty();
 	}
 	
 	public function getDisplay():Component{
 		return alignCombo;
 	}
 	
-	public function applyProperty(apply:Function):void{
+	protected var apply:Function;
+	public function setApplyFunction(apply:Function):void{
+		this.apply = apply;
+	}
+	
+	public function applyProperty():void{
 		var index:int = alignCombo.getSelectedIndex();
 		if(index >= 0){
 			apply(index);

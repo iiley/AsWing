@@ -58,7 +58,7 @@ public class Main extends JWindow{
 		var pane:JPanel = new JPanel(new BorderLayout());
 		pane.append(toolBarPane, BorderLayout.NORTH);
 		var centerCenter:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, previewPane, propertyPane);
-		centerCenter.setResizeWeight(0.7);
+		centerCenter.setResizeWeight(0.6);
 		var center:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, filePane, centerCenter);
 		center.setResizeWeight(0.2);
 		center.setOneTouchExpandable(true);

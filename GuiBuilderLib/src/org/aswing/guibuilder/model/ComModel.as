@@ -39,6 +39,20 @@ public class ComModel{
 		for(var i:int=0; i<pros.length; i++){
 			properties.append(new ProModel(pros[i]));
 		}
+		
+		initProModels();
+	}
+	
+	private function initProModels():void{
+		for each(var pro:ProModel in properties){
+			pro.bindTo(this);
+		}
+	}
+	
+	public function applyProperty(name:String, value:*, action:String):void{
+		var o:Object = getDisplay();
+		o[name](value);
+		o[action]();
 	}
 	
 	public function getDisplay():Component{
