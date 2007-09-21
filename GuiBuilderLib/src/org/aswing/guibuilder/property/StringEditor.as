@@ -3,6 +3,8 @@ package org.aswing.guibuilder.property{
 import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JTextField;
+import flash.events.Event;
+import org.aswing.event.AWEvent;
 
 public class StringEditor implements PropertyEditor{
 	

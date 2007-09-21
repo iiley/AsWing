@@ -9,6 +9,8 @@ import org.aswing.util.Vector;
  */
 public class ComModel{
 	
+	public static const ID_NAME:String = "id";
+	
 	private static var id_counter:int = 0;
 	
 	private var def:ComDefinition;
@@ -44,15 +46,22 @@ public class ComModel{
 	}
 	
 	private function initProModels():void{
-		for each(var pro:ProModel in properties){
+		for(var i:int=0; i<properties.size(); i++){
+			var pro:ProModel = properties.get(i);
 			pro.bindTo(this);
 		}
 	}
 	
 	public function applyProperty(name:String, value:*, action:String):void{
+		if(name == ID_NAME){
+			//TODO change id
+			return;
+		}
 		var o:Object = getDisplay();
-		o[name](value);
-		o[action]();
+		o["set"+name](value);
+		if(action != null && action != ""){
+			o[action]();
+		}
 	}
 	
 	public function getDisplay():Component{
