@@ -10,7 +10,7 @@ public class ProModel{
 	
 	private var def:ProDefinition;
 	private var editor:PropertyEditor;
-	private var comModel:ComModel;
+	private var owner:Model;
 	
 	public function ProModel(def:ProDefinition){
 		this.def = def;
@@ -20,11 +20,11 @@ public class ProModel{
 	}
 	
 	private function __apply(v:*):void{
-		comModel.applyProperty(def.getProName(), v, def.getAction());
+		owner.applyProperty(def.getProName(), v, def.getAction());
 	}
 	
-	public function bindTo(c:ComModel):void{
-		comModel = c;
+	public function bindTo(c:Model):void{
+		owner = c;
 		if(def.getDefaultValue() != ""){
 			var v:* = editor.parseValue(def.getDefaultValue());
 			__apply(v);

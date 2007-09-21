@@ -7,7 +7,7 @@ import org.aswing.util.Vector;
  * Component Model
  * @author iiley
  */
-public class ComModel{
+public class ComModel implements Model{
 	
 	public static const ID_NAME:String = "id";
 	
