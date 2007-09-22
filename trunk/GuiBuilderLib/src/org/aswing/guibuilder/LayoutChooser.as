@@ -78,7 +78,7 @@ public class LayoutChooser{
 		var layouts:Array = new Array();
 		var selectedCur:Boolean = false;
 		for each(var layDef:LayoutDefinition in layDefs){
-			var m:LayoutModel = new LayoutModel(layDef));
+			var m:LayoutModel = new LayoutModel(layDef);
 			if(curModel != null && curModel.getName() == m.getName()){
 				m = curModel;
 				selectedCur = true; 
