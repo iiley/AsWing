@@ -61,7 +61,7 @@
 		</Property>
 		<Property label="Location" name="Location" type="IntPoint" action="revalidate">
 		</Property>
-		<Property label="Size" name="Size" type="IntDimension" defaultValue="40,40" action="revalidate">
+		<Property label="Size" name="Size" type="IntDimension" action="revalidate">
 		</Property>
 		<Property label="PreferSize" name="PreferredSize" type="PreferSize" action="revalidate">
 		</Property>
@@ -75,12 +75,17 @@
 	</BaseContainer>
 	
 	<Com name="JButton" clazz="org.aswing.JButton" sup="Component">
-		<Property label="label" name="Text" type="String" defaultValue="label" action="revalidate">
+		<Property label="label" name="Text" type="String" action="revalidate">
+			<Value value="label" ></Value>
 		</Property>
 	</Com>
 
 	<Com name="JPanel" clazz="org.aswing.JPanel" sup="Container">
-		<Property label="opaque" name="Opaque" type="Boolean" defaultValue="true" action="repaint">
+		<Property label="Size" name="Size" type="IntDimension" action="revalidate">
+			<Value value="40,40" ></Value>
+		</Property>
+		<Property label="opaque" name="Opaque" type="Boolean" action="repaint">
+			<Value value="true" ></Value>
 		</Property>
 	</Com>
 

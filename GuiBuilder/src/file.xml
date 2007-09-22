@@ -1,0 +1,9 @@
+<AsWingUIFile>
+<Com name="JPanel" id="com1">
+	<Properties>
+		<Property name="Alignment">
+			<Value value="1"></Value>
+		</Property>
+	</Properties>
+</Com>
+</AsWingUIFile>
