@@ -1,7 +1,6 @@
 package {
 
 import flash.display.Sprite;
-import org.aswing.guibuilder.Main;
 import org.aswing.AsWingManager;
 import flash.events.Event;
 
