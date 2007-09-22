@@ -44,7 +44,10 @@ public class ProModel{
 	}
 	
 	public function parse(xml:XML):void{
-		__apply(editor.parseValue(xml));
+		var valueXML:XMLList = xml.Value;
+		if(valueXML != null && valueXML.length() > 0){
+			__apply(editor.parseValue(valueXML[0]));
+		}
 	}
 	
 	public function encodeXML():XML{

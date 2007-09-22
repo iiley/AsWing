@@ -1,8 +1,7 @@
 package org.aswing.guibuilder.model{
 
-import org.aswing.LayoutManager;
 import org.aswing.util.Vector;
-import org.aswing.LayoutManager;	
+import org.aswing.*;
 
 /**
  * Layout Model
@@ -14,7 +13,13 @@ public class LayoutModel implements Model{
 	private var properties:Vector;
 	private var layout:LayoutManager;
 	
-	public function LayoutModel(def:LayoutDefinition){
+	public function LayoutModel(def:LayoutDefinition=null){
+		if(def != null){
+			init(def);
+		}
+	}
+	
+	private function init(def:LayoutDefinition):void{
 		this.def = def;
 		properties = new Vector();
 		var pros:Array = def.getProperties();
@@ -31,15 +36,59 @@ public class LayoutModel implements Model{
 	}
 	
 	public function parse(xml:*):void{
-		
+		var name:String = xml.@name;
+		var ldef:LayoutDefinition = Definition.getIns().getLayoutDefinition(name);
+		init(ldef);
+		//properties
+		var proxmls:* = xml.Properties.Property;
+		for each(var proxml:* in proxmls){
+			var pname:String = proxml.@name;
+			var pro:ProModel = getPropertyModel(pname);
+			if(pro){
+				pro.parse(proxml);
+			}
+		}
 	}
 	
 	public function encodeXML():XML{
+		throw new Error("Please use encodeXMLWithLayout method!");
 		return null;
 	}
 	
+	public function encodeXMLWithLayout(ldef:LayoutDefinition, layout:LayoutManager):XML{
+		var xml:XML = <Layout></Layout>;
+		xml.@name = ldef.getName();
+		//properties
+		var proXml:XML = <Properties></Properties>;
+		xml.appendChild(proXml);
+		var n:int = properties.size();
+		for(var i:int=0; i<n; i++){
+			var pro:ProModel = properties.get(i);
+			var pxml:XML = pro.encodeXML();
+			if(pxml != null){
+				proXml.appendChild(pxml);
+			}
+		}
+		return xml;
+	}
+	
+	private function getPropertyModel(name:String):ProModel{
+		var n:int = properties.size();
+		for(var i:int=0; i<n; i++){
+			var pro:ProModel = properties.get(i);
+			if(pro.getName() == name){
+				return pro;
+			}
+		}
+		return null;
+	}	
+	
 	public function getLayout():LayoutManager{
 		return layout;
+	}
+	
+	public function getName():String{
+		return def.getName();
 	}
 	
 	public function getProperties():Array{

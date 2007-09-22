@@ -10,12 +10,14 @@ public class LayoutDefinition{
 	
 	private var name:String;
 	private var clazz:Class;
+	private var className:String;
 	private var superDef:LayoutDefinition;
 	private var properties:Vector;
 	
 	public function LayoutDefinition(xml:*, superDef:LayoutDefinition){
 		name = xml.@name;
-		clazz = Reflection.getClass(xml.@clazz);
+		className = xml.@clazz;
+		clazz = Reflection.getClass(className);
 		
 		properties = new Vector();
 		if(superDef){
@@ -51,6 +53,10 @@ public class LayoutDefinition{
 	 */
 	public function getClass():Class{
 		return clazz;
+	}
+	
+	public function getClassName():String{
+		return className;
 	}
 	
 	/**
