@@ -22,6 +22,7 @@ public class Definition{
 	private var protypes:HashMap;
 	private var components:HashMap;
 	private var layouts:HashMap;
+	private var layoutsClassMap:HashMap;
 	
 	private var orderComponents:Array;
 	
@@ -34,6 +35,7 @@ public class Definition{
 		components = new HashMap();
 		orderComponents = new Array();
 		layouts = new HashMap();
+		layoutsClassMap = new HashMap();
 	}
 	
 	public function init(xml:XML):void{
@@ -65,6 +67,7 @@ public class Definition{
 			superName = ll.@sup;
 			var lay:LayoutDefinition = new LayoutDefinition(ll, getLayoutDefinition(superName));
 			layouts.put(lay.getName(), lay);
+			layoutsClassMap.put(lay.getClassName(), lay);
 		}
 	}
 	
@@ -75,6 +78,10 @@ public class Definition{
 	public function getLayoutDefinition(name:String):LayoutDefinition{
 		return layouts.getValue(name);
 	}
+	
+	public function getLayoutDefinitionWithClassName(className:String):LayoutDefinition{
+		return layoutsClassMap.getValue(className);
+	}	
 	
 	public function getProTypeDefinition(type:String):ProTypeDefinition{
 		return protypes.getValue(type);

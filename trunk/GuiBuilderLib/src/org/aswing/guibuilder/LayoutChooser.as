@@ -67,20 +67,30 @@ public class LayoutChooser{
 	/**
 	 * __handler(layoutModel:LayoutModel) null means canceled
 	 */
-	public function open(__handler:Function):void{
-		reloadData();
+	public function open(__handler:Function, curModel:LayoutModel):void{
+		reloadData(curModel);
 		dialog.show();
 		handler = __handler;
 	}
 	
-	public function reloadData():void{
+	public function reloadData(curModel:LayoutModel):void{
 		var layDefs:Array = Definition.getIns().getLayouts();
 		var layouts:Array = new Array();
+		var selectedCur:Boolean = false;
 		for each(var layDef:LayoutDefinition in layDefs){
-			layouts.push(new LayoutModel(layDef));
+			var m:LayoutModel = new LayoutModel(layDef));
+			if(curModel != null && curModel.getName() == m.getName()){
+				m = curModel;
+				selectedCur = true; 
+			}
+			layouts.push(m);
 		}
 		layoutList.setListData(layouts);
-		layoutList.setSelectedIndex(0);
+		if(selectedCur){
+			layoutList.setSelectedValue(curModel);
+		}else{
+			layoutList.setSelectedIndex(0);
+		}
 	}
 }
 }
