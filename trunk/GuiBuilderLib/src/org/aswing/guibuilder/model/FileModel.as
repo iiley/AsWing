@@ -47,6 +47,12 @@ public class FileModel implements TreeModel{
 		return canvas;
 	}
 	
+	public function revalidate():void{
+		if(root){
+			root.getDisplay().revalidate();
+		}
+	}
+	
 	public function getRootComponent():ComModel{
 		return root;
 	}

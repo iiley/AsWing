@@ -67,6 +67,7 @@ public class ComModel implements Model{
 		for each(var ccxml:* in childxmls){
 			var cc:ComModel = new ComModel();
 			cc.parse(ccxml);
+			addChild(cc);
 		}
 	}
 	

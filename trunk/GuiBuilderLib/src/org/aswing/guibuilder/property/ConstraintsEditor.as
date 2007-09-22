@@ -26,6 +26,7 @@ public class ConstraintsEditor implements PropertyEditor{
 	}
 	
 	public function parseValue(xml:XML):*{
+		combo.setSelectedItem(xml.@value);
 		return xml.@value;
 	}
 	

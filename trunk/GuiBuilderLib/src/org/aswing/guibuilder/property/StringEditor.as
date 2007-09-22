@@ -24,6 +24,7 @@ public class StringEditor implements PropertyEditor{
 	
 	public function parseValue(xml:XML):*{
 		var str:String = xml.@value;
+		text.setText(str);
 		return str;
 	}
 	

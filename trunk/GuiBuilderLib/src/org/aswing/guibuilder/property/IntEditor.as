@@ -21,6 +21,7 @@ public class IntEditor implements PropertyEditor{
 	}
 		
 	public function parseValue(xml:XML):*{
+		text.setText(xml.@value);
 		return MathUtils.parseInteger(xml.@value);
 	}
 	
