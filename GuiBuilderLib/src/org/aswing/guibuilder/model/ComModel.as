@@ -103,6 +103,7 @@ public class ComModel implements Model{
 			children.append(mod, index);
 			var con:Container = display as Container;
 			con.insert(index, mod.getDisplay());
+			con.revalidate();
 			mod.parent = this;
 		}else{
 			throw new Error("This is not a container, can add child!");
@@ -115,6 +116,9 @@ public class ComModel implements Model{
 		}
 		if(mod.parent == this){
 			children.remove(mod);
+			var con:Container = display as Container;
+			con.remove(mod.getDisplay());
+			con.revalidate();
 			mod.parent = null;
 			return mod;
 		}
