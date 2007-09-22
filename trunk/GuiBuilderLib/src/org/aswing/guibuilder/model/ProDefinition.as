@@ -22,7 +22,7 @@ public class ProDefinition{
 		name = xml.@name;
 		type = xml.@type;
 		action = xml.@action;
-		defaultValue = xml.DefaultValue;
+		defaultValue = xml.Value;
 	}
 	
 	public function getName():String{

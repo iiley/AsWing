@@ -72,7 +72,7 @@ public class ComModel implements Model{
 	
 	public function encodeXML():XML{
 		var xml:XML = <Com></Com>;
-		xml.@name = "";
+		xml.@name = def.getName();
 		xml.@id = id;
 		//properties
 		var proXml:XML = <Properties></Properties>;
