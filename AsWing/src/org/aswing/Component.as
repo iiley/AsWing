@@ -2051,6 +2051,21 @@ public class Component extends AWSprite{
 	}
 	
 	/**
+	 * Removes this component from its parent and then append it with specified constraints.
+	 * If this component is not in a container yet, no effect will take.
+	 * @param constraints the new constraints, null means get from getConstraints method.
+	 * @see #getConstraints
+	 */
+	public function reAppendToParent(constraints:Object=null):void{
+		if(container){
+			var index:int = container.getIndex(this);
+			var con:Container = container;
+			con.remove(this);
+			con.insert(index, this, constraints);
+		}
+	}
+	
+	/**
 	 * Returns the first <code>JRootPane</code> ancestor of this component.
 	 * @return the <code>JRootPane</code> ancestor, or null if not found.
 	 */
