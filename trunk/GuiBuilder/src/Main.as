@@ -24,6 +24,10 @@ import org.aswing.ASColor;
 import org.aswing.guibuilder.model.ComDefinition;
 import org.aswing.tree.TreePath;
 import org.aswing.guibuilder.*;
+import flash.filesystem.File;
+import flash.filesystem.FileStream;
+import flash.net.FileFilter;
+import flash.filesystem.FileMode;
 
 public class Main extends JWindow{
 	
@@ -37,6 +41,7 @@ public class Main extends JWindow{
 	private var files:VectorListModel;
 	private var curFile:FileModel;
 	private var curCom:ComModel;
+	private var workspacePath:String;
 	
 	public function Main(owner:DisplayObjectContainer){
 		super(owner, false);
@@ -70,6 +75,10 @@ public class Main extends JWindow{
 		setContentPane(pane);
 		
 		initModels();
+		
+		var file:File = File.documentsDirectory;
+		workspacePath = (file.nativePath + "/");
+		openFile = new File();
 	}
 	
 	private function initModels():void{
@@ -89,12 +98,45 @@ public class Main extends JWindow{
 	
 	private function initHandlers():void{
 		toolBarPane.getNewPanelButton().addActionListener(__newPanel);
+		toolBarPane.getSaveButton().addActionListener(__save);
+		toolBarPane.getOpenButton().addActionListener(__open);
 		filePane.getList().addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __fileSelection);
 		hiberarchyPane.getAddButton().addActionListener(__addChildCom);
 		hiberarchyPane.getRemoveButton().addActionListener(__removeChildCom);
 		hiberarchyPane.getUpButton().addActionListener(__upChildCom);
 		hiberarchyPane.getDownButton().addActionListener(__downChildCom);
 		componentMenu.setItemSelectionHandler(__addChildComSelected);
+	}
+	
+	private function __save(e:Event):void{
+		if(curFile != null){
+			var saveFile:File = new File(workspacePath + curFile.getName()+".xml");
+			var xml:XML = curFile.exportXML();
+			
+			var stream:FileStream = new FileStream();
+			if(!saveFile.exists){
+				trace("create new file");
+			}
+			stream.open(saveFile, FileMode.WRITE);
+			stream.writeUTFBytes(xml.toXMLString());
+			stream.close();
+		}
+	}
+	
+	private var openFile:File;
+	private function __open(e:Event):void{
+		openFile.browseForOpen("Select a UI xml file", [new FileFilter("AsWing UI (*.xml)", "*.xml")]);
+	}
+	
+	private function __fileSelected(e:Event):void{
+		trace("__fileSelected : " + openFile.nativePath);
+		var stream:FileStream = new FileStream();
+		stream.open(openFile, FileMode.READ);
+		var str:String = stream.readUTF();
+		stream.close();
+		var xml:XML = new XML(str);
+		files.append(FileModel.parseXML(xml), 0);
+		setCurrentFile(files.first());
 	}
 	
 	private function __addChildComSelected(def:ComDefinition):void{
