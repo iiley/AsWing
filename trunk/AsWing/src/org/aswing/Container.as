@@ -162,6 +162,19 @@ public class Container extends Component{
 	}
 	
 	/**
+	 * Removes all children and then append them with their constraints.
+	 * @see Component#getConstraints()
+	 */
+	public function reAppendChildren():void{
+		var chs:Array = children.concat();
+		removeAll();
+		for(var i:int=0; i<chs.length; i++){
+			append(chs[i]);
+		}
+		revalidate();
+	}
+	
+	/**
 	 * On Component just can add to one Container.
 	 * So if the com has a parent, it will remove from its parent first, then add to 
 	 * this container. 
