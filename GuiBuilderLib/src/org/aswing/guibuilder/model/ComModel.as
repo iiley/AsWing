@@ -23,13 +23,16 @@ public class ComModel implements Model{
 	
 	public function ComModel(def:ComDefinition=null){
 		if(def != null){
+			id = "com" + id_counter;
+			id_counter++;
 			create(def);
 		}
-		id = "com" + id_counter;
-		id_counter++;
 	}
 	
 	public function create(def:ComDefinition):void{
+		if(this.def != null){
+			throw new Error("This com model is already created!");
+		}
 		this.def = def;
 		children = new Vector();
 		properties = new Vector();
@@ -45,11 +48,69 @@ public class ComModel implements Model{
 		initProModels();
 	}
 	
+	public function parse(xml:*):void{
+		id = xml.@id;
+		var name:String = xml.@name;
+		var def:ComDefinition = Definition.getIns().getComDefinition(name);
+		create(def);
+		//properties
+		var proxmls:* = xml.Properties.Property;
+		for each(var proxml:* in proxmls){
+			var pname:String = proxml.@name;
+			var pro:ProModel = getPropertyModel(pname);
+			if(pro){
+				pro.parse(proxml);
+			}
+		}
+		//children
+		var childxmls:* = xml.Com;
+		for each(var ccxml:* in childxmls){
+			var cc:ComModel = new ComModel();
+			cc.parse(ccxml);
+		}
+	}
+	
+	public function encodeXML():XML{
+		var xml:XML = <Com></Com>;
+		xml.@name = "";
+		xml.@id = id;
+		//properties
+		var proXml:XML = <Properties></Properties>;
+		xml.appendChild(proXml);
+		var n:int = properties.size();
+		for(var i:int=0; i<n; i++){
+			var pro:ProModel = properties.get(i);
+			var pxml:XML = pro.encodeXML();
+			if(pxml != null){
+				proXml.appendChild(pxml);
+			}
+		}
+		
+		//children
+		n = children.size();
+		for(i=0; i<n; i++){
+			var cc:ComModel = children.get(i);
+			xml.appendChild(cc.encodeXML());
+		}
+		return xml;
+	}
+	
 	private function initProModels():void{
 		for(var i:int=0; i<properties.size(); i++){
 			var pro:ProModel = properties.get(i);
 			pro.bindTo(this);
 		}
+	}
+	
+	private function getPropertyModel(name:String):ProModel{
+		var n:int = properties.size();
+		for(var i:int=0; i<n; i++){
+			var pro:ProModel = properties.get(i);
+			if(pro.getName() == name){
+				return pro;
+			}
+		}
+		return null;
 	}
 	
 	public function applyProperty(name:String, value:*, action:String):void{

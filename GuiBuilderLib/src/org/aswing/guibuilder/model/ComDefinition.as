@@ -45,7 +45,7 @@ public class ComDefinition{
 	private function addProDef(def:ProDefinition):void{
 		for(var i:int=properties.size()-1; i>=0; i--){
 			var pro:ProDefinition = properties.get(i);
-			if(pro.getProName() == def.getProName()){
+			if(pro.getName() == def.getName()){
 				properties.setElementAt(i, def); //replace super define
 				return;
 			}

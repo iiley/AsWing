@@ -33,8 +33,14 @@ public class LayoutEditor implements PropertyEditor{
 		return display;
 	}
 	
-	public function parseValue(str:String):*{
-		return null;
+
+	public function parseValue(xml:XML):*{
+		
+	}
+	
+	public function encodeValue(value:*):XML{
+		var xml:XML = <Value></Value>;
+		return xml;
 	}
 	
 	protected var apply:Function;

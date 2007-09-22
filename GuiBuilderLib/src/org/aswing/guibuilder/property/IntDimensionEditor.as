@@ -9,6 +9,8 @@ import org.aswing.SoftBoxLayout;
 import org.aswing.geom.IntDimension;
 import org.aswing.event.AWEvent;
 import flash.events.Event;
+import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.util.MathUtils;
 
 public class IntDimensionEditor implements PropertyEditor{
 	
@@ -29,13 +31,20 @@ public class IntDimensionEditor implements PropertyEditor{
 		applyProperty();
 	}
 	
-	public function parseValue(str:String):*{
+	public function parseValue(xml:XML):*{
+		var str:String = xml.@value;
 		var strs:Array = str.split(",");
-		var dim:IntDimension = new IntDimension(parseInt(strs[0]), parseInt(strs[1]));
+		var dim:IntDimension = new IntDimension(MathUtils.parseInteger(strs[0]), MathUtils.parseInteger(strs[1]));
 		widthInput.setInputText(strs[0]);
 		heightInput.setInputText(strs[1]);
 		return dim;
 	}
+	
+	public function encodeValue(value:*):XML{
+		var xml:XML = <Value></Value>;
+		xml.@value = widthInput.getInputInt() + "," + heightInput.getInputInt();
+		return xml;
+	}	
 	
 	public function getDisplay():Component{
 		return pane;
@@ -48,6 +57,7 @@ public class IntDimensionEditor implements PropertyEditor{
 	
 	public function applyProperty():void{
 		if(widthInput.isEmpty() || heightInput.isEmpty()){
+			apply(ProModel.NONE_VALUE_SET);
 			return;
 		}
 		apply(new IntDimension(widthInput.getInputInt(), heightInput.getInputInt()));

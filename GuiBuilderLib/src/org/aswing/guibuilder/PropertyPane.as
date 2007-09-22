@@ -19,13 +19,13 @@ public class PropertyPane extends Form{
 		if(model != null){
 			var pros:Array = model.getProperties();
 			for each(var pro:ProModel in pros){
-				addEditor(pro.getName(), pro.getEditor());
+				addEditor(pro.getLabel(), pro.getEditor());
 			}
 		}
 	}
 	
-	private function addEditor(name:String, editor:PropertyEditor):void{
-		addRow(createLeftLabel(name), editor.getDisplay());
+	private function addEditor(label:String, editor:PropertyEditor):void{
+		addRow(createLeftLabel(label), editor.getDisplay());
 	}
 }
 }

@@ -4,6 +4,8 @@ import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JComboBox;
 import flash.events.Event;
+import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.util.MathUtils;
 
 public class AlignEditor implements PropertyEditor{
 	
@@ -42,8 +44,14 @@ public class AlignEditor implements PropertyEditor{
 		applyProperty();
 	}
 	
-	public function parseValue(str:String):*{
-		return 0;
+	public function parseValue(xml:XML):*{
+		return MathUtils.parseInteger(xml.@value);
+	}
+	
+	public function encodeValue(value:*):XML{
+		var xml:XML = <Value></Value>;
+		xml.@value = value+"";
+		return xml;
 	}
 	
 	public function getDisplay():Component{
@@ -59,6 +67,8 @@ public class AlignEditor implements PropertyEditor{
 		var index:int = alignCombo.getSelectedIndex();
 		if(index >= 0){
 			apply(index);
+		}else{
+			apply(ProModel.NONE_VALUE_SET);
 		}
 	}
 	

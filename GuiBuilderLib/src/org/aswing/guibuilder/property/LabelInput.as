@@ -9,6 +9,7 @@ import org.aswing.Border;
 import org.aswing.border.EmptyBorder;
 import flash.events.Event;
 import org.aswing.event.AWEvent;
+import org.aswing.guibuilder.util.MathUtils;
 
 /**
  * Dispatched when the user input ENTER in the textfield.
@@ -68,7 +69,7 @@ public class LabelInput extends JPanel{
 	}
 	
 	public function getInputInt():int{
-		var i:int = parseInt(input.getText());
+		var i:int = MathUtils.parseInteger(input.getText());
 		return i;
 	}
 	
