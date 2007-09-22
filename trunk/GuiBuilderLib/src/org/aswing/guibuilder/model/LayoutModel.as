@@ -30,6 +30,14 @@ public class LayoutModel implements Model{
 		}
 	}
 	
+	public function parse(xml:*):void{
+		
+	}
+	
+	public function encodeXML():XML{
+		return null;
+	}
+	
 	public function getLayout():LayoutManager{
 		return layout;
 	}

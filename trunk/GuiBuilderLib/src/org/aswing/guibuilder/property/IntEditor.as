@@ -3,6 +3,8 @@ package org.aswing.guibuilder.property{
 import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JTextField;
+import org.aswing.guibuilder.util.MathUtils;
+import org.aswing.guibuilder.model.ProModel;
 
 public class IntEditor implements PropertyEditor{
 	
@@ -17,10 +19,15 @@ public class IntEditor implements PropertyEditor{
 	public function getDisplay():Component{
 		return text;
 	}
+		
+	public function parseValue(xml:XML):*{
+		return MathUtils.parseInteger(xml.@value);
+	}
 	
-	public function parseValue(str:String):*{
-		text.setText(str);
-		return parseInt(str);
+	public function encodeValue(value:*):XML{
+		var xml:XML = <Value></Value>;
+		xml.@value = text.getText();
+		return xml;
 	}
 	
 	protected var apply:Function;
@@ -33,6 +40,8 @@ public class IntEditor implements PropertyEditor{
 		if(label != null && label != ""){
 			var value:int = parseInt(label);
 			apply(value);
+		}else{
+			apply(ProModel.NONE_VALUE_SET);
 		}
 	}
 	

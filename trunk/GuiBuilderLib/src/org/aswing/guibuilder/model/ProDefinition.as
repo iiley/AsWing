@@ -11,29 +11,29 @@ public class ProDefinition{
 	
 	private var xml:XML;
 	private var name:String;
-	private var proName:String;
+	private var label:String;
 	private var type:String;
 	private var action:String;
-	private var defaultValue:String;
+	private var defaultValue:XMLList;
 	
 	public function ProDefinition(xml:XML){
 		this.xml = xml;
+		label = xml.@label;
 		name = xml.@name;
-		proName = xml.@property;
 		type = xml.@type;
 		action = xml.@action;
-		defaultValue = xml.@defaultValue;
+		defaultValue = xml.DefaultValue;
 	}
 	
 	public function getName():String{
 		return name;
 	}
 	
-	public function getProName():String{
-		return proName;
+	public function getLabel():String{
+		return label;
 	}
 	
-	public function getDefaultValue():String{
+	public function getDefaultValue():XMLList{
 		return defaultValue;
 	}
 	

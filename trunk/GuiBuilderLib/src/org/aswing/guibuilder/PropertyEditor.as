@@ -14,6 +14,8 @@ public interface PropertyEditor{
 	
 	function applyProperty():void;
 	
-	function parseValue(str:String):*;
+	function parseValue(xml:XML):*;
+	
+	function encodeValue(value:*):XML;
 }
 }

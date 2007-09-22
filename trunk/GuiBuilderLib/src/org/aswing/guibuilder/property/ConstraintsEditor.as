@@ -4,6 +4,7 @@ import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JComboBox;
 import flash.events.Event;
+import org.aswing.guibuilder.model.ProModel;
 
 public class ConstraintsEditor implements PropertyEditor{
 	
@@ -24,8 +25,14 @@ public class ConstraintsEditor implements PropertyEditor{
 		return combo;
 	}
 	
-	public function parseValue(str:String):*{
-		return null;
+	public function parseValue(xml:XML):*{
+		return xml.@value;
+	}
+	
+	public function encodeValue(value:*):XML{
+		var xml:XML = <Value></Value>;
+		xml.@value = value+"";
+		return xml;
 	}
 	
 	protected var apply:Function;
@@ -34,7 +41,11 @@ public class ConstraintsEditor implements PropertyEditor{
 	}
 	
 	public function applyProperty():void{
-		apply(combo.getSelectedItem());
+		if(combo.getSelectedItem() == null){
+			apply(ProModel.NONE_VALUE_SET);
+		}else{
+			apply(combo.getSelectedItem());
+		}
 	}
 	
 }

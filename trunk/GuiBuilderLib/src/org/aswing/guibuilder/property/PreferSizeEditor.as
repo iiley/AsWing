@@ -4,6 +4,7 @@ import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JCheckBox;
 import flash.events.Event;
+import org.aswing.guibuilder.model.ProModel;
 
 public class PreferSizeEditor extends IntDimensionEditor{
 	
@@ -29,6 +30,7 @@ public class PreferSizeEditor extends IntDimensionEditor{
 	override public function applyProperty():void{
 		if(check.isSelected()){
 			apply(null);
+			apply(ProModel.NONE_VALUE_SET);
 		}else{
 			super.applyProperty();
 		}
