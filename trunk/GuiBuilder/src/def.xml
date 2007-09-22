@@ -41,11 +41,17 @@
 		<Property name="margin" property="Margin" type="Boolean">
 		</Property>
 	</Layout>
+	<Layout name="BorderLayout" clazz="org.aswing.BorderLayout">
+		<Property name="hgap" property="Hgap" type="int">
+		</Property>
+		<Property name="vgap" property="Vgap" type="int">
+		</Property>
+	</Layout>
 	
 </Layouts>
 
 <Components>
-	<Base name="Component" clazz="org.aswing.Component">
+	<BaseComponent name="Component" clazz="org.aswing.Component">
 		<Property name="ID" property="id" type="String">
 		</Property>
 		<Property name="Opaque" property="Opaque" type="Boolean" action="repaint">
@@ -58,12 +64,12 @@
 		</Property>
 		<Property name="constraints" property="Constraints" type="String" action="reAppendToParent">
 		</Property>
-	</Base>
+	</BaseComponent>
 	
-	<Base name="Container" clazz="org.aswing.Container" sup="Component">
+	<BaseContainer name="Container" clazz="org.aswing.Container" sup="Component">
 		<Property name="Layout" property="Layout" type="Layout" action="reAppendChildren">
 		</Property>
-	</Base>
+	</BaseContainer>
 	
 	<Com name="JButton" clazz="org.aswing.JButton" sup="Component">
 		<Property name="label" property="Text" type="String" defaultValue="label" action="revalidate">
