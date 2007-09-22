@@ -1,7 +1,8 @@
 package org.aswing.guibuilder.model{
 
 import org.aswing.LayoutManager;
-import org.aswing.util.Vector;	
+import org.aswing.util.Vector;
+import org.aswing.LayoutManager;	
 
 /**
  * Layout Model
@@ -11,7 +12,7 @@ public class LayoutModel implements Model{
 	
 	private var def:LayoutDefinition;
 	private var properties:Vector;
-	private var layout:*;
+	private var layout:LayoutManager;
 	
 	public function LayoutModel(def:LayoutDefinition){
 		this.def = def;
@@ -22,8 +23,8 @@ public class LayoutModel implements Model{
 		}
 		
 		var clazz:Class = def.getClass();
-		var layout:* = new clazz();
-		for(var i:int=0; i<properties.size(); i++){
+		layout = new clazz();
+		for(i=0; i<properties.size(); i++){
 			var pro:ProModel = properties.get(i);
 			pro.bindTo(this);
 		}
@@ -33,12 +34,20 @@ public class LayoutModel implements Model{
 		return layout;
 	}
 	
-	public function applyProperty(layout:*, name:String, value:*, action:String):void{
-		var o:Object = getDisplay();
+	public function getProperties():Array{
+		return properties.toArray();
+	}
+	
+	public function applyProperty(name:String, value:*, action:String):void{
+		var o:Object = getLayout();
 		o["set"+name](value);
 		if(action != null && action != ""){
 			o[action]();
 		}
-	}	
+	}
+	
+	public function toString():String{
+		return def.getName();
+	}
 }
 }

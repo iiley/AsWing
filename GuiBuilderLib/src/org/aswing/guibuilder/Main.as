@@ -176,7 +176,7 @@ public class Main extends JWindow{
 	
 	private function setCurrentCom(comModel:ComModel):void{
 		this.curCom = comModel;
-		propertyPane.setComModel(comModel);
+		propertyPane.setModel(comModel);
 		hiberarchyPane.setOperatable(comModel != null);
 		if(comModel != null){
 			if(comModel == curFile.getRoot()){

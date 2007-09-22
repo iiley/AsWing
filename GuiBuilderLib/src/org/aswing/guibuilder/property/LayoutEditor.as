@@ -4,16 +4,29 @@ import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JButton;
 import org.aswing.EmptyLayout;
+import org.aswing.guibuilder.model.LayoutModel;
+import flash.events.Event;
+import org.aswing.guibuilder.LayoutChooser;
 
 public class LayoutEditor implements PropertyEditor{
 	
 	private var display:JButton;
 	
-	private var emptyLayout:EmptyLayout;
+	private var layoutModel:LayoutModel;
 	
 	public function LayoutEditor(){
 		display = new JButton("Default");
-		emptyLayout = new EmptyLayout();
+		display.addActionListener(__showChooser);
+	}
+	
+	private function __showChooser(e:Event):void{
+		LayoutChooser.getIns().open(__choosed);
+	}
+	private function __choosed(m:LayoutModel):void{
+		if(m){
+			layoutModel = m;
+			applyProperty();
+		}
 	}
 	
 	public function getDisplay():Component{
@@ -30,7 +43,7 @@ public class LayoutEditor implements PropertyEditor{
 	}
 	
 	public function applyProperty():void{
-		apply(emptyLayout);
+		apply(layoutModel.getLayout());
 	}
 	
 }

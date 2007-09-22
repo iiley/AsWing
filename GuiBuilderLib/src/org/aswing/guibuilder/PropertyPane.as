@@ -4,6 +4,7 @@ import org.aswing.ext.Form;
 import org.aswing.border.TitledBorder;
 import org.aswing.guibuilder.model.ComModel;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.Model;
 
 public class PropertyPane extends Form{
 	
@@ -13,10 +14,10 @@ public class PropertyPane extends Form{
 		setBorder(new TitledBorder(null, "Properties"));
 	}
 	
-	public function setComModel(comModel:ComModel):void{
+	public function setModel(model:Model):void{
 		removeAll();
-		if(comModel != null){
-			var pros:Array = comModel.getProperties();
+		if(model != null){
+			var pros:Array = model.getProperties();
 			for each(var pro:ProModel in pros){
 				addEditor(pro.getName(), pro.getEditor());
 			}
