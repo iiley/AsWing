@@ -22,6 +22,7 @@ public class PropertyPane extends Form{
 				addEditor(pro.getLabel(), pro.getEditor());
 			}
 		}
+		revalidate();
 	}
 	
 	private function addEditor(label:String, editor:PropertyEditor):void{

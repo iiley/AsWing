@@ -5,6 +5,7 @@ import org.aswing.guibuilder.model.Definition;
 import org.aswing.guibuilder.model.LayoutDefinition;
 import org.aswing.guibuilder.model.LayoutModel;
 import flash.events.Event;
+import org.aswing.guibuilder.model.ProModel;
 	
 
 public class LayoutChooser{
@@ -53,7 +54,12 @@ public class LayoutChooser{
 	
 	private function __ok(e:Event):void{
 		dialog.dispose();
-		handler(layoutList.getSelectedValue());
+		var model:LayoutModel = layoutList.getSelectedValue();
+		var pros:Array = model.getProperties();
+		for each(var pro:ProModel in pros){
+			pro.getEditor().applyProperty();
+		}
+		handler(model);
 	}
 	
 	private function __cancel(e:Event):void{

@@ -87,10 +87,17 @@ public class LayoutModel implements Model{
 		return layout;
 	}
 	
+	public function getDef():LayoutDefinition{
+		return def;
+	}
+	
 	public function getName():String{
 		return def.getName();
 	}
 	
+	/**
+	 * ProModel[]
+	 */
 	public function getProperties():Array{
 		return properties.toArray();
 	}

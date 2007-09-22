@@ -45,7 +45,9 @@ public class AlignEditor implements PropertyEditor{
 	}
 	
 	public function parseValue(xml:XML):*{
-		return MathUtils.parseInteger(xml.@value);
+		var index:int = MathUtils.parseInteger(xml.@value);
+		alignCombo.setSelectedIndex(index);
+		return index;
 	}
 	
 	public function encodeValue(value:*):XML{

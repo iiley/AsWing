@@ -40,14 +40,25 @@ public class LayoutEditor implements PropertyEditor{
 	public function parseValue(xml:XML):*{
 		var model:LayoutModel = new LayoutModel();
 		model.parse(xml.children()[0]);
-		__choosed(model);
+		layoutModel = model;
+		display.setText(model.getName());
+		return layoutModel.getLayout();
 	}
 	
 	public function encodeValue(value:*):XML{
+		var model:LayoutModel = null;
+		var layoutDef:LayoutDefinition;
+		if(value == layoutModel.getLayout()){
+			model = layoutModel;
+			layoutDef = model.getDef();
+		}
 		var xml:XML = <Value></Value>;
-		var clazz:String = getQualifiedClassName(value);
-		var layoutDef:LayoutDefinition = Definition.getIns().getLayoutDefinitionWithClassName(clazz);
-		var model:LayoutModel = new LayoutModel(layoutDef);
+		if(model == null){
+			var clazz:String = getQualifiedClassName(value);
+			clazz = clazz.split("::").join(".");
+			layoutDef = Definition.getIns().getLayoutDefinitionWithClassName(clazz);
+			model = new LayoutModel(layoutDef);
+		}
 		xml.appendChild(model.encodeXMLWithLayout(layoutDef, value));
 		return xml;
 	}
@@ -60,7 +71,9 @@ public class LayoutEditor implements PropertyEditor{
 	public function applyProperty():void{
 		if(layoutModel != null){
 			apply(layoutModel.getLayout());
+			display.setText(layoutModel.getName());
 		}else{
+			display.setText("Default");
 			apply(ProModel.NONE_VALUE_SET);
 		}
 	}
