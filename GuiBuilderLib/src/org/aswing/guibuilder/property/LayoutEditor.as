@@ -48,7 +48,7 @@ public class LayoutEditor implements PropertyEditor{
 		var clazz:String = getQualifiedClassName(value);
 		var layoutDef:LayoutDefinition = Definition.getIns().getLayoutDefinitionWithClassName(clazz);
 		var model:LayoutModel = new LayoutModel(layoutDef);
-		xml.appendChild(model.encodeXMLWithLayout(layoutDef, layout));
+		xml.appendChild(model.encodeXMLWithLayout(layoutDef, value));
 		return xml;
 	}
 	

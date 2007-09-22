@@ -5,6 +5,7 @@ import flash.display.Sprite;
 import org.aswing.tree.*;
 import org.aswing.event.*;
 import org.aswing.util.ArrayUtils;
+import flash.net.FileReference;
 
 /**
  * UI File Model
@@ -17,6 +18,8 @@ public class FileModel implements TreeModel{
 	private var canvas:Sprite;
 	private var listenerList:Array;
 	
+	private var file:FileReference;
+	
 	public function FileModel(root:ComModel, name:String){
 		this.root = root;
 		this.name = name;
@@ -26,6 +29,20 @@ public class FileModel implements TreeModel{
 		listenerList = new Array();
 	}
 	
+	public static function parseXML(xml:XML):FileModel{
+		var r:ComModel = new ComModel();
+		r.parse(xml.children()[0]);
+		var n:String = xml.@name;
+		return new FileModel(r, n);
+	}
+	
+	public function exportXML():XML{
+		var xml:XML = <AsWingUI></AsWingUI>;
+		xml.@name = getName();
+		xml.appendChild(root.encodeXML());
+		return xml;
+	}
+		
 	public function getDisplay():DisplayObject{
 		return canvas;
 	}
