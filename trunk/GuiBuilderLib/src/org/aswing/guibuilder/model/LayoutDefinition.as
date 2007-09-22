@@ -1,5 +1,8 @@
 package org.aswing.guibuilder.model{
 
+import org.aswing.util.Vector;
+import org.aswing.util.Reflection;	
+
 /**
  * Layout Definition
  */
@@ -39,7 +42,7 @@ public class LayoutDefinition{
 		return name;
 	}
 	
-	public function getSuperDefinition():ComDefinition{
+	public function getSuperDefinition():LayoutDefinition{
 		return superDef;
 	}
 	
