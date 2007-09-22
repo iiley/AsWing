@@ -79,6 +79,7 @@ public class Main extends JWindow{
 		var file:File = File.documentsDirectory;
 		workspacePath = (file.nativePath + "/");
 		openFile = new File();
+		openFile.addEventListener(Event.SELECT, __fileSelected);
 	}
 	
 	private function initModels():void{
@@ -132,7 +133,7 @@ public class Main extends JWindow{
 		trace("__fileSelected : " + openFile.nativePath);
 		var stream:FileStream = new FileStream();
 		stream.open(openFile, FileMode.READ);
-		var str:String = stream.readUTF();
+		var str:String = stream.readUTFBytes(stream.bytesAvailable);
 		stream.close();
 		var xml:XML = new XML(str);
 		files.append(FileModel.parseXML(xml), 0);
@@ -160,11 +161,23 @@ public class Main extends JWindow{
 			}
 		}
 	}
-	private function __upChildCom():void{
-		
+	private function __upChildCom(e:Event):void{
+		var mod:ComModel = curCom;
+		var par:ComModel = curCom.getParent();
+		var index:int = par.getChildIndex(mod);
+		curFile.removeComponent(mod);
+		curFile.addComponent(par, mod, index-1);
 	}
-	private function __downChildCom():void{
-		
+	private function __downChildCom(e:Event):void{
+		var mod:ComModel = curCom;
+		var par:ComModel = curCom.getParent();
+		var index:int = par.getChildIndex(mod);
+		curFile.removeComponent(mod);
+		index++;
+		if(index > par.getChildCount()){
+			index=0;
+		}
+		curFile.addComponent(par, mod, index);
 	}
 	
 	private function __fileSelection(e:SelectionEvent):void{
@@ -207,6 +220,7 @@ public class Main extends JWindow{
 				preview.removeChildAt(0);
 			}
 			preview.addChild(file.getDisplay());
+			file.revalidate();
 			setCurrentCom(null);
 			if(file != null){
 				hiberarchyPane.getTree().addEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
