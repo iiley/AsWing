@@ -5,6 +5,8 @@ import org.aswing.Component;
 import org.aswing.JTextField;
 import org.aswing.guibuilder.util.MathUtils;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.event.AWEvent;
+import flash.events.Event;
 
 public class IntEditor implements PropertyEditor{
 	
@@ -14,7 +16,13 @@ public class IntEditor implements PropertyEditor{
 		text = new JTextField("", 6);
 		text.setMaxChars(8);
 		text.setRestrict("0123456789");
+		text.addActionListener(__apply);
+		text.addEventListener(AWEvent.FOCUS_LOST, __apply);
 	}
+	
+	private function __apply(e:Event):void{
+		applyProperty();
+	}	
 	
 	public function getDisplay():Component{
 		return text;
