@@ -184,13 +184,13 @@
 	<Com name="JLabelButton" clazz="org.aswing.JLabelButton" sup="JButton">
 	</Com>
 
-	<Com name="JToggleButton" clazz="org.aswing.JAdjuster" sup="JButton">
+	<Com name="JToggleButton" clazz="org.aswing.JToggleButton" sup="JButton">
 		<Property label="Selected" name="Selected" type="Boolean" action="repaint">
 		</Property>
 	</Com>
-	<Com name="JCheckBox" clazz="org.aswing.JAdjuster" sup="JToggleButton">
+	<Com name="JCheckBox" clazz="org.aswing.JCheckBox" sup="JToggleButton">
 	</Com>
-	<Com name="JRadioButton" clazz="org.aswing.JAdjuster" sup="JToggleButton">
+	<Com name="JRadioButton" clazz="org.aswing.JRadioButton" sup="JToggleButton">
 	</Com>
 	
 	<Com name="JAdjuster" clazz="org.aswing.JAdjuster" sup="Component">
@@ -209,7 +209,7 @@
 		</Property>
 	</Com>
 
-	<Com name="JScrollBar" clazz="org.aswing.JAdjuster" sup="Component">
+	<Com name="JScrollBar" clazz="org.aswing.JScrollBar" sup="Component">
 		<Property label="Orientation" name="Orientation" type="Orientation">
 		</Property>
 		<Property label="Value" name="Value" type="int">
