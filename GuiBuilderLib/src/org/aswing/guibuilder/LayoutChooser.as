@@ -100,6 +100,7 @@ public class LayoutChooser{
 		}else{
 			layoutList.setSelectedIndex(0);
 		}
+		__layoutSelection(null);
 	}
 }
 }
