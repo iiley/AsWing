@@ -23,6 +23,12 @@
 	<Type name="Align" editor="org.aswing.guibuilder.property.AlignEditor">
 	</Type>
 
+	<Type name="Axis" editor="org.aswing.guibuilder.property.AxisEditor">
+	</Type>
+
+	<Type name="Orientation" editor="org.aswing.guibuilder.property.OrientationEditor">
+	</Type>
+
 	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor">
 	</Type>
 
@@ -50,6 +56,32 @@
 		<Property label="vgap" name="Vgap" type="int">
 		</Property>
 	</Layout>
+	<Layout name="SoftBoxLayout" clazz="org.aswing.SoftBoxLayout">
+		<Property label="axis" name="Axis" type="Align">
+		</Property>
+		<Property label="align" name="Alignment" type="Align">
+		</Property>
+		<Property label="gap" name="Gap" type="int">
+		</Property>
+	</Layout>
+	<Layout name="BoxLayout" clazz="org.aswing.BoxLayout">
+		<Property label="axis" name="Axis" type="Align">
+		</Property>
+		<Property label="gap" name="Gap" type="int">
+		</Property>
+	</Layout>
+	<Layout name="GridLayout" clazz="org.aswing.GridLayout">
+		<Property label="rows" name="Rows" type="int">
+			<Value value="1"></Value>
+		</Property>
+		<Property label="columns" name="Columns" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="hgap" name="Hgap" type="int">
+		</Property>
+		<Property label="vgap" name="Vgap" type="int">
+		</Property>
+	</Layout>
 	
 </Layouts>
 
@@ -59,6 +91,8 @@
 		</Property>
 		<Property label="Opaque" name="Opaque" type="Boolean" action="repaint">
 		</Property>
+		<Property label="Enabled" name="Enabled" type="Boolean" action="repaint">
+		</Property>
 		<Property label="Location" name="Location" type="IntPoint" action="revalidate">
 		</Property>
 		<Property label="Size" name="Size" type="IntDimension" action="revalidate">
@@ -67,26 +101,182 @@
 		</Property>
 		<Property label="Constraints" name="Constraints" type="Constraints" action="reAppendToParent">
 		</Property>
+		<Property label="Tooltip" name="ToolTipText" type="String">
+		</Property>
 	</BaseComponent>
 	
 	<BaseContainer name="Container" clazz="org.aswing.Container" sup="Component">
 		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren">
 		</Property>
 	</BaseContainer>
-	
-	<Com name="JButton" clazz="org.aswing.JButton" sup="Component">
-		<Property label="label" name="Text" type="String" action="revalidate">
-			<Value value="label" ></Value>
-		</Property>
-	</Com>
 
 	<Com name="JPanel" clazz="org.aswing.JPanel" sup="Container">
 		<Property label="Size" name="Size" type="IntDimension" action="revalidate">
-			<Value value="40,40" ></Value>
+			<Value value="400,400" ></Value>
 		</Property>
-		<Property label="opaque" name="Opaque" type="Boolean" action="repaint">
+		<Property label="Opaque" name="Opaque" type="Boolean" action="repaint">
 			<Value value="true" ></Value>
 		</Property>
+	</Com>
+	
+	<Com name="JButton" clazz="org.aswing.JButton" sup="Component">
+		<Property label="Label" name="Text" type="String" action="revalidate">
+			<Value value="label" ></Value>
+		</Property>
+		<Property label="Horizontal alig" name="HorizontalAlignment" type="Align" action="revalidate">
+		</Property>
+		<Property label="Vertical alig" name="VerticalAlignment" type="Align" action="revalidate">
+		</Property>
+		<Property label="Horizontal text pos" name="HorizontalTextPosition" type="Align" action="revalidate">
+		</Property>
+		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align" action="revalidate">
+		</Property>
+		<Property label="Icon text gap" name="IconTextGap" type="int" action="revalidate">
+		</Property>
+	</Com>
+
+	<Com name="JTextField" clazz="org.aswing.JTextField" sup="Component">
+		<Property label="Columns" name="Columns" type="int" action="revalidate">
+		</Property>
+		<Property label="Text" name="Text" type="String">
+		</Property>
+		<Property label="Html text" name="HtmlText" type="String">
+		</Property>
+		<Property label="Editable" name="Editable" type="Boolean" action="repaint">
+		</Property>
+		<Property label="Password" name="DisplayAsPassword" type="Boolean">
+		</Property>
+		<Property label="MaxChars" name="MaxChars" type="int">
+		</Property>
+		<Property label="Restrict" name="Restrict" type="String">
+		</Property>
+		<Property label="Wrap" name="WordWrap" type="Boolean">
+		</Property>
+	</Com>
+
+	<Com name="JTextArea" clazz="org.aswing.JTextArea" sup="Component">
+		<Property label="Rows" name="Rows" type="int" action="revalidate">
+		</Property>
+		<Property label="Columns" name="Columns" type="int" action="revalidate">
+		</Property>
+		<Property label="Text" name="Text" type="String">
+		</Property>
+		<Property label="Html text" name="HtmlText" type="String">
+		</Property>
+		<Property label="Editable" name="Editable" type="Boolean" action="repaint">
+		</Property>
+		<Property label="Password" name="DisplayAsPassword" type="Boolean">
+		</Property>
+		<Property label="MaxChars" name="MaxChars" type="int">
+		</Property>
+		<Property label="Restrict" name="Restrict" type="String">
+		</Property>
+		<Property label="Wrap" name="WordWrap" type="Boolean">
+		</Property>
+	</Com>
+
+	<Com name="JLabelButton" clazz="org.aswing.JAdjuster" sup="JButton">
+	</Com>
+
+	<Com name="JToggleButton" clazz="org.aswing.JAdjuster" sup="JButton">
+		<Property label="Selected" name="Selected" type="Boolean" action="repaint">
+		</Property>
+	</Com>
+	<Com name="JCheckBox" clazz="org.aswing.JAdjuster" sup="JToggleButton">
+	</Com>
+	<Com name="JRadioButton" clazz="org.aswing.JAdjuster" sup="JToggleButton">
+	</Com>
+	
+	<Com name="JAdjuster" clazz="org.aswing.JAdjuster" sup="Component">
+		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+		<Property label="columns" name="Columns" type="int" action="revalidate">
+			<Value value="3"></Value>
+		</Property>
+	</Com>
+
+	<Com name="JComboBox" clazz="org.aswing.JComboBox" sup="Component">
+		<Property label="Editable" name="Editable" type="Boolean" action="repaint">
+		</Property>
+		<Property label="MaximumRowCount" name="MaximumRowCount" type="int">
+			<Value value="7"></Value>
+		</Property>
+	</Com>
+
+	<Com name="JScrollBar" clazz="org.aswing.JAdjuster" sup="Component">
+		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+		<Property label="Value" name="Value" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Extent" name="VisibleAmount" type="int">
+			<Value value="10"></Value>
+		</Property>
+		<Property label="Minimum" name="Minimum" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Maximum" name="Maximum" type="int">
+			<Value value="100"></Value>
+		</Property>
+	</Com>
+
+	<Com name="JSlider" clazz="org.aswing.JSlider" sup="Component">
+		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+		<Property label="Value" name="Value" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Extent" name="Extent" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Minimum" name="Minimum" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Maximum" name="Maximum" type="int">
+			<Value value="100"></Value>
+		</Property>
+		<Property label="Major tick spacing" name="MajorTickSpacing" type="int">
+		</Property>
+		<Property label="Inverted" name="Inverted" type="Boolean">
+		</Property>
+		<Property label="Paint ticks" name="PaintTicks" type="Boolean">
+		</Property>
+		<Property label="Snap to ticks" name="SnapToTicks" type="Boolean">
+		</Property>
+		<Property label="Show value tip" name="ShowValueTip" type="Boolean">
+		</Property>
+	</Com>
+
+	<Com name="JProgressBar" clazz="org.aswing.JProgressBar" sup="Component">
+		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+		<Property label="Indeterminate" name="Indeterminate" type="Boolean">
+		</Property>
+		<Property label="Label" name="String" type="String">
+		</Property>
+		<Property label="Value" name="Value" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Minimum" name="Minimum" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Maximum" name="Maximum" type="int">
+			<Value value="100"></Value>
+		</Property>
+	</Com>
+
+	<Com name="JScrollPane" clazz="org.aswing.JScrollPane" sup="Component">
+	</Com>
+
+	<Com name="JSeparator" clazz="org.aswing.JSeparator" sup="Component">
+		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+	</Com>
+
+	<Com name="JList" clazz="org.aswing.JList" sup="Component">
+	</Com>
+
+	<Com name="JSpacer" clazz="org.aswing.JSpacer" sup="Component">
 	</Com>
 
 </Components>
