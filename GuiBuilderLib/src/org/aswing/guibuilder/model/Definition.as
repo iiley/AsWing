@@ -23,6 +23,7 @@ public class Definition{
 	private var components:HashMap;
 	private var layouts:HashMap;
 	private var layoutsClassMap:HashMap;
+	private var orderLayouts:Array;
 	
 	private var orderComponents:Array;
 	
@@ -34,6 +35,7 @@ public class Definition{
 		protypes = new HashMap();
 		components = new HashMap();
 		orderComponents = new Array();
+		orderLayouts = new Array();
 		layouts = new HashMap();
 		layoutsClassMap = new HashMap();
 	}
@@ -68,6 +70,7 @@ public class Definition{
 			var lay:LayoutDefinition = new LayoutDefinition(ll, getLayoutDefinition(superName));
 			layouts.put(lay.getName(), lay);
 			layoutsClassMap.put(lay.getClassName(), lay);
+			orderLayouts.push(lay);
 		}
 	}
 	
@@ -98,7 +101,7 @@ public class Definition{
 	 * Returns LayoutDefinition[]
 	 */
 	public function getLayouts():Array{
-		return layouts.values();
+		return orderLayouts.concat();
 	}
 }
 }

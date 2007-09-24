@@ -24,8 +24,8 @@ public class LabelInput extends JPanel{
 	public static const FLOAT:int = 0;
 	public static const STRING:int = 0;
 	
-	private var label:JLabel;
-	private var input:JTextField;
+	protected var label:JLabel;
+	protected var input:JTextField;
 	
 	public function LabelInput(labelText:String="", inputText:String="", gap:int=2
 		, column:int=0, editable:Boolean=true){

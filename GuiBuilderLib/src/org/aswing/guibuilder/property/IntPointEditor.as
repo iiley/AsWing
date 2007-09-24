@@ -7,6 +7,8 @@ import org.aswing.JPanel;
 import org.aswing.SoftBoxLayout;
 import org.aswing.guibuilder.util.MathUtils;
 import org.aswing.guibuilder.model.ProModel;
+import flash.events.Event;
+import org.aswing.event.AWEvent;
 
 /**
  * IntPoint editor
@@ -19,9 +21,15 @@ public class IntPointEditor implements PropertyEditor{
 	
 	public function IntPointEditor(){
 		pane = new JPanel(new SoftBoxLayout(SoftBoxLayout.X_AXIS, 0));
-		xInput = new LabelInput("x:", "", 0, 4);
-		yInput = new LabelInput("y:", "", 0, 4);
+		xInput = new IntInput("x:", "", 0, 4);
+		yInput = new IntInput("y:", "", 0, 4);
 		pane.appendAll(xInput, yInput);
+		xInput.addEventListener(AWEvent.ACT, __apply);
+		yInput.addEventListener(AWEvent.ACT, __apply);
+	}
+	
+	private function __apply(e:Event):void{
+		applyProperty();
 	}
 	
 	public function getDisplay():Component{
