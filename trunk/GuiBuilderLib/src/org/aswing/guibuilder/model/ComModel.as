@@ -44,6 +44,7 @@ public class ComModel implements Model{
 		for(var i:int=0; i<pros.length; i++){
 			properties.append(new ProModel(pros[i]));
 		}
+		properties.append(new PackProModel());
 		
 		initProModels();
 	}
@@ -158,6 +159,16 @@ public class ComModel implements Model{
 	 */	
 	public function getProperties():Array{
 		return properties.toArray();
+	}
+	
+	public function getProperty(name:String):ProModel{
+		for(var i:int=0; i<properties.size(); i++){
+			var pro:ProModel = properties.get(i);
+			if(pro.getName() == name){
+				return pro;
+			}
+		}
+		return null;
 	}
 		
 	public function addChild(mod:ComModel, index:int=-1):void{
