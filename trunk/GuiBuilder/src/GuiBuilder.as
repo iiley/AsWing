@@ -4,7 +4,7 @@ import flash.display.Sprite;
 import org.aswing.AsWingManager;
 import flash.events.Event;
 
-[SWF (width="800", height="600")]
+[SWF (width="1000", height="700")]
 public class GuiBuilder extends Sprite{
 	
 	private var main:Main;
@@ -13,10 +13,10 @@ public class GuiBuilder extends Sprite{
 		AsWingManager.initAsStandard(this);
 		
 		main = new Main(this);
-		main.setSizeWH(800, 600);
 		main.show();
 		
 		stage.addEventListener(Event.RESIZE, __stageResized);
+		__stageResized(null);
 	}
 	
 	private function __stageResized(e:Event):void{
