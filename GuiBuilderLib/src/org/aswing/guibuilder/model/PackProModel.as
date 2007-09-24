@@ -13,7 +13,7 @@ public class PackProModel extends ProModel{
 		super(null);
 		peditor = new PackEditor(this);
 	}
-		
+	
 	public function applyProperty():void{
 		var cm:ComModel = owner as ComModel;
 		cm.getDisplay().pack();

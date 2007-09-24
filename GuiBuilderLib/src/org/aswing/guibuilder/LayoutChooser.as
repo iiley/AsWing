@@ -6,6 +6,7 @@ import org.aswing.guibuilder.model.LayoutDefinition;
 import org.aswing.guibuilder.model.LayoutModel;
 import flash.events.Event;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.border.TitledBorder;
 	
 
 public class LayoutChooser{
@@ -41,7 +42,9 @@ public class LayoutChooser{
 		dialog.setSizeWH(400, 300);
 		okButton = new JButton("OK");
 		cancelButton = new JButton("Cancel");
-		pane.append(new JScrollPane(layoutList), BorderLayout.WEST);
+		var scroll:JScrollPane = new JScrollPane(layoutList);
+		scroll.setBorder(new TitledBorder(null, "Layout"));
+		pane.append(scroll, BorderLayout.WEST);
 		pane.append(propertyPane, BorderLayout.CENTER);
 		var buttons:JPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20));
 		buttons.appendAll(okButton, cancelButton);
