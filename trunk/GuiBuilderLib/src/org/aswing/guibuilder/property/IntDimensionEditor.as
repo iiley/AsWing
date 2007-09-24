@@ -20,8 +20,8 @@ public class IntDimensionEditor implements PropertyEditor{
 	
 	public function IntDimensionEditor(){
 		pane = new JPanel(new SoftBoxLayout(SoftBoxLayout.X_AXIS, 0));
-		widthInput = new LabelInput("w:", "", 0, 4);
-		heightInput = new LabelInput("h:", "", 0, 4);
+		widthInput = new IntInput("w:", "", 0, 4);
+		heightInput = new IntInput("h:", "", 0, 4);
 		pane.appendAll(widthInput, heightInput);
 		widthInput.addEventListener(AWEvent.ACT, __apply);
 		heightInput.addEventListener(AWEvent.ACT, __apply);

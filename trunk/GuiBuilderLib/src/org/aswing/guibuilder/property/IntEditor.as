@@ -7,35 +7,34 @@ import org.aswing.guibuilder.util.MathUtils;
 import org.aswing.guibuilder.model.ProModel;
 import org.aswing.event.AWEvent;
 import flash.events.Event;
+import org.aswing.event.FocusKeyEvent;
+import flash.ui.Keyboard;
 
 public class IntEditor implements PropertyEditor{
 	
-	private var text:JTextField;
+	private var text:IntInput;
 	
 	public function IntEditor(){
-		text = new JTextField("", 6);
-		text.setMaxChars(8);
-		text.setRestrict("0123456789");
-		text.addActionListener(__apply);
-		text.addEventListener(AWEvent.FOCUS_LOST, __apply);
+		text = new IntInput("", "", 0, 6);
+		text.addEventListener(AWEvent.ACT, __apply);
 	}
 	
 	private function __apply(e:Event):void{
 		applyProperty();
-	}	
+	}
 	
 	public function getDisplay():Component{
 		return text;
 	}
 		
 	public function parseValue(xml:XML):*{
-		text.setText(xml.@value);
+		text.setInputText(xml.@value);
 		return MathUtils.parseInteger(xml.@value);
 	}
 	
 	public function encodeValue(value:*):XML{
 		var xml:XML = <Value></Value>;
-		xml.@value = text.getText();
+		xml.@value = text.getInputInt();
 		return xml;
 	}
 	
@@ -45,10 +44,8 @@ public class IntEditor implements PropertyEditor{
 	}
 	
 	public function applyProperty():void{
-		var label:String = text.getText();
-		if(label != null && label != ""){
-			var value:int = parseInt(label);
-			apply(value);
+		if(!text.isEmpty()){
+			apply(text.getInputInt());
 		}else{
 			apply(ProModel.NONE_VALUE_SET);
 		}
