@@ -11,16 +11,18 @@ public class ProModel{
 	public static const NONE_VALUE_SET:Object = {};
 	
 	private var def:ProDefinition;
-	private var editor:PropertyEditor;
-	private var owner:Model;
-	private var value:*;
-	private var noneValue:Boolean; //whether or not set this property a value
+	protected var editor:PropertyEditor;
+	protected var owner:Model;
+	protected var value:*;
+	protected var noneValue:Boolean; //whether or not set this property a value
 	
 	public function ProModel(def:ProDefinition){
 		this.def = def;
-		var clazz:Class = def.getEditorClass();
-		editor = new clazz();
-		editor.setApplyFunction(__apply);
+		if(def != null){
+			var clazz:Class = def.getEditorClass();
+			editor = new clazz();
+			editor.setApplyFunction(__apply);
+		}
 		noneValue = true;
 	}
 	
