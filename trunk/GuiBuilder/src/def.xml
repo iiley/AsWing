@@ -57,15 +57,15 @@
 		</Property>
 	</Layout>
 	<Layout name="SoftBoxLayout" clazz="org.aswing.SoftBoxLayout">
-		<Property label="axis" name="Axis" type="Align">
+		<Property label="axis" name="Axis" type="Axis">
 		</Property>
-		<Property label="align" name="Alignment" type="Align">
+		<Property label="align" name="Align" type="Align">
 		</Property>
 		<Property label="gap" name="Gap" type="int">
 		</Property>
 	</Layout>
 	<Layout name="BoxLayout" clazz="org.aswing.BoxLayout">
-		<Property label="axis" name="Axis" type="Align">
+		<Property label="axis" name="Axis" type="Axis">
 		</Property>
 		<Property label="gap" name="Gap" type="int">
 		</Property>
@@ -99,7 +99,7 @@
 		</Property>
 		<Property label="PreferSize" name="PreferredSize" type="PreferSize" action="revalidate">
 		</Property>
-		<Property label="Constraints" name="Constraints" type="Constraints" action="reAppendToParent">
+		<Property label="Constraints" name="Constraints" type="Constraints" action="parentReAppendChildren">
 		</Property>
 		<Property label="Tooltip" name="ToolTipText" type="String">
 		</Property>
@@ -132,6 +132,12 @@
 		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align" action="revalidate">
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int" action="revalidate">
+		</Property>
+	</Com>
+
+	<Com name="JLabel" clazz="org.aswing.JLabel" sup="Component">
+		<Property label="Label" name="Text" type="String">
+			<Value value="label"></Value>
 		</Property>
 	</Com>
 
@@ -175,7 +181,7 @@
 		</Property>
 	</Com>
 
-	<Com name="JLabelButton" clazz="org.aswing.JAdjuster" sup="JButton">
+	<Com name="JLabelButton" clazz="org.aswing.JLabelButton" sup="JButton">
 	</Com>
 
 	<Com name="JToggleButton" clazz="org.aswing.JAdjuster" sup="JButton">
@@ -236,6 +242,8 @@
 			<Value value="100"></Value>
 		</Property>
 		<Property label="Major tick spacing" name="MajorTickSpacing" type="int">
+		</Property>
+		<Property label="Minor tick spacing" name="MinorTickSpacing" type="int">
 		</Property>
 		<Property label="Inverted" name="Inverted" type="Boolean">
 		</Property>
