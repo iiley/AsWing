@@ -339,17 +339,17 @@ public class JScrollPane extends Container{
 	}
 	
 	/**
-	 * @throws Error when append child to JScrollPane
-	 */
+	 * Sets the com to be the view.
+	 */	
 	override public function append(com:Component, constraints:Object=null):void{
-		throw new UnsupportedError("Can not add comp to JScrollPane");
+		setView(com);
 	}
 	
 	/**
-	 * @throws Error when append child to JScrollPane
+	 * Sets the com to be the view.
 	 */	
 	override public function insert(i:int, com:Component, constraints:Object=null):void{
-		throw new UnsupportedError("Can not add comp to JScrollPane");	
+		setView(com);
 	}
 	
 	override protected function getFocusTransmit():Component{

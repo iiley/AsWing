@@ -102,7 +102,7 @@ public class SoftBoxLayout extends EmptyLayout{
      * @see #X_AXIS
      * @see #Y_AXIS
      */
-    public function SoftBoxLayout(axis:int, gap:int=0, align:int=AsWingConstants.LEFT){
+    public function SoftBoxLayout(axis:int=X_AXIS, gap:int=0, align:int=AsWingConstants.LEFT){
     	setAxis(axis);
     	setGap(gap);
     	setAlign(align);
