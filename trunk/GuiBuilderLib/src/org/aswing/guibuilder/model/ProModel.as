@@ -21,7 +21,11 @@ public class ProModel{
 		this.def = def;
 		if(def != null){
 			var clazz:Class = def.getEditorClass();
-			editor = new clazz();
+			if(def.getEditorParam() != "" && def.getEditorParam() != null){
+				editor = new clazz(def.getEditorParam());
+			}else{
+				editor = new clazz();
+			}
 			editor.setApplyFunction(__apply);
 		}
 		noneValue = true;
