@@ -14,6 +14,8 @@ public class HiberarchyPane extends JPanel{
 	private var removeButton:JButton;
 	private var upButton:JButton;
 	private var downButton:JButton;
+	private var leftButton:JButton;
+	private var rightButton:JButton;
 	
 	public function HiberarchyPane(){
 		super();
@@ -22,14 +24,16 @@ public class HiberarchyPane extends JPanel{
 		tree = new JTree();
 		addButton = new JButton("Add com");
 		removeButton = new JButton("Remove me");
-		upButton = new JButton("Up");
-		downButton = new JButton("Down");
+		upButton = new JButton("↑");
+		downButton = new JButton("↓");
+		leftButton = new JButton("←");
+		rightButton = new JButton("→");
 		
 		//layouting
 		setLayout(new BorderLayout());
 		append(new JScrollPane(tree), BorderLayout.CENTER);
 		var bottom:JPanel = new JPanel();
-		bottom.appendAll(addButton, removeButton, upButton, downButton);
+		bottom.appendAll(addButton, removeButton, upButton, downButton, leftButton, rightButton);
 		append(bottom, BorderLayout.SOUTH);
 		
 		setOperatable(false);
@@ -40,6 +44,8 @@ public class HiberarchyPane extends JPanel{
 		removeButton.setEnabled(b);
 		upButton.setEnabled(b);
 		downButton.setEnabled(b);
+		leftButton.setEnabled(b);
+		rightButton.setEnabled(b);
 	}
 	
 	public function getTree():JTree{
@@ -62,5 +68,13 @@ public class HiberarchyPane extends JPanel{
 		return downButton;
 	}
 	
+	
+	public function getLeftButton():JButton{
+		return leftButton;
+	}
+	
+	public function getRightButton():JButton{
+		return rightButton;
+	}
 }
 }
