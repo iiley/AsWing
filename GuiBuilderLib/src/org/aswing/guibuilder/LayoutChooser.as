@@ -41,6 +41,7 @@ public class LayoutChooser{
 		layoutList.setVisibleCellWidth(120);
 		propertyPane = new PropertyPane();
 		dialog.setSizeWH(400, 300);
+		AsWingUtils.centerLocate(dialog);
 		okButton = new JButton("OK");
 		cancelButton = new JButton("Cancel");
 		var scroll:JScrollPane = new JScrollPane(layoutList);

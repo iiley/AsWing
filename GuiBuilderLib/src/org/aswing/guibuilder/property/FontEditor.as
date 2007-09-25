@@ -1,27 +1,27 @@
 package org.aswing.guibuilder.property{
-	
+
 import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.*;
-import org.aswing.guibuilder.model.*;
-import org.aswing.guibuilder.property.*;
+import org.aswing.guibuilder.util.MathUtils;
+import org.aswing.guibuilder.model.ProModel;
 import flash.events.Event;
-import flash.utils.getQualifiedClassName;
-import org.aswing.guibuilder.BorderChooser;
+import org.aswing.guibuilder.FontChooser;
 
-public class BorderEditor implements PropertyEditor{
+public class FontEditor implements PropertyEditor{
 	
-	private static var DEFAULT:BorderModel = new BorderModel();
+	private static var DEFAULT:ASFont = new ASFont();
 	
 	private var defaultRadio:JRadioButton;
 	private var nullRadio:JRadioButton;
 	private var button:JButton;
 	private var pane:Container;
+	private var font:ASFont;
+	private var buttonFont:ASFont;
 	
-	private var borderModel:BorderModel;
-	
-	public function BorderEditor(){
+	public function FontEditor(){
 		pane = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0, false));
 		button = new JButton("Default");
+		buttonFont = button.getFont();
 		defaultRadio = new JRadioButton("default");
 		nullRadio = new JRadioButton("null");
 		pane.appendAll(button, defaultRadio, nullRadio);
@@ -32,26 +32,26 @@ public class BorderEditor implements PropertyEditor{
 	}
 	
 	private function __showChooser(e:Event):void{
-		BorderChooser.getIns().open(__choosed, borderModel);
+		FontChooser.getIns().open(__choosed, font);
 	}
-	private function __choosed(m:BorderModel):void{
-		if(m){
+	private function __choosed(f:ASFont):void{
+		if(f){
 			nullRadio.setSelected(false);
 			defaultRadio.setSelected(false);
-			borderModel = m;
+			font = f;
 			applyProperty();
 		}
 	}
 	
 	private function __default(e:Event):void{
 		nullRadio.setSelected(false);
-		borderModel = DEFAULT;
+		font = DEFAULT;
 		applyProperty();
 	}
 	
 	private function __null(e:Event):void{
 		defaultRadio.setSelected(false);
-		borderModel = null;
+		font = null;
 		applyProperty();
 	}	
 	
@@ -63,13 +63,18 @@ public class BorderEditor implements PropertyEditor{
 		if(xml.@value == "null"){
 			return null;
 		}
-		var model:BorderModel = new BorderModel();
-		model.parse(xml.children()[0]);
-		borderModel = model;
-		button.setText(model.getName());
+		var name:String = xml.@name;
+		var size:int = MathUtils.parseInteger(xml.@size);
+		var bold:Boolean = (xml.@bold == "true");
+		var italic:Boolean = (xml.@italic == "true");
+		var underline:Boolean = (xml.@underline == "true");
+		var embedFonts:Boolean = (xml.@embedFonts == "true");
+		var f:ASFont = new ASFont(name, size, bold, italic, underline, embedFonts);
+		font = f;
+		button.setText(name);
 		nullRadio.setSelected(false);
 		defaultRadio.setSelected(false);
-		return borderModel.getBorder();
+		return font;
 	}
 	
 	public function encodeValue(value:*):XML{
@@ -78,19 +83,13 @@ public class BorderEditor implements PropertyEditor{
 			xml.@value="null";
 			return xml;
 		}
-		var model:BorderModel = null;
-		var borderDef:BorderDefinition;
-		if(value == borderModel.getBorder()){
-			model = borderModel;
-			borderDef = model.getDef();
-		}
-		if(model == null){
-			var clazz:String = getQualifiedClassName(value);
-			clazz = clazz.split("::").join(".");
-			borderDef = Definition.getIns().getBorderDefinitionWithClassName(clazz);
-			model = new BorderModel(borderDef);
-		}
-		xml.appendChild(model.encodeXML());
+		var f:ASFont = value;
+		xml.@name = f.getName();
+		xml.@size = f.getSize()+"";
+		xml.@bold = f.isBold()+"";
+		xml.@italic = f.isItalic()+"";
+		xml.@underline = f.isUnderline()+"";
+		xml.@embedFonts = f.isEmbedFonts()+"";
 		return xml;
 	}
 	
@@ -100,18 +99,16 @@ public class BorderEditor implements PropertyEditor{
 	}
 	
 	public function applyProperty():void{
-		if(borderModel == DEFAULT){
+		if(font == DEFAULT){
 			button.setText("Default");
 			apply(ProModel.NONE_VALUE_SET);
-		}else if(borderModel != null){
-			apply(borderModel.getBorder());
-			button.setText(borderModel.getName());
+		}else if(font != null){
+			apply(font);
+			button.setText(font.getName());
 		}else{
 			button.setText("Null");
 			apply(null);
 		}
 	}
-	
-	
 }
 }
