@@ -12,7 +12,7 @@ import org.aswing.event.InteractiveEvent;
 
 public class ColorEditor implements PropertyEditor{
 	
-	private static var defaultColor:ASColor = new ASColor();
+	private static var DEFAULT:ASColor = new ASColor();
 	
 	private var colorButton:JButton;
 	private var colorIcon:ColorIcon;
@@ -105,7 +105,7 @@ public class ColorEditor implements PropertyEditor{
 	
 	private function __default(e:Event):void{
 		nullRadio.setSelected(false);
-		setColor(defaultColor);
+		setColor(DEFAULT);
 	}
 	
 	private function __null(e:Event):void{
@@ -115,7 +115,7 @@ public class ColorEditor implements PropertyEditor{
 	
 	public function setColor(c:ASColor):void{
 		color = c;
-		if(c === defaultColor || c == null){
+		if(c === DEFAULT || c == null){
 			colorIcon.setColor(null);
 		}else{
 			colorIcon.setColor(color);
@@ -134,7 +134,7 @@ public class ColorEditor implements PropertyEditor{
 	}
 	
 	public function applyProperty():void{
-		if(color !== defaultColor){
+		if(color !== DEFAULT){
 			apply(color);
 		}else{
 			apply(ProModel.NONE_VALUE_SET);
@@ -152,7 +152,7 @@ public class ColorEditor implements PropertyEditor{
 			var strs:Array = str.split(",");
 			color = new ASColor(MathUtils.parseInteger(strs[0], 16), parseFloat(strs[1]));
 		}
-		if(color === defaultColor || color == null){
+		if(color === DEFAULT || color == null){
 			colorIcon.setColor(null);
 		}else{
 			colorIcon.setColor(color);

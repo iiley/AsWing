@@ -84,8 +84,8 @@ public class Definition{
 		for each(var bb:XML in borxml){
 			superName = bb.@sup;
 			var bor:BorderDefinition = new BorderDefinition(bb, getBorderDefinition(superName));
-			borders.put(lay.getName(), bor);
-			bordersClassMap.put(lay.getClassName(), bor);
+			borders.put(bor.getName(), bor);
+			bordersClassMap.put(bor.getClassName(), bor);
 			orderBorders.push(bor);
 		}
 	}

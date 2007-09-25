@@ -33,7 +33,7 @@ public class PropertyPane extends JPanel{
 				addEditor(pro.getLabel(), pro.getEditor());
 			}
 		}
-		revalidate();
+		form.revalidate();
 	}
 	
 	private function addEditor(label:String, editor:PropertyEditor):void{
