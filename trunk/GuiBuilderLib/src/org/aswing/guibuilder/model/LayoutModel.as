@@ -51,13 +51,8 @@ public class LayoutModel implements Model{
 	}
 	
 	public function encodeXML():XML{
-		throw new Error("Please use encodeXMLWithLayout method!");
-		return null;
-	}
-	
-	public function encodeXMLWithLayout(ldef:LayoutDefinition, layout:LayoutManager):XML{
 		var xml:XML = <Layout></Layout>;
-		xml.@name = ldef.getName();
+		xml.@name = getName();
 		//properties
 		var proXml:XML = <Properties></Properties>;
 		xml.appendChild(proXml);

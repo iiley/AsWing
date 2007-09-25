@@ -59,7 +59,7 @@ public class LayoutEditor implements PropertyEditor{
 			layoutDef = Definition.getIns().getLayoutDefinitionWithClassName(clazz);
 			model = new LayoutModel(layoutDef);
 		}
-		xml.appendChild(model.encodeXMLWithLayout(layoutDef, value));
+		xml.appendChild(model.encodeXML());
 		return xml;
 	}
 	

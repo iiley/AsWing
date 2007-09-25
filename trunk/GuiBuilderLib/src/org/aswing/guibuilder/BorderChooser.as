@@ -1,64 +1,60 @@
 package org.aswing.guibuilder{
-	
+
 import org.aswing.*;
-import org.aswing.guibuilder.model.Definition;
-import org.aswing.guibuilder.model.LayoutDefinition;
-import org.aswing.guibuilder.model.LayoutModel;
+import org.aswing.guibuilder.model.*;
 import flash.events.Event;
-import org.aswing.guibuilder.model.ProModel;
 import org.aswing.border.TitledBorder;
 import org.aswing.event.InteractiveEvent;
-	
 
-public class LayoutChooser{
+public class BorderChooser{
 	
-	private static var ins:LayoutChooser;
+	private static var ins:BorderChooser;
 	
-	public static function getIns():LayoutChooser{
+	public static function getIns():BorderChooser{
 		if(ins == null){
-			new LayoutChooser();
+			new BorderChooser();
 		}
 		return ins;
 	}
 	
 	private var dialog:JFrame;
-	private var layoutList:JList;
+	private var borderList:JList;
 	private var propertyPane:PropertyPane;
 	private var okButton:JButton;
 	private var cancelButton:JButton;
 	private var handler:Function;
 	
-	public function LayoutChooser(){
+	public function BorderChooser(){
 		if(ins){
 			throw new Error("Sington can't be instansted more than once!");
 		}
 		ins = this;
 		
-		dialog = new JFrame(null, "Layout Chooser", true);
+		dialog = new JFrame(null, "Border Chooser", true);
 		var pane:Container = dialog.getContentPane();
-		layoutList = new JList();
-		layoutList.setSelectionMode(JList.SINGLE_SELECTION);
-		layoutList.setVisibleCellWidth(120);
+		borderList = new JList();
+		borderList.setSelectionMode(JList.SINGLE_SELECTION);
+		borderList.setVisibleCellWidth(120);
 		propertyPane = new PropertyPane();
 		dialog.setSizeWH(400, 300);
 		okButton = new JButton("OK");
 		cancelButton = new JButton("Cancel");
-		var scroll:JScrollPane = new JScrollPane(layoutList);
-		scroll.setBorder(new TitledBorder(null, "Layout"));
+		var scroll:JScrollPane = new JScrollPane(borderList);
+		scroll.setBorder(new TitledBorder(null, "Border"));
 		pane.append(scroll, BorderLayout.WEST);
 		pane.append(propertyPane, BorderLayout.CENTER);
 		var buttons:JPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20));
 		buttons.appendAll(okButton, cancelButton);
 		pane.append(buttons, BorderLayout.SOUTH);
 		
-		layoutList.addSelectionListener(__layoutSelection);
+		borderList.addSelectionListener(__borderSelection);
 		okButton.addActionListener(__ok);
 		cancelButton.addActionListener(__cancel);
 	}
 	
 	private function __ok(e:Event):void{
 		dialog.dispose();
-		var model:LayoutModel = layoutList.getSelectedValue();
+		var model:BorderModel = borderList.getSelectedValue();
 		var pros:Array = model.getProperties();
 		for each(var pro:ProModel in pros){
 			pro.getEditor().applyProperty();
@@ -70,40 +66,41 @@ public class LayoutChooser{
 		dialog.dispose();
 	}
 	
-	private function __layoutSelection(e:InteractiveEvent):void{
+	private function __borderSelection(e:InteractiveEvent):void{
 		if(e == null || !e.isProgrammatic()){
-			propertyPane.setModel(layoutList.getSelectedValue());
+			propertyPane.setModel(borderList.getSelectedValue());
 		}
 	}
 	
 	/**
-	 * __handler(layoutModel:LayoutModel) null means canceled
+	 * __handler(borderModel:BorderModel) null means canceled
 	 */
-	public function open(__handler:Function, curModel:LayoutModel):void{
+	public function open(__handler:Function, curModel:BorderModel):void{
 		reloadData(curModel);
 		dialog.show();
 		handler = __handler;
 	}
 	
-	public function reloadData(curModel:LayoutModel):void{
-		var layDefs:Array = Definition.getIns().getLayouts();
-		var layouts:Array = new Array();
+	public function reloadData(curModel:BorderModel):void{
+		var borDefs:Array = Definition.getIns().getBorders();
+		var borders:Array = new Array();
 		var selectedCur:Boolean = false;
-		for each(var layDef:LayoutDefinition in layDefs){
-			var m:LayoutModel = new LayoutModel(layDef);
+		for each(var borDef:BorderDefinition in borDefs){
+			var m:BorderModel = new BorderModel(borDef);
 			if(curModel != null && curModel.getName() == m.getName()){
 				m = curModel;
 				selectedCur = true; 
 			}
-			layouts.push(m);
+			borders.push(m);
 		}
-		layoutList.setListData(layouts);
+		borderList.setListData(borders);
 		if(selectedCur){
-			layoutList.setSelectedValue(curModel);
+			borderList.setSelectedValue(curModel);
 		}else{
-			layoutList.setSelectedIndex(0);
+			borderList.setSelectedIndex(0);
 		}
-		__layoutSelection(null);
-	}
+		__borderSelection(null);
+	}	
+	
 }
 }
