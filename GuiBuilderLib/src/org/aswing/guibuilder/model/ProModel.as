@@ -15,6 +15,7 @@ public class ProModel{
 	protected var owner:Model;
 	protected var value:*;
 	protected var noneValue:Boolean; //whether or not set this property a value
+	protected var defaultValue:*;
 	
 	public function ProModel(def:ProDefinition){
 		this.def = def;
@@ -30,6 +31,7 @@ public class ProModel{
 		if(v === NONE_VALUE_SET){
 			value = undefined;
 			noneValue = true;
+			owner.applyProperty(def.getName(), defaultValue, def.getAction());
 		}else{
 			value = v;
 			noneValue = false;
@@ -39,9 +41,10 @@ public class ProModel{
 	
 	public function bindTo(c:Model):void{
 		owner = c;
-		var defaultValue:XMLList = def.getDefaultValue();
-		if(defaultValue != null && defaultValue.length() >0){
-			__apply(editor.parseValue(defaultValue[0]));
+		defaultValue = owner.captureProperty(def.getName());
+		var defaultValueXML:XMLList = def.getDefaultValue();
+		if(defaultValueXML != null && defaultValueXML.length() >0){
+			__apply(editor.parseValue(defaultValueXML[0]));
 		}
 	}
 	

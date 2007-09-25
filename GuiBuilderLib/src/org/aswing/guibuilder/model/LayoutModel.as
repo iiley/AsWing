@@ -102,6 +102,17 @@ public class LayoutModel implements Model{
 		return properties.toArray();
 	}
 	
+	public function captureProperty(name:String):*{
+		var o:Object = getLayout();
+		var v:* = undefined;
+		try{
+			v = o["get"+name]();
+		}catch(e:Error){
+			v = o["is"+name]();
+		}
+		return v;
+	}	
+	
 	public function applyProperty(name:String, value:*, action:String):void{
 		var o:Object = getLayout();
 		o["set"+name](value);

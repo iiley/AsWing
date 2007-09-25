@@ -36,8 +36,8 @@ public class ClassNameChooser{
 		ins = this;
 		
 		dialog = new JFrame(null, "Enter Full Class Name");
-		classInput = new JTextField("", 12);
-		pkgInput = new JTextField("", 12);
+		classInput = new JTextField("MyPane", 12);
+		pkgInput = new JTextField("test", 12);
 		okButton = new JButton("OK");
 		cancelButton = new JButton("Cancel");
 		
@@ -57,6 +57,7 @@ public class ClassNameChooser{
 	
 	private function __ok(e:Event):void{
 		if(classInput.getText() != "" && pkgInput.getText() != ""){
+			dialog.dispose();
 			handler(classInput.getText(), pkgInput.getText());
 		}else{
 			JOptionPane.showMessageDialog("Tip", "Please complete the names.", null, dialog);
