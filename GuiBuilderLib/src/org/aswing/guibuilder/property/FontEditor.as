@@ -72,6 +72,13 @@ public class FontEditor implements PropertyEditor{
 		var f:ASFont = new ASFont(name, size, bold, italic, underline, embedFonts);
 		font = f;
 		button.setText(name);
+		button.setToolTipText(
+			"Name: "+font.getName() 
+			+ "\nSize: "+font.getSize()
+			+ "\nBold: "+font.isBold()
+			+ "\nItalic: "+font.isItalic()
+			+ "\nUnderline: "+font.isUnderline()
+			+ "\nEmbeded: "+font.isEmbedFonts());
 		nullRadio.setSelected(false);
 		defaultRadio.setSelected(false);
 		return font;
@@ -101,12 +108,21 @@ public class FontEditor implements PropertyEditor{
 	public function applyProperty():void{
 		if(font == DEFAULT){
 			button.setText("Default");
+			button.setToolTipText("The default font from LAF");
 			apply(ProModel.NONE_VALUE_SET);
 		}else if(font != null){
 			apply(font);
 			button.setText(font.getName());
+			button.setToolTipText(
+				"Name: "+font.getName() 
+				+ "\nSize: "+font.getSize()
+				+ "\nBold: "+font.isBold()
+				+ "\nItalic: "+font.isItalic()
+				+ "\nUnderline: "+font.isUnderline()
+				+ "\nEmbeded: "+font.isEmbedFonts());
 		}else{
 			button.setText("Null");
+			button.setToolTipText("Null mean inherit from parent");
 			apply(null);
 		}
 	}
