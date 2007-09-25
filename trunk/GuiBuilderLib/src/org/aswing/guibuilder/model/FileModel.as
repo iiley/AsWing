@@ -27,6 +27,16 @@ public class FileModel implements TreeModel{
 		canvas.mouseEnabled = false;
 		canvas.addChild(root.getDisplay());
 		listenerList = new Array();
+		
+		addListenersToAll(root);
+	}
+	
+	private function addListenersToAll(c:ComModel):void{
+		c.setChangedHandler(__comChanged);
+		var n:int = c.getChildCount();
+		for(var i:int=0; i<n; i++){
+			addListenersToAll(c.getChild(i));
+		}
 	}
 	
 	public static function parseXML(xml:XML):FileModel{
@@ -84,7 +94,8 @@ public class FileModel implements TreeModel{
 		var path:Array = getPath(parent);
 		parent.addChild(child, index);
 		if(index < 0) index = parent.getChildCount();
-		fireTreeNodesInserted(this, path, [index], [child])
+		fireTreeNodesInserted(this, path, [index], [child]);
+		child.setChangedHandler(__comChanged);
 	}
 	
 	public function removeComponent(child:ComModel):void{
@@ -92,7 +103,23 @@ public class FileModel implements TreeModel{
 		var path:Array = getPath(parent);
 		var index:int = parent.getChildIndex(child);
 		parent.removeChild(child);
-		fireTreeNodesRemoved(this, path, [index], [child])
+		fireTreeNodesRemoved(this, path, [index], [child]);
+		child.setChangedHandler(null);
+	}
+	
+	public function refreshNode(child:ComModel):void{
+		if(child == root){
+	    	fireTreeNodesChanged(this, getPath(root), null, null);
+		}else{
+			var parent:ComModel = child.getParent();
+	    	var path:Array = getPath(parent);
+	    	var index:int = parent.getChildIndex(child);
+	    	fireTreeNodesChanged(this, path, [index], [child]);
+  		}
+	}
+	
+	private function __comChanged(child:ComModel):void{
+		refreshNode(child);
 	}
 	
 	//_____________________________TreeModel Imp_______________________________
@@ -167,7 +194,6 @@ public class FileModel implements TreeModel{
       * @param newValue the new value from the TreeCellEditor
       */
     public function valueForPathChanged(path:TreePath, newValue:Object):void{
-    	
     }
 
     /**

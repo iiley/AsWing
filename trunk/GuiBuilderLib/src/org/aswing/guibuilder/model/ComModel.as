@@ -21,6 +21,8 @@ public class ComModel implements Model{
 	private var parent:ComModel;
 	private var id:String;
 	
+	private var changedHandler:Function;
+	
 	public function ComModel(def:ComDefinition=null){
 		if(def != null){
 			id = "com" + id_counter;
@@ -47,6 +49,13 @@ public class ComModel implements Model{
 		properties.append(new PackProModel());
 		
 		initProModels();
+	}
+	
+	/**
+	 * handler(this)
+	 */
+	public function setChangedHandler(handler:Function):void{
+		changedHandler = handler;
 	}
 	
 	public function parse(xml:*):void{
@@ -116,8 +125,12 @@ public class ComModel implements Model{
 	}
 	
 	public function applyProperty(name:String, value:*, action:String):void{
+		trace(this + " apply name : " + name + ", value : " + value + ", action : " + action);
 		if(name == ID_NAME){
-			//TODO change id
+			this.id = value;
+			if(changedHandler != null){
+				changedHandler(this);
+			}
 			return;
 		}
 		var o:Object = getDisplay();
