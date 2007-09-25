@@ -41,6 +41,9 @@
 	<Type name="Color" editor="org.aswing.guibuilder.property.ColorEditor">
 	</Type>
 
+	<Type name="IntEmuEditor" editor="org.aswing.guibuilder.property.IntEmuEditor">
+	</Type>
+
 </Types>
 
 <Borders>
@@ -55,12 +58,65 @@
 		</Property>
 	</Border>
 	<Border name="LineBorder" clazz="org.aswing.border.LineBorder">
-		<Property label="Color" name="Color" type="Color">
+		<Property label="Color" name="Color" type="Color" editorParam="nonull">
 			<Value value="0,1"/>
 		</Property>
 		<Property label="Thickness" name="Thickness" type="int">
 		</Property>
 		<Property label="Round" name="Round" type="int">
+		</Property>
+	</Border>
+	<Border name="BevelBorder" clazz="org.aswing.border.BevelBorder">
+		<Property label="Type" name="BevelType" type="IntEmuEditor" editorParam="Raised,Lowered">
+			<Value value="1"></Value>
+		</Property>
+		<Property label="Thickness" name="Thickness" type="int">
+		</Property>
+	</Border>
+	<Border name="SideLineBorder" clazz="org.aswing.border.SideLineBorder">
+		<Property label="Color" name="Color" type="Color" editorParam="nonull">
+			<Value value="0,1"/>
+		</Property>
+		<Property label="Thickness" name="Thickness" type="int">
+		</Property>
+		<Property label="Side" name="Side" type="IntEmuEditor" editorParam="North,South,East,West">
+			<Value value="0"></Value>
+		</Property>
+	</Border>
+	<Border name="TitledBorder" clazz="org.aswing.border.TitledBorder">
+		<Property label="Color" name="Color" type="Color" editorParam="nonull">
+			<Value value="0,1"/>
+		</Property>
+		<Property label="Title" name="Title" type="String">
+			<Value value="title"/>
+		</Property>
+		<Property label="Position" name="Position" type="IntEmuEditor" editorParam=",Top,,Bottom">
+			<Value value="1"></Value>
+		</Property>
+		<Property label="Align" name="Align" type="Align" editorParam="hor-only">
+		</Property>
+		<Property label="Beveled" name="Beveled" type="Boolean">
+			<Value value="true"></Value>
+		</Property>
+		<Property label="Edge" name="Edge" type="int">
+		</Property>
+		<Property label="Round" name="Round" type="int">
+		</Property>
+	</Border>
+	<Border name="SimpleTitledBorder" clazz="org.aswing.border.SimpleTitledBorder">
+		<Property label="Title" name="Title" type="String">
+			<Value value="title"/>
+		</Property>
+		<Property label="Color" name="Color" type="Color" editorParam="nonull">
+			<Value value="0,1"/>
+		</Property>
+		<Property label="Position" name="Position" type="IntEmuEditor" editorParam=",Top,,Bottom">
+			<Value value="1"></Value>
+		</Property>
+		<Property label="Offset" name="Offset" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Align" name="Align" type="Align" editorParam="hor-only">
 		</Property>
 	</Border>
 </Borders>
@@ -69,7 +125,7 @@
 	<Layout name="EmptyLayout" clazz="org.aswing.EmptyLayout">
 	</Layout>
 	<Layout name="FlowLayout" clazz="org.aswing.FlowLayout">
-		<Property label="align" name="Alignment" type="Align">
+		<Property label="align" name="Alignment" type="Align" editorParam="hor-only">
 		</Property>
 		<Property label="hgap" name="Hgap" type="int">
 		</Property>
@@ -159,13 +215,13 @@
 		<Property label="Label" name="Text" type="String" action="revalidate">
 			<Value value="label" ></Value>
 		</Property>
-		<Property label="Horizontal alig" name="HorizontalAlignment" type="Align" action="revalidate">
+		<Property label="Horizontal alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only">
 		</Property>
-		<Property label="Vertical alig" name="VerticalAlignment" type="Align" action="revalidate">
+		<Property label="Vertical alig" name="VerticalAlignment" type="Align" action="revalidate" editorParam="ver-only">
 		</Property>
-		<Property label="Horizontal text pos" name="HorizontalTextPosition" type="Align" action="revalidate">
+		<Property label="Horizontal text pos" name="HorizontalTextPosition" type="Align" action="revalidate" editorParam="hor-only">
 		</Property>
-		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align" action="revalidate">
+		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align" action="revalidate" editorParam="ver-only">
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int" action="revalidate">
 		</Property>
@@ -320,21 +376,24 @@
 	<Com name="JList" clazz="org.aswing.JList" sup="Component">
 	</Com>
 	
-	<Com name="JTabbedPane" clazz="org.aswing.JTabbedPane" sup="Container">
+	<Com name="JAccordion" clazz="org.aswing.JAccordion" sup="Container">
 		<Property label="Size" name="Size" type="IntDimension" action="revalidate">
 			<Value value="300,300" ></Value>
 		</Property>
-		<Property label="Tab placement" name="TabPlacement" type="Align">
+		<Property label="Horizontal alig" name="HorizontalAlignment" type="Align" editorParam="hor-only">
 		</Property>
-		<Property label="Horizontal alig" name="HorizontalAlignment" type="Align">
+		<Property label="Vertical alig" name="VerticalAlignment" type="Align" editorParam="ver-only">
 		</Property>
-		<Property label="Vertical alig" name="VerticalAlignment" type="Align">
+		<Property label="Horizontal text pos" name="HorizontalTextPosition" type="Align" editorParam="hor-only">
 		</Property>
-		<Property label="Horizontal text pos" name="HorizontalTextPosition" type="Align">
-		</Property>
-		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align">
+		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align" editorParam="ver-only">
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int">
+		</Property>
+	</Com>
+
+	<Com name="JTabbedPane" clazz="org.aswing.JTabbedPane" sup="JAccordion">
+		<Property label="Tab placement" name="TabPlacement" type="Align">
 		</Property>
 	</Com>
 
