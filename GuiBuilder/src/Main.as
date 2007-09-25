@@ -28,10 +28,18 @@ import flash.filesystem.File;
 import flash.filesystem.FileStream;
 import flash.net.FileFilter;
 import flash.filesystem.FileMode;
+import org.aswing.JMenu;
+import org.aswing.SoftBox;
+import org.aswing.JMenuBar;
+import org.aswing.JMenuItem;
+import org.aswing.JSeparator;
+import org.aswing.border.EmptyBorder;
+import org.aswing.Insets;
 
 public class Main extends JWindow{
 	
 	private var preview:Sprite;
+	private var newMenu:JMenu;
 	private var toolBarPane:ToolBarPane;
 	private var filePane:FilePane;
 	private var hiberarchyPane:HiberarchyPane;
@@ -55,6 +63,10 @@ public class Main extends JWindow{
 		previewPane.setBackground(ASColor.GRAY.brighter());
 		previewPane.setBorder(new BevelBorder(null, BevelBorder.LOWERED));
 		
+		var menuBar:JMenuBar = new JMenuBar();
+		menuBar.setOpaque(true);
+		newMenu = new JMenu("New");
+		menuBar.addMenu(newMenu);
 		toolBarPane = new ToolBarPane();
 		filePane = new FilePane();
 		hiberarchyPane = new HiberarchyPane();
@@ -62,7 +74,10 @@ public class Main extends JWindow{
 		componentMenu = new ComponentMenu();
 		
 		var pane:JPanel = new JPanel(new BorderLayout());
-		pane.append(toolBarPane, BorderLayout.NORTH);
+		var topBar:SoftBox = SoftBox.createHorizontalBox(2);
+		topBar.setBorder(new EmptyBorder(null, new Insets(2, 4, 0, 0)));
+		topBar.appendAll(menuBar, new JSeparator(JSeparator.VERTICAL), toolBarPane);
+		pane.append(topBar, BorderLayout.NORTH);
 		var centerCenter:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, previewPane, propertyPane);
 		centerCenter.setResizeWeight(0.6);
 		var center:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, filePane, centerCenter);
@@ -76,9 +91,9 @@ public class Main extends JWindow{
 		
 		initModels();
 		
-		var file:File = File.documentsDirectory;
-		workspacePath = (file.nativePath + "/");
-		openFile = new File();
+		var file:File = File.applicationResourceDirectory;
+		workspacePath = file.nativePath+"/workspace/";
+		openFile = new File(workspacePath);
 		openFile.addEventListener(Event.SELECT, __fileSelected);
 	}
 	
@@ -90,15 +105,42 @@ public class Main extends JWindow{
 		if(text != null){
 			filePane.getList().setModel(files);
 			Definition.getIns().init(new XML(text));
-			componentMenu.setComponents(Definition.getIns().getComponents());
+			
+			var components:Array = Definition.getIns().getComponents();
+			componentMenu.setComponents(components);
+			
+			for(var i:int=0; i<components.length; i++){
+				var cmp:ComDefinition = components[i];
+				if(cmp.isContainer()){
+					var menu:JMenuItem = newMenu.addMenuItem(cmp.getName());
+					menu.addActionListener(__newPane);
+					menu.putClientProperty("comDef", cmp);
+				}
+			}
+			
 			initHandlers();
 		}else{
 			JOptionPane.showMessageDialog("Error", "Can't find definition file!", null, this);
 		}
 	}
 	
+	private var curCreateComDef:ComDefinition;
+	private function __newPane(e:Event):void{
+		var menu:JMenuItem = e.currentTarget as JMenuItem;
+		curCreateComDef = menu.getClientProperty("comDef");
+		ClassNameChooser.getIns().open(__newComSelected);
+	}
+	
+	private function __newComSelected(className:String, pkgName:String):void{
+		if(isFileExists(className, pkgName)){
+			JOptionPane.showMessageDialog("Error", "The name is already exists!", null, this);
+			return;
+		}
+		files.append(new FileModel(new ComModel(curCreateComDef), className, pkgName), 0);
+		setCurrentFile(files.first());
+	}
+	
 	private function initHandlers():void{
-		toolBarPane.getNewPanelButton().addActionListener(__newPanel);
 		toolBarPane.getSaveButton().addActionListener(__save);
 		toolBarPane.getOpenButton().addActionListener(__open);
 		filePane.getList().addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __fileSelection);
@@ -113,7 +155,12 @@ public class Main extends JWindow{
 	
 	private function __save(e:Event):void{
 		if(curFile != null){
-			var saveFile:File = new File(workspacePath + curFile.getName()+".xml");
+			var path:String = curFile.getFilePath();
+			if(path == null){
+				path = workspacePath + generatPath(curFile) + ".xml";
+				curFile.setFilePath(path);
+			}
+			var saveFile:File = new File(path);
 			var xml:XML = curFile.exportXML();
 			
 			var stream:FileStream = new FileStream();
@@ -124,6 +171,11 @@ public class Main extends JWindow{
 			stream.writeUTFBytes(xml.toXMLString());
 			stream.close();
 		}
+	}
+	
+	private function generatPath(fm:FileModel):String{
+		var pkg:String = fm.getPackageName().split(".").join("/");
+		return pkg + "/" + fm.getName();
 	}
 	
 	private var openFile:File;
@@ -138,7 +190,13 @@ public class Main extends JWindow{
 		var str:String = stream.readUTFBytes(stream.bytesAvailable);
 		stream.close();
 		var xml:XML = new XML(str);
-		files.append(FileModel.parseXML(xml), 0);
+		if(isFileExists(xml.@name, xml.@packageName)){
+			JOptionPane.showMessageDialog("Error", "The same name file is already opened!", null, this);
+			return;
+		}
+		var fm:FileModel = FileModel.parseXML(xml);
+		fm.setFilePath(openFile.nativePath);
+		files.append(fm, 0);
 		setCurrentFile(files.first());
 	}
 	
@@ -212,24 +270,15 @@ public class Main extends JWindow{
 	private function __comSelection(e:TreeSelectionEvent):void{
 		setCurrentCom(e.getPath().getLastPathComponent());
 	}
-	
-	private function __newPanel(e:Event):void{
-		JOptionPane.showInputDialog("New Panel", "Please input the name:", __newPanelInputed, "MyPanel", this);
-	}
-	
-	private function __newPanelInputed(text:String):void{
-		if(text == "" || text == null){
-			return;
-		}
+		
+	private function isFileExists(name:String, pkg:String):Boolean{
 		for(var i:int=0; i<files.size(); i++){
 			var f:FileModel = files.get(i);
-			if(f.getName() == text){
-				JOptionPane.showMessageDialog("Error", "The name is already exists!", null, this);
-				return;
+			if(f.getName() == name && f.getPackageName() == pkg){
+				return true;
 			}
 		}
-		files.append(new FileModel(createPanelModel(), text), 0);
-		setCurrentFile(files.first());
+		return false;
 	}
 	
 	private function createPanelModel():ComModel{
