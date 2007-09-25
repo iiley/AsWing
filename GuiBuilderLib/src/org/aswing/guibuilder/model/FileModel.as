@@ -14,15 +14,18 @@ import flash.net.FileReference;
 public class FileModel implements TreeModel{
 	
 	private var name:String;
+	private var packageName:String;
 	private var root:ComModel;
 	private var canvas:Sprite;
+	private var filePath:String;
 	private var listenerList:Array;
 	
 	private var file:FileReference;
 	
-	public function FileModel(root:ComModel, name:String){
+	public function FileModel(root:ComModel, name:String, packageName:String){
 		this.root = root;
 		this.name = name;
+		this.packageName = packageName;
 		canvas = new Sprite();
 		canvas.mouseEnabled = false;
 		canvas.addChild(root.getDisplay());
@@ -43,14 +46,24 @@ public class FileModel implements TreeModel{
 		var r:ComModel = new ComModel();
 		r.parse(xml.children()[0]);
 		var n:String = xml.@name;
-		return new FileModel(r, n);
+		var p:String = xml.@packageName;
+		return new FileModel(r, n, p);
 	}
 	
 	public function exportXML():XML{
 		var xml:XML = <AsWingUI></AsWingUI>;
 		xml.@name = getName();
+		xml.@packageName = packageName;
 		xml.appendChild(root.encodeXML());
 		return xml;
+	}
+	
+	public function setFilePath(path:String):void{
+		filePath = path;
+	}
+	
+	public function getFilePath():String{
+		return filePath;
 	}
 		
 	public function getDisplay():DisplayObject{
@@ -71,8 +84,12 @@ public class FileModel implements TreeModel{
 		return name;
 	}
 	
+	public function getPackageName():String{
+		return packageName;
+	}
+	
 	public function toString():String{
-		return name;
+		return name+"::"+packageName;
 	}
 	
 	public function getPath(obj:ComModel):Array{
