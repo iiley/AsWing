@@ -106,6 +106,8 @@ public class Main extends JWindow{
 		hiberarchyPane.getRemoveButton().addActionListener(__removeChildCom);
 		hiberarchyPane.getUpButton().addActionListener(__upChildCom);
 		hiberarchyPane.getDownButton().addActionListener(__downChildCom);
+		hiberarchyPane.getLeftButton().addActionListener(__leftChildCom);
+		hiberarchyPane.getRightButton().addActionListener(__rightChildCom);
 		componentMenu.setItemSelectionHandler(__addChildComSelected);
 	}
 	
@@ -142,8 +144,15 @@ public class Main extends JWindow{
 	
 	private function __addChildComSelected(def:ComDefinition):void{
 		if(curCom){
-			curFile.addComponent(curCom, new ComModel(def));
-			hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(curCom)));
+			if(curCom.isContainer()){
+				curFile.addComponent(curCom, new ComModel(def));
+				hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(curCom)));
+			}else{
+				var index:int = curCom.getParent().getChildIndex(curCom) + 1;
+				curFile.addComponent(curCom.getParent(), new ComModel(def), index);
+				var selRow:int = hiberarchyPane.getTree().getSelectionRows()[0];
+				hiberarchyPane.getTree().setSelectionRow(selRow+1);
+			}
 		}
 	}
 	
@@ -178,6 +187,22 @@ public class Main extends JWindow{
 			index=0;
 		}
 		curFile.addComponent(par, mod, index);
+	}
+	private function __leftChildCom(e:Event):void{
+		var mod:ComModel = curCom;
+		var leftPar:ComModel = getLeftContainer(mod);
+		if(leftPar != null){
+			curFile.removeComponent(mod);
+			curFile.addComponent(leftPar, mod);
+		}
+	}
+	private function __rightChildCom(e:Event):void{
+		var mod:ComModel = curCom;
+		var rightPar:ComModel = this.getRightContainer(mod);
+		if(rightPar != null){
+			curFile.removeComponent(mod);
+			curFile.addComponent(rightPar, mod);
+		}
 	}
 	
 	private function __fileSelection(e:SelectionEvent):void{
@@ -237,14 +262,50 @@ public class Main extends JWindow{
 		hiberarchyPane.setOperatable(comModel != null);
 		if(comModel != null){
 			if(comModel == curFile.getRoot()){
-				hiberarchyPane.getRemoveButton().setEnabled(false);
-				hiberarchyPane.getUpButton().setEnabled(false);
-				hiberarchyPane.getDownButton().setEnabled(false);
+				hiberarchyPane.setOperatable(false);
+				hiberarchyPane.getAddButton().setEnabled(true);
 			}
-			if(!comModel.isContainer()){
-				hiberarchyPane.getAddButton().setEnabled(false);
+			if(comModel.isContainer()){
+				hiberarchyPane.getAddButton().setText("Add child");
+			}else{
+				hiberarchyPane.getAddButton().setText("Add below");
+			}
+			
+			if(getLeftContainer(curCom) != null){
+				hiberarchyPane.getLeftButton().setEnabled(true);
+			}else{
+				hiberarchyPane.getLeftButton().setEnabled(false);
+			}
+			
+			if(getRightContainer(curCom) != null){
+				hiberarchyPane.getRightButton().setEnabled(true);
+			}else{
+				hiberarchyPane.getRightButton().setEnabled(false);
+			}
+			
+			hiberarchyPane.getAddButton().revalidate();
+		}
+	}
+	
+	private function getLeftContainer(c:ComModel):ComModel{
+		var parent:ComModel = curCom.getParent();
+		if(parent != null){
+			return parent.getParent();
+		}
+		return null;
+	}
+	
+	private function getRightContainer(c:ComModel):ComModel{
+		var parent:ComModel = curCom.getParent();
+		if(parent != null){
+			var n:int = parent.getChildCount();
+			for(var i:int=0; i<n; i++){
+				if(parent.getChild(i).isContainer()){
+					return parent.getChild(i);
+				}
 			}
 		}
+		return null;
 	}
 }
 }
