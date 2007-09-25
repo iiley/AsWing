@@ -63,11 +63,11 @@ public class Main extends JWindow{
 		previewPane.setBackground(ASColor.GRAY.brighter());
 		previewPane.setBorder(new BevelBorder(null, BevelBorder.LOWERED));
 		
+		toolBarPane = new ToolBarPane();
+		toolBarPane.getSaveButton().setEnabled(false);
 		var menuBar:JMenuBar = new JMenuBar();
-		menuBar.setOpaque(true);
 		newMenu = new JMenu("New");
 		menuBar.addMenu(newMenu);
-		toolBarPane = new ToolBarPane();
 		filePane = new FilePane();
 		hiberarchyPane = new HiberarchyPane();
 		propertyPane = new PropertyPane();
@@ -75,6 +75,7 @@ public class Main extends JWindow{
 		
 		var pane:JPanel = new JPanel(new BorderLayout());
 		var topBar:SoftBox = SoftBox.createHorizontalBox(2);
+		topBar.setOpaque(true);
 		topBar.setBorder(new EmptyBorder(null, new Insets(2, 4, 0, 0)));
 		topBar.appendAll(menuBar, new JSeparator(JSeparator.VERTICAL), toolBarPane);
 		pane.append(topBar, BorderLayout.NORTH);
@@ -296,6 +297,7 @@ public class Main extends JWindow{
 			preview.addChild(file.getDisplay());
 			file.revalidate();
 			setCurrentCom(null);
+			toolBarPane.getSaveButton().setEnabled(file != null);
 			if(file != null){
 				hiberarchyPane.getTree().addEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
 				hiberarchyPane.getTree().setSelectionRow(0);

@@ -275,7 +275,7 @@
 		</Property>
 	</Com>
 
-	<Com name="JScrollPane" clazz="org.aswing.JScrollPane" sup="Component">
+	<Com name="JScrollPane" clazz="org.aswing.JScrollPane" sup="Container">
 	</Com>
 
 	<Com name="JSeparator" clazz="org.aswing.JSeparator" sup="Component">
@@ -284,6 +284,24 @@
 	</Com>
 
 	<Com name="JList" clazz="org.aswing.JList" sup="Component">
+	</Com>
+	
+	<Com name="JTabbedPane" clazz="org.aswing.JTabbedPane" sup="Container">
+		<Property label="Size" name="Size" type="IntDimension" action="revalidate">
+			<Value value="300,300" ></Value>
+		</Property>
+		<Property label="Tab placement" name="TabPlacement" type="Align">
+		</Property>
+		<Property label="Horizontal alig" name="HorizontalAlignment" type="Align">
+		</Property>
+		<Property label="Vertical alig" name="VerticalAlignment" type="Align">
+		</Property>
+		<Property label="Horizontal text pos" name="HorizontalTextPosition" type="Align">
+		</Property>
+		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align">
+		</Property>
+		<Property label="Icon text gap" name="IconTextGap" type="int">
+		</Property>
 	</Com>
 
 	<Com name="JSpacer" clazz="org.aswing.JSpacer" sup="Component">
