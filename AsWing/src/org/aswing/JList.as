@@ -575,7 +575,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
      * @see #removeSelectionInterval()
      */	
 	public function setSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
-		getSelectionModel().setSelectionInterval(index0, index1);
+		getSelectionModel().setSelectionInterval(index0, index1, programmatic);
 	}
 	
     /** 
@@ -586,7 +586,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
      * @see #removeSelectionInterval()
      */	
 	public function addSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
-		getSelectionModel().addSelectionInterval(index0, index1);
+		getSelectionModel().addSelectionInterval(index0, index1, programmatic);
 	}
 
     /** 
@@ -596,7 +596,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
      * @see ListSelectionModel#removeSelectionInterval()
      */	
 	public function removeSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
-		getSelectionModel().removeSelectionInterval(index0, index1);
+		getSelectionModel().removeSelectionInterval(index0, index1, programmatic);
 	}
 	
 	/**
@@ -606,7 +606,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	 * @see #setSelectionInterval
 	 */
 	public function selectAll(programmatic:Boolean=true):void {
-		setSelectionInterval(0, getModel().getSize()-1);
+		setSelectionInterval(0, getModel().getSize()-1, programmatic);
 	}
 	
 	/**
@@ -720,7 +720,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var size:int = getModel().getSize();
         for(var i:int = 0; i < indices.length; i++) {
 	    	if (indices[i] < size) {
-				sm.addSelectionInterval(indices[i], indices[i]);
+				sm.addSelectionInterval(indices[i], indices[i], programmatic);
 	    	}
         }
 	}
@@ -737,11 +737,11 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		var n:int = model.getSize();
 		for(var i:int=0; i<n; i++){
 			if(model.getElementAt(i) == value){
-				setSelectedIndex(i);
+				setSelectedIndex(i, programmatic);
 				return;
 			}
 		}
-		setSelectedIndex(-1); //there is not this value
+		setSelectedIndex(-1, programmatic); //there is not this value
 	}
 	
 	/**
@@ -761,7 +761,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
         for(var i:int=0; i<values.length; i++) {
         	for(var j:int=0; j<size; j++){
         		if(values[i] == getModel().getElementAt(j)){
-					sm.addSelectionInterval(j, j);
+					sm.addSelectionInterval(j, j, programmatic);
 					break;
         		}
         	}

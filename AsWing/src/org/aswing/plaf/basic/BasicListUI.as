@@ -186,17 +186,17 @@ public class BasicListUI extends BaseComponentUI{
 				if(archor < 0){
 					archor = index;
 				}
-				list.setSelectionInterval(archor, index);
+				list.setSelectionInterval(archor, index, false);
     		}else if(KeyboardManager.getInstance().isKeyDown(getAdditionSelectionKey())){
     		}else{
-		    	list.setSelectionInterval(index, index);
+		    	list.setSelectionInterval(index, index, false);
     		}
     		//this make sure paintFocusedCell rememberd
     		paintCellFocusWithIndex(index);
 		    list.ensureIndexIsVisible(index);
     	}else{
     		if(code == Keyboard.SPACE){
-		    	list.addSelectionInterval(index, index);
+		    	list.addSelectionInterval(index, index, false);
     			//this make sure paintFocusedCell rememberd
     			paintCellFocusWithIndex(index);
 		    	list.ensureIndexIsVisible(index);
@@ -235,7 +235,7 @@ public class BasicListUI extends BaseComponentUI{
 				doSelection();
 			}
 		}else{
-			list.setSelectionInterval(index, index);
+			list.setSelectionInterval(index, index, false);
 		}
     }
     
@@ -246,16 +246,16 @@ public class BasicListUI extends BaseComponentUI{
 			if(archor < 0){
 				archor = index;
 			}
-			list.setSelectionInterval(archor, index);
+			list.setSelectionInterval(archor, index, false);
 		}else if(pressedCtrl){
 			if(!list.isSelectedIndex(index)){
-				list.addSelectionInterval(index, index);
+				list.addSelectionInterval(index, index, false);
 			}else{
-				list.removeSelectionInterval(index, index);
+				list.removeSelectionInterval(index, index, false);
 			}
 		}else{
-			list.setSelectionInterval(index, index);
-		}    	
+			list.setSelectionInterval(index, index, false);
+		}
     }
     
     private function __onItemClick(e:ListItemEvent):void{
