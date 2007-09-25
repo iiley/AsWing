@@ -89,6 +89,8 @@
 	<BaseComponent name="Component" clazz="org.aswing.Component">
 		<Property label="ID" name="id" type="String">
 		</Property>
+		<Property label="Name" name="Name" type="String" action="reAppendToParent">
+		</Property>
 		<Property label="Opaque" name="Opaque" type="Boolean" action="repaint">
 		</Property>
 		<Property label="Enabled" name="Enabled" type="Boolean" action="repaint">
