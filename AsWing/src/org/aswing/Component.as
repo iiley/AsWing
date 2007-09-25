@@ -2066,6 +2066,16 @@ public class Component extends AWSprite{
 	}
 	
 	/**
+	 * Calls parent reAppendChildren if parent is a container.
+	 * @see Container#reAppendChildren()
+	 */
+	public function parentReAppendChildren():void{
+		if(container){
+			container.reAppendChildren();
+		}
+	}
+	
+	/**
 	 * Returns the first <code>JRootPane</code> ancestor of this component.
 	 * @return the <code>JRootPane</code> ancestor, or null if not found.
 	 */
