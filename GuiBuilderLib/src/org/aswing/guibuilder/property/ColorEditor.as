@@ -27,7 +27,7 @@ public class ColorEditor implements PropertyEditor{
 	private var mixerWindow:JFrame;
 	private var mixerButton:JButton;
 	
-	public function ColorEditor(){
+	public function ColorEditor(nonull:String=null){
 		pane = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0, false));
 		colorIcon = new ColorIcon();
 		colorButton = new JButton(null, colorIcon);
@@ -38,6 +38,9 @@ public class ColorEditor implements PropertyEditor{
 		nullRadio.addActionListener(__null);
 		colorButton.addActionListener(__chooseColor);
 		defaultRadio.setSelected(true);
+		if(nonull == "nonull"){
+			nullRadio.setVisible(false);
+		}
 	}
 	
 	private var settingColor:Boolean = false;
