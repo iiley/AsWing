@@ -32,6 +32,9 @@
 	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor">
 	</Type>
 
+	<Type name="Border" editor="org.aswing.guibuilder.property.BorderEditor">
+	</Type>
+
 	<Type name="Constraints" editor="org.aswing.guibuilder.property.ConstraintsEditor">
 	</Type>
 
@@ -39,6 +42,28 @@
 	</Type>
 
 </Types>
+
+<Borders>
+	<Border name="EmptyBorder" clazz="org.aswing.border.EmptyBorder">
+		<Property label="Top" name="Top" type="int">
+		</Property>
+		<Property label="Left" name="Left" type="int">
+		</Property>
+		<Property label="Bottom" name="Bottom" type="int">
+		</Property>
+		<Property label="Right" name="Right" type="int">
+		</Property>
+	</Border>
+	<Border name="LineBorder" clazz="org.aswing.border.LineBorder">
+		<Property label="Color" name="Color" type="Color">
+			<Value value="0,1"/>
+		</Property>
+		<Property label="Thickness" name="Thickness" type="int">
+		</Property>
+		<Property label="Round" name="Round" type="int">
+		</Property>
+	</Border>
+</Borders>
 
 <Layouts>
 	<Layout name="EmptyLayout" clazz="org.aswing.EmptyLayout">
@@ -111,6 +136,8 @@
 		<Property label="Constraints" name="Constraints" type="Constraints" action="parentReAppendChildren">
 		</Property>
 		<Property label="Tooltip" name="ToolTipText" type="String">
+		</Property>
+		<Property label="Border" name="Border" type="Border" action="repaintAndRevalidate">
 		</Property>
 	</BaseComponent>
 	
