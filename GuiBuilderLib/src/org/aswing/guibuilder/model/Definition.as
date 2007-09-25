@@ -23,9 +23,12 @@ public class Definition{
 	private var components:HashMap;
 	private var layouts:HashMap;
 	private var layoutsClassMap:HashMap;
-	private var orderLayouts:Array;
+	private var borders:HashMap;
+	private var bordersClassMap:HashMap;
 	
 	private var orderComponents:Array;
+	private var orderLayouts:Array;
+	private var orderBorders:Array;
 	
 	public function Definition(){
 		if(ins){
@@ -38,6 +41,10 @@ public class Definition{
 		orderLayouts = new Array();
 		layouts = new HashMap();
 		layoutsClassMap = new HashMap();
+		
+		borders = new HashMap();
+		bordersClassMap = new HashMap();
+		orderBorders = new Array();
 	}
 	
 	public function init(xml:XML):void{
@@ -72,6 +79,15 @@ public class Definition{
 			layoutsClassMap.put(lay.getClassName(), lay);
 			orderLayouts.push(lay);
 		}
+		
+		var borxml:* = xml.Borders.Border;
+		for each(var bb:XML in borxml){
+			superName = bb.@sup;
+			var bor:BorderDefinition = new BorderDefinition(bb, getBorderDefinition(superName));
+			borders.put(lay.getName(), bor);
+			bordersClassMap.put(lay.getClassName(), bor);
+			orderBorders.push(bor);
+		}
 	}
 	
 	public function getComDefinition(name:String):ComDefinition{
@@ -90,6 +106,14 @@ public class Definition{
 		return protypes.getValue(type);
 	}
 	
+	public function getBorderDefinitionWithClassName(className:String):BorderDefinition{
+		return bordersClassMap.getValue(className);
+	}	
+	
+	public function getBorderDefinition(type:String):BorderDefinition{
+		return borders.getValue(type);
+	}
+	
 	/**
 	 * Returns ComDefinition[]
 	 */
@@ -102,6 +126,13 @@ public class Definition{
 	 */
 	public function getLayouts():Array{
 		return orderLayouts.concat();
+	}
+	
+	/**
+	 * Returns BorderDefinition[]
+	 */
+	public function getBorders():Array{
+		return orderBorders.concat();
 	}
 }
 }

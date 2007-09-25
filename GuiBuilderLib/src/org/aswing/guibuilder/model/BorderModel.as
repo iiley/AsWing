@@ -1,25 +1,25 @@
 package org.aswing.guibuilder.model{
 
-import org.aswing.util.Vector;
-import org.aswing.*;
+import org.aswing.Border;
+import org.aswing.util.Vector;	
 
 /**
- * Layout Model
+ * Border model
  * @author iiley
  */
-public class LayoutModel implements Model{
+public class BorderModel implements Model{
 	
-	private var def:LayoutDefinition;
+	private var def:BorderDefinition;
 	private var properties:Vector;
-	private var layout:LayoutManager;
+	private var border:Border;
 	
-	public function LayoutModel(def:LayoutDefinition=null){
+	public function BorderModel(def:BorderDefinition=null){
 		if(def != null){
 			init(def);
 		}
 	}
 	
-	private function init(def:LayoutDefinition):void{
+	private function init(def:BorderDefinition):void{
 		this.def = def;
 		properties = new Vector();
 		var pros:Array = def.getProperties();
@@ -28,7 +28,7 @@ public class LayoutModel implements Model{
 		}
 		
 		var clazz:Class = def.getClass();
-		layout = new clazz();
+		border = new clazz();
 		for(i=0; i<properties.size(); i++){
 			var pro:ProModel = properties.get(i);
 			pro.bindTo(this);
@@ -37,7 +37,7 @@ public class LayoutModel implements Model{
 	
 	public function parse(xml:*):void{
 		var name:String = xml.@name;
-		var ldef:LayoutDefinition = Definition.getIns().getLayoutDefinition(name);
+		var ldef:BorderDefinition = Definition.getIns().getBorderDefinition(name);
 		init(ldef);
 		//properties
 		var proxmls:* = xml.Properties.Property;
@@ -51,13 +51,8 @@ public class LayoutModel implements Model{
 	}
 	
 	public function encodeXML():XML{
-		throw new Error("Please use encodeXMLWithLayout method!");
-		return null;
-	}
-	
-	public function encodeXMLWithLayout(ldef:LayoutDefinition, layout:LayoutManager):XML{
-		var xml:XML = <Layout></Layout>;
-		xml.@name = ldef.getName();
+		var xml:XML = <Border></Border>;
+		xml.@name = getName();
 		//properties
 		var proXml:XML = <Properties></Properties>;
 		xml.appendChild(proXml);
@@ -71,7 +66,7 @@ public class LayoutModel implements Model{
 		}
 		return xml;
 	}
-	
+		
 	private function getPropertyModel(name:String):ProModel{
 		var n:int = properties.size();
 		for(var i:int=0; i<n; i++){
@@ -83,11 +78,11 @@ public class LayoutModel implements Model{
 		return null;
 	}	
 	
-	public function getLayout():LayoutManager{
-		return layout;
+	public function getBorder():Border{
+		return border;
 	}
 	
-	public function getDef():LayoutDefinition{
+	public function getDef():BorderDefinition{
 		return def;
 	}
 	
@@ -103,7 +98,7 @@ public class LayoutModel implements Model{
 	}
 	
 	public function captureProperty(name:String):*{
-		var o:Object = getLayout();
+		var o:Object = getBorder();
 		var v:* = undefined;
 		try{
 			v = o["get"+name]();
@@ -116,7 +111,7 @@ public class LayoutModel implements Model{
 	}	
 	
 	public function applyProperty(name:String, value:*, action:String):void{
-		var o:Object = getLayout();
+		var o:Object = getBorder();
 		o["set"+name](value);
 		if(action != null && action != ""){
 			o[action]();

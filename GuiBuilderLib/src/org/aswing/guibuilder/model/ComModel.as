@@ -133,7 +133,9 @@ public class ComModel implements Model{
 		try{
 			v = o["get"+name]();
 		}catch(e:Error){
-			v = o["is"+name]();
+			try{
+				v = o["is"+name]();
+			}catch(e:Error){}
 		}
 		return v;
 	}
