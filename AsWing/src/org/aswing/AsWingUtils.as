@@ -208,6 +208,17 @@ public class AsWingUtils{
     }
     
     /**
+     * Locate the popup at center of the stage.
+     * @param popup the popup to be located.
+     */
+    public static function centerLocate(popup:JPopup):void{
+    	var p:IntPoint = getScreenCenterPosition();
+		p.x = Math.round(p.x - popup.getWidth()/2);
+		p.y = Math.round(p.y - popup.getHeight()/2);
+		popup.setLocation(p);
+    }
+    
+    /**
      * Returns the currently visible maximized bounds in a display object(viewable the stage area).
      * @param dis the display object, default is stage
      */

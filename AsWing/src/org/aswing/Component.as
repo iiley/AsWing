@@ -690,7 +690,7 @@ public class Component extends AWSprite{
         }else if(parent is Component){
         	return Component(parent).getBackground();
         }else{
-        	return null;
+        	return DefaultEmptyDecoraterResource.NULL_COLOR;
         }
 	}
 	
@@ -726,7 +726,7 @@ public class Component extends AWSprite{
         }else if(parent is Component){
         	return Component(parent).getForeground();
         }else{
-        	return null;
+        	return DefaultEmptyDecoraterResource.NULL_COLOR;
         }
 	}
 		

@@ -28,6 +28,32 @@ public class EmptyBorder extends DecorateBorder{
 		}
 	}
 	
+	public function setTop(v:int):void{
+		margin.top = v;
+	}
+	public function setLeft(v:int):void{
+		margin.left = v;
+	}
+	public function setBottom(v:int):void{
+		margin.bottom = v;
+	}
+	public function setRight(v:int):void{
+		margin.right = v;
+	}
+	
+	public function getTop():int{
+		return margin.top;
+	}
+	public function getLeft():int{
+		return margin.left;
+	}
+	public function getBottom():int{
+		return margin.bottom;
+	}
+	public function getRight():int{
+		return margin.right;
+	}
+	
 	public static function createIndent(indent:int):EmptyBorder{
 		return new EmptyBorder(null, new Insets(indent, indent, indent, indent));
 	}
