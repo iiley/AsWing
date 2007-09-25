@@ -41,6 +41,9 @@
 	<Type name="Color" editor="org.aswing.guibuilder.property.ColorEditor">
 	</Type>
 
+	<Type name="Font" editor="org.aswing.guibuilder.property.FontEditor">
+	</Type>
+
 	<Type name="IntEmuEditor" editor="org.aswing.guibuilder.property.IntEmuEditor">
 	</Type>
 
@@ -177,6 +180,8 @@
 		</Property>
 		<Property label="Opaque" name="Opaque" type="Boolean" action="repaint">
 		</Property>
+		<Property label="Font" name="Font" type="Font" action="repaintAndRevalidate">
+		</Property>
 		<Property label="Foreground" name="Foreground" type="Color" action="repaint">
 		</Property>
 		<Property label="Background" name="Background" type="Color" action="repaint">
@@ -215,13 +220,13 @@
 		<Property label="Label" name="Text" type="String" action="revalidate">
 			<Value value="label" ></Value>
 		</Property>
-		<Property label="Horizontal alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only">
+		<Property label="Hor alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only">
 		</Property>
-		<Property label="Vertical alig" name="VerticalAlignment" type="Align" action="revalidate" editorParam="ver-only">
+		<Property label="Ver alig" name="VerticalAlignment" type="Align" action="revalidate" editorParam="ver-only">
 		</Property>
-		<Property label="Horizontal text pos" name="HorizontalTextPosition" type="Align" action="revalidate" editorParam="hor-only">
+		<Property label="Hor text pos" name="HorizontalTextPosition" type="Align" action="revalidate" editorParam="hor-only">
 		</Property>
-		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align" action="revalidate" editorParam="ver-only">
+		<Property label="Ver text pos" name="VerticalTextPosition" type="Align" action="revalidate" editorParam="ver-only">
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int" action="revalidate">
 		</Property>
@@ -380,13 +385,13 @@
 		<Property label="Size" name="Size" type="IntDimension" action="revalidate">
 			<Value value="300,300" ></Value>
 		</Property>
-		<Property label="Horizontal alig" name="HorizontalAlignment" type="Align" editorParam="hor-only">
+		<Property label="Hor alig" name="HorizontalAlignment" type="Align" editorParam="hor-only">
 		</Property>
-		<Property label="Vertical alig" name="VerticalAlignment" type="Align" editorParam="ver-only">
+		<Property label="Ver alig" name="VerticalAlignment" type="Align" editorParam="ver-only">
 		</Property>
-		<Property label="Horizontal text pos" name="HorizontalTextPosition" type="Align" editorParam="hor-only">
+		<Property label="Hor text pos" name="HorizontalTextPosition" type="Align" editorParam="hor-only">
 		</Property>
-		<Property label="Vertical text pos" name="VerticalTextPosition" type="Align" editorParam="ver-only">
+		<Property label="Ver text pos" name="VerticalTextPosition" type="Align" editorParam="ver-only">
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int">
 		</Property>
