@@ -1845,6 +1845,11 @@ public class Component extends AWSprite{
 			RepaintManager.getInstance().addRepaintComponent(this);
 		}
 	}
+	
+	public function repaintAndRevalidate():void{
+		repaint();
+		revalidate();
+	}
 		
 	/**
 	 * Do the process when size changed.
