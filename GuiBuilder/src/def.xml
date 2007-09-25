@@ -35,6 +35,9 @@
 	<Type name="Constraints" editor="org.aswing.guibuilder.property.ConstraintsEditor">
 	</Type>
 
+	<Type name="Color" editor="org.aswing.guibuilder.property.ColorEditor">
+	</Type>
+
 </Types>
 
 <Layouts>
@@ -92,6 +95,10 @@
 		<Property label="Name" name="Name" type="String" action="reAppendToParent">
 		</Property>
 		<Property label="Opaque" name="Opaque" type="Boolean" action="repaint">
+		</Property>
+		<Property label="Foreground" name="Foreground" type="Color" action="repaint">
+		</Property>
+		<Property label="Background" name="Background" type="Color" action="repaint">
 		</Property>
 		<Property label="Enabled" name="Enabled" type="Boolean" action="repaint">
 		</Property>
