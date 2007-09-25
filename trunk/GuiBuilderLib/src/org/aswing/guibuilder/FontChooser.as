@@ -3,7 +3,9 @@ package org.aswing.guibuilder{
 import org.aswing.*;
 import flash.events.Event;
 import org.aswing.guibuilder.util.MathUtils;
-import flash.text.Font;	
+import flash.text.Font;
+import org.aswing.border.TitledBorder;
+import org.aswing.border.EmptyBorder;	
 
 public class FontChooser{
 	
@@ -23,6 +25,7 @@ public class FontChooser{
 	private var underlineCheck:JCheckBox;
 	private var embedCheck:JCheckBox;
 	
+	private var previewLabel:JLabel;
 	private var okButton:JButton;
 	private var cancelButton:JButton;
 	private var dialog:JFrame;
@@ -42,7 +45,7 @@ public class FontChooser{
 		}
 		
 		nameCombo = new JComboBox(fontNames);
-		nameCombo.setPreferredWidth(120);
+		nameCombo.setPreferredWidth(200);
 		nameCombo.setEditable(true);
 		
 		sizeCombo = new JComboBox([8, 9, 10, 11, 12, 14, 16, 24, 32, 48, 64]);
@@ -58,12 +61,16 @@ public class FontChooser{
 		underlineCheck.setFont(underlineCheck.getFont().changeUnderline(true));
 		embedCheck = new JCheckBox("Embed");
 		
+		previewLabel = new JLabel("Preview");
+		previewLabel.setBorder(new TitledBorder(new EmptyBorder(null, new Insets(10, 10, 10, 10)), "Preview"));
+		
 		okButton = new JButton("OK");
 		cancelButton = new JButton("Cancel");
 		
 		var pane:JPanel = new JPanel(new BorderLayout());
 		var center:JPanel = new JPanel();
-		center.appendAll(nameCombo, sizeCombo, boldCheck, italicCheck, underlineCheck, embedCheck);
+		center.appendAll(nameCombo, sizeCombo, boldCheck, 
+			italicCheck, underlineCheck, embedCheck, previewLabel);
 		var bottom:JPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10));
 		bottom.appendAll(okButton, cancelButton);
 		pane.append(center, BorderLayout.CENTER);
@@ -71,19 +78,36 @@ public class FontChooser{
 		
 		dialog = new JFrame(null, "Font Chooser", true);
 		dialog.setContentPane(pane);
-		dialog.setSizeWH(400, 300);
+		dialog.setSizeWH(300, 300);
 		AsWingUtils.centerLocate(dialog);
 		
 		okButton.addActionListener(__ok);
 		cancelButton.addActionListener(__cancel);
+		
+		boldCheck.addActionListener(__refreshReview);
+		italicCheck.addActionListener(__refreshReview);
+		underlineCheck.addActionListener(__refreshReview);
+		embedCheck.addActionListener(__refreshReview);
+		sizeCombo.addActionListener(__refreshReview);
+		nameCombo.addActionListener(__refreshReview);
+	}
+	
+	private function __refreshReview(e:Event):void{
+		var f:ASFont = getFont();
+		previewLabel.setText(f.getName());
+		previewLabel.setFont(f);
 	}
 	
 	private function __ok(e:Event):void{
 		dialog.dispose();
+		handler(getFont());
+	}
+	
+	private function getFont():ASFont{
 		var name:String = nameCombo.getSelectedItem();
 		var size:int = MathUtils.parseInteger(sizeCombo.getSelectedItem());
-		handler(new ASFont(name, size, boldCheck.isSelected(), 
-			italicCheck.isSelected(), underlineCheck.isSelected(), embedCheck.isSelected()));
+		return new ASFont(name, size, boldCheck.isSelected(), 
+			italicCheck.isSelected(), underlineCheck.isSelected(), embedCheck.isSelected());
 	}
 	
 	private function __cancel(e:Event):void{
@@ -102,6 +126,7 @@ public class FontChooser{
 			italicCheck.setSelected(f.isItalic());
 			underlineCheck.setSelected(f.isUnderline());
 			embedCheck.setSelected(f.isEmbedFonts());
+			__refreshReview(null);
 		}
 		dialog.show();
 	}
