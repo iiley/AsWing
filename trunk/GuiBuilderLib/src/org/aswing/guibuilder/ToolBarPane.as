@@ -9,24 +9,16 @@ import org.aswing.JSeparator;
 
 public class ToolBarPane extends JToolBar{
 	
-	private var newPanelButton:JButton;
 	private var openButton:JButton;
 	private var saveButton:JButton;
 	
 	public function ToolBarPane(){
 		super(JToolBar.HORIZONTAL);
 		
-		newPanelButton = new JButton("New Pane");
 		openButton = new JButton("Open");
 		saveButton = new JButton("Save");
 		
-		append(newPanelButton);
-		append(new JSeparator(JSeparator.VERTICAL));
 		appendAll(openButton, saveButton);
-	}
-	
-	public function getNewPanelButton():JButton{
-		return newPanelButton;
 	}
 	
 	public function getOpenButton():JButton{
