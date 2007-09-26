@@ -425,7 +425,9 @@ public class JViewport extends Container implements Viewportable{
 		restrictionViewPos(p);
 		if(!p.equals(getViewPosition())){
 			var ir:IntRectangle = getInsets().getInsideBounds(getSize().getBounds());
-			view.setLocationXY(ir.x-p.x, ir.y-p.y);
+			if(view){
+				view.setLocationXY(ir.x-p.x, ir.y-p.y);
+			}
 			fireStateChanged(programmatic);
 		}
 	}
