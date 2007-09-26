@@ -23,11 +23,17 @@ public class HiberarchyPane extends JPanel{
 		//creating
 		tree = new JTree();
 		addButton = new JButton("Add com");
+		addButton.setToolTipText("Add a component");
 		removeButton = new JButton("Remove me");
+		removeButton.setToolTipText("Remove selected component");
 		upButton = new JButton("↑");
+		upButton.setToolTipText("Move up");
 		downButton = new JButton("↓");
+		downButton.setToolTipText("Move down");
 		leftButton = new JButton("←");
+		leftButton.setToolTipText("Move to parent's parent");
 		rightButton = new JButton("→");
+		rightButton.setToolTipText("Move to first container brother");
 		
 		//layouting
 		setLayout(new BorderLayout());

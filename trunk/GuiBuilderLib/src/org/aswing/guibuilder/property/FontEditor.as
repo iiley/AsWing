@@ -108,8 +108,8 @@ public class FontEditor implements PropertyEditor{
 		if(font == null){
 			return "null";
 		}
-		return "new ASFont(" + font.getName()
-				+ ", " + font.getSize() 
+		return "new ASFont(\"" + font.getName()
+				+ "\", " + font.getSize() 
 				+ ", " + font.isBold() 
 				+ ", " + font.isItalic() 
 				+ ", " + font.isUnderline()
