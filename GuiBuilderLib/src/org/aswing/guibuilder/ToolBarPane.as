@@ -18,9 +18,13 @@ public class ToolBarPane extends JToolBar{
 		super(JToolBar.HORIZONTAL);
 		
 		openButton = new JButton("Open");
+		openButton.setToolTipText("Open a exists ui file.");
 		saveButton = new JButton("Save");
+		saveButton.setToolTipText("Save to the folder where GuiBuilder is installed.");
 		closeButton = new JButton("Close");
+		closeButton.setToolTipText("Close present file.");
 		generateCodeButton = new JButton("Generate AS Code");
+		generateCodeButton.setToolTipText("Generate present ui to ActionScript class.");
 		
 		appendAll(openButton, saveButton, closeButton, generateCodeButton);
 	}
