@@ -406,8 +406,8 @@ public class JViewport extends Container implements Viewportable{
 	}
 	
 	/**
-	 * Returns the view's position, if there is not any view, return null.
-	 * @return the view's position, null if view is null.
+	 * Returns the view's position, if there is not any view, return (0,0).
+	 * @return the view's position, (0,0) if view is null.
 	 */
 	public function getViewPosition() : IntPoint {
 		if(view != null){
@@ -417,7 +417,7 @@ public class JViewport extends Container implements Viewportable{
 			p.y = ir.y - p.y;
 			return p;
 		}else{
-			return null;
+			return new IntPoint(0, 0);
 		}
 	}
 
