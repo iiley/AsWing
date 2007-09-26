@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <actionScriptProperties mainApplicationPath="GuiBuilder.as" version="3">
-  <compiler additionalCompilerArguments="-include-libraries E:\workspace\GuiBuilderLib\bin\GuiBuilderLib.swc" copyDependentFiles="true" enableModuleDebug="true" flexSDK="Flex Moxie M2" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersion="9.0.28" htmlPlayerVersionCheck="true" outputFolderPath="bin" sourceFolderPath="src" strict="true" useApolloConfig="true" verifyDigests="true" warn="true">
+  <compiler additionalCompilerArguments="-include-libraries E:\workspace\GuiBuilderLib\bin\GuiBuilderLib.swc E:\workspace\AsWingA3\bin\AsWingA3.swc" copyDependentFiles="true" enableModuleDebug="true" flexSDK="Flex Moxie M2" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersion="9.0.28" htmlPlayerVersionCheck="true" outputFolderPath="bin" sourceFolderPath="src" strict="true" useApolloConfig="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
       <libraryPathEntry kind="4" path=""/>
