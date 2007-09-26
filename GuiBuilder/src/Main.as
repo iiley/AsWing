@@ -39,6 +39,7 @@ import org.aswing.tree.DefaultTreeModel;
 import org.aswing.tree.DefaultMutableTreeNode;
 import org.aswing.tree.TreeModel;
 import flash.system.fscommand;
+import org.aswing.guibuilder.code.CodeGenerator;
 
 public class Main extends JWindow{
 	
@@ -176,7 +177,11 @@ public class Main extends JWindow{
 	
 	private function __generateCode(e:Event):void{
 		if(curFile != null){
-			fscommand("exec", " " + curFile.getFilePath());
+			var generator:CodeGenerator = new CodeGenerator(curFile);
+			var code:String = generator.generateCode();
+			CodeWindow.getIns().showCode(
+				curFile.getPackageName() + "." + curFile.getName(), 
+				code);
 		}
 	}
 	
