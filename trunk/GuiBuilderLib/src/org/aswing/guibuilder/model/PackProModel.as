@@ -47,5 +47,13 @@ public class PackProModel extends ProModel{
 	override public function getEditor():PropertyEditor{
 		return peditor;
 	}
+	
+	override public function isSimpleOneLine():String{
+		return null;
+	}
+	
+	override public function getCodeLines():Array{
+		return null;
+	}
 }
 }

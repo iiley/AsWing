@@ -65,6 +65,7 @@ public class ProModel{
 		}
 		var xml:XML = <Property></Property>;
 		xml.@name = getName();
+		xml.@type = def.getName();
 		xml.appendChild(editor.encodeValue(value));
 		return xml;
 	}
@@ -77,7 +78,10 @@ public class ProModel{
 	 * ]
 	 */
 	public function getCodeLines():Array{
-		return null;
+		if(noneValue){
+			return null;
+		}
+		return editor.getCodeLines();
 	}
 	
 	/**
@@ -85,7 +89,10 @@ public class ProModel{
 	 * If just one string can't, return null, then getCodeLines will be called.
 	 */
 	public function isSimpleOneLine():String{
-		return null;
+		if(noneValue){
+			return null;
+		}
+		return editor.isSimpleOneLine();
 	}
 	
 	public function getLabel():String{

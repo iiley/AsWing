@@ -39,6 +39,13 @@ public class PackEditor implements PropertyEditor{
 	public function encodeValue(value:*):XML{
 		return null;
 	}
+
+	public function getCodeLines():Array{
+		return null;
+	}
 	
+	public function isSimpleOneLine():String{
+		return null;
+	}
 }
 }

@@ -1,7 +1,8 @@
 package org.aswing.guibuilder.code{
 	
 import org.aswing.guibuilder.model.FileModel;
-import org.aswing.guibuilder.model.ComModel;	
+import org.aswing.guibuilder.model.ComModel;
+import org.aswing.guibuilder.model.ProModel;	
 
 public class CodeGenerator{
 	
@@ -90,20 +91,22 @@ public class CodeGenerator{
 	}
 	
 	private function addComponentsLayoution():void{
+		addComponentChildrenAdding("", file.getRootComponent());
 		for each(var c:ComModel in allMemberComs){
-			addComponentChildrenAdding(c);
-			line();
+			addComponentChildrenAdding(c.getID(), c);
 		}
 	}
 	
-	private function addComponentChildrenAdding(c:ComModel):void{
+	private function addComponentChildrenAdding(id:String, c:ComModel):void{
+		var appendStr:String = (id == "" ? "append(" : (id+".append("));
 		var n:int = c.getChildCount();
 		if(n > 0){
 			var id:String = c.getID();
 			for(var i:int=0; i<n; i++){
 				var ch:ComModel = c.getChild(i);
-				line(id + ".append(" + ch.getID() + ")");
+				line(appendStr + ch.getID() + ")");
 			}
+			line();
 		}
 	}
 	
@@ -121,11 +124,13 @@ public class CodeGenerator{
 				line(setStr + pro.getName() + "(" + simple + ");");
 			}else{
 				var proCodeLines:Array = pro.getCodeLines();
-				var n:int = proCodeLines.length - 1;
-				for(var i:int=0; i<n; i++){
-					line(proCodeLines[i]);
+				if(proCodeLines != null){
+					var n:int = proCodeLines.length - 1;
+					for(var i:int=0; i<n; i++){
+						line(proCodeLines[i]);
+					}
+					line(setStr + pro.getName() + "(" + proCodeLines[n] + ");");
 				}
-				line(setStr + pro.getName() + "(" + proCodeLines[n] + ");");
 			}
 		}
 	}
@@ -168,9 +173,9 @@ public class CodeGenerator{
 	}
 	
 	private function lineDrop(str:String=""):void{
-		line(str);
 		indent--;
 		if(indent < 0) indent=0;
+		line(str);
 	}
 }
 }
