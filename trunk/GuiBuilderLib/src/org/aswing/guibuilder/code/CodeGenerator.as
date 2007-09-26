@@ -47,6 +47,7 @@ public class CodeGenerator{
 	private function addImports():void{
 		line("import org.aswing.*;");
 		line("import org.aswing.border.*;");
+		line("import org.aswing.geom.*;");
 	}
 	
 	private function addClass():void{

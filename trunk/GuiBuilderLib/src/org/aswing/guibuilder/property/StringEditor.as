@@ -10,8 +10,10 @@ import org.aswing.guibuilder.model.ProModel;
 public class StringEditor implements PropertyEditor{
 	
 	private var text:JTextField;
+	private var editorParam:String;
 	
-	public function StringEditor(){
+	public function StringEditor(param:String=null){
+		editorParam = param;
 		text = new JTextField("", 8);
 		text.addActionListener(__apply);
 		text.addEventListener(AWEvent.FOCUS_LOST, __apply);
@@ -38,6 +40,9 @@ public class StringEditor implements PropertyEditor{
 	}
 	
 	public function isSimpleOneLine():String{
+		if(editorParam == "no-generate-code"){
+			return null;
+		}
 		return "\"" + text.getText() + "\"";
 	}
 	
