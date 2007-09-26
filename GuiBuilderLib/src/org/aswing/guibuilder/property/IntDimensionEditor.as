@@ -44,7 +44,16 @@ public class IntDimensionEditor implements PropertyEditor{
 		var xml:XML = <Value></Value>;
 		xml.@value = widthInput.getInputInt() + "," + heightInput.getInputInt();
 		return xml;
-	}	
+	}
+
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		return "new IntDimension(" + widthInput.getInputInt() 
+				+ ", " + heightInput.getInputInt() + ")";
+	}
 	
 	public function getDisplay():Component{
 		return pane;

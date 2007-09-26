@@ -100,6 +100,23 @@ public class FontEditor implements PropertyEditor{
 		return xml;
 	}
 	
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		if(font == null){
+			return "null";
+		}
+		return "new ASFont(" + font.getName()
+				+ ", " + font.getSize() 
+				+ ", " + font.isBold() 
+				+ ", " + font.isItalic() 
+				+ ", " + font.isUnderline()
+				+ ", " + font.isEmbedFonts()
+				 + ")";
+	}		
+	
 	protected var apply:Function;
 	public function setApplyFunction(apply:Function):void{
 		this.apply = apply;

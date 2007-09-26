@@ -36,6 +36,14 @@ public class ConstraintsEditor implements PropertyEditor{
 		return xml;
 	}
 	
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		return combo.getSelectedItem()+"";
+	}	
+	
 	protected var apply:Function;
 	public function setApplyFunction(apply:Function):void{
 		this.apply = apply;

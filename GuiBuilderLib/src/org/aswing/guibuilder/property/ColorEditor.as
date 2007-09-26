@@ -174,6 +174,16 @@ public class ColorEditor implements PropertyEditor{
 		return xml;
 	}
 	
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		if(color == null){
+			return "null";
+		}
+		return "new ASColor(0x" + color.getRGB().toString(16) + ", " + color.getAlpha() + ")";
+	}
 }
 }
 

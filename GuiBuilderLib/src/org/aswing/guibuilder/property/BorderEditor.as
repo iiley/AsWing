@@ -7,6 +7,7 @@ import org.aswing.guibuilder.property.*;
 import flash.events.Event;
 import flash.utils.getQualifiedClassName;
 import org.aswing.guibuilder.BorderChooser;
+import org.aswing.guibuilder.code.CodeGenerator;
 
 public class BorderEditor implements PropertyEditor{
 	
@@ -92,6 +93,36 @@ public class BorderEditor implements PropertyEditor{
 		}
 		xml.appendChild(model.encodeXML());
 		return xml;
+	}
+		
+	public function getCodeLines():Array{
+		CodeGenerator.border_id_counter++;
+		var id:String = "border" + CodeGenerator.border_id_counter;
+		var clazz:String = borderModel.getDef().getShortClassName();
+		var arr:Array = [];
+		arr.push("var " + id + ":" + clazz + " = new " + clazz + "();");
+		var pros:Array = borderModel.getProperties();
+		for each(var pro:ProModel in pros){
+			var simple:String = pro.isSimpleOneLine();
+			if(simple != null){
+				arr.push(id + ".set" + pro.getName() + "(" + simple + ");");
+			}else{
+				var proCodeLines:Array = pro.getCodeLines();
+				var n:int = proCodeLines.length - 1;
+				for(var i:int=0; i<n; i++){
+					arr.push(proCodeLines[i]);
+				}
+				arr.push(id + ".set" + pro.getName() + "(" + proCodeLines[n] + ");");
+			}
+		}
+		return arr;
+	}
+	
+	public function isSimpleOneLine():String{
+		if(borderModel == null){
+			return "null";
+		}
+		return null;
 	}
 	
 	protected var apply:Function;
