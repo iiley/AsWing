@@ -54,6 +54,7 @@ public class JSlider extends Component implements Orientable{
 	 */
 	public function JSlider(orientation:int=AsWingConstants.HORIZONTAL, min:int=0, max:int=100, value:int=50){
 		super();
+		setName("JSlider");
 		isInverted = false;
 		majorTickSpacing = 0;
 		minorTickSpacing = 0;
