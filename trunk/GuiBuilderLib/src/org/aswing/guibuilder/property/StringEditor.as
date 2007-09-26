@@ -13,7 +13,6 @@ public class StringEditor implements PropertyEditor{
 	
 	public function StringEditor(){
 		text = new JTextField("", 8);
-		text.setMaxChars(32);
 		text.addActionListener(__apply);
 		text.addEventListener(AWEvent.FOCUS_LOST, __apply);
 	}
