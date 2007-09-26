@@ -11,14 +11,18 @@ public class ToolBarPane extends JToolBar{
 	
 	private var openButton:JButton;
 	private var saveButton:JButton;
+	private var closeButton:JButton;
+	private var generateCodeButton:JButton;
 	
 	public function ToolBarPane(){
 		super(JToolBar.HORIZONTAL);
 		
 		openButton = new JButton("Open");
 		saveButton = new JButton("Save");
+		closeButton = new JButton("Close");
+		generateCodeButton = new JButton("Generate AS Code");
 		
-		appendAll(openButton, saveButton);
+		appendAll(openButton, saveButton, closeButton, generateCodeButton);
 	}
 	
 	public function getOpenButton():JButton{
@@ -27,6 +31,14 @@ public class ToolBarPane extends JToolBar{
 	
 	public function getSaveButton():JButton{
 		return saveButton;
+	}
+	
+	public function getCloseButton():JButton{
+		return closeButton;
+	}
+	
+	public function getGenerateCodeButton():JButton{
+		return generateCodeButton;
 	}
 }
 }
