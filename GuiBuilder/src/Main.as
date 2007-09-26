@@ -140,13 +140,37 @@ public class Main extends JWindow{
 		ClassNameChooser.getIns().open(__newComSelected);
 	}
 	
+	private var cacheClassName:String;
+	private var cachePkgName:String;
 	private function __newComSelected(className:String, pkgName:String):void{
 		if(isFileExists(className, pkgName)){
 			JOptionPane.showMessageDialog("Error", "The name is already exists!", null, this);
 			return;
 		}
+		var path:String = getXMLSavePath(className, pkgName);
+		var file:File = new File(path);
+		if(file.exists){
+			cacheClassName = className;
+			cachePkgName = pkgName;
+			JOptionPane.showMessageDialog(
+				"Warnning", 
+				"Same name file is already exists! Override it?", 
+				__override, this, true, null, 
+				JOptionPane.YES|JOptionPane.CANCEL);
+			return;
+		}
+		createNewFile(className, pkgName);
+	}
+	
+	private function createNewFile(className:String, pkgName:String):void{
 		files.append(new FileModel(new ComModel(curCreateComDef), className, pkgName), 0);
 		setCurrentFile(files.first());
+	}
+	
+	private function __override(result:int):void{
+		if(result == JOptionPane.YES){
+			createNewFile(cacheClassName, cachePkgName);
+		}
 	}
 	
 	private function initHandlers():void{
@@ -185,11 +209,16 @@ public class Main extends JWindow{
 		}
 	}
 	
+	private function getXMLSavePath(className:String, pkgName:String):String{
+		var pkg:String = pkgName.split(".").join("/");
+		return workspacePath + pkg + "/" + className + ".xml";
+	}
+	
 	private function __save(e:Event):void{
 		if(curFile != null){
 			var path:String = curFile.getFilePath();
 			if(path == null){
-				path = workspacePath + generatPath(curFile) + ".xml";
+				path = getXMLSavePath(curFile.getName(), curFile.getPackageName());
 				curFile.setFilePath(path);
 			}
 			var saveFile:File = new File(path);
@@ -203,11 +232,6 @@ public class Main extends JWindow{
 			stream.writeUTFBytes(xml.toXMLString());
 			stream.close();
 		}
-	}
-	
-	private function generatPath(fm:FileModel):String{
-		var pkg:String = fm.getPackageName().split(".").join("/");
-		return pkg + "/" + fm.getName();
 	}
 	
 	private var openFile:File;
