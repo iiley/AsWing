@@ -76,13 +76,16 @@ public class LayoutEditor implements PropertyEditor{
 				arr.push(id + ".set" + pro.getName() + "(" + simple + ");");
 			}else{
 				var proCodeLines:Array = pro.getCodeLines();
-				var n:int = proCodeLines.length - 1;
-				for(var i:int=0; i<n; i++){
-					arr.push(proCodeLines[i]);
+				if(proCodeLines != null){
+					var n:int = proCodeLines.length - 1;
+					for(var i:int=0; i<n; i++){
+						arr.push(proCodeLines[i]);
+					}
+					arr.push(id + ".set" + pro.getName() + "(" + proCodeLines[n] + ");");
 				}
-				arr.push(id + ".set" + pro.getName() + "(" + proCodeLines[n] + ");");
 			}
 		}
+		arr.push(id);
 		return arr;
 	}
 	

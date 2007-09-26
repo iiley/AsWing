@@ -38,7 +38,7 @@ public class StringEditor implements PropertyEditor{
 	}
 	
 	public function isSimpleOneLine():String{
-		return text.getText();
+		return "\"" + text.getText() + "\"";
 	}
 	
 	public function getDisplay():Component{
