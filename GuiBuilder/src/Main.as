@@ -35,6 +35,10 @@ import org.aswing.JMenuItem;
 import org.aswing.JSeparator;
 import org.aswing.border.EmptyBorder;
 import org.aswing.Insets;
+import org.aswing.tree.DefaultTreeModel;
+import org.aswing.tree.DefaultMutableTreeNode;
+import org.aswing.tree.TreeModel;
+import flash.system.fscommand;
 
 public class Main extends JWindow{
 	
@@ -46,6 +50,8 @@ public class Main extends JWindow{
 	private var propertyPane:PropertyPane;
 	private var componentMenu:ComponentMenu;
 	
+	private var emptyTreeModel:TreeModel;
+	
 	private var files:VectorListModel;
 	private var curFile:FileModel;
 	private var curCom:ComModel;
@@ -55,6 +61,7 @@ public class Main extends JWindow{
 		super(owner, false);
 		AsWingManager.setRoot(this);
 		
+		emptyTreeModel = new DefaultTreeModel(new DefaultMutableTreeNode("Empty"));
 		files = new VectorListModel();
 		
 		preview = new Sprite();
@@ -144,6 +151,8 @@ public class Main extends JWindow{
 	private function initHandlers():void{
 		toolBarPane.getSaveButton().addActionListener(__save);
 		toolBarPane.getOpenButton().addActionListener(__open);
+		toolBarPane.getCloseButton().addActionListener(__close);
+		toolBarPane.getGenerateCodeButton().addActionListener(__generateCode);
 		filePane.getList().addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __fileSelection);
 		hiberarchyPane.getAddButton().addActionListener(__addChildCom);
 		hiberarchyPane.getRemoveButton().addActionListener(__removeChildCom);
@@ -152,6 +161,23 @@ public class Main extends JWindow{
 		hiberarchyPane.getLeftButton().addActionListener(__leftChildCom);
 		hiberarchyPane.getRightButton().addActionListener(__rightChildCom);
 		componentMenu.setItemSelectionHandler(__addChildComSelected);
+		
+		hiberarchyPane.getTree().setModel(emptyTreeModel);
+		toolBarPane.getCloseButton().setEnabled(false);
+		toolBarPane.getGenerateCodeButton().setEnabled(false);
+	}
+	
+	private function __close(e:Event):void{
+		if(curFile != null){
+			files.remove(curFile);
+			setCurrentFile(null);
+		}
+	}
+	
+	private function __generateCode(e:Event):void{
+		if(curFile != null){
+			fscommand("exec", " " + curFile.getFilePath());
+		}
 	}
 	
 	private function __save(e:Event):void{
@@ -269,7 +295,11 @@ public class Main extends JWindow{
 	}
 	
 	private function __comSelection(e:TreeSelectionEvent):void{
-		setCurrentCom(e.getPath().getLastPathComponent());
+		if(hiberarchyPane.getTree().getSelectionPath() != null){
+			setCurrentCom(hiberarchyPane.getTree().getSelectionPath().getLastPathComponent());
+		}else{
+			setCurrentCom(null);
+		}
 	}
 		
 	private function isFileExists(name:String, pkg:String):Boolean{
@@ -287,17 +317,23 @@ public class Main extends JWindow{
 	}
 	
 	private function setCurrentFile(file:FileModel):void{
+		toolBarPane.getCloseButton().setEnabled(file != null);
+		toolBarPane.getSaveButton().setEnabled(file != null);
+		toolBarPane.getGenerateCodeButton().setEnabled(file != null);
 		if(curFile != file){
 			curFile = file;
 			filePane.getList().setSelectedValue(file);
-			hiberarchyPane.getTree().setModel(file);
 			if(preview.numChildren > 0){
 				preview.removeChildAt(0);
 			}
-			preview.addChild(file.getDisplay());
-			file.revalidate();
+			if(file != null){
+				hiberarchyPane.getTree().setModel(file);
+				preview.addChild(file.getDisplay());
+				file.revalidate();
+			}else{
+				hiberarchyPane.getTree().setModel(emptyTreeModel);
+			}
 			setCurrentCom(null);
-			toolBarPane.getSaveButton().setEnabled(file != null);
 			if(file != null){
 				hiberarchyPane.getTree().addEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
 				hiberarchyPane.getTree().setSelectionRow(0);
