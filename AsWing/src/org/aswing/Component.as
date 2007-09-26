@@ -654,7 +654,7 @@ public class Component extends AWSprite{
         }else if(parent is Component){
         	return Component(parent).getFont();
         }else{
-        	return null;
+        	return DefaultEmptyDecoraterResource.NULL_FONT;
         }
 	}
 	
