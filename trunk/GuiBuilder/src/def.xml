@@ -174,7 +174,7 @@
 
 <Components>
 	<BaseComponent name="Component" clazz="org.aswing.Component">
-		<Property label="ID" name="id" type="String">
+		<Property label="ID" name="id" type="String" editorParam="no-generate-code">
 		</Property>
 		<Property label="Name" name="Name" type="String" action="reAppendToParent">
 		</Property>
