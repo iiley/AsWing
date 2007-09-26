@@ -32,6 +32,14 @@ public class AbsComboIntEditor implements PropertyEditor{
 		return xml;
 	}
 	
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		return combo.getSelectedIndex()+"";
+	}
+	
 	public function getDisplay():Component{
 		return combo;
 	}

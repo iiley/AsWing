@@ -37,6 +37,14 @@ public class BooleanEditor implements PropertyEditor{
 		return xml;
 	}
 	
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		return (combo.getSelectedIndex() == 1)+"";
+	}
+	
 	public function getDisplay():Component{
 		return combo;
 	}

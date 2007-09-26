@@ -17,5 +17,9 @@ public interface PropertyEditor{
 	function parseValue(xml:XML):*;
 	
 	function encodeValue(value:*):XML;
+	
+	function getCodeLines():Array;
+	
+	function isSimpleOneLine():String;
 }
 }

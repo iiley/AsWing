@@ -12,6 +12,7 @@ public class AbsAggDefinition{
 	protected var xml:*;
 	protected var name:String;
 	protected var className:String;
+	protected var shortClassName:String;
 	protected var clazz:Class;
 	protected var superDef:AbsAggDefinition;
 	protected var properties:Vector;
@@ -22,7 +23,8 @@ public class AbsAggDefinition{
 		name = xml.@name;
 		className = xml.@clazz;
 		clazz = Reflection.getClass(className);
-		
+		var strs:Array = className.split(".");
+		shortClassName = strs[strs.length-1];
 		properties = new Vector();
 		if(superDef){
 			properties.appendAll(superDef.getProperties());
@@ -50,6 +52,10 @@ public class AbsAggDefinition{
 	
 	public function getClassName():String{
 		return className;
+	}
+	
+	public function getShortClassName():String{
+		return shortClassName;
 	}
 	
 	public function getSuperDefinition():AbsAggDefinition{

@@ -33,6 +33,14 @@ public class StringEditor implements PropertyEditor{
 		return xml;
 	}
 	
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		return text.getText();
+	}
+	
 	public function getDisplay():Component{
 		return text;
 	}

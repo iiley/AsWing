@@ -69,6 +69,25 @@ public class ProModel{
 		return xml;
 	}
 	
+	/**
+	 * (0, n-2) line are the property creation, last line is the property name, for example:
+	 * [ "var border3:LineBorder = new LineBorder();", 
+	 *   "border3.setThickness(4);", 
+	 *   "border3"
+	 * ]
+	 */
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	/**
+	 * Just one string to represent the value, for example "new ASColor(0xff0000, 1)";
+	 * If just one string can't, return null, then getCodeLines will be called.
+	 */
+	public function isSimpleOneLine():String{
+		return null;
+	}
+	
 	public function getLabel():String{
 		return def.getLabel();
 	}

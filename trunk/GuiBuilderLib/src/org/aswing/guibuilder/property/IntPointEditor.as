@@ -49,6 +49,14 @@ public class IntPointEditor implements PropertyEditor{
 		xml.@value = xInput.getInputInt()+","+yInput.getInputInt();
 		return xml;
 	}
+
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		return "new IntPoint(" + xInput.getInputInt() + ", " + yInput.getInputInt()+")";
+	}
 	
 	protected var apply:Function;
 	public function setApplyFunction(apply:Function):void{

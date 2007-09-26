@@ -37,6 +37,14 @@ public class IntEditor implements PropertyEditor{
 		xml.@value = text.getInputInt();
 		return xml;
 	}
+
+	public function getCodeLines():Array{
+		return null;
+	}
+	
+	public function isSimpleOneLine():String{
+		return text.getInputInt()+"";
+	}
 	
 	protected var apply:Function;
 	public function setApplyFunction(apply:Function):void{

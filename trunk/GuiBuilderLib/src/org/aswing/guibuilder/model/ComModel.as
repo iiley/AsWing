@@ -51,6 +51,18 @@ public class ComModel implements Model{
 		initProModels();
 	}
 	
+	public function getDefinition():ComDefinition{
+		return def;
+	}
+	
+	public function getScope():String{
+		return "private";
+	}
+	
+	public function getID():String{
+		return id;
+	}
+	
 	/**
 	 * handler(this)
 	 */
