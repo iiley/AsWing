@@ -81,14 +81,14 @@
         must be included in the AIR package.
     -->
 	
-	<!--
+	
         <icon>
-            <image16x16>icons/AIRApp_16.png</image16x16>     
-            <image32x32>icons/AIRApp_32.png</image32x32>   
-            <image48x48>icons/AIRApp_48.png</image48x48>    
-            <image128x128>icons/AIRApp_128.png</image128x128>
+            <image16x16>icons/app_16.png</image16x16>     
+            <image32x32>icons/app_32.png</image32x32>   
+            <image48x48>icons/app_48.png</image48x48>    
+            <image128x128>icons/app_128.png</image128x128>
         </icon>
-    -->
+    
 	
     <!-- 
         If the handleUpdates element is present in the application descriptor, 
