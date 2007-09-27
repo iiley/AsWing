@@ -301,7 +301,7 @@
 		</Property>
 	</Com>
 
-	<Com name="MultilineLabel" clazz="org.aswing.JLabel" sup="JTextArea">
+	<Com name="MultilineLabel" clazz="org.aswing.ext.MultilineLabel" sup="JTextArea">
 	</Com>
 	
 	<Com name="JAdjuster" clazz="org.aswing.JAdjuster" sup="Component">
