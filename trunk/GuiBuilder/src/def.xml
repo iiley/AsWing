@@ -241,6 +241,26 @@
 		</Property>
 	</Com>
 
+	<Com name="JLabelButton" clazz="org.aswing.JLabelButton" sup="JButton">
+	</Com>
+
+	<Com name="JToggleButton" clazz="org.aswing.JToggleButton" sup="JButton">
+		<Property label="Selected" name="Selected" type="Boolean" action="repaint">
+		</Property>
+	</Com>
+	<Com name="JCheckBox" clazz="org.aswing.JCheckBox" sup="JToggleButton">
+	</Com>
+	<Com name="JRadioButton" clazz="org.aswing.JRadioButton" sup="JToggleButton">
+	</Com>
+
+	<Com name="JComboBox" clazz="org.aswing.JComboBox" sup="Component">
+		<Property label="Editable" name="Editable" type="Boolean" action="repaint">
+		</Property>
+		<Property label="MaximumRowCount" name="MaximumRowCount" type="int">
+			<Value value="7"></Value>
+		</Property>
+	</Com>
+
 	<Com name="JTextField" clazz="org.aswing.JTextField" sup="Component">
 		<Property label="Columns" name="Columns" type="int" action="revalidate">
 		</Property>
@@ -281,16 +301,7 @@
 		</Property>
 	</Com>
 
-	<Com name="JLabelButton" clazz="org.aswing.JLabelButton" sup="JButton">
-	</Com>
-
-	<Com name="JToggleButton" clazz="org.aswing.JToggleButton" sup="JButton">
-		<Property label="Selected" name="Selected" type="Boolean" action="repaint">
-		</Property>
-	</Com>
-	<Com name="JCheckBox" clazz="org.aswing.JCheckBox" sup="JToggleButton">
-	</Com>
-	<Com name="JRadioButton" clazz="org.aswing.JRadioButton" sup="JToggleButton">
+	<Com name="MultilineLabel" clazz="org.aswing.JLabel" sup="JTextArea">
 	</Com>
 	
 	<Com name="JAdjuster" clazz="org.aswing.JAdjuster" sup="Component">
@@ -298,14 +309,6 @@
 		</Property>
 		<Property label="columns" name="Columns" type="int" action="revalidate">
 			<Value value="3"></Value>
-		</Property>
-	</Com>
-
-	<Com name="JComboBox" clazz="org.aswing.JComboBox" sup="Component">
-		<Property label="Editable" name="Editable" type="Boolean" action="repaint">
-		</Property>
-		<Property label="MaximumRowCount" name="MaximumRowCount" type="int">
-			<Value value="7"></Value>
 		</Property>
 	</Com>
 
@@ -355,24 +358,6 @@
 		</Property>
 	</Com>
 
-	<Com name="JProgressBar" clazz="org.aswing.JProgressBar" sup="Component">
-		<Property label="Orientation" name="Orientation" type="Orientation">
-		</Property>
-		<Property label="Indeterminate" name="Indeterminate" type="Boolean">
-		</Property>
-		<Property label="Label" name="String" type="String">
-		</Property>
-		<Property label="Value" name="Value" type="int">
-			<Value value="0"></Value>
-		</Property>
-		<Property label="Minimum" name="Minimum" type="int">
-			<Value value="0"></Value>
-		</Property>
-		<Property label="Maximum" name="Maximum" type="int">
-			<Value value="100"></Value>
-		</Property>
-	</Com>
-
 	<Com name="JScrollPane" clazz="org.aswing.JScrollPane" sup="Container">
 	</Com>
 	<Com name="JViewport" clazz="org.aswing.JViewport" sup="Container">
@@ -396,6 +381,24 @@
 
 	<Com name="JSeparator" clazz="org.aswing.JSeparator" sup="Component">
 		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+	</Com>
+
+	<Com name="JProgressBar" clazz="org.aswing.JProgressBar" sup="Component">
+		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+		<Property label="Indeterminate" name="Indeterminate" type="Boolean">
+		</Property>
+		<Property label="Label" name="String" type="String">
+		</Property>
+		<Property label="Value" name="Value" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Minimum" name="Minimum" type="int">
+			<Value value="0"></Value>
+		</Property>
+		<Property label="Maximum" name="Maximum" type="int">
+			<Value value="100"></Value>
 		</Property>
 	</Com>
 
