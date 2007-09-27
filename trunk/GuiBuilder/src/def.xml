@@ -227,7 +227,7 @@
 	</Com>
 
 	<Com name="FormRow" clazz="org.aswing.ext.FormRow" sup="Container">
-		<Property label="Column indecis" name="ColumnChildrenIndecis" type="String">
+		<Property label="Column indecis" name="ColumnChildrenIndecis" type="String" tooltip="For example: \n'-1,0,0,1' means [ ---------- ][ --child0 sit two column-- ][ --child1-- ]">
 			<Value value="-1,0,1,2" ></Value>
 		</Property>
 	</Com>

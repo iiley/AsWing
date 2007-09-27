@@ -178,8 +178,10 @@ public class Main extends JWindow{
 		toolBarPane.getOpenButton().addActionListener(__open);
 		toolBarPane.getCloseButton().addActionListener(__close);
 		toolBarPane.getGenerateCodeButton().addActionListener(__generateCode);
+		toolBarPane.getRevalidateButton().addActionListener(__revalidateSelection);
 		filePane.getList().addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __fileSelection);
-		hiberarchyPane.getAddButton().addActionListener(__addChildCom);
+		hiberarchyPane.getAddChildButton().addActionListener(__addChildCom);
+		hiberarchyPane.getAddBelowButton().addActionListener(__addChildComBelow);
 		hiberarchyPane.getRemoveButton().addActionListener(__removeChildCom);
 		hiberarchyPane.getUpButton().addActionListener(__upChildCom);
 		hiberarchyPane.getDownButton().addActionListener(__downChildCom);
@@ -196,6 +198,12 @@ public class Main extends JWindow{
 		if(curFile != null){
 			files.remove(curFile);
 			setCurrentFile(null);
+		}
+	}
+	
+	private function __revalidateSelection(e:Event):void{
+		if(curCom != null){
+			curCom.getDisplay().revalidate();
 		}
 	}
 	
@@ -258,21 +266,29 @@ public class Main extends JWindow{
 	
 	private function __addChildComSelected(def:ComDefinition):void{
 		if(curCom){
-			if(curCom.isContainer()){
-				curFile.addComponent(curCom, new ComModel(def));
-				hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(curCom)));
-			}else{
+			if(isAddBelow || !curCom.isContainer()){
 				var index:int = curCom.getParent().getChildIndex(curCom) + 1;
 				curFile.addComponent(curCom.getParent(), new ComModel(def), index);
 				var selRow:int = hiberarchyPane.getTree().getSelectionRows()[0];
 				hiberarchyPane.getTree().setSelectionRow(selRow+1);
+			}else{
+				curFile.addComponent(curCom, new ComModel(def));
+				hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(curCom)));
 			}
 		}
 	}
 	
+	private var isAddBelow:Boolean = false;
 	private function __addChildCom(e:Event):void{
-		componentMenu.show(hiberarchyPane.getAddButton(), 0, 0);
+		isAddBelow = false;
+		componentMenu.show(hiberarchyPane.getAddChildButton(), 0, 0);
 	}
+	
+	private function __addChildComBelow(e:Event):void{
+		isAddBelow = true;
+		componentMenu.show(hiberarchyPane.getAddBelowButton(), 0, 0);
+	}
+	
 	private function __removeChildCom(e:Event):void{		
 		if(curCom){
 			if(curCom == curFile.getRoot()){
@@ -288,19 +304,23 @@ public class Main extends JWindow{
 		var mod:ComModel = curCom;
 		var par:ComModel = curCom.getParent();
 		var index:int = par.getChildIndex(mod);
+		var path:TreePath = hiberarchyPane.getTree().getSelectionPath();
 		curFile.removeComponent(mod);
 		curFile.addComponent(par, mod, index-1);
+		hiberarchyPane.getTree().setSelectionPath(path);
 	}
 	private function __downChildCom(e:Event):void{
 		var mod:ComModel = curCom;
 		var par:ComModel = curCom.getParent();
 		var index:int = par.getChildIndex(mod);
+		var path:TreePath = hiberarchyPane.getTree().getSelectionPath();
 		curFile.removeComponent(mod);
 		index++;
 		if(index > par.getChildCount()){
 			index=0;
 		}
 		curFile.addComponent(par, mod, index);
+		hiberarchyPane.getTree().setSelectionPath(path);
 	}
 	private function __leftChildCom(e:Event):void{
 		var mod:ComModel = curCom;
@@ -379,13 +399,10 @@ public class Main extends JWindow{
 		if(comModel != null){
 			if(comModel == curFile.getRoot()){
 				hiberarchyPane.setOperatable(false);
-				hiberarchyPane.getAddButton().setEnabled(true);
+				hiberarchyPane.getAddChildButton().setEnabled(true);
 			}
-			if(comModel.isContainer()){
-				hiberarchyPane.getAddButton().setText("Add child");
-			}else{
-				hiberarchyPane.getAddButton().setText("Add below");
-			}
+			
+			hiberarchyPane.getAddChildButton().setEnabled(curCom.isContainer());
 			
 			if(getLeftContainer(curCom) != null){
 				hiberarchyPane.getLeftButton().setEnabled(true);
@@ -399,7 +416,7 @@ public class Main extends JWindow{
 				hiberarchyPane.getRightButton().setEnabled(false);
 			}
 			
-			hiberarchyPane.getAddButton().revalidate();
+			hiberarchyPane.revalidate();
 		}
 	}
 	
