@@ -7,6 +7,7 @@ import org.aswing.Component;
 import org.aswing.Container;
 import org.aswing.AsWingConstants;
 import org.aswing.geom.IntDimension;
+import org.aswing.event.ContainerEvent;
 
 /**
  * FormRow is a row in the Form.<br/>
@@ -68,6 +69,7 @@ public class FormRow extends JPanel implements LayoutManager{
     private var widthes:Array;
 	private var columnVerticalAlignments:Array;
 	private var gap:int;
+	private var columnChildrenIndecis:String;
     
     /**
      * Create a form row with specified column children.
@@ -82,6 +84,8 @@ public class FormRow extends JPanel implements LayoutManager{
 		appendChildren(columnChildren);
 		columnVerticalAlignments = new Array();
 		gap = 0;
+		addEventListener(ContainerEvent.COM_ADDED, __childrenChangedResetColumns);
+		addEventListener(ContainerEvent.COM_REMOVED, __childrenChangedResetColumns);
 	}
 	
 	protected function appendChildren(arr:Array):void{
@@ -110,6 +114,44 @@ public class FormRow extends JPanel implements LayoutManager{
 		columns = new Vector();
 		columns.appendAll(columnChildren);
 		appendChildren(columnChildren);
+	}
+	
+	/**
+	 * This is used for GuiBuilder.
+	 * If a columnChildrenIndecis is set, when children changed, it will reset the 
+	 * columns value with columnChildrenIndecis. Default is null
+	 * <br>
+	 * Set it null to not automatical reset column when children changed.
+	 * <p>
+	 * For example: 
+	 * "-1,0,0,1" means [ ---------- ][ --child0 sit two column-- ][ --child1-- ]
+	 * </p>
+	 * @param indices the indices of children to be the columns, null to disable this automatic column set.
+	 */
+	public function setColumnChildrenIndecis(indices:String):void{
+		if(indices == null){
+			columnChildrenIndecis = null;
+			return;
+		}
+		columnChildrenIndecis = indices;
+		var childIndecis:Array = indices.split(",");
+		columns = new Vector();
+		for(var i:int=0; i<childIndecis.length; i++){
+			var index:int = parseInt(childIndecis[i]);
+			if(isNaN(index)) index = -1;
+			if(index >= 0 && index < getComponentCount()){
+				columns.append(getComponent(index));
+			}else{
+				columns.append(null);
+			}
+		}
+		revalidate();
+	}
+	
+	private function __childrenChangedResetColumns(e:ContainerEvent):void{
+		if(columnChildrenIndecis != null){
+			setColumnChildrenIndecis(columnChildrenIndecis);
+		}
 	}
 	
 	/**
