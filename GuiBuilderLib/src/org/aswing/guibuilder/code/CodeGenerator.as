@@ -49,6 +49,7 @@ public class CodeGenerator{
 		line("import org.aswing.border.*;");
 		line("import org.aswing.geom.*;");
 		line("import org.aswing.colorchooser.*;");
+		line("import org.aswing.ext.*;");
 	}
 	
 	private function addClass():void{
