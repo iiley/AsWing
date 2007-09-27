@@ -10,7 +10,8 @@ import org.aswing.JScrollPane;
 public class HiberarchyPane extends JPanel{
 	
 	private var tree:JTree;
-	private var addButton:JButton;
+	private var addChildButton:JButton;
+	private var addBelowButton:JButton;
 	private var removeButton:JButton;
 	private var upButton:JButton;
 	private var downButton:JButton;
@@ -22,8 +23,10 @@ public class HiberarchyPane extends JPanel{
 		
 		//creating
 		tree = new JTree();
-		addButton = new JButton("Add com");
-		addButton.setToolTipText("Add a component");
+		addChildButton = new JButton("Add child");
+		addChildButton.setToolTipText("Add a component to this container");
+		addBelowButton = new JButton("Add below");
+		addBelowButton.setToolTipText("Add a brother component below this component");
 		removeButton = new JButton("Remove me");
 		removeButton.setToolTipText("Remove selected component");
 		upButton = new JButton("↑");
@@ -39,14 +42,15 @@ public class HiberarchyPane extends JPanel{
 		setLayout(new BorderLayout());
 		append(new JScrollPane(tree), BorderLayout.CENTER);
 		var bottom:JPanel = new JPanel();
-		bottom.appendAll(addButton, removeButton, upButton, downButton, leftButton, rightButton);
+		bottom.appendAll(addBelowButton, addChildButton, removeButton, upButton, downButton, leftButton, rightButton);
 		append(bottom, BorderLayout.SOUTH);
 		
 		setOperatable(false);
 	}
 	
 	public function setOperatable(b:Boolean):void{
-		addButton.setEnabled(b);
+		addBelowButton.setEnabled(b);
+		addChildButton.setEnabled(b);
 		removeButton.setEnabled(b);
 		upButton.setEnabled(b);
 		downButton.setEnabled(b);
@@ -58,8 +62,12 @@ public class HiberarchyPane extends JPanel{
 		return tree;
 	}
 	
-	public function getAddButton():JButton{
-		return addButton;
+	public function getAddChildButton():JButton{
+		return addChildButton;
+	}
+	
+	public function getAddBelowButton():JButton{
+		return addBelowButton;
 	}
 	
 	public function getRemoveButton():JButton{

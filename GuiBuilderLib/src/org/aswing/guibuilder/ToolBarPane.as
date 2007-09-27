@@ -13,6 +13,7 @@ public class ToolBarPane extends JToolBar{
 	private var saveButton:JButton;
 	private var closeButton:JButton;
 	private var generateCodeButton:JButton;
+	private var revalidateButton:JButton;
 	
 	public function ToolBarPane(){
 		super(JToolBar.HORIZONTAL);
@@ -25,8 +26,12 @@ public class ToolBarPane extends JToolBar{
 		closeButton.setToolTipText("Close present file.");
 		generateCodeButton = new JButton("Generate AS Code");
 		generateCodeButton.setToolTipText("Generate present ui to ActionScript class.");
+		revalidateButton = new JButton("Revalidate");
+		revalidateButton.setToolTipText("Revalidate selected component to make the ui to be refreshed!");
 		
 		appendAll(openButton, saveButton, closeButton, generateCodeButton);
+		append(new JSeparator(JSeparator.HORIZONTAL));
+		append(revalidateButton);
 	}
 	
 	public function getOpenButton():JButton{
@@ -43,6 +48,10 @@ public class ToolBarPane extends JToolBar{
 	
 	public function getGenerateCodeButton():JButton{
 		return generateCodeButton;
+	}
+	
+	public function getRevalidateButton():JButton{
+		return revalidateButton;
 	}
 }
 }

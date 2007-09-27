@@ -16,6 +16,7 @@ public class ProDefinition{
 	private var action:String;
 	private var defaultValue:XMLList;
 	private var editorParam:String;
+	private var tooltip:String;
 	
 	public function ProDefinition(xml:XML){
 		this.xml = xml;
@@ -25,6 +26,7 @@ public class ProDefinition{
 		action = xml.@action;
 		editorParam = xml.@editorParam;
 		defaultValue = xml.Value;
+		tooltip = xml.@tooltip;
 	}
 	
 	public function getName():String{
@@ -45,6 +47,10 @@ public class ProDefinition{
 	
 	public function getEditorParam():String{
 		return editorParam;
+	}
+	
+	public function getTooltip():String{
+		return tooltip;
 	}
 	
 	public function getEditorClass():Class{

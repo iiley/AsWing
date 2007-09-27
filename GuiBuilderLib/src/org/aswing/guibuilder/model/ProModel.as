@@ -27,6 +27,9 @@ public class ProModel{
 				editor = new clazz();
 			}
 			editor.setApplyFunction(__apply);
+			if(def.getTooltip() != null && def.getTooltip() != ""){
+				editor.getDisplay().setToolTipText(def.getTooltip());
+			}
 		}
 		noneValue = true;
 	}
