@@ -195,13 +195,17 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
     		//collapse left
 			if(isVertical()){
 				divider.setComBoundsXYWH(rect.x, rect.y, rect.width, dvSize);
-				rc.setComBoundsXYWH(rect.x, rect.y+dvSize, rect.width, rect.height-dvSize);
+				if(rc)
+					rc.setComBoundsXYWH(rect.x, rect.y+dvSize, rect.width, rect.height-dvSize);
 			}else{
 				divider.setComBoundsXYWH(rect.x, rect.y, dvSize, rect.height);
-				rc.setComBoundsXYWH(rect.x+dvSize, rect.y, rect.width-dvSize, rect.height);
+				if(rc)
+					rc.setComBoundsXYWH(rect.x+dvSize, rect.y, rect.width-dvSize, rect.height);
 			}
-    		lc.setVisible(false);
-    		rc.setVisible(true);
+			if(lc)
+    			lc.setVisible(false);
+    		if(rc)
+    			rc.setVisible(true);
     	}else if(location == int.MAX_VALUE){
     		//collapse right
 			if(isVertical()){
@@ -210,25 +214,31 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 					rect.y+rect.height-dvSize, 
 					rect.width, 
 					dvSize);
-				lc.setComBoundsXYWH(
-					rect.x, 
-					rect.y,
-					rect.width, 
-					rect.height-dvSize);
+				if(lc){
+					lc.setComBoundsXYWH(
+						rect.x, 
+						rect.y,
+						rect.width, 
+						rect.height-dvSize);
+				}
 			}else{
 				divider.setComBoundsXYWH(
 					rect.x+rect.width-dvSize, 
 					rect.y, 
 					dvSize, 
 					rect.height);
-				lc.setComBoundsXYWH(
-					rect.x, 
-					rect.y,
-					rect.width-dvSize, 
-					rect.height);
+				if(lc){
+					lc.setComBoundsXYWH(
+						rect.x, 
+						rect.y,
+						rect.width-dvSize, 
+						rect.height);
+				}
 			}
-    		lc.setVisible(true);
-    		rc.setVisible(false);
+			if(lc)
+    			lc.setVisible(true);
+    		if(rc)
+    			rc.setVisible(false);
     	}else{
     		//both visible
 			if(isVertical()){
@@ -237,11 +247,13 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 					rect.y+location, 
 					rect.width, 
 					dvSize);
+				if(lc)
 				lc.setComBoundsXYWH(
 					rect.x, 
 					rect.y,
 					rect.width, 
 					location);
+				if(rc)
 				rc.setComBoundsXYWH(
 					rect.x, 
 					rect.y+location+dvSize, 
@@ -254,11 +266,13 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 					rect.y, 
 					dvSize, 
 					rect.height);
+				if(lc)
 				lc.setComBoundsXYWH(
 					rect.x, 
 					rect.y,
 					location, 
 					rect.height);
+				if(rc)
 				rc.setComBoundsXYWH(
 					rect.x+location+dvSize, 
 					rect.y, 
@@ -266,10 +280,14 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 					rect.height
 				);
 			}
+			if(lc)
     		lc.setVisible(true);
+    		if(rc)
     		rc.setVisible(true);
     	}
+    	if(lc)
     	lc.revalidateIfNecessary();
+    	if(rc)
     	rc.revalidateIfNecessary();
     	divider.revalidateIfNecessary();
     }

@@ -501,12 +501,12 @@ public class JSplitPane extends Container implements Orientable{
         } else if (component == rightComponent) {
             rightComponent = null;
         }
-        super.remove(component);
+        var removed:Component = super.remove(component);
 
         // Update the JSplitPane on the screen
         revalidate();
         repaint();
-        return null;
+        return removed;
     }
 
 
@@ -527,23 +527,23 @@ public class JSplitPane extends Container implements Orientable{
         } else if (comp == rightComponent) {
             rightComponent = null;
         }
-        super.removeAt(index);
+        var removed:Component = super.removeAt(index);
 
         // Update the JSplitPane on the screen
         revalidate();
         repaint();
-        return null;
+        return removed;
     }
 
 
     /**
-     * Removes all the child components from the split pane. Resets the
+     * Removes all the child components from the split pane, exclude divider. Resets the
      * <code>leftComonent</code> and <code>rightComponent</code>
      * instance variables.
      */
     override public function removeAll():void {
-        leftComponent = rightComponent = null;
-        super.removeAll();
+        setLeftComponent(null);
+        setRightComponent(null);
 
         // Update the JSplitPane on the screen
         revalidate();
