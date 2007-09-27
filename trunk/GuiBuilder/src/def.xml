@@ -218,6 +218,19 @@
 			<Value value="true" ></Value>
 		</Property>
 	</Com>
+
+	<Com name="Form" clazz="org.aswing.ext.Form" sup="JPanel">
+		<Property label="hgap" name="Hgap" type="int">
+		</Property>
+		<Property label="vgap" name="Vgap" type="int">
+		</Property>
+	</Com>
+
+	<Com name="FormRow" clazz="org.aswing.ext.FormRow" sup="Container">
+		<Property label="Column indecis" name="ColumnChildrenIndecis" type="String">
+			<Value value="-1,0,1,2" ></Value>
+		</Property>
+	</Com>
 	
 	<Com name="JButton" clazz="org.aswing.JButton" sup="Component">
 		<Property label="Label" name="Text" type="String" action="revalidate">
