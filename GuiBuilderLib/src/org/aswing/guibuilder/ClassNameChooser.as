@@ -8,7 +8,8 @@ import org.aswing.ext.Form;
 import org.aswing.JPanel;
 import org.aswing.FlowLayout;
 import flash.events.Event;
-import org.aswing.JOptionPane;	
+import org.aswing.JOptionPane;
+import org.aswing.AsWingUtils;	
 
 public class ClassNameChooser{
 	
@@ -50,6 +51,7 @@ public class ClassNameChooser{
 		
 		dialog.setContentPane(form);
 		dialog.pack();
+		AsWingUtils.centerLocate(dialog);
 		
 		okButton.addActionListener(__ok);
 		cancelButton.addActionListener(__cancel);

@@ -12,7 +12,7 @@ public class BooleanEditor implements PropertyEditor{
 	protected var combo:JComboBox;
 	
 	public function BooleanEditor(){
-		combo = new JComboBox(["None", "true", "false"]);
+		combo = new JComboBox(["Default", "true", "false"]);
 		combo.addActionListener(__apply);
 	}
 	

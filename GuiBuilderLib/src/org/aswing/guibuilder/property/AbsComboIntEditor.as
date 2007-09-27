@@ -14,6 +14,7 @@ public class AbsComboIntEditor implements PropertyEditor{
 		combo = new JComboBox(labels);
 		combo.setPreferredWidth(70);
 		combo.addActionListener(__apply);
+		combo.setListCellFactory(new DefaultComboBoxListCellFactory(false, false));
 	}
 	
 	private function __apply(e:Event):void{

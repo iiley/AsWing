@@ -10,5 +10,13 @@ public class MathUtils{
 		return i;
 	}
 	
+	public static function parseNumber(str:String):Number{
+		var i:Number = parseFloat(str);
+		if(isNaN(i)){
+			return 0;
+		}
+		return i;
+	}
+	
 }
 }
