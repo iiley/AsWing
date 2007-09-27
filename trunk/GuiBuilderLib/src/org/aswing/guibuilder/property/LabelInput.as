@@ -56,9 +56,9 @@ public class LabelInput extends JPanel{
 	
 	public function setInputType(t:int):void{
 		if(t == INT){
-			input.setRestrict("0987654321");
+			input.setRestrict("-0987654321");
 		}else if(t == FLOAT){
-			input.setRestrict("0987654321.");
+			input.setRestrict("-0987654321.E");
 		}else{
 			input.setRestrict(null);
 		}
@@ -69,8 +69,11 @@ public class LabelInput extends JPanel{
 	}
 	
 	public function getInputInt():int{
-		var i:int = MathUtils.parseInteger(input.getText());
-		return i;
+		return MathUtils.parseInteger(input.getText());
+	}
+	
+	public function getInputNumber():Number{
+		return MathUtils.parseNumber(input.getText());
 	}
 	
 	public function isEmpty():Boolean{

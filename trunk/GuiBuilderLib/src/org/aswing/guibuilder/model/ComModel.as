@@ -215,7 +215,7 @@ public class ComModel implements Model{
 	public function addChild(mod:ComModel, index:int=-1):void{
 		if(isContainer()){
 			children.append(mod, index);
-			var con:Container = display as Container;
+			var con:* = display;// as Container;
 			con.insert(index, mod.getDisplay());
 			con.revalidate();
 			mod.parent = this;

@@ -10,13 +10,21 @@ import flash.events.Event;
 import org.aswing.event.FocusKeyEvent;
 import flash.ui.Keyboard;
 
-public class IntEditor implements PropertyEditor{
+public class NumberEditor implements PropertyEditor{
+
+	protected var text:NumberInput;
+	private var min:Number;
+	private var max:Number;
 	
-	protected var text:IntInput;
-	
-	public function IntEditor(){
-		text = new IntInput("", "", 0, 6);
+	public function NumberEditor(param:String=null){
+		text = new NumberInput("", "", 0, 6);
 		text.addEventListener(AWEvent.ACT, __apply);
+		if(param != null){
+			var strs:Array = param.split(",");
+			min = MathUtils.parseNumber(strs[0]);
+			max = MathUtils.parseNumber(strs[1]);
+			text.setMinMax(min, max);
+		}
 	}
 	
 	private function __apply(e:Event):void{
@@ -29,12 +37,12 @@ public class IntEditor implements PropertyEditor{
 		
 	public function parseValue(xml:XML):*{
 		text.setInputText(xml.@value);
-		return MathUtils.parseInteger(xml.@value);
+		return MathUtils.parseNumber(xml.@value);
 	}
 	
 	public function encodeValue(value:*):XML{
 		var xml:XML = <Value></Value>;
-		xml.@value = text.getInputInt();
+		xml.@value = text.getInputNumber();
 		return xml;
 	}
 
@@ -43,7 +51,7 @@ public class IntEditor implements PropertyEditor{
 	}
 	
 	public function isSimpleOneLine():String{
-		return text.getInputInt()+"";
+		return text.getInputNumber()+"";
 	}
 	
 	protected var apply:Function;
@@ -53,7 +61,7 @@ public class IntEditor implements PropertyEditor{
 	
 	public function applyProperty():void{
 		if(!text.isEmpty()){
-			apply(text.getInputInt());
+			apply(text.getInputNumber());
 		}else{
 			apply(ProModel.NONE_VALUE_SET);
 		}
