@@ -8,6 +8,9 @@
 	<Type name="int" editor="org.aswing.guibuilder.property.IntEditor">
 	</Type>
 
+	<Type name="Number" editor="org.aswing.guibuilder.property.NumberEditor">
+	</Type>
+
 	<Type name="String" editor="org.aswing.guibuilder.property.StringEditor">
 	</Type>
 
@@ -372,6 +375,24 @@
 
 	<Com name="JScrollPane" clazz="org.aswing.JScrollPane" sup="Container">
 	</Com>
+	<Com name="JViewport" clazz="org.aswing.JViewport" sup="Container">
+		<Property label="Hor alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only">
+		</Property>
+		<Property label="Ver alig" name="VerticalAlignment" type="Align" action="revalidate" editorParam="ver-only">
+		</Property>
+		<Property label="Tracks width" name="TracksWidth" type="Boolean">
+		</Property>
+		<Property label="Tracks height" name="TracksHeight" type="Boolean">
+		</Property>
+		<Property label="Hor unit increment" name="HorizontalUnitIncrement" type="int">
+		</Property>
+		<Property label="Hor block increment" name="HorizontalBlockIncrement" type="int">
+		</Property>
+		<Property label="Ver unit iuncrement" name="VerticalUnitIncrement" type="int">
+		</Property>
+		<Property label="Ver block increment" name="VerticalBlockIncrement" type="int">
+		</Property>
+	</Com>
 
 	<Com name="JSeparator" clazz="org.aswing.JSeparator" sup="Component">
 		<Property label="Orientation" name="Orientation" type="Orientation">
@@ -379,6 +400,109 @@
 	</Com>
 
 	<Com name="JList" clazz="org.aswing.JList" sup="Component">
+		<Property label="Selection mode" name="SelectionMode" type="IntEmuEditor" editorParam="Single,Multiple">
+		</Property>
+		<Property label="Prefer cell width" name="PreferredCellWidthWhenNoCount" type="int" action="revalidate">
+		</Property>
+		<Property label="Visible cell width" name="VisibleCellWidth" type="int" action="revalidate">
+		</Property>
+		<Property label="Visible row count" name="VisibleRowCount" type="int" action="revalidate">
+		</Property>
+		<Property label="Selection fore" name="SelectionForeground" type="Color" action="repaint">
+		</Property>
+		<Property label="Selection back" name="SelectionBackground" type="Color" action="repaint">
+		</Property>
+		<Property label="Tracks width" name="TracksWidth" type="Boolean" action="revalidate">
+		</Property>
+		<Property label="Hor unit increment" name="HorizontalUnitIncrement" type="int">
+		</Property>
+		<Property label="Hor block increment" name="HorizontalBlockIncrement" type="int">
+		</Property>
+		<Property label="Ver unit iuncrement" name="VerticalUnitIncrement" type="int">
+		</Property>
+		<Property label="Ver block increment" name="VerticalBlockIncrement" type="int">
+		</Property>
+	</Com>
+	<Com name="JTree" clazz="org.aswing.JTree" sup="Component">
+		<Property label="Selection mode" name="SelectionMode" type="IntEmuEditor" editorParam=",Single,Contiguous Multiple,,Multiple">
+		</Property>
+		<Property label="Editable" name="Editable" type="Boolean">
+		</Property>
+		<Property label="Root visible" name="RootVisible" type="Boolean" action="revalidate">
+		</Property>
+		<Property label="Visible row count" name="VisibleRowCount" type="int" action="revalidate">
+		</Property>
+		<Property label="Row height" name="RowHeight" type="int" action="revalidate">
+		</Property>
+		<Property label="Toggle clickCount" name="ToggleClickCount" type="int">
+		</Property>
+		<Property label="Scrolls on expand" name="ScrollsOnExpand" type="Boolean">
+		</Property>
+		<Property label="Expands selected paths" name="ExpandsSelectedPaths" type="Boolean">
+		</Property>
+		<Property label="Fixed cell width" name="FixedCellWidth" type="int">
+		</Property>
+		<Property label="Invokes stop cell editing" name="InvokesStopCellEditing" type="Boolean">
+		</Property>
+		<Property label="Selection fore" name="SelectionForeground" type="Color" action="repaint">
+		</Property>
+		<Property label="Selection back" name="SelectionBackground" type="Color" action="repaint">
+		</Property>
+		<Property label="Hor unit increment" name="HorizontalUnitIncrement" type="int">
+		</Property>
+		<Property label="Hor block increment" name="HorizontalBlockIncrement" type="int">
+		</Property>
+		<Property label="Ver unit iuncrement" name="VerticalUnitIncrement" type="int">
+		</Property>
+		<Property label="Ver block increment" name="VerticalBlockIncrement" type="int">
+		</Property>
+	</Com>
+	<Com name="JTable" clazz="org.aswing.JTable" sup="Component">
+		<Property label="Selection mode" name="SelectionMode" type="IntEmuEditor" editorParam="Single,Multiple">
+		</Property>
+		<Property label="Auto resize mode" name="AutoResizeMode" type="IntEmuEditor" editorParam="Auto off,Next column,Subsequent columns,Last column,All columns">
+		</Property>
+		<Property label="Row height" name="RowHeight" type="int" action="revalidate">
+		</Property>
+		<Property label="Row margin" name="RowMargin" type="int" action="revalidate">
+		</Property>
+		<Property label="Intercell spacing" name="IntercellSpacing" type="IntDimension" action="revalidate">
+		</Property>
+		<Property label="View port prefer size" name="PreferredScrollableViewportSize" type="IntDimension" action="revalidate">
+		</Property>
+		<Property label="Row selection allowed" name="RowSelectionAllowed" type="Boolean">
+		</Property>
+		<Property label="Column selection allowed" name="ColumnSelectionAllowed" type="Boolean">
+		</Property>
+		<Property label="Cell selection enabled" name="CellSelectionEnabled" type="Boolean">
+		</Property>
+		<Property label="Show hor grid" name="ShowHorizontalLines" type="Boolean">
+		</Property>
+		<Property label="Show ver grid" name="ShowVerticalLines" type="Boolean">
+		</Property>
+		<Property label="Show grids" name="ShowGrid" type="Boolean">
+		</Property>
+		<Property label="Selection fore" name="SelectionForeground" type="Color" action="repaint">
+		</Property>
+		<Property label="Selection back" name="SelectionBackground" type="Color" action="repaint">
+		</Property>
+		<Property label="Grid color" name="GridColor" type="Color" action="repaint">
+		</Property>
+		<Property label="Hor unit increment" name="HorizontalUnitIncrement" type="int">
+		</Property>
+		<Property label="Hor block increment" name="HorizontalBlockIncrement" type="int">
+		</Property>
+		<Property label="Ver unit iuncrement" name="VerticalUnitIncrement" type="int">
+		</Property>
+		<Property label="Ver block increment" name="VerticalBlockIncrement" type="int">
+		</Property>
+	</Com>
+	
+	<Com name="JToolBar" clazz="org.aswing.JToolBar" sup="Container">
+		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+		<Property label="Gap" name="Gap" type="int">
+		</Property>
 	</Com>
 	
 	<Com name="JAccordion" clazz="org.aswing.JAccordion" sup="Container">
@@ -401,8 +525,87 @@
 		<Property label="Tab placement" name="TabPlacement" type="Align">
 		</Property>
 	</Com>
+	<Com name="JSplitPane" clazz="org.aswing.JSplitPane" sup="Container">
+		<Property label="Orientation" name="Orientation" type="Orientation">
+		</Property>
+		<Property label="Continuous" name="ContinuousLayout" type="Boolean">
+		</Property>
+		<Property label="Resize weight[0-1]" name="ResizeWeight" type="Number" editorParam="0,1">
+		</Property>
+		<Property label="Divider location" name="DividerLocation" type="int">
+		</Property>
+		<Property label="Divider size" name="DividerSize" type="int">
+		</Property>
+		<Property label="One touch expand" name="OneTouchExpandable" type="Boolean">
+		</Property>
+	</Com>
 
 	<Com name="JSpacer" clazz="org.aswing.JSpacer" sup="Component">
+	</Com>
+
+	<Com name="JAttachPane" clazz="org.aswing.JAttachPane" sup="Container">
+		<Property label="Prefer size strategy" name="PrefferSizeStrategy" type="IntEmuEditor" editorParam="Layout and Image,Image only,Layout only">
+		</Property>
+		<Property label="Scale mode" name="ScaleMode" type="IntEmuEditor" editorParam="No scale,Proportional fit pane,Stretch fit pane,Proportional fit width,Proportional fit height">
+		</Property>
+		<Property label="Custom scale" name="CustomScale" type="int">
+		</Property>
+		<Property label="Hor alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only">
+		</Property>
+		<Property label="Ver alig" name="VerticalAlignment" type="Align" action="revalidate" editorParam="ver-only">
+		</Property>
+		<Property label="Offset x" name="OffsetX" type="int">
+		</Property>
+		<Property label="Offset y" name="OffsetY" type="int">
+		</Property>
+		<Property label="Mask asset" name="MaskAsset" type="Boolean">
+		</Property>
+	</Com>
+
+	<Com name="JLoadPane" clazz="org.aswing.JLoadPane" sup="JAttachPane">
+	</Com>
+
+	<Com name="JColorSwatches" clazz="org.aswing.colorchooser.JColorSwatches" sup="Component">
+		<Property label="Alpha enabled" name="AlphaSectionVisible" type="Boolean">
+		</Property>
+		<Property label="Hex enabled" name="HexSectionVisible" type="Boolean">
+		</Property>
+		<Property label="Nocolor enabled" name="NoColorSectionVisible" type="Boolean">
+		</Property>
+	</Com>
+
+	<Com name="JColorMixer" clazz="org.aswing.colorchooser.JColorMixer" sup="JColorSwatches">
+	</Com>
+
+	<Com name="JColorChooser" clazz="org.aswing.JColorChooser" sup="JColorSwatches">
+	</Com>
+
+	<Com name="JMenuBar" clazz="org.aswing.JMenuBar" sup="Container">
+	</Com>
+
+	<Com name="JMenu" clazz="org.aswing.JMenu" sup="Container">
+		<Property label="Label" name="Text" type="String" action="revalidate">
+			<Value value="label" ></Value>
+		</Property>
+		<Property label="Hor alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only">
+		</Property>
+		<Property label="Ver alig" name="VerticalAlignment" type="Align" action="revalidate" editorParam="ver-only">
+		</Property>
+		<Property label="Hor text pos" name="HorizontalTextPosition" type="Align" action="revalidate" editorParam="hor-only">
+		</Property>
+		<Property label="Ver text pos" name="VerticalTextPosition" type="Align" action="revalidate" editorParam="ver-only">
+		</Property>
+		<Property label="Icon text gap" name="IconTextGap" type="int" action="revalidate">
+		</Property>
+	</Com>
+	
+	<Com name="JMenuItem" clazz="org.aswing.JMenuItem" sup="JButton">
+	</Com>
+	
+	<Com name="JRadioButtonMenuItem" clazz="org.aswing.JRadioButtonMenuItem" sup="JToggleButton">
+	</Com>
+	
+	<Com name="JCheckBoxMenuItem" clazz="org.aswing.JCheckBoxMenuItem" sup="JToggleButton">
 	</Com>
 
 </Components>
