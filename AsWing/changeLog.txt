@@ -25,6 +25,7 @@ added rowHeight ui default for JTree
 added defaultMaxChars class properties for JTextField and JTextArea
 added FlowWrapLayout
 added a ui defaults property ScrollBar.barWidth to make JScrollBar size configurable.
+added some help method for GuiBuilder.
 
 bugfixes:
 
@@ -32,3 +33,5 @@ fixed JTextComponent setForeground bug
 fixed JTextComponent setFont null-ponter bug
 fixed JColorSwatcher black color bug
 fixed KeyboardManager bug for uppercase char input
+fixed isProgrammic bug for List selection events.
+fixed fixed splite pane null and divider removed by removeAll bug
