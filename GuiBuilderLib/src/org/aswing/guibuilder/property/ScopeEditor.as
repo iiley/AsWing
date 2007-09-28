@@ -16,12 +16,14 @@ public class ScopeEditor implements PropertyEditor{
 								ComModel.SCOPE_PUBLIC, 
 								ComModel.SCOPE_PRIVATE, 
 								ComModel.SCOPE_PROTECTED, 
+								ComModel.SCOPE_INTERNAL, 
 								ComModel.SCOPE_NONE]);
 		}else{
 			combo = new JComboBox([
 								ComModel.SCOPE_PUBLIC, 
 								ComModel.SCOPE_PRIVATE, 
-								ComModel.SCOPE_PROTECTED]);
+								ComModel.SCOPE_PROTECTED, 
+								ComModel.SCOPE_INTERNAL]);
 		}
 		combo.setPreferredWidth(70);
 		combo.addActionListener(__selection);
