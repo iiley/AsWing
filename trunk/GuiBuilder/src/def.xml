@@ -50,6 +50,9 @@
 	<Type name="IntEmuEditor" editor="org.aswing.guibuilder.property.IntEmuEditor">
 	</Type>
 
+	<Type name="Scope" editor="org.aswing.guibuilder.property.ScopeEditor">
+	</Type>
+
 </Types>
 
 <Borders>
@@ -177,6 +180,14 @@
 
 <Components>
 	<BaseComponent name="Component" clazz="org.aswing.Component">
+		<Property label="ID" name="id" type="String" editorParam="no-generate-code">
+		</Property>
+		<Property label="Attr scope" name="attr_scope" type="Scope">
+			<Value value="private"></Value>
+		</Property>
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled">
+			<Value value="public"></Value>
+		</Property>
 		<Property label="ID" name="id" type="String" editorParam="no-generate-code">
 		</Property>
 		<Property label="Name" name="Name" type="String" action="reAppendToParent">
