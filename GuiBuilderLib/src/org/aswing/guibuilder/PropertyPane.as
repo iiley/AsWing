@@ -9,6 +9,7 @@ import org.aswing.BorderLayout;
 import org.aswing.JScrollPane;
 import org.aswing.JPanel;
 import org.aswing.JViewport;
+import org.aswing.JLabel;
 
 public class PropertyPane extends JPanel{
 	
@@ -37,7 +38,9 @@ public class PropertyPane extends JPanel{
 	}
 	
 	private function addEditor(label:String, editor:PropertyEditor):void{
-		form.addRow(form.createLeftLabel(label), editor.getDisplay());
+		var jlabel:JLabel = form.createLeftLabel(label);
+		jlabel.setFont(jlabel.getFont().changeBold(true));
+		form.addRow(jlabel, editor.getDisplay());
 	}
 }
 }
