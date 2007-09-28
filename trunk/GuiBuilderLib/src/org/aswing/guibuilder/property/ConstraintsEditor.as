@@ -41,7 +41,8 @@ public class ConstraintsEditor implements PropertyEditor{
 	}
 	
 	public function isSimpleOneLine():String{
-		return combo.getSelectedItem()+"";
+		if(combo.getSelectedItem() == null) return null;
+		return "\""+combo.getSelectedItem()+"\"";
 	}	
 	
 	protected var apply:Function;
