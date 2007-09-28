@@ -252,7 +252,7 @@ public class ComModel implements Model{
 		}
 		if(mod.parent == this){
 			children.remove(mod);
-			var con:Container = display as Container;
+			var con:* = display;// as Container;
 			con.remove(mod.getDisplay());
 			con.revalidate();
 			mod.parent = null;
