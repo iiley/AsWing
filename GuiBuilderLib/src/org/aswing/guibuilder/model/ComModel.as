@@ -17,6 +17,7 @@ public class ComModel implements Model{
 	public static const SCOPE_PRIVATE:String = "private";
 	public static const SCOPE_PROTECTED:String = "protected";
 	public static const SCOPE_PUBLIC:String = "public";
+	public static const SCOPE_INTERNAL:String = "internal";
 	
 	private static var id_counter:int = 0;
 	
