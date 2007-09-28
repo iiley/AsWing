@@ -53,7 +53,7 @@ public class ScopeEditor implements PropertyEditor{
 	}
 	
 	public function isSimpleOneLine():String{
-		return combo.getSelectedItem()+"";
+		return null;
 	}	
 	
 	protected var apply:Function;
