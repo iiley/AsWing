@@ -10,6 +10,13 @@ import org.aswing.util.Vector;
 public class ComModel implements Model{
 	
 	public static const ID_NAME:String = "id";
+	public static const ATTR_SCOPE_NAME:String = "attr_scope";
+	public static const GETTER_SCOPE_NAME:String = "getter_scope";
+	
+	public static const SCOPE_NONE:String = "none";
+	public static const SCOPE_PRIVATE:String = "private";
+	public static const SCOPE_PROTECTED:String = "protected";
+	public static const SCOPE_PUBLIC:String = "public";
 	
 	private static var id_counter:int = 0;
 	
@@ -20,10 +27,14 @@ public class ComModel implements Model{
 	private var container:Boolean;
 	private var parent:ComModel;
 	private var id:String;
+	private var atrributeScope:String;
+	private var getterScope:String;
 	
 	private var changedHandler:Function;
 	
 	public function ComModel(def:ComDefinition=null){
+		atrributeScope = "private";
+		getterScope = "public";
 		if(def != null){
 			id = "com" + id_counter;
 			id_counter++;
@@ -55,8 +66,12 @@ public class ComModel implements Model{
 		return def;
 	}
 	
-	public function getScope():String{
-		return "private";
+	public function getAttributeScope():String{
+		return atrributeScope;
+	}
+	
+	public function getGetterScope():String{
+		return getterScope;
 	}
 	
 	public function getID():String{
@@ -159,6 +174,12 @@ public class ComModel implements Model{
 			if(changedHandler != null){
 				changedHandler(this);
 			}
+			return;
+		}else if(name == ATTR_SCOPE_NAME){
+			this.atrributeScope = value;
+			return;
+		}else if(name == GETTER_SCOPE_NAME){
+			this.getterScope = value;
 			return;
 		}
 		var o:Object = getDisplay();
