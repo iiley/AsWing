@@ -53,16 +53,21 @@ public class CodeGenerator{
 	}
 	
 	private function addClass():void{
-		line("//class define");
+		line("/**");
+		line(" * " + file.getName());
+		line(" */");
 		lineRise("public class " + file.getName() + " extends " + file.getRootComponent().getDefinition().getShortClassName()+"{");
 		line();
 		line("//members define");
 		addComponentMembers();
 		line();
-		line("//construction");
+		line("/**");
+		line(" * " + file.getName() + " Constructor");
+		line(" */");
 		addConstruction();
 		line();
-		line("//getters");
+		line("//_________getters_________");
+		line();
 		addGetters();
 		line();
 		lineDrop("}");
@@ -142,7 +147,7 @@ public class CodeGenerator{
 		var n:int = parent.getChildCount();
 		for(var i:int=0; i<n; i++){
 			var c:ComModel = parent.getChild(i);
-			line(c.getScope() + " var " + c.getID() + ":" + c.getDefinition().getShortClassName() + ";");
+			line(c.getAttributeScope() + " var " + c.getID() + ":" + c.getDefinition().getShortClassName() + ";");
 			allMemberComs.push(c);
 			addMembersOfChildren(c);
 		}
@@ -156,9 +161,12 @@ public class CodeGenerator{
 	}
 	
 	private function addGetter(c:ComModel):void{
+		if(c.getGetterScope() == ComModel.SCOPE_NONE){
+			return;
+		}
 		var id:String = c.getID();
 		var func:String = "get" + (id.charAt(0).toUpperCase() + id.substr(1));
-		lineRise("public function " + func + "():" + c.getDefinition().getShortClassName()+"{");
+		lineRise(c.getGetterScope() + " function " + func + "():" + c.getDefinition().getShortClassName()+"{");
 		line("return " + id + ";");
 		lineDrop("}");
 	}
