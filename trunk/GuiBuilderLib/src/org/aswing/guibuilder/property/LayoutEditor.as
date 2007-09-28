@@ -19,9 +19,12 @@ public class LayoutEditor implements PropertyEditor{
 	
 	private var layoutModel:LayoutModel;
 	
-	public function LayoutEditor(){
+	public function LayoutEditor(param:String=null){
 		display = new JButton("Default");
 		display.addActionListener(__showChooser);
+		if(param == "disabled"){
+			display.setEnabled(false);
+		}
 	}
 	
 	private function __showChooser(e:Event):void{
