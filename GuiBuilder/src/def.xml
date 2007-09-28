@@ -220,9 +220,9 @@
 	</Com>
 
 	<Com name="Form" clazz="org.aswing.ext.Form" sup="JPanel">
-		<Property label="hgap" name="Hgap" type="int">
+		<Property label="hgap" name="HGap" type="int">
 		</Property>
-		<Property label="vgap" name="Vgap" type="int">
+		<Property label="vgap" name="VGap" type="int">
 		</Property>
 	</Com>
 
