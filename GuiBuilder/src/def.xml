@@ -224,6 +224,8 @@
 		</Property>
 		<Property label="vgap" name="VGap" type="int">
 		</Property>
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
+		</Property>
 	</Com>
 
 	<Com name="FormRow" clazz="org.aswing.ext.FormRow" sup="Container">
@@ -382,6 +384,8 @@
 	</Com>
 
 	<Com name="JScrollPane" clazz="org.aswing.JScrollPane" sup="Container">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
+		</Property>
 	</Com>
 	<Com name="JViewport" clazz="org.aswing.JViewport" sup="Container">
 		<Property label="Hor alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only">
@@ -399,6 +403,8 @@
 		<Property label="Ver unit iuncrement" name="VerticalUnitIncrement" type="int">
 		</Property>
 		<Property label="Ver block increment" name="VerticalBlockIncrement" type="int">
+		</Property>
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
 		</Property>
 	</Com>
 
@@ -529,6 +535,8 @@
 		</Property>
 		<Property label="Gap" name="Gap" type="int">
 		</Property>
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
+		</Property>
 	</Com>
 	
 	<Com name="JAccordion" clazz="org.aswing.JAccordion" sup="Container">
@@ -545,10 +553,14 @@
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int">
 		</Property>
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
+		</Property>
 	</Com>
 
 	<Com name="JTabbedPane" clazz="org.aswing.JTabbedPane" sup="JAccordion">
 		<Property label="Tab placement" name="TabPlacement" type="Align">
+		</Property>
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
 		</Property>
 	</Com>
 	<Com name="JSplitPane" clazz="org.aswing.JSplitPane" sup="Container">
@@ -563,6 +575,8 @@
 		<Property label="Divider size" name="DividerSize" type="int">
 		</Property>
 		<Property label="One touch expand" name="OneTouchExpandable" type="Boolean">
+		</Property>
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
 		</Property>
 	</Com>
 
@@ -607,6 +621,8 @@
 	</Com>
 
 	<Com name="JMenuBar" clazz="org.aswing.JMenuBar" sup="Container">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
+		</Property>
 	</Com>
 
 	<Com name="JMenu" clazz="org.aswing.JMenu" sup="Container">
@@ -622,6 +638,8 @@
 		<Property label="Ver text pos" name="VerticalTextPosition" type="Align" action="revalidate" editorParam="ver-only">
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int" action="revalidate">
+		</Property>
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled">
 		</Property>
 	</Com>
 	
