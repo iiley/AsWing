@@ -51,10 +51,7 @@ public class FlowWrapLayout extends FlowLayout{
      * @param      margin  whether or not the gap will margin around
      */
     public function FlowWrapLayout(preferWidth:int=200, align:int=AsWingConstants.LEFT, hgap:int=5, vgap:int=5, margin:Boolean=true) {
-    	super(align, hgap, vgap, true);
-    	this.margin = margin;
-		this.hgap = hgap;
-		this.vgap = vgap;
+    	super(align, hgap, vgap, margin);
 		this.preferWidth = preferWidth;
     }
     
