@@ -143,6 +143,19 @@
 		<Property label="margin" name="Margin" type="Boolean">
 		</Property>
 	</Layout>
+	<Layout name="FlowWrapLayout" clazz="org.aswing.FlowWrapLayout">
+		<Property label="prefer width" name="PreferWidth" type="int">
+			<Value value="200"></Value>
+		</Property>
+		<Property label="align" name="Alignment" type="Align" editorParam="hor-only">
+		</Property>
+		<Property label="hgap" name="Hgap" type="int">
+		</Property>
+		<Property label="vgap" name="Vgap" type="int">
+		</Property>
+		<Property label="margin" name="Margin" type="Boolean">
+		</Property>
+	</Layout>
 	<Layout name="BorderLayout" clazz="org.aswing.BorderLayout">
 		<Property label="hgap" name="Hgap" type="int">
 		</Property>
