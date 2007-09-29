@@ -50,7 +50,7 @@ public class FlowWrapLayout extends FlowLayout{
      * @param      vgap    the vertical gap between components, default 5
      * @param      margin  whether or not the gap will margin around
      */
-    public function FlowWrapLayout(preferWidth:int, align:int=AsWingConstants.LEFT, hgap:int=5, vgap:int=5, margin:Boolean=true) {
+    public function FlowWrapLayout(preferWidth:int=200, align:int=AsWingConstants.LEFT, hgap:int=5, vgap:int=5, margin:Boolean=true) {
     	super(align, hgap, vgap, true);
     	this.margin = margin;
 		this.hgap = hgap;
