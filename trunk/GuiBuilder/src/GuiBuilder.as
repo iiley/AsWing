@@ -1,17 +1,37 @@
 package {
 
 import flash.display.Sprite;
-import org.aswing.AsWingManager;
 import flash.events.Event;
+
+import org.aswing.AsWingManager;
+import org.aswing.JFrame;
+import org.aswing.JOptionPane;
+import org.aswing.guibuilder.LookAndFeelManager;
 
 [SWF (width="1000", height="700")]
 public class GuiBuilder extends Sprite{
 	
 	private var main:Main;
+	private var loadingFrame:JFrame;
 	
 	public function GuiBuilder(){
 		AsWingManager.initAsStandard(this);
 		
+		loadingFrame = JOptionPane.showMessageDialog(
+			"Initing", 
+			"Loading LAFs, please wait...").getFrame();
+		loadingFrame.setClosable(false);
+		
+		LookAndFeelManager.getIns().load(__lafLoaded);
+	}
+	
+	private function __lafLoaded():void{
+		loadingFrame.dispose();
+		loadingFrame = null;
+		start();
+	}
+	
+	private function start():void{
 		main = new Main(this);
 		main.show();
 		
