@@ -75,6 +75,7 @@ public class ClassNameChooser{
 	 */
 	public function open(handler:Function):void{
 		this.handler = handler;
+		dialog.pack();
 		dialog.show();
 	}
 	

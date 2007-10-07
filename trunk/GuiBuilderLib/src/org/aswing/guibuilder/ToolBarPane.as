@@ -1,11 +1,16 @@
 package org.aswing.guibuilder{
 
-import org.aswing.JPanel;
-import org.aswing.LayoutManager;
-import org.aswing.BorderLayout;
-import org.aswing.JToolBar;
+import flash.events.Event;
+import flash.net.URLRequest;
+import flash.net.navigateToURL;
+
 import org.aswing.JButton;
+import org.aswing.JComboBox;
+import org.aswing.JOptionPane;
 import org.aswing.JSeparator;
+import org.aswing.JSpacer;
+import org.aswing.JToolBar;
+import org.aswing.LoadIcon;
 
 public class ToolBarPane extends JToolBar{
 	
@@ -14,6 +19,9 @@ public class ToolBarPane extends JToolBar{
 	private var closeButton:JButton;
 	private var generateCodeButton:JButton;
 	private var revalidateButton:JButton;
+	
+	private var lafsCombo:JComboBox;
+	private var aboutButton:JButton;
 	
 	public function ToolBarPane(){
 		super(JToolBar.HORIZONTAL);
@@ -29,9 +37,40 @@ public class ToolBarPane extends JToolBar{
 		revalidateButton = new JButton("Revalidate");
 		revalidateButton.setToolTipText("Revalidate selected component to make the ui to be refreshed!");
 		
+		lafsCombo = new JComboBox();
+		lafsCombo.setEditable(false);
+		lafsCombo.setPreferredWidth(160);
+		
+		aboutButton = new JButton("About");
+		
 		appendAll(openButton, saveButton, closeButton, generateCodeButton);
 		append(new JSeparator(JSeparator.HORIZONTAL));
 		append(revalidateButton);
+		append(new JSeparator(JSeparator.HORIZONTAL));
+		append(JSpacer.createHorizontalSpacer(10));
+		append(lafsCombo);
+		append(JSpacer.createHorizontalSpacer(10));
+		append(aboutButton);
+		
+		aboutButton.addActionListener(__showAbout);
+	}
+	
+	private function __showAbout(e:Event):void{
+		var op:JOptionPane = JOptionPane.showMessageDialog(
+			"About AsWing GuiBuilder", 
+			"Version:1.0\nDate:2007-10-7\nCreated by aswing.org", 
+			__about, 
+			this, true, new LoadIcon("icons/app_32.png", 32, 32), 
+			JOptionPane.OK|JOptionPane.CANCEL);
+		op.getOkButton().setText("Open AsWing Home");
+		op.getCancelButton().setText("Close");
+		op.getOkButton().revalidate();
+	}
+	
+	private function __about(result:int):void{
+		if(result == JOptionPane.OK){
+			navigateToURL(new URLRequest("http://www.aswing.org"), "_blank");
+		}
 	}
 	
 	public function getOpenButton():JButton{
@@ -52,6 +91,10 @@ public class ToolBarPane extends JToolBar{
 	
 	public function getRevalidateButton():JButton{
 		return revalidateButton;
+	}
+	
+	public function getLAFsCombo():JComboBox{
+		return lafsCombo;
 	}
 }
 }
