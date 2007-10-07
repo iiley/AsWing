@@ -1,45 +1,43 @@
 package {
 
-import org.aswing.JWindow;
-import org.aswing.AsWingManager;
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
-import org.aswing.JTree;
-import org.aswing.JPanel;
-import org.aswing.JSplitPane;
-import org.aswing.AssetPane;
-import org.aswing.BorderLayout;
 import flash.events.Event;
-import org.aswing.VectorListModel;
-import org.aswing.JOptionPane;
-import org.aswing.guibuilder.model.FileModel;
-import org.aswing.guibuilder.model.ComModel;
-import org.aswing.guibuilder.model.Definition;
-import org.aswing.guibuilder.util.TextLoader;
-import org.aswing.event.ListItemEvent;
-import org.aswing.event.SelectionEvent;
-import org.aswing.event.TreeSelectionEvent;
-import org.aswing.border.BevelBorder;
-import org.aswing.ASColor;
-import org.aswing.guibuilder.model.ComDefinition;
-import org.aswing.tree.TreePath;
-import org.aswing.guibuilder.*;
 import flash.filesystem.File;
+import flash.filesystem.FileMode;
 import flash.filesystem.FileStream;
 import flash.net.FileFilter;
-import flash.filesystem.FileMode;
+
+import org.aswing.ASColor;
+import org.aswing.AsWingManager;
+import org.aswing.AssetPane;
+import org.aswing.BorderLayout;
+import org.aswing.Insets;
 import org.aswing.JMenu;
-import org.aswing.SoftBox;
 import org.aswing.JMenuBar;
 import org.aswing.JMenuItem;
+import org.aswing.JOptionPane;
+import org.aswing.JPanel;
 import org.aswing.JSeparator;
+import org.aswing.JSplitPane;
+import org.aswing.JWindow;
+import org.aswing.SoftBox;
+import org.aswing.VectorListModel;
+import org.aswing.border.BevelBorder;
 import org.aswing.border.EmptyBorder;
-import org.aswing.Insets;
-import org.aswing.tree.DefaultTreeModel;
-import org.aswing.tree.DefaultMutableTreeNode;
-import org.aswing.tree.TreeModel;
-import flash.system.fscommand;
+import org.aswing.event.SelectionEvent;
+import org.aswing.event.TreeSelectionEvent;
+import org.aswing.guibuilder.*;
 import org.aswing.guibuilder.code.CodeGenerator;
+import org.aswing.guibuilder.model.ComDefinition;
+import org.aswing.guibuilder.model.ComModel;
+import org.aswing.guibuilder.model.Definition;
+import org.aswing.guibuilder.model.FileModel;
+import org.aswing.guibuilder.util.TextLoader;
+import org.aswing.tree.DefaultMutableTreeNode;
+import org.aswing.tree.DefaultTreeModel;
+import org.aswing.tree.TreeModel;
+import org.aswing.tree.TreePath;
 
 public class Main extends JWindow{
 	
@@ -192,6 +190,17 @@ public class Main extends JWindow{
 		hiberarchyPane.getTree().setModel(emptyTreeModel);
 		toolBarPane.getCloseButton().setEnabled(false);
 		toolBarPane.getGenerateCodeButton().setEnabled(false);
+		toolBarPane.getRevalidateButton().setEnabled(false);
+		
+		toolBarPane.getLAFsCombo().setModel(LookAndFeelManager.getIns().getLookAndFeels());
+		toolBarPane.getLAFsCombo().addActionListener(__lafSelectionChanged);
+	}
+	
+	private function __lafSelectionChanged(e:Event):void{
+		trace("__lafSelectionChanged " + toolBarPane.getLAFsCombo().getSelectedItem());
+		if(toolBarPane.getLAFsCombo().getSelectedItem() != null){
+			LookAndFeelManager.getIns().setLookAndFeel(toolBarPane.getLAFsCombo().getSelectedItem());
+		}
 	}
 	
 	private function __close(e:Event):void{
@@ -396,6 +405,7 @@ public class Main extends JWindow{
 		this.curCom = comModel;
 		propertyPane.setModel(comModel);
 		hiberarchyPane.setOperatable(comModel != null);
+		toolBarPane.getRevalidateButton().setEnabled(comModel != null);
 		if(comModel != null){
 			if(comModel == curFile.getRoot()){
 				hiberarchyPane.setOperatable(false);
