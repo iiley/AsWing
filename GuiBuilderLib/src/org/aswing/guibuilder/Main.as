@@ -434,12 +434,17 @@ public class Main extends JWindow{
 	}
 	
 	private function getRightContainer(c:ComModel):ComModel{
-		var parent:ComModel = curCom.getParent();
+		var parent:ComModel = c.getParent();
 		if(parent != null){
+			var index:int = parent.getChildIndex(c);
 			var n:int = parent.getChildCount();
-			for(var i:int=0; i<n; i++){
-				if(parent.getChild(i).isContainer()){
-					return parent.getChild(i);
+			for(var i:int=1; i<n; i++){
+				index--;
+				if(index < 0){
+					index = n-1;
+				}
+				if(parent.getChild(index).isContainer()){
+					return parent.getChild(index);
 				}
 			}
 		}
