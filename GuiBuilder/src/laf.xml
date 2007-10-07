@@ -3,6 +3,4 @@
 	</LookAndFeel>
 	<LookAndFeel name="Comeny LAF" clazz="org.aswing.skinbuilder.SkinBuilderLAF">
 	</LookAndFeel>
-	<LookAndFeel name="This6 LAF" clazz="aeon.AeonLAF" path="lafs/AeonLAF.swf">
-	</LookAndFeel>
 </LookAndFeels>
