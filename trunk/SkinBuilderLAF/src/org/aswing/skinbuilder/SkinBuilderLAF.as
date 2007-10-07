@@ -12,6 +12,8 @@ import org.aswing.*;
  * SkinBuilder LookAndFeel let you change the skin easily 
  * with only Replace the image files(and modify the scale 9 properties 
  * if the new image size is not same).
+ * <br>
+ * The Skin artworks is created by Comeny(http://www.rgenerat.org/comeny)
  * @author iiley
  */
 public class SkinBuilderLAF extends BasicLookAndFeel{
