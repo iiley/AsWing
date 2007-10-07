@@ -192,19 +192,22 @@ import org.aswing.ASColor;
 import org.aswing.Component;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.graphics.SolidBrush;
-import flash.display.DisplayObject;	
+import flash.display.DisplayObject;
+import flash.display.Shape;	
 
 class ColorIcon implements Icon{
 	
 	private var color:ASColor;
+	private var shape:Shape;
 	
 	public function ColorIcon(){
 		color = null;
+		shape = new Shape();
 	}
 	
 	
 	public function getDisplay(c:Component):DisplayObject{
-		return null;
+		return shape;
 	}
 	
 	public function setColor(c:ASColor):void{
@@ -220,7 +223,9 @@ class ColorIcon implements Icon{
 	}
 	
 	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void{
+		shape.graphics.clear();
 		if(color != null){
+			g = new Graphics2D(shape.graphics);
 			g.fillRectangle(new SolidBrush(color), x, y, 15, 16);
 		}
 	}

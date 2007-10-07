@@ -23,6 +23,7 @@ public class HiberarchyPane extends JPanel{
 		
 		//creating
 		tree = new JTree();
+		tree.setSelectionMode(JTree.SINGLE_TREE_SELECTION);
 		addChildButton = new JButton("Add child");
 		addChildButton.setToolTipText("Add a component to this container");
 		addBelowButton = new JButton("Add below");
