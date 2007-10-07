@@ -51,26 +51,6 @@ public class ToolBarPane extends JToolBar{
 		append(lafsCombo);
 		append(JSpacer.createHorizontalSpacer(10));
 		append(aboutButton);
-		
-		aboutButton.addActionListener(__showAbout);
-	}
-	
-	private function __showAbout(e:Event):void{
-		var op:JOptionPane = JOptionPane.showMessageDialog(
-			"About AsWing GuiBuilder", 
-			"Version:1.0\nDate:2007-10-7\nCreated by aswing.org", 
-			__about, 
-			this, true, new LoadIcon("icons/app_32.png", 32, 32), 
-			JOptionPane.OK|JOptionPane.CANCEL);
-		op.getOkButton().setText("Open AsWing Home");
-		op.getCancelButton().setText("Close");
-		op.getOkButton().revalidate();
-	}
-	
-	private function __about(result:int):void{
-		if(result == JOptionPane.OK){
-			navigateToURL(new URLRequest("http://www.aswing.org"), "_blank");
-		}
 	}
 	
 	public function getOpenButton():JButton{
@@ -95,6 +75,10 @@ public class ToolBarPane extends JToolBar{
 	
 	public function getLAFsCombo():JComboBox{
 		return lafsCombo;
+	}
+	
+	public function getAboutButton():JButton{
+		return aboutButton;
 	}
 }
 }
