@@ -1,6 +1,7 @@
 package org.aswing.guibuilder{
 
-import org.aswing.Component;	
+import org.aswing.Component;
+import org.aswing.guibuilder.model.ProModel;	
 
 /**
  * The interface for component property editors.
@@ -9,17 +10,13 @@ import org.aswing.Component;
 public interface PropertyEditor{
 	
 	function getDisplay():Component;
-	
-	function setApplyFunction(apply:Function):void;
-	
+		
 	function applyProperty():void;
+		
+	function setSerializer(ser:PropertySerializer):void;
 	
-	function parseValue(xml:XML):*;
+	function bindTo(pro:ProModel):void;
 	
-	function encodeValue(value:*):XML;
-	
-	function getCodeLines():Array;
-	
-	function isSimpleOneLine():String;
+	function setEditorParam(param:String):void;
 }
 }

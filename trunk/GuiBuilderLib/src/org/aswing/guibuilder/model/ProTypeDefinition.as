@@ -10,10 +10,12 @@ public class ProTypeDefinition{
 	
 	private var name:String;
 	private var editorClass:Class;
+	private var serializerClass:Class;
 	
 	public function ProTypeDefinition(xml:XML){
 		name = xml.@name;
-		editorClass = Reflection.getClass(xml.@editor);
+		editorClass = Reflection.getClass(xml.@editor+"Editor");
+		serializerClass = Reflection.getClass(xml.@editor+"Serializer");
 	}
 	
 	public function getName():String{
@@ -22,6 +24,10 @@ public class ProTypeDefinition{
 	
 	public function getEditorClass():Class{
 		return editorClass;
+	}
+	
+	public function getSerializerClass():Class{
+		return serializerClass;
 	}
 }
 }
