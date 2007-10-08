@@ -1,6 +1,7 @@
 package org.aswing.guibuilder.model{
 
-import org.aswing.guibuilder.PropertyEditor;	
+import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.PropertySerializer;	
 
 /**
  * Property Model
@@ -11,30 +12,24 @@ public class ProModel{
 	public static const NONE_VALUE_SET:Object = {};
 	
 	private var def:ProDefinition;
-	protected var editor:PropertyEditor;
 	protected var owner:Model;
 	protected var value:*;
 	protected var noneValue:Boolean; //whether or not set this property a value
 	protected var defaultValue:*;
+	protected var valueXML:XML;
+	protected var valueSerializer:PropertySerializer;
 	
 	public function ProModel(def:ProDefinition){
 		this.def = def;
-		if(def != null){
-			var clazz:Class = def.getEditorClass();
-			if(def.getEditorParam() != "" && def.getEditorParam() != null){
-				editor = new clazz(def.getEditorParam());
-			}else{
-				editor = new clazz();
-			}
-			editor.setApplyFunction(__apply);
-			if(def.getTooltip() != null && def.getTooltip() != ""){
-				editor.getDisplay().setToolTipText(def.getTooltip());
-			}
-		}
 		noneValue = true;
+		valueSerializer = def.createPropertySerializer();
 	}
 	
-	private function __apply(v:*):void{
+	public function getDef():ProDefinition{
+		return def;
+	}
+	
+	public function valueChanged(v:*):void{
 		if(v === NONE_VALUE_SET){
 			value = undefined;
 			noneValue = true;
@@ -45,20 +40,34 @@ public class ProModel{
 			owner.applyProperty(def.getName(), v, def.getAction());
 		}
 	}
+		
+	public function getValue():*{
+		if(noneValue){
+			return NONE_VALUE_SET;
+		}else{
+			return value;
+		}
+	}
+	
+	public function isNoValueSet():Boolean{
+		return noneValue;
+	}
 	
 	public function bindTo(c:Model):void{
 		owner = c;
 		defaultValue = owner.captureProperty(def.getName());
 		var defaultValueXML:XMLList = def.getDefaultValue();
 		if(defaultValueXML != null && defaultValueXML.length() >0){
-			__apply(editor.parseValue(defaultValueXML[0]));
+			valueXML = defaultValueXML[0];
+			valueChanged(valueSerializer.decodeValue(valueXML));
 		}
 	}
 	
 	public function parse(xml:XML):void{
 		var valueXML:XMLList = xml.Value;
 		if(valueXML != null && valueXML.length() > 0){
-			__apply(editor.parseValue(valueXML[0]));
+			valueXML = valueXML[0];
+			valueChanged(valueSerializer.decodeValue(valueXML));
 		}
 	}
 	
@@ -69,7 +78,7 @@ public class ProModel{
 		var xml:XML = <Property></Property>;
 		xml.@name = getName();
 		xml.@type = def.getName();
-		xml.appendChild(editor.encodeValue(value));
+		xml.appendChild(valueSerializer.encodeValue(value));
 		return xml;
 	}
 	
@@ -84,7 +93,7 @@ public class ProModel{
 		if(noneValue){
 			return null;
 		}
-		return editor.getCodeLines();
+		return valueSerializer.getCodeLines(value);
 	}
 	
 	/**
@@ -95,7 +104,7 @@ public class ProModel{
 		if(noneValue){
 			return null;
 		}
-		return editor.isSimpleOneLine();
+		return valueSerializer.isSimpleOneLine(value);
 	}
 	
 	public function getLabel():String{
@@ -104,10 +113,6 @@ public class ProModel{
 	
 	public function getName():String{
 		return def.getName();
-	}
-	
-	public function getEditor():PropertyEditor{
-		return editor;
 	}
 }
 }

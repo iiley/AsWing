@@ -6,7 +6,7 @@ import flash.events.Event;
 import org.aswing.guibuilder.util.MathUtils;
 import org.aswing.guibuilder.model.ProModel;
 
-public class AbsComboIntEditor implements PropertyEditor{
+public class AbsComboIntEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	private var combo:JComboBox;
 	
@@ -17,45 +17,23 @@ public class AbsComboIntEditor implements PropertyEditor{
 		combo.setListCellFactory(new DefaultComboBoxListCellFactory(false, false));
 	}
 	
-	private function __apply(e:Event):void{
-		applyProperty();
-	}
-	
-	public function parseValue(xml:XML):*{
-		var index:int = MathUtils.parseInteger(xml.@value);
-		combo.setSelectedIndex(index);
-		return index;
-	}
-	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		xml.@value = value+"";
-		return xml;
-	}
-	
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		return combo.getSelectedIndex()+"";
-	}
-	
 	public function getDisplay():Component{
 		return combo;
 	}
 	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		var index:int = v;
+		if(noValueSet){
+			index = 0;
+		}
+		combo.setSelectedIndex(index);
+	}	
 	
-	public function applyProperty():void{
-		var index:int = combo.getSelectedIndex();
-		if(index >= 0){
-			apply(index);
+	override protected function getEditorValue():*{
+		if(combo.getSelectedIndex() <= 0){
+			return ProModel.NONE_VALUE_SET;
 		}else{
-			apply(ProModel.NONE_VALUE_SET);
+			return combo.getSelectedIndex();
 		}
 	}
 }

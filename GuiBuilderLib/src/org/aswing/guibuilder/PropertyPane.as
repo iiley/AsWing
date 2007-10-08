@@ -10,10 +10,13 @@ import org.aswing.JScrollPane;
 import org.aswing.JPanel;
 import org.aswing.JViewport;
 import org.aswing.JLabel;
+import org.aswing.guibuilder.model.ProDefinition;
+import org.aswing.util.HashMap;
 
 public class PropertyPane extends JPanel{
 	
 	private var form:Form;
+	private var editorsMap:HashMap;
 	
 	public function PropertyPane(){
 		super();
@@ -24,6 +27,8 @@ public class PropertyPane extends JPanel{
 		vp.setVerticalAlignment(JViewport.TOP);
 		vp.setHorizontalAlignment(JViewport.LEFT);
 		append(new JScrollPane(vp));
+		
+		editorsMap = new HashMap();
 	}
 	
 	public function setModel(model:Model):void{
@@ -31,7 +36,11 @@ public class PropertyPane extends JPanel{
 		if(model != null){
 			var pros:Array = model.getProperties();
 			for each(var pro:ProModel in pros){
-				addEditor(pro.getLabel(), pro.getEditor());
+				var editor:PropertyEditor = getCreateEditor(pro.getDef());
+				editor.setEditorParam(pro.getDef().getEditorParam());
+				editor.getDisplay().setToolTipText(def.getTooltip());
+				editor.bindTo(pro);
+				addEditor(pro.getLabel(), editor);
 			}
 		}
 		form.revalidate();
@@ -41,6 +50,15 @@ public class PropertyPane extends JPanel{
 		var jlabel:JLabel = form.createLeftLabel(label);
 		jlabel.setFont(jlabel.getFont().changeBold(true));
 		form.addRow(jlabel, editor.getDisplay());
+	}
+	
+	public function getCreateEditor(def:ProDefinition):PropertyEditor{
+		if(editorsMap.containsKey(def.getName())){
+			return editorsMap.getValue(def.getName());
+		}
+		var editor:PropertyEditor = def.createPropertyEditor();
+		editorsMap.put(def.getName(), editor);
+		return editor;
 	}
 }
 }

@@ -1,7 +1,9 @@
 package org.aswing.guibuilder.model{
+	import org.aswing.guibuilder.PropertySerializer;
+	import org.aswing.guibuilder.PropertyEditor;
+	
 
-import org.aswing.guibuilder.PropertyEditor;
-import org.aswing.util.Reflection;	
+	
 
 /**
  * Property Definition
@@ -27,6 +29,8 @@ public class ProDefinition{
 		editorParam = xml.@editorParam;
 		defaultValue = xml.Value;
 		tooltip = xml.@tooltip;
+		if(editorParam == "") editorParam = null;
+		if(tooltip == "") tooltip = null;
 	}
 	
 	public function getName():String{
@@ -53,9 +57,16 @@ public class ProDefinition{
 		return tooltip;
 	}
 	
-	public function getEditorClass():Class{
-		return Definition.getIns().getProTypeDefinition(type).getEditorClass();
+	public function createPropertySerializer():PropertySerializer{
+		var clazz:Class = Definition.getIns().getProTypeDefinition(type).getSerializerClass();
+		return new clazz() as PropertySerializer;
 	}
 	
+	public function createPropertyEditor():PropertyEditor{
+		var clazz:Class = Definition.getIns().getProTypeDefinition(type).getEditorClass();
+		var editor:PropertyEditor = new clazz() as PropertyEditor;
+		editor.setSerializer(createPropertySerializer());
+		return editor;
+	}
 }
 }
