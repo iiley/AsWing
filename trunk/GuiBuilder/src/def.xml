@@ -2,55 +2,55 @@
 
 <Types>
 
-	<Type name="Boolean" editor="org.aswing.guibuilder.property.BooleanEditor">
+	<Type name="Boolean" clazzPrefix="org.aswing.guibuilder.property.Boolean">
 	</Type>
 
-	<Type name="int" editor="org.aswing.guibuilder.property.IntEditor">
+	<Type name="int" clazzPrefix="org.aswing.guibuilder.property.Int">
 	</Type>
 
-	<Type name="Number" editor="org.aswing.guibuilder.property.NumberEditor">
+	<Type name="Number" clazzPrefix="org.aswing.guibuilder.property.Number">
 	</Type>
 
-	<Type name="String" editor="org.aswing.guibuilder.property.StringEditor">
+	<Type name="String" clazzPrefix="org.aswing.guibuilder.property.String">
 	</Type>
 
-	<Type name="IntDimension" editor="org.aswing.guibuilder.property.IntDimensionEditor">
+	<Type name="IntDimension" clazzPrefix="org.aswing.guibuilder.property.IntDimension">
 	</Type>
 
-	<Type name="IntPoint" editor="org.aswing.guibuilder.property.IntPointEditor">
+	<Type name="IntPoint" clazzPrefix="org.aswing.guibuilder.property.IntPoint">
 	</Type>
 
-	<Type name="PreferSize" editor="org.aswing.guibuilder.property.PreferSizeEditor">
+	<Type name="PreferSize" clazzPrefix="org.aswing.guibuilder.property.PreferSize">
 	</Type>
 
-	<Type name="Align" editor="org.aswing.guibuilder.property.AlignEditor">
+	<Type name="Align" clazzPrefix="org.aswing.guibuilder.property.Align">
 	</Type>
 
-	<Type name="Axis" editor="org.aswing.guibuilder.property.AxisEditor">
+	<Type name="Axis" clazzPrefix="org.aswing.guibuilder.property.Axis">
 	</Type>
 
-	<Type name="Orientation" editor="org.aswing.guibuilder.property.OrientationEditor">
+	<Type name="Orientation" clazzPrefix="org.aswing.guibuilder.property.Orientation">
 	</Type>
 
-	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor">
+	<Type name="Layout" clazzPrefix="org.aswing.guibuilder.property.Layout">
 	</Type>
 
-	<Type name="Border" editor="org.aswing.guibuilder.property.BorderEditor">
+	<Type name="Border" clazzPrefix="org.aswing.guibuilder.property.Border">
 	</Type>
 
-	<Type name="Constraints" editor="org.aswing.guibuilder.property.ConstraintsEditor">
+	<Type name="Constraints" clazzPrefix="org.aswing.guibuilder.property.Constraints">
 	</Type>
 
-	<Type name="Color" editor="org.aswing.guibuilder.property.ColorEditor">
+	<Type name="Color" clazzPrefix="org.aswing.guibuilder.property.Color">
 	</Type>
 
-	<Type name="Font" editor="org.aswing.guibuilder.property.FontEditor">
+	<Type name="Font" clazzPrefix="org.aswing.guibuilder.property.Font">
 	</Type>
 
-	<Type name="IntEmuEditor" editor="org.aswing.guibuilder.property.IntEmuEditor">
+	<Type name="IntEmu" clazzPrefix="org.aswing.guibuilder.property.IntEmu">
 	</Type>
 
-	<Type name="Scope" editor="org.aswing.guibuilder.property.ScopeEditor">
+	<Type name="Scope" clazzPrefix="org.aswing.guibuilder.property.Scope">
 	</Type>
 
 </Types>
@@ -76,7 +76,7 @@
 		</Property>
 	</Border>
 	<Border name="BevelBorder" clazz="org.aswing.border.BevelBorder">
-		<Property label="Type" name="BevelType" type="IntEmuEditor" editorParam="Raised,Lowered">
+		<Property label="Type" name="BevelType" type="IntEmu" editorParam="Raised,Lowered">
 			<Value value="1"></Value>
 		</Property>
 		<Property label="Thickness" name="Thickness" type="int">
@@ -88,7 +88,7 @@
 		</Property>
 		<Property label="Thickness" name="Thickness" type="int">
 		</Property>
-		<Property label="Side" name="Side" type="IntEmuEditor" editorParam="North,South,East,West">
+		<Property label="Side" name="Side" type="IntEmu" editorParam="North,South,East,West">
 			<Value value="0"></Value>
 		</Property>
 	</Border>
@@ -99,7 +99,7 @@
 		<Property label="Title" name="Title" type="String">
 			<Value value="title"/>
 		</Property>
-		<Property label="Position" name="Position" type="IntEmuEditor" editorParam=",Top,,Bottom">
+		<Property label="Position" name="Position" type="IntEmu" editorParam=",Top,,Bottom">
 			<Value value="1"></Value>
 		</Property>
 		<Property label="Align" name="Align" type="Align" editorParam="hor-only">
@@ -119,7 +119,7 @@
 		<Property label="Color" name="Color" type="Color" editorParam="nonull">
 			<Value value="0,1"/>
 		</Property>
-		<Property label="Position" name="Position" type="IntEmuEditor" editorParam=",Top,,Bottom">
+		<Property label="Position" name="Position" type="IntEmu" editorParam=",Top,,Bottom">
 			<Value value="1"></Value>
 		</Property>
 		<Property label="Offset" name="Offset" type="int">
@@ -200,8 +200,6 @@
 		</Property>
 		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled">
 			<Value value="public"></Value>
-		</Property>
-		<Property label="ID" name="id" type="String" editorParam="no-generate-code">
 		</Property>
 		<Property label="Name" name="Name" type="String" action="reAppendToParent">
 		</Property>
@@ -456,7 +454,7 @@
 	</Com>
 
 	<Com name="JList" clazz="org.aswing.JList" sup="Component">
-		<Property label="Selection mode" name="SelectionMode" type="IntEmuEditor" editorParam="Single,Multiple">
+		<Property label="Selection mode" name="SelectionMode" type="IntEmu" editorParam="Single,Multiple">
 		</Property>
 		<Property label="Prefer cell width" name="PreferredCellWidthWhenNoCount" type="int" action="revalidate">
 		</Property>
@@ -480,7 +478,7 @@
 		</Property>
 	</Com>
 	<Com name="JTree" clazz="org.aswing.JTree" sup="Component">
-		<Property label="Selection mode" name="SelectionMode" type="IntEmuEditor" editorParam=",Single,Contiguous Multiple,,Multiple">
+		<Property label="Selection mode" name="SelectionMode" type="IntEmu" editorParam=",Single,Contiguous Multiple,,Multiple">
 		</Property>
 		<Property label="Editable" name="Editable" type="Boolean">
 		</Property>
@@ -514,9 +512,9 @@
 		</Property>
 	</Com>
 	<Com name="JTable" clazz="org.aswing.JTable" sup="Component">
-		<Property label="Selection mode" name="SelectionMode" type="IntEmuEditor" editorParam="Single,Multiple">
+		<Property label="Selection mode" name="SelectionMode" type="IntEmu" editorParam="Single,Multiple">
 		</Property>
-		<Property label="Auto resize mode" name="AutoResizeMode" type="IntEmuEditor" editorParam="Auto off,Next column,Subsequent columns,Last column,All columns">
+		<Property label="Auto resize mode" name="AutoResizeMode" type="IntEmu" editorParam="Auto off,Next column,Subsequent columns,Last column,All columns">
 		</Property>
 		<Property label="Row height" name="RowHeight" type="int" action="revalidate">
 		</Property>
@@ -608,9 +606,9 @@
 	</Com>
 
 	<Com name="JAttachPane" clazz="org.aswing.JAttachPane" sup="Container">
-		<Property label="Prefer size strategy" name="PrefferSizeStrategy" type="IntEmuEditor" editorParam="Layout and Image,Image only,Layout only">
+		<Property label="Prefer size strategy" name="PrefferSizeStrategy" type="IntEmu" editorParam="Layout and Image,Image only,Layout only">
 		</Property>
-		<Property label="Scale mode" name="ScaleMode" type="IntEmuEditor" editorParam="No scale,Proportional fit pane,Stretch fit pane,Proportional fit width,Proportional fit height">
+		<Property label="Scale mode" name="ScaleMode" type="IntEmu" editorParam="No scale,Proportional fit pane,Stretch fit pane,Proportional fit width,Proportional fit height">
 		</Property>
 		<Property label="Custom scale" name="CustomScale" type="int">
 		</Property>
