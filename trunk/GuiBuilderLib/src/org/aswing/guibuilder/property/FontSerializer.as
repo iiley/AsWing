@@ -3,10 +3,11 @@ package org.aswing.guibuilder.property{
 import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.guibuilder.util.MathUtils;
 import org.aswing.ASFont;
+import org.aswing.guibuilder.model.ProModel;
 
 public class FontSerializer implements PropertySerializer{
 	
-	public function decodeValue(valueXML:XML):*{
+	public function decodeValue(valueXML:XML, pro:ProModel):*{
 		if(xml.@value == "null"){
 			return null;
 		}
@@ -20,7 +21,7 @@ public class FontSerializer implements PropertySerializer{
 		return font;
 	}
 	
-	public function encodeValue(value:*):XML{
+	public function encodeValue(value:*, pro:ProModel):XML{
 		var xml:XML = <Value></Value>;
 		if(value == null){
 			xml.@value="null";
@@ -36,11 +37,11 @@ public class FontSerializer implements PropertySerializer{
 		return xml;
 	}
 	
-	public function getCodeLines(value:*):Array{
+	public function getCodeLines(value:*, pro:ProModel):Array{
 		return null;
 	}
 	
-	public function isSimpleOneLine(value:*):String{
+	public function isSimpleOneLine(value:*, pro:ProModel):String{
 		var font:ASFont = value;
 		if(font == null){
 			return "null";

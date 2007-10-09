@@ -10,7 +10,7 @@ import org.aswing.colorchooser.JColorMixer;
 import org.aswing.border.BevelBorder;
 import org.aswing.event.InteractiveEvent;
 
-public class ColorEditor implements PropertyEditor{
+public class ColorEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	private static var DEFAULT:ASColor = new ASColor();
 	
@@ -40,6 +40,34 @@ public class ColorEditor implements PropertyEditor{
 		defaultRadio.setSelected(true);
 		if(nonull == "nonull"){
 			nullRadio.setVisible(false);
+		}
+	}
+	
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		defaultRadio.setSelected(noValueSet);
+		if(noValueSet){
+			color = DEFAULT;
+			nullRadio.setSelected(false);
+		}else if(v == null){
+			color = null;
+			nullRadio.setSelected(true);
+		}else{
+			color = v;
+			nullRadio.setSelected(false);
+		}
+		if(color === DEFAULT){
+			colorIcon.setColor(null);
+		}else{
+			colorIcon.setColor(color);
+		}
+		colorButton.repaint();
+	}	
+	
+	override protected function getEditorValue():*{
+		if(color === DEFAULT){
+			return ProModel.NONE_VALUE_SET;
+		}else{
+			return color;
 		}
 	}
 	
@@ -129,60 +157,6 @@ public class ColorEditor implements PropertyEditor{
 	
 	public function getDisplay():Component{
 		return pane;
-	}
-	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
-	
-	public function applyProperty():void{
-		if(color !== DEFAULT){
-			apply(color);
-		}else{
-			apply(ProModel.NONE_VALUE_SET);
-		}
-	}
-	
-	public function parseValue(xml:XML):*{
-		var str:String = xml.@value;
-		defaultRadio.setSelected(false);
-		nullRadio.setSelected(false);
-		if(str == "null"){
-			color = null;
-			nullRadio.setSelected(true);
-		}else{
-			var strs:Array = str.split(",");
-			color = new ASColor(MathUtils.parseInteger(strs[0], 16), parseFloat(strs[1]));
-		}
-		if(color === DEFAULT || color == null){
-			colorIcon.setColor(null);
-		}else{
-			colorIcon.setColor(color);
-		}
-		colorButton.repaint();
-		return color;
-	}
-	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		if(color == null){
-			xml.@value = "null";
-		}else{
-			xml.@value = color.getRGB().toString(16)+","+color.getAlpha();
-		}
-		return xml;
-	}
-	
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		if(color == null){
-			return "null";
-		}
-		return "new ASColor(0x" + color.getRGB().toString(16) + ", " + color.getAlpha() + ")";
 	}
 }
 }

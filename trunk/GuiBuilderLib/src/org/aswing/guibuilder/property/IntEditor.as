@@ -10,7 +10,7 @@ import flash.events.Event;
 import org.aswing.event.FocusKeyEvent;
 import flash.ui.Keyboard;
 
-public class IntEditor implements PropertyEditor{
+public class IntEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	protected var text:IntInput;
 	
@@ -18,46 +18,24 @@ public class IntEditor implements PropertyEditor{
 		text = new IntInput("", "", 0, 6);
 		text.addEventListener(AWEvent.ACT, __apply);
 	}
-	
-	private function __apply(e:Event):void{
-		applyProperty();
-	}
-	
+		
 	public function getDisplay():Component{
 		return text;
 	}
-		
-	public function parseValue(xml:XML):*{
-		text.setInputText(xml.@value);
-		return MathUtils.parseInteger(xml.@value);
-	}
 	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		xml.@value = text.getInputInt();
-		return xml;
-	}
-
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		return text.getInputInt()+"";
-	}
-	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
-	
-	public function applyProperty():void{
-		if(!text.isEmpty()){
-			apply(text.getInputInt());
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		if(noValueSet){
+			text.setInputText("");
 		}else{
-			apply(ProModel.NONE_VALUE_SET);
+			text.setInputText(v+"");
 		}
-	}
+	}	
 	
+	override protected function getEditorValue():*{
+		if(text.isEmpty()){
+			return ProModel.NONE_VALUE_SET;
+		}
+		return text.getInputInt();
+	}
 }
 }

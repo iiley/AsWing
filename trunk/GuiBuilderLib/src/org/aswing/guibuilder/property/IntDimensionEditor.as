@@ -12,7 +12,7 @@ import flash.events.Event;
 import org.aswing.guibuilder.model.ProModel;
 import org.aswing.guibuilder.util.MathUtils;
 
-public class IntDimensionEditor implements PropertyEditor{
+public class IntDimensionEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	protected var pane:JPanel;
 	protected var widthInput:LabelInput;
@@ -27,50 +27,22 @@ public class IntDimensionEditor implements PropertyEditor{
 		heightInput.addEventListener(AWEvent.ACT, __apply);
 	}
 	
-	private function __apply(e:Event):void{
-		applyProperty();
-	}
-	
-	public function parseValue(xml:XML):*{
-		var str:String = xml.@value;
-		var strs:Array = str.split(",");
-		var dim:IntDimension = new IntDimension(MathUtils.parseInteger(strs[0]), MathUtils.parseInteger(strs[1]));
-		widthInput.setInputText(strs[0]);
-		heightInput.setInputText(strs[1]);
-		return dim;
-	}
-	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		xml.@value = widthInput.getInputInt() + "," + heightInput.getInputInt();
-		return xml;
-	}
-
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		return "new IntDimension(" + widthInput.getInputInt() 
-				+ ", " + heightInput.getInputInt() + ")";
-	}
-	
-	public function getDisplay():Component{
-		return pane;
-	}
-	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
-	
-	public function applyProperty():void{
-		if(widthInput.isEmpty() || heightInput.isEmpty()){
-			apply(ProModel.NONE_VALUE_SET);
-			return;
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		if(noValueSet){
+			widthInput.setInputText("");
+			heightInput.setInputText("");
+		}else{
+			var dim:IntDimension = v;
+			widthInput.setInputText(dim.width+"");
+			heightInput.setInputText(dim.height+"");
 		}
-		apply(new IntDimension(widthInput.getInputInt(), heightInput.getInputInt()));
-	}
+	}	
 	
+	override protected function getEditorValue():*{
+		if(widthInput.isEmpty() || heightInput.isEmpty()){
+			return ProModel.NONE_VALUE_SET;
+		}
+		return new IntDimension(widthInput.getInputInt(), heightInput.getInputInt());
+	}
 }
 }

@@ -13,52 +13,31 @@ public class BooleanEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	public function BooleanEditor(){
 		combo = new JComboBox(["Default", "true", "false"]);
+		combo.setPreferredWidth(70);
 		combo.addActionListener(__apply);
-	}
-	
-	private function __apply(e:Event):void{
-		applyProperty();
-	}
-	
-	public function parseValue(xml:XML):*{
-		var str:String = xml.@value;
-		var b:Boolean = (str.toLowerCase() == "true");
-		if(b){
-			combo.setSelectedIndex(1);
-		}else{
-			combo.setSelectedIndex(2);
-		}
-		return b;
-	}
-	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		xml.@value = combo.getSelectedItem();
-		return xml;
-	}
-	
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		return (combo.getSelectedIndex() == 1)+"";
 	}
 	
 	public function getDisplay():Component{
 		return combo;
 	}
 	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		var index:int = 0;
+		if(!noValueSet){
+			if(v){
+				index = 1;
+			}else{
+				index = 2;
+			}
+		}
+		combo.setSelectedIndex(index);
+	}	
 	
-	public function applyProperty():void{
-		if(combo.getSelectedIndex() > 0){
-			apply(combo.getSelectedIndex() == 1);
+	override protected function getEditorValue():*{
+		if(combo.getSelectedIndex() <= 0){
+			return ProModel.NONE_VALUE_SET;
 		}else{
-			apply(ProModel.NONE_VALUE_SET);
+			return combo.getSelectedIndex() == 1;
 		}
 	}
 	

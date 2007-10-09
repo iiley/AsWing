@@ -35,7 +35,7 @@ public class AlignEditor extends AbsComboIntEditor{
 		super(["Center", "Top", "Left", "Bottom", "Right"]);
 	}
 	
-	public function setEditorParam(param:String):void{
+	override public function setEditorParam(param:String):void{
 		var arr:Array;
 		if(param == "hor-only"){
 			arr = ["Center", "", "Left", "", "Right"];
