@@ -14,8 +14,8 @@ public class ProTypeDefinition{
 	
 	public function ProTypeDefinition(xml:XML){
 		name = xml.@name;
-		editorClass = Reflection.getClass(xml.@editor+"Editor");
-		serializerClass = Reflection.getClass(xml.@editor+"Serializer");
+		editorClass = Reflection.getClass(xml.@editor);
+		serializerClass = Reflection.getClass(xml.@serializer);
 	}
 	
 	public function getName():String{

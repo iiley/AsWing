@@ -7,7 +7,7 @@ import org.aswing.JComboBox;
 import flash.events.Event;
 import org.aswing.guibuilder.model.ProModel;
 
-public class BooleanEditor implements PropertyEditor{
+public class BooleanEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	protected var combo:JComboBox;
 	

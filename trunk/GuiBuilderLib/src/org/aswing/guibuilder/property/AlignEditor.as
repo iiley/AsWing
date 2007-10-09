@@ -31,18 +31,20 @@ public class AlignEditor extends AbsComboIntEditor{
      */
     public static const RIGHT:int   = 4;	
 		
-	public function AlignEditor(param:String=null){
-		super(createLabel(param));
+	public function AlignEditor(){
+		super(["Center", "Top", "Left", "Bottom", "Right"]);
 	}
 	
-	private function createLabel(param:String):Array{
+	public function setEditorParam(param:String):void{
+		var arr:Array;
 		if(param == "hor-only"){
-			return ["Center", "", "Left", "", "Right"];
+			arr = ["Center", "", "Left", "", "Right"];
 		}else if(param == "ver-only"){
-			return ["Center", "Top", "", "Bottom"];
+			arr = ["Center", "Top", "", "Bottom"];
 		}else{
-			return ["Center", "Top", "Left", "Bottom", "Right"];
+			arr = ["Center", "Top", "Left", "Bottom", "Right"];
 		}
+		combo.setListData(arr);
 	}
 }
 }

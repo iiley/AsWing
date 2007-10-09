@@ -8,7 +8,7 @@ import org.aswing.guibuilder.model.ProModel;
 
 public class AbsComboIntEditor extends BasePropertyEditor implements PropertyEditor{
 	
-	private var combo:JComboBox;
+	protected var combo:JComboBox;
 	
 	public function AbsComboIntEditor(labels:Array){
 		combo = new JComboBox(labels);

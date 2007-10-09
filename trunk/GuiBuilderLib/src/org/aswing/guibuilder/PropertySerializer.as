@@ -3,22 +3,22 @@ package org.aswing.guibuilder{
 public interface PropertySerializer{
 	
 	/**
-	 * @param valueXML this param can be null, means default value
-	 */		
+	 * @param valueXML this param should never be null
+	 */
 	function decodeValue(valueXML:XML):*;
 	
 	/**
-	 * @param if the value is default value, null should be returned
+	 * @param value this param should never be null unless this type accept null value
 	 */
 	function encodeValue(value:*):XML;
 	
 	/**
-	 * @param valueXML this param should never be null
+	 * @param value this param should never be null unless this type accept null value
 	 */
 	function getCodeLines(value:*):Array;
 	
 	/**
-	 * @param valueXML this param should never be null
+	 * @param value this param should never be null unless this type accept null value
 	 */	
 	function isSimpleOneLine(value:*):String;
 }

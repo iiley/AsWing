@@ -1,9 +1,7 @@
 package org.aswing.guibuilder.model{
-	import org.aswing.guibuilder.PropertySerializer;
-	import org.aswing.guibuilder.PropertyEditor;
 	
-
-	
+import org.aswing.guibuilder.PropertySerializer;
+import org.aswing.guibuilder.PropertyEditor;
 
 /**
  * Property Definition
