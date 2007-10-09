@@ -2,55 +2,69 @@
 
 <Types>
 
-	<Type name="Boolean" clazzPrefix="org.aswing.guibuilder.property.Boolean">
+	<Type name="Boolean" editor="org.aswing.guibuilder.property.BooleanEditor"
+		serializer="org.aswing.guibuilder.property.IntSerializer">
 	</Type>
 
-	<Type name="int" clazzPrefix="org.aswing.guibuilder.property.Int">
+	<Type name="int" editor="org.aswing.guibuilder.property.IntEditor"
+		serializer="org.aswing.guibuilder.property.IntSerializer">
 	</Type>
 
-	<Type name="Number" clazzPrefix="org.aswing.guibuilder.property.Number">
+	<Type name="Number" editor="org.aswing.guibuilder.property.NumberEditor"
+		serializer="org.aswing.guibuilder.property.NumberSerializer">
 	</Type>
 
-	<Type name="String" clazzPrefix="org.aswing.guibuilder.property.String">
+	<Type name="String" editor="org.aswing.guibuilder.property.StringEditor"
+		serializer="org.aswing.guibuilder.property.StringSerializer">
 	</Type>
 
-	<Type name="IntDimension" clazzPrefix="org.aswing.guibuilder.property.IntDimension">
+	<Type name="IntDimension" editor="org.aswing.guibuilder.property.IntDimensionEditor"
+		serializer="org.aswing.guibuilder.property.IntDimensionSerializer">
 	</Type>
 
-	<Type name="IntPoint" clazzPrefix="org.aswing.guibuilder.property.IntPoint">
+	<Type name="IntPoint" editor="org.aswing.guibuilder.property.IntPointEditor"
+		serializer="org.aswing.guibuilder.property.IntPointSerializer">
 	</Type>
 
-	<Type name="PreferSize" clazzPrefix="org.aswing.guibuilder.property.PreferSize">
+	<Type name="PreferSize" editor="org.aswing.guibuilder.property.PreferSizeEditor"
+		serializer="org.aswing.guibuilder.property.IntDimensionSerializer">
 	</Type>
 
-	<Type name="Align" clazzPrefix="org.aswing.guibuilder.property.Align">
+	<Type name="Align" editor="org.aswing.guibuilder.property.AlignEditor"
+		serializer="org.aswing.guibuilder.property.IntSerializer">
 	</Type>
 
-	<Type name="Axis" clazzPrefix="org.aswing.guibuilder.property.Axis">
+	<Type name="Axis" editor="org.aswing.guibuilder.property.AxisEditor"
+		serializer="org.aswing.guibuilder.property.IntSerializer">
 	</Type>
 
-	<Type name="Orientation" clazzPrefix="org.aswing.guibuilder.property.Orientation">
+	<Type name="Orientation" editor="org.aswing.guibuilder.property.OrientationEditor"
+		serializer="org.aswing.guibuilder.property.IntSerializer">
 	</Type>
 
-	<Type name="Layout" clazzPrefix="org.aswing.guibuilder.property.Layout">
+	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor">
 	</Type>
 
-	<Type name="Border" clazzPrefix="org.aswing.guibuilder.property.Border">
+	<Type name="Border" editor="org.aswing.guibuilder.property.BorderEditor">
 	</Type>
 
-	<Type name="Constraints" clazzPrefix="org.aswing.guibuilder.property.Constraints">
+	<Type name="Constraints" editor="org.aswing.guibuilder.property.ConstraintsEditor"
+		serializer="org.aswing.guibuilder.property.StringSerializer">
 	</Type>
 
-	<Type name="Color" clazzPrefix="org.aswing.guibuilder.property.Color">
+	<Type name="Color" editor="org.aswing.guibuilder.property.ColorEditor"
+		serializer="org.aswing.guibuilder.property.ColorSerializer">
 	</Type>
 
-	<Type name="Font" clazzPrefix="org.aswing.guibuilder.property.Font">
+	<Type name="Font" editor="org.aswing.guibuilder.property.FontEditor"
+		serializer="org.aswing.guibuilder.property.FontSerializer">
 	</Type>
 
-	<Type name="IntEmu" clazzPrefix="org.aswing.guibuilder.property.IntEmu">
+	<Type name="IntEmu" editor="org.aswing.guibuilder.property.IntEmuEditor"
+		serializer="org.aswing.guibuilder.property.IntSerializer">
 	</Type>
 
-	<Type name="Scope" clazzPrefix="org.aswing.guibuilder.property.Scope">
+	<Type name="Scope" editor="org.aswing.guibuilder.property.ScopeEditor">
 	</Type>
 
 </Types>
