@@ -7,7 +7,7 @@ import org.aswing.guibuilder.model.ProModel;
 import flash.events.Event;
 import org.aswing.guibuilder.FontChooser;
 
-public class FontEditor implements PropertyEditor{
+public class FontEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	private static var DEFAULT:ASFont = new ASFont();
 	
@@ -58,77 +58,30 @@ public class FontEditor implements PropertyEditor{
 	public function getDisplay():Component{
 		return pane;
 	}
-
-	public function parseValue(xml:XML):*{
-		if(xml.@value == "null"){
-			return null;
+	
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		if(noValueSet){
+			font = DEFAULT;
+		}else{
+			font = v;
 		}
-		var name:String = xml.@name;
-		var size:int = MathUtils.parseInteger(xml.@size);
-		var bold:Boolean = (xml.@bold == "true");
-		var italic:Boolean = (xml.@italic == "true");
-		var underline:Boolean = (xml.@underline == "true");
-		var embedFonts:Boolean = (xml.@embedFonts == "true");
-		var f:ASFont = new ASFont(name, size, bold, italic, underline, embedFonts);
-		font = f;
-		button.setText(name);
-		button.setToolTipText(
-			"Name: "+font.getName() 
-			+ "\nSize: "+font.getSize()
-			+ "\nBold: "+font.isBold()
-			+ "\nItalic: "+font.isItalic()
-			+ "\nUnderline: "+font.isUnderline()
-			+ "\nEmbeded: "+font.isEmbedFonts());
-		nullRadio.setSelected(false);
-		defaultRadio.setSelected(false);
-		return font;
+		updateRepresents();
 	}
 	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		if(value == null){
-			xml.@value="null";
-			return xml;
-		}
-		var f:ASFont = value;
-		xml.@name = f.getName();
-		xml.@size = f.getSize()+"";
-		xml.@bold = f.isBold()+"";
-		xml.@italic = f.isItalic()+"";
-		xml.@underline = f.isUnderline()+"";
-		xml.@embedFonts = f.isEmbedFonts()+"";
-		return xml;
-	}
-	
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		if(font == null){
-			return "null";
-		}
-		return "new ASFont(\"" + font.getName()
-				+ "\", " + font.getSize() 
-				+ ", " + font.isBold() 
-				+ ", " + font.isItalic() 
-				+ ", " + font.isUnderline()
-				+ ", " + font.isEmbedFonts()
-				 + ")";
-	}		
-	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
-	
-	public function applyProperty():void{
-		if(font == DEFAULT){
+	private function updateRepresents():void{
+		if(font === DEFAULT){
+			nullRadio.setSelected(false);	
+			defaultRadio.setSelected(true);
 			button.setText("Default");
-			button.setToolTipText("The default font from LAF");
-			apply(ProModel.NONE_VALUE_SET);
-		}else if(font != null){
-			apply(font);
+			button.setToolTipText("The default font value of this component");
+		}else if(font == null){
+			nullRadio.setSelected(true);
+			defaultRadio.setSelected(false);
+			button.setText("null");
+			button.setToolTipText("null font, means it will use parent font.");
+		}else{
+			nullRadio.setSelected(false);
+			defaultRadio.setSelected(false);
 			button.setText(font.getName());
 			button.setToolTipText(
 				"Name: "+font.getName() 
@@ -137,11 +90,20 @@ public class FontEditor implements PropertyEditor{
 				+ "\nItalic: "+font.isItalic()
 				+ "\nUnderline: "+font.isUnderline()
 				+ "\nEmbeded: "+font.isEmbedFonts());
-		}else{
-			button.setText("Null");
-			button.setToolTipText("Null mean inherit from parent");
-			apply(null);
 		}
+	}
+	
+	override protected function getEditorValue():*{
+		if(font === DEFAULT){
+			return ProModel.NONE_VALUE_SET;
+		}else{
+			return font;
+		}
+	}
+	
+	public function applyProperty():void{
+		super.applyProperty();
+		updateRepresents();
 	}
 }
 }

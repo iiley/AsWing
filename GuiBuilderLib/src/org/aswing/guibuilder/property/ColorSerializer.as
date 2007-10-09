@@ -3,10 +3,11 @@ package org.aswing.guibuilder.property{
 import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.ASColor;
 import org.aswing.guibuilder.util.MathUtils;
+import org.aswing.guibuilder.model.ProModel;
 
 public class ColorSerializer implements PropertySerializer{
 	
-	public function decodeValue(valueXML:XML):*{
+	public function decodeValue(valueXML:XML, pro:ProModel):*{
 		var str:String = xml.@value;
 		var color:ASColor;
 		if(str == "null"){
@@ -20,7 +21,7 @@ public class ColorSerializer implements PropertySerializer{
 		return color;
 	}
 	
-	public function encodeValue(value:*):XML{
+	public function encodeValue(value:*, pro:ProModel):XML{
 		var color:ASColor = value;
 		var xml:XML = <Value></Value>;
 		if(color == null){
@@ -31,11 +32,11 @@ public class ColorSerializer implements PropertySerializer{
 		return xml;
 	}
 	
-	public function getCodeLines(value:*):Array{
+	public function getCodeLines(value:*, pro:ProModel):Array{
 		return null;
 	}
 	
-	public function isSimpleOneLine(value:*):String{
+	public function isSimpleOneLine(value:*, pro:ProModel):String{
 		var color:ASColor = value;
 		if(color == null){
 			return "null";

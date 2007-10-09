@@ -14,6 +14,7 @@ public class ProModel{
 	private var def:ProDefinition;
 	protected var owner:Model;
 	protected var value:*;
+	protected var valueModel:*; //for some complex value like layout, border's model
 	protected var noneValue:Boolean; //whether or not set this property a value
 	protected var defaultValue:*;
 	protected var valueXML:XML;
@@ -47,6 +48,20 @@ public class ProModel{
 		}else{
 			return value;
 		}
+	}
+	
+	/**
+	 * For some complex value use, for example layout value, border value
+	 */
+	public function setValueModel(vm:*):void{
+		valueModel = vm;
+	}
+	
+	/**
+	 * For some complex value use, for example layout value, border value
+	 */	
+	public function getValueModel():*{
+		return valueModel;
 	}
 	
 	public function isNoValueSet():Boolean{

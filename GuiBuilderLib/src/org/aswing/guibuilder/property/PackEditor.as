@@ -31,21 +31,5 @@ public class PackEditor implements PropertyEditor{
 	public function applyProperty():void{
 		model.applyProperty();
 	}
-	
-	public function parseValue(xml:XML):*{
-		return null;
-	}
-	
-	public function encodeValue(value:*):XML{
-		return null;
-	}
-
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		return null;
-	}
 }
 }

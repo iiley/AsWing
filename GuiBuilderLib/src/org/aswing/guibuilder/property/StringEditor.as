@@ -7,62 +7,35 @@ import flash.events.Event;
 import org.aswing.event.AWEvent;
 import org.aswing.guibuilder.model.ProModel;
 
-public class StringEditor implements PropertyEditor{
+public class StringEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	private var text:JTextField;
-	private var editorParam:String;
 	
-	public function StringEditor(param:String=null){
-		editorParam = param;
+	public function StringEditor(){
 		text = new JTextField("", 8);
 		text.addActionListener(__apply);
 		text.addEventListener(AWEvent.FOCUS_LOST, __apply);
 	}
-	
-	private function __apply(e:Event):void{
-		applyProperty();
-	}
-	
-	public function parseValue(xml:XML):*{
-		var str:String = xml.@value;
-		text.setText(str);
-		return str;
-	}
-	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		xml.@value = value+"";
-		return xml;
-	}
-	
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		if(editorParam == "no-generate-code"){
-			return null;
+		
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		if(noValueSet){
+			text.setText("");
+		}else{
+			text.setText(v);
 		}
-		return "\"" + text.getText() + "\"";
+	}
+	
+	override protected function getEditorValue():*{
+		var label:String = text.getText();
+		if(label != null && label != ""){
+			return label;
+		}else{
+			return ProModel.NONE_VALUE_SET;
+		}
 	}
 	
 	public function getDisplay():Component{
 		return text;
 	}
-	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
-	
-	public function applyProperty():void{
-		var label:String = text.getText();
-		if(label != null && label != ""){
-			apply(label);
-		}else{
-			apply(ProModel.NONE_VALUE_SET);
-		}
-	}
-	
 }
 }

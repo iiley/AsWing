@@ -10,16 +10,21 @@ import flash.events.Event;
 import org.aswing.event.FocusKeyEvent;
 import flash.ui.Keyboard;
 
-public class NumberEditor implements PropertyEditor{
+public class NumberEditor extends BasePropertyEditor implements PropertyEditor{
 
 	protected var text:NumberInput;
 	private var min:Number;
 	private var max:Number;
 	
-	public function NumberEditor(param:String=null){
+	public function NumberEditor(){
 		text = new NumberInput("", "", 0, 6);
 		text.addEventListener(AWEvent.ACT, __apply);
-		if(param != null){
+	}
+	
+	override public function setEditorParam(param:String):void{
+		if(param == "" || param == null){
+			text.setMinMax(Number.MIN_VALUE, Number.MAX_VALUE);
+		}else{
 			var strs:Array = param.split(",");
 			min = MathUtils.parseNumber(strs[0]);
 			max = MathUtils.parseNumber(strs[1]);
@@ -27,45 +32,23 @@ public class NumberEditor implements PropertyEditor{
 		}
 	}
 	
-	private function __apply(e:Event):void{
-		applyProperty();
-	}
-	
 	public function getDisplay():Component{
 		return text;
 	}
-		
-	public function parseValue(xml:XML):*{
-		text.setInputText(xml.@value);
-		return MathUtils.parseNumber(xml.@value);
-	}
 	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		xml.@value = text.getInputNumber();
-		return xml;
-	}
-
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		return text.getInputNumber()+"";
-	}
-	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
-	
-	public function applyProperty():void{
-		if(!text.isEmpty()){
-			apply(text.getInputNumber());
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		if(noValueSet){
+			text.setInputText("");
 		}else{
-			apply(ProModel.NONE_VALUE_SET);
+			text.setInputText(v+"");
 		}
-	}
+	}	
 	
+	override protected function getEditorValue():*{
+		if(text.isEmpty()){
+			return ProModel.NONE_VALUE_SET;
+		}
+		return text.getInputNumber();
+	}
 }
 }

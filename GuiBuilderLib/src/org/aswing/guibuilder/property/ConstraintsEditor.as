@@ -14,49 +14,27 @@ public class ConstraintsEditor implements PropertyEditor{
 		combo = new JComboBox(["Center", "North", "South", "East", "West"]);
 		combo.setEditable(true);
 		combo.setPreferredWidth(70);
-		combo.addActionListener(__selection);
+		combo.addActionListener(__apply);
 	}
 	
-	private function __selection(e:Event):void{
-		applyProperty();
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		if(noValueSet){
+			v = "";
+		}
+		combo.setSelectedItem(v);
+	}	
+	
+	override protected function getEditorValue():*{
+		var value:* = combo.getSelectedItem();
+		if(value == null || value == ""){
+			return ProModel.NONE_VALUE_SET;
+		}else{
+			return value;
+		}
 	}
 	
 	public function getDisplay():Component{
 		return combo;
-	}
-	
-	public function parseValue(xml:XML):*{
-		combo.setSelectedItem(xml.@value);
-		return xml.@value;
-	}
-	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		xml.@value = value+"";
-		return xml;
-	}
-	
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		if(combo.getSelectedItem() == null) return null;
-		return "\""+combo.getSelectedItem()+"\"";
 	}	
-	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
-	
-	public function applyProperty():void{
-		if(combo.getSelectedItem() == null){
-			apply(ProModel.NONE_VALUE_SET);
-		}else{
-			apply(combo.getSelectedItem());
-		}
-	}
-	
 }
 }

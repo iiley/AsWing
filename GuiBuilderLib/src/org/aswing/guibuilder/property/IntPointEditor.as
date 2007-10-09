@@ -13,7 +13,7 @@ import org.aswing.event.AWEvent;
 /**
  * IntPoint editor
  */
-public class IntPointEditor implements PropertyEditor{
+public class IntPointEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	private var pane:JPanel;
 	private var xInput:LabelInput;
@@ -28,48 +28,26 @@ public class IntPointEditor implements PropertyEditor{
 		yInput.addEventListener(AWEvent.ACT, __apply);
 	}
 	
-	private function __apply(e:Event):void{
-		applyProperty();
-	}
-	
 	public function getDisplay():Component{
 		return pane;
 	}
 	
-	public function parseValue(xml:XML):*{
-		var str:String = xml.@value;
-		var strs:Array = str.split(",");
-		xInput.setInputText(strs[0]);
-		xInput.setInputText(strs[1]);
-		return new IntPoint(MathUtils.parseInteger(strs[0]), MathUtils.parseInteger(strs[1]));
-	}
-	
-	public function encodeValue(value:*):XML{
-		var xml:XML = <Value></Value>;
-		xml.@value = xInput.getInputInt()+","+yInput.getInputInt();
-		return xml;
-	}
-
-	public function getCodeLines():Array{
-		return null;
-	}
-	
-	public function isSimpleOneLine():String{
-		return "new IntPoint(" + xInput.getInputInt() + ", " + yInput.getInputInt()+")";
-	}
-	
-	protected var apply:Function;
-	public function setApplyFunction(apply:Function):void{
-		this.apply = apply;
-	}
-	
-	public function applyProperty():void{
-		if(xInput.isEmpty() || yInput.isEmpty()){
-			apply(ProModel.NONE_VALUE_SET);
-			return;
+	override protected function fillValue(v:*, noValueSet:Boolean):void{
+		if(noValueSet){
+			xInput.setInputText("");
+			yInput.setInputText("");
+		}else{
+			var p:IntPoint = v;
+			xInput.setInputText(p.x+"");
+			yInput.setInputText(p.y+"");
 		}
-		apply(new IntPoint(xInput.getInputInt(), yInput.getInputInt()));
-	}
+	}	
 	
+	override protected function getEditorValue():*{
+		if(xInput.isEmpty() || yInput.isEmpty()){
+			return ProModel.NONE_VALUE_SET;
+		}
+		return new IntPoint(xInput.getInputInt(), yInput.getInputInt());
+	}
 }
 }

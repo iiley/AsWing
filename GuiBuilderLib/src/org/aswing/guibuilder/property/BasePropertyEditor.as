@@ -52,5 +52,9 @@ public class BasePropertyEditor{
 	public function setSerializer(ser:PropertySerializer):void{
 		serializer = ser;
 	}
+	
+	public function setEditorParam(param:String):void{
+		
+	}
 }
 }
