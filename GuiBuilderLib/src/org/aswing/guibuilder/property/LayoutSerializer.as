@@ -2,33 +2,31 @@ package org.aswing.guibuilder.property{
 
 import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.guibuilder.code.CodeGenerator;
-import org.aswing.guibuilder.model.LayoutDefinition;
 import org.aswing.guibuilder.model.LayoutModel;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class LayoutSerializer implements PropertySerializer{
 	
-	public function decodeValue(valueXML:XML, pro:ProModel):*{
-		var model:LayoutModel;
-		if(pro.getValueModel() != null){
-			model = pro.getValueModel();
-		}else{
+	public function decodeValue(valueXML:XML, pro:ProModel):ValueModel{
+		var model:LayoutModel = pro.getValue() as LayoutModel;
+		if(model == null){
 			model = new LayoutModel();
 		}
 		model.parse(valueXML.children()[0]);
-		return model.getLayout();
+		return model;
 	}
 	
-	public function encodeValue(value:*, pro:ProModel):XML{
-		var model:LayoutModel = pro.getValueModel();
-		var layoutDef:LayoutDefinition = model.getDef();
+	public function encodeValue(value:ValueModel, pro:ProModel):XML{
+		var model:LayoutModel = value as LayoutModel;
+		//var layoutDef:LayoutDefinition = model.getDef();
 		var xml:XML = <Value></Value>;
 		xml.appendChild(model.encodeXML());
 		return xml;
 	}
 	
-	public function getCodeLines(value:*, pro:ProModel):Array{
-		var layoutModel:LayoutModel = pro.getValueModel();
+	public function getCodeLines(value:ValueModel, pro:ProModel):Array{
+		var layoutModel:LayoutModel = value as LayoutModel;
 		var id:String = "layout" + (CodeGenerator.border_id_counter++);
 		var clazz:String = layoutModel.getDef().getShortClassName();
 		var arr:Array = [];
@@ -53,7 +51,7 @@ public class LayoutSerializer implements PropertySerializer{
 		return arr;
 	}
 	
-	public function isSimpleOneLine(value:*, pro:ProModel):String{
+	public function isSimpleOneLine(value:ValueModel, pro:ProModel):String{
 		return null;
 	}
 	

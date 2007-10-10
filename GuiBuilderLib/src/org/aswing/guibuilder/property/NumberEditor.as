@@ -1,14 +1,12 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
-import org.aswing.JTextField;
-import org.aswing.guibuilder.util.MathUtils;
-import org.aswing.guibuilder.model.ProModel;
 import org.aswing.event.AWEvent;
-import flash.events.Event;
-import org.aswing.event.FocusKeyEvent;
-import flash.ui.Keyboard;
+import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
+import org.aswing.guibuilder.util.MathUtils;
 
 public class NumberEditor extends BasePropertyEditor implements PropertyEditor{
 
@@ -36,7 +34,7 @@ public class NumberEditor extends BasePropertyEditor implements PropertyEditor{
 		return text;
 	}
 	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		if(noValueSet){
 			text.setInputText("");
 		}else{
@@ -44,11 +42,11 @@ public class NumberEditor extends BasePropertyEditor implements PropertyEditor{
 		}
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(text.isEmpty()){
 			return ProModel.NONE_VALUE_SET;
 		}
-		return text.getInputNumber();
+		return new SimpleValue(text.getInputNumber());
 	}
 }
 }

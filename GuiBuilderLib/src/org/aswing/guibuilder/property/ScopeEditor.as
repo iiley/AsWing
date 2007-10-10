@@ -4,6 +4,8 @@ import org.aswing.*;
 import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.guibuilder.model.ComModel;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class ScopeEditor extends BasePropertyEditor implements PropertyEditor{
 		
@@ -32,22 +34,22 @@ public class ScopeEditor extends BasePropertyEditor implements PropertyEditor{
 		}
 	}
 	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		if(noValueSet){
-			v = "";
+			combo.setSelectedItem("");
+		}else{
+			combo.setSelectedItem(v+"");
 		}
-		combo.setSelectedItem(v);
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		var value:* = combo.getSelectedItem();
 		if(value == null || value == ""){
 			return ProModel.NONE_VALUE_SET;
 		}else{
-			return value;
+			return new SimpleValue(value);
 		}
 	}
-	
 	
 	public function getDisplay():Component{
 		return combo;

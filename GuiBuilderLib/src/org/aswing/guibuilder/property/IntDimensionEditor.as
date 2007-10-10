@@ -1,16 +1,14 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
-import org.aswing.JButton;
 import org.aswing.JPanel;
-import org.aswing.JTextField;
 import org.aswing.SoftBoxLayout;
-import org.aswing.geom.IntDimension;
 import org.aswing.event.AWEvent;
-import flash.events.Event;
+import org.aswing.geom.IntDimension;
+import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.guibuilder.model.ProModel;
-import org.aswing.guibuilder.util.MathUtils;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class IntDimensionEditor extends BasePropertyEditor implements PropertyEditor{
 	
@@ -31,22 +29,22 @@ public class IntDimensionEditor extends BasePropertyEditor implements PropertyEd
 		return pane;
 	}
 	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		if(noValueSet){
 			widthInput.setInputText("");
 			heightInput.setInputText("");
 		}else{
-			var dim:IntDimension = v;
+			var dim:IntDimension = v.getValue();
 			widthInput.setInputText(dim.width+"");
 			heightInput.setInputText(dim.height+"");
 		}
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(widthInput.isEmpty() || heightInput.isEmpty()){
 			return ProModel.NONE_VALUE_SET;
 		}
-		return new IntDimension(widthInput.getInputInt(), heightInput.getInputInt());
+		return new SimpleValue(new IntDimension(widthInput.getInputInt(), heightInput.getInputInt()));
 	}
 }
 }

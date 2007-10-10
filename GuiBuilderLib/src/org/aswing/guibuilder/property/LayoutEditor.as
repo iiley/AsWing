@@ -1,17 +1,14 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
+import flash.events.Event;
+
 import org.aswing.Component;
 import org.aswing.JButton;
-import org.aswing.EmptyLayout;
-import org.aswing.guibuilder.model.LayoutModel;
-import flash.events.Event;
 import org.aswing.guibuilder.LayoutChooser;
+import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.model.LayoutModel;
 import org.aswing.guibuilder.model.ProModel;
-import flash.utils.getQualifiedClassName;
-import org.aswing.guibuilder.model.Definition;
-import org.aswing.guibuilder.model.LayoutDefinition;
-import org.aswing.guibuilder.code.CodeGenerator;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class LayoutEditor extends BasePropertyEditor implements PropertyEditor{
 	
@@ -43,20 +40,8 @@ public class LayoutEditor extends BasePropertyEditor implements PropertyEditor{
 		display.setEnabled(param != "disabled");
 	}
 	
-	override public function bindTo(p:ProModel):void{
-		pro = p;
-		if(pro != null){
-			fillValue(p.getValueModel(), p.getValueModel() == null);
-		}
-	}	
-	
-	override public function applyProperty():void{
-		super.applyProperty();
-		pro.setValueModel(layoutModel);
-	}
-	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
-		layoutModel = v;
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
+		layoutModel = v as LayoutModel;
 		if(layoutModel != null){
 			display.setText(layoutModel.getName());
 		}else{
@@ -64,9 +49,9 @@ public class LayoutEditor extends BasePropertyEditor implements PropertyEditor{
 		}
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(layoutModel != null){
-			return layoutModel.getLayout();
+			return layoutModel;
 		}else{
 			return ProModel.NONE_VALUE_SET;
 		}

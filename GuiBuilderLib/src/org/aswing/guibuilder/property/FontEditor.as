@@ -1,11 +1,13 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
-import org.aswing.*;
-import org.aswing.guibuilder.util.MathUtils;
-import org.aswing.guibuilder.model.ProModel;
 import flash.events.Event;
+
+import org.aswing.*;
 import org.aswing.guibuilder.FontChooser;
+import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class FontEditor extends BasePropertyEditor implements PropertyEditor{
 	
@@ -59,11 +61,11 @@ public class FontEditor extends BasePropertyEditor implements PropertyEditor{
 		return pane;
 	}
 	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		if(noValueSet){
 			font = DEFAULT;
 		}else{
-			font = v;
+			font = v.getValue();
 		}
 		updateRepresents();
 	}
@@ -93,11 +95,11 @@ public class FontEditor extends BasePropertyEditor implements PropertyEditor{
 		}
 	}
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(font === DEFAULT){
 			return ProModel.NONE_VALUE_SET;
 		}else{
-			return font;
+			return new SimpleValue(font);
 		}
 	}
 	

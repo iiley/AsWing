@@ -1,13 +1,15 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.ASColor;
-import org.aswing.guibuilder.util.MathUtils;
+import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
+import org.aswing.guibuilder.util.MathUtils;
 
 public class ColorSerializer implements PropertySerializer{
 	
-	public function decodeValue(valueXML:XML, pro:ProModel):*{
+	public function decodeValue(valueXML:XML, pro:ProModel):ValueModel{
 		var str:String = valueXML.@value;
 		var color:ASColor;
 		if(str == "null"){
@@ -18,11 +20,11 @@ public class ColorSerializer implements PropertySerializer{
 				MathUtils.parseInteger(strs[0], 16), 
 				MathUtils.parseNumber(strs[1]));
 		}
-		return color;
+		return new SimpleValue(color);
 	}
 	
-	public function encodeValue(value:*, pro:ProModel):XML{
-		var color:ASColor = value;
+	public function encodeValue(value:ValueModel, pro:ProModel):XML{
+		var color:ASColor = value.getValue();
 		var xml:XML = <Value></Value>;
 		if(color == null){
 			xml.@value = "null";
@@ -32,12 +34,12 @@ public class ColorSerializer implements PropertySerializer{
 		return xml;
 	}
 	
-	public function getCodeLines(value:*, pro:ProModel):Array{
+	public function getCodeLines(value:ValueModel, pro:ProModel):Array{
 		return null;
 	}
 	
-	public function isSimpleOneLine(value:*, pro:ProModel):String{
-		var color:ASColor = value;
+	public function isSimpleOneLine(value:ValueModel, pro:ProModel):String{
+		var color:ASColor = value.getValue();
 		if(color == null){
 			return "null";
 		}

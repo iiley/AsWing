@@ -1,7 +1,7 @@
 package org.aswing.guibuilder.model{
 
-import org.aswing.util.Vector;
 import org.aswing.*;
+import org.aswing.util.Vector;
 
 /**
  * Layout Model
@@ -101,12 +101,9 @@ public class LayoutModel implements Model{
 		return properties.toArray();
 	}
 	
-	public function applyProperty(name:String, value:*, action:String):void{
-		if(value is Model){ 
-			value = Model(value).getTarget();
-		}
+	public function applyProperty(name:String, value:ValueModel, action:String):void{
 		var o:Object = getLayout();
-		o["set"+name](value);
+		o["set"+name](value.getValue());
 		if(action != null && action != ""){
 			o[action]();
 		}

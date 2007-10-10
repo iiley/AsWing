@@ -9,14 +9,13 @@ import org.aswing.guibuilder.PropertySerializer;
  */
 public class ProModel{
 	
-	public static const NONE_VALUE_SET:Object = {};
+	public static const NONE_VALUE_SET:SimpleValue = new SimpleValue(null);
 	
 	protected var def:ProDefinition;
 	protected var owner:Model;
-	protected var value:*;
-	protected var valueModel:Model; //for some complex value like layout, border's model
+	protected var value:ValueModel;
 	protected var noneValue:Boolean; //whether or not set this property a value
-	protected var defaultValue:*;
+	protected var defaultValue:ValueModel;
 	protected var valueXML:XML;
 	protected var valueSerializer:PropertySerializer;
 	
@@ -30,7 +29,7 @@ public class ProModel{
 		return def;
 	}
 	
-	public function valueChanged(v:*):void{
+	public function valueChanged(v:ValueModel):void{
 		trace("valueChanged : " + v);
 		if(v === NONE_VALUE_SET){
 			value = undefined;
@@ -43,29 +42,14 @@ public class ProModel{
 		}
 	}
 		
-	public function getValue():*{
+	public function getValue():ValueModel{
 		if(noneValue){
 			return NONE_VALUE_SET;
 		}else{
 			return value;
 		}
 	}
-	
-	/**
-	 * For some complex value use, for example layout value, border value
-	 */
-	public function setValueModel(vm:Model):void{
-		valueModel = vm;
-		valueChanged(valueModel.getValue());
-	}
-	
-	/**
-	 * For some complex value use, for example layout value, border value
-	 */	
-	public function getValueModel():Model{
-		return valueModel;
-	}
-	
+		
 	public function isNoValueSet():Boolean{
 		return noneValue;
 	}
@@ -98,14 +82,14 @@ public class ProModel{
 		return xml;
 	}
 	
-	protected function captureDefaultProperty(name:String):*{
+	protected function captureDefaultProperty(name:String):ValueModel{
 		if(valueSerializer is DefaultValueHelper){
 			var helper:DefaultValueHelper = valueSerializer as DefaultValueHelper;
 			if(helper.isNeedHelp(name, owner)){
 				return helper.getDefaultValue(name, owner);
 			}
 		}
-		var o:Object = owner.getTarget();
+		var o:Object = owner.getValue();
 		var v:* = undefined;
 		try{
 			v = o["get"+name]();
@@ -114,7 +98,7 @@ public class ProModel{
 				v = o["is"+name]();
 			}catch(e:Error){}
 		}
-		return v;
+		return new SimpleValue(v);
 	}
 	
 	/**

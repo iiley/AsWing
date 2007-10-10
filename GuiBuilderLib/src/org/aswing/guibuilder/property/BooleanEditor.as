@@ -1,11 +1,11 @@
 package org.aswing.guibuilder.property{
 	
-import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
-import org.aswing.JCheckBox;
 import org.aswing.JComboBox;
-import flash.events.Event;
+import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class BooleanEditor extends BasePropertyEditor implements PropertyEditor{
 	
@@ -21,10 +21,10 @@ public class BooleanEditor extends BasePropertyEditor implements PropertyEditor{
 		return combo;
 	}
 	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		var index:int = 0;
 		if(!noValueSet){
-			if(v){
+			if(v.getValue() == true){
 				index = 1;
 			}else{
 				index = 2;
@@ -33,11 +33,11 @@ public class BooleanEditor extends BasePropertyEditor implements PropertyEditor{
 		combo.setSelectedIndex(index);
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(combo.getSelectedIndex() <= 0){
 			return ProModel.NONE_VALUE_SET;
 		}else{
-			return combo.getSelectedIndex() == 1;
+			return new SimpleValue(combo.getSelectedIndex() == 1);
 		}
 	}
 	

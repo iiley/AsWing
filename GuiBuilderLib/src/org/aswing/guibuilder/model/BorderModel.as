@@ -101,12 +101,9 @@ public class BorderModel implements Model{
 		return properties.toArray();
 	}
 	
-	public function applyProperty(name:String, value:*, action:String):void{
-		if(value is Model){ 
-			value = Model(value).getTarget();
-		}
+	public function applyProperty(name:String, value:ValueModel, action:String):void{
 		var o:Object = getBorder();
-		o["set"+name](value);
+		o["set"+name](value.getValue());
 		if(action != null && action != ""){
 			o[action]();
 		}
