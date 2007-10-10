@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/1.0.M5" appId="org.aswing.guibuilder" version="1.0 Beta">
+<application xmlns="http://ns.adobe.com/air/application/1.0.M5" appId="org.aswing.guibuilder" version="1.0 RC1">
 <!-- 
     AIR Application Descriptor File: 
     Specifies parameters for identifying, installing, and launching AIR applications.
@@ -33,7 +33,7 @@
   <!--
       The title displayed in the AIR application installer.
   -->
-  <title/>
+  <title>AsWing GuiBuilder</title>
 
   <!--
       The description displayed in the AIR application installer.
@@ -52,7 +52,7 @@
     <!--
         The title displayed in the AIR application installer.
     -->
-    <title/>
+    <title>AsWing GuiBuilder</title>
 
     <!--
         The main content file of the application, which must be a SWF or HTML 

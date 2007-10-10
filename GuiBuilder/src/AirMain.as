@@ -26,6 +26,10 @@ public class AirMain extends Main{
 		openFile.addEventListener(Event.SELECT, __fileSelected);		
 	}
 	
+	override protected function getAboutWords():String{
+		return "Version:1.0 RC1\nDate:2007-10-10\nDeveloped by aswing.org";
+	}
+	
 	override protected function checkIsExists(className:String, pkgName:String):Boolean{
 		var path:String = getXMLSavePath(className, pkgName);
 		var file:File = new File(path);
