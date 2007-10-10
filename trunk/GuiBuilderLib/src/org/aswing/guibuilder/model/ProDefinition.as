@@ -1,7 +1,8 @@
 package org.aswing.guibuilder.model{
 	
-import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.PropertySerializer;
+import org.aswing.guibuilder.util.MathUtils;
 
 /**
  * Property Definition
@@ -17,6 +18,8 @@ public class ProDefinition{
 	private var defaultValue:XMLList;
 	private var editorParam:String;
 	private var tooltip:String;
+	private var category:String;
+	private var order:int;
 	
 	public function ProDefinition(xml:XML){
 		this.xml = xml;
@@ -27,8 +30,11 @@ public class ProDefinition{
 		editorParam = xml.@editorParam;
 		defaultValue = xml.Value;
 		tooltip = xml.@tooltip;
+		category = xml.@category;
+		order = MathUtils.parseInteger(xml.@order);
 		if(editorParam == "") editorParam = null;
 		if(tooltip == "") tooltip = null;
+		if(category == "") category = null;
 	}
 	
 	public function getName():String{
@@ -53,6 +59,14 @@ public class ProDefinition{
 	
 	public function getTooltip():String{
 		return tooltip;
+	}
+	
+	public function getCategory():String{
+		return category;
+	}
+	
+	public function getOrder():int{
+		return order;
 	}
 	
 	public function createPropertySerializer():PropertySerializer{
