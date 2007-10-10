@@ -30,7 +30,7 @@ public class AbsComboIntEditor extends BasePropertyEditor implements PropertyEdi
 	}	
 	
 	override protected function getEditorValue():ValueModel{
-		if(combo.getSelectedIndex() <= 0){
+		if(combo.getSelectedIndex() < 0){
 			return ProModel.NONE_VALUE_SET;
 		}else{
 			return new SimpleValue(combo.getSelectedIndex());
