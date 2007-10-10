@@ -6,12 +6,12 @@ package org.aswing
 {
 	
 import flash.display.DisplayObject;
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.*;
+
 import org.aswing.event.*;
 import org.aswing.geom.*;
-import flash.display.Shape;
-import flash.display.DisplayObjectContainer;
 
 /**
  * Dispatched when the mouse released or released out side.
@@ -148,6 +148,18 @@ public class AWSprite extends Sprite
 		}else{
 			return d_getChildIndex(child);
 		}
+	}
+	
+	/**
+	 * Returns whether child is directly child of this sprite, true only if getChildIndex(child) >= 0.
+	 * @return true only if getChildIndex(child) >= 0.
+	 */
+	public function containsChild(child:DisplayObject):Boolean{
+		if(usingBitmap){
+			return child.parent.parent == this;
+		}else{
+			return child.parent == this;
+		}		
 	}
 	
 	protected function d_setChildIndex(child:DisplayObject, index:int):void{

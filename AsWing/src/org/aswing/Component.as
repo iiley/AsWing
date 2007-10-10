@@ -5,19 +5,19 @@
 package org.aswing{
 	
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
+import flash.display.Sprite;
 import flash.events.*;
 import flash.geom.*;
 import flash.utils.getTimer;
 
-import org.aswing.error.ImpMissError;
+import org.aswing.dnd.*;
+import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.util.*;
-import flash.display.Sprite;
-import org.aswing.event.*;
-import org.aswing.dnd.*;
 	
 //--------------------------------------
 //  Events
@@ -226,6 +226,38 @@ public class Component extends AWSprite{
 		addEventListener(FocusEvent.FOCUS_OUT, __focusOut);
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDown);
 		addEventListener(MouseEvent.CLICK, __mouseClick);
+		addEventListener(Event.ADDED, __componentAdded);
+		
+		AsWingUtils.weakRegisterComponent(this);
+	}
+	
+	private function __componentAdded(e:Event):void{
+		if(isUIElement()){
+			var dis:DisplayObject = e.target as DisplayObject;
+			if(dis != null){
+				if(dis != this){
+					if(AsWingUtils.getOwnerComponent(dis.parent) == this){
+						makeAllTobeUIElement(e.target as DisplayObject);
+					}
+				}
+			}
+		}
+	}
+	
+	private function makeAllTobeUIElement(dis:DisplayObject):void{
+		if(dis == null){
+			return;
+		}
+		if(dis is Component){
+			var c:Component = dis as Component;
+			c.uiElement = true;
+		}
+		if(dis is DisplayObjectContainer){
+			var con:DisplayObjectContainer = dis as DisplayObjectContainer;
+			for(var i:int=con.numChildren-1; i>=0; i--){
+				makeAllTobeUIElement(con.getChildAt(i));
+			}
+		}
 	}
 	
 	private function __repaintManagerStarter(e:Event):void{
@@ -361,12 +393,17 @@ public class Component extends AWSprite{
     }
     
     /**
-     * Sets the component is a ui element or not.
+     * Sets the component is a ui element or not. (if set true, all of its children will be set to true too)
      * @param b true to set this component to be treated as a element, false not.
      * @see #isUIElement()
      */
     public function setUIElement(b:Boolean):void{
-    	uiElement = b;
+    	if(uiElement != b){
+    		uiElement = b;
+    		if(b){
+    			makeAllTobeUIElement(this);
+    		}
+    	}
     }
     
     /**
