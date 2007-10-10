@@ -13,7 +13,7 @@ public class StringEditor extends BasePropertyEditor implements PropertyEditor{
 	private var text:JTextField;
 	
 	public function StringEditor(){
-		text = new JTextField("", 8);
+		text = new JTextField("", 16);
 		text.addActionListener(__apply);
 		text.addEventListener(AWEvent.FOCUS_LOST, __apply);
 	}
