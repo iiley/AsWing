@@ -261,11 +261,14 @@
 	</BaseComponent>
 	
 	<BaseContainer name="Container" clazz="org.aswing.Container" sup="Component">
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" category="Layout" order="-10">
 		</Property>
 	</BaseContainer>
 
 	<Com name="JPanel" clazz="org.aswing.JPanel" sup="Container">
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="10">
+			<Value value="none"></Value>
+		</Property>
 		<Property label="Size" name="Size" type="IntDimension" action="revalidate" category="Layout" order="10">
 			<Value value="400,400" ></Value>
 		</Property>
@@ -279,11 +282,14 @@
 		</Property>
 		<Property label="vgap" name="VGap" type="int" category="Feature" order="10">
 		</Property>
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 
 	<Com name="FormRow" clazz="org.aswing.ext.FormRow" sup="Container">
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="10">
+			<Value value="none"></Value>
+		</Property>
 		<Property label="Column indecis" name="ColumnChildrenIndecis" type="String" tooltip="For example: \n'-1,0,0,1' means [ ---------- ][ --child0 sit two column-- ][ --child1-- ]" category="Feature" order="10">
 			<Value value="-1,0,1,2" ></Value>
 		</Property>
@@ -306,6 +312,9 @@
 	</Com>
 
 	<Com name="JLabel" clazz="org.aswing.JLabel" sup="Component">
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="10">
+			<Value value="none"></Value>
+		</Property>
 		<Property label="Label" name="Text" type="String" category="Feature" order="0">
 			<Value value="label"></Value>
 		</Property>
@@ -439,10 +448,16 @@
 	</Com>
 
 	<Com name="JScrollPane" clazz="org.aswing.JScrollPane" sup="Container">
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="-10">
+			<Value value="none"></Value>
+		</Property>
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 	<Com name="JViewport" clazz="org.aswing.JViewport" sup="Container">
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="10">
+			<Value value="none"></Value>
+		</Property>
 		<Property label="Hor alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only" category="Feature" order="10">
 		</Property>
 		<Property label="Ver alig" name="VerticalAlignment" type="Align" action="revalidate" editorParam="ver-only" category="Feature" order="10">
@@ -459,11 +474,14 @@
 		</Property>
 		<Property label="Ver block increment" name="VerticalBlockIncrement" type="int" category="Feature" order="10">
 		</Property>
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 
 	<Com name="JSeparator" clazz="org.aswing.JSeparator" sup="Component">
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="10">
+			<Value value="none"></Value>
+		</Property>
 		<Property label="Orientation" name="Orientation" type="Orientation" category="Feature" order="10">
 		</Property>
 	</Com>
@@ -586,11 +604,14 @@
 	</Com>
 	
 	<Com name="JToolBar" clazz="org.aswing.JToolBar" sup="Container">
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="10">
+			<Value value="none"></Value>
+		</Property>
 		<Property label="Orientation" name="Orientation" type="Orientation" category="Feature" order="10">
 		</Property>
 		<Property label="Gap" name="Gap" type="int" category="Feature" order="10">
 		</Property>
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 	
@@ -608,14 +629,14 @@
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int" category="Feature" order="10">
 		</Property>
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 
 	<Com name="JTabbedPane" clazz="org.aswing.JTabbedPane" sup="JAccordion">
 		<Property label="Tab placement" name="TabPlacement" type="Align" category="Feature" order="10">
 		</Property>
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 	<Com name="JSplitPane" clazz="org.aswing.JSplitPane" sup="Container">
@@ -631,11 +652,14 @@
 		</Property>
 		<Property label="One touch expand" name="OneTouchExpandable" type="Boolean" category="Feature" order="10">
 		</Property>
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 
 	<Com name="JSpacer" clazz="org.aswing.JSpacer" sup="Component">
+		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="10">
+			<Value value="none"></Value>
+		</Property>
 	</Com>
 
 	<Com name="JAttachPane" clazz="org.aswing.JAttachPane" sup="Container">
@@ -676,7 +700,7 @@
 	</Com>
 
 	<Com name="JMenuBar" clazz="org.aswing.JMenuBar" sup="Container">
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 
@@ -694,7 +718,7 @@
 		</Property>
 		<Property label="Icon text gap" name="IconTextGap" type="int" action="revalidate" category="Feature" order="10">
 		</Property>
-		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Common" order="10">
+		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
 	
