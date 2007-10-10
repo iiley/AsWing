@@ -108,6 +108,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 	protected function installComponents():void{
  		textField = AsWingUtils.createLabel(menuItem, "label");
  		accelTextField = AsWingUtils.createLabel(menuItem, "accLabel");
+ 		menuItem.setFontValidated(false);
 	}
 	
 	protected function installListeners():void{

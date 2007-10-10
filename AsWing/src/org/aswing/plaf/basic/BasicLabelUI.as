@@ -63,6 +63,7 @@ public class BasicLabelUI extends BaseComponentUI{
  		textField.mouseEnabled = false;
  		textField.mouseWheelEnabled = false;
  		b.addChild(textField);
+ 		b.setFontValidated(false);
  	}
 	
  	protected function uninstallComponents(b:JLabel):void{
