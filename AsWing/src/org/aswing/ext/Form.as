@@ -113,6 +113,9 @@ public class Form extends JPanel implements LayoutManager{
 		return sp;
 	}
 	
+	/**
+	 * @see #addRow()
+	 */	
 	public function createRow(columns:Array):FormRow{
 		var row:FormRow = new FormRow();
 		row.setColumnChildren(columns);
