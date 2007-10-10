@@ -94,7 +94,7 @@ public class AirMain extends Main{
 				var model:ListModel = toolBarPane.getLAFsCombo().getModel();
 				for(var i:int=0; i<model.getSize(); i++){
 					var info:LookAndFeelInfo = model.getElementAt(i) as LookAndFeelInfo;
-					if(info.getName() == lafName){
+					if(info.getName() == lafName && info.getClazz() != "org.aswing.plaf.basic.BasicLookAndFeel"){
 						toolBarPane.getLAFsCombo().setSelectedItem(info);
 						return;
 					}
