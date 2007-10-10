@@ -2,8 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
+package org.aswing{
 
 import flash.display.*;
 import flash.geom.Point;
@@ -11,6 +10,7 @@ import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
+import flash.utils.Dictionary;
 
 import org.aswing.geom.*;	
 
@@ -65,6 +65,8 @@ public class AsWingUtils{
     	TEXT_FIELD.autoSize = TextFieldAutoSize.LEFT;
     	TEXT_FIELD.type = TextFieldType.DYNAMIC;
     }
+    
+    private static var weakComponentDic:Dictionary = new Dictionary(true);
     
     /**
      * Create a sprite at specified parent with specified name.
@@ -717,8 +719,32 @@ public class AsWingUtils{
     }
     
     /**
+     * All component will be registered here.
+     */
+    internal static function weakRegisterComponent(c:Component):void{
+    	weakComponentDic[c] = null;
+    }
+    
+    /**
      * When call <code>setLookAndFeel</code> it will not change the UIs at created components.
-     * Call this method to update all existing component's UIs.
+     * Call this method to update all UIs of all components in memory whether it is displayable or not.
+     * Take care to call this method, because there's may many component in memory since the garbage collector 
+     * may have not collected some useless components, so it many take a long time to complete updating.
+     * @see #updateAllComponentUI()
+     * @see org.aswing.Component#updateUI()
+     */
+    public static function updateAllComponentUIInMemory():void{
+    	for(var c:* in weakComponentDic){
+    		if(!c.isUIElement()){
+    			c.updateUI();
+    		}
+    	}
+    }
+    
+    /**
+     * When call <code>setLookAndFeel</code> it will not change the UIs at created components.
+     * Call this method to update all UIs of components that is on display list or popups.
+     * @see #updateAllComponentUIInMemory()
      * @see #updateChildrenUI()
      * @see #updateComponentTreeUI()
      * @see org.aswing.Component#updateUI()
