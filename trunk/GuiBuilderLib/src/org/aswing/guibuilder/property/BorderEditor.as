@@ -37,24 +37,39 @@ public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 	}
 	private function __choosed(m:BorderModel):void{
 		if(m){
-			nullRadio.setSelected(false);
-			defaultRadio.setSelected(false);
 			borderModel = m;
 			applyProperty();
+			updateRepresents();
 		}
 	}
 	
 	private function __default(e:Event):void{
-		nullRadio.setSelected(false);
 		borderModel = DEFAULT;
 		applyProperty();
+		updateRepresents();
 	}
 	
 	private function __null(e:Event):void{
-		defaultRadio.setSelected(false);
 		borderModel = null;
 		applyProperty();
+		updateRepresents();
 	}	
+	
+	private function updateRepresents():void{
+		if(borderModel === DEFAULT){
+			defaultRadio.setSelected(true);
+			nullRadio.setSelected(false);
+			button.setText("Default");
+		}else if(borderModel == null){
+			defaultRadio.setSelected(false);
+			nullRadio.setSelected(true);
+			button.setText("null");
+		}else{
+			defaultRadio.setSelected(false);
+			nullRadio.setSelected(false);
+			button.setText(borderModel.getName());
+		}
+	}
 	
 	public function getDisplay():Component{
 		return pane;
@@ -63,14 +78,12 @@ public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		if(noValueSet){
 			borderModel = DEFAULT;
-			button.setText("Default");
 		}else if(v.getValue() == null){
-			button.setText("null");
 			borderModel = null;
 		}else{
 			borderModel = v as BorderModel;
-			button.setText(borderModel.getName());
 		}
+		updateRepresents();
 	}	
 	
 	override protected function getEditorValue():ValueModel{
