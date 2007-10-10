@@ -82,6 +82,7 @@ public class BasicButtonUI extends BaseComponentUI
  	
  	protected function installComponents(b:AbstractButton):void{
  		textField = AsWingUtils.createLabel(b, "label");
+ 		b.setFontValidated(false);
  	}
 	
  	protected function uninstallComponents(b:AbstractButton):void{
