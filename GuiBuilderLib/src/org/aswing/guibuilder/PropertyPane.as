@@ -1,5 +1,6 @@
 package org.aswing.guibuilder{
 
+import org.aswing.ASFont;
 import org.aswing.BorderLayout;
 import org.aswing.JLabel;
 import org.aswing.JPanel;
@@ -7,15 +8,18 @@ import org.aswing.JScrollPane;
 import org.aswing.JViewport;
 import org.aswing.border.TitledBorder;
 import org.aswing.ext.Form;
+import org.aswing.ext.FormRow;
 import org.aswing.guibuilder.model.Model;
 import org.aswing.guibuilder.model.ProDefinition;
 import org.aswing.guibuilder.model.ProModel;
 import org.aswing.util.HashMap;
+import org.aswing.util.HashSet;
 
 public class PropertyPane extends JPanel{
 	
 	private var form:Form;
 	private var editorsMap:HashMap;
+	private var editorRowMap:HashMap;
 	private var curEditors:Array;
 	
 	public function PropertyPane(){
@@ -29,12 +33,13 @@ public class PropertyPane extends JPanel{
 		append(new JScrollPane(vp));
 		
 		editorsMap = new HashMap();
+		editorRowMap = new HashMap();
 		curEditors = [];
 	}
 	
 	public function setModel(model:Model):void{
-		form.removeAll();
 		curEditors = [];
+		var curEditorsSet:HashSet = new HashSet();
 		if(model != null){
 			var pros:Array = model.getProperties();
 			for each(var pro:ProModel in pros){
@@ -42,17 +47,29 @@ public class PropertyPane extends JPanel{
 				editor.setEditorParam(pro.getDef().getEditorParam());
 				editor.getDisplay().setToolTipText(pro.getDef().getTooltip());
 				editor.bindTo(pro);
-				addEditor(pro.getLabel(), editor);
+				curEditorsSet.add(editor);
 			}
 		}
+		var editors:Array = editorsMap.values();
+		for each(var ed:PropertyEditor in editors){
+			setEditorVisible(ed, curEditorsSet.contains(ed));
+		}
 		form.revalidate();
+	}
+	
+	private function setEditorVisible(editor:PropertyEditor, v:Boolean):void{
+		var row:FormRow = editorRowMap.getValue(editor);
+		if(row){
+			row.setVisible(v);
+		}
 	}
 	
 	private function addEditor(label:String, editor:PropertyEditor):void{
 		var jlabel:JLabel = form.createLeftLabel(label);
 		jlabel.setFont(jlabel.getFont().changeBold(true));
-		form.addRow(jlabel, editor.getDisplay());
+		var row:FormRow = form.addRow(jlabel, editor.getDisplay());
 		curEditors.push(editor);
+		editorRowMap.put(editor, row);
 	}
 	
 	public function applyPropertiesEdited():void{
@@ -67,6 +84,7 @@ public class PropertyPane extends JPanel{
 		}
 		var editor:PropertyEditor = def.createPropertyEditor();
 		editorsMap.put(def.getName(), editor);
+		addEditor(def.getLabel(), editor);
 		return editor;
 	}
 }
