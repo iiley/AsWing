@@ -1,13 +1,14 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertySerializer;
-import org.aswing.guibuilder.util.MathUtils;
 import org.aswing.ASFont;
+import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.util.MathUtils;
 
 public class FontSerializer implements PropertySerializer{
 	
 	public function decodeValue(valueXML:XML, pro:ProModel):*{
+		var xml:XML = valueXML;
 		if(xml.@value == "null"){
 			return null;
 		}
@@ -18,7 +19,7 @@ public class FontSerializer implements PropertySerializer{
 		var underline:Boolean = (xml.@underline == "true");
 		var embedFonts:Boolean = (xml.@embedFonts == "true");
 		var f:ASFont = new ASFont(name, size, bold, italic, underline, embedFonts);
-		return font;
+		return f;
 	}
 	
 	public function encodeValue(value:*, pro:ProModel):XML{

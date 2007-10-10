@@ -1,20 +1,15 @@
 package org.aswing.guibuilder.model{
 	
-import org.aswing.guibuilder.property.PackEditor;
-import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.geom.IntDimension;
 	
 
 public class PackProModel extends ProModel{
 	
-	private var peditor:PackEditor;
-	
 	public function PackProModel(){
-		super(null);
-		peditor = new PackEditor(this);
+		super(new PackProDefinition());
 	}
 	
-	public function applyProperty():void{
+	override public function valueChanged(v:*):void{
 		var cm:ComModel = owner as ComModel;
 		cm.getDisplay().pack();
 		var size:IntDimension = cm.getDisplay().getSize();
@@ -29,30 +24,7 @@ public class PackProModel extends ProModel{
 		owner = c;
 	}
 	
-	override public function parse(xml:XML):void{
-	}
-	
-	override public function encodeXML():XML{
-		return null;
-	}
-	
-	override public function getLabel():String{
-		return "Count size";
-	}
-	
-	override public function getName():String{
-		return "Pack";
-	}
-	
-	override public function getEditor():PropertyEditor{
-		return peditor;
-	}
-	
-	override public function isSimpleOneLine():String{
-		return null;
-	}
-	
-	override public function getCodeLines():Array{
+	override protected function captureDefaultProperty(name:String):*{
 		return null;
 	}
 }

@@ -8,7 +8,7 @@ import org.aswing.guibuilder.model.ProModel;
 public class ColorSerializer implements PropertySerializer{
 	
 	public function decodeValue(valueXML:XML, pro:ProModel):*{
-		var str:String = xml.@value;
+		var str:String = valueXML.@value;
 		var color:ASColor;
 		if(str == "null"){
 			color = null;

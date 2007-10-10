@@ -82,6 +82,10 @@ public class BorderModel implements Model{
 		return border;
 	}
 	
+	public function getValue():*{
+		return border;
+	}
+	
 	public function getDef():BorderDefinition{
 		return def;
 	}
@@ -97,20 +101,10 @@ public class BorderModel implements Model{
 		return properties.toArray();
 	}
 	
-	public function captureProperty(name:String):*{
-		var o:Object = getBorder();
-		var v:* = undefined;
-		try{
-			v = o["get"+name]();
-		}catch(e:Error){
-			try{
-				v = o["is"+name]();
-			}catch(e:Error){}
-		}
-		return v;
-	}	
-	
 	public function applyProperty(name:String, value:*, action:String):void{
+		if(value is Model){ 
+			value = Model(value).getTarget();
+		}
 		var o:Object = getBorder();
 		o["set"+name](value);
 		if(action != null && action != ""){

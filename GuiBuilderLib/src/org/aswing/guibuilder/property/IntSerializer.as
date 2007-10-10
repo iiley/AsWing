@@ -7,7 +7,7 @@ import org.aswing.guibuilder.model.ProModel;
 public class IntSerializer implements PropertySerializer{
 	
 	public function decodeValue(valueXML:XML, pro:ProModel):*{
-		return MathUtils.parseInteger(xml.@value);
+		return MathUtils.parseInteger(valueXML.@value);
 	}
 	
 	public function encodeValue(value:*, pro:ProModel):XML{

@@ -152,22 +152,6 @@ public class ComModel implements Model{
 		return null;
 	}
 	
-	public function captureProperty(name:String):*{		
-		if(name == ID_NAME){
-			return id;
-		}
-		var o:Object = getDisplay();
-		var v:* = undefined;
-		try{
-			v = o["get"+name]();
-		}catch(e:Error){
-			try{
-				v = o["is"+name]();
-			}catch(e:Error){}
-		}
-		return v;
-	}
-	
 	public function applyProperty(name:String, value:*, action:String):void{
 		trace(this + " apply name : " + name + ", value : " + value + ", action : " + action);
 		if(name == ID_NAME){
@@ -191,6 +175,10 @@ public class ComModel implements Model{
 	}
 	
 	public function getDisplay():Component{
+		return display;
+	}
+	
+	public function getTarget():*{
 		return display;
 	}
 	

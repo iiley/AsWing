@@ -16,16 +16,17 @@ import org.aswing.guibuilder.code.CodeGenerator;
 public class LayoutEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	private var display:JButton;
-	
+	private var layoutChooser:LayoutChooser;
 	private var layoutModel:LayoutModel;
 	
 	public function LayoutEditor(){
 		display = new JButton("Default");
 		display.addActionListener(__showChooser);
+		layoutChooser = new LayoutChooser();
 	}
 	
 	private function __showChooser(e:Event):void{
-		LayoutChooser.getIns().open(__choosed, layoutModel);
+		layoutChooser.open(__choosed, layoutModel);
 	}
 	private function __choosed(m:LayoutModel):void{
 		if(m){

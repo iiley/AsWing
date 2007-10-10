@@ -1,13 +1,11 @@
 package org.aswing.guibuilder.property{
 	
-import org.aswing.guibuilder.PropertyEditor;
-import org.aswing.*;
-import org.aswing.guibuilder.model.*;
-import org.aswing.guibuilder.property.*;
 import flash.events.Event;
-import flash.utils.getQualifiedClassName;
+
+import org.aswing.*;
 import org.aswing.guibuilder.BorderChooser;
-import org.aswing.guibuilder.code.CodeGenerator;
+import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.model.*;
 
 public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 	
@@ -17,6 +15,7 @@ public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 	private var nullRadio:JRadioButton;
 	private var button:JButton;
 	private var pane:Container;
+	private var borderChooser:BorderChooser;
 	
 	private var borderModel:BorderModel;
 	
@@ -30,10 +29,11 @@ public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 		nullRadio.addActionListener(__null);
 		defaultRadio.setSelected(true);
 		button.addActionListener(__showChooser);
+		borderChooser = new BorderChooser();
 	}
 	
 	private function __showChooser(e:Event):void{
-		BorderChooser.getIns().open(__choosed, borderModel);
+		borderChooser.open(__choosed, borderModel);
 	}
 	private function __choosed(m:BorderModel):void{
 		if(m){
@@ -75,11 +75,11 @@ public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 	override protected function fillValue(v:*, noValueSet:Boolean):void{
 		borderModel = v;
 		if(borderModel === DEFAULT){
-			display.setText("Default");
+			button.setText("Default");
 		}else if(borderModel != null){
-			display.setText(borderModel.getName());
+			button.setText(borderModel.getName());
 		}else{
-			display.setText("null");
+			button.setText("null");
 		}
 	}	
 	
@@ -87,7 +87,7 @@ public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 		if(borderModel === DEFAULT){
 			return ProModel.NONE_VALUE_SET;
 		}else if(borderModel != null){
-			return borderModel.getLayout();
+			return borderModel.getBorder();
 		}else{
 			return null;
 		}

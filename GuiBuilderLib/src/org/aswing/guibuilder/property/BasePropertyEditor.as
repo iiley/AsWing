@@ -1,10 +1,10 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
-import org.aswing.guibuilder.model.ProModel;
-import org.aswing.Component;
-import org.aswing.guibuilder.PropertySerializer;
+import flash.events.Event;
+
 import org.aswing.error.ImpMissError;
+import org.aswing.guibuilder.PropertySerializer;
+import org.aswing.guibuilder.model.ProModel;
 
 public class BasePropertyEditor{
 	
@@ -25,7 +25,7 @@ public class BasePropertyEditor{
 	
 	private function setValue(v:*):void{
 		valueParsing = true;
-		fillValue(v, v === ProModel.NONE_VALUE_SET):
+		fillValue(v, v === ProModel.NONE_VALUE_SET);
 		valueParsing = false;
 	}
 	

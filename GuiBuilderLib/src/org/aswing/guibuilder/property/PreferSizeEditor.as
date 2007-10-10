@@ -1,9 +1,9 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
-import org.aswing.Component;
-import org.aswing.JCheckBox;
 import flash.events.Event;
+
+import org.aswing.JCheckBox;
+import org.aswing.geom.IntDimension;
 import org.aswing.guibuilder.model.ProModel;
 
 public class PreferSizeEditor extends IntDimensionEditor{
@@ -27,14 +27,11 @@ public class PreferSizeEditor extends IntDimensionEditor{
 		applyProperty();
 	}
 	
-	override public function applyProperty():void{
-		if(check.isSelected()){
-			apply(null);
-			apply(ProModel.NONE_VALUE_SET);
-		}else{
-			super.applyProperty();
+	override protected function getEditorValue():*{
+		if(check.isSelected() || widthInput.isEmpty() || heightInput.isEmpty()){
+			return ProModel.NONE_VALUE_SET;
 		}
+		return new IntDimension(widthInput.getInputInt(), heightInput.getInputInt());
 	}
-	
 }
 }

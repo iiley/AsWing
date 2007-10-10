@@ -1,12 +1,11 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
 import org.aswing.JComboBox;
-import flash.events.Event;
+import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.guibuilder.model.ProModel;
 
-public class ConstraintsEditor implements PropertyEditor{
+public class ConstraintsEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	private var combo:JComboBox;
 	

@@ -82,6 +82,10 @@ public class LayoutModel implements Model{
 		return layout;
 	}
 	
+	public function getValue():*{
+		return layout;
+	}
+	
 	public function getDef():LayoutDefinition{
 		return def;
 	}
@@ -97,20 +101,10 @@ public class LayoutModel implements Model{
 		return properties.toArray();
 	}
 	
-	public function captureProperty(name:String):*{
-		var o:Object = getLayout();
-		var v:* = undefined;
-		try{
-			v = o["get"+name]();
-		}catch(e:Error){
-			try{
-				v = o["is"+name]();
-			}catch(e:Error){}
-		}
-		return v;
-	}	
-	
 	public function applyProperty(name:String, value:*, action:String):void{
+		if(value is Model){ 
+			value = Model(value).getTarget();
+		}
 		var o:Object = getLayout();
 		o["set"+name](value);
 		if(action != null && action != ""){

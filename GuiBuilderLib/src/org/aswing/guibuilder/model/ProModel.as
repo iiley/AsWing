@@ -1,6 +1,6 @@
 package org.aswing.guibuilder.model{
 
-import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.DefaultValueHelper;
 import org.aswing.guibuilder.PropertySerializer;	
 
 /**
@@ -11,10 +11,10 @@ public class ProModel{
 	
 	public static const NONE_VALUE_SET:Object = {};
 	
-	private var def:ProDefinition;
+	protected var def:ProDefinition;
 	protected var owner:Model;
 	protected var value:*;
-	protected var valueModel:*; //for some complex value like layout, border's model
+	protected var valueModel:Model; //for some complex value like layout, border's model
 	protected var noneValue:Boolean; //whether or not set this property a value
 	protected var defaultValue:*;
 	protected var valueXML:XML;
@@ -31,6 +31,7 @@ public class ProModel{
 	}
 	
 	public function valueChanged(v:*):void{
+		trace("valueChanged : " + v);
 		if(v === NONE_VALUE_SET){
 			value = undefined;
 			noneValue = true;
@@ -53,14 +54,15 @@ public class ProModel{
 	/**
 	 * For some complex value use, for example layout value, border value
 	 */
-	public function setValueModel(vm:*):void{
+	public function setValueModel(vm:Model):void{
 		valueModel = vm;
+		valueChanged(valueModel.getValue());
 	}
 	
 	/**
 	 * For some complex value use, for example layout value, border value
 	 */	
-	public function getValueModel():*{
+	public function getValueModel():Model{
 		return valueModel;
 	}
 	
@@ -70,19 +72,18 @@ public class ProModel{
 	
 	public function bindTo(c:Model):void{
 		owner = c;
-		defaultValue = owner.captureProperty(def.getName());
+		defaultValue = captureDefaultProperty(def.getName());
 		var defaultValueXML:XMLList = def.getDefaultValue();
 		if(defaultValueXML != null && defaultValueXML.length() >0){
-			valueXML = defaultValueXML[0];
-			valueChanged(valueSerializer.decodeValue(valueXML));
+			trace("defaultValueXML[0] : " + defaultValueXML[0].toXMLString());
+			valueChanged(valueSerializer.decodeValue(defaultValueXML[0], this));
 		}
 	}
 	
 	public function parse(xml:XML):void{
 		var valueXML:XMLList = xml.Value;
 		if(valueXML != null && valueXML.length() > 0){
-			valueXML = valueXML[0];
-			valueChanged(valueSerializer.decodeValue(valueXML));
+			valueChanged(valueSerializer.decodeValue(valueXML[0], this));
 		}
 	}
 	
@@ -93,8 +94,27 @@ public class ProModel{
 		var xml:XML = <Property></Property>;
 		xml.@name = getName();
 		xml.@type = def.getName();
-		xml.appendChild(valueSerializer.encodeValue(value));
+		xml.appendChild(valueSerializer.encodeValue(value, this));
 		return xml;
+	}
+	
+	protected function captureDefaultProperty(name:String):*{
+		if(valueSerializer is DefaultValueHelper){
+			var helper:DefaultValueHelper = valueSerializer as DefaultValueHelper;
+			if(helper.isNeedHelp(name, owner)){
+				return helper.getDefaultValue(name, owner);
+			}
+		}
+		var o:Object = owner.getTarget();
+		var v:* = undefined;
+		try{
+			v = o["get"+name]();
+		}catch(e:Error){
+			try{
+				v = o["is"+name]();
+			}catch(e:Error){}
+		}
+		return v;
 	}
 	
 	/**
@@ -108,7 +128,7 @@ public class ProModel{
 		if(noneValue){
 			return null;
 		}
-		return valueSerializer.getCodeLines(value);
+		return valueSerializer.getCodeLines(value, this);
 	}
 	
 	/**
@@ -119,7 +139,7 @@ public class ProModel{
 		if(noneValue){
 			return null;
 		}
-		return valueSerializer.isSimpleOneLine(value);
+		return valueSerializer.isSimpleOneLine(value, this);
 	}
 	
 	public function getLabel():String{
