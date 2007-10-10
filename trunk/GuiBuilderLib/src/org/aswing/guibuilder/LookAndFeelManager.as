@@ -122,7 +122,7 @@ public class LookAndFeelManager{
 		var laf:LookAndFeel = Reflection.createInstance(info.getClazz());
 		if(laf != null){
 			UIManager.setLookAndFeel(laf);
-			AsWingUtils.updateAllComponentUI();
+			AsWingUtils.updateAllComponentUIInMemory();
 		}else{
 			JOptionPane.showMessageDialog("Error", "Can't create " + info.getClazz());
 		}
