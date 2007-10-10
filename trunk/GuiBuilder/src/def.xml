@@ -78,6 +78,8 @@
 
 <Borders>
 	<Border name="EmptyBorder" clazz="org.aswing.border.EmptyBorder">
+		<Property label="Interior" name="Interior" type="Border">
+		</Property>
 		<Property label="Top" name="Top" type="int">
 		</Property>
 		<Property label="Left" name="Left" type="int">
@@ -88,6 +90,8 @@
 		</Property>
 	</Border>
 	<Border name="LineBorder" clazz="org.aswing.border.LineBorder">
+		<Property label="Interior" name="Interior" type="Border">
+		</Property>
 		<Property label="Color" name="Color" type="Color" editorParam="nonull">
 			<Value value="0,1"/>
 		</Property>
@@ -97,6 +101,8 @@
 		</Property>
 	</Border>
 	<Border name="BevelBorder" clazz="org.aswing.border.BevelBorder">
+		<Property label="Interior" name="Interior" type="Border">
+		</Property>
 		<Property label="Type" name="BevelType" type="IntEmu" editorParam="Raised,Lowered">
 			<Value value="1"></Value>
 		</Property>
@@ -104,6 +110,8 @@
 		</Property>
 	</Border>
 	<Border name="SideLineBorder" clazz="org.aswing.border.SideLineBorder">
+		<Property label="Interior" name="Interior" type="Border">
+		</Property>
 		<Property label="Color" name="Color" type="Color" editorParam="nonull">
 			<Value value="0,1"/>
 		</Property>
@@ -114,6 +122,8 @@
 		</Property>
 	</Border>
 	<Border name="TitledBorder" clazz="org.aswing.border.TitledBorder">
+		<Property label="Interior" name="Interior" type="Border">
+		</Property>
 		<Property label="Color" name="Color" type="Color" editorParam="nonull">
 			<Value value="0,1"/>
 		</Property>
@@ -134,6 +144,8 @@
 		</Property>
 	</Border>
 	<Border name="SimpleTitledBorder" clazz="org.aswing.border.SimpleTitledBorder">
+		<Property label="Interior" name="Interior" type="Border">
+		</Property>
 		<Property label="Title" name="Title" type="String">
 			<Value value="title"/>
 		</Property>
