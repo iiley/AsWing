@@ -1,18 +1,17 @@
 package org.aswing.ext{
 
-import org.aswing.geom.IntDimension;
-import org.aswing.Component;
-import org.aswing.JPanel;
-import org.aswing.LayoutManager;
-import org.aswing.Container;
-import org.aswing.util.Vector;
-import org.aswing.Insets;
-import org.aswing.CenterLayout;
 import org.aswing.BorderLayout;
+import org.aswing.CenterLayout;
+import org.aswing.Component;
+import org.aswing.Container;
 import org.aswing.FlowLayout;
+import org.aswing.Insets;
+import org.aswing.JLabel;
+import org.aswing.JPanel;
 import org.aswing.JSeparator;
 import org.aswing.JSpacer;
-import org.aswing.JLabel;
+import org.aswing.LayoutManager;
+import org.aswing.geom.IntDimension;
 
 /**
  * Form is a vertical list of <code>FormRow</code>s.
@@ -93,9 +92,7 @@ public class Form extends JPanel implements LayoutManager{
 	 * @return the form row.
 	 */
 	public function addRow(...columns):FormRow{
-		var row:FormRow = new FormRow();
-		row.setColumnChildren(columns);
-		row.setGap(getHGap());
+		var row:FormRow = createRow(columns);
 		append(row);
 		return row;
 	}
@@ -114,6 +111,22 @@ public class Form extends JPanel implements LayoutManager{
 		var sp:JSpacer = JSpacer.createVerticalSpacer(height);
 		append(sp);
 		return sp;
+	}
+	
+	public function createRow(columns:Array):FormRow{
+		var row:FormRow = new FormRow();
+		row.setColumnChildren(columns);
+		row.setGap(getHGap());
+		return row;
+	}
+	
+	/**
+	 * @see #addRow()
+	 */
+	public function insertRow(index:int, ...columns):FormRow{
+		var row:FormRow = createRow(columns);
+		insert(index, row);
+		return row;
 	}
 	
 	public function createLeftLabel(text:String):JLabel{
