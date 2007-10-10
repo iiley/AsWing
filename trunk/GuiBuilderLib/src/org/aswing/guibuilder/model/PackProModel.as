@@ -9,7 +9,7 @@ public class PackProModel extends ProModel{
 		super(new PackProDefinition());
 	}
 	
-	override public function valueChanged(v:*):void{
+	override public function valueChanged(v:ValueModel):void{
 		var cm:ComModel = owner as ComModel;
 		cm.getDisplay().pack();
 		var size:IntDimension = cm.getDisplay().getSize();
@@ -24,7 +24,7 @@ public class PackProModel extends ProModel{
 		owner = c;
 	}
 	
-	override protected function captureDefaultProperty(name:String):*{
+	override protected function captureDefaultProperty(name:String):ValueModel{
 		return null;
 	}
 }

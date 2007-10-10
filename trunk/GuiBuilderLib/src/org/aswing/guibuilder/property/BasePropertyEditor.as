@@ -5,6 +5,7 @@ import flash.events.Event;
 import org.aswing.error.ImpMissError;
 import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class BasePropertyEditor{
 	
@@ -23,17 +24,17 @@ public class BasePropertyEditor{
 		}
 	}
 	
-	private function setValue(v:*):void{
+	private function setValue(v:ValueModel):void{
 		valueParsing = true;
 		fillValue(v, v === ProModel.NONE_VALUE_SET);
 		valueParsing = false;
 	}
 	
-	protected function fillValue(v:*, noValueSet:Boolean):void{
+	protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		throw new ImpMissError();
 	}
 	
-	protected function getEditorValue():*{
+	protected function getEditorValue():ValueModel{
 		throw new ImpMissError();
 		return null;
 	}

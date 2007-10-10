@@ -5,6 +5,8 @@ import flash.events.Event;
 import org.aswing.JCheckBox;
 import org.aswing.geom.IntDimension;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class PreferSizeEditor extends IntDimensionEditor{
 	
@@ -27,11 +29,11 @@ public class PreferSizeEditor extends IntDimensionEditor{
 		applyProperty();
 	}
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(check.isSelected() || widthInput.isEmpty() || heightInput.isEmpty()){
 			return ProModel.NONE_VALUE_SET;
 		}
-		return new IntDimension(widthInput.getInputInt(), heightInput.getInputInt());
+		return new SimpleValue(new IntDimension(widthInput.getInputInt(), heightInput.getInputInt()));
 	}
 }
 }

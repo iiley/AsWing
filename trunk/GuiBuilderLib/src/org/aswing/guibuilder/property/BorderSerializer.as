@@ -6,31 +6,29 @@ import org.aswing.guibuilder.model.*;
 
 public class BorderSerializer implements PropertySerializer{
 	
-	public function decodeValue(valueXML:XML, pro:ProModel):*{
-		var model:BorderModel;
-		if(pro.getValueModel() != null){
-			model = pro.getValueModel();
-		}else{
+	public function decodeValue(valueXML:XML, pro:ProModel):ValueModel{
+		var model:BorderModel = pro.getValue() as BorderModel;
+		if(model == null){
 			model = new BorderModel();
 		}
 		model.parse(valueXML.children()[0]);
-		return model.getBorder();
+		return model;
 	}
 	
-	public function encodeValue(value:*, pro:ProModel):XML{
+	public function encodeValue(value:ValueModel, pro:ProModel):XML{
 		var xml:XML = <Value></Value>;
-		if(value == null){
+		if(value.getValue() == null){
 			xml.@value="null";
 			return xml;
 		}
-		var model:BorderModel = pro.getValueModel();
-		var borderDef:BorderDefinition = model.getDef();
+		var model:BorderModel = value as BorderModel;
+		//var borderDef:BorderDefinition = model.getDef();
 		xml.appendChild(model.encodeXML());
 		return xml;
 	}
 	
-	public function getCodeLines(value:*, pro:ProModel):Array{
-		var borderModel:BorderModel = pro.getValueModel();
+	public function getCodeLines(value:ValueModel, pro:ProModel):Array{
+		var borderModel:BorderModel = value as BorderModel;
 		var id:String = "border" + (CodeGenerator.border_id_counter++);
 		var clazz:String = borderModel.getDef().getShortClassName();
 		var arr:Array = [];
@@ -55,7 +53,10 @@ public class BorderSerializer implements PropertySerializer{
 		return arr;
 	}
 	
-	public function isSimpleOneLine(value:*, pro:ProModel):String{
+	public function isSimpleOneLine(value:ValueModel, pro:ProModel):String{
+		if(value.getValue() == null){
+			return "null";
+		}
 		return null;
 	}
 	

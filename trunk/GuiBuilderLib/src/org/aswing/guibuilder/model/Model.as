@@ -2,7 +2,7 @@ package org.aswing.guibuilder.model{
 
 public interface Model extends ValueModel{
 	
-	function applyProperty(name:String, value:*, action:String):void;
+	function applyProperty(name:String, value:ValueModel, action:String):void;
 		
 	function getProperties():Array;
 		

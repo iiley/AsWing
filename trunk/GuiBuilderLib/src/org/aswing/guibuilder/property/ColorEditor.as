@@ -1,14 +1,15 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
-import org.aswing.*;
 import flash.events.Event;
-import org.aswing.guibuilder.model.ProModel;
-import org.aswing.guibuilder.util.MathUtils;
-import org.aswing.colorchooser.JColorSwatches;
-import org.aswing.colorchooser.JColorMixer;
+
+import org.aswing.*;
 import org.aswing.border.BevelBorder;
+import org.aswing.colorchooser.JColorSwatches;
 import org.aswing.event.InteractiveEvent;
+import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class ColorEditor extends BasePropertyEditor implements PropertyEditor{
 	
@@ -43,16 +44,16 @@ public class ColorEditor extends BasePropertyEditor implements PropertyEditor{
 		}
 	}
 	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		defaultRadio.setSelected(noValueSet);
 		if(noValueSet){
 			color = DEFAULT;
 			nullRadio.setSelected(false);
-		}else if(v == null){
+		}else if(v.getValue() == null){
 			color = null;
 			nullRadio.setSelected(true);
 		}else{
-			color = v;
+			color = v.getValue();
 			nullRadio.setSelected(false);
 		}
 		if(color === DEFAULT){
@@ -63,11 +64,11 @@ public class ColorEditor extends BasePropertyEditor implements PropertyEditor{
 		colorButton.repaint();
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(color === DEFAULT){
 			return ProModel.NONE_VALUE_SET;
 		}else{
-			return color;
+			return new SimpleValue(color);
 		}
 	}
 	

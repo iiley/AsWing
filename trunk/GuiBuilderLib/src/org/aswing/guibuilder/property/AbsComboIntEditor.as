@@ -1,10 +1,10 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.*;
-import flash.events.Event;
-import org.aswing.guibuilder.util.MathUtils;
+import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
 
 public class AbsComboIntEditor extends BasePropertyEditor implements PropertyEditor{
 	
@@ -21,19 +21,19 @@ public class AbsComboIntEditor extends BasePropertyEditor implements PropertyEdi
 		return combo;
 	}
 	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
-		var index:int = v;
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
+		var index:int = v.getValue();
 		if(noValueSet){
-			index = 0;
+			index = -1;
 		}
 		combo.setSelectedIndex(index);
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(combo.getSelectedIndex() <= 0){
 			return ProModel.NONE_VALUE_SET;
 		}else{
-			return combo.getSelectedIndex();
+			return new SimpleValue(combo.getSelectedIndex());
 		}
 	}
 }

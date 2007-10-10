@@ -1,14 +1,14 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertyEditor;
 import org.aswing.Component;
-import org.aswing.geom.IntPoint;
 import org.aswing.JPanel;
 import org.aswing.SoftBoxLayout;
-import org.aswing.guibuilder.util.MathUtils;
-import org.aswing.guibuilder.model.ProModel;
-import flash.events.Event;
 import org.aswing.event.AWEvent;
+import org.aswing.geom.IntPoint;
+import org.aswing.guibuilder.PropertyEditor;
+import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.model.SimpleValue;
+import org.aswing.guibuilder.model.ValueModel;
 
 /**
  * IntPoint editor
@@ -32,22 +32,22 @@ public class IntPointEditor extends BasePropertyEditor implements PropertyEditor
 		return pane;
 	}
 	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		if(noValueSet){
 			xInput.setInputText("");
 			yInput.setInputText("");
 		}else{
-			var p:IntPoint = v;
+			var p:IntPoint = v.getValue();
 			xInput.setInputText(p.x+"");
 			yInput.setInputText(p.y+"");
 		}
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(xInput.isEmpty() || yInput.isEmpty()){
 			return ProModel.NONE_VALUE_SET;
 		}
-		return new IntPoint(xInput.getInputInt(), yInput.getInputInt());
+		return new SimpleValue(new IntPoint(xInput.getInputInt(), yInput.getInputInt()));
 	}
 }
 }

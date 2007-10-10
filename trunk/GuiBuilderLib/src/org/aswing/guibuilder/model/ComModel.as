@@ -152,23 +152,23 @@ public class ComModel implements Model{
 		return null;
 	}
 	
-	public function applyProperty(name:String, value:*, action:String):void{
+	public function applyProperty(name:String, value:ValueModel, action:String):void{
 		trace(this + " apply name : " + name + ", value : " + value + ", action : " + action);
 		if(name == ID_NAME){
-			this.id = value;
+			this.id = value.getValue();
 			if(changedHandler != null){
 				changedHandler(this);
 			}
 			return;
 		}else if(name == ATTR_SCOPE_NAME){
-			this.atrributeScope = value;
+			this.atrributeScope = value.getValue();
 			return;
 		}else if(name == GETTER_SCOPE_NAME){
-			this.getterScope = value;
+			this.getterScope = value.getValue();
 			return;
 		}
 		var o:Object = getDisplay();
-		o["set"+name](value);
+		o["set"+name](value.getValue());
 		if(action != null && action != ""){
 			o[action]();
 		}
@@ -178,7 +178,7 @@ public class ComModel implements Model{
 		return display;
 	}
 	
-	public function getTarget():*{
+	public function getValue():*{
 		return display;
 	}
 	

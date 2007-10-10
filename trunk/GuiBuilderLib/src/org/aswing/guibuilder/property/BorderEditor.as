@@ -33,7 +33,7 @@ public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 	}
 	
 	private function __showChooser(e:Event):void{
-		borderChooser.open(__choosed, borderModel);
+		borderChooser.open(__choosed, (borderModel===DEFAULT ? null : borderModel));
 	}
 	private function __choosed(m:BorderModel):void{
 		if(m){
@@ -60,36 +60,26 @@ public class BorderEditor extends BasePropertyEditor implements PropertyEditor{
 		return pane;
 	}
 	
-	override public function bindTo(p:ProModel):void{
-		pro = p;
-		if(pro != null){
-			fillValue(p.getValueModel(), p.getValueModel() === DEFAULT);
-		}
-	}	
-	
-	override public function applyProperty():void{
-		super.applyProperty();
-		pro.setValueModel(borderModel);
-	}
-	
-	override protected function fillValue(v:*, noValueSet:Boolean):void{
-		borderModel = v;
-		if(borderModel === DEFAULT){
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
+		if(noValueSet){
+			borderModel = DEFAULT;
 			button.setText("Default");
-		}else if(borderModel != null){
-			button.setText(borderModel.getName());
-		}else{
+		}else if(v.getValue() == null){
 			button.setText("null");
+			borderModel = null;
+		}else{
+			borderModel = v as BorderModel;
+			button.setText(borderModel.getName());
 		}
 	}	
 	
-	override protected function getEditorValue():*{
+	override protected function getEditorValue():ValueModel{
 		if(borderModel === DEFAULT){
 			return ProModel.NONE_VALUE_SET;
 		}else if(borderModel != null){
-			return borderModel.getBorder();
+			return borderModel;
 		}else{
-			return null;
+			return new SimpleValue(null);
 		}
 	}
 }
