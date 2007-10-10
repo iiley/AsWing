@@ -27,6 +27,10 @@ public class IntDimensionEditor extends BasePropertyEditor implements PropertyEd
 		heightInput.addEventListener(AWEvent.ACT, __apply);
 	}
 	
+	public function getDisplay():Component{
+		return pane;
+	}
+	
 	override protected function fillValue(v:*, noValueSet:Boolean):void{
 		if(noValueSet){
 			widthInput.setInputText("");

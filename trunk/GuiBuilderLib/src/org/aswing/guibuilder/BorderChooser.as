@@ -7,16 +7,7 @@ import org.aswing.border.TitledBorder;
 import org.aswing.event.InteractiveEvent;
 
 public class BorderChooser{
-	
-	private static var ins:BorderChooser;
-	
-	public static function getIns():BorderChooser{
-		if(ins == null){
-			new BorderChooser();
-		}
-		return ins;
-	}
-	
+
 	private var dialog:JFrame;
 	private var borderList:JList;
 	private var propertyPane:PropertyPane;
@@ -25,11 +16,6 @@ public class BorderChooser{
 	private var handler:Function;
 	
 	public function BorderChooser(){
-		if(ins){
-			throw new Error("Sington can't be instansted more than once!");
-		}
-		ins = this;
-		
 		dialog = new JFrame(null, "Border Chooser", true);
 		var pane:Container = dialog.getContentPane();
 		borderList = new JList();
@@ -56,10 +42,7 @@ public class BorderChooser{
 	private function __ok(e:Event):void{
 		dialog.dispose();
 		var model:BorderModel = borderList.getSelectedValue();
-		var pros:Array = model.getProperties();
-		for each(var pro:ProModel in pros){
-			pro.getEditor().applyProperty();
-		}
+		propertyPane.applyPropertiesEdited();
 		handler(model);
 	}
 	

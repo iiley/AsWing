@@ -1,6 +1,7 @@
 package org.aswing.guibuilder.property{
 
 import org.aswing.guibuilder.PropertySerializer;
+import org.aswing.guibuilder.code.CodeGenerator;
 import org.aswing.guibuilder.model.*;
 
 public class BorderSerializer implements PropertySerializer{
@@ -12,7 +13,7 @@ public class BorderSerializer implements PropertySerializer{
 		}else{
 			model = new BorderModel();
 		}
-		model.parse(xml.children()[0]);
+		model.parse(valueXML.children()[0]);
 		return model.getBorder();
 	}
 	

@@ -101,7 +101,7 @@ public class FontEditor extends BasePropertyEditor implements PropertyEditor{
 		}
 	}
 	
-	public function applyProperty():void{
+	override public function applyProperty():void{
 		super.applyProperty();
 		updateRepresents();
 	}

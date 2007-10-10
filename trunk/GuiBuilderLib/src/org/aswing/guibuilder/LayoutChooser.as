@@ -12,15 +12,6 @@ import org.aswing.event.InteractiveEvent;
 
 public class LayoutChooser{
 	
-	private static var ins:LayoutChooser;
-	
-	public static function getIns():LayoutChooser{
-		if(ins == null){
-			new LayoutChooser();
-		}
-		return ins;
-	}
-	
 	private var dialog:JFrame;
 	private var layoutList:JList;
 	private var propertyPane:PropertyPane;
@@ -29,11 +20,6 @@ public class LayoutChooser{
 	private var handler:Function;
 	
 	public function LayoutChooser(){
-		if(ins){
-			throw new Error("Sington can't be instansted more than once!");
-		}
-		ins = this;
-		
 		dialog = new JFrame(null, "Layout Chooser", true);
 		var pane:Container = dialog.getContentPane();
 		layoutList = new JList();
@@ -60,10 +46,7 @@ public class LayoutChooser{
 	private function __ok(e:Event):void{
 		dialog.dispose();
 		var model:LayoutModel = layoutList.getSelectedValue();
-		var pros:Array = model.getProperties();
-		for each(var pro:ProModel in pros){
-			pro.getEditor().applyProperty();
-		}
+		propertyPane.applyPropertiesEdited();
 		handler(model);
 	}
 	

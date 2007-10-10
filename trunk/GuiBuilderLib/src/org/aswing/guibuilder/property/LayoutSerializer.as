@@ -1,8 +1,10 @@
 package org.aswing.guibuilder.property{
 
 import org.aswing.guibuilder.PropertySerializer;
-import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.code.CodeGenerator;
+import org.aswing.guibuilder.model.LayoutDefinition;
 import org.aswing.guibuilder.model.LayoutModel;
+import org.aswing.guibuilder.model.ProModel;
 
 public class LayoutSerializer implements PropertySerializer{
 	
@@ -13,7 +15,7 @@ public class LayoutSerializer implements PropertySerializer{
 		}else{
 			model = new LayoutModel();
 		}
-		model.parse(xml.children()[0]);
+		model.parse(valueXML.children()[0]);
 		return model.getLayout();
 	}
 	

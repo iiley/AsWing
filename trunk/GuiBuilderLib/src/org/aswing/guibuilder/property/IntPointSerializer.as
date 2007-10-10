@@ -1,13 +1,14 @@
 package org.aswing.guibuilder.property{
 
-import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.geom.IntPoint;
+import org.aswing.guibuilder.PropertySerializer;
 import org.aswing.guibuilder.model.ProModel;
+import org.aswing.guibuilder.util.MathUtils;
 
 public class IntPointSerializer implements PropertySerializer{
 	
 	public function decodeValue(valueXML:XML, pro:ProModel):*{
-		var str:String = xml.@value;
+		var str:String = valueXML.@value;
 		var strs:Array = str.split(",");
 		return new IntPoint(MathUtils.parseInteger(strs[0]), MathUtils.parseInteger(strs[1]));
 	}
