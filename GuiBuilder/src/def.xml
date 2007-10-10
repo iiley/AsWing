@@ -3,7 +3,7 @@
 <Types>
 
 	<Type name="Boolean" editor="org.aswing.guibuilder.property.BooleanEditor"
-		serializer="org.aswing.guibuilder.property.IntSerializer">
+		serializer="org.aswing.guibuilder.property.BooleanSerializer">
 	</Type>
 
 	<Type name="int" editor="org.aswing.guibuilder.property.IntEditor"
@@ -42,10 +42,12 @@
 		serializer="org.aswing.guibuilder.property.IntSerializer">
 	</Type>
 
-	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor">
+	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor"
+		serializer="org.aswing.guibuilder.property.LayoutSerializer">
 	</Type>
 
-	<Type name="Border" editor="org.aswing.guibuilder.property.BorderEditor">
+	<Type name="Border" editor="org.aswing.guibuilder.property.BorderEditor"
+		serializer="org.aswing.guibuilder.property.BorderSerializer">
 	</Type>
 
 	<Type name="Constraints" editor="org.aswing.guibuilder.property.ConstraintsEditor"
@@ -64,7 +66,12 @@
 		serializer="org.aswing.guibuilder.property.IntSerializer">
 	</Type>
 
-	<Type name="Scope" editor="org.aswing.guibuilder.property.ScopeEditor">
+	<Type name="Scope" editor="org.aswing.guibuilder.property.ScopeEditor"
+		serializer="org.aswing.guibuilder.property.ScopeSerializer">
+	</Type>
+
+	<Type name="Pack" editor="org.aswing.guibuilder.property.PackEditor"
+		serializer="org.aswing.guibuilder.property.EmptySerializer">
 	</Type>
 
 </Types>
