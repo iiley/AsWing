@@ -28,6 +28,7 @@ public class LayoutEditor extends BasePropertyEditor implements PropertyEditor{
 	private function __choosed(m:LayoutModel):void{
 		if(m){
 			layoutModel = m;
+			updateRepresents();
 			applyProperty();
 		}
 	}
@@ -42,12 +43,16 @@ public class LayoutEditor extends BasePropertyEditor implements PropertyEditor{
 	
 	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		layoutModel = v as LayoutModel;
+		updateRepresents();
+	}
+	
+	private function updateRepresents():void{
 		if(layoutModel != null){
 			display.setText(layoutModel.getName());
 		}else{
 			display.setText("Default");
 		}
-	}	
+	}
 	
 	override protected function getEditorValue():ValueModel{
 		if(layoutModel != null){
