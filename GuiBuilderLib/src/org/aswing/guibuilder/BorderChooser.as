@@ -24,6 +24,8 @@ public class BorderChooser{
 		propertyPane = new PropertyPane();
 		dialog.setSizeWH(400, 300);
 		AsWingUtils.centerLocate(dialog);
+		dialog.x += Math.random()*20-40;
+		dialog.y += Math.random()*20-40;
 		okButton = new JButton("OK");
 		cancelButton = new JButton("Cancel");
 		var scroll:JScrollPane = new JScrollPane(borderList);
