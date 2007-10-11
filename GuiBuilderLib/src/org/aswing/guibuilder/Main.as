@@ -1,11 +1,5 @@
 package org.aswing.guibuilder{
 
-import flash.display.DisplayObjectContainer;
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.net.URLRequest;
-import flash.net.navigateToURL;
-
 import org.aswing.ASColor;
 import org.aswing.AsWingManager;
 import org.aswing.AssetPane;
@@ -36,6 +30,11 @@ import org.aswing.tree.DefaultMutableTreeNode;
 import org.aswing.tree.DefaultTreeModel;
 import org.aswing.tree.TreeModel;
 import org.aswing.tree.TreePath;
+
+import flash.events.*;
+import flash.display.*;
+import flash.net.*;
+
 
 public class Main extends JWindow{
 	
@@ -75,7 +74,7 @@ public class Main extends JWindow{
 		menuBar.addMenu(newMenu);
 		filePane = new FilePane();
 		hiberarchyPane = new HiberarchyPane();
-		propertyPane = new PropertyPane();
+		propertyPane = new PropertyPane(true);
 		componentMenu = new ComponentMenu();
 		
 		var pane:JPanel = new JPanel(new BorderLayout());
@@ -84,14 +83,16 @@ public class Main extends JWindow{
 		topBar.setBorder(new EmptyBorder(null, new Insets(2, 4, 0, 0)));
 		topBar.appendAll(menuBar, new JSeparator(JSeparator.VERTICAL), toolBarPane);
 		pane.append(topBar, BorderLayout.NORTH);
+		
 		var centerCenter:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, previewPane, propertyPane);
-		centerCenter.setResizeWeight(0.6);
-		var center:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, filePane, centerCenter);
-		center.setResizeWeight(0.2);
-		center.setOneTouchExpandable(true);
-		var main:JSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, center, hiberarchyPane);
-		main.setResizeWeight(0.7);
-		pane.append(main, BorderLayout.CENTER);
+		centerCenter.setResizeWeight(0.68);
+		
+		var left:JSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, filePane, hiberarchyPane);
+		left.setResizeWeight(0.3);
+		
+		var center:JSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, left, centerCenter);
+		center.setResizeWeight(0.21);
+		pane.append(center, BorderLayout.CENTER);
 		
 		setContentPane(pane);
 		
