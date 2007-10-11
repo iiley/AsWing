@@ -37,8 +37,11 @@ public class PropertyPane extends JPanel{
 	private var layoutOrders:Vector;
 	private var nocateOrders:Vector;
 	
-	public function PropertyPane(){
+	private var useCategory:Boolean;
+	
+	public function PropertyPane(useCategory:Boolean=false){
 		super();
+		this.useCategory = useCategory;
 		setBorder(new TitledBorder(null, "Properties"));
 		setLayout(new BorderLayout());
 		box = SoftBox.createVerticalBox(2);
@@ -47,35 +50,45 @@ public class PropertyPane extends JPanel{
 		vp.setHorizontalAlignment(JViewport.LEFT);
 		append(new JScrollPane(vp));
 		
-		commonOrders = new Vector();
-		featureOrders = new Vector();
-		layoutOrders = new Vector();
 		nocateOrders = new Vector();
 		
-		commonFolder = new Folder("Common");
-		commonFolder.setExpanded(true);
-		featureFolder = new Folder("Feature");
-		featureFolder.setExpanded(true);
-		layoutFolder = new Folder("Layout");
-		commonForm = new Form();
-		featureForm = new Form();
-		layoutForm = new Form();
+		if(useCategory){
+			commonOrders = new Vector();
+			featureOrders = new Vector();
+			layoutOrders = new Vector();
+			
+			commonFolder = new Folder("Common");
+			commonFolder.setExpanded(true);
+			featureFolder = new Folder("Feature");
+			featureFolder.setExpanded(true);
+			layoutFolder = new Folder("Layout");
+			layoutFolder.setExpanded(true);
+			commonForm = new Form();
+			featureForm = new Form();
+			layoutForm = new Form();
+		
+			commonFolder.setContentPane(commonForm);
+			commonFolder.setVisible(false);
+			
+			featureFolder.setContentPane(featureForm);
+			featureFolder.setVisible(false);
+			
+			layoutFolder.setContentPane(layoutForm);
+			layoutFolder.setVisible(false);
+		}
+		
 		nocateForm = new Form();
 		
-		commonFolder.setContentPane(commonForm);
-		commonFolder.setVisible(false);
-		
-		featureFolder.setContentPane(featureForm);
-		featureFolder.setVisible(false);
-		
-		layoutFolder.setContentPane(layoutForm);
-		layoutFolder.setVisible(false);
-		
-		box.appendAll(featureFolder, 
-			commonFolder, 
-			layoutFolder, 
-			new JSeparator(JSeparator.HORIZONTAL), 
-			nocateForm);
+		if(useCategory){
+			box.appendAll(
+				commonFolder, 
+				featureFolder, 
+				layoutFolder, 
+				new JSeparator(JSeparator.HORIZONTAL), 
+				nocateForm);
+		}else{
+			box.append(nocateForm);
+		}
 		
 		editorsMap = new HashMap();
 		editorRowMap = new HashMap();
@@ -107,6 +120,7 @@ public class PropertyPane extends JPanel{
 		if(row){
 			row.setVisible(v);
 			if(v){
+				row.revalidate();
 				curEditors.push(editor);
 			}
 		}
@@ -118,8 +132,9 @@ public class PropertyPane extends JPanel{
 		
 		var row:FormRow = new FormRow(jlabel, editor.getDisplay());
 		editorRowMap.put(editor, row);
-		
-		if(def.getCategory() == "Common"){
+		if(!useCategory){
+			insertEditor(nocateForm, nocateOrders, def.getOrder(), row);
+		} else if(def.getCategory() == "Common"){
 			commonFolder.setVisible(true);
 			insertEditor(commonForm, commonOrders, def.getOrder(), row);
 		}else if(def.getCategory() == "Feature"){

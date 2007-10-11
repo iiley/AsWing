@@ -1,11 +1,11 @@
 package org.aswing.guibuilder{
 
-import org.aswing.JPanel;
-import org.aswing.LayoutManager;
-import org.aswing.JTree;
-import org.aswing.JButton;
 import org.aswing.BorderLayout;
+import org.aswing.JButton;
+import org.aswing.JPanel;
 import org.aswing.JScrollPane;
+import org.aswing.JTree;
+import org.aswing.LoadIcon;
 
 public class HiberarchyPane extends JPanel{
 	
@@ -24,11 +24,14 @@ public class HiberarchyPane extends JPanel{
 		//creating
 		tree = new JTree();
 		tree.setSelectionMode(JTree.SINGLE_TREE_SELECTION);
-		addChildButton = new JButton("Add child");
+		addChildButton = new JButton(null, new LoadIcon("icons/add_child.png", 20, 20));
+		addChildButton.setDisabledIcon(new LoadIcon("icons/add_child_dis.png", 20, 20));
 		addChildButton.setToolTipText("Add a component to this container");
-		addBelowButton = new JButton("Add below");
+		addBelowButton = new JButton(null, new LoadIcon("icons/add_below.png", 20, 20));
+		addBelowButton.setDisabledIcon(new LoadIcon("icons/add_below_dis.png", 20, 20));
 		addBelowButton.setToolTipText("Add a brother component below this component");
-		removeButton = new JButton("Remove me");
+		removeButton = new JButton(null, new LoadIcon("icons/remove.png", 20, 20));
+		removeButton.setDisabledIcon(new LoadIcon("icons/remove_dis.png", 20, 20));
 		removeButton.setToolTipText("Remove selected component");
 		upButton = new JButton("↑");
 		upButton.setToolTipText("Move up");
