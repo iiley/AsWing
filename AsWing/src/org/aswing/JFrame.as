@@ -4,12 +4,13 @@
 
 package org.aswing{
 	
-import org.aswing.geom.*;
-import org.aswing.resizer.*;
-import org.aswing.event.*;
-import org.aswing.plaf.*;
 import flash.events.MouseEvent;
+
+import org.aswing.event.*;
+import org.aswing.geom.*;
+import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicFrameUI;
+import org.aswing.resizer.*;
 
 /**
  * Dispatched when the frame's state changed. the state is all about:
@@ -249,6 +250,9 @@ public class JFrame extends JWindow{
 			resizable = b;
 			getResizer().setEnabled(b);
 			repaint();
+			for(var i:int=0; i<getComponentCount(); i++){
+				getComponent(i).repaint();
+			}
 			revalidate();
 		}
 	}
@@ -297,6 +301,9 @@ public class JFrame extends JWindow{
 		if(closable != b){
 			closable = b;
 			repaint();
+			for(var i:int=0; i<getComponentCount(); i++){
+				getComponent(i).repaint();
+			}
 			revalidate();
 		}
 	}
