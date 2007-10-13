@@ -272,9 +272,6 @@
 		<Property label="Size" name="Size" type="IntDimension" action="revalidate" category="Layout" order="10">
 			<Value value="400,400" ></Value>
 		</Property>
-		<Property label="Opaque" name="Opaque" type="Boolean" action="repaint" category="Common" order="10">
-			<Value value="true" ></Value>
-		</Property>
 	</Com>
 
 	<Com name="Form" clazz="org.aswing.ext.Form" sup="JPanel">
