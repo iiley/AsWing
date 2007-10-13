@@ -29,7 +29,11 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
 	
 	public function setValue(value:*):void{
 		this.value = value;
-		getTextField().setText(value+"");
+		if(value == null){
+			getTextField().setText("");
+		}else{
+			getTextField().setText(value+"");
+		}
 	}
 	
 	public function addActionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
