@@ -28,6 +28,7 @@ added a ui defaults property ScrollBar.barWidth to make JScrollBar size configur
 added some help method for GuiBuilder.
 added org.aswing.ext.Folder
 added updateAllComponentUIInMemory function to AsWingUtils
+added getSelectionRow method to JTree
 
 bugfixes:
 
@@ -38,3 +39,4 @@ fixed KeyboardManager bug for uppercase char input
 fixed isProgrammic bug for List selection events.
 fixed fixed splite pane null and divider removed by removeAll bug
 fixed fonts of JLabel, Buttons, Menus lost update when changed UI
+fixed jframe setClose setResiable buttons not updated bug
