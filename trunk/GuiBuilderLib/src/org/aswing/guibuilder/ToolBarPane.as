@@ -1,16 +1,11 @@
 package org.aswing.guibuilder{
 
-import flash.events.Event;
-import flash.net.URLRequest;
-import flash.net.navigateToURL;
-
 import org.aswing.JButton;
+import org.aswing.JCheckBox;
 import org.aswing.JComboBox;
-import org.aswing.JOptionPane;
 import org.aswing.JSeparator;
 import org.aswing.JSpacer;
 import org.aswing.JToolBar;
-import org.aswing.LoadIcon;
 
 public class ToolBarPane extends JToolBar{
 	
@@ -19,6 +14,7 @@ public class ToolBarPane extends JToolBar{
 	private var closeButton:JButton;
 	private var generateCodeButton:JButton;
 	private var revalidateButton:JButton;
+	private var rangeCheck:JCheckBox;
 	
 	private var lafsCombo:JComboBox;
 	private var aboutButton:JButton;
@@ -36,6 +32,9 @@ public class ToolBarPane extends JToolBar{
 		generateCodeButton.setToolTipText("Generate present ui to ActionScript class.");
 		revalidateButton = new JButton("Revalidate");
 		revalidateButton.setToolTipText("Revalidate selected component to make the ui to be refreshed!");
+		rangeCheck = new JCheckBox("View Range");
+		rangeCheck.setToolTipText("Whether draw a background to indicate root component range");
+		rangeCheck.setSelected(true);
 		
 		lafsCombo = new JComboBox();
 		lafsCombo.setEditable(false);
@@ -43,7 +42,7 @@ public class ToolBarPane extends JToolBar{
 		
 		aboutButton = new JButton("About");
 		
-		appendAll(openButton, saveButton, closeButton, generateCodeButton);
+		appendAll(openButton, saveButton, closeButton, generateCodeButton, rangeCheck);
 		append(new JSeparator(JSeparator.HORIZONTAL));
 		append(revalidateButton);
 		append(new JSeparator(JSeparator.HORIZONTAL));
@@ -51,6 +50,10 @@ public class ToolBarPane extends JToolBar{
 		append(lafsCombo);
 		append(JSpacer.createHorizontalSpacer(10));
 		append(aboutButton);
+	}
+	
+	public function getRangeCheck():JCheckBox{
+		return rangeCheck;
 	}
 	
 	public function getOpenButton():JButton{

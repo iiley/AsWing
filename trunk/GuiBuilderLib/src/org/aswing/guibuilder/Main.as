@@ -1,9 +1,14 @@
 package org.aswing.guibuilder{
 
+import flash.display.*;
+import flash.events.*;
+import flash.net.*;
+
 import org.aswing.ASColor;
 import org.aswing.AsWingManager;
 import org.aswing.AssetPane;
 import org.aswing.BorderLayout;
+import org.aswing.Component;
 import org.aswing.Insets;
 import org.aswing.JMenu;
 import org.aswing.JMenuBar;
@@ -15,11 +20,12 @@ import org.aswing.JSplitPane;
 import org.aswing.JWindow;
 import org.aswing.LoadIcon;
 import org.aswing.SoftBox;
+import org.aswing.UIManager;
 import org.aswing.VectorListModel;
 import org.aswing.border.BevelBorder;
 import org.aswing.border.EmptyBorder;
-import org.aswing.event.SelectionEvent;
-import org.aswing.event.TreeSelectionEvent;
+import org.aswing.event.*;
+import org.aswing.geom.IntRectangle;
 import org.aswing.guibuilder.code.CodeGenerator;
 import org.aswing.guibuilder.model.ComDefinition;
 import org.aswing.guibuilder.model.ComModel;
@@ -31,14 +37,11 @@ import org.aswing.tree.DefaultTreeModel;
 import org.aswing.tree.TreeModel;
 import org.aswing.tree.TreePath;
 
-import flash.events.*;
-import flash.display.*;
-import flash.net.*;
-
 
 public class Main extends JWindow{
 	
 	private var preview:Sprite;
+	private var previewRangeShape:Shape;
 	private var newMenu:JMenu;
 	protected var toolBarPane:ToolBarPane;
 	private var filePane:FilePane;
@@ -63,6 +66,8 @@ public class Main extends JWindow{
 		
 		preview = new Sprite();
 		preview.mouseEnabled = false;
+		previewRangeShape = new Shape();
+		preview.addChild(previewRangeShape);
 		var previewPane:AssetPane = new AssetPane(preview);
 		previewPane.setBackground(ASColor.GRAY.brighter());
 		previewPane.setBorder(new BevelBorder(null, BevelBorder.LOWERED));
@@ -181,6 +186,7 @@ public class Main extends JWindow{
 		toolBarPane.getGenerateCodeButton().setEnabled(false);
 		toolBarPane.getRevalidateButton().setEnabled(false);
 		toolBarPane.getAboutButton().addActionListener(__showAbout);
+		toolBarPane.getRangeCheck().addActionListener(__fileRangeChanged);
 		
 		toolBarPane.getLAFsCombo().setModel(LookAndFeelManager.getIns().getLookAndFeels());
 		toolBarPane.getLAFsCombo().addActionListener(__lafSelectionChanged);
@@ -271,15 +277,14 @@ public class Main extends JWindow{
 	
 	private function __addChildComSelected(def:ComDefinition):void{
 		if(curCom){
+			var selRow:int = hiberarchyPane.getTree().getSelectionRow();
 			if(isAddBelow || !curCom.isContainer()){
 				var index:int = curCom.getParent().getChildIndex(curCom) + 1;
 				curFile.addComponent(curCom.getParent(), new ComModel(def), index);
-				var selRow:int = hiberarchyPane.getTree().getSelectionRows()[0];
-				hiberarchyPane.getTree().setSelectionRow(selRow+1);
 			}else{
 				curFile.addComponent(curCom, new ComModel(def));
-				hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(curCom)));
 			}
+			hiberarchyPane.getTree().setSelectionRow(selRow+1);
 		}
 	}
 	
@@ -299,9 +304,12 @@ public class Main extends JWindow{
 			if(curCom == curFile.getRoot()){
 				JOptionPane.showMessageDialog("Tip", "Can't delete root component!", null, this);
 			}else{
+				var selRow:int = hiberarchyPane.getTree().getSelectionRow();
 				var parent:ComModel = curCom.getParent();
 				curFile.removeComponent(curCom);
-				hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(parent)));
+				if(selRow > 0){
+					hiberarchyPane.getTree().setSelectionRow(selRow-1);
+				}
 			}
 		}
 	}
@@ -333,6 +341,7 @@ public class Main extends JWindow{
 		if(leftPar != null){
 			curFile.removeComponent(mod);
 			curFile.addComponent(leftPar, mod);
+			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(leftPar)));
 		}
 	}
 	private function __rightChildCom(e:Event):void{
@@ -341,6 +350,8 @@ public class Main extends JWindow{
 		if(rightPar != null){
 			curFile.removeComponent(mod);
 			curFile.addComponent(rightPar, mod);
+			hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(rightPar.getParent())));
+			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(rightPar)));
 		}
 	}
 	
@@ -375,15 +386,23 @@ public class Main extends JWindow{
 		toolBarPane.getSaveButton().setEnabled(file != null);
 		toolBarPane.getGenerateCodeButton().setEnabled(file != null);
 		if(curFile != file){
+			var oldFile:FileModel = curFile;
 			curFile = file;
 			filePane.getList().setSelectedValue(file);
-			if(preview.numChildren > 0){
-				preview.removeChildAt(0);
+			var rootCom:Component;
+			if(oldFile != null){
+				preview.removeChild(oldFile.getDisplay());
+				rootCom = oldFile.getRootComponent().getDisplay();
+				rootCom.removeEventListener(MovedEvent.MOVED, __fileRangeChanged);
+				rootCom.removeEventListener(ResizedEvent.RESIZED, __fileRangeChanged);
 			}
 			if(file != null){
 				hiberarchyPane.getTree().setModel(file);
 				preview.addChild(file.getDisplay());
 				file.revalidate();
+				rootCom = file.getRootComponent().getDisplay();
+				rootCom.addEventListener(MovedEvent.MOVED, __fileRangeChanged);
+				rootCom.addEventListener(ResizedEvent.RESIZED, __fileRangeChanged);
 			}else{
 				hiberarchyPane.getTree().setModel(emptyTreeModel);
 			}
@@ -394,6 +413,7 @@ public class Main extends JWindow{
 			}else{
 				hiberarchyPane.getTree().removeEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
 			}
+			__fileRangeChanged();
 		}
 	}
 	
@@ -450,6 +470,20 @@ public class Main extends JWindow{
 			}
 		}
 		return null;
+	}
+	
+	private function __fileRangeChanged(e:Event=null):void{
+		previewRangeShape.graphics.clear();
+		if(curFile != null && toolBarPane.getRangeCheck().isSelected()){
+			var color:ASColor = UIManager.getColor("window");
+			if(color == null){
+				color = new ASColor(0xCCCCCC);
+			}
+			var rect:IntRectangle = curFile.getRootComponent().getDisplay().getComBounds();
+			previewRangeShape.graphics.beginFill(color.getRGB());
+			previewRangeShape.graphics.drawRect(rect.x, rect.y, rect.width, rect.height);
+			previewRangeShape.graphics.endFill();
+		}
 	}
 }
 }

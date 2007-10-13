@@ -29,6 +29,11 @@ public class PreferSizeEditor extends IntDimensionEditor{
 		applyProperty();
 	}
 	
+	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
+		super.fillValue(v, noValueSet);
+		check.setSelected(noValueSet);
+	}	
+	
 	override protected function getEditorValue():ValueModel{
 		if(check.isSelected() || widthInput.isEmpty() || heightInput.isEmpty()){
 			return ProModel.NONE_VALUE_SET;
