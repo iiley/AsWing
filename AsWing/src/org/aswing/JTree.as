@@ -4,22 +4,20 @@
 
 package org.aswing { 
 
-import org.aswing.ASColor;
-import org.aswing.ASFont;
-import org.aswing.CellEditor;
-import org.aswing.Component;
-import org.aswing.Container;
-import org.aswing.DefaultTextFieldCellEditor;
 import org.aswing.event.CellEditorListener;
+import org.aswing.event.InteractiveEvent;
+import org.aswing.event.PropertyChangeEvent;
+import org.aswing.event.TreeCellEditEvent;
+import org.aswing.event.TreeEvent;
 import org.aswing.event.TreeModelEvent;
 import org.aswing.event.TreeModelListener;
 import org.aswing.event.TreeSelectionEvent;
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntPoint;
 import org.aswing.geom.IntRectangle;
-import org.aswing.Insets;
-import org.aswing.LayoutManager;
+import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.TreeUI;
+import org.aswing.plaf.basic.BasicTreeUI;
 import org.aswing.tree.DefaultMutableTreeNode;
 import org.aswing.tree.DefaultTreeCell;
 import org.aswing.tree.DefaultTreeModel;
@@ -32,16 +30,8 @@ import org.aswing.tree.TreeModel;
 import org.aswing.tree.TreePath;
 import org.aswing.tree.TreePathMap;
 import org.aswing.tree.TreeSelectionModel;
-import org.aswing.UIManager;
-import org.aswing.plaf.ComponentUI;
 import org.aswing.util.Stack;
 import org.aswing.util.Vector;
-import org.aswing.Viewportable;
-import org.aswing.event.TreeCellEditEvent;
-import org.aswing.event.PropertyChangeEvent;
-import org.aswing.event.TreeEvent;
-import org.aswing.event.InteractiveEvent;
-import org.aswing.plaf.basic.BasicTreeUI;
 
 /**
  * Dispatched when a property changed.
@@ -1171,6 +1161,21 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      */
     public function getSelectionRows():Array {
         return getSelectionModel().getSelectionRows();
+    }
+    
+
+    /**
+     * Returns the first selected row. If nothing is selected -1 will be returned.
+     *
+     * @return the first selected row. If nothing is selected -1 will be returned.
+     */    
+    public function getSelectionRow():int{
+    	var rows:Array = getSelectionModel().getSelectionRows();
+    	if(rows == null || rows.length == 0){
+    		return -1;
+    	}else{
+    		return rows[0];
+    	}
     }
 
     /**
