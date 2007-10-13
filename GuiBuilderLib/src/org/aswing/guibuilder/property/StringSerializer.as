@@ -25,6 +25,9 @@ public class StringSerializer implements PropertySerializer, DefaultValueHelper{
 	}
 	
 	public function isSimpleOneLine(value:ValueModel, pro:ProModel):String{
+		if(pro.getDef().getEditorParam() == "no-generate-code"){
+			return null;
+		}
 		return "\"" + value + "\"";
 	}
 	
