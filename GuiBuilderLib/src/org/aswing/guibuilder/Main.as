@@ -233,6 +233,20 @@ public class Main extends JWindow{
 	
 	private function __close(e:Event):void{
 		if(curFile != null){
+			JOptionPane.showMessageDialog(
+				"Tip", 
+				"Do you need to save it before close?", 
+				__closeAnswered, this, true, null, 
+				JOptionPane.YES|JOptionPane.NO|JOptionPane.CANCEL); 
+		}
+	}
+	
+	private function __closeAnswered(result:int):void{
+		if(result == JOptionPane.YES){
+			__save(null);
+			files.remove(curFile);
+			setCurrentFile(null);
+		}else if(result == JOptionPane.NO){
 			files.remove(curFile);
 			setCurrentFile(null);
 		}
@@ -277,14 +291,15 @@ public class Main extends JWindow{
 	
 	private function __addChildComSelected(def:ComDefinition):void{
 		if(curCom){
-			var selRow:int = hiberarchyPane.getTree().getSelectionRow();
+			var comM:ComModel = new ComModel(def);
 			if(isAddBelow || !curCom.isContainer()){
 				var index:int = curCom.getParent().getChildIndex(curCom) + 1;
-				curFile.addComponent(curCom.getParent(), new ComModel(def), index);
+				curFile.addComponent(curCom.getParent(), comM, index);
 			}else{
-				curFile.addComponent(curCom, new ComModel(def));
+				curFile.addComponent(curCom, comM);
+				hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(curCom)));
 			}
-			hiberarchyPane.getTree().setSelectionRow(selRow+1);
+			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(comM)));
 		}
 	}
 	
