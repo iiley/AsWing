@@ -40,3 +40,4 @@ fixed isProgrammic bug for List selection events.
 fixed fixed splite pane null and divider removed by removeAll bug
 fixed fonts of JLabel, Buttons, Menus lost update when changed UI
 fixed jframe setClose setResiable buttons not updated bug
+fixed jframe will out of stage if iconified at left most
