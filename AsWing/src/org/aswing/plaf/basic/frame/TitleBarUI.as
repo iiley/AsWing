@@ -232,6 +232,12 @@ public class TitleBarUI extends BaseComponentUI{
 			var iconifiedSize:IntDimension = titleBar.getMinimumSize();
 			stateChangeSize = true;
 			frame.setSize(frame.getInsets().getOutsideSize(iconifiedSize));
+    		var frameMaxBounds:IntRectangle = frame.getMaximizedBounds();
+			if(frame.x < frameMaxBounds.x){
+				stateChangeLocation = true;
+				frame.x = frameMaxBounds.x;
+				stateChangeLocation = false;
+			}
 			stateChangeSize = false;
 			if(frame.isOnStage()){
 				frame.stage.removeEventListener(Event.RESIZE, __stageChanged);
