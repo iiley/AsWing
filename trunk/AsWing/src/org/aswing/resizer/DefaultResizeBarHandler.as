@@ -48,7 +48,7 @@ public class DefaultResizeBarHandler{
 		if(!resizer.isResizing() && (e ==null || !e.buttonDown)){
 			resizer.startArrowCursor();
 			__rotateArrow();
-			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow, false, 0, true);
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class DefaultResizeBarHandler{
 		resizer.setResizing(true);
 		startResize();
 		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
-		mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizing);
+		mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizing, false, 0, true);
 	}
 	
 	private function __onUp(e:MouseEvent):void{
