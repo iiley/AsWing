@@ -282,7 +282,7 @@ public class TitleBarUI extends BaseComponentUI{
 		switchToNormalButton();
 		
 		if(frame.isOnStage()){
-			frame.stage.addEventListener(Event.RESIZE, __stageChanged);
+			frame.stage.addEventListener(Event.RESIZE, __stageChanged, false, 0, true);
 			stageResizeListenerAdded = true;
 		}
 	}
@@ -294,7 +294,7 @@ public class TitleBarUI extends BaseComponentUI{
 		var state:int = frame.getState();
 		if(((state & JFrame.MAXIMIZED_HORIZ) == JFrame.MAXIMIZED_HORIZ) || ((state & JFrame.MAXIMIZED_VERT) == JFrame.MAXIMIZED_VERT)){
 			if(frame.isOnStage()){
-				frame.stage.addEventListener(Event.RESIZE, __stageChanged);
+				frame.stage.addEventListener(Event.RESIZE, __stageChanged, false, 0, true);
 				stageResizeListenerAdded = true;
 				__stageChanged();
 			}

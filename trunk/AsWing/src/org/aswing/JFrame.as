@@ -117,6 +117,7 @@ public class JFrame extends JWindow{
 	private var dragDirectlySet:Boolean;
 	
 	private var resizer:Resizer;
+	private var resizerController:ResizerController;
 	
 	/**
 	 * Create a JWindow
@@ -463,8 +464,12 @@ public class JFrame extends JWindow{
 	public function setResizer(r:Resizer):void{
 		if(r != resizer){
 			resizer = r;
-			ResizerController.init(this, r);
-			r.setEnabled(isResizable());
+			if(resizerController == null){
+				resizerController = ResizerController.create(this, r);
+			}else{
+				resizerController.setResizer(resizer);
+			}
+			resizerController.setResizable(isResizable());
 		}
 	}
 	
@@ -480,7 +485,9 @@ public class JFrame extends JWindow{
 	 * @see org.aswing.Resizer#setResizeDirectly()
 	 */
 	public function setResizeDirectly(b:Boolean):void{
-		resizer.setResizeDirectly(b);
+		if(resizerController){
+			resizerController.setResizeDirectly(b);
+		}
 	}
 	
 	/**
@@ -488,7 +495,11 @@ public class JFrame extends JWindow{
 	 * @see #setResizeDirectly()
 	 */
 	public function isResizeDirectly():Boolean{
-		return resizer.isResizeDirectly();
+		if(resizerController){
+			return resizer.isResizeDirectly();
+		}else{
+			return false;
+		}
 	}
 	
 	/**

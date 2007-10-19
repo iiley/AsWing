@@ -47,11 +47,11 @@ public class FocusManager{
 		if(!inited){
 			stage = theStage;
 			inited = true;
-			stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange);
-			stage.addEventListener(FocusEvent.MOUSE_FOCUS_CHANGE, __onMouseFocusChange);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
-			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp);
-			stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
+			stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange, false, 0, true);
+			stage.addEventListener(FocusEvent.MOUSE_FOCUS_CHANGE, __onMouseFocusChange, false, 0, true);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown, false, 0, true);
+			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp, false, 0, true);
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown, false, 0, true);
 			focusRect = new Sprite();
 			focusRect.mouseEnabled = false;
 			focusRect.visible = false;

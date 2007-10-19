@@ -77,9 +77,9 @@ public class KeyboardManager extends EventDispatcher{
 	public function init(stage:Stage):void{
 		if(!inited){
 			inited = true;
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
-			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp);
-			stage.addEventListener(Event.DEACTIVATE, __deactived);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown, false, 0, true);
+			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp, false, 0, true);
+			stage.addEventListener(Event.DEACTIVATE, __deactived, false, 0, true);
 			
 			//stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDownCap, true);
 			//stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUpCap, true);

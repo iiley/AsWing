@@ -84,7 +84,7 @@ public class CursorManager{
 				cursorHolder.addChild(currentCursor);
 			}
 			DepthManager.bringToTop(cursorHolder);
-			ro.stage.addEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
+			ro.stage.addEventListener(MouseEvent.MOUSE_MOVE, __mouseMove, false, 0, true);
 			__mouseMove(null);
 		}
 	}

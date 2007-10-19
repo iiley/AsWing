@@ -320,7 +320,7 @@ public class JPopup extends JRootPane{
 		if(stage){
 			super.startDrag(lockCenter, bounds);
 			stage.removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
-			stage.addEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, __dragMoving, false, 0, true);
 			lastDragPos = getLocation();
 		}
 	}
