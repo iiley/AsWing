@@ -63,7 +63,6 @@ public class ResizerController{
 	// Private properties
 	//-------------------------------------------------------------------------
 	
-	private static var _map : HashMap = new HashMap();
 	private static var defaultResizerClass:Class;
 	
 	private var _component : Component;
@@ -93,57 +92,15 @@ public class ResizerController{
 	}
 	
 	/**
-	 * Returns {@link ResizerController} associated to passed-in {@code component}
-	 * 
-	 * @return {@link ResizerController} instance
-	 */
-	public static function getController( comp : Component ) : ResizerController
-	{
-		if( _map.containsKey( comp ) )
-		{
-			return _map.get( comp );
-		}
-		return null;
-	}
-	
-	/**
-	 * Indicates if passed-in component is under a ResizerController control.
-	 */
-	public static function isUnderResizerControl( comp : Component ) : Boolean
-	{
-		return _map.containsKey( comp );	
-	}
-	
-	/**
-	 * Applies resizing behaviour to passed-in component.
+	 * Create resizing behaviour to passed-in component.
 	 * @param comp the component which need to be resizable
 	 * @param resizer (optional)the resizer, default there will be a default one instance created.
 	 */
-	public static function init( comp : Component , resizer:Resizer=null) : ResizerController
+	public static function create( comp : Component , resizer:Resizer=null) : ResizerController
 	{
-		if( _map.containsKey( comp ) )
-		{
-			var con:ResizerController = _map.get( comp );
-			if(resizer != null){
-				con.setResizer(resizer);
-			}
-			return con;
-		}
 		return new ResizerController( comp , resizer);
 	}
-	
-	/**
-	 * Removes the resizer from a component 
-	 */
-	public static function remove( comp : Component ) : void
-	{
-		if( _map.containsKey( comp ) )
-		{
-			var o : ResizerController = _map.remove( comp );
-			o._destroy();
-		}
-	}
-	
+		
 	/**
 	 * Returns reference to the real used component.
 	 */
@@ -258,10 +215,7 @@ public class ResizerController{
 		}
 		else
 		{
-			if( !_map.containsKey( comp) )
-			{
-				_registerComponent( comp , resizer);
-			}
+			_registerComponent( comp , resizer);
 		}
 	}	
 	
@@ -274,7 +228,6 @@ public class ResizerController{
 	private function _registerComponent( comp : Component , resizer:Resizer=null) : void
 	{
 		_component = comp;
-		_map.put( comp, this );
 		 
 		_resizable = true;
 		_resizableDirectly = false;
@@ -304,7 +257,10 @@ public class ResizerController{
 		}
 	}
 	
-	private function _destroy( ) : void
+	/**
+	 * Destroy this resizercontroller, set the resizer to null.
+	 */
+	public function destroy( ) : void
 	{   
 		_destroyResizer();
 		_component = null;
