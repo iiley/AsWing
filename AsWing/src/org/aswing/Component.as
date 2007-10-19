@@ -2358,7 +2358,7 @@ public class Component extends AWSprite{
 		if(isDragEnabled()){
 			addEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
 			addEventListener(MouseEvent.ROLL_OUT, __rollOut);
-			stage.addEventListener(MouseEvent.MOUSE_UP, __mouseUp);
+			stage.addEventListener(MouseEvent.MOUSE_UP, __mouseUp, false, 0, true);
 			pressingPoint = getMousePosition();
 		}
 	}

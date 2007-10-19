@@ -336,7 +336,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
     }
     
     private function __startHandleDrag():void{
-    	scrollbar.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
+    	scrollbar.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb, false, 0, true);
     }
     private function __stopHandleDrag():void{
     	scrollbar.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
