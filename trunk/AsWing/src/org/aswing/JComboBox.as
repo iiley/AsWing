@@ -421,7 +421,9 @@ public class JComboBox extends Component implements EditableComponent{
 			}
 			getPopupList().ensureIndexIsVisible(index);
 		}
-		getEditor().selectAll();
+		if(isFocusOwner()){
+			getEditor().selectAll();
+		}
 		dispatchEvent(new AWEvent(AWEvent.ACT));
 		if(fireChanged){
 			dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, programmatic));
