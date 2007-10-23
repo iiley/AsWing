@@ -36,9 +36,9 @@ public class ComModel implements Model{
 	public function ComModel(def:ComDefinition=null){
 		atrributeScope = "private";
 		getterScope = "public";
+		id_counter++;
 		if(def != null){
 			id = "com" + id_counter;
-			id_counter++;
 			create(def);
 		}
 	}
