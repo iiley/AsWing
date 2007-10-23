@@ -4,24 +4,26 @@
 
 package org.aswing{
 
-import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
 import flash.events.Event;
-import org.aswing.event.AWEvent;
+import flash.events.EventDispatcher;
+import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
-import flash.events.FocusEvent;
+
+import org.aswing.event.AWEvent;
 
 public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEditor{
 
     private var textField:JTextField;
+    private var lostingFocus:Boolean;
     protected var value:*;
     	
 	public function DefaultComboBoxEditor(){
+		lostingFocus = false;
 	}
 	
 	public function selectAll():void{
-		if(getTextField().isEditable()){
+		if(getTextField().isEditable() && !lostingFocus){
 			getTextField().selectAll();
 		}
 		//getTextField().makeFocus();
@@ -87,7 +89,9 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
 	
     private function __grapValueFormText(e:Event):void{
     	if(grapValueFormText()){
+    		lostingFocus = true;
 	        dispatchEvent(new AWEvent(AWEvent.ACT));
+	        lostingFocus = false;
      	}
     }
     
