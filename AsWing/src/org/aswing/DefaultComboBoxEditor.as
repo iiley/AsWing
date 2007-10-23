@@ -86,15 +86,22 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     }
 	
     private function __grapValueFormText(e:Event):void{
-    	if(textField.isEditable() && value !== getTextField().getText()){
-    		value = getTextField().getText();
+    	if(grapValueFormText()){
 	        dispatchEvent(new AWEvent(AWEvent.ACT));
      	}
+    }
+    
+    private function grapValueFormText():Boolean{
+    	if(textField.isEditable() && value !== getTextField().getText()){
+    		value = getTextField().getText();
+    		return true;
+    	}
+    	return false;
     }
 
     private function __textKeyDown(e:KeyboardEvent):void{
     	if(textField.isEditable() && e.keyCode == Keyboard.ENTER){
-	        __grapValueFormText(null);
+	        grapValueFormText();
 	        dispatchEvent(new AWEvent(AWEvent.ACT));
      	}
     }   
