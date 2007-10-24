@@ -136,8 +136,8 @@ public class JLoadPane extends AssetPane{
 		}
 		this.asset = asset;
 		storeOriginalScale();
-		resetAsset();
 		setLoaded(asset != null);
+		resetAsset();
 	}
 	
 	/**
