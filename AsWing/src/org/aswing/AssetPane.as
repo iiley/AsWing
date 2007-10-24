@@ -199,8 +199,8 @@ public class AssetPane extends Container{
 			asset.scaleY = floorOriginalScaleY;
 			setAssetOriginalSize(new IntDimension(asset.width, asset.height));
 			asset.visible = assetVisible;
-			revalidate();
 		}
+		revalidate();
 	}
 	
 	/**
