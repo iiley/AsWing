@@ -42,3 +42,4 @@ fixed fonts of JLabel, Buttons, Menus lost update when changed UI
 fixed jframe setClose setResiable buttons not updated bug
 fixed jframe will out of stage if iconified at left most
 fixed important bug-memory leak of JFrame and ResizerController
+fixed combobox Act event always fired twice a time bug
