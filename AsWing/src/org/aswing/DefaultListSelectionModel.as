@@ -45,6 +45,7 @@ public class DefaultListSelectionModel extends EventDispatcher implements ListSe
 	
 	public function setSelectionInterval(index0 : int, index1 : int, programmatic:Boolean=true) : void {
 		if (index0 < 0 || index1 < 0) {
+			clearSelection(programmatic);
 			return;
 		}
 		if (getSelectionMode() == SINGLE_SELECTION) {
