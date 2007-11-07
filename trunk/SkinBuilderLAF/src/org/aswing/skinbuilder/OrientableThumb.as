@@ -4,14 +4,15 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.geom.*;
-import org.aswing.event.*;
-import org.aswing.*;
 import flash.display.*;
-import org.aswing.plaf.*;
 import flash.events.*;
+
+import org.aswing.*;
 import org.aswing.error.ImpMissError;
+import org.aswing.event.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.*;
 
 public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 	
@@ -30,8 +31,8 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
     protected var horizontalRolloverImage:DisplayObject;
     
     
-    protected var verticalIcon:DisplayObject;
-    protected var horizontalIcon:DisplayObject;
+    protected var verticalIcon:ButtonStateObject;
+    protected var horizontalIcon:ButtonStateObject;
     
     protected var size:IntDimension;
     protected var verticle:Boolean;
@@ -64,7 +65,12 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 		verticalContainer.setPressedImage(getAsset(ui, "thumbVertical.pressedImage"));
 		verticalContainer.setDisabledImage(getAsset(ui, "thumbVertical.disabledImage"));
 		verticalContainer.setRolloverImage(getAsset(ui, "thumbVertical.rolloverImage"));
-		verticalIcon = getAsset(ui, "thumbVertical.iconImage");
+		verticalIcon = new ButtonStateObject();
+		verticalIcon.mouseChildren = false;
+		verticalIcon.setDefaultImage(getAsset(ui, "thumbVertical.iconImage"));
+		verticalIcon.setPressedImage(getAsset(ui, "thumbVertical.iconPressedImage"));
+		verticalIcon.setDisabledImage(getAsset(ui, "thumbVertical.iconDisabledImage"));
+		verticalIcon.setRolloverImage(getAsset(ui, "thumbVertical.iconRolloverImage"));
 		
 		var defaultHori:DisplayObject = getAsset(ui, "thumbHorizontal.defaultImage");
 		origWidth = defaultHori.width;
@@ -73,7 +79,13 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 		horizontalContainer.setPressedImage(getAsset(ui, "thumbHorizontal.pressedImage"));
 		horizontalContainer.setDisabledImage(getAsset(ui, "thumbHorizontal.disabledImage"));
 		horizontalContainer.setRolloverImage(getAsset(ui, "thumbHorizontal.rolloverImage"));
-		horizontalIcon = getAsset(ui, "thumbHorizontal.iconImage");
+		horizontalIcon = new ButtonStateObject();
+		horizontalIcon.mouseChildren = false;
+		horizontalIcon.setDefaultImage(getAsset(ui, "thumbHorizontal.iconImage"));
+		horizontalIcon.setPressedImage(getAsset(ui, "thumbHorizontal.iconPressedImage"));
+		horizontalIcon.setDisabledImage(getAsset(ui, "thumbHorizontal.iconDisabledImage"));
+		horizontalIcon.setRolloverImage(getAsset(ui, "thumbHorizontal.iconRolloverImage"));
+		
 		thumb.mouseEnabled = c.isEnabled();
 	}
 	
@@ -149,7 +161,7 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 			horizontalContainer.updateRepresent(size != null ? size.getBounds() : null);
 		}
 		if(size){
-			var curIcon:DisplayObject = verticle ? verticalIcon : horizontalIcon;
+			var curIcon:ButtonStateObject = verticle ? verticalIcon : horizontalIcon;
 			if(lastIcon != curIcon){
 				if(lastIcon){
 					thumb.removeChild(lastIcon);
@@ -160,6 +172,10 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 				}
 			}
 			if(curIcon){
+				curIcon.setEnabled(enabled);
+				curIcon.setPressed(pressed);
+				curIcon.setRollovered(rollover);
+				curIcon.updateRepresent();
 				if(size.width >= curIcon.width && size.height >= curIcon.height){
 					curIcon.x = Math.round((size.width - curIcon.width)/2);
 					curIcon.y = Math.round((size.height - curIcon.height)/2);
