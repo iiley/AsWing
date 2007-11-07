@@ -27,7 +27,6 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 	
 	public function SkinTabbedPaneUI(){
 		super();
-		tabBorderInsets = new Insets(0, 4, 0, 4);
 		contentRoundImageContainer = AsWingUtils.createSprite(null, "contentRoundImageContainer");
 	}
 	
@@ -137,8 +136,8 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
     	if(index == tabbedPane.getSelectedIndex()){
     		b = b.clone();//make a clone to be safty modification
     		if(isTabHorizontalPlacing()){
-    			b.x -= tabBorderInsets.left;
-    			b.width += (tabBorderInsets.left + tabBorderInsets.right);
+    			b.x -= selectedTabExpandInsets.left;
+    			b.width += (selectedTabExpandInsets.left + selectedTabExpandInsets.right);
 	    		b.height += Math.round(topBlankSpace/2+contentRoundLineThickness);
     			if(placement == JTabbedPane.BOTTOM){
 	    			b.y -= contentRoundLineThickness;
@@ -146,8 +145,8 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 	    			b.y -= Math.round(topBlankSpace/2);
     			}
     		}else{
-    			b.y -= tabBorderInsets.left;
-    			b.height += (tabBorderInsets.left + tabBorderInsets.right);
+    			b.y -= selectedTabExpandInsets.left;
+    			b.height += (selectedTabExpandInsets.left + selectedTabExpandInsets.right);
 	    		b.width += Math.round(topBlankSpace/2+contentRoundLineThickness);
     			if(placement == JTabbedPane.RIGHT){
 	    			b.x -= contentRoundLineThickness;

@@ -4,9 +4,9 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.plaf.basic.BasicAdjusterUI;
-import org.aswing.plaf.*;
 import org.aswing.*;
+import org.aswing.plaf.*;
+import org.aswing.plaf.basic.BasicAdjusterUI;
 
 public class SkinAdjusterUI extends BasicAdjusterUI{
 	
@@ -18,6 +18,7 @@ public class SkinAdjusterUI extends BasicAdjusterUI{
 		var btn:JButton = new JButton();
 		btn.setFocusable(false);
 		btn.setBackgroundDecorator(null);
+		btn.setMargin(new Insets(0, 0, 0, 0));
 		btn.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix()+"arrowButton."));
 		return btn;
 	}
