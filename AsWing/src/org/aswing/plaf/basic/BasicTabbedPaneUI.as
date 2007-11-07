@@ -42,8 +42,9 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	protected var drawnTabBoundArray:Array;
 	protected var contentMargin:Insets = null;
 	protected var maxTabWidth:int = -1;
-	//both the 2 values are just the values considering when placement is TOP
+	//both the 3 values are just the values considering when placement is TOP
 	protected var tabBorderInsets:Insets;
+	protected var selectedTabExpandInsets:Insets;
 	protected var contentRoundLineThickness:int;
 	
 	protected var tabs:Array;
@@ -62,6 +63,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	public function BasicTabbedPaneUI() {
 		super();
 		tabBorderInsets = new Insets(2, 2, 0, 2);
+		selectedTabExpandInsets = new Insets(2, 2, 0, 2);
 		tabs = new Array();
 		firstIndex = 0;
 		lastIndex = 0;
@@ -109,7 +111,15 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		contentRoundLineThickness = getInt(getPropertyPrefix() + "contentRoundLineThickness");
 		
 		var tabMargin:Insets = getInsets(pp+"tabMargin");
-		if(tabMargin == null) tabMargin = new InsetsUIResource(1, 1, 1, 1);		
+		if(tabMargin == null) tabMargin = new InsetsUIResource(1, 1, 1, 1);
+		
+		if(getInsets(pp+"tabBorderInsets") != null){
+			tabBorderInsets = getInsets(pp+"tabBorderInsets");
+		}
+		if(getInsets(pp+"selectedTabExpandInsets") != null){
+			selectedTabExpandInsets = getInsets(pp+"selectedTabExpandInsets");
+		}
+		
 		var i:Insets = tabbedPane.getMargin();
 		if (i is UIResource) {
 			tabbedPane.setMargin(tabMargin);
@@ -707,8 +717,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     	if(index == tabbedPane.getSelectedIndex()){
     		b = b.clone();//make a clone to be safty modification
     		if(isTabHorizontalPlacing()){
-    			b.x -= tabBorderInsets.left;
-    			b.width += (tabBorderInsets.left + tabBorderInsets.right);
+    			b.x -= selectedTabExpandInsets.left;
+    			b.width += (selectedTabExpandInsets.left + selectedTabExpandInsets.right);
 	    		b.height += Math.round(topBlankSpace/2+contentRoundLineThickness);
     			if(placement == JTabbedPane.BOTTOM){
 	    			b.y -= contentRoundLineThickness;
@@ -716,8 +726,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	    			b.y -= Math.round(topBlankSpace/2);
     			}
     		}else{
-    			b.y -= tabBorderInsets.left;
-    			b.height += (tabBorderInsets.left + tabBorderInsets.right);
+    			b.y -= selectedTabExpandInsets.left;
+    			b.height += (selectedTabExpandInsets.left + selectedTabExpandInsets.right);
 	    		b.width += Math.round(topBlankSpace/2+contentRoundLineThickness);
     			if(placement == JTabbedPane.RIGHT){
 	    			b.x -= contentRoundLineThickness;
