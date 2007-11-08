@@ -141,32 +141,32 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	//----------------------------------------------------------------------------
 	//___________________________ ToggleButton scale-9 ___________________________
 	//============================================================================
-	[Embed(source="assets/ToggleButton_defaultImage.png", scaleGridTop="6", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/ToggleButton_defaultImage.png", scaleGridTop="3", scaleGridBottom="18", 
+		scaleGridLeft="3", scaleGridRight="20")]
 	private var ToggleButton_defaultImage:Class;
 	
-	[Embed(source="assets/ToggleButton_pressedImage.png", scaleGridTop="6", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/ToggleButton_pressedImage.png", scaleGridTop="3", scaleGridBottom="18", 
+		scaleGridLeft="3", scaleGridRight="20")]
 	private var ToggleButton_pressedImage:Class;
 	
-	[Embed(source="assets/ToggleButton_disabledImage.png", scaleGridTop="6", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/ToggleButton_disabledImage.png", scaleGridTop="3", scaleGridBottom="18", 
+		scaleGridLeft="3", scaleGridRight="20")]
 	private var ToggleButton_disabledImage:Class;
 	
-	[Embed(source="assets/ToggleButton_selectedImage.png", scaleGridTop="6", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/ToggleButton_selectedImage.png", scaleGridTop="3", scaleGridBottom="18", 
+		scaleGridLeft="3", scaleGridRight="20")]
 	private var ToggleButton_selectedImage:Class;
 	
-	[Embed(source="assets/ToggleButton_disabledSelectedImage.png", scaleGridTop="6", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/ToggleButton_disabledSelectedImage.png", scaleGridTop="3", scaleGridBottom="18", 
+		scaleGridLeft="3", scaleGridRight="20")]
 	private var ToggleButton_disabledSelectedImage:Class;
 	
-	[Embed(source="assets/ToggleButton_rolloverImage.png", scaleGridTop="6", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/ToggleButton_rolloverImage.png", scaleGridTop="3", scaleGridBottom="18", 
+		scaleGridLeft="3", scaleGridRight="20")]
 	private var ToggleButton_rolloverImage:Class;
 	
-	[Embed(source="assets/ToggleButton_rolloverSelectedImage.png", scaleGridTop="6", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/ToggleButton_rolloverSelectedImage.png", scaleGridTop="3", scaleGridBottom="18", 
+		scaleGridLeft="3", scaleGridRight="20")]
 	private var ToggleButton_rolloverSelectedImage:Class;
 	
 	
@@ -451,8 +451,8 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	//----------------------------------------------------------------------
 	//___________________________ ToolTip scale-9 __________________________
 	//======================================================================
-	[Embed(source="assets/ToolTip_bgImage.png", scaleGridTop="4", scaleGridBottom="20", 
-		scaleGridLeft="4", scaleGridRight="70")]
+	[Embed(source="assets/ToolTip_bgImage.png", scaleGridTop="3", scaleGridBottom="16", 
+		scaleGridLeft="3", scaleGridRight="39")]
 	private var ToolTip_bgImage:Class;
 	
 	
@@ -937,7 +937,8 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	//not specified a image, so it will be solid bg, however, you can add the image
 	//[Embed(source="assets/MenuBar_bgImage.png")]
 	private var MenuBar_bgImage:Class;
-	//[Embed(source="assets/PopupMenu_bgImage.png")]
+	[Embed(source="assets/PopupMenu_bgImage.png", scaleGridTop="3", scaleGridBottom="277", 
+		scaleGridLeft="3", scaleGridRight="172")]
 	private var PopupMenu_bgImage:Class;
 	
 	
@@ -947,22 +948,22 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	//______________________ MenuItemss scale-9 or not _____________________
 	//======================================================================
 	//Just defined roll over image, however, you can add other state images.
-	[Embed(source="assets/Menu_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/Menu_rolloverImage.png", scaleGridTop="3", scaleGridBottom="19", 
+		scaleGridLeft="3", scaleGridRight="166")]
 	private var Menu_rolloverImage:Class;
 	
-	[Embed(source="assets/MenuItem_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/MenuItem_rolloverImage.png", scaleGridTop="3", scaleGridBottom="19", 
+		scaleGridLeft="3", scaleGridRight="166")]
 	private var MenuItem_rolloverImage:Class;
 	
-	/*[Embed(source="assets/CheckBoxMenuItem_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/CheckBoxMenuItem_rolloverImage.png", scaleGridTop="3", scaleGridBottom="19", 
+		scaleGridLeft="3", scaleGridRight="166")]
 	private var CheckBoxMenuItem_rolloverImage:Class;
 	
-	[Embed(source="assets/RadioButtonMenuItem_rolloverImage.png", scaleGridTop="11", scaleGridBottom="12", 
-		scaleGridLeft="5", scaleGridRight="75")]
+	[Embed(source="assets/RadioButtonMenuItem_rolloverImage.png", scaleGridTop="3", scaleGridBottom="19", 
+		scaleGridLeft="3", scaleGridRight="166")]
 	private var RadioButtonMenuItem_rolloverImage:Class;
-	*/
+	
 	[Embed(source="assets/Menu_arrowIconImage.png")]
 	private var Menu_arrowIconImage:Class;
 	
@@ -1421,7 +1422,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"CheckBoxMenuItem.defaultImage", null, 
 			"CheckBoxMenuItem.pressedImage", null, 
 			"CheckBoxMenuItem.disabledImage", null,
-			"CheckBoxMenuItem.rolloverImage", null, 
+			"CheckBoxMenuItem.rolloverImage", CheckBoxMenuItem_rolloverImage, 
 			"CheckBoxMenuItem.bg", SkinCheckBoxMenuItemBackground, 
 			"CheckBoxMenuItem.checkIconImage", CheckBoxMenuItem_checkIconImage, 
 	    	"CheckBoxMenuItem.checkIcon", SkinCheckBoxMenuItemCheckIcon,
@@ -1437,7 +1438,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"RadioButtonMenuItem.defaultImage", null, 
 			"RadioButtonMenuItem.pressedImage", null, 
 			"RadioButtonMenuItem.disabledImage", null,
-			"RadioButtonMenuItem.rolloverImage", null, 
+			"RadioButtonMenuItem.rolloverImage", RadioButtonMenuItem_rolloverImage, 
 			"RadioButtonMenuItem.bg", SkinRadioButtonMenuItemBackground, 
 			"RadioButtonMenuItem.checkIconImage", RadioButtonMenuItem_checkIconImage, 
 	    	"RadioButtonMenuItem.checkIcon", SkinRadioButtonMenuItemCheckIcon, 
@@ -1447,12 +1448,12 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	    
 	     // *** Menu -- by default the menu will not use decorators, if you need, uncomment the lines below
 	    comDefaults = [
-	    	//"Menu.opaque", false,  
-		    //"Menu.selectionForeground", table.get("menuText"),
-		    //"Menu.acceleratorSelectionForeground", table.get("menuText"),
-			//"Menu.bg", SkinMenuBackground, 
-			//"Menu.selectedImage", MenuItem_rolloverImage, 
-			//"Menu.rolloverImage", MenuItem_rolloverImage, 
+	    	"Menu.opaque", false,  
+		    "Menu.selectionForeground", table.get("menuText"),
+		    "Menu.acceleratorSelectionForeground", table.get("menuText"),
+			"Menu.bg", SkinMenuBackground, 
+			"Menu.selectedImage", MenuItem_rolloverImage, 
+			"Menu.rolloverImage", MenuItem_rolloverImage, 
 			"Menu.arrowIconImage", Menu_arrowIconImage, 
 	    	"Menu.arrowIcon", SkinMenuArrowIcon
 	    ];
@@ -1461,6 +1462,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	     // *** PopupMenu
 	    comDefaults = [
 	        "PopupMenu.bgImage", PopupMenu_bgImage, 
+	    	"PopupMenu.border", null, 
 	        "PopupMenu.bg", SkinPopupMenuBackground
 	    ];
 	    table.putDefaults(comDefaults);
