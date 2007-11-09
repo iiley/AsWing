@@ -41,7 +41,7 @@ public class BasicProgressBarUI extends BaseComponentUI{
 	override public function uninstallUI(c:Component):void{
 		progressBar = JProgressBar(c);		
 		uninstallDefaults();
-		uninstallComponents();	
+		uninstallComponents();
 		uninstallListeners();
 	}
 	
@@ -50,6 +50,10 @@ public class BasicProgressBarUI extends BaseComponentUI{
 		LookAndFeel.installColorsAndFont(progressBar, pp);
 		LookAndFeel.installBasicProperties(progressBar, pp);
 		LookAndFeel.installBorderAndBFDecorators(progressBar, pp);
+		if(!progressBar.isIndeterminateDelaySet()){
+			progressBar.setIndeterminateDelay(getUint(pp + "indeterminateDelay"));
+			progressBar.setIndeterminateDelaySet(false);
+		}
 	}
 	
 	protected function uninstallDefaults():void{

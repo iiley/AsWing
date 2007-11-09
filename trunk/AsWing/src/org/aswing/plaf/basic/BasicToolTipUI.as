@@ -37,7 +37,8 @@ public class BasicToolTipUI extends BaseComponentUI{
         LookAndFeel.installColorsAndFont(tooltip, pp);
         LookAndFeel.installBorderAndBFDecorators(tooltip, pp);
         LookAndFeel.installBasicProperties(tooltip, pp);
-        tooltip.filters = [new DropShadowFilter(4.0, 45, 0, 1.0, 2.0, 2.0, 0.5)];
+        var filters:Array = getInstance(getPropertyPrefix()+"filters") as Array;
+        tooltip.filters = filters;
 	}
 	
 	protected function initallComponents():void{

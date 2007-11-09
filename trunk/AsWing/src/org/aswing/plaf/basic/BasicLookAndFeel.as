@@ -17,6 +17,7 @@ import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
 import org.aswing.tree.TreeLeafIcon;
 import org.aswing.plaf.basic.tree.BasicExpandControl;
 import org.aswing.plaf.basic.cursor.H_ResizeCursor;
+import flash.filters.DropShadowFilter;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -316,7 +317,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"ProgressBar.font", new ASFontUIResource("Tahoma", 9),
 			"ProgressBar.border", org.aswing.plaf.basic.border.ProgressBarBorder,
 			"ProgressBar.fg", org.aswing.plaf.basic.background.ProgressBarIcon,
-			"ProgressBar.progressColor", new ASColorUIResource(0x3366CC)
+			"ProgressBar.progressColor", new ASColorUIResource(0x3366CC), 
+			"ProgressBar.indeterminateDelay", 40
 		];
 		table.putDefaults(comDefaults);
 		
@@ -406,6 +408,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"ToolTip.focusable", false, 
 			"ToolTip.borderColor", table.get("controlText"),
 			"ToolTip.font", table.getFont("controlFont"),
+			"ToolTip.filters", [new DropShadowFilter(4.0, 45, 0, 1.0, 2.0, 2.0, 0.5)], 
 			"ToolTip.border", org.aswing.plaf.basic.border.ToolTipBorder
 		];
 		table.putDefaults(comDefaults);
