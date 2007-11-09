@@ -8,6 +8,7 @@ import org.aswing.plaf.basic.BasicLookAndFeel;
 import org.aswing.plaf.*;
 import org.aswing.*;
 import org.aswing.skinbuilder.*;
+import flash.filters.DropShadowFilter;
 
 /**
  * TransLookAndFeel, the art works is designed by Raku.
@@ -552,6 +553,10 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		scaleGridLeft="8", scaleGridRight="58")]
 	private var TabbedPane_top_tab_rolloverSelectedImage:Class;
 	
+	[Embed(source="assets/TabbedPane_top_tab_pressedSelectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="8", scaleGridRight="58")]
+	private var TabbedPane_top_tab_pressedSelectedImage:Class;
+	
 	//========= header bottom scale-9 =======
 	[Embed(source="assets/TabbedPane_bottom_tab_defaultImage.png", scaleGridTop="12", scaleGridBottom="14", 
 		scaleGridLeft="8", scaleGridRight="58")]
@@ -576,6 +581,10 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	[Embed(source="assets/TabbedPane_bottom_tab_rolloverSelectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
 		scaleGridLeft="8", scaleGridRight="58")]
 	private var TabbedPane_bottom_tab_rolloverSelectedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_bottom_tab_pressedSelectedImage.png", scaleGridTop="12", scaleGridBottom="14", 
+		scaleGridLeft="8", scaleGridRight="58")]
+	private var TabbedPane_bottom_tab_pressedSelectedImage:Class;
 	
 	//========= header left scale-9 =======
 	[Embed(source="assets/TabbedPane_left_tab_defaultImage.png", scaleGridTop="8", scaleGridBottom="58", 
@@ -602,6 +611,10 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_left_tab_rolloverSelectedImage:Class;
 	
+	[Embed(source="assets/TabbedPane_left_tab_pressedSelectedImage.png", scaleGridTop="8", scaleGridBottom="58", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_left_tab_pressedSelectedImage:Class;
+	
 	//========= header right scale-9 =======
 	[Embed(source="assets/TabbedPane_right_tab_defaultImage.png", scaleGridTop="8", scaleGridBottom="58", 
 		scaleGridLeft="12", scaleGridRight="14")]
@@ -624,6 +637,10 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	private var TabbedPane_right_tab_selectedImage:Class;
 	
 	[Embed(source="assets/TabbedPane_right_tab_rolloverSelectedImage.png", scaleGridTop="8", scaleGridBottom="58", 
+		scaleGridLeft="12", scaleGridRight="14")]
+	private var TabbedPane_right_tab_pressedSelectedImage:Class;
+	
+	[Embed(source="assets/TabbedPane_right_tab_pressedSelectedImage.png", scaleGridTop="8", scaleGridBottom="58", 
 		scaleGridLeft="12", scaleGridRight="14")]
 	private var TabbedPane_right_tab_rolloverSelectedImage:Class;
 	
@@ -948,20 +965,20 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	//______________________ MenuItemss scale-9 or not _____________________
 	//======================================================================
 	//Just defined roll over image, however, you can add other state images.
-	[Embed(source="assets/Menu_rolloverImage.png", scaleGridTop="3", scaleGridBottom="19", 
-		scaleGridLeft="3", scaleGridRight="166")]
+	[Embed(source="assets/Menu_rolloverImage.png", scaleGridTop="2", scaleGridBottom="16", 
+		scaleGridLeft="2", scaleGridRight="165")]
 	private var Menu_rolloverImage:Class;
 	
-	[Embed(source="assets/MenuItem_rolloverImage.png", scaleGridTop="3", scaleGridBottom="19", 
-		scaleGridLeft="3", scaleGridRight="166")]
+	[Embed(source="assets/MenuItem_rolloverImage.png", scaleGridTop="2", scaleGridBottom="16", 
+		scaleGridLeft="2", scaleGridRight="165")]
 	private var MenuItem_rolloverImage:Class;
 	
-	[Embed(source="assets/CheckBoxMenuItem_rolloverImage.png", scaleGridTop="3", scaleGridBottom="19", 
-		scaleGridLeft="3", scaleGridRight="166")]
+	[Embed(source="assets/CheckBoxMenuItem_rolloverImage.png", scaleGridTop="2", scaleGridBottom="16", 
+		scaleGridLeft="2", scaleGridRight="165")]
 	private var CheckBoxMenuItem_rolloverImage:Class;
 	
-	[Embed(source="assets/RadioButtonMenuItem_rolloverImage.png", scaleGridTop="3", scaleGridBottom="19", 
-		scaleGridLeft="3", scaleGridRight="166")]
+	[Embed(source="assets/RadioButtonMenuItem_rolloverImage.png", scaleGridTop="2", scaleGridBottom="16", 
+		scaleGridLeft="2", scaleGridRight="165")]
 	private var RadioButtonMenuItem_rolloverImage:Class;
 	
 	[Embed(source="assets/Menu_arrowIconImage.png")]
@@ -1094,7 +1111,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		comDefaults = [
 			"TextField.opaque", true, 
 			"TextField.bg", SkinTextFieldBackground,
-			"TextField.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
+			"TextField.border", new SkinEmptyBorder(2, 3, 2, 3), //modify this to fit the bg image
 			"TextField.defaultImage", TextField_defaultImage, 
 			"TextField.uneditableImage", TextField_uneditableImage, 
 			"TextField.disabledImage", TextField_disabledImage
@@ -1105,7 +1122,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		comDefaults = [
 			"TextArea.opaque", true, 
 			"TextArea.bg", SkinTextAreaBackground,
-			"TextArea.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
+			"TextArea.border", new SkinEmptyBorder(2, 3, 2, 3), //modify this to fit the bg image
 			"TextArea.defaultImage", TextArea_defaultImage, 
 			"TextArea.uneditableImage", TextArea_uneditableImage, 
 			"TextArea.disabledImage", TextArea_disabledImage
@@ -1117,7 +1134,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"Frame.background", table.get("window"), 
 			"Frame.foreground", table.get("windowText"),
 			"Frame.opaque", true, 
-			"Frame.icon", null,
+			"Frame.icon", OrangeFrameIcon,
 			"Frame.bg", SkinFrameBackground, //this will use Frame.activeBG and Frame.inactiveBG
 			"Frame.titleBarHeight", 28, //modify this to fit title bar height of bg image
 			"Frame.border", new SkinEmptyBorder(0, 4, 5, 4), //modify this to fit the frame bg image
@@ -1158,7 +1175,8 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"ToolTip.opaque", false, 
 			"ToolTip.bg", SkinToolTipBackground, 
 			"ToolTip.bgImage", ToolTip_bgImage, 
-			"ToolTip.border", new SkinEmptyBorder(2, 2, 2, 2) //modify this to fit the bg image
+			"ToolTip.filters", [new DropShadowFilter(1.0, 45, 0, 1.0, 2.0, 2.0, 0.5)],
+			"ToolTip.border", new SkinEmptyBorder(1, 3, 1, 3) //modify this to fit the bg image
 		];
 		table.putDefaults(comDefaults);
 		
@@ -1166,7 +1184,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		comDefaults = [
 			"ComboBox.opaque", false, 
 			"ComboBox.bg", SkinComboBoxBackground,
-			"ComboBox.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
+			"ComboBox.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
 			"ComboBox.defaultImage", ComboBox_defaultImage, 
 			"ComboBox.uneditableImage", ComboBox_uneditableImage, 
 			"ComboBox.disabledImage", ComboBox_disabledImage, 
@@ -1203,6 +1221,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"TabbedPane.top.tab.rolloverImage", TabbedPane_top_tab_rolloverImage, 
 			"TabbedPane.top.tab.selectedImage", TabbedPane_top_tab_selectedImage, 
 			"TabbedPane.top.tab.rolloverSelectedImage", TabbedPane_top_tab_rolloverSelectedImage, 
+			"TabbedPane.top.tab.pressedSelectedImage", TabbedPane_top_tab_pressedSelectedImage, 
 			
 			"TabbedPane.bottom.tab.defaultImage", TabbedPane_bottom_tab_defaultImage,
 			"TabbedPane.bottom.tab.pressedImage", TabbedPane_bottom_tab_pressedImage,
@@ -1210,6 +1229,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"TabbedPane.bottom.tab.rolloverImage", TabbedPane_bottom_tab_rolloverImage, 
 			"TabbedPane.bottom.tab.selectedImage", TabbedPane_bottom_tab_selectedImage, 
 			"TabbedPane.bottom.tab.rolloverSelectedImage", TabbedPane_bottom_tab_rolloverSelectedImage, 
+			"TabbedPane.bottom.tab.pressedSelectedImage", TabbedPane_bottom_tab_pressedSelectedImage, 
 			
 			"TabbedPane.left.tab.defaultImage", TabbedPane_left_tab_defaultImage,
 			"TabbedPane.left.tab.pressedImage", TabbedPane_left_tab_pressedImage,
@@ -1217,6 +1237,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"TabbedPane.left.tab.rolloverImage", TabbedPane_left_tab_rolloverImage, 
 			"TabbedPane.left.tab.selectedImage", TabbedPane_left_tab_selectedImage, 
 			"TabbedPane.left.tab.rolloverSelectedImage", TabbedPane_left_tab_rolloverSelectedImage, 
+			"TabbedPane.left.tab.pressedSelectedImage", TabbedPane_left_tab_pressedSelectedImage, 
 			
 			"TabbedPane.right.tab.defaultImage", TabbedPane_right_tab_defaultImage,
 			"TabbedPane.right.tab.pressedImage", TabbedPane_right_tab_pressedImage,
@@ -1224,6 +1245,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"TabbedPane.right.tab.rolloverImage", TabbedPane_right_tab_rolloverImage, 
 			"TabbedPane.right.tab.selectedImage", TabbedPane_right_tab_selectedImage, 
 			"TabbedPane.right.tab.rolloverSelectedImage", TabbedPane_right_tab_rolloverSelectedImage,  
+			"TabbedPane.right.tab.pressedSelectedImage", TabbedPane_right_tab_pressedSelectedImage,  
 			
 			"TabbedPane.arrowLeft.defaultImage", TabbedPane_arrowLeft_defaultImage, 
 			"TabbedPane.arrowLeft.pressedImage", TabbedPane_arrowLeft_pressedImage, 
@@ -1326,7 +1348,8 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"ProgressBar.border", null, 
 			"ProgressBar.foreground", table.get("controlText"),
 			"ProgressBar.bg", SkinProgressBarBackground, 
-			"ProgressBar.fg", OrangeProgressBarFG,
+			"ProgressBar.fg", OrangeProgressBarFG, 
+			"ProgressBar.indeterminateDelay", 200, 
 			"ProgressBar.fgMargin", new InsetsUIResource(2, 2, 2, 2), //modify this to margin fg
 			"ProgressBar.verticalBGImage", ProgressBar_verticalBGImage, 
 			"ProgressBar.horizotalBGImage", ProgressBar_horizotalBGImage, 
@@ -1462,8 +1485,8 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	     // *** PopupMenu
 	    comDefaults = [
 	        "PopupMenu.bgImage", PopupMenu_bgImage, 
-	    	"PopupMenu.border", null, 
-	        "PopupMenu.bg", SkinPopupMenuBackground
+	    	"PopupMenu.border", new SkinEmptyBorder(2, 2, 2, 2), 
+	        "PopupMenu.bg", OrangePopupMenuBackground
 	    ];
 	    table.putDefaults(comDefaults);
 	    
