@@ -40,6 +40,7 @@ public class JProgressBar extends Component implements Orientable{
 	private var string:String;
 	private var model:BoundedRangeModel;
 	private var indeterminatePaintTimer:Timer;
+	private var indeterminateDelaySet:Boolean;
 	
 	/**
 	 * JProgressBar(orient:int, min:int, max:int)<br>
@@ -63,6 +64,7 @@ public class JProgressBar extends Component implements Orientable{
 		indeterminate = false;
 		string = null;
 		
+		indeterminateDelaySet = false;
 		indeterminatePaintTimer = new Timer(40);
 		indeterminatePaintTimer.addActionListener(__indeterminateInterval);
 		addEventListener(Event.ADDED_TO_STAGE, __progressAddedToStage);
@@ -81,6 +83,23 @@ public class JProgressBar extends Component implements Orientable{
 	override public function getUIClassID():String{
 		return "ProgressBarUI";
 	} 
+	
+	public function setIndeterminateDelay(delay:uint):void{
+		indeterminatePaintTimer.setDelay(delay);
+		setIndeterminateDelaySet(true);
+	}
+	
+	public function getIndeterminateDelay():uint{
+		return indeterminatePaintTimer.getDelay();
+	}
+	
+	public function setIndeterminateDelaySet(b:Boolean):void{
+		indeterminateDelaySet = b;
+	}
+	
+	public function isIndeterminateDelaySet():Boolean{
+		return indeterminateDelaySet;
+	}
 	    
 	/**
      * Returns the data model used by this progress bar.
