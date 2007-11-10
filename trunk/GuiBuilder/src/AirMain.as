@@ -23,7 +23,88 @@ public class AirMain extends Main{
 		rootPath = file.nativePath+"/";
 		workspacePath = rootPath+"workspace/";
 		openFile = new File(workspacePath);
-		openFile.addEventListener(Event.SELECT, __fileSelected);		
+		openFile.addEventListener(Event.SELECT, __fileSelected);
+		
+		addEventListener(Event.ADDED_TO_STAGE, __mainAddedToStage);
+	}
+	
+	private function __mainAddedToStage(e:Event):void{
+		stage.nativeWindow.addEventListener(Event.CLOSING, __appClosing);
+		loadWorkspacePath();
+	}
+	
+	private function loadWorkspacePath():void{
+		var wf:File = new File(rootPath + "workspace.txt");
+		if(wf.exists){
+			var stream:FileStream = new FileStream();
+			stream.open(wf, FileMode.READ);
+			var str:String = stream.readUTFBytes(stream.bytesAvailable);
+			stream.close();
+			workspacePath = str;
+			openFile.nativePath = workspacePath;
+		}else{
+			JOptionPane.showMessageDialog(
+				"Workspace path set", 
+				"Workspace path is not set, You need to choose a directory for it.", 
+				__doChooseWPD, this, true, null, 
+				JOptionPane.OK); 
+		}
+	}
+	
+	private var wfd:File;
+	private function __doChooseWPD(r:int):void{
+		wfd = new File(workspacePath);
+		wfd.addEventListener(Event.SELECT, __wpSelected);
+		wfd.addEventListener(Event.CANCEL, __wpCanceled);
+		wfd.browseForDirectory("Please Select a directory to be the WorkSpace");
+	}
+	
+	private function __wpCanceled(e:Event):void{
+		JOptionPane.showMessageDialog("Tip", "Your workspace path is temp default to:\n"+workspacePath, null, this);
+	}
+	
+	private function __wpSelected(e:Event):void{
+		var wf:File = wfd;
+		workspacePath = wf.nativePath+"/";
+		
+		var saveFile:File = new File(rootPath + "workspace.txt");
+		var stream:FileStream = new FileStream();
+		stream.open(saveFile, FileMode.WRITE);
+		stream.writeUTFBytes(workspacePath);
+		stream.close();
+		
+		openFile.nativePath = workspacePath;
+		JOptionPane.showMessageDialog("Tip", "Your workspace path is set to:\n"+workspacePath, null, this);
+	}
+	
+	private var unsavedFiles:Array;
+	private function __appClosing(e:Event):void{
+		unsavedFiles = [];
+		for(var i:int=0; i<files.size(); i++){
+			var f:FileModel = files.get(i);
+			if(!f.isSaved()){
+				unsavedFiles.push(f);
+			}
+		}
+		if(unsavedFiles.length > 0){
+			e.preventDefault();
+			JOptionPane.showMessageDialog(
+				"Tip", 
+				"Some files is not saved, do you need to save them?", 
+				__exitAnswered, this, true, null, 
+				JOptionPane.YES|JOptionPane.NO|JOptionPane.CANCEL); 
+		}
+	}
+	
+	private function __exitAnswered(result:int):void{
+		if(result == JOptionPane.YES){
+			for each(var f:FileModel in unsavedFiles){
+				save(f);
+			}
+			stage.nativeWindow.close();
+		}else if(result == JOptionPane.NO){
+			stage.nativeWindow.close();
+		}
 	}
 	
 	override protected function getAboutWords():String{
@@ -62,6 +143,8 @@ public class AirMain extends Main{
 		stream.open(saveFile, FileMode.WRITE);
 		stream.writeUTFBytes(xml.toXMLString());
 		stream.close();
+		file.setSaved(true);
+		__fileChanged(file);
 	}
 	
 	override protected function open():void{
@@ -81,6 +164,8 @@ public class AirMain extends Main{
 		}
 		var fm:FileModel = FileModel.parseXML(xml);
 		fm.setFilePath(openFile.nativePath);
+		fm.setSaved(true);
+		fm.setChangeHandler(__fileChanged);
 		files.append(fm, 0);
 		setCurrentFile(files.first());
 	}
