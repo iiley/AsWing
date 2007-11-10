@@ -155,8 +155,14 @@ public class Main extends JWindow{
 	}
 	
 	private function createNewFile(className:String, pkgName:String):void{
-		files.append(new FileModel(new ComModel(curCreateComDef), className, pkgName), 0);
+		var f:FileModel = new FileModel(new ComModel(curCreateComDef), className, pkgName);
+		files.append(f, 0);
 		setCurrentFile(files.first());
+		f.setChangeHandler(__fileChanged);
+	}
+	
+	protected function __fileChanged(f:FileModel):void{
+		files.valueChanged(f);
 	}
 	
 	protected function __override(result:int):void{
@@ -233,11 +239,15 @@ public class Main extends JWindow{
 	
 	private function __close(e:Event):void{
 		if(curFile != null){
-			JOptionPane.showMessageDialog(
-				"Tip", 
-				"Do you need to save it before close?", 
-				__closeAnswered, this, true, null, 
-				JOptionPane.YES|JOptionPane.NO|JOptionPane.CANCEL); 
+			if(!curFile.isSaved()){
+				JOptionPane.showMessageDialog(
+					"Tip", 
+					"Do you need to save it before close?", 
+					__closeAnswered, this, true, null, 
+					JOptionPane.YES|JOptionPane.NO|JOptionPane.CANCEL); 
+			}else{
+				__closeAnswered(JOptionPane.NO);
+			}
 		}
 	}
 	

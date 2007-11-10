@@ -154,23 +154,23 @@ public class ComModel implements Model{
 	
 	public function applyProperty(name:String, value:ValueModel, action:String):void{
 		trace(this + " apply name : " + name + ", value : " + value + ", action : " + action);
+		var idChanged:Boolean = false;
 		if(name == ID_NAME){
 			this.id = value.getValue();
-			if(changedHandler != null){
-				changedHandler(this);
-			}
-			return;
+			idChanged = true;
 		}else if(name == ATTR_SCOPE_NAME){
 			this.atrributeScope = value.getValue();
-			return;
 		}else if(name == GETTER_SCOPE_NAME){
 			this.getterScope = value.getValue();
-			return;
+		}else{
+			var o:Object = getDisplay();
+			o["set"+name](value.getValue());
+			if(action != null && action != ""){
+				o[action]();
+			}
 		}
-		var o:Object = getDisplay();
-		o["set"+name](value.getValue());
-		if(action != null && action != ""){
-			o[action]();
+		if(changedHandler != null){
+			changedHandler(this, idChanged);
 		}
 	}
 	
