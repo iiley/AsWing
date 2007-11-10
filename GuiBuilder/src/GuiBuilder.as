@@ -2,6 +2,7 @@ package {
 
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.ui.ContextMenu;
 
 import org.aswing.AsWingManager;
 import org.aswing.JFrame;
