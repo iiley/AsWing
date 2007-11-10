@@ -9,7 +9,7 @@ import org.aswing.JFrame;
 import org.aswing.JOptionPane;
 import org.aswing.guibuilder.*;
 
-[SWF (width="1024", height="700")]
+[SWF (width="1000", height="700")]
 public class GuiBuilder extends Sprite{
 	
 	private var main:Main;
