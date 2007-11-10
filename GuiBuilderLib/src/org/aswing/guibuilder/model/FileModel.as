@@ -21,6 +21,8 @@ public class FileModel implements TreeModel{
 	private var listenerList:Array;
 	
 	private var file:FileReference;
+	private var changeHandler:Function;
+	private var saved:Boolean;
 	
 	public function FileModel(root:ComModel, name:String, packageName:String){
 		this.root = root;
@@ -30,6 +32,7 @@ public class FileModel implements TreeModel{
 		canvas.mouseEnabled = false;
 		canvas.addChild(root.getDisplay());
 		listenerList = new Array();
+		saved = false;
 		
 		addListenersToAll(root);
 	}
@@ -89,7 +92,8 @@ public class FileModel implements TreeModel{
 	}
 	
 	public function toString():String{
-		return name+"::"+packageName;
+		var pref:String = isSaved() ? "" : "*";
+		return pref+name+"::"+packageName;
 	}
 	
 	public function getPath(obj:ComModel):Array{
@@ -113,6 +117,7 @@ public class FileModel implements TreeModel{
 		if(index < 0) index = parent.getChildCount();
 		fireTreeNodesInserted(this, path, [index], [child]);
 		child.setChangedHandler(__comChanged);
+		callChangeHandler();
 	}
 	
 	public function removeComponent(child:ComModel):void{
@@ -122,6 +127,7 @@ public class FileModel implements TreeModel{
 		parent.removeChild(child);
 		fireTreeNodesRemoved(this, path, [index], [child]);
 		child.setChangedHandler(null);
+		callChangeHandler();
 	}
 	
 	public function refreshNode(child:ComModel):void{
@@ -135,8 +141,33 @@ public class FileModel implements TreeModel{
   		}
 	}
 	
-	private function __comChanged(child:ComModel):void{
-		refreshNode(child);
+	/**
+	 * handler(FileModel)
+	 */
+	public function setChangeHandler(handler:Function):void{
+		changeHandler = handler;
+	}
+	
+	public function setSaved(b:Boolean):void{
+		saved = b;
+	}
+	
+	public function isSaved():Boolean{
+		return saved;
+	}
+	
+	private function __comChanged(child:ComModel, idChanged:Boolean):void{
+		if(idChanged){
+			refreshNode(child);
+		}
+		callChangeHandler();
+	}
+	
+	private function callChangeHandler():void{
+		saved = false;
+		if(changeHandler != null){
+			changeHandler(this);
+		}
 	}
 	
 	//_____________________________TreeModel Imp_______________________________
