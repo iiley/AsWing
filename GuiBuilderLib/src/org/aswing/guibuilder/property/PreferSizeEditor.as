@@ -32,7 +32,9 @@ public class PreferSizeEditor extends IntDimensionEditor{
 	override protected function fillValue(v:ValueModel, noValueSet:Boolean):void{
 		super.fillValue(v, noValueSet);
 		check.setSelected(noValueSet);
-	}	
+		widthInput.setEditable(!check.isSelected());
+		heightInput.setEditable(!check.isSelected());
+	}
 	
 	override protected function getEditorValue():ValueModel{
 		if(check.isSelected() || widthInput.isEmpty() || heightInput.isEmpty()){

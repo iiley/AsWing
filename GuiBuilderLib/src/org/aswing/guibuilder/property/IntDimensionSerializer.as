@@ -37,7 +37,7 @@ public class IntDimensionSerializer implements PropertySerializer, DefaultValueH
 	}
 	
 	public function getDefaultValue(propertyName:String, model:Model):ValueModel{
-		if(model is ComModel && propertyName == "PreferSize"){
+		if(model is ComModel && propertyName == "PreferredSize"){
 			return new SimpleValue(null);
 		}else{
 			throw new Error("It is not default value helped!");
@@ -46,7 +46,7 @@ public class IntDimensionSerializer implements PropertySerializer, DefaultValueH
 	}
 	
 	public function isNeedHelp(propertyName:String, model:Model):Boolean{
-		if(model is ComModel && propertyName == "PreferSize"){
+		if(model is ComModel && propertyName == "PreferredSize"){
 			return true;
 		}
 		return false;
