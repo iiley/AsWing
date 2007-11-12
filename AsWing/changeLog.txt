@@ -29,6 +29,7 @@ added some help method for GuiBuilder.
 added org.aswing.ext.Folder
 added updateAllComponentUIInMemory function to AsWingUtils
 added getSelectionRow method to JTree
+added indeterminateDelay property to JProgressBar
 
 bugfixes:
 
