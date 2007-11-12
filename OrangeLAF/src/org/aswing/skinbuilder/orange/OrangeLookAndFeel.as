@@ -38,14 +38,14 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		super.initSystemColorDefaults(table);
 			var defaultSystemColors:Array = [
 				//"activeCaption", 0xF2F2F2, /* Color for captions (title bars) when they are active. */
-				"activeCaptionText", 0xFFFFFF, /* Text color for text in captions (title bars). */
+				"activeCaptionText", 0x212121, /* Text color for text in captions (title bars). */
 				//"activeCaptionBorder", 0xC0C0C0, /* Border color for caption (title bar) window borders. */
 				//"inactiveCaption", 0xE7E7E7, /* Color for captions (title bars) when not active. */
-				"inactiveCaptionText", 0xDDDDDD, /* Text color for text in inactive captions (title bars). */
+				"inactiveCaptionText", 0x515151, /* Text color for text in inactive captions (title bars). */
 				//"inactiveCaptionBorder", 0x888888, /* Border color for inactive caption (title bar) window borders. */
-				"window", 0xCACDCC, /* Default color for the interior of windows */
+				//"window", 0xEFEFEF, /* Default color for the interior of windows */
 				//"windowBorder", 0x000000, /* ??? */
-				"windowText", 0xFFFFFF, /* ??? */
+				//"windowText", 0x000000, /* ??? */
 				//"menu", 0xCCCCCC, /* Background color for menus */
 				//"menuText", 0x000000, /* Text color for menus  */
 				//"text", 0xC0C0C0, /* Text background color */
@@ -696,9 +696,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		scaleGridLeft="3", scaleGridRight="13")]
 	private var Slider_vertical_trackDisabledImage:Class;
 	
-	[Embed(source="assets/Slider_vertical_trackProgressImage.png")]
+	[Embed(source="assets/Slider_vertical_trackProgressImage.png", scaleGridTop="3", scaleGridBottom="90", 
+		scaleGridLeft="3", scaleGridRight="13")]
 	private var Slider_vertical_trackProgressImage:Class;
-	[Embed(source="assets/Slider_vertical_trackProgressDisabledImage.png")]
+	[Embed(source="assets/Slider_vertical_trackProgressDisabledImage.png", scaleGridTop="3", scaleGridBottom="90", 
+		scaleGridLeft="3", scaleGridRight="13")]
 	private var Slider_vertical_trackProgressDisabledImage:Class;
 	
 	[Embed(source="assets/Slider_horizontal_trackImage.png", scaleGridTop="3", scaleGridBottom="13", 
@@ -708,9 +710,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		scaleGridLeft="7", scaleGridRight="93")]
 	private var Slider_horizontal_trackDisabledImage:Class;
 	
-	[Embed(source="assets/Slider_horizontal_trackProgressImage.png")]
+	[Embed(source="assets/Slider_horizontal_trackProgressImage.png", scaleGridTop="3", scaleGridBottom="13", 
+		scaleGridLeft="3", scaleGridRight="90")]
 	private var Slider_horizontal_trackProgressImage:Class;
-	[Embed(source="assets/Slider_horizontal_trackProgressDisabledImage.png")]
+	[Embed(source="assets/Slider_horizontal_trackProgressDisabledImage.png", scaleGridTop="3", scaleGridBottom="13", 
+		scaleGridLeft="3", scaleGridRight="90")]
 	private var Slider_horizontal_trackProgressDisabledImage:Class;
 	
 	//========= Thumb Images =======
@@ -881,9 +885,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		scaleGridLeft="3", scaleGridRight="13")]
 	private var Adjuster_Slider_vertical_trackDisabledImage:Class;
 	
-	[Embed(source="assets/Adjuster_Slider_vertical_trackProgressImage.png")]
+	[Embed(source="assets/Adjuster_Slider_vertical_trackProgressImage.png", scaleGridTop="3", scaleGridBottom="90", 
+		scaleGridLeft="3", scaleGridRight="13")]
 	private var Adjuster_Slider_vertical_trackProgressImage:Class;
-	[Embed(source="assets/Adjuster_Slider_vertical_trackProgressDisabledImage.png")]
+	[Embed(source="assets/Adjuster_Slider_vertical_trackProgressDisabledImage.png", scaleGridTop="3", scaleGridBottom="90", 
+		scaleGridLeft="3", scaleGridRight="13")]
 	private var Adjuster_Slider_vertical_trackProgressDisabledImage:Class;
 	
 	[Embed(source="assets/Adjuster_Slider_horizontal_trackImage.png", scaleGridTop="3", scaleGridBottom="13", 
@@ -893,9 +899,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		scaleGridLeft="7", scaleGridRight="93")]
 	private var Adjuster_Slider_horizontal_trackDisabledImage:Class;
 	
-	[Embed(source="assets/Adjuster_Slider_horizontal_trackProgressImage.png")]
+	[Embed(source="assets/Adjuster_Slider_horizontal_trackProgressImage.png", scaleGridTop="3", scaleGridBottom="13", 
+		scaleGridLeft="3", scaleGridRight="90")]
 	private var Adjuster_Slider_horizontal_trackProgressImage:Class;
-	[Embed(source="assets/Adjuster_Slider_horizontal_trackProgressDisabledImage.png")]
+	[Embed(source="assets/Adjuster_Slider_horizontal_trackProgressDisabledImage.png", scaleGridTop="3", scaleGridBottom="13", 
+		scaleGridLeft="3", scaleGridRight="90")]
 	private var Adjuster_Slider_horizontal_trackProgressDisabledImage:Class;
 	
 	//========= Thumb Images =======
