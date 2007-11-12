@@ -40,7 +40,7 @@ public class HeavyComs extends JPanel{
         }
         var listData:VectorListModel = new VectorListModel(arr);
         var list:JList = new JList(listData, new GeneralListCellFactory(IconListCell, false, false));
-        list.setBorder(new LineBorder(null, ASColor.RED, 3));
+        //list.setBorder(new LineBorder(null, ASColor.RED, 3));
         return new JScrollPane(list);
 	}
 	
@@ -75,7 +75,7 @@ public class HeavyComs extends JPanel{
 		table.getColumn("name").setCellEditor(combEditor);
 		table.getColumn("male").setCellFactory(new GeneralTableCellFactory(SexIconCell));
 		table.setDefaultCellFactory("Object", new GeneralTableCellFactory(PoorTextCell));
-		table.setBorder(new EmptyBorder(new LineBorder(null, ASColor.RED, 2), new Insets(5, 5, 5, 5)));
+		//table.setBorder(new EmptyBorder(new LineBorder(null, ASColor.RED, 2), new Insets(5, 5, 5, 5)));
 		table.setRowSelectionInterval(10, 13);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		var scrollPane:JScrollPane = new JScrollPane(table); 
