@@ -41,19 +41,14 @@ public class Arrow implements Icon{
 		g = new Graphics2D(shape.graphics);
 		var center:Point = new Point(x, com.getHeight()/2);
 		var w:Number = width;
+		
 		var ps1:Array = new Array();
-		ps1.push(nextPoint(center, 0 + arrow, w/3*2));
-		ps1.push(nextPoint(center, Math.PI*2/3 + arrow, w/3*2));
-		ps1.push(nextPoint(center, Math.PI*4/3 + arrow, w/3*2));
+		ps1.push(nextPoint(center, arrow, w/2/2));
+		var back:Point = nextPoint(center, arrow + Math.PI, w/2/2);
+		ps1.push(nextPoint(back, arrow - Math.PI/2, w/2));
+		ps1.push(nextPoint(back, arrow + Math.PI/2, w/2));
 		
-		w--;
-		var ps2:Array = new Array();
-		ps2.push(nextPoint(center, 0 + arrow, w/3*2));
-		ps2.push(nextPoint(center, Math.PI*2/3 + arrow, w/3*2));
-		ps2.push(nextPoint(center, Math.PI*4/3 + arrow, w/3*2));		
-		
-		g.fillPolygon(new SolidBrush(ASColor.BLACK), ps1);
-		g.fillPolygon(new SolidBrush(ASColor.GRAY.brighter()), ps2);		
+		g.fillPolygon(new SolidBrush(ASColor.BLACK), ps1);	
 	}
 	
 	protected function nextPoint(p:Point, dir:Number, dis:Number):Point{
