@@ -316,7 +316,9 @@ public class AeonLAF extends BasicLookAndFeel{
 		
 		// *** TabbedPane
 		comDefaults = [
-			"TabbedPane.tabMargin", new InsetsUIResource(2, 3, 3, 2),  //modify this to fit header image
+			"TabbedPane.tabMargin", new InsetsUIResource(1, 3, 1, 3),  //modify this to fit header image
+			"TabbedPane.tabBorderInsets", new InsetsUIResource(0, 4, 0, 4),
+			"TabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 4, 0, 4), 
 			"TabbedPane.top.tab.defaultImage", TabbedPane_top_tab_defaultImage,
 			"TabbedPane.top.tab.pressedImage", TabbedPane_top_tab_pressedImage,
 			"TabbedPane.top.tab.disabledImage", TabbedPane_top_tab_disabledImage,
