@@ -1109,7 +1109,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		
 		// *** TextField
 		comDefaults = [
-			"TextField.opaque", true, 
+			"TextField.opaque", false, 
 			"TextField.bg", SkinTextFieldBackground,
 			"TextField.border", new SkinEmptyBorder(2, 3, 2, 3), //modify this to fit the bg image
 			"TextField.defaultImage", TextField_defaultImage, 
@@ -1120,7 +1120,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		
 		// *** TextArea
 		comDefaults = [
-			"TextArea.opaque", true, 
+			"TextArea.opaque", false, 
 			"TextArea.bg", SkinTextAreaBackground,
 			"TextArea.border", new SkinEmptyBorder(2, 3, 2, 3), //modify this to fit the bg image
 			"TextArea.defaultImage", TextArea_defaultImage, 
