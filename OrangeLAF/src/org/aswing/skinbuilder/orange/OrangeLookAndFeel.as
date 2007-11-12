@@ -689,11 +689,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	//_______________________________ Slider _______________________________
 	//======================================================================
 	//========= track scale-9 or not=======
-	[Embed(source="assets/Slider_vertical_trackImage.png", scaleGridTop="6", scaleGridBottom="194", 
-		scaleGridLeft="2", scaleGridRight="10")]
+	[Embed(source="assets/Slider_vertical_trackImage.png", scaleGridTop="7", scaleGridBottom="93", 
+		scaleGridLeft="3", scaleGridRight="13")]
 	private var Slider_vertical_trackImage:Class;
-	[Embed(source="assets/Slider_vertical_trackDisabledImage.png", scaleGridTop="6", scaleGridBottom="194", 
-		scaleGridLeft="2", scaleGridRight="10")]
+	[Embed(source="assets/Slider_vertical_trackDisabledImage.png", scaleGridTop="7", scaleGridBottom="93", 
+		scaleGridLeft="3", scaleGridRight="13")]
 	private var Slider_vertical_trackDisabledImage:Class;
 	
 	[Embed(source="assets/Slider_vertical_trackProgressImage.png")]
@@ -701,11 +701,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	[Embed(source="assets/Slider_vertical_trackProgressDisabledImage.png")]
 	private var Slider_vertical_trackProgressDisabledImage:Class;
 	
-	[Embed(source="assets/Slider_horizontal_trackImage.png", scaleGridTop="2", scaleGridBottom="10", 
-		scaleGridLeft="6", scaleGridRight="194")]
+	[Embed(source="assets/Slider_horizontal_trackImage.png", scaleGridTop="3", scaleGridBottom="13", 
+		scaleGridLeft="7", scaleGridRight="93")]
 	private var Slider_horizontal_trackImage:Class;
-	[Embed(source="assets/Slider_horizontal_trackDisabledImage.png", scaleGridTop="2", scaleGridBottom="10", 
-		scaleGridLeft="6", scaleGridRight="194")]
+	[Embed(source="assets/Slider_horizontal_trackDisabledImage.png", scaleGridTop="3", scaleGridBottom="13", 
+		scaleGridLeft="7", scaleGridRight="93")]
 	private var Slider_horizontal_trackDisabledImage:Class;
 	
 	[Embed(source="assets/Slider_horizontal_trackProgressImage.png")]
@@ -874,11 +874,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	private var Adjuster_arrowButton_rolloverImage:Class;
 	
 	//========= Track scale-9 or not =======
-	[Embed(source="assets/Adjuster_Slider_vertical_trackImage.png", scaleGridTop="6", scaleGridBottom="106", 
-		scaleGridLeft="2", scaleGridRight="10")]
+	[Embed(source="assets/Adjuster_Slider_vertical_trackImage.png", scaleGridTop="7", scaleGridBottom="93", 
+		scaleGridLeft="3", scaleGridRight="13")]
 	private var Adjuster_Slider_vertical_trackImage:Class;
-	[Embed(source="assets/Adjuster_Slider_vertical_trackDisabledImage.png", scaleGridTop="6", scaleGridBottom="106", 
-		scaleGridLeft="2", scaleGridRight="10")]
+	[Embed(source="assets/Adjuster_Slider_vertical_trackDisabledImage.png", scaleGridTop="7", scaleGridBottom="93", 
+		scaleGridLeft="3", scaleGridRight="13")]
 	private var Adjuster_Slider_vertical_trackDisabledImage:Class;
 	
 	[Embed(source="assets/Adjuster_Slider_vertical_trackProgressImage.png")]
@@ -886,11 +886,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	[Embed(source="assets/Adjuster_Slider_vertical_trackProgressDisabledImage.png")]
 	private var Adjuster_Slider_vertical_trackProgressDisabledImage:Class;
 	
-	[Embed(source="assets/Adjuster_Slider_horizontal_trackImage.png", scaleGridTop="2", scaleGridBottom="10", 
-		scaleGridLeft="6", scaleGridRight="106")]
+	[Embed(source="assets/Adjuster_Slider_horizontal_trackImage.png", scaleGridTop="3", scaleGridBottom="13", 
+		scaleGridLeft="7", scaleGridRight="93")]
 	private var Adjuster_Slider_horizontal_trackImage:Class;
-	[Embed(source="assets/Adjuster_Slider_horizontal_trackDisabledImage.png", scaleGridTop="2", scaleGridBottom="10", 
-		scaleGridLeft="6", scaleGridRight="106")]
+	[Embed(source="assets/Adjuster_Slider_horizontal_trackDisabledImage.png", scaleGridTop="3", scaleGridBottom="13", 
+		scaleGridLeft="7", scaleGridRight="93")]
 	private var Adjuster_Slider_horizontal_trackDisabledImage:Class;
 	
 	[Embed(source="assets/Adjuster_Slider_horizontal_trackProgressImage.png")]
@@ -931,19 +931,19 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	//======================================================================
 	//========= Cell Background Images =======
 	[Embed(source="assets/TableHeader_cell_defaultImage.png", scaleGridTop="2", scaleGridBottom="17", 
-		scaleGridLeft="2", scaleGridRight="261")]
+		scaleGridLeft="2", scaleGridRight="31")]
 	private var TableHeader_cell_defaultImage:Class;
 	
 	[Embed(source="assets/TableHeader_cell_pressedImage.png", scaleGridTop="2", scaleGridBottom="17", 
-		scaleGridLeft="2", scaleGridRight="261")]
+		scaleGridLeft="2", scaleGridRight="31")]
 	private var TableHeader_cell_pressedImage:Class;
 	
 	[Embed(source="assets/TableHeader_cell_disabledImage.png", scaleGridTop="2", scaleGridBottom="17", 
-		scaleGridLeft="2", scaleGridRight="261")]
+		scaleGridLeft="2", scaleGridRight="31")]
 	private var TableHeader_cell_disabledImage:Class;
 	
 	[Embed(source="assets/TableHeader_cell_rolloverImage.png", scaleGridTop="2", scaleGridBottom="17", 
-		scaleGridLeft="2", scaleGridRight="261")]
+		scaleGridLeft="2", scaleGridRight="31")]
 	private var TableHeader_cell_rolloverImage:Class;
 	
 		
@@ -1391,6 +1391,20 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"Adjuster.Slider.foreground", table.get("controlText"),
 			"Adjuster.Slider.opaque", false,  
 			"Adjuster.Slider.focusable", true
+		];
+		table.putDefaults(comDefaults);
+		
+		 // *** Table
+		comDefaults = [
+			"Table.background", table.get("control"),
+			"Table.foreground", table.get("controlText"),
+			"Table.opaque", true, 
+			"Table.focusable", true, 
+			"Table.font", table.getFont("controlFont"),
+		    "Table.selectionBackground", table.get("selectionBackground"),
+		    "Table.selectionForeground", table.get("selectionForeground"), 
+			"Table.gridColor", new ASColorUIResource(0xd5d5d5),
+			"Table.border", undefined
 		];
 		table.putDefaults(comDefaults);
 		
