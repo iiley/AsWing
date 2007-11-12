@@ -24,17 +24,19 @@ public class FileModel implements TreeModel{
 	private var changeHandler:Function;
 	private var saved:Boolean;
 	
-	public function FileModel(root:ComModel, name:String, packageName:String){
+	public function FileModel(root:ComModel, name:String, packageName:String, forCode:Boolean=false){
 		this.root = root;
 		this.name = name;
 		this.packageName = packageName;
-		canvas = new Sprite();
-		canvas.mouseEnabled = false;
-		canvas.addChild(root.getDisplay());
 		listenerList = new Array();
 		saved = false;
 		
-		addListenersToAll(root);
+		if(!forCode){
+			canvas = new Sprite();
+			canvas.mouseEnabled = false;
+			canvas.addChild(root.getDisplay());
+			addListenersToAll(root);
+		}
 	}
 	
 	private function addListenersToAll(c:ComModel):void{
