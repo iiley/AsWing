@@ -6,6 +6,7 @@ import org.aswing.JComboBox;
 import org.aswing.JSeparator;
 import org.aswing.JSpacer;
 import org.aswing.JToolBar;
+import org.aswing.JLabel;
 
 public class ToolBarPane extends JToolBar{
 	
@@ -13,6 +14,7 @@ public class ToolBarPane extends JToolBar{
 	private var saveButton:JButton;
 	private var closeButton:JButton;
 	private var generateCodeButton:JButton;
+	private var generateComCodeButton:JButton;
 	private var revalidateButton:JButton;
 	private var rangeCheck:JCheckBox;
 	
@@ -30,6 +32,8 @@ public class ToolBarPane extends JToolBar{
 		closeButton.setToolTipText("Close present file.");
 		generateCodeButton = new JButton("Generate AS Code");
 		generateCodeButton.setToolTipText("Generate present ui to ActionScript class.");
+		generateComCodeButton = new JButton("Generate Selection");
+		generateComCodeButton.setToolTipText("Generate selected component ui to ActionScript class.");
 		revalidateButton = new JButton("Revalidate");
 		revalidateButton.setToolTipText("Revalidate selected component to make the ui to be refreshed!");
 		rangeCheck = new JCheckBox("View Range");
@@ -42,12 +46,11 @@ public class ToolBarPane extends JToolBar{
 		
 		aboutButton = new JButton("About");
 		
-		appendAll(openButton, saveButton, closeButton, generateCodeButton, rangeCheck);
-		append(new JSeparator(JSeparator.HORIZONTAL));
-		append(revalidateButton);
-		append(new JSeparator(JSeparator.HORIZONTAL));
+		appendAll(openButton, saveButton, closeButton, generateCodeButton, generateComCodeButton);
+		append(new JSeparator(JSeparator.VERTICAL));
+		append(rangeCheck, revalidateButton);
 		append(JSpacer.createHorizontalSpacer(10));
-		append(lafsCombo);
+		appendAll(new JLabel("LAF:"), lafsCombo);
 		append(JSpacer.createHorizontalSpacer(10));
 		append(aboutButton);
 	}
@@ -70,6 +73,10 @@ public class ToolBarPane extends JToolBar{
 	
 	public function getGenerateCodeButton():JButton{
 		return generateCodeButton;
+	}
+	
+	public function getGenerateComCodeButton():JButton{
+		return generateComCodeButton;
 	}
 	
 	public function getRevalidateButton():JButton{

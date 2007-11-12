@@ -176,6 +176,7 @@ public class Main extends JWindow{
 		toolBarPane.getOpenButton().addActionListener(__open);
 		toolBarPane.getCloseButton().addActionListener(__close);
 		toolBarPane.getGenerateCodeButton().addActionListener(__generateCode);
+		toolBarPane.getGenerateComCodeButton().addActionListener(__generateSelection);
 		toolBarPane.getRevalidateButton().addActionListener(__revalidateSelection);
 		filePane.getList().addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __fileSelection);
 		hiberarchyPane.getAddChildButton().addActionListener(__addChildCom);
@@ -190,6 +191,7 @@ public class Main extends JWindow{
 		hiberarchyPane.getTree().setModel(emptyTreeModel);
 		toolBarPane.getCloseButton().setEnabled(false);
 		toolBarPane.getGenerateCodeButton().setEnabled(false);
+		toolBarPane.getGenerateComCodeButton().setEnabled(false);
 		toolBarPane.getRevalidateButton().setEnabled(false);
 		toolBarPane.getAboutButton().addActionListener(__showAbout);
 		toolBarPane.getRangeCheck().addActionListener(__fileRangeChanged);
@@ -274,6 +276,17 @@ public class Main extends JWindow{
 			var code:String = generator.generateCode();
 			CodeWindow.getIns().showCode(
 				curFile.getPackageName() + "." + curFile.getName(), 
+				code);
+		}
+	}
+	
+	private function __generateSelection(e:Event):void{
+		if(curCom != null){
+			var fm:FileModel = new FileModel(curCom, curCom.getID(), "yourpackage", true);
+			var generator:CodeGenerator = new CodeGenerator(fm);
+			var code:String = generator.generateCode();
+			CodeWindow.getIns().showCode(
+				fm.getPackageName() + "." + fm.getName(), 
 				code);
 		}
 	}
@@ -447,6 +460,7 @@ public class Main extends JWindow{
 		propertyPane.setModel(comModel);
 		hiberarchyPane.setOperatable(comModel != null);
 		toolBarPane.getRevalidateButton().setEnabled(comModel != null);
+		toolBarPane.getGenerateComCodeButton().setEnabled(comModel != null);
 		if(comModel != null){
 			if(comModel == curFile.getRoot()){
 				hiberarchyPane.setOperatable(false);
