@@ -16,13 +16,13 @@ import org.aswing.error.ImpMissError;
 
 public class OrientableComponentBackground implements GroundDecorator, UIResource{
 
-	private var verticalImage:DisplayObject;
-	private var horizotalImage:DisplayObject;
-	private var verticalDisabledImage:DisplayObject;
-	private var horizotalDisabledImage:DisplayObject;
-	private var lastImage:DisplayObject;
-	private var imageContainer:Sprite;
-	private var loaded:Boolean;
+	protected var verticalImage:DisplayObject;
+	protected var horizotalImage:DisplayObject;
+	protected var verticalDisabledImage:DisplayObject;
+	protected var horizotalDisabledImage:DisplayObject;
+	protected var lastImage:DisplayObject;
+	protected var imageContainer:Sprite;
+	protected var loaded:Boolean;
 	
 	public function OrientableComponentBackground(){
 		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
