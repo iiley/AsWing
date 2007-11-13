@@ -24,12 +24,12 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		var uiDefaults:Array = [ 
 			   "ScrollBarUI", SkinScrollBarUI, 
 			   "ProgressBarUI", SkinProgressBarUI,
-			   "ComboBoxUI", SkinComboBoxUI,	   
+			   "ComboBoxUI", OrangeComboBoxUI,	   
 			   "SliderUI", SkinSliderUI,		   
 			   "AdjusterUI", SkinAdjusterUI,	   
 			   "AccordionUI", SkinAccordionUI, 
 			   "TabbedPaneUI", SkinTabbedPaneUI,
-			   "SplitPaneUI", SkinSplitPaneUI
+			   "SplitPaneUI", OrangeSplitPaneUI
 		   ];
 		table.putDefaults(uiDefaults);
 	}
@@ -37,29 +37,31 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	override protected function initSystemColorDefaults(table:UIDefaults):void{
 		super.initSystemColorDefaults(table);
 			var defaultSystemColors:Array = [
-				//"activeCaption", 0xF2F2F2, /* Color for captions (title bars) when they are active. */
+				"activeCaption", 0xF2F2F2, /* Color for captions (title bars) when they are active. */
 				"activeCaptionText", 0x212121, /* Text color for text in captions (title bars). */
-				//"activeCaptionBorder", 0xC0C0C0, /* Border color for caption (title bar) window borders. */
-				//"inactiveCaption", 0xE7E7E7, /* Color for captions (title bars) when not active. */
+				"activeCaptionBorder", 0xC0C0C0, /* Border color for caption (title bar) window borders. */
+				"inactiveCaption", 0xE7E7E7, /* Color for captions (title bars) when not active. */
 				"inactiveCaptionText", 0x515151, /* Text color for text in inactive captions (title bars). */
-				//"inactiveCaptionBorder", 0x888888, /* Border color for inactive caption (title bar) window borders. */
-				//"window", 0xEFEFEF, /* Default color for the interior of windows */
-				//"windowBorder", 0x000000, /* ??? */
-				//"windowText", 0x000000, /* ??? */
-				//"menu", 0xCCCCCC, /* Background color for menus */
-				//"menuText", 0x000000, /* Text color for menus  */
-				//"text", 0xC0C0C0, /* Text background color */
-				//"textText", 0x000000, /* Text foreground color */
-				//"textHighlight", 0x000080, /* Text background color when selected */
-				//"textHighlightText", 0xFFFFFF, /* Text color when selected */
-				//"textInactiveText", 0x808080, /* Text color when disabled */
-				//"control", 0xF4F4F4,//0xEFEFEF, /* Default color for controls (buttons, sliders, etc) */
+				"inactiveCaptionBorder", 0x888888, /* Border color for inactive caption (title bar) window borders. */
+				"window", 0xEFEFEF, /* Default color for the interior of windows */
+				"windowBorder", 0x000000, /* ??? */
+				"windowText", 0x000000, /* ??? */
+				"menu", 0xCCCCCC, /* Background color for menus */
+				"menuText", 0x000000, /* Text color for menus  */
+				"text", 0xC0C0C0, /* Text background color */
+				"textText", 0x000000, /* Text foreground color */
+				"textHighlight", 0x000080, /* Text background color when selected */
+				"textHighlightText", 0xFFFFFF, /* Text color when selected */
+				"textInactiveText", 0x808080, /* Text color when disabled */
+				"selectionBackground", 0xFFC107, //0x316AC5, 
+				"selectionForeground", 0x000000, 
+				"control", 0xF4F4F4,//0xEFEFEF, /* Default color for controls (buttons, sliders, etc) */
 				"controlText", 0x002a37, /* Default color for text in controls */
-				//"controlHighlight", 0xEEEEEE, /* Specular highlight (opposite of the shadow) */
-				//"controlLtHighlight", 0x666666, /* Highlight color for controls */
-				//"controlShadow", 0xC7C7C5, /* Shadow color for controls */
-				//"controlDkShadow", 0x666666, /* Dark shadow color for controls */
-				//"scrollbar", 0xE0E0E0 /* Scrollbar background (usually the "track") */
+				"controlHighlight", 0xEEEEEE, /* Specular highlight (opposite of the shadow) */
+				"controlLtHighlight", 0x666666, /* Highlight color for controls */
+				"controlShadow", 0xC7C7C5, /* Shadow color for controls */
+				"controlDkShadow", 0x666666, /* Dark shadow color for controls */
+				"scrollbar", 0xE0E0E0 /* Scrollbar background (usually the "track") */
 			];
 					
 			for(var i:Number=0; i<defaultSystemColors.length; i+=2){
@@ -84,9 +86,9 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		super.initCommonUtils(table);
 		
 		var arrowColors:Array = [
-			"resizeArrow", new ASColorUIResource(0xF2F2F2),
-			"resizeArrowLight", new ASColorUIResource(0xCCCCCC),
-			"resizeArrowDark", new ASColorUIResource(0x000000)
+			"resizeArrow", new ASColorUIResource(0xF2F2F2, 0),
+			"resizeArrowLight", new ASColorUIResource(0xCCCCCC, 0),
+			"resizeArrowDark", new ASColorUIResource(0x000000, 1)
 		];
 		table.putDefaults(arrowColors);
 		
@@ -823,12 +825,10 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	private var SplitPane_arrowDown_rolloverImage:Class;
 	
 	//========= Background Images scale-9 ======= 
-	[Embed(source="assets/SplitPane_divider_verticalBGImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/SplitPane_divider_verticalBGImage.png")]
 	private var SplitPane_divider_verticalBGImage:Class;
 	
-	[Embed(source="assets/SplitPane_divider_horizotalBGImage.png", scaleGridTop="6", scaleGridBottom="18", 
-		scaleGridLeft="6", scaleGridRight="67")]
+	[Embed(source="assets/SplitPane_divider_horizotalBGImage.png")]
 	private var SplitPane_divider_horizotalBGImage:Class;
 	
 	//by default the disabled bg state is null(means same to normal state), but you can add it by remove the comments
@@ -1323,7 +1323,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		comDefaults = [
 			"SplitPane.presentDragColor", new ASColorUIResource(0x000000, 40), 
 			
-			"SplitPane.defaultDividerSize", 10, //modify this to fit the divier images
+			"SplitPane.defaultDividerSize", 7, //modify this to fit the divier images
 			"SplitPane.divider.verticalBGImage", SplitPane_divider_verticalBGImage, 
 			"SplitPane.divider.horizotalBGImage", SplitPane_divider_horizotalBGImage, 
 			"SplitPane.divider.verticalBGDisabledImage", SplitPane_divider_verticalBGDisabledImage, 
