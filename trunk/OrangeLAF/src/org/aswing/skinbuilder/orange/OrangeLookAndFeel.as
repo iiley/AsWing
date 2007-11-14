@@ -11,7 +11,7 @@ import org.aswing.skinbuilder.*;
 import flash.filters.DropShadowFilter;
 
 /**
- * TransLookAndFeel, the art works is designed by Raku.
+ * TransLookAndFeel, the art works is designed by Raku(http://hi.baidu.com/rakuikou).
  */
 public class OrangeLookAndFeel extends BasicLookAndFeel{
 	
