@@ -34,7 +34,7 @@ public class Windows extends JPanel{
 		
 		frameButton.addActionListener(__showFrame);
 		//TODO modify ComSetSkin yo ComSet when you are deploy ComSet
-		frame = new JFrame(this, "A Frame");
+		frame = new JFrame(AsWingUtils.getPopupAncestor(this), "A Frame");
 		var pane:JPanel = new JPanel();
 		pane.append(new JLabel("Default button is close button(Press Enter to act)"));
 		var closeButton2:JButton = new JButton("Close");
