@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/1.0.M5" appId="org.aswing.guibuilder" version="1.0 RC1">
+<application xmlns="http://ns.adobe.com/air/application/1.0.M5" appId="org.aswing.guibuilder" version="1.0">
 <!-- 
     AIR Application Descriptor File: 
     Specifies parameters for identifying, installing, and launching AIR applications.
