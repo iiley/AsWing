@@ -28,7 +28,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			   "SliderUI", SkinSliderUI,		   
 			   "AdjusterUI", SkinAdjusterUI,	   
 			   "AccordionUI", SkinAccordionUI, 
-			   "TabbedPaneUI", SkinTabbedPaneUI,
+			   "TabbedPaneUI", OrangeTabbedPaneUI,
 			   "SplitPaneUI", OrangeSplitPaneUI
 		   ];
 		table.putDefaults(uiDefaults);
