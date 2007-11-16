@@ -22,17 +22,9 @@ import flash.ui.Keyboard;
  * @author iiley
  * @private
  */
-public class BasicButtonUI extends BaseComponentUI
-{
-    
-    // Offset controlled by set method 
-    private var shiftOffset:int;
-    private var defaultTextShiftOffset:int;
-
-    // Has the shared instance defaults been initialized?
-    private var defaults_initialized:Boolean;	
-	protected var button:AbstractButton;
+public class BasicButtonUI extends BaseComponentUI{
 	
+	protected var button:AbstractButton;
 	protected var textField:TextField;
 	
 	public function BasicButtonUI(){
@@ -60,9 +52,9 @@ public class BasicButtonUI extends BaseComponentUI
  	protected function installDefaults(b:AbstractButton):void{
         // load shared instance defaults
         var pp:String = getPropertyPrefix();
-        if(!defaults_initialized) {
-            defaultTextShiftOffset = getInt(pp + "textShiftOffset");
-        	defaults_initialized = true;
+        if(!b.isShiftOffsetSet()){
+        	b.setShiftOffset(getInt(pp + "textShiftOffset"));
+        	b.setShiftOffsetSet(false);
         }
         
         if(b.getMargin() is UIResource) {
@@ -72,7 +64,6 @@ public class BasicButtonUI extends BaseComponentUI
         LookAndFeel.installColorsAndFont(b, pp);
         LookAndFeel.installBorderAndBFDecorators(b, pp);
         LookAndFeel.installBasicProperties(b, pp);
-        setTextShiftOffset();
         button.mouseChildren = false;
  	}
 	
@@ -102,18 +93,10 @@ public class BasicButtonUI extends BaseComponentUI
  	}
  	
  	//-----------------------------------------------------
- 	
-    protected function clearTextShiftOffset():void{
-        shiftOffset = 0;
-    }
-    
-    protected function setTextShiftOffset():void{
-        shiftOffset = defaultTextShiftOffset;
-    }
-    
+ 	        
     protected function getTextShiftOffset():int{
-    	return shiftOffset;
-    } 	
+    	return button.getShiftOffset();
+    }
     
     //--------------------------------------------------------
     
@@ -211,6 +194,7 @@ public class BasicButtonUI extends BaseComponentUI
      * paint the text to specified button with specified bounds
      */
     protected function paintText(b:AbstractButton, textRect:IntRectangle, text:String):void{
+    	b.bringToTop(textField);
     	var model:ButtonModel = b.getModel();
     	var font:ASFont = b.getFont();
     	
@@ -265,10 +249,6 @@ public class BasicButtonUI extends BaseComponentUI
 			}
 		} else if(model.isPressed() && model.isArmed()) {
 			tmpIcon = b.getPressedIcon();
-			if(tmpIcon != null) {
-				// revert back to 0 offset
-				//clearTextShiftOffset();
-			}
 		} else if(b.isRollOverEnabled() && model.isRollOver()) {
 			if(model.isSelected()) {
 				tmpIcon = b.getRollOverSelectedIcon();
