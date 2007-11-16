@@ -48,7 +48,7 @@ public class ToolBarPane extends JToolBar{
 		
 		appendAll(openButton, saveButton, closeButton, generateCodeButton, generateComCodeButton);
 		append(new JSeparator(JSeparator.VERTICAL));
-		append(rangeCheck, revalidateButton);
+		appendAll(rangeCheck, revalidateButton);
 		append(JSpacer.createHorizontalSpacer(10));
 		appendAll(new JLabel("LAF:"), lafsCombo);
 		append(JSpacer.createHorizontalSpacer(10));
