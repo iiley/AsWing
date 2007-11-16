@@ -142,6 +142,10 @@
 		</Property>
 		<Property label="Round" name="Round" type="int">
 		</Property>
+		<Property label="LineColor" name="LineColor" type="Color">
+		</Property>
+		<Property label="LineLightColor" name="LineLightColor" type="Color">
+		</Property>
 	</Border>
 	<Border name="SimpleTitledBorder" clazz="org.aswing.border.SimpleTitledBorder">
 		<Property label="Interior" name="Interior" type="Border">
@@ -159,6 +163,19 @@
 			<Value value="0"></Value>
 		</Property>
 		<Property label="Align" name="Align" type="Align" editorParam="hor-only">
+		</Property>
+	</Border>
+	<Border name="CaveBorder" clazz="org.aswing.border.CaveBorder">
+		<Property label="Interior" name="Interior" type="Border">
+		</Property>
+		<Property label="Beveled" name="Beveled" type="Boolean">
+			<Value value="true"></Value>
+		</Property>
+		<Property label="LineColor" name="LineColor" type="Color">
+		</Property>
+		<Property label="LineLightColor" name="LineLightColor" type="Color">
+		</Property>
+		<Property label="Round" name="Round" type="int">
 		</Property>
 	</Border>
 </Borders>
