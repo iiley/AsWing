@@ -115,6 +115,10 @@ public class BaseComponentUI implements ComponentUI
 		return defaults != null && defaults.containsKey(key);
 	}
 	
+	public function containsKey(key:String):Boolean{
+		return containsDefaultsKey(key) || UIManager.containsKey(key);
+	}
+	
 	public function getBoolean(key:String):Boolean{
 		if(containsDefaultsKey(key)){
 			return defaults.getBoolean(key);

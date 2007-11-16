@@ -113,10 +113,10 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var tabMargin:Insets = getInsets(pp+"tabMargin");
 		if(tabMargin == null) tabMargin = new InsetsUIResource(1, 1, 1, 1);
 		
-		if(containsDefaultsKey(pp+"tabBorderInsets")){
+		if(containsKey(pp+"tabBorderInsets")){
 			tabBorderInsets = getInsets(pp+"tabBorderInsets");
 		}
-		if(containsDefaultsKey(pp+"selectedTabExpandInsets")){
+		if(containsKey(pp+"selectedTabExpandInsets")){
 			selectedTabExpandInsets = getInsets(pp+"selectedTabExpandInsets");
 		}
 		
