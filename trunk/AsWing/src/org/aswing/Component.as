@@ -170,6 +170,7 @@ public class Component extends AWSprite{
 	private var constraints:Object;
 	private var uiElement:Boolean;
 	
+	protected var drawTransparentTrigger:Boolean = true;
 	protected var valid:Boolean;
 	protected var bounds:IntRectangle;
 	protected var readyToPaint:Boolean;
@@ -1970,7 +1971,7 @@ public class Component extends AWSprite{
 		var g:Graphics2D = new Graphics2D(graphics);
 		
 		//fill a transparent rectangle to be the mouse trigger
-		if(isEnabled()){
+		if(isEnabled() && drawTransparentTrigger){
 			g.fillRectangle(bg_trigger_brush, b.x, b.y, b.width, b.height);
 		}
 		

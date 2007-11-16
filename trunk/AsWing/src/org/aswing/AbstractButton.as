@@ -12,6 +12,7 @@ import org.aswing.error.ImpMissError;
 import org.aswing.event.*;
 import org.aswing.plaf.*;	
 import org.aswing.util.*;
+import flash.display.SimpleButton;
 	
 /**
  * Dispatched when the button's model take action, generally when user click the 
@@ -122,6 +123,8 @@ public class AbstractButton extends Component{
     private var        horizontalTextPosition:int;
 
     private var        iconTextGap:int;	
+    private var        shiftOffset:int = 0;
+    private var        shiftOffsetSet:Boolean=false;
 	
 	public function AbstractButton(text:String="", icon:Icon=null){
 		super();
@@ -386,6 +389,19 @@ public class AbstractButton extends Component{
 		}else{
 			return new Insets(m.top, m.left, m.bottom, m.right);
 		}
+	}
+	
+	/**
+	 * Wrap a SimpleButton to be this button's representation.
+	 * @param btn the SimpleButton to be wrap.
+	 */
+	public function wrapSimpleButton(btn:SimpleButton):void{
+		setShiftOffset(0);
+		setIcon(new SimpleButtonIconToggle(btn));
+		setBorder(null);
+		setMargin(new Insets());
+		setBackgroundDecorator(null);
+		setOpaque(false);
 	}
 		
 	/**
@@ -860,6 +876,42 @@ public class AbstractButton extends Component{
             revalidate();
             repaint();
         }
+    }
+    
+    /**
+     * Returns the shift offset when mouse press.
+     *
+     * @return the shift offset when mouse press.
+     */
+    public function getShiftOffset():int {
+        return shiftOffset;
+    }
+
+    /**
+     * Set the shift offset when mouse press.
+     */
+    public function setShiftOffset(shiftOffset:int):void {
+        var oldValue:int = this.shiftOffset;
+        this.shiftOffset = shiftOffset;
+        setShiftOffsetSet(true);
+        if (shiftOffset != oldValue) {
+            revalidate();
+            repaint();
+        }
+    }
+    
+    /**
+     * Return whether or not the shiftOffset has set by user. The LAF will not change this value if it is true.
+     */
+    public function isShiftOffsetSet():Boolean{
+    	return shiftOffsetSet;
+    }
+    
+   /**
+    * Set whether or not the shiftOffset has set by user. The LAF will not change this value if it is true.
+    */
+    public function setShiftOffsetSet(b:Boolean):void{
+    	shiftOffsetSet = b;
     }
     
     //--------------------------------------------------------------
