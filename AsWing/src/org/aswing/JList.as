@@ -1575,7 +1575,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
-		var rlvi:int = lastVisibleIndex + lastVisibleIndexOffset;
+		var rlvi:int = Math.min(lastVisibleIndex+lastVisibleIndexOffset, listSize-1);
 		for(i=endIndex+1; i<=rlvi; i++){
 			cellCom = ListCell(cells.get(i)).getCellComponent();
 			cellCom.setVisible(false);
