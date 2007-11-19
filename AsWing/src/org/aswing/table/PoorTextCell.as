@@ -16,9 +16,9 @@ import flash.text.*;
  */
 public class PoorTextCell extends Component implements TableCell{
 	
-	private var textField:TextField;
-	private var text:String;
-	private var cellValue:*;
+	protected var textField:TextField;
+	protected var text:String;
+	protected var cellValue:*;
 	
 	public function PoorTextCell() {
 		super();
