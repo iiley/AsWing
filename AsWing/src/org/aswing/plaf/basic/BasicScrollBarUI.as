@@ -78,7 +78,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
 	protected function installDefaults():void{
 		configureScrollBarColors();
 		var pp:String = getPropertyPrefix();
-		if(containsKey((pp+"barWidth")){
+		if(containsKey(pp+"barWidth")){
 			scrollBarWidth = getInt(pp+"barWidth");
 		}
 		LookAndFeel.installBasicProperties(scrollbar, pp);
