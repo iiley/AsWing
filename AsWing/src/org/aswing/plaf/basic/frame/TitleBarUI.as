@@ -34,31 +34,31 @@ import org.aswing.LayoutManager;
  */
 public class TitleBarUI extends BaseComponentUI{
 	
-	private static const ICON_TEXT_GAP:int = 2;
+	protected static const ICON_TEXT_GAP:int = 2;
 	
-	private var titleTextField:TextField;
-	private var titleBar:FrameTitleBar;
-	private var frame:JFrame;
+	protected var titleTextField:TextField;
+	protected var titleBar:FrameTitleBar;
+	protected var frame:JFrame;
 	
-	private var iconifiedButton:JButton;
-	private var resizeButton:JButton;
-	private var closeButton:JButton;
+	protected var iconifiedButton:JButton;
+	protected var resizeButton:JButton;
+	protected var closeButton:JButton;
 	
-	private var iconifiedIcon:Icon;
-	private var normalIcon:Icon;
-	private var maximizeIcon:Icon;
-	private var closeIcon:Icon;
+	protected var iconifiedIcon:Icon;
+	protected var normalIcon:Icon;
+	protected var maximizeIcon:Icon;
+	protected var closeIcon:Icon;
 	
-	private var activeColor:ASColor;
-	private var activeTextColor:ASColor;
-	private var inactiveColor:ASColor;
-	private var inactiveTextColor:ASColor;
-	private var activeBorderColor:ASColor;
-	private var inactiveBorderColor:ASColor;
+	protected var activeColor:ASColor;
+	protected var activeTextColor:ASColor;
+	protected var inactiveColor:ASColor;
+	protected var inactiveTextColor:ASColor;
+	protected var activeBorderColor:ASColor;
+	protected var inactiveBorderColor:ASColor;
 	
-	private var stateChangeSize:Boolean;
-	private var stateChangeLocation:Boolean;
-	private var lastNormalStateBounds:IntRectangle;
+	protected var stateChangeSize:Boolean;
+	protected var stateChangeLocation:Boolean;
+	protected var lastNormalStateBounds:IntRectangle;
 	
 	public function TitleBarUI() {
 		super();
