@@ -27,7 +27,7 @@ public class ToolBarPane extends JToolBar{
 		openButton = new JButton("Open");
 		openButton.setToolTipText("Open a exists ui file.");
 		saveButton = new JButton("Save");
-		saveButton.setToolTipText("Save to the folder where GuiBuilder is installed.");
+		saveButton.setToolTipText("Save to workspace.");
 		closeButton = new JButton("Close");
 		closeButton.setToolTipText("Close present file.");
 		generateCodeButton = new JButton("Generate AS Code");
