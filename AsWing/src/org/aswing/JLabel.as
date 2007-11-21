@@ -91,6 +91,7 @@ public class JLabel extends Component{
     private var horizontalTextPosition:int;
 
     private var iconTextGap:int;
+    private var selectable:Boolean;
     
     /**
      * Creates a label.
@@ -112,6 +113,7 @@ public class JLabel extends Component{
     	this.horizontalAlignment = horizontalAlignment;
     	
     	iconTextGap = 4;
+    	selectable = false;
 		
 		updateUI();
 	}
@@ -151,6 +153,14 @@ public class JLabel extends Component{
 	
 	public function getText():String{
 		return text;
+	}
+	
+	public function setSelectable(b:Boolean):void{
+		selectable = b;
+	}
+	
+	public function isSelectable():Boolean{
+		return selectable;
 	}
 	
 	public function setIcon(icon:Icon):void{
