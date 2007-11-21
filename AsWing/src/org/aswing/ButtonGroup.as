@@ -71,7 +71,16 @@ public class ButtonGroup
 
         b.getModel().setGroup(this);
     }
- 
+ 	
+ 	/**
+ 	 * Appends all buttons into this group.
+ 	 */
+ 	public function appendAll(...buttons):void{
+    	for each(var i:AbstractButton in buttons){
+    		append(i);
+    	}
+ 	}
+ 	
     /**
 	 * Removes the button from the group.
 	 * 
@@ -117,6 +126,18 @@ public class ButtonGroup
 	 */
     public function getSelection():ButtonModel {
         return selection;
+    }
+    
+    /**
+     * Return the first selected button, if none, return null.
+     */
+    public function getSelectedButton():AbstractButton{
+    	for each(var b:AbstractButton in buttons){
+    		if(b.isSelected()){
+    			return b;
+    		}
+    	}
+    	return null;
     }
 
     /**
