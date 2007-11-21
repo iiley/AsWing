@@ -52,6 +52,11 @@ additions:
 
 added CaveBorder
 added wrapSimpleButton method to button classes
+added appendAll and getSelectedButton method to ButtonGroup
+added setSelectable/isSelectable method to JLabel
+added EmptyIcon class
+added some useful methods to ButtonGroup
+added default cells render value+"" instead of value.toString, solved value null issue
 
 bugfixes:
 
