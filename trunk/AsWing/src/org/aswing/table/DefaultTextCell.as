@@ -57,7 +57,7 @@ public class DefaultTextCell extends JLabel implements TableCell{
 	//**********************************************************
 	public function setCellValue(value:*) : void {
 		this.value = value;
-		setText(value.toString());
+		setText(value + "");
 	}
 	
 	public function getCellValue():*{

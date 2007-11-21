@@ -101,7 +101,7 @@ public class PoorTextCell extends Component implements TableCell{
 
 	public function setCellValue(value:*) : void {
 		cellValue = value;
-		setText(value.toString());
+		setText(value + "");
 	}
 
 	public function getCellValue():* {

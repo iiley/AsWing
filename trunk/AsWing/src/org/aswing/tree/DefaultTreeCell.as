@@ -81,7 +81,7 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 	public function setCellValue(value:*) : void {
 		readyToPaint = true;
 		this.value = value;
-		setText(value.toString());
+		setText(value + "");
 	}
 	
 	public function getCellValue():*{

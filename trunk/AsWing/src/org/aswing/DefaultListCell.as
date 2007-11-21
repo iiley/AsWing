@@ -28,7 +28,7 @@ public class DefaultListCell extends AbstractListCell{
 	
 	override public function setCellValue(value:*) : void {
 		super.setCellValue(value);
-		getJLabel().setText(value.toString());
+		getJLabel().setText(value + "");
 		__resized(null);
 	}
 	
