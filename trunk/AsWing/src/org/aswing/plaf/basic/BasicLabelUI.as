@@ -113,6 +113,9 @@ public class BasicLabelUI extends BaseComponentUI{
         	textField.text = "";
         	textField.visible = false;
         }
+        
+        textField.selectable = b.isSelectable();
+        textField.mouseEnabled = b.isSelectable();
     }
     
     protected function getIconToLayout():Icon{
