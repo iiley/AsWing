@@ -138,7 +138,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     protected function getScollPane():JScrollPane{
     	if(scollPane == null){
     		scollPane = new JScrollPane(getPopupList());
-    		scollPane.setBorder(new LineBorder());
+    		scollPane.setBorder(getBorder(getPropertyPrefix()+"popupBorder"));
     		scollPane.setOpaque(true);
     	}
     	return scollPane;
