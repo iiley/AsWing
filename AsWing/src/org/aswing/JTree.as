@@ -114,9 +114,6 @@ import org.aswing.util.Vector;
  * are expanded, but may or may not be displayed. A <i>displayed</i> node
  * is both viewable and in the display area, where it can be seen.
  * </p>
- * Note that <code>JListTree</code> does not allow duplicate nodes to exist as children under 
- * the same parent too -- each sibling must be a unique object.
- * <p>
  * The following <code>JTree</code> methods use "visible" to mean "displayed":
  * <ul>
  * <li><code>isRootVisible()</code>
@@ -135,17 +132,17 @@ import org.aswing.util.Vector;
  * </ul>
  * <p>
  * If you are interested in knowing when the selection listen the
- * the <code>ON_SELECTION_CHANGED</code> event.
+ * the <code>TreeSelectionEvent.TREE_SELECTION_CHANGED</code> event.
  * </p>
  * If you are interested in detecting either double-click events or when
  * a user clicks on a node, regardless of whether or not it was selected,
  * we recommend you do the following:
  * <listing>
- *     yourTree.addEventListener(ON_PRESS, __onPressed, this);
+ *     yourTree.addEventListener(MouseEvent.MOUSE_DOWN, __onPressed);
  *     ....
  *     
- *     public function __onPressed(tree:Source):void {
- *         TreePath selPath = tree.getMousePointedPath();
+ *     public function __onPressed(e:Event):void {
+ *         var selPath:TreePath = tree.getMousePointedPath();
  *         ....
  *     }
  * };
@@ -159,8 +156,7 @@ import org.aswing.util.Vector;
  * </p>
  * For a big model tree, there's two way to speed up the performance.
  * <br>
- * 1. Make all model item implemented Identifiable.<br>
- * 2. call JTree.setFixedCellWidth(width:Number) to fix the cell width.
+ * call JTree.setFixedCellWidth(width:int) to fix the cell width.
  * 
  * @see TreeModel
  * @author iiley
