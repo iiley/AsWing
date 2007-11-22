@@ -159,7 +159,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	protected function uninstallListeners():void{
 		tabbedPane.removeStateListener(__onSelectionChanged);
 		tabbedPane.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onNavKeyDown);
-		tabbedPane.removeEventListener(MouseEvent.CLICK, __onTabPanePressed);
+		tabbedPane.removeEventListener(MouseEvent.MOUSE_DOWN, __onTabPanePressed);
 	}
 	
 	//----------------------------------------------------------------
