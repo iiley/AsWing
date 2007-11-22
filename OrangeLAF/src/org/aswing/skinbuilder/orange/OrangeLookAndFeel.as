@@ -24,11 +24,11 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		var uiDefaults:Array = [ 
 			   "ScrollBarUI", SkinScrollBarUI, 
 			   "ProgressBarUI", SkinProgressBarUI,
-			   "ComboBoxUI", OrangeComboBoxUI,	   
+			   "ComboBoxUI", SkinComboBoxUI, 
 			   "SliderUI", SkinSliderUI,		   
 			   "AdjusterUI", SkinAdjusterUI,	   
 			   "AccordionUI", SkinAccordionUI, 
-			   "TabbedPaneUI", OrangeTabbedPaneUI,
+			   "TabbedPaneUI", SkinTabbedPaneUI, 
 			   "SplitPaneUI", OrangeSplitPaneUI
 		   ];
 		table.putDefaults(uiDefaults);
@@ -1191,6 +1191,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		// *** ComboBox
 		comDefaults = [
 			"ComboBox.opaque", false, 
+			"ComboBox.popupBorder", OrangeComboBoxPopupBorder, 
 			"ComboBox.bg", SkinComboBoxBackground,
 			"ComboBox.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
 			"ComboBox.defaultImage", ComboBox_defaultImage, 
