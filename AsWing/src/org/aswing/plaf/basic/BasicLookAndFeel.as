@@ -454,6 +454,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"ComboBox.foreground", table.get("controlText"),
 			"ComboBox.opaque", true, 
 			"ComboBox.focusable", true, 
+			"ComboBox.popupBorder", org.aswing.plaf.basic.border.ComboBoxPopupBorder,	
 			"ComboBox.shadow", table.getColor("controlShadow"),		
 			"ComboBox.darkShadow", table.getColor("controlDkShadow"),		
 			"ComboBox.light", table.getColor("controlHighlight"),	   
