@@ -112,7 +112,7 @@ public class CodeGenerator{
 			var id:String = c.getID();
 			for(var i:int=0; i<n; i++){
 				var ch:ComModel = c.getChild(i);
-				line(appendStr + ch.getID() + ")");
+				line(appendStr + ch.getID() + ");");
 			}
 			line();
 		}
