@@ -28,8 +28,7 @@ public class AeonLAF extends BasicLookAndFeel{
 			   "ProgressBarUI", SkinProgressBarUI,
 			   "ComboBoxUI", SkinComboBoxUI,	   
 			   "SliderUI", SkinSliderUI,		   
-			   "AdjusterUI", SkinAdjusterUI,	   
-			   "AccordionUI", SkinAccordionUI, 
+			   "AdjusterUI", SkinAdjusterUI,	
 			   "TabbedPaneUI", SkinTabbedPaneUI,
 			   "SplitPaneUI", SkinSplitPaneUI,
 			   //"TableUI", org.aswing.plaf.basic.BasicTableUI, 
@@ -1063,6 +1062,7 @@ public class AeonLAF extends BasicLookAndFeel{
 		
 		// *** Accordion
 		comDefaults = [
+			"Accordion.header", SkinAccordionHeader, 
 			"Accordion.tabMargin", new InsetsUIResource(2, 3, 3, 2),  //modify this to fit header image
 			"Accordion.header.defaultImage", Accordion_header_defaultImage,
 			"Accordion.header.pressedImage", Accordion_header_pressedImage,
@@ -1075,6 +1075,7 @@ public class AeonLAF extends BasicLookAndFeel{
 		
 		// *** TabbedPane
 		comDefaults = [
+			"TabbedPane.tab", SkinTabbedPaneTab, 
 			"TabbedPane.tabMargin", new InsetsUIResource(1, 3, 1, 3),  //modify this to fit header image
 			"TabbedPane.tabBorderInsets", new InsetsUIResource(0, 4, 0, 4),
 			"TabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 4, 0, 4), 
