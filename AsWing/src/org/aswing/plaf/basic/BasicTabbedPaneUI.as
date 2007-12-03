@@ -447,7 +447,10 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
      * Just override this method if you want other LAF headers.
      */
     protected function createNewTab():Tab{
-    	var tab:Tab = new BasicTabbedPaneTab();
+    	var tab:Tab = getInstance(getPropertyPrefix() + "tab") as Tab;
+    	if(tab == null){
+    		tab = new BasicTabbedPaneTab();
+    	}
     	tab.getTabComponent().setFocusable(false);
     	return tab;
     }
@@ -489,13 +492,37 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     	header.setHorizontalAlignment(tabbedPane.getHorizontalAlignment());
     	header.setHorizontalTextPosition(tabbedPane.getHorizontalTextPosition());
     	header.setIconTextGap(tabbedPane.getIconTextGap());
-    	//header.setMargin(tabbedPane.getMargin()); no need here, because drawTabAt and countPreferredTabSizeAt did this work
+    	setTabMarginProperty(header, getTransformedMargin());
     	header.setVerticalAlignment(tabbedPane.getVerticalAlignment());
     	header.setVerticalTextPosition(tabbedPane.getVerticalTextPosition());
     	header.getTabComponent().setFont(tabbedPane.getFont());
     	header.getTabComponent().setForeground(tabbedPane.getForeground());
     }
-        
+    
+    protected function setTabMarginProperty(tab:Tab, margin:Insets):void{
+    	//tab.setMargin(margin); no need here, because drawTabAt and countPreferredTabSizeAt did this work
+    }
+    
+    protected function getTransformedMargin():Insets{
+    	var placement:int = tabbedPane.getTabPlacement();
+    	var tabMargin:Insets = tabbedPane.getMargin();
+    	var transformedTabMargin:Insets = tabMargin.clone();
+		if(placement == JTabbedPane.LEFT){
+			transformedTabMargin.left = tabMargin.top;
+			transformedTabMargin.right = tabMargin.bottom;
+			transformedTabMargin.top = tabMargin.right;
+			transformedTabMargin.bottom = tabMargin.left;
+		}else if(placement == JTabbedPane.RIGHT){
+			transformedTabMargin.left = tabMargin.bottom;
+			transformedTabMargin.right = tabMargin.top;
+			transformedTabMargin.top = tabMargin.left;
+			transformedTabMargin.bottom = tabMargin.right;
+		}else if(placement == JTabbedPane.BOTTOM){
+			transformedTabMargin.top = tabMargin.bottom;
+			transformedTabMargin.bottom = tabMargin.top;
+		}
+		return transformedTabMargin;
+    }
 		
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
 		super.paint(c, g, b);
@@ -515,26 +542,16 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		tabBarBounds.width = Math.min(tabBarBounds.width, contentBounds.width);
 		tabBarBounds.height = Math.min(tabBarBounds.height, contentBounds.height);
 		var tabMargin:Insets = tabbedPane.getMargin();
-		var transformedTabMargin:Insets = new Insets(tabMargin.top, tabMargin.left, tabMargin.bottom, tabMargin.right);
+		var transformedTabMargin:Insets = getTransformedMargin();
 		var placement:int = tabbedPane.getTabPlacement();
 		if(placement == JTabbedPane.LEFT){
 			tabBarBounds.y += tabBorderInsets.left;//extra for expand 
-			transformedTabMargin.left = tabMargin.top;
-			transformedTabMargin.right = tabMargin.bottom;
-			transformedTabMargin.top = tabMargin.right;
-			transformedTabMargin.bottom = tabMargin.left;
 		}else if(placement == JTabbedPane.RIGHT){
 			tabBarBounds.x = contentBounds.x + contentBounds.width - tabBarBounds.width;
 			tabBarBounds.y += tabBorderInsets.left;//extra for expand 
-			transformedTabMargin.left = tabMargin.bottom;
-			transformedTabMargin.right = tabMargin.top;
-			transformedTabMargin.top = tabMargin.left;
-			transformedTabMargin.bottom = tabMargin.right;
 		}else if(placement == JTabbedPane.BOTTOM){
 			tabBarBounds.y = contentBounds.y + contentBounds.height - tabBarBounds.height;
 			tabBarBounds.x += tabBorderInsets.left;//extra for expand 
-			transformedTabMargin.top = tabMargin.bottom;
-			transformedTabMargin.bottom = tabMargin.top;
 		}else{ //others value are all considered as TOP
 			tabBarBounds.x += tabBorderInsets.left;//extra for expand
 		}

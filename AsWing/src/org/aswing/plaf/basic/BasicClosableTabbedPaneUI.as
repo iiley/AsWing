@@ -33,7 +33,9 @@ public class BasicClosableTabbedPaneUI extends BasicTabbedPaneUI{
 	
     override protected function setTabProperties(header:Tab, i:int):void{
     	super.setTabProperties(header, i);
-    	ClosableTab(header).getCloseButton().setEnabled(JClosableTabbedPane(tabbedPane).isCloseEnabledAt(i));
+    	ClosableTab(header).getCloseButton().setEnabled(
+    		JClosableTabbedPane(tabbedPane).isCloseEnabledAt(i)
+    		&& tabbedPane.isEnabledAt(i));
     }
 	
 	override protected function installListeners():void{
@@ -56,8 +58,11 @@ public class BasicClosableTabbedPaneUI extends BasicTabbedPaneUI{
     /**
      * Just override this method if you want other LAF headers.
      */
-    override protected function createNewTab():Tab{
-    	var tab:Tab = new BasicClosableTabbedPaneTab();
+    override protected function createNewTab():Tab{    	
+    	var tab:Tab = getInstance(getPropertyPrefix() + "tab") as Tab;
+    	if(tab == null){
+    		tab = new BasicClosableTabbedPaneTab();
+    	}
     	tab.getTabComponent().setFocusable(false);
     	return tab;
     }
