@@ -136,7 +136,10 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
      * Just override this method if you want other LAF headers.
      */
     protected function createNewHeader():Tab{
-    	var header:Tab = new BasicAccordionHeader();
+    	var header:Tab = getInstance(getPropertyPrefix() + "header") as Tab;
+    	if(header == null){
+    		header = new BasicAccordionHeader();
+    	}
     	header.getTabComponent().setFocusable(false);
     	return header;
     }
