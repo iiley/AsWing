@@ -53,7 +53,7 @@ public class BasicAccordionHeader implements Tab{
     	button.setMargin(m);
     }
 
-	public function getComponent() : Component {
+	public function getTabComponent() : Component {
 		return button;
 	}
 

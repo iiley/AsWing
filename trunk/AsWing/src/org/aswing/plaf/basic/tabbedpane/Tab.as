@@ -87,7 +87,7 @@ public interface Tab{
 	 * The component represent the header and can fire the selection event 
 	 * through <code>MouseEvent.CLICK</code> event.
 	 */
-	function getComponent():Component;
+	function getTabComponent():Component;
 	
 }
 }

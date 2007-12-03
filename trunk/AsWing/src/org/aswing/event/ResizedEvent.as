@@ -16,7 +16,7 @@ public class ResizedEvent extends AWEvent
 {
 	
 	/**
-     *  The <code>AWEvent.RESIZED</code> constant defines the value of the
+     *  The <code>ResizedEvent.RESIZED</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>resized</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>
