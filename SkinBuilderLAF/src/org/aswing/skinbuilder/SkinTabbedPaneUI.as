@@ -43,13 +43,6 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 		
 		tabbedPane.setBackgroundDecorator(this);
 	}
-	
-    override protected function createNewTab():Tab{
-    	var tab:Tab = new SkinTabbedPaneTab();
-    	tab.getComponent().setFocusable(false);
-    	topTabCom = tab.getComponent();
-    	return tab;
-    }
     
 	override protected function createNextButton():AbstractButton{
 		var b:JButton = new JButton();
@@ -174,7 +167,7 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 		var viewRect:IntRectangle = transformedTabMargin.getInsideBounds(bounds);
 		var tab:Tab = getTab(index);
 		tab.setSelected(index == tabbedPane.getSelectedIndex());
-		var tc:Component = tab.getComponent();
+		var tc:Component = tab.getTabComponent();
 		tc.setComBounds(getDrawnTabBounds(index));
 		if(index == tabbedPane.getSelectedIndex()){
 			if (tc.parent.contains(topTabCom)){
@@ -182,7 +175,17 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 			}
 			topTabCom = tc;
 		}
-	}  
+	}
+	
+    override protected function createNewTab():Tab{
+    	var tab:Tab = super.createNewTab();
+    	topTabCom = tab.getTabComponent();
+    	return tab;
+    }
+    	
+    override protected function setTabMarginProperty(tab:Tab, margin:Insets):void{
+    	tab.setMargin(margin);
+    }
 	
 	override protected function __onSelectionChanged(e:InteractiveEvent):void{
 		tabbedPane.revalidate();
