@@ -568,10 +568,29 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"TabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
 			"TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
 			"TabbedPane.font", table.getFont("controlFont"),
-			"TabbedPane.tabMargin", new InsetsUIResource(1, 1, 1, 1),
+			"TabbedPane.tabMargin", new InsetsUIResource(2, 2, 2, 2),
 			"TabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2), 
 			"TabbedPane.contentRoundLineThickness", 1, 
 			"TabbedPane.maxTabWidth", 1000];
+		table.putDefaults(comDefaults);
+		
+	   // *** JClosableTabbedPane
+		comDefaults = [
+			"ClosableTabbedPane.background", new ASColorUIResource(0xE7E7E5),
+			"ClosableTabbedPane.foreground", table.get("controlText"),
+			"ClosableTabbedPane.opaque", false,  
+			"ClosableTabbedPane.focusable", true,  
+			"ClosableTabbedPane.shadow", new ASColorUIResource(0x888888),		
+			"ClosableTabbedPane.darkShadow", new ASColorUIResource(0x444444),		
+			"ClosableTabbedPane.light", table.getColor("controlHighlight"),	   
+	   		"ClosableTabbedPane.highlight", new ASColorUIResource(0xFFFFFF),
+			"ClosableTabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
+			"ClosableTabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
+			"ClosableTabbedPane.font", table.getFont("controlFont"),
+			"ClosableTabbedPane.tabMargin", new InsetsUIResource(2, 2, 2, 2),
+			"ClosableTabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2), 
+			"ClosableTabbedPane.contentRoundLineThickness", 1, 
+			"ClosableTabbedPane.maxTabWidth", 1000];
 		table.putDefaults(comDefaults);
 		
 		 // *** Table

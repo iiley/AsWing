@@ -337,10 +337,10 @@ public class Container extends Component{
 		}
 		var com:Component = children[i];
 		if(com != null){
-			layout.removeLayoutComponent(com);
 			children.splice(i, 1);
 			super.removeChild(com);
 			com.container = null;
+			layout.removeLayoutComponent(com);
 			dispatchEvent(new ContainerEvent(ContainerEvent.COM_REMOVED, this, com));
 			
 			if (valid) {

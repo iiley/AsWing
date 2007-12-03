@@ -343,7 +343,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		
 	protected function countPreferredTabSizeAt(index:int):IntDimension{
 		var tab:Tab = getTab(index);
-		var size:IntDimension = tab.getComponent().getPreferredSize();
+		var size:IntDimension = tab.getTabComponent().getPreferredSize();
 		size.width = Math.min(size.width, maxTabWidth);
 		var tabMargin:Insets = tabbedPane.getMargin();
 		if(isTabHorizontalPlacing()){
@@ -426,7 +426,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     
     protected function indexOfTabComponent(tab:Component):int{
     	for(var i:int=0; i<tabs.length; i++){
-    		if(getTab(i).getComponent() == tab){
+    		if(getTab(i).getTabComponent() == tab){
     			return i;
     		}
     	}
@@ -436,7 +436,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
    	override public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void{
     	var header:Tab = getSelectedTab();
     	if(header != null){
-    		header.getComponent().paintFocusRect(true);
+    		header.getTabComponent().paintFocusRect(true);
     	}else{
     		super.paintFocus(c, g, b);
     	}
@@ -448,7 +448,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
      */
     protected function createNewTab():Tab{
     	var tab:Tab = new BasicTabbedPaneTab();
-    	tab.getComponent().setFocusable(false);
+    	tab.getTabComponent().setFocusable(false);
     	return tab;
     }
 
@@ -461,13 +461,13 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     			for(i = tabs.length; i<comCount; i++){
     				header = createNewTab();
     				setTabProperties(header, i);
-    				tabBarMC.addChild(header.getComponent());
+    				tabBarMC.addChild(header.getTabComponent());
     				tabs.push(header);
     			}
     		}else{
     			for(i = tabs.length-comCount; i>0; i--){
     				header = Tab(tabs.pop());
-    				tabBarMC.removeChild(header.getComponent());
+    				tabBarMC.removeChild(header.getTabComponent());
     			}
     		}
     	}
@@ -482,18 +482,18 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     
     protected function setTabProperties(header:Tab, i:int):void{
 		header.setTextAndIcon(tabbedPane.getTitleAt(i), tabbedPane.getIconAt(i));
-		header.getComponent().setUIElement(true);
-		header.getComponent().setEnabled(tabbedPane.isEnabledAt(i));
-		header.getComponent().setVisible(tabbedPane.isVisibleAt(i));
-		header.getComponent().setToolTipText(tabbedPane.getTipAt(i));
+		header.getTabComponent().setUIElement(true);
+		header.getTabComponent().setEnabled(tabbedPane.isEnabledAt(i));
+		header.getTabComponent().setVisible(tabbedPane.isVisibleAt(i));
+		header.getTabComponent().setToolTipText(tabbedPane.getTipAt(i));
     	header.setHorizontalAlignment(tabbedPane.getHorizontalAlignment());
     	header.setHorizontalTextPosition(tabbedPane.getHorizontalTextPosition());
     	header.setIconTextGap(tabbedPane.getIconTextGap());
-    	header.setMargin(tabbedPane.getMargin());
+    	//header.setMargin(tabbedPane.getMargin()); no need here, because drawTabAt and countPreferredTabSizeAt did this work
     	header.setVerticalAlignment(tabbedPane.getVerticalAlignment());
     	header.setVerticalTextPosition(tabbedPane.getVerticalTextPosition());
-    	header.getComponent().setFont(tabbedPane.getFont());
-    	header.getComponent().setForeground(tabbedPane.getForeground());
+    	header.getTabComponent().setFont(tabbedPane.getFont());
+    	header.getTabComponent().setForeground(tabbedPane.getForeground());
     }
         
 		
@@ -553,7 +553,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			}else{
 				offsetPoint.y -= tba[i].height;
 			}
-			getTab(i).getComponent().setVisible(false);
+			getTab(i).getTabComponent().setVisible(false);
 		}
 		//draw from firstIndex to last viewable tabs
 		for(i=firstIndex; i<n; i++){
@@ -575,7 +575,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		}
 		//invisible tab after last
 		for(i=lastIndex+2; i<n; i++){
-			getTab(i).getComponent().setVisible(false);
+			getTab(i).getTabComponent().setVisible(false);
 		}
 		
 		//view prev and next buttons
@@ -818,7 +818,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		
 		var viewRect:IntRectangle = transformedTabMargin.getInsideBounds(bounds);
 		var tab:Tab = getTab(index);
-		tab.getComponent().setComBounds(viewRect);
+		tab.getTabComponent().setComBounds(viewRect);
+		tab.getTabComponent().validate();
 	}
 	
 	protected function getTabColor(index:int):ASColor{
@@ -830,11 +831,13 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	public function addLayoutComponent(comp:Component, constraints:Object):void{
 		tabbedPane.repaint();
 		synTabs();
+		synTabProperties();
 	}
 	
 	public function removeLayoutComponent(comp:Component):void{
 		tabbedPane.repaint();
 		synTabs();
+		synTabProperties();
 	}
 	
 	public function preferredLayoutSize(target:Container):IntDimension{

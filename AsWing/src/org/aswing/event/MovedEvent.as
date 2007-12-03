@@ -16,7 +16,7 @@ public class MovedEvent extends AWEvent
 {
 
 	/**
-     *  The <code>AWEvent.MOVED</code> constant defines the value of the
+     *  The <code>MovedEvent.MOVED</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>moved</code> event.
      *
      *  <p>The properties of the event object have the following values:</p>

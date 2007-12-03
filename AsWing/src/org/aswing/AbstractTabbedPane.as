@@ -210,12 +210,7 @@ public class AbstractTabbedPane extends Container{
 		if(i < 0){
 			i = getComponentCount();
 		}
-		insertToArray(titles, i, title);
-		insertToArray(icons, i, icon);
-		insertToArray(tips, i, tip);
-		insertToArray(enables, i, true);
-		insertToArray(visibles, i, true);
-		
+		insertProperties(i, title, icon, tip);
 		var currentSelectedIndex:int = getSelectedIndex();
 		var selectedIndexAfterRemove:int = currentSelectedIndex;
 		if(i <= currentSelectedIndex){
@@ -225,6 +220,14 @@ public class AbstractTabbedPane extends Container{
 		}
 		super.insertImp(i, com);
 		getModel().setSelectedIndex(selectedIndexAfterRemove);
+	}
+	
+	protected function insertProperties(i:int, title:String="", icon:Icon=null, tip:String=null):void{
+		insertToArray(titles, i, title);
+		insertToArray(icons, i, icon);
+		insertToArray(tips, i, tip);
+		insertToArray(enables, i, true);
+		insertToArray(visibles, i, true);
 	}
 	
 	/**
@@ -244,12 +247,8 @@ public class AbstractTabbedPane extends Container{
 		if(i >= getComponentCount() || getComponentCount() < 0){
 			return null;
 		}
-		//Icon(icons[i]).uninstallIcon(this);//uninstall icon first
-		removeFromArray(titles, i);
-		removeFromArray(icons, i);
-		removeFromArray(tips, i);
-		removeFromArray(enables, i);
-		removeFromArray(visibles, i);
+		
+		removeProperties(i);
 		
 		var currentSelectedIndex:int = getSelectedIndex();
 		var selectedIndexAfterRemove:int = currentSelectedIndex;
@@ -268,6 +267,14 @@ public class AbstractTabbedPane extends Container{
 		}
 		
 		return rc;
+	}
+	
+	protected function removeProperties(i:int):void{
+		removeFromArray(titles, i);
+		removeFromArray(icons, i);
+		removeFromArray(tips, i);
+		removeFromArray(enables, i);
+		removeFromArray(visibles, i);
 	}
 	
 	/**
@@ -711,7 +718,7 @@ public class AbstractTabbedPane extends Container{
 	
     //----------------------------------------------------------------
     
-	private function insertToArray(arr:Array, i:int, obj:Object):void{
+	protected function insertToArray(arr:Array, i:int, obj:Object):void{
 		if(i < 0){
 			arr.push(obj);
 		}else{
@@ -719,7 +726,7 @@ public class AbstractTabbedPane extends Container{
 		}
 	}
 	
-	private function removeFromArray(arr:Array, i:int):void{
+	protected function removeFromArray(arr:Array, i:int):void{
 		if(i < 0){
 			arr.pop();
 		}else{

@@ -35,7 +35,7 @@ public class BasicTabbedPaneTab implements Tab{
 		label.setVerticalAlignment(alignment);
 	}
 	
-	public function getComponent():Component
+	public function getTabComponent():Component
 	{
 		return label;
 	}

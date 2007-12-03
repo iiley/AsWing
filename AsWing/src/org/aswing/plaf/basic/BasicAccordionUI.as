@@ -98,8 +98,8 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 	protected function uninstallComponents():void{
 		for(var i:int=0; i<headers.length; i++){
 			var header:Tab = getHeader(i);
-			headerContainer.removeChild(header.getComponent());
-    		header.getComponent().removeEventListener(MouseEvent.CLICK, __tabClick);
+			headerContainer.removeChild(header.getTabComponent());
+    		header.getTabComponent().removeEventListener(MouseEvent.CLICK, __tabClick);
 		}
 		headers.splice(0);
 		accordion.removeChild(headerContainer);
@@ -122,7 +122,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
    	override public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void{
     	var header:Tab = getSelectedHeader();
     	if(header != null){
-    		header.getComponent().paintFocusRect(true);
+    		header.getTabComponent().paintFocusRect(true);
     	}else{
     		super.paintFocus(c, g, b);
     	}
@@ -137,7 +137,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
      */
     protected function createNewHeader():Tab{
     	var header:Tab = new BasicAccordionHeader();
-    	header.getComponent().setFocusable(false);
+    	header.getTabComponent().setFocusable(false);
     	return header;
     }
         
@@ -155,16 +155,16 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     				header = createNewHeader();
     				header.setTextAndIcon(accordion.getTitleAt(i), accordion.getIconAt(i));
     				setHeaderProperties(header);
-    				header.getComponent().setToolTipText(accordion.getTipAt(i));
-    				header.getComponent().addEventListener(MouseEvent.CLICK, __tabClick);
-    				headerContainer.addChild(header.getComponent());
+    				header.getTabComponent().setToolTipText(accordion.getTipAt(i));
+    				header.getTabComponent().addEventListener(MouseEvent.CLICK, __tabClick);
+    				headerContainer.addChild(header.getTabComponent());
     				headers.push(header);
     			}
     		}else{
     			for(i = headers.length-comCount; i>0; i--){
     				header = Tab(headers.pop());
-    				header.getComponent().removeEventListener(MouseEvent.CLICK, __tabClick);
-    				headerContainer.removeChild(header.getComponent());
+    				header.getTabComponent().removeEventListener(MouseEvent.CLICK, __tabClick);
+    				headerContainer.removeChild(header.getTabComponent());
     			}
     		}
     	}
@@ -175,10 +175,10 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     		var header:Tab = getHeader(i);
     		header.setTextAndIcon(accordion.getTitleAt(i), accordion.getIconAt(i));
     		setHeaderProperties(header);
-    		header.getComponent().setUIElement(true);
-    		header.getComponent().setEnabled(accordion.isEnabledAt(i));
-    		header.getComponent().setVisible(accordion.isVisibleAt(i));
-    		header.getComponent().setToolTipText(accordion.getTipAt(i));
+    		header.getTabComponent().setUIElement(true);
+    		header.getTabComponent().setEnabled(accordion.isEnabledAt(i));
+    		header.getTabComponent().setVisible(accordion.isVisibleAt(i));
+    		header.getTabComponent().setToolTipText(accordion.getTipAt(i));
     	}
     }
     
@@ -205,7 +205,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     
     protected function indexOfHeaderComponent(tab:Component):int{
     	for(var i:int=0; i<headers.length; i++){
-    		if(getHeader(i).getComponent() == tab){
+    		if(getHeader(i).getTabComponent() == tab){
     			return i;
     		}
     	}
@@ -263,7 +263,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	
     	for(i=0; i<n; i++){
     		var header:Tab = getHeader(i);
-    		var tab:Component = header.getComponent();
+    		var tab:Component = header.getTabComponent();
     		var curY:int = tab.getY();
     		var desY:int = headerDestinations[i];
     		var toY:int;
@@ -361,7 +361,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	for(i=0; i<=selected; i++){
     		if (!accordion.isVisibleAt(i)) continue;
     		header = getHeader(i);
-    		tab = header.getComponent();
+    		tab = header.getTabComponent();
     		size = tab.getPreferredSize();
     		tab.setSizeWH(w, size.height);
     		tab.setLocationXY(x, tab.getY());
@@ -382,7 +382,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	for(i=selected+1; i<count; i++){
     		if (!accordion.isVisibleAt(i)) continue;
     		header = getHeader(i);
-    		tab = header.getComponent();
+    		tab = header.getTabComponent();
     		y += tab.getPreferredSize().height;
     		childrenOrderYs[i] = y;
     	}
@@ -391,7 +391,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	for(i=count-1; i>selected; i--){
     		if (!accordion.isVisibleAt(i)) continue;
     		header = getHeader(i);
-    		tab = header.getComponent();
+    		tab = header.getTabComponent();
     		size = tab.getPreferredSize();
     		y -= size.height;
     		headerDestinations[i] = y;
@@ -432,7 +432,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 	    	}
 	    	
 	    	for(i=accordion.getComponentCount()-1; i>=0; i--){
-	    		size = getHeader(i).getComponent().getPreferredSize();
+	    		size = getHeader(i).getTabComponent().getPreferredSize();
 	    		w = Math.max(w, size.width);
 	    		h += size.height;
 	    	}
@@ -460,7 +460,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 	    	}
 	    	
 	    	for(i=accordion.getComponentCount()-1; i>=0; i--){
-	    		size = getHeader(i).getComponent().getMinimumSize();
+	    		size = getHeader(i).getTabComponent().getMinimumSize();
 	    		w = Math.max(w, size.width);
 	    		h += size.height;
 	    	}
