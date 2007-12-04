@@ -2,6 +2,7 @@ package org.aswing.plaf.basic.tabbedpane{
 
 import flash.display.DisplayObject;
 import org.aswing.*;
+import org.aswing.border.EmptyBorder;
 
 /**
  * The basic imp for ClosableTab
@@ -11,6 +12,7 @@ public class BasicClosableTabbedPaneTab extends Container implements ClosableTab
 	
 	protected var label:JLabel;
 	protected var button:AbstractButton;
+	protected var margin:Insets;
 	
 	public function BasicClosableTabbedPaneTab(){
 		super();
@@ -25,6 +27,7 @@ public class BasicClosableTabbedPaneTab extends Container implements ClosableTab
 		panel.append(bc, BorderLayout.EAST);
 		label.setFocusable(false);
 		button.setFocusable(false);
+		margin = new Insets(0,0,0,0);
 	}
 	
 	protected function createCloseButton():AbstractButton{
@@ -37,6 +40,10 @@ public class BasicClosableTabbedPaneTab extends Container implements ClosableTab
 	}
 	
 	public function setMargin(m:Insets):void{
+		if(!margin.equals(m)){
+			setBorder(new EmptyBorder(null, m));
+			margin = m.clone();
+		}
 	}
 	
 	override public function setEnabled(b:Boolean):void{

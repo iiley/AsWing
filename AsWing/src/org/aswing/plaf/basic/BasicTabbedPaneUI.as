@@ -42,6 +42,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	protected var drawnTabBoundArray:Array;
 	protected var contentMargin:Insets = null;
 	protected var maxTabWidth:int = -1;
+	protected var tabGap:int = 1;
 	//both the 3 values are just the values considering when placement is TOP
 	protected var tabBorderInsets:Insets;
 	protected var selectedTabExpandInsets:Insets;
@@ -113,6 +114,9 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var tabMargin:Insets = getInsets(pp+"tabMargin");
 		if(tabMargin == null) tabMargin = new InsetsUIResource(1, 1, 1, 1);
 		
+		if(containsKey(pp+"tabGap")){
+			tabGap = getInt(pp+"tabGap");
+		}
 		if(containsKey(pp+"tabBorderInsets")){
 			tabBorderInsets = getInsets(pp+"tabBorderInsets");
 		}
@@ -303,15 +307,15 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			var ts:IntDimension = countPreferredTabSizeAt(i);
 			var tbounds:IntRectangle = new IntRectangle(x, y, ts.width, ts.height);
 			tabBoundArray[i] = tbounds;
-			
+			var offset:int = i < (n+1) ? tabGap : 0;
 			if(isHorizontalPlacing){
 				tabBarSize.height = Math.max(tabBarSize.height, ts.height);
-				tabBarSize.width += ts.width;
-				x += ts.width;
+				tabBarSize.width += ts.width + offset;
+				x += ts.width + offset;
 			}else{
 				tabBarSize.width = Math.max(tabBarSize.width, ts.width);
-				tabBarSize.height += ts.height;
-				y += ts.height;
+				tabBarSize.height += ts.height + offset;
+				y += ts.height + offset;
 			}
 		}
 		maxTabSize = tabBarSize.clone();
@@ -345,14 +349,6 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var tab:Tab = getTab(index);
 		var size:IntDimension = tab.getTabComponent().getPreferredSize();
 		size.width = Math.min(size.width, maxTabWidth);
-		var tabMargin:Insets = tabbedPane.getMargin();
-		if(isTabHorizontalPlacing()){
-			size.height += (tabMargin.top + tabMargin.bottom + tabBorderInsets.top + tabBorderInsets.bottom);
-			size.width += (tabMargin.left + tabMargin.right + tabBorderInsets.left + tabBorderInsets.right);
-		}else{
-			size.width += (tabMargin.top + tabMargin.bottom + tabBorderInsets.top + tabBorderInsets.bottom);
-			size.height += (tabMargin.left + tabMargin.right + tabBorderInsets.left + tabBorderInsets.right);
-		}
 		return size;
 	}
 	
@@ -500,7 +496,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     }
     
     protected function setTabMarginProperty(tab:Tab, margin:Insets):void{
-    	//tab.setMargin(margin); no need here, because drawTabAt and countPreferredTabSizeAt did this work
+    	tab.setMargin(margin); //no need here, because drawTabAt and countPreferredTabSizeAt did this work
     }
     
     protected function getTransformedMargin():Insets{
@@ -731,8 +727,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     protected function drawTabBorderAt(index:int, b:IntRectangle, paneBounds:IntRectangle, g:Graphics2D):void{
     	var placement:int = tabbedPane.getTabPlacement();
     	var pen:Pen;
+    	b = b.clone();//make a clone to be safty modification
     	if(index == tabbedPane.getSelectedIndex()){
-    		b = b.clone();//make a clone to be safty modification
     		if(isTabHorizontalPlacing()){
     			b.x -= selectedTabExpandInsets.left;
     			b.width += (selectedTabExpandInsets.left + selectedTabExpandInsets.right);
@@ -752,12 +748,6 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	    			b.x -= Math.round(topBlankSpace/2);
     			}
     		}
-    	}
-    	//for the gap
-    	if(placement == JTabbedPane.TOP || placement == JTabbedPane.BOTTOM){
-    		b.width -= 1;
-    	}else{
-    		b.height -= 1;
     	}
     	//This is important, should call this in sub-implemented drawTabBorderAt method
     	setDrawnTabBounds(index, b, paneBounds);
@@ -833,7 +823,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		//trace("drawTabAt : " + index + ", bounds : " + bounds + ", g : " + g);
 		drawTabBorderAt(index, bounds, paneBounds, g);
 		
-		var viewRect:IntRectangle = transformedTabMargin.getInsideBounds(bounds);
+		var viewRect:IntRectangle = bounds;//transformedTabMargin.getInsideBounds(bounds);
 		var tab:Tab = getTab(index);
 		tab.getTabComponent().setComBounds(viewRect);
 		tab.getTabComponent().validate();
@@ -971,6 +961,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		minimumSize = null;
 		tabBarSize = null;
 		tabBoundArray = null;
+		synTabProperties();
 	}
 	
 	public function getLayoutAlignmentX(target:Container):Number{

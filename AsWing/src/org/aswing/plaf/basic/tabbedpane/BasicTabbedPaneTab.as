@@ -26,7 +26,7 @@ public class BasicTabbedPaneTab implements Tab{
 	{
 		if(!margin.equals(m)){
 			label.setBorder(new EmptyBorder(null, m));
-			margin = m;
+			margin = m.clone();
 		}
 	}
 	
