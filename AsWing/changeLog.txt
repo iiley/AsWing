@@ -57,7 +57,9 @@ added setSelectable/isSelectable method to JLabel
 added EmptyIcon class
 added some useful methods to ButtonGroup
 added default cells render value+"" instead of value.toString, solved value null issue
+added JClosableTabbedPane
 
 bugfixes:
 
 fixed The button text is under icon then can't see bug
+fixed TabbedPaneUIs bugs
