@@ -568,7 +568,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"TabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
 			"TabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
 			"TabbedPane.font", table.getFont("controlFont"),
-			"TabbedPane.tabMargin", new InsetsUIResource(2, 2, 2, 2),
+			"TabbedPane.tabMargin", new InsetsUIResource(2, 3, 1, 3),
 			"TabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2), 
 			"TabbedPane.contentRoundLineThickness", 1, 
 			"TabbedPane.maxTabWidth", 1000];
@@ -587,7 +587,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"ClosableTabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
 			"ClosableTabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
 			"ClosableTabbedPane.font", table.getFont("controlFont"),
-			"ClosableTabbedPane.tabMargin", new InsetsUIResource(2, 2, 2, 2),
+			"ClosableTabbedPane.tabMargin", new InsetsUIResource(2, 3, 1, 3),
 			"ClosableTabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2), 
 			"ClosableTabbedPane.contentRoundLineThickness", 1, 
 			"ClosableTabbedPane.maxTabWidth", 1000];
