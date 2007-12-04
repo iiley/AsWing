@@ -49,14 +49,6 @@ import org.aswing.util.*;
 [Event(name="progress", type="flash.events.ProgressEvent")]
 
 /**
- * Dispatched if a call to the load() method of a Loader object attempts to load data from a server outside the security sandbox. 
- * To prevent this error, you can place a policy file on the server. 
- * Details about the error are included in the text property of the dispatched SecurityErrorEvent object. 
- * @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR 
- */
-[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
-
-/**
  * Dispatched by a LoaderInfo object whenever a loaded object is removed by using the unload() method of the Loader object, 
  * or when a second load is performed by the same Loader object and the original content is removed prior to the load beginning. 
  * @eventType flash.events.Event.UNLOAD
