@@ -441,7 +441,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
      * @param programmatic indicate if this is a programmatic change.
 	 */
 	public function clearSelection(programmatic:Boolean=true):void{
-		getSelectionModel().clearSelection();
+		getSelectionModel().clearSelection(programmatic);
 	}
 	
 	/**
