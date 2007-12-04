@@ -1236,7 +1236,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		// *** TabbedPane
 		comDefaults = [
 			"TabbedPane.tab", SkinTabbedPaneTab, 
-			"TabbedPane.tabMargin", new InsetsUIResource(0, 3, 1, 3),  //modify this to fit header image			
+			"TabbedPane.tabMargin", new InsetsUIResource(2, 3, 0, 3),  //modify this to fit header image			
 			"TabbedPane.tabBorderInsets", new InsetsUIResource(0, 10, 0, 10),
 			"TabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 2, 0, 2), 
 			"TabbedPane.top.tab.defaultImage", TabbedPane_top_tab_defaultImage,
@@ -1294,9 +1294,9 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		// *** ClosableTabbedPane
 		comDefaults = [
 			"ClosableTabbedPane.tab", SkinClosableTabbedPaneTab, 
-			"ClosableTabbedPane.tabMargin", new InsetsUIResource(1, 3, 1, 3),  //modify this to fit header image
-			"ClosableTabbedPane.tabBorderInsets", new InsetsUIResource(0, 4, 0, 4),
-			"ClosableTabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 4, 0, 4), 
+			"ClosableTabbedPane.tabMargin", new InsetsUIResource(2, 3, 0, 3),  //modify this to fit header image
+			"ClosableTabbedPane.tabBorderInsets", new InsetsUIResource(0, 10, 0, 10),
+			"ClosableTabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 2, 0, 2), 
 			"ClosableTabbedPane.top.tab.defaultImage", TabbedPane_top_tab_defaultImage,
 			"ClosableTabbedPane.top.tab.pressedImage", TabbedPane_top_tab_pressedImage,
 			"ClosableTabbedPane.top.tab.disabledImage", TabbedPane_top_tab_disabledImage,
@@ -1340,12 +1340,12 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"ClosableTabbedPane.closeButton.disabledImage", TabbedPane_closeButton_disabledImage, 
 			"ClosableTabbedPane.closeButton.rolloverImage", TabbedPane_closeButton_rolloverImage,
 			
-			"ClosableTabbedPane.contentMargin", new InsetsUIResource(4, 4, 4, 4), //modify this to fit TabbedPane_contentRoundImage
+			"ClosableTabbedPane.contentMargin", new InsetsUIResource(3, 3, 3, 3), //modify this to fit TabbedPane_contentRoundImage
 			"ClosableTabbedPane.top.contentRoundImage", TabbedPane_top_contentRoundImage, 
 			"ClosableTabbedPane.bottom.contentRoundImage", TabbedPane_bottom_contentRoundImage, 
 			"ClosableTabbedPane.left.contentRoundImage", TabbedPane_left_contentRoundImage, 
 			"ClosableTabbedPane.right.contentRoundImage", TabbedPane_right_contentRoundImage, 
-			"ClosableTabbedPane.contentRoundLineThickness", 1, //modify this to fit contentRoundImage
+			"ClosableTabbedPane.contentRoundLineThickness", 3, //modify this to fit contentRoundImage
 			"ClosableTabbedPane.bg", null //bg is managed by SkinTabbedPaneUI
 		];
 		table.putDefaults(comDefaults);
