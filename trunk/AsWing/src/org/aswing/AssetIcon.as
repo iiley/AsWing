@@ -36,8 +36,13 @@ public class AssetIcon implements Icon{
 		this.scale = scale;
 		
 		if (width==-1 && height==-1){
-			this.width = asset.width;
-			this.height = asset.height;
+			if (asset){
+				this.width = asset.width;
+				this.height = asset.height;				
+			}else{
+				this.width = 0;
+				this.height = 0;
+			}
 		}else{
 			this.width = width;
 			this.height = height;
