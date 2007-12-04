@@ -126,8 +126,8 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
     
     override protected function drawTabBorderAt(index:int, b:IntRectangle, paneBounds:IntRectangle, g:Graphics2D):void{
     	var placement:int = tabbedPane.getTabPlacement();
+    	b = b.clone();//make a clone to be safty modification
     	if(index == tabbedPane.getSelectedIndex()){
-    		b = b.clone();//make a clone to be safty modification
     		if(isTabHorizontalPlacing()){
     			b.x -= selectedTabExpandInsets.left;
     			b.width += (selectedTabExpandInsets.left + selectedTabExpandInsets.right);
@@ -148,12 +148,6 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
     			}
     		}
     	}
-    	//for the gap
-    	if(placement == JTabbedPane.TOP || placement == JTabbedPane.BOTTOM){
-    		b.width -= 1;
-    	}else{
-    		b.height -= 1;
-    	}
     	//This is important, should call this in sub-implemented drawTabBorderAt method
     	setDrawnTabBounds(index, b, paneBounds);
 		var tab:SkinTabbedPaneTab = getTab(index) as SkinTabbedPaneTab;
@@ -164,7 +158,6 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 		//trace("drawTabAt : " + index + ", bounds : " + bounds + ", g : " + g);
 		drawTabBorderAt(index, bounds, paneBounds, g);
 		
-		var viewRect:IntRectangle = transformedTabMargin.getInsideBounds(bounds);
 		var tab:Tab = getTab(index);
 		tab.setSelected(index == tabbedPane.getSelectedIndex());
 		var tc:Component = tab.getTabComponent();

@@ -1194,7 +1194,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		// *** TabbedPane
 		comDefaults = [
 			"TabbedPane.tab", SkinTabbedPaneTab, 
-			"TabbedPane.tabMargin", new InsetsUIResource(1, 3, 1, 3),  //modify this to fit header image
+			"TabbedPane.tabMargin", new InsetsUIResource(2, 3, 1, 3),  //modify this to fit header image
 			"TabbedPane.tabBorderInsets", new InsetsUIResource(0, 4, 0, 4),
 			"TabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 4, 0, 4), 
 			"TabbedPane.top.tab.defaultImage", TabbedPane_top_tab_defaultImage,
@@ -1248,7 +1248,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		// *** ClosableTabbedPane
 		comDefaults = [
 			"ClosableTabbedPane.tab", SkinClosableTabbedPaneTab, 
-			"ClosableTabbedPane.tabMargin", new InsetsUIResource(1, 3, 1, 3),  //modify this to fit header image
+			"ClosableTabbedPane.tabMargin", new InsetsUIResource(2, 3, 1, 3),  //modify this to fit header image
 			"ClosableTabbedPane.tabBorderInsets", new InsetsUIResource(0, 4, 0, 4),
 			"ClosableTabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 4, 0, 4), 
 			"ClosableTabbedPane.top.tab.defaultImage", TabbedPane_top_tab_defaultImage,
