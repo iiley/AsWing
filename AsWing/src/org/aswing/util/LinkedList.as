@@ -318,7 +318,7 @@ public class LinkedList implements List
 	}
 
 	public function isEmpty() : Boolean {
-		return count > 0;
+		return count == 0;
 	}
 
 	public function toArray() : Array {

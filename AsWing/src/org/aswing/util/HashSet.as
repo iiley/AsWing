@@ -39,7 +39,7 @@ public class HashSet
 	}
 	
 	public function isEmpty():Boolean{
-		return length != 0;
+		return length == 0;
 	}
 	
 	public function remove(o:*):Boolean{
