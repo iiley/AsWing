@@ -92,6 +92,7 @@ public class JLabel extends Component{
 
     private var iconTextGap:int;
     private var selectable:Boolean;
+    private var textFilters:Array = [];
     
     /**
      * Creates a label.
@@ -161,6 +162,17 @@ public class JLabel extends Component{
 	
 	public function isSelectable():Boolean{
 		return selectable;
+	}
+	
+	public function setTextFilters(fs:Array):void{
+		if(textFilters != fs){
+			textFilters = fs;
+			repaint();
+		}
+	}
+	
+	public function getTextFilters():Array{
+		return textFilters;
 	}
 	
 	public function setIcon(icon:Icon):void{

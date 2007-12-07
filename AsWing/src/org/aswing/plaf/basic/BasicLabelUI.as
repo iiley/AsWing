@@ -143,6 +143,7 @@ public class BasicLabelUI extends BaseComponentUI{
     	}else{
     		b.filters = null;
     	}
+    	textField.filters = label.getTextFilters();
     }
     
     /**
