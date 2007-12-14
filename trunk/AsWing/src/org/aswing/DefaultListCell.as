@@ -51,7 +51,7 @@ public class DefaultListCell extends AbstractListCell{
 		jlabel.addEventListener(ResizedEvent.RESIZED, __resized);
 	}
 	
-	private function __resized(e:ResizedEvent):void{
+	protected function __resized(e:ResizedEvent):void{
 		if(getJLabel().getWidth() < getJLabel().getPreferredWidth()){
 			getJLabel().setToolTipText(value.toString());
 			JSharedToolTip.getSharedInstance().unregisterComponent(getJLabel());

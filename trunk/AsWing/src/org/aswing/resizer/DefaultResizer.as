@@ -21,37 +21,35 @@ import org.aswing.util.DepthManager;
  */
 public class DefaultResizer implements Resizer, UIResource{
 	
-	private static var RESIZE_MC_WIDTH:Number = 4;
+	protected static var RESIZE_MC_WIDTH:Number = 4;
 		
-	private var owner:Component;
+	protected var owner:Component;
 
 	//-----------resize equiments--------------
-	private var resizeMC:Sprite;
+	protected var resizeMC:Sprite;
 	
-	private var resizeArrowCursor:DisplayObject;
-	private var boundsShape:Shape;
+	protected var resizeArrowCursor:DisplayObject;
+	protected var boundsShape:Shape;
 	
-	private var topResizeMC:AWSprite;
-	private var leftResizeMC:AWSprite;
-	private var bottomResizeMC:AWSprite;
-	private var rightResizeMC:AWSprite;
+	protected var topResizeMC:AWSprite;
+	protected var leftResizeMC:AWSprite;
+	protected var bottomResizeMC:AWSprite;
+	protected var rightResizeMC:AWSprite;
 	
-	private var topLeftResizeMC:AWSprite;
-	private var topRightResizeMC:AWSprite;
-	private var bottomLeftResizeMC:AWSprite;
-	private var bottomRightResizeMC:AWSprite;
+	protected var topLeftResizeMC:AWSprite;
+	protected var topRightResizeMC:AWSprite;
+	protected var bottomLeftResizeMC:AWSprite;
+	protected var bottomRightResizeMC:AWSprite;
 	
 	private var startX:Number;
 	private var startY:Number;
 	
-	private var enabled:Boolean;
-	private var resizeDirectly:Boolean;
+	protected var enabled:Boolean;
+	protected var resizeDirectly:Boolean;
 	
-	private var resizeArrowColor:ASColor;
-	private var resizeArrowLightColor:ASColor;
-	private var resizeArrowDarkColor:ASColor;
-	
-	private var listener:Object;
+	protected var resizeArrowColor:ASColor;
+	protected var resizeArrowLightColor:ASColor;
+	protected var resizeArrowDarkColor:ASColor;
 	
 	/**
 	 * Create a Resizer for specified component.
@@ -199,7 +197,7 @@ public class DefaultResizer implements Resizer, UIResource{
 		}
 	}
 	
-	private function createResizeMCs():void{
+	protected function createResizeMCs():void{
 		var r:Number = RESIZE_MC_WIDTH;
 		resizeMC = new Sprite();
 		resizeMC.name = "resizer";
