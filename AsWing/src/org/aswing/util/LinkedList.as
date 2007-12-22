@@ -115,7 +115,11 @@ public class LinkedList implements List
 	
 	
 	public function get(index : int):* {
-		return this.getNodeAt(index).getData();
+		if(index < 0 || index >= size()){
+			return null;
+		}else{
+			return this.getNodeAt(index).getData();			
+		}
 	}
 
 	/**
