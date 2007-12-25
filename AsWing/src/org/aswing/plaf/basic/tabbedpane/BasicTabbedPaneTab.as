@@ -22,6 +22,14 @@ public class BasicTabbedPaneTab implements Tab{
 		margin = new Insets(0,0,0,0);
 	}
 	
+	public function setFont(font:ASFont):void{
+		label.setFont(font);
+	}
+	
+	public function setForeground(color:ASColor):void{
+		label.setForeground(color);
+	}
+	
 	public function setMargin(m:Insets):void
 	{
 		if(!margin.equals(m)){

@@ -1,6 +1,5 @@
 package org.aswing.plaf.basic.tabbedpane{
 
-import flash.display.DisplayObject;
 import org.aswing.*;
 import org.aswing.border.EmptyBorder;
 
@@ -8,15 +7,16 @@ import org.aswing.border.EmptyBorder;
  * The basic imp for ClosableTab
  * @author iiley
  */
-public class BasicClosableTabbedPaneTab extends Container implements ClosableTab{
+public class BasicClosableTabbedPaneTab implements ClosableTab{
 	
+	protected var panel:Container;
 	protected var label:JLabel;
 	protected var button:AbstractButton;
 	protected var margin:Insets;
 	
 	public function BasicClosableTabbedPaneTab(){
 		super();
-		var panel:Container = this;
+		panel = new Container();
 		panel.setLayout(new BorderLayout());
 		label = new JLabel();
 		panel.append(label, BorderLayout.CENTER);
@@ -39,15 +39,22 @@ public class BasicClosableTabbedPaneTab extends Container implements ClosableTab
 		return button;
 	}
 	
+	public function setFont(font:ASFont):void{
+		label.setFont(font);
+	}
+	
+	public function setForeground(color:ASColor):void{
+		label.setForeground(color);
+	}
+	
 	public function setMargin(m:Insets):void{
 		if(!margin.equals(m)){
-			setBorder(new EmptyBorder(null, m));
+			panel.setBorder(new EmptyBorder(null, m));
 			margin = m.clone();
 		}
 	}
 	
-	override public function setEnabled(b:Boolean):void{
-		super.setEnabled(b);
+	public function setEnabled(b:Boolean):void{
 		label.setEnabled(b);
 		button.setEnabled(b);
 	}
@@ -61,7 +68,7 @@ public class BasicClosableTabbedPaneTab extends Container implements ClosableTab
 	}
 	
 	public function getTabComponent():Component{
-		return this;
+		return panel;
 	}
 	
 	public function setHorizontalTextPosition(textPosition:int):void{

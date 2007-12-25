@@ -491,8 +491,8 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     	setTabMarginProperty(header, getTransformedMargin());
     	header.setVerticalAlignment(tabbedPane.getVerticalAlignment());
     	header.setVerticalTextPosition(tabbedPane.getVerticalTextPosition());
-    	header.getTabComponent().setFont(tabbedPane.getFont());
-    	header.getTabComponent().setForeground(tabbedPane.getForeground());
+    	header.setFont(tabbedPane.getFont());
+    	header.setForeground(tabbedPane.getForeground());
     }
     
     protected function setTabMarginProperty(tab:Tab, margin:Insets):void{

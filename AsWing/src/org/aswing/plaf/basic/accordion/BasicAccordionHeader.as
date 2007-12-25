@@ -29,6 +29,14 @@ public class BasicAccordionHeader implements Tab{
 		button.setIcon(icon);
 	}
 	
+	public function setFont(font:ASFont):void{
+		button.setFont(font);
+	}
+	
+	public function setForeground(color:ASColor):void{
+		button.setForeground(color);
+	}
+	
 	public function setSelected(b:Boolean):void{
 		//Do nothing here, if your header is selectable, you can set it here like
 		//button.setSelected(b);

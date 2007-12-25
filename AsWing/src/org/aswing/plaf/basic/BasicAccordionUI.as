@@ -192,6 +192,8 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	header.setMargin(accordion.getMargin());
     	header.setVerticalAlignment(accordion.getVerticalAlignment());
     	header.setVerticalTextPosition(accordion.getVerticalTextPosition());
+    	header.setFont(accordion.getFont());
+    	header.setForeground(accordion.getForeground());
     }
     
     protected function ensureHeadersOnTopDepths():void{
