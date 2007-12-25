@@ -19,6 +19,16 @@ public interface Tab{
 	function setTextAndIcon(text:String, icon:Icon):void;
 	
 	/**
+	 * Sets the font of the tab text
+	 */
+	function setFont(font:ASFont):void;
+	
+	/**
+	 * Sets the text color of the tab
+	 */
+	function setForeground(color:ASColor):void;
+	
+	/**
 	 * Sets whether it is selected
 	 */
 	function setSelected(b:Boolean):void;
