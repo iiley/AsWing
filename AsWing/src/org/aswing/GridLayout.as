@@ -110,13 +110,8 @@ public class GridLayout extends EmptyLayout{
     /**
      * Sets the number of rows in this layout to the specified value.
      * @param        rows   the number of rows in this layout
-     * @throws    Error  if the value of both 
-     *               <code>rows</code> and <code>cols</code> is set to zero
      */
     public function setRows(rows:int):void {
-		if ((rows == 0) && (this.cols == 0)) {
-	    	throw new Error("rows and cols cannot both be zero");
-		}
 		this.rows = rows;
     }
 
@@ -137,14 +132,9 @@ public class GridLayout extends EmptyLayout{
      * of columns displayed in the layout is determined by the total 
      * number of components and the number of rows specified.
      * @param        cols   the number of columns in this layout
-     * @throws    Error  if the value of both 
-     *               <code>rows</code> and <code>cols</code> is set to zero
      * 
      */
     public function setColumns(cols:int):void {
-		if ((cols == 0) && (this.rows == 0)) {
-	    	throw new Error("rows and cols cannot both be zero");
-		}
 		this.cols = cols;
     }
 
