@@ -4,11 +4,12 @@
 
 package org.aswing{
 	
-import flash.text.*;
 import flash.display.InteractiveObject;
-import org.aswing.geom.*;
 import flash.events.*;
+import flash.text.*;
 import flash.ui.Keyboard;
+
+import org.aswing.geom.*;
 
 /**
  * JTextComponent is the base class for text components. 
@@ -355,6 +356,7 @@ public class JTextComponent extends Component implements EditableComponent{
 	
 	protected function getTextFieldAutoSizedSize(forceWidth:int=0, forceHeight:int=0):IntDimension{
 		var tf:TextField = getTextField();
+		var oldSize:IntDimension = new IntDimension(tf.width, tf.height);
 		var old:String = tf.autoSize;
 		if(forceWidth != 0){
 			tf.width = forceWidth;
@@ -365,6 +367,8 @@ public class JTextComponent extends Component implements EditableComponent{
 		tf.autoSize = TextFieldAutoSize.LEFT;
 		var size:IntDimension = new IntDimension(tf.width, tf.height);
 		tf.autoSize = old;
+		tf.width = oldSize.width;
+		tf.height = oldSize.height;
 		if(forceWidth != 0){
 			size.width = forceWidth;
 		}
