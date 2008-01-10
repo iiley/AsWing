@@ -4,10 +4,10 @@
 
 package org.aswing{
 
-import org.aswing.geom.IntDimension;
-import org.aswing.geom.IntRectangle;
-import org.aswing.geom.IntPoint;
 import org.aswing.event.InteractiveEvent;
+import org.aswing.geom.IntDimension;
+import org.aswing.geom.IntPoint;
+import org.aswing.geom.IntRectangle;
 import org.aswing.plaf.basic.BasicViewportUI;
 
 /**
@@ -434,6 +434,47 @@ public class JViewport extends Container implements Viewportable{
 
 	public function scrollRectToVisible(contentRect:IntRectangle, programmatic:Boolean=true):void{
 		setViewPosition(new IntPoint(contentRect.x, contentRect.y), programmatic);
+	}
+	
+	/**
+	 * Make a scroll or not to ensure specified rect will be visible.
+	 * @param contentRect the rect to be ensure visible
+	 * @programmatic whether or not a programmatic call
+	 */
+	public function ensureRectVisible(contentRect:IntRectangle, programmatic:Boolean=true):void{
+		contentRect = contentRect.clone();
+		var vp:IntPoint = getViewPosition();
+		var es:IntDimension = getExtentSize();
+		var vs:IntDimension = getViewSize();
+		var range:IntRectangle = new IntRectangle(vp.x, vp.y, es.width, es.height);
+		if(contentRect.x < 0){
+			contentRect.width += contentRect.x;
+			contentRect.x = 0;
+		}
+		if(contentRect.y < 0){
+			contentRect.height += contentRect.y;
+			contentRect.y = 0;
+		}
+		if(contentRect.x + contentRect.width > vs.width){
+			contentRect.width = vs.width - contentRect.x;
+		}
+		if(contentRect.y + contentRect.height > vs.height){
+			contentRect.height = vs.height - contentRect.y;
+		}
+		var newVP:IntPoint = vp.clone();
+		if(contentRect.x + contentRect.width > range.x + range.width){
+			newVP.x = contentRect.x + contentRect.width - es.width;
+		}
+		if(contentRect.y + contentRect.height > range.y + range.height){
+			newVP.y = contentRect.y + contentRect.height - es.height;
+		}
+		if(contentRect.x < range.x){
+			newVP.x = contentRect.x;
+		}
+		if(contentRect.y < range.y){
+			newVP.y = contentRect.y;
+		}
+		setViewPosition(newVP, programmatic);
 	}
 	
 	/**
