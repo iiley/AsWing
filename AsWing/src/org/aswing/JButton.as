@@ -5,8 +5,9 @@
 package org.aswing
 {
 
-import org.aswing.plaf.basic.BasicButtonUI;
 import flash.display.SimpleButton;
+
+import org.aswing.plaf.basic.BasicButtonUI;
 
 /**
  * An implementation of a "push" button.
@@ -35,8 +36,9 @@ public class JButton extends AbstractButton
 	/**
 	 * Wrap a SimpleButton to be this button's representation.
 	 * @param btn the SimpleButton to be wrap.
+	 * @return the button self
 	 */
-	override public function wrapSimpleButton(btn:SimpleButton):void{
+	override public function wrapSimpleButton(btn:SimpleButton):AbstractButton{
 		mouseChildren = true;
 		drawTransparentTrigger = false;
 		setShiftOffset(0);
@@ -47,6 +49,7 @@ public class JButton extends AbstractButton
 		setOpaque(false);
 		setHorizontalTextPosition(AsWingConstants.CENTER);
 		setVerticalTextPosition(AsWingConstants.CENTER);
+		return this;
 	}
 	
     override public function updateUI():void{
