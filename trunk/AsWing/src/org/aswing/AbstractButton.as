@@ -4,15 +4,15 @@
 
 package org.aswing{
 
+import flash.display.DisplayObject;
+import flash.display.SimpleButton;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.display.DisplayObject;
 
 import org.aswing.error.ImpMissError;
 import org.aswing.event.*;
-import org.aswing.plaf.*;	
+import org.aswing.plaf.*;
 import org.aswing.util.*;
-import flash.display.SimpleButton;
 	
 /**
  * Dispatched when the button's model take action, generally when user click the 
@@ -394,14 +394,16 @@ public class AbstractButton extends Component{
 	/**
 	 * Wrap a SimpleButton to be this button's representation.
 	 * @param btn the SimpleButton to be wrap.
+	 * @return the button self
 	 */
-	public function wrapSimpleButton(btn:SimpleButton):void{
+	public function wrapSimpleButton(btn:SimpleButton):AbstractButton{
 		setShiftOffset(0);
 		setIcon(new SimpleButtonIconToggle(btn));
 		setBorder(null);
 		setMargin(new Insets());
 		setBackgroundDecorator(null);
 		setOpaque(false);
+		return this;
 	}
 		
 	/**
