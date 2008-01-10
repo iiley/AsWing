@@ -59,6 +59,7 @@ added some useful methods to ButtonGroup
 added default cells render value+"" instead of value.toString, solved value null issue
 added JClosableTabbedPane
 added PropertyTableModel
+added ensureRectVisible method to JViewport
 
 bugfixes:
 
