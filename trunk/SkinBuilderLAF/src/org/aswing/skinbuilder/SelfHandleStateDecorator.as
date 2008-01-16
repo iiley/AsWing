@@ -4,14 +4,15 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.geom.*;
-import org.aswing.event.*;
-import org.aswing.*;
 import flash.display.*;
-import org.aswing.plaf.*;
 import flash.events.*;
+
+import org.aswing.*;
 import org.aswing.error.ImpMissError;
+import org.aswing.event.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.*;
 
 public class SelfHandleStateDecorator implements GroundDecorator, Icon, UIResource{
 	
@@ -128,14 +129,17 @@ public class SelfHandleStateDecorator implements GroundDecorator, Icon, UIResour
 	private function __mouseDownListener(e:Event):void{
 		pressed = true;
 		paint();
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
+		if(thumb.stage){
+			thumb.stage.addEventListener(MouseEvent.MOUSE_UP, __mouseUpListener, false, 0, true);
+		}
 	}
 	private function __mouseUpListener(e:Event):void{
 		if(pressed){
 			pressed = false;
 			paint();
 		}
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
+		var st:Stage = e.currentTarget as Stage;
+		st.removeEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
 	}
 	
 }
