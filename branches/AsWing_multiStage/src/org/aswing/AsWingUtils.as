@@ -197,7 +197,7 @@ public class AsWingUtils{
     }
     
     public static function getStageMousePosition(stage:Stage=null):IntPoint{
-    	if(stage == null) stage = AsWingManager.getStage2();
+    	if(stage == null) stage = AsWingManager.getStage();
     	return new IntPoint(stage.mouseX, stage.mouseY);
     }
     
@@ -751,7 +751,7 @@ public class AsWingUtils{
      */
     public static function updateAllComponentUI(stage:Stage=null):void{
     	if(stage == null){
-    		stage = AsWingManager.getStage2();
+    		stage = AsWingManager.getStage();
     	}
 		if(AsWingManager.isStageInited()){
 			updateChildrenUI(stage);

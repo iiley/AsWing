@@ -37,9 +37,7 @@ import org.aswing.util.*;
  * @author iiley
  */
 public class JPopup extends JRootPane{
-	
-	private static var popups:Vector;
-	
+		
 	protected var ground_mc:Sprite;
 	protected var modalMC:Sprite;
 	protected var owner:*;
@@ -90,12 +88,14 @@ public class JPopup extends JRootPane{
 	}
 	
 	private function __popupOpennedAddToList(e:Event):void{
-		if(!getPopupsVector().contains(this)){
-			getPopupsVector().append(this);
+		var fm:FocusManager = FocusManager.getManager(stage);
+		if(!fm.getPopupsVector().contains(this)){
+			fm.getPopupsVector().append(this);
 		}
 	}
 	private function __popupOfffromDisplayList(e:Event):void{
-		getPopupsVector().remove(this);
+		var fm:FocusManager = FocusManager.getManager(stage);
+		fm.getPopupsVector().remove(this);
 		stage.removeEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false);
 	}
 		
@@ -361,40 +361,30 @@ public class JPopup extends JRootPane{
 	public function getOwnedEquipedPopups():Array{
 		return ownedEquipedPopups.toArray();
 	}
-	
-	protected static function getPopupsVector():Vector{
-		if(popups == null){
-			popups = new Vector();
-		}
-		return popups;
-	}
-	
-	/**
-	 * Returns all displable windows currently. A window was disposed or destroied will not 
-	 * included by this array.
-	 * @return all displable windows currently.
-	 */
-	public static function getPopups():Array{
-		return getPopupsVector().toArray();
-	}
-	
+		
 	/**
 	 * getOwnedPopupsWithOwner(owner:JPopup)<br>
-	 * getOwnedPopupsWithOwner(owner:MovieClip)
+	 * getOwnedPopupsWithOwner(owner:DisplayObjectContainer)
 	 * <p>
 	 * Returns owned windows of the specifid owner.
 	 * @return owned windows of the specifid owner.
 	 */
-	public static function getOwnedPopupsWithOwner(owner:*):Array{
-		var ws:Array = new Array();
-		var n:int = getPopupsVector().size();
-		for(var i:int=0; i<n; i++){
-			var w:JPopup = JPopup(getPopupsVector().get(i));
-			if(w.getOwner() === owner){
-				ws.push(w);
+	public static function getOwnedPopupsWithOwner(owner:DisplayObjectContainer):Array{
+		var fm:FocusManager = FocusManager.getManager(owner.stage);
+		if(fm){
+			var ws:Array = new Array();
+			var pv:Vector = fm.getPopupsVector();
+			var n:int = pv.size();
+			for(var i:int=0; i<n; i++){
+				var w:JPopup = JPopup(pv.get(i));
+				if(w.getOwner() === owner){
+					ws.push(w);
+				}
 			}
+			return ws;
+		}else{
+			return [];
 		}
-		return ws;
 	}	
 	
 	/**
