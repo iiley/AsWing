@@ -409,6 +409,8 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 			pressFlag = true;
 			return;
 		}
+		spliting = true;
+		showMoveCursor();
 		startDragPos = sp.getMousePosition();
 		startLocation = sp.getDividerLocation();
 		startDividerPos = divider.getGlobalLocation();
@@ -431,6 +433,10 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		
 		validateDivMoveWithCurrentMousePos();
 		sp.removeEventListener(MouseEvent.MOUSE_MOVE, __div_mouse_moving);
+		if(!divider.hitTestMouse()){
+			hideMoveCursor();
+		}
+		spliting = false;
 	}
 
 	protected function __div_mouse_moving(e:MouseEvent) : void {
@@ -481,25 +487,37 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		return newLocation - startLocation;
 	}
 	
-	protected var cursorManager:CursorManager;
-	protected function __div_rollover(e:Event) : void {
-		cursorManager = CursorManager.getManager(sp.stage);
-		if(isVertical()){
-			cursorManager.showCustomCursor(vSplitCursor);
-		}else{
-			cursorManager.showCustomCursor(hSplitCursor);
+	protected function __div_rollover(e:MouseEvent) : void {
+		if(!e.buttonDown && !spliting){
+			showMoveCursor();
 		}
 	}
 
 	protected function __div_rollout(e:Event) : void {
+		if(!spliting){
+			hideMoveCursor();
+		}
+	}
+	
+	protected var spliting:Boolean = false;
+	protected var cursorManager:CursorManager;
+	protected function showMoveCursor():void{
+		cursorManager = CursorManager.getManager(sp.stage);
+		if(isVertical()){
+			cursorManager.hideCustomCursor(hSplitCursor);
+			cursorManager.showCustomCursor(vSplitCursor);
+		}else{
+			cursorManager.hideCustomCursor(vSplitCursor);
+			cursorManager.showCustomCursor(hSplitCursor);
+		}
+	}
+	
+	protected function hideMoveCursor():void{
 		if(cursorManager == null){
 			return;
 		}
-		if(isVertical()){
-			cursorManager.hideCustomCursor(vSplitCursor);
-		}else{
-			cursorManager.hideCustomCursor(hSplitCursor);
-		}
+		cursorManager.hideCustomCursor(vSplitCursor);
+		cursorManager.hideCustomCursor(hSplitCursor);
 		cursorManager = null;
 	}
     
