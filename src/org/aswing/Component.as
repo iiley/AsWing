@@ -2301,6 +2301,14 @@ public class Component extends AWSprite{
 			return this;
 		}
 	}
+	
+	/**
+	 * Returns the focus manager for this component's stage, 
+	 * or null if this component is not on stage.
+	 */
+	public function getFocusManager():FocusManager{
+		return FocusManager.getManager(stage);
+	}
     
     internal function fireFocusKeyDownEvent(e:KeyboardEvent):void{
     	dispatchEvent(new FocusKeyEvent(FocusKeyEvent.FOCUS_KEY_DOWN, e.charCode, 

@@ -13,6 +13,7 @@ import flash.utils.Dictionary;
 
 import org.aswing.event.*;
 import org.aswing.util.DepthManager;
+import org.aswing.util.Vector;
 
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
@@ -27,6 +28,7 @@ public class FocusManager{
 	
 	private var oldFocusOwner:Component;
 	private var focusOwner:Component;
+	private var popups:Vector;
 	private var activeWindow:JWindow;
 	private var traversalEnabled:Boolean = true;
 	private var traversalDefault:Boolean = true;
@@ -41,6 +43,7 @@ public class FocusManager{
 		traversing = false;
 		inited = false;
 		defaultPolicy = new ContainerOrderFocusTraversalPolicy();
+		popups = new Vector();
 		init(theStage);
 	}
 	
@@ -104,6 +107,10 @@ public class FocusManager{
 			focusRect.visible = false;
 			stage.addChild(focusRect);
 		}
+	}
+	
+	public function getPopupsVector():Vector{
+		return popups;
 	}
 	
 	private var focusPaintedComponent:Component;

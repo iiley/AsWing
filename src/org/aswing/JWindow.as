@@ -255,16 +255,17 @@ public class JWindow extends JPopup{
 	}
 			
 	/**
-	 * Returns all displable windows currently. A window was disposed or destroied will not 
+	 * Returns all displable windows currently on specified stage. A window was disposed or destroied will not 
 	 * included by this array.
 	 * @return all displable windows currently.
 	 * @see JPopup#getPopups()
 	 */
-	public static function getWindows():Array{
-		var vec:Vector = getPopupsVector();
+	public static function getWindows(st:Stage):Array{
+		var fm:FocusManager = FocusManager.getManager(st);
+		var vec:Vector = fm.getPopupsVector();
 		var arr:Array = new Array();
 		for(var i:int=0; i<vec.size(); i++){
-			var win:Object = vec.get(i);
+			var win:* = vec.get(i);
 			if(win is JWindow){
 				arr.push(win);
 			}
@@ -280,17 +281,22 @@ public class JWindow extends JPopup{
 	 * @return owned windows of the specifid owner.
 	 * @see JPopup#getOwnedPopupsWithOwner()
 	 */
-	public static function getOwnedWindowsWithOwner(owner:*):Array{
-		var ws:Array = new Array();
-		var n:int = getPopupsVector().size();
-		var vec:Vector = getPopupsVector();
-		for(var i:int=0; i<n; i++){
-			var w:JPopup = JPopup(vec.get(i));
-			if(w is JWindow && w.getOwner() === owner){
-				ws.push(w);
+	public static function getOwnedWindowsWithOwner(owner:DisplayObjectContainer):Array{
+		var fm:FocusManager = FocusManager.getManager(owner.stage);
+		if(fm){
+			var ws:Array = new Array();
+			var vec:Vector = fm.getPopupsVector();
+			var n:int = vec.size();
+			for(var i:int=0; i<n; i++){
+				var w:JPopup = vec.get(i);
+				if(w is JWindow && w.getOwner() === owner){
+					ws.push(w);
+				}
 			}
+			return ws;
+		}else{
+			return [];
 		}
-		return ws;
 	}
 	
 	//--------------------------------------------------------
@@ -343,8 +349,12 @@ public class JWindow extends JPopup{
 	}
 	
 	private function active(programmatic:Boolean=true):void{
+		var fm:FocusManager = FocusManager.getManager(stage);
+		if(fm == null){
+			return;
+		}
 		actived = true;
-		var vec:Vector = getPopupsVector();
+		var vec:Vector = fm.getPopupsVector();
 		for(var i:int=0; i<vec.size(); i++){
 			var w:JWindow = vec.get(i) as JWindow;
 			if(w != null && w != this){
@@ -356,11 +366,8 @@ public class JWindow extends JPopup{
 				}
 			}
 		}
-		var fm:FocusManager = FocusManager.getManager(stage);
-		if(fm){
-			fm.setActiveWindow(this);
-			focusAtThisWindow();
-		}
+		fm.setActiveWindow(this);
+		focusAtThisWindow();
 		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_ACTIVATED, programmatic));
 	}
 	
