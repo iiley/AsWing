@@ -5,11 +5,13 @@
 package org.aswing{
 	
 import flash.display.*;
+import flash.events.Event;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+
 import org.aswing.error.AsWingManagerNotInited;
 import org.aswing.geom.IntDimension;
-import flash.utils.Timer;
-import flash.events.TimerEvent;
-import flash.events.Event;
+import org.aswing.util.HashSet;
 
 /**
  * The main manager for AsWing framework.
@@ -51,7 +53,6 @@ public class AsWingManager{
      * @param root the default root container for aswing popups
      * @param _preventNullFocus set true to prevent focus transfer to null, false, not manage to do this
      * @param workWithFlex set this to true if your application ui has both AsWing components and Flex components.
-     * 			or there will be more than one stage in this application(for example a AIR app has more than one NativeWindow).
      * @see #setRoot()
      * @see #setPreventNullFocus()
      * @see RepaintManager#setAlwaysUseTimer()
@@ -127,7 +128,7 @@ public class AsWingManager{
      */ 
     public static function getRoot(checkError:Boolean=true):DisplayObjectContainer{
         if(ROOT == null){
-            return getStage2(checkError);
+            return getStage(checkError);
         }
         return ROOT;
     }	
@@ -142,9 +143,8 @@ public class AsWingManager{
 			stage = theStage;
 	        INITIAL_STAGE_WIDTH = stage.stageWidth;
 	        INITIAL_STAGE_HEIGHT = stage.stageHeight;
-			RepaintManager.getInstance().init(stage);
-			FocusManager.getCurrentManager().init(stage);
-			stage.addEventListener(Event.ENTER_FRAME, __enterFrame);
+			//RepaintManager.getInstance().init(stage);
+			//FocusManager.getCurrentManager().init(stage);
 		}
 	}
 	
@@ -168,7 +168,7 @@ public class AsWingManager{
 	 * @see #initAsStandard()
 	 * @see #setRoot()
 	 */
-	public static function getStage2(checkError:Boolean=true):Stage{
+	public static function getStage(checkError:Boolean=true):Stage{
 		if(checkError && stage==null){
 			throw new AsWingManagerNotInited();
 		}
@@ -190,12 +190,27 @@ public class AsWingManager{
 		}
 	}
 	
+	private static var frameTrigger:Sprite;
 	/**
 	 * Adds a function to the queue to be invoked at next enter frame time
 	 * @param func the function to be invoked at next frame
 	 */
 	public static function callNextFrame(func:Function):void{
+		if(frameTrigger == null){
+			frameTrigger = new Sprite();
+			frameTrigger.addEventListener(Event.ENTER_FRAME, __enterFrame);
+		}
 		nextFrameCalls.push(func);
+	}
+	
+	private static var timers:HashSet = new HashSet();
+	public static function callLater(func:Function, time:int=40):void{
+		var timer:Timer = new Timer(time, 1);
+		timers.add(timer);
+		timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void{
+			timers.remove(e.currentTarget);
+			func();
+		});
 	}
 	
 	private static function __update(e:TimerEvent):void{

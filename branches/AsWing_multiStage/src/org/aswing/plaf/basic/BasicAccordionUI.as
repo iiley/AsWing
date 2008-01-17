@@ -4,20 +4,20 @@
 
 package org.aswing.plaf.basic{
 	
-import org.aswing.geom.*;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.events.TimerEvent;
+import flash.ui.Keyboard;
+import flash.utils.Timer;
+
 import org.aswing.*;
+import org.aswing.event.FocusKeyEvent;
+import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.accordion.*;
 import org.aswing.plaf.basic.tabbedpane.Tab;
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.MouseEvent;
-import org.aswing.event.FocusKeyEvent;
-import org.aswing.event.AWEvent;
-import flash.ui.Keyboard;
-import flash.utils.Timer;
-import flash.events.TimerEvent;
 
 /**
  * Basic accordion ui imp.
@@ -234,7 +234,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     		var code:uint = e.keyCode;
     		var index:int, count:int;
 	    	if(code == Keyboard.DOWN){
-	    		FocusManager.getCurrentManager().setTraversing(true);
+	    		setTraversingTrue();
 		    	index = accordion.getSelectedIndex();
 		    	index++;
 		    	while(index<n && (!accordion.isEnabledAt(index) || !accordion.isVisibleAt(index))){
@@ -245,7 +245,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 		    	}
 		    	accordion.setSelectedIndex(index);
 	    	}else if(code == Keyboard.UP){
-	    		FocusManager.getCurrentManager().setTraversing(true);
+	    		setTraversingTrue();
 		    	index = accordion.getSelectedIndex();
 		    	index--;
 		    	while(index >= 0 && (!accordion.isEnabledAt(index) || !accordion.isVisibleAt(index))){
@@ -256,6 +256,13 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
 		    	}
 		    	accordion.setSelectedIndex(index);
 	    	}
+    	}
+    }
+    
+    protected function setTraversingTrue():void{
+    	var fm:FocusManager = FocusManager.getManager(accordion.stage);
+    	if(fm){
+    		fm.setTraversing(true);
     	}
     }
     

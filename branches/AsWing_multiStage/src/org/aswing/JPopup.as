@@ -4,13 +4,14 @@
 
 package org.aswing{
 
-import org.aswing.util.*;
 import flash.display.*;
-import org.aswing.event.*;
 import flash.events.*;
-import org.aswing.graphics.*;
-import org.aswing.geom.*;
 import flash.geom.Rectangle;
+
+import org.aswing.event.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.util.*;
 
 /**
  * Dispatched when the popup opened.
@@ -243,10 +244,11 @@ public class JPopup extends JRootPane{
 	 */
 	public function dispose():void{
 		if(isAddedToList()){
+			var st:Stage = stage;
 			d_visible = false;
 			//TODO check this
 			//getPopupOwner().removeEventListener(listenerToOwner);
-			disposeProcess();
+			disposeProcess(st);
 			ground_mc.parent.removeChild(ground_mc);
 			if(getPopupOwner() != null){
 				getPopupOwner().removeOwnedEquipedPopup(this);
@@ -258,7 +260,7 @@ public class JPopup extends JRootPane{
 	/**
 	 * override this method to do process when disposing
 	 */
-	protected function disposeProcess():void{
+	protected function disposeProcess(st:Stage):void{
 	}	
 	
 	/**
