@@ -302,7 +302,8 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		}
 		if(cDir != 0 || rDir != 0){
 			moveFocus(rDir, cDir, e);
-			FocusManager.getCurrentManager().setTraversing(true);
+    		var fm:FocusManager = FocusManager.getManager(table.stage);
+			if(fm) fm.setTraversing(true);
 			table.paintFocusRect();
 			return;
 		}

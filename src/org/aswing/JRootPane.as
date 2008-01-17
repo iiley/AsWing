@@ -163,8 +163,11 @@ public class JRootPane extends Container{
 		if(mnBtn != null){
 			if(mnBtn.isShowing() && mnBtn.isEnabled()){
 				mnBtn.doClick();
-				FocusManager.getCurrentManager().setTraversing(true);
-				mnBtn.paintFocusRect();
+				var fm:FocusManager = FocusManager.getManager(stage);
+				if(fm){
+					fm.setTraversing(true);
+					mnBtn.paintFocusRect();
+				}
 				mnemonicJustActed = true;
 			}
 		}

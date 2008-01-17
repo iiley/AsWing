@@ -149,18 +149,26 @@ public class CursorManager{
 	/**
 	 * Sets the cursor when mouse on the specified trigger.
 	 * @param trigger where the cursor will shown when the mouse on the trigger
-	 * @param cursor the cursor object
+	 * @param cursor the cursor object, if cursor is null, the trigger's current cursor will be removed
 	 */
 	public function setCursor(trigger:InteractiveObject, cursor:DisplayObject):void{
 		tiggerCursorMap[trigger] = cursor;
-		trigger.addEventListener(MouseEvent.ROLL_OVER, __triggerOver, false, 0, true);
-		trigger.addEventListener(MouseEvent.ROLL_OUT, __triggerOut, false, 0, true);
+		if(cursor != null){
+			trigger.addEventListener(MouseEvent.ROLL_OVER, __triggerOver, false, 0, true);
+			trigger.addEventListener(MouseEvent.ROLL_OUT, __triggerOut, false, 0, true);
+			trigger.addEventListener(MouseEvent.MOUSE_UP, __triggerUp, false, 0, true);
+		}else{
+			trigger.removeEventListener(MouseEvent.ROLL_OVER, __triggerOver, false);
+			trigger.removeEventListener(MouseEvent.ROLL_OUT, __triggerOut, false);
+			trigger.removeEventListener(MouseEvent.MOUSE_UP, __triggerUp, false);
+			delete tiggerCursorMap[trigger];
+		}
 	}
-	
+		
 	private function __triggerOver(e:MouseEvent):void{
 		var trigger:Object = e.currentTarget;
 		var cursor:DisplayObject = tiggerCursorMap[trigger] as DisplayObject;
-		if(cursor){
+		if(cursor && !e.buttonDown){
 			showCustomCursor(cursor);
 		}
 	}
@@ -170,6 +178,14 @@ public class CursorManager{
 		var cursor:DisplayObject = tiggerCursorMap[trigger] as DisplayObject;
 		if(cursor){
 			hideCustomCursor(cursor);
+		}
+	}
+	
+	private function __triggerUp(e:MouseEvent):void{
+		var trigger:InteractiveObject = e.currentTarget as InteractiveObject;
+		var cursor:DisplayObject = tiggerCursorMap[trigger] as DisplayObject;
+		if(cursor && trigger.hitTestPoint(e.stageX, e.stageY, true)){
+			showCustomCursor(cursor);
 		}
 	}
 }

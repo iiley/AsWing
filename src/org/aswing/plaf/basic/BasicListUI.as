@@ -91,10 +91,13 @@ public class BasicListUI extends BaseComponentUI{
     protected var focusGraphicsOwner:Graphics;
     
 	override public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void{
-    	focusGraphics = g;
-    	focusRectangle = b;
-    	focusGraphicsOwner = FocusManager.getCurrentManager().moveFocusRectUpperTo(list).graphics;
-    	paintCurrentCellFocus();
+    	var fm:FocusManager = FocusManager.getManager(list.stage);
+    	if(fm){
+	    	focusGraphics = g;
+	    	focusRectangle = b;
+	    	focusGraphicsOwner = fm.moveFocusRectUpperTo(list).graphics;
+	    	paintCurrentCellFocus();
+    	}
     }
         
     private function paintCurrentCellFocus():void{
@@ -147,7 +150,8 @@ public class BasicListUI extends BaseComponentUI{
     	var code:uint = e.keyCode;
     	var dir:Number = 0;
     	if(code == Keyboard.UP || code == Keyboard.DOWN || code == Keyboard.SPACE){
-	    	FocusManager.getCurrentManager().setTraversing(true);
+    		var fm:FocusManager = FocusManager.getManager(list.stage);
+	    	if(fm) fm.setTraversing(true);
     	}
     	if(code == Keyboard.UP){
     		dir = -1;
@@ -196,7 +200,8 @@ public class BasicListUI extends BaseComponentUI{
     	}
     }
     private function __onSelectionChanged(e:SelectionEvent):void{
-    	if(FocusManager.getCurrentManager().isTraversing() && list.isFocusOwner()){
+    	var fm:FocusManager = FocusManager.getManager(list.stage);
+    	if(fm != null && fm.isTraversing() && list.isFocusOwner()){
     		if(focusGraphics == null){
     			list.paintFocusRect(true);
     		}

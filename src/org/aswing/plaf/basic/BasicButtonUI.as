@@ -110,7 +110,7 @@ public class BasicButtonUI extends BaseComponentUI{
 		}
 		var model:ButtonModel = button.getModel();
 		if(e.keyCode == Keyboard.SPACE && !(model.isRollOver() && model.isPressed())){
-	    	FocusManager.getCurrentManager().setTraversing(true);
+	    	setTraversingTrue();
 			model.setRollOver(true);
 			model.setArmed(true);
 			model.setPressed(true);
@@ -123,12 +123,19 @@ public class BasicButtonUI extends BaseComponentUI{
 		}
 		if(e.keyCode == Keyboard.SPACE){
 			var model:ButtonModel = button.getModel();
-	    	FocusManager.getCurrentManager().setTraversing(true);
+	    	setTraversingTrue();
 			model.setPressed(false);
 			model.setArmed(false);
 			//b.fireActionEvent();
 			model.setRollOver(false);
 		}
+    }
+    
+    protected function setTraversingTrue():void{
+    	var fm:FocusManager = FocusManager.getManager(button.stage);
+    	if(fm){
+    		fm.setTraversing(true);
+    	}
     }
     
     //--------------------------------------------------

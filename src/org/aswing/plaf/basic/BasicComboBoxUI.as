@@ -178,7 +178,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		getPopup().setSizeWH(width, height);
 		getPopup().show();
 		startMoveToView();
-		AsWingManager.callNextFrame(__addMouseDownListenerToStage);
+		AsWingManager.callLater(__addMouseDownListenerToStage);
     }
     
     private function __addMouseDownListenerToStage():void{

@@ -498,7 +498,8 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		var code:uint = e.keyCode;
 		var dir:int = 0;
 		if(isControlKey(code)){
-			FocusManager.getCurrentManager().setTraversing(true);
+    		var fm:FocusManager = FocusManager.getManager(tree.stage);
+			if(fm) fm.setTraversing(true);
 		}else{
 			return;
 		}

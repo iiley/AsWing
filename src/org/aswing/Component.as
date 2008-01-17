@@ -2003,9 +2003,10 @@ public class Component extends AWSprite{
 	 * @param force force to paint the focus rect nomatter if it is focused.
 	 */
 	public function paintFocusRect(force:Boolean=false):void{
-		if(ui != null){
-			if(force || FocusManager.getCurrentManager().isTraversing() && isFocusOwner()){
-				var fr:Sprite = FocusManager.getCurrentManager().moveFocusRectUpperTo(this);
+		var fm:FocusManager = FocusManager.getManager(stage);
+		if(ui && fm){
+			if(force || fm.isTraversing() && isFocusOwner()){
+				var fr:Sprite = fm.moveFocusRectUpperTo(this);
 				fr.graphics.clear();
 				ui.paintFocus(this, new Graphics2D(fr.graphics), new IntRectangle(0, 0, width, height));
 			}
@@ -2230,7 +2231,8 @@ public class Component extends AWSprite{
      *     focus owner; <code>false</code> otherwise
      */
     public function isFocusOwner():Boolean {
-        return (FocusManager.getCurrentManager().getFocusOwner() == this);
+    	var fm:FocusManager = FocusManager.getManager(stage);
+        return (fm != null && fm.getFocusOwner() == this);
     }
     
     /**
@@ -2389,7 +2391,11 @@ public class Component extends AWSprite{
 		if(!((isFocusable() || getFocusTransmit() != null) && isEnabled())){
 			return;
 		}
-		var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+		var fm:FocusManager = FocusManager.getManager(stage);
+		if(fm == null){
+			return;
+		}
+		var focusOwner:Component = fm.getFocusOwner();
 		var target:DisplayObject = e.target as DisplayObject;
 		if(focusOwner == null){
 			var focusObj:InteractiveObject = null;
@@ -2440,9 +2446,13 @@ public class Component extends AWSprite{
 	
 	private function __focusIn(e:FocusEvent):void{
 		if(e.target == getInternalFocusObject() && isFocusable()){
-			var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+			var fm:FocusManager = FocusManager.getManager(stage);
+			if(fm == null){
+				return;
+			}
+			var focusOwner:Component = fm.getFocusOwner();
 			if(this != focusOwner){
-	    		FocusManager.getCurrentManager().setFocusOwner(this);
+	    		fm.setFocusOwner(this);
 	    		paintFocusRect();
 	    		dispatchEvent(new AWEvent(AWEvent.FOCUS_GAINED));
    			}
@@ -2454,9 +2464,13 @@ public class Component extends AWSprite{
 		//	return;
 		//}
 		if(e.target == getInternalFocusObject() && isFocusable()){
-			var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+			var fm:FocusManager = FocusManager.getManager(stage);
+			if(fm == null){
+				return;
+			}
+			var focusOwner:Component = fm.getFocusOwner();
 			if(this == focusOwner){
-	    		FocusManager.getCurrentManager().setFocusOwner(null);
+	    		fm.setFocusOwner(null);
 	    		dispatchEvent(new AWEvent(AWEvent.FOCUS_LOST));
    			}
 		}
