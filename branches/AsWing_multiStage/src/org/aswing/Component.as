@@ -216,9 +216,7 @@ public class Component extends AWSprite{
 		border = DefaultEmptyDecoraterResource.INSTANCE;
 		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
 		foregroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
-		if(!AsWingManager.isStageInited()){
-			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
-		}
+		
 		font = DefaultEmptyDecoraterResource.DEFAULT_FONT;
 		background = DefaultEmptyDecoraterResource.DEFAULT_BACKGROUND_COLOR;
 		foreground = DefaultEmptyDecoraterResource.DEFAULT_FOREGROUND_COLOR;
@@ -259,11 +257,6 @@ public class Component extends AWSprite{
 				makeAllTobeUIElement(con.getChildAt(i));
 			}
 		}
-	}
-	
-	private function __repaintManagerStarter(e:Event):void{
-		AsWingManager.initStage(stage);
-		removeEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 	}
 		    
 	/**
