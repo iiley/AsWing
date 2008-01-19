@@ -8,11 +8,11 @@ import flash.display.InteractiveObject;
 import flash.events.EventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
-import flash.utils.Dictionary;
 
 import org.aswing.event.InteractiveEvent;
 import org.aswing.util.ArrayUtils;
 import org.aswing.util.Vector;
+import org.aswing.util.WeakReference;
 	
 /**
  * Dispatched when the menu selection changed.
@@ -50,7 +50,7 @@ public class MenuSelectionManager extends EventDispatcher{
 		instance = m;
 	}
 	
-	protected var lastTriggerDic:Dictionary = new Dictionary(true);
+	protected var lastTriggerRef:WeakReference = new WeakReference();
     /**
      * Changes the selection in the menu hierarchy.  The elements
      * in the array are sorted in order from the root menu
@@ -97,11 +97,11 @@ public class MenuSelectionManager extends EventDispatcher{
 		if(firstDifference < path.length - 1 || currentSelectionCount != path.length){
 			fireSelectionChanged(programmatic);
 		}
-		var lastTrigger:InteractiveObject = lastTriggerDic["weak"];
+		var lastTrigger:InteractiveObject = lastTriggerRef.value;
 		if(selection.size() == 0){
 			if(lastTrigger){
 				lastTrigger.removeEventListener(KeyboardEvent.KEY_DOWN, __onMSMKeyDown);
-				lastTriggerDic["weak"] = null;
+				lastTriggerRef.clear();
 			}
 		}else{
 			if(lastTrigger != trigger){
@@ -112,7 +112,7 @@ public class MenuSelectionManager extends EventDispatcher{
 				if(trigger){
 					trigger.addEventListener(KeyboardEvent.KEY_DOWN, __onMSMKeyDown, false, 0, true);
 				}
-				lastTriggerDic["weak"] = trigger;
+				lastTriggerRef.value = trigger;
 			}
 		}
     }

@@ -9,11 +9,11 @@ import flash.events.*;
 import flash.geom.Point;
 import flash.text.TextField;
 import flash.ui.Keyboard;
-import flash.utils.Dictionary;
 
 import org.aswing.event.*;
 import org.aswing.util.DepthManager;
 import org.aswing.util.Vector;
+import org.aswing.util.WeakMap;
 
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
@@ -23,7 +23,7 @@ import org.aswing.util.Vector;
  */
 public class FocusManager{
 	
-	private static var managers:Dictionary = new Dictionary(true);
+	private static var managers:WeakMap = new WeakMap();
 	private static var defaultTraversalEnabled:Boolean = true;
 	
 	private var oldFocusOwner:Component;
@@ -57,12 +57,14 @@ public class FocusManager{
 		if(theStage == null){
 			return null;
 		}
-		var manager:FocusManager = managers[theStage];
+		var manager:FocusManager = managers.getValue(theStage);
 		if(manager == null){
 			manager = new FocusManager(theStage);
-			managers[theStage] = manager;
+			managers.put(theStage, manager);
 		}		
 		return manager;
+	}
+	private function __referenceEvent(e:Event):void{//just for keep stage reference this manager
 	}
 	
 	/**
@@ -80,12 +82,12 @@ public class FocusManager{
 		if(newManager == null){
 			newManager = new FocusManager(theStage);
 		}
-		var oldManager:FocusManager = managers[theStage];
+		var oldManager:FocusManager = managers.getValue(theStage);
 		if(oldManager != newManager){
 			if(oldManager != null){
 				oldManager.uninit();
 			}
-			managers[theStage] = newManager;
+			managers.put(theStage, newManager);
 		}
 	}
 	
@@ -106,6 +108,8 @@ public class FocusManager{
 			focusRect.mouseEnabled = false;
 			focusRect.visible = false;
 			stage.addChild(focusRect);
+			//Make stage reference this manager to keep manager will not be GC until stage be GC.
+			stage.addEventListener(Event.DEACTIVATE, __referenceEvent);
 		}
 	}
 	
@@ -179,7 +183,9 @@ public class FocusManager{
 			activeWindow = null;
 			defaultPolicy = null;
 			focusPaintedComponent = null;
-			focusRect.parent.removeChild(focusRect);
+			if(focusRect.parent){
+				focusRect.parent.removeChild(focusRect);
+			}
 			focusRect = null;
 			inited = false;
 			oldFocusOwner = null;

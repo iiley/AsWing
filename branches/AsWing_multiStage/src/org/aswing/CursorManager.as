@@ -9,11 +9,13 @@ import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
 import flash.display.Sprite;
 import flash.display.Stage;
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.ui.Mouse;
 import flash.utils.Dictionary;
 
 import org.aswing.util.DepthManager;
+import org.aswing.util.WeakMap;
 	
 /**
  * The CursorManager, manage the cursor, hide system mouse cursor, show custom cursor, 
@@ -35,7 +37,7 @@ public class CursorManager{
 		setCursorContainerRoot(cursorRoot);
 	}
 	
-	private static var managers:Dictionary = new Dictionary(true);
+	private static var managers:WeakMap = new WeakMap();
 	
 	/**
 	 * Returns the default cursor manager for specified stage.
@@ -49,10 +51,10 @@ public class CursorManager{
 		if(stage == null){
 			return null;
 		}
-		var manager:CursorManager = managers[stage];
+		var manager:CursorManager = managers.getValue(stage);
 		if(manager == null){
 			manager = new CursorManager(stage);
-			managers[stage] = manager;
+			managers.put(stage, manager);
 		}
 		return manager;
 	}
@@ -64,11 +66,18 @@ public class CursorManager{
 	 */
 	protected function setCursorContainerRoot(theRoot:DisplayObjectContainer):void{
 		if(theRoot != root){
+			if(root){
+				root.removeEventListener(Event.DEACTIVATE, __referenceEvent);
+			}
 			root = theRoot;
+			//Make root reference this manager to keep manager will not be GC until root be GC.
+			root.addEventListener(Event.DEACTIVATE, __referenceEvent);
 			if(cursorHolder != null && cursorHolder.parent != root){
 				root.addChild(cursorHolder);
 			}
 		}
+	}
+	private function __referenceEvent(e:Event):void{//just for keep stage reference this manager
 	}
 	
 	protected function getCursorContainerRoot():DisplayObjectContainer{
@@ -147,7 +156,7 @@ public class CursorManager{
 	private var tiggerCursorMap:Dictionary = new Dictionary(true);
 	
 	/**
-	 * Sets the cursor when mouse on the specified trigger.
+	 * Sets the cursor when mouse on the specified trigger. null to remove cursor for that trigger.
 	 * @param trigger where the cursor will shown when the mouse on the trigger
 	 * @param cursor the cursor object, if cursor is null, the trigger's current cursor will be removed
 	 */
