@@ -222,12 +222,15 @@ public class AsWingUtils{
     
     /**
      * Returns the currently visible maximized bounds in a display object(viewable the stage area).
+     * <p>
+     * Note : your stage must be StageAlign.TOP_LEFT align unless this returned value may not be right.
+     * </>
      * @param dis the display object, default is stage
      */
     public static function getVisibleMaximizedBounds(dis:DisplayObject=null):IntRectangle{
     	var stage:Stage = dis == null ? null : dis.stage;
     	if(stage == null){
-    		//stage = AsWingManager.getStage();
+    		stage = AsWingManager.getStage();
     	}
     	if(stage == null){
     		return new IntRectangle(200, 200);//just return a value here
@@ -236,7 +239,13 @@ public class AsWingUtils{
     		return new IntRectangle(0, 0, stage.stageWidth, stage.stageHeight);
     	}
     	
-        var sw:Number = stage.stageWidth;
+        var b:IntRectangle = new IntRectangle(0, 0, sw, sh);
+        if(dis != null){
+        	var p:Point = dis.globalToLocal(new Point(0, 0));
+        	b.setLocation(new IntPoint(p.x, p.y));
+        }
+        return b;
+        /*var sw:Number = stage.stageWidth;
         var sh:Number = stage.stageHeight;
         var sa:String = stage.align;
         var initStageSize:IntDimension = AsWingManager.getInitialStageSize();
@@ -282,7 +291,7 @@ public class AsWingUtils{
                 b.y -= dh/2;
                 break;
         }        
-        return b;
+        return b;*/
     }
     
     /**

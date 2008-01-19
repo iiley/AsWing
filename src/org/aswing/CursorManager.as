@@ -45,9 +45,13 @@ public class CursorManager{
 	 * Generally, you should call this method to get cursor manager, 
 	 * it will create one manager for each stage.
 	 * </p>
-	 * @param stage the stage
+	 * @param stage the stage, if pass null, the inital Stage of <code>AsWingManager.getStage()</code> 
+	 * 			will be used.
 	 */
-	public static function getManager(stage:Stage):CursorManager{
+	public static function getManager(stage:Stage=null):CursorManager{
+		if(stage == null){
+			stage = AsWingManager.getStage();
+		}
 		if(stage == null){
 			return null;
 		}

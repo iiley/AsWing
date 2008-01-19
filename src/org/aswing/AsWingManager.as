@@ -49,8 +49,18 @@ public class AsWingManager{
     }
     
     /**
-     * Init AsWing as a standard setting.
-     * @param root the default root container for aswing popups
+     * Init AsWing as a standard setting. This method is very important for your App.
+     * <p>
+     * <ul>
+     * <li>If your app is a general Web app or AIR app just have one window(i mean just one stage), you can easy 
+     * to pass your root here, and then later you can easy to use <code>AsWingManager.getStage()</code>.
+     * </li>
+     * <li>If your app is a multi-stage app, (for example AIR app with more than one NativeWindow), you'd better to pass null for this, 
+     * 	then the manager will not reference to your stage to make it is GC able when the NativeWindow is close.
+     * </li>
+     * </ul>
+     * </p>
+     * @param root the default root container for aswing popups, or null to make no default root.
      * @param _preventNullFocus set true to prevent focus transfer to null, false, not manage to do this
      * @param workWithFlex set this to true if your application ui has both AsWing components and Flex components.
      * @see #setRoot()
@@ -62,9 +72,11 @@ public class AsWingManager{
     				_preventNullFocus:Boolean=true, 
     				workWithFlex:Boolean=false):void{
 		setRoot(root);
-		stage.align = StageAlign.TOP_LEFT;
-		stage.scaleMode = StageScaleMode.NO_SCALE;
-		stage.stageFocusRect = false;
+		if(stage){
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.stageFocusRect = false;
+		}
 		preventNullFocus = _preventNullFocus;
 		RepaintManager.getInstance().setAlwaysUseTimer(workWithFlex);
     }
@@ -143,8 +155,6 @@ public class AsWingManager{
 			stage = theStage;
 	        INITIAL_STAGE_WIDTH = stage.stageWidth;
 	        INITIAL_STAGE_HEIGHT = stage.stageHeight;
-			//RepaintManager.getInstance().init(stage);
-			//FocusManager.getCurrentManager().init(stage);
 		}
 	}
 	

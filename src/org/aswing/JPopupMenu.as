@@ -330,7 +330,7 @@ public class JPopupMenu extends Container implements MenuElement{
 	}
 	
 	private function adjustPopupLocationToFitScreen(gp:IntPoint):IntPoint{
-		var globalBounds:IntRectangle = AsWingUtils.getVisibleMaximizedBounds();
+		var globalBounds:IntRectangle = AsWingUtils.getVisibleMaximizedBounds(popup.parent);
 		if(gp.x + popup.getWidth() > globalBounds.x + globalBounds.width){
 			gp.x = gp.x - popup.getWidth();
 		}
