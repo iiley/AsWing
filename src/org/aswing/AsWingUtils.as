@@ -238,15 +238,15 @@ public class AsWingUtils{
     	if(stage.scaleMode != StageScaleMode.NO_SCALE){
     		return new IntRectangle(0, 0, stage.stageWidth, stage.stageHeight);
     	}
-    	
+    	var sw:Number = stage.stageWidth;
+        var sh:Number = stage.stageHeight;
         var b:IntRectangle = new IntRectangle(0, 0, sw, sh);
         if(dis != null){
         	var p:Point = dis.globalToLocal(new Point(0, 0));
         	b.setLocation(new IntPoint(p.x, p.y));
         }
         return b;
-        /*var sw:Number = stage.stageWidth;
-        var sh:Number = stage.stageHeight;
+        /*
         var sa:String = stage.align;
         var initStageSize:IntDimension = AsWingManager.getInitialStageSize();
         var dw:Number = sw - initStageSize.width;
