@@ -29,5 +29,11 @@ public class WeakMap{
 		}
 		return null;
 	}
+	
+	public function remove(key:*):*{
+		var value:* = getValue(key);
+		delete dic[key];
+		return value;
+	}
 }
 }
