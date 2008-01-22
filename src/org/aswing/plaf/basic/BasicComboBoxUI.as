@@ -146,7 +146,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     
     protected function getPopup():JPopup{
     	if(popup == null){
-    		popup = new JPopup(null, false);
+    		popup = new JPopup(box.root, false);
     		popup.setLayout(new BorderLayout());
     		popup.append(getScollPane(), BorderLayout.CENTER);
     		popup.setClipMasked(false);
