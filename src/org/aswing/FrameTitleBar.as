@@ -6,10 +6,11 @@ public interface FrameTitleBar{
 	 * Returns the component(must be FrameTitleBar instance self, that means the implamentation 
 	 * must extends Component and getPane() return itself) that represents the title bar.
 	 */
-	function getPane():Component;
+	function getSelf():Component;
 	
 	/**
 	 * Sets the owner of this title bar. null to uninstall from current frame.
+	 * You can set a JFrame or a JWindow, if it is JWindow, some function will be lost.
 	 */
 	function setFrame(frame:JWindow):void;
 	

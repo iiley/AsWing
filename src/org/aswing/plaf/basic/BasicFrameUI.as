@@ -142,13 +142,13 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	private function __flashTick(e:TimerEvent):void{
 		flashingActivedColor = !flashingActivedColor;
 		frame.repaint();
-		titleBar.getPane().repaint();
+		titleBar.getSelf().repaint();
 	}
     
 	private function __flashComplete(e:TimerEvent):void{
 		flashing = false;
 		frame.repaint();
-		titleBar.getPane().repaint();
+		titleBar.getSelf().repaint();
 	}
 
 	/**
@@ -176,7 +176,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 		var oldTC:Component;
 		if(e && e.getOldValue()){
 			var oldT:FrameTitleBar = e.getOldValue();
-			oldTC = oldT.getPane();
+			oldTC = oldT.getSelf();
 		}
 		if(oldTC){
 			oldTC.removeEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
@@ -189,7 +189,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	
 	protected function removeTitleBarListeners():void{
 		if(titleBar){
-			var titleBarC:Component = titleBar.getPane();
+			var titleBarC:Component = titleBar.getSelf();
 			titleBarC.addEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
 			titleBarC.addEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
 			titleBarC.doubleClickEnabled = true;
@@ -219,7 +219,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     	if(frame.isDragable() && !isMaximizedFrame()){
     		if(frame.isDragDirectly()){
     			var db:Rectangle = frame.getInsets().getInsideBounds(frame.getMaximizedBounds()).toRectangle();
-    			var gap:Number = titleBar.getPane().getHeight();
+    			var gap:Number = titleBar.getSelf().getHeight();
     			db.x -= (frame.width - gap);
     			db.y -= frame.getInsets().top;
     			db.width += (frame.width - gap*2);
@@ -303,7 +303,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     	bounds.y = startPos.y + currentMousePos.y - startMousePos.y;
     	
     	//these make user can't drag frames out the stage
-    	var gap:Number = titleBar.getPane().getHeight();
+    	var gap:Number = titleBar.getSelf().getHeight();
     	var frameMaxBounds:IntRectangle = frame.getMaximizedBounds();
     	
     	var topLeft:IntPoint = frameMaxBounds.leftTop();
