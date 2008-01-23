@@ -195,13 +195,13 @@ public class JFrame extends JWindow{
     		var old:FrameTitleBar = titleBar;
     		if(titleBar){
     			titleBar.setFrame(null);
-    			remove(titleBar.getPane());
+    			remove(titleBar.getSelf());
     		}
     		titleBar = t;
     		if(titleBar){
     			titleBar.setText(getTitle());
     			titleBar.setIcon(getIcon());
-	    		insert(0, titleBar.getPane(), WindowLayout.TITLE);
+	    		insert(0, titleBar.getSelf(), WindowLayout.TITLE);
 	    		titleBar.setFrame(this);
     		}
     		dispatchEvent(new PropertyChangeEvent(PROPERTY_TITLE_BAR, old, t));
@@ -463,9 +463,9 @@ public class JFrame extends JWindow{
 	
 	protected function doStateChange():void{
 		if(state == ICONIFIED){
-			var iconifiedSize:IntDimension = new IntDimension(30, 20);
+			var iconifiedSize:IntDimension = new IntDimension(60, 20);
 			if(titleBar){
-				iconifiedSize = titleBar.getPane().getMinimumSize();
+				iconifiedSize = titleBar.getSelf().getMinimumSize();
 			}
 			setSize(getInsets().getOutsideSize(iconifiedSize));
     		var frameMaxBounds:IntRectangle = getMaximizedBounds();

@@ -134,7 +134,7 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 		}
 	}
 	
-	public function getPane():Component{
+	public function getSelf():Component{
 		return this;
 	}
 	
