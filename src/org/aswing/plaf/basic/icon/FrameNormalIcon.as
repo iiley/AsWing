@@ -23,7 +23,7 @@ public class FrameNormalIcon extends FrameIcon
 	override public function updateIconImp(c:Component, g:Graphics2D, x:int, y:int):void
 	{
 		var w:Number = width/2;
-		var borderBrush:SolidBrush = new SolidBrush(getColor());
+		var borderBrush:SolidBrush = new SolidBrush(getColor(c));
 		g.beginFill(borderBrush);
 		g.rectangle(x+w/2+1, y+w/4+0.5, w, w);
 		g.rectangle(x+w/2+0.5+1, y+w/4+1.5+0.5, w-1, w-2);

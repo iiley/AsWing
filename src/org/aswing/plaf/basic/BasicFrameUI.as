@@ -69,12 +69,6 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     }
     
     protected function installComponents():void {
-    	var tb:FrameTitleBar = frame.getTitleBar();
-    	if(tb == null || tb is UIResource){
-    		tb = getInstance(getPropertyPrefix() + "titleBar");
-    		frame.setTitleBar(tb);
-    	}
-    	
     	if(frame.getResizer() == null || frame.getResizer() is UIResource){
 	    	var resizer:Resizer = getInstance(getPropertyPrefix()+"resizer") as Resizer;
 	    	frame.setResizer(resizer);
@@ -119,7 +113,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 		frame.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		frame.removeEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
 		frame.removeEventListener(Event.REMOVED_FROM_STAGE, __frameClosed);
-		
+		removeTitleBarListeners();
 		if(flashTimer != null){
 			flashTimer.stop();
 			flashTimer = null;
@@ -190,6 +184,10 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 			oldTC.removeEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
 		}
 		titleBar = frame.getTitleBar();
+		removeTitleBarListeners();
+	}
+	
+	protected function removeTitleBarListeners():void{
 		if(titleBar){
 			var titleBarC:Component = titleBar.getPane();
 			titleBarC.addEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
