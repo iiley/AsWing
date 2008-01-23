@@ -155,6 +155,7 @@ public class JFrame extends JWindow{
 		addEventListener(Event.REMOVED_FROM_STAGE, __frameRemovedFromStage);
 		addEventListener(MovedEvent.MOVED, __frameMoved);
 		updateUI();
+		setTitleBar(new JFrameTitleBar());
 	}
 	
 	override public function updateUI():void{
@@ -177,6 +178,9 @@ public class JFrame extends JWindow{
     override public function setUI(newUI:ComponentUI):void{
     	if(newUI is FrameUI){
     		super.setUI(newUI);
+    		if(getTitleBar()){
+    			getTitleBar().updateUIPropertiesFromOwner();
+    		}
     	}else{
     		throw new ArgumentError("JFrame just accept FrameUI instance!!!");
     	}

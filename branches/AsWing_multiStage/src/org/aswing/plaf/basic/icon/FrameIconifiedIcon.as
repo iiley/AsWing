@@ -24,7 +24,7 @@ public class FrameIconifiedIcon extends FrameIcon{
 	{
 		var w:Number = width/2;
 		var h:Number = w/3;
-		g.fillRectangle(new SolidBrush(getColor()), x+h, y+w+h, w, h);	
+		g.fillRectangle(new SolidBrush(getColor(c)), x+h, y+w+h, w, h);	
 	}	
 }
 }

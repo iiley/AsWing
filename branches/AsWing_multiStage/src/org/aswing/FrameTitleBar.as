@@ -16,6 +16,11 @@ public interface FrameTitleBar{
 	function getFrame():JWindow;
 	
 	/**
+	 * This method will be call when owner ui changed.
+	 */
+	function updateUIPropertiesFromOwner():void;
+	
+	/**
 	 * Adds extra control to title bar
 	 * @param c the control
 	 * @param position left or right behind the title buttons. 

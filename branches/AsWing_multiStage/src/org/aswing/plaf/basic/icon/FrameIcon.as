@@ -4,11 +4,12 @@
 
 package org.aswing.plaf.basic.icon{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.*;
 import flash.display.DisplayObject;
-import org.aswing.plaf.UIResource;
 import flash.display.Shape;
+
+import org.aswing.*;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.UIResource;
 
 /**
  * Frame title bar icon base.
@@ -24,6 +25,7 @@ public class FrameIcon implements Icon, UIResource{
 	protected var shape:Shape;
 	
 	private var color:ASColor;
+	private var disabledColor:ASColor;
 		
 	/**
 	 * @param width the width of the icon square.
@@ -34,14 +36,19 @@ public class FrameIcon implements Icon, UIResource{
 		shape = new Shape();
 	}
 	
-	public function getColor():ASColor{
-		return color;
+	public function getColor(c:Component):ASColor{
+		if(c.isEnabled()){
+			return color;
+		}else{
+			return disabledColor;
+		}
 	}
 	
 	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void
 	{
 		if(color == null){
 			color = c.getUI().getColor("Frame.activeCaptionText");
+			disabledColor = new ASColor(color.getRGB(), 0.5);
 		}
 		shape.graphics.clear();
 		updateIconImp(c, new Graphics2D(shape.graphics), x, y);

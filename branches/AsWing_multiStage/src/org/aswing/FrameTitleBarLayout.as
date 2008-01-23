@@ -1,4 +1,4 @@
-package org.aswing.plaf.basic.frame{
+package org.aswing{
 
 import org.aswing.BorderLayout;
 import org.aswing.Container;
@@ -28,6 +28,7 @@ public class FrameTitleBarLayout extends BorderLayout{
 	}
 	
     override public function minimumLayoutSize(target:Container):IntDimension {
+    	countMinSize(target);
 		return preferredLayoutSize(target);
     }
 	
@@ -35,6 +36,7 @@ public class FrameTitleBarLayout extends BorderLayout{
 	 * 
 	 */
     override public function preferredLayoutSize(target:Container):IntDimension {
+    	countMinSize(target);
     	var size:IntDimension = super.preferredLayoutSize(target);
 		var bar:FrameTitleBar = FrameTitleBar(target);
     	var label:JLabel = bar.getLabel();
