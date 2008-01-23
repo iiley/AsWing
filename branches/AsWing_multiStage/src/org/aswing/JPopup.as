@@ -80,11 +80,9 @@ public class JPopup extends JRootPane{
 		ground_mc.addChild(modalMC);
 		ground_mc.addChild(this);
 		
-		visible = false;
-		addEventListener(PopupEvent.POPUP_OPENED, __popupOpennedAddToList);
+		d_visible = false;
+		addEventListener(Event.ADDED_TO_STAGE, __popupOpennedAddToList);
 		addEventListener(Event.REMOVED_FROM_STAGE, __popupOfffromDisplayList);
-		addEventListener(PopupEvent.POPUP_OPENED, __popupOpenAddListenerStage);
-		addEventListener(PopupEvent.POPUP_CLOSED, __popupOpenRemoveListenerStage);
 	}
 	
 	private function __popupOpennedAddToList(e:Event):void{
@@ -92,6 +90,7 @@ public class JPopup extends JRootPane{
 		if(!fm.getPopupsVector().contains(this)){
 			fm.getPopupsVector().append(this);
 		}
+		stage.addEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false, 0, true);
 	}
 	private function __popupOfffromDisplayList(e:Event):void{
 		var fm:FocusManager = FocusManager.getManager(stage);
@@ -458,7 +457,9 @@ public class JPopup extends JRootPane{
 	}
 	
 	private function __resetModelMCWhenStageResized(e:Event):void{
-		resetModalMC();
+		if(isVisible()){
+			resetModalMC();
+		}
 	}
 	
 	private function equipPopupContents():void{
