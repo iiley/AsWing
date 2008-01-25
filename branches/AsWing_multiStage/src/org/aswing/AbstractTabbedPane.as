@@ -11,6 +11,13 @@ import org.aswing.plaf.*;
 import org.aswing.util.*;
 
 /**
+ *  Dispatched when the selected tab changed.
+ *
+ *  @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
+ */
+[Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
+
+/**
  * An abstract class for all Container pane class that have title, icon, tip for every sub pane.
  * For example JAccordion, JTabbedPane.
  * @author iiley
