@@ -33,10 +33,6 @@ public class DepthManager{
 		var parent:DisplayObjectContainer = mc.parent;
 		if(parent == null) return;
 		var maxIndex:int = parent.numChildren-1;
-		var index:int = parent.getChildIndex(mc);
-		for(var i:int=0; i<=maxIndex; i++){
-			var mi:DisplayObject = parent.getChildAt(i);
-		}
 		if(parent.getChildIndex(mc) != maxIndex){
 			parent.setChildIndex(mc, maxIndex);
 		}
