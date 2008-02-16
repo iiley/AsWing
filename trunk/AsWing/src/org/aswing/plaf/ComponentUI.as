@@ -215,7 +215,7 @@ public interface ComponentUI
 	
 	function getInsets(key:String):Insets;
 	
-	function getInstance(key:String):Object;
+	function getInstance(key:String):*;
 	
 	function getClass(key:String):Class;
 }

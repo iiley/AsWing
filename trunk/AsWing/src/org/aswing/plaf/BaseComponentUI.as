@@ -196,7 +196,7 @@ public class BaseComponentUI implements ComponentUI
 		return UIManager.getInsets(key);
 	}
 	
-	public function getInstance(key:String):Object{
+	public function getInstance(key:String):*{
 		if(containsDefaultsKey(key)){
 			return defaults.getInstance(key);
 		}
