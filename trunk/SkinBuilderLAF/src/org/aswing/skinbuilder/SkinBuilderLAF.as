@@ -4,9 +4,9 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.plaf.basic.BasicLookAndFeel;
-import org.aswing.plaf.*;
 import org.aswing.*;
+import org.aswing.plaf.*;
+import org.aswing.plaf.basic.BasicLookAndFeel;
 
 /**
  * SkinBuilder LookAndFeel let you change the skin easily 
@@ -1122,7 +1122,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Frame.backgroundMargin", new InsetsUIResource(4, 0, 0, 0), 
 			"Frame.activeBG", Frame_activeBG, 
 			"Frame.inactiveBG", Frame_inactiveBG, 
-			"Frame.titleBarLayout", SkinFrameTitleBarLayout, 
+			"Frame.titleBarBG", SkinFrameTitleBarBG, 
+			"Frame.titleBarButtonGap", 2, 
 			"Frame.titleBarOpaque", false, 
 			"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
 			"Frame.normalIcon", SkinFrameNormalIcon,
