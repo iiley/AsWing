@@ -40,12 +40,12 @@ public class BoxLayout extends EmptyLayout
 	/**
      * Specifies that components should be laid out left to right.
      */
-    public static const X_AXIS:int = 0;
+    public static const X_AXIS:int = AsWingConstants.HORIZONTAL;
     
     /**
      * Specifies that components should be laid out top to bottom.
      */
-    public static const Y_AXIS:int = 1;
+    public static const Y_AXIS:int = AsWingConstants.VERTICAL;
     
     
     private var axis:int;
