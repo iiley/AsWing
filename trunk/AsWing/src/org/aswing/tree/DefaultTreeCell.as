@@ -46,7 +46,7 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 	 * Simpler this method to speed up performance
 	 */
 	override public function invalidate():void {
-		clearPreffeSizeCaches();
+		clearPreferSizeCaches();
 		valid = false;
 	}
 	
