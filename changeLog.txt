@@ -60,6 +60,8 @@ added default cells render value+"" instead of value.toString, solved value null
 added JClosableTabbedPane
 added PropertyTableModel
 added ensureRectVisible method to JViewport
+added setTextFilters function to JLabel and buttons
+added invalidatePreferSizeCaches function to Component
 ----------AIR multi-stage(use multi NativeWindow) support-------------
 Added WeakMap, WeakReference tool to avoid memory leak
 CursorManager, FocusManager from static/sington to normal instance obj per stage.
