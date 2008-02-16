@@ -125,6 +125,8 @@ public class AbstractButton extends Component{
     private var        iconTextGap:int;	
     private var        shiftOffset:int = 0;
     private var        shiftOffsetSet:Boolean=false;
+    
+    private var textFilters:Array = null;
 	
 	public function AbstractButton(text:String="", icon:Icon=null){
 		super();
@@ -389,6 +391,17 @@ public class AbstractButton extends Component{
 		}else{
 			return new Insets(m.top, m.left, m.bottom, m.right);
 		}
+	}
+	
+	public function setTextFilters(fs:Array):void{
+		if(textFilters != fs){
+			textFilters = fs;
+			repaint();
+		}
+	}
+	
+	public function getTextFilters():Array{
+		return textFilters;
 	}
 	
 	/**
