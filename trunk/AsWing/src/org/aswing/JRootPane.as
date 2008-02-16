@@ -4,9 +4,12 @@
 
 package org.aswing{
 
-import flash.ui.Keyboard;
+import flash.display.InteractiveObject;
 import flash.events.*;
 import flash.text.TextField;
+import flash.ui.Keyboard;
+
+import org.aswing.error.ImpMissError;
 import org.aswing.util.HashMap;
 
 /**
@@ -17,11 +20,12 @@ import org.aswing.util.HashMap;
  */	
 public class JRootPane extends Container{
 	
-	private var defaultButton:JButton;
-	private var mnemonics:HashMap;
-	private var mnemonicJustActed:Boolean;
-	private var keymap:KeyMap;
-	private var mnemonicsForcedWorking:Boolean;
+	protected var defaultButton:JButton;
+	protected var mnemonics:HashMap;
+	protected var mnemonicJustActed:Boolean;
+	protected var keyManager:KeyboardManager;
+	
+	private var triggerProxy:InteractiveObject;
 	
 	//TODO imp
 	private var menuBar:*;
@@ -32,10 +36,10 @@ public class JRootPane extends Container{
 		mnemonicJustActed = false;
 		layout = new BorderLayout();
 		mnemonics = new HashMap();
-		keymap = new KeyMap();
-		mnemonicsForcedWorking = false;
-		addEventListener(TextEvent.TEXT_INPUT, __textInput, true);
-		addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
+		keyManager = new KeyboardManager();
+		keyManager.init(this);
+		triggerProxy = this;//just make below call works
+		setMnemonicTriggerProxy(null);
 		addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
 	}
 	
@@ -62,6 +66,7 @@ public class JRootPane extends Container{
 	 */
 	public function setMenuBar(menuBar:*):void{
 		//TODO imp
+		throw new ImpMissError();
 	}
 	
 	/**
@@ -71,7 +76,11 @@ public class JRootPane extends Container{
 	 * @see org.aswing.KeyboardController
 	 */
 	public function getKeyMap():KeyMap{
-		return keymap;
+		return keyManager.getKeyMap();
+	}
+	
+	override public function getKeyboardManager():KeyboardManager{
+		return keyManager;
 	}
 	
 	/**
@@ -79,11 +88,7 @@ public class JRootPane extends Container{
 	 * @param b true to make it work, false not.
 	 */
 	public function setKeyMapActived(b:Boolean):void{
-		if(b){
-			KeyboardManager.getInstance().registerKeyMap(getKeyMap());
-		}else{
-			KeyboardManager.getInstance().unregisterKeyMap(getKeyMap());
-		}
+		keyManager.setEnabled(b);
 	}
 	
 	/**
@@ -96,20 +101,18 @@ public class JRootPane extends Container{
 	 * </p>
 	 * @param b forced work or not.
 	 */
-	public function setMnemonicForcedToWork(b:Boolean):void{
-		if(b != mnemonicsForcedWorking){
-			if(b){
-				removeEventListener(TextEvent.TEXT_INPUT, __textInput, true);
-				removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
-				AsWingManager.getStage().addEventListener(TextEvent.TEXT_INPUT, __textInput, true, 0, true);
-				AsWingManager.getStage().addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true, 0, true);
-			}else{
-				AsWingManager.getStage().removeEventListener(TextEvent.TEXT_INPUT, __textInput, true);
-				AsWingManager.getStage().removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
-				addEventListener(TextEvent.TEXT_INPUT, __textInput, true);
-				addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
+	public function setMnemonicTriggerProxy(trigger:InteractiveObject):void{
+		if(trigger != triggerProxy){
+			if(triggerProxy){
+				triggerProxy.removeEventListener(TextEvent.TEXT_INPUT, __textInput, true);
+				triggerProxy.removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
 			}
-			mnemonicsForcedWorking = b;
+			triggerProxy = trigger;
+			if(trigger == null){
+				trigger = this;
+			}
+			trigger.addEventListener(TextEvent.TEXT_INPUT, __textInput, true, 0, true);
+			trigger.addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true, 0, true);
 		}
 	}
 	
@@ -147,10 +150,12 @@ public class JRootPane extends Container{
 				}
 			}
 		}
-		
+		if(stage == null){
+			return;
+		}
 		//try to trigger the mnemonic
-		if(AsWingManager.getStage().focus is TextField){
-			if(!KeyboardManager.getInstance().isMnemonicModifierDown()){
+		if(stage.focus is TextField){
+			if(!keyManager.isMnemonicModifierDown()){
 				return;
 			}
 		}
@@ -158,15 +163,18 @@ public class JRootPane extends Container{
 		if(mnBtn != null){
 			if(mnBtn.isShowing() && mnBtn.isEnabled()){
 				mnBtn.doClick();
-				FocusManager.getCurrentManager().setTraversing(true);
-				mnBtn.paintFocusRect();
+				var fm:FocusManager = FocusManager.getManager(stage);
+				if(fm){
+					fm.setTraversing(true);
+					mnBtn.paintFocusRect();
+				}
 				mnemonicJustActed = true;
 			}
 		}
 	}
 	
 	private function __textInput(e:TextEvent):void{
-		if(KeyboardManager.getInstance().isMnemonicModifierDown() || KeyboardManager.getInstance().isKeyJustActed()){
+		if(keyManager.isMnemonicModifierDown() || keyManager.isKeyJustActed()){
 			e.preventDefault();
 		}
 	}

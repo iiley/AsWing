@@ -4,14 +4,15 @@
 
 package org.aswing{
 
-import org.aswing.geom.*;
-import org.aswing.util.Timer;
-import flash.utils.getTimer;
+import flash.display.*;
 import flash.events.*;
 import flash.geom.*;
+import flash.utils.getTimer;
+
 import org.aswing.event.*;
-import flash.display.*;
+import org.aswing.geom.*;
 import org.aswing.plaf.basic.BasicToolTipUI;
+import org.aswing.util.Timer;
 
 /**
  * Dispatched when the tip text changed.
@@ -107,7 +108,14 @@ public class JToolTip extends Container{
 	
 	private function getToolTipContainerRoot():DisplayObjectContainer{
 		if(containerRoot == null){
-			return getDefaultToolTipContainerRoot();
+			var cr:DisplayObjectContainer;
+			if(getTargetComponent() != null){
+				cr = getTargetComponent().root as DisplayObjectContainer;
+			}
+			if(cr == null){
+				cr = getDefaultToolTipContainerRoot();
+			}
+			return cr;
 		}
 		return containerRoot;
 	}
@@ -134,7 +142,7 @@ public class JToolTip extends Container{
 			timer.setInitialDelay(WAIT_TIME);
 		}
 		timer.restart();
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved, false, 0, true);
+		getTargetComponent().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved, false, 0, true);
 	}
 	
 	/**
@@ -142,7 +150,7 @@ public class JToolTip extends Container{
 	 */
 	public function stopWaitToPopup():void{
 		timer.stop();
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved);
+		getTargetComponent().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved);
 		last_tip_dropped_time = getTimer();
 	}
 	

@@ -4,6 +4,8 @@
 
 package org.aswing{
 	
+import flash.display.StageScaleMode;
+import flash.events.Event;
 import flash.events.MouseEvent;
 
 import org.aswing.event.*;
@@ -101,23 +103,29 @@ public class JFrame extends JWindow{
 	 * @see #setDefaultCloseOperation()
 	 */
 	public static const DISPOSE_ON_CLOSE:int = 2;
-		
+	
+	/**
+	 * For title bar changed event property name.
+	 */
+	public static const PROPERTY_TITLE_BAR:String = "titleBar";
 	//--------------------------------------------------------
 	
-	private var title:String;
-	private var icon:Icon;
-	private var state:int;
-	private var defaultCloseOperation:int;
-	private var maximizedBounds:IntRectangle;
+	protected var titleBar:FrameTitleBar;
+	protected var title:String;
+	protected var icon:Icon;
+	protected var state:int;
+	protected var defaultCloseOperation:int;
+	protected var maximizedBounds:IntRectangle;
+	protected var lastNormalStateBounds:IntRectangle;
 	
-	private var dragable:Boolean;
-	private var resizable:Boolean;
-	private var closable:Boolean;
-	private var dragDirectly:Boolean;
-	private var dragDirectlySet:Boolean;
+	protected var dragable:Boolean;
+	protected var resizable:Boolean;
+	protected var closable:Boolean;
+	protected var dragDirectly:Boolean;
+	protected var dragDirectlySet:Boolean;
 	
-	private var resizer:Resizer;
-	private var resizerController:ResizerController;
+	protected var resizer:Resizer;
+	protected var resizerController:ResizerController;
 	
 	/**
 	 * Create a JWindow
@@ -141,10 +149,13 @@ public class JFrame extends JWindow{
 		resizable = true;
 		closable  = true;
 		icon = DefaultEmptyDecoraterResource.INSTANCE;
-		
+		lastNormalStateBounds = new IntRectangle(0, 0, 200, 100);
 		setName("JFrame");
-		
+		addEventListener(Event.ADDED_TO_STAGE, __frameAddedToStage);
+		addEventListener(Event.REMOVED_FROM_STAGE, __frameRemovedFromStage);
+		addEventListener(MovedEvent.MOVED, __frameMoved);
 		updateUI();
+		setTitleBar(new JFrameTitleBar());
 	}
 	
 	override public function updateUI():void{
@@ -167,8 +178,33 @@ public class JFrame extends JWindow{
     override public function setUI(newUI:ComponentUI):void{
     	if(newUI is FrameUI){
     		super.setUI(newUI);
+    		if(getTitleBar()){
+    			getTitleBar().updateUIPropertiesFromOwner();
+    		}
     	}else{
     		throw new ArgumentError("JFrame just accept FrameUI instance!!!");
+    	}
+    }
+    
+    public function getTitleBar():FrameTitleBar{
+    	return titleBar;
+    }
+    
+    public function setTitleBar(t:FrameTitleBar):void{
+    	if(titleBar != t){
+    		var old:FrameTitleBar = titleBar;
+    		if(titleBar){
+    			titleBar.setFrame(null);
+    			remove(titleBar.getSelf());
+    		}
+    		titleBar = t;
+    		if(titleBar){
+    			titleBar.setText(getTitle());
+    			titleBar.setIcon(getIcon());
+	    		insert(0, titleBar.getSelf(), WindowLayout.TITLE);
+	    		titleBar.setFrame(this);
+    		}
+    		dispatchEvent(new PropertyChangeEvent(PROPERTY_TITLE_BAR, old, t));
     	}
     }
     
@@ -192,9 +228,11 @@ public class JFrame extends JWindow{
 	public function setTitle(t:String):void{
 		if(title != t){
 			title = t;
+			if(getTitleBar()){
+				getTitleBar().setText(t);
+			}
 			repaint();
 			revalidate();
-			repaintTitleBar();
 		}
 	}
 	
@@ -214,6 +252,9 @@ public class JFrame extends JWindow{
 	public function setIcon(ico:Icon):void{
 		if(icon != ico){
 			icon = ico;
+			if(getTitleBar()){
+				getTitleBar().setIcon(ico);
+			}
 			repaint();
 			revalidate();
 		}
@@ -226,19 +267,7 @@ public class JFrame extends JWindow{
 	public function getIcon():Icon{
 		return icon;
 	}
-	
-	override public function setFont(newFont:ASFont):void{
-		super.setFont(newFont);
-		repaintTitleBar();
-	}
-	
-	private function repaintTitleBar():void{
-		var layout:WindowLayout = getLayout() as WindowLayout;
-		if(layout != null && layout.getTitleBar() != null){
-			layout.getTitleBar().repaint();
-		}
-	}	
-	
+		
 	/**
 	 * Sets whether this frame is resizable by the user.
 	 * 
@@ -251,10 +280,7 @@ public class JFrame extends JWindow{
 			resizable = b;
 			getResizer().setEnabled(b);
 			repaint();
-			for(var i:int=0; i<getComponentCount(); i++){
-				getComponent(i).repaint();
-			}
-			revalidate();
+			dispatchEvent(new FrameEvent(FrameEvent.FRAME_ABILITY_CHANGED, true));
 		}
 	}
 	
@@ -280,6 +306,7 @@ public class JFrame extends JWindow{
 			dragable = b;
 			repaint();
 			revalidate();
+			dispatchEvent(new FrameEvent(FrameEvent.FRAME_ABILITY_CHANGED, true));
 		}
 	}
 	
@@ -302,10 +329,7 @@ public class JFrame extends JWindow{
 		if(closable != b){
 			closable = b;
 			repaint();
-			for(var i:int=0; i<getComponentCount(); i++){
-				getComponent(i).repaint();
-			}
-			revalidate();
+			dispatchEvent(new FrameEvent(FrameEvent.FRAME_ABILITY_CHANGED, true));
 		}
 	}
 	
@@ -407,6 +431,9 @@ public class JFrame extends JWindow{
 	
 	public function setState(s:int, programmatic:Boolean=true):void{
 		if(state != s){
+			if(state == NORMAL){
+				lastNormalStateBounds.setRect(getComBounds());
+			}
 			state = s;
 			fireStateChanged();
 			if(state == ICONIFIED){
@@ -416,10 +443,76 @@ public class JFrame extends JWindow{
 			}else{
 				precessRestored(programmatic);
 			}
-			return;
+			doStateChange();
 		}
 	}
 	
+	protected function isMaximized():Boolean{
+		return ((state & MAXIMIZED_HORIZ) == MAXIMIZED_HORIZ)
+			|| ((state & MAXIMIZED_VERT) == MAXIMIZED_VERT);
+	}
+	
+	
+	protected function doStateChange():void{
+		if(state == ICONIFIED){
+			var iconifiedSize:IntDimension = new IntDimension(60, 20);
+			if(titleBar){
+				iconifiedSize = titleBar.getSelf().getMinimumSize();
+			}
+			setSize(getInsets().getOutsideSize(iconifiedSize));
+    		var frameMaxBounds:IntRectangle = getMaximizedBounds();
+			if(x < frameMaxBounds.x){
+				x = frameMaxBounds.x;
+			}
+		}else if(state == NORMAL){
+			setBounds(lastNormalStateBounds);
+		}else{
+			setSizeToFixMaxmimized();
+		}
+		if(getResizer() != null){
+			getResizer().setEnabled(isResizable() && state == JFrame.NORMAL);
+		}
+		revalidateIfNecessary();
+	}
+	
+	private function __frameMoved(e:MovedEvent):void{
+		if(state == ICONIFIED){
+			lastNormalStateBounds.setLocation(e.getNewLocation());
+		}
+	}
+	
+	private function __frameAddedToStage(e:Event):void{
+		stage.addEventListener(Event.RESIZE, __frameStageResized, false, 0, true);
+	}
+	
+	private function __frameRemovedFromStage(e:Event):void{
+		stage.removeEventListener(Event.RESIZE, __frameStageResized);
+	}
+	
+	private function __frameStageResized(e:Event=null):void{
+		if(stage == null || stage.scaleMode != StageScaleMode.NO_SCALE){
+			return;
+		}
+		if(isMaximized()){
+			setSizeToFixMaxmimized();
+			revalidateIfNecessary();
+		}
+	}
+	
+	protected function setSizeToFixMaxmimized():void{
+		var maxBounds:IntRectangle = getMaximizedBounds();
+		var b:IntRectangle = getComBounds();
+		if((state & MAXIMIZED_HORIZ) == MAXIMIZED_HORIZ){
+			b.x = maxBounds.x;
+			b.width = maxBounds.width;
+		}
+		if((state & JFrame.MAXIMIZED_VERT) == JFrame.MAXIMIZED_VERT){
+			b.y = maxBounds.y;
+			b.height = maxBounds.height;
+		}
+		setBounds(b);
+	}
+		
 	/**
 	 * Do the precesses when iconified.
 	 */

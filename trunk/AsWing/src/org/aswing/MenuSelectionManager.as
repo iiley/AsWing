@@ -4,13 +4,15 @@
 
 package org.aswing{
 
+import flash.display.InteractiveObject;
 import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
-import flash.ui.Keyboard;
 import flash.events.KeyboardEvent;
+import flash.ui.Keyboard;
+
 import org.aswing.event.InteractiveEvent;
-import org.aswing.util.Vector;
 import org.aswing.util.ArrayUtils;
+import org.aswing.util.Vector;
+import org.aswing.util.WeakReference;
 	
 /**
  * Dispatched when the menu selection changed.
@@ -29,11 +31,9 @@ public class MenuSelectionManager extends EventDispatcher{
 	private static var instance:MenuSelectionManager;
 	
 	protected var selection:Vector;
-	private var keyListenerWorking:Boolean;
 	
 	public function MenuSelectionManager(){
 		selection = new Vector();
-		keyListenerWorking = false;
 	}
 	
 	public static function defaultManager():MenuSelectionManager{
@@ -50,6 +50,7 @@ public class MenuSelectionManager extends EventDispatcher{
 		instance = m;
 	}
 	
+	protected var lastTriggerRef:WeakReference = new WeakReference();
     /**
      * Changes the selection in the menu hierarchy.  The elements
      * in the array are sorted in order from the root menu
@@ -62,7 +63,7 @@ public class MenuSelectionManager extends EventDispatcher{
      *        the selected path.
      * @param programmatic indicate if this is a programmatic change.
      */
-    public function setSelectedPath(path:Array, programmatic:Boolean):void { //MenuElement[] 
+    public function setSelectedPath(trigger:InteractiveObject, path:Array, programmatic:Boolean):void { //MenuElement[] 
         var i:int;
         var c:int;
         var currentSelectionCount:Number = selection.size();
@@ -96,19 +97,22 @@ public class MenuSelectionManager extends EventDispatcher{
 		if(firstDifference < path.length - 1 || currentSelectionCount != path.length){
 			fireSelectionChanged(programmatic);
 		}
+		var lastTrigger:InteractiveObject = lastTriggerRef.value;
 		if(selection.size() == 0){
-			if(keyListenerWorking){
-				KeyboardManager.getInstance().removeEventListener(
-					KeyboardEvent.KEY_DOWN, 
-					__onMSMKeyDown);
-				keyListenerWorking = false;
+			if(lastTrigger){
+				lastTrigger.removeEventListener(KeyboardEvent.KEY_DOWN, __onMSMKeyDown);
+				lastTriggerRef.clear();
 			}
 		}else{
-			if(!keyListenerWorking){
-				KeyboardManager.getInstance().addEventListener(
-					KeyboardEvent.KEY_DOWN, 
-					__onMSMKeyDown);
-				keyListenerWorking = true;
+			if(lastTrigger != trigger){
+				if(lastTrigger){
+					lastTrigger.removeEventListener(KeyboardEvent.KEY_DOWN, __onMSMKeyDown);
+				}
+				lastTrigger = trigger;
+				if(trigger){
+					trigger.addEventListener(KeyboardEvent.KEY_DOWN, __onMSMKeyDown, false, 0, true);
+				}
+				lastTriggerRef.value = trigger;
 			}
 		}
     }
@@ -149,7 +153,7 @@ public class MenuSelectionManager extends EventDispatcher{
      */
     public function clearSelectedPath(programmatic:Boolean):void {
         if (selection.size() > 0) {
-            setSelectedPath(null, true);
+            setSelectedPath(null, null, true);
         }
     }
     
@@ -252,7 +256,7 @@ public class MenuSelectionManager extends EventDispatcher{
 		}
 		var code:uint = e.keyCode;
 		if(isEscKey(code)){
-			setSelectedPath(null, true);
+			setSelectedPath(null, null, true);
 			return;
 		}
 		var element:MenuElement = MenuElement(selection.last());

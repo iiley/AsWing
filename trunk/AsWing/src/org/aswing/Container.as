@@ -108,7 +108,13 @@ public class Container extends Component{
 				ftp = getParent().getFocusTraversalPolicy();
 			}
 			if(ftp == null){
-				ftp = FocusManager.getCurrentManager().getDefaultFocusTraversalPolicy();
+				var fm:FocusManager = FocusManager.getManager(stage);
+				if(fm != null){
+					ftp = fm.getDefaultFocusTraversalPolicy();
+				}
+				if(ftp == null){
+					ftp = new ContainerOrderFocusTraversalPolicy();
+				}
 			}
 			return ftp;
 		}else{

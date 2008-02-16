@@ -4,13 +4,13 @@
 
 package org.aswing{
 	
-import org.aswing.util.Vector;
-import org.aswing.geom.*;
-import org.aswing.event.WindowEvent;
-import flash.events.MouseEvent;
 import flash.display.*;
-import org.aswing.event.AWEvent;
-import org.aswing.event.PopupEvent;	
+import flash.events.MouseEvent;
+
+import org.aswing.event.PopupEvent;
+import org.aswing.event.WindowEvent;
+import org.aswing.geom.*;
+import org.aswing.util.Vector;	
 
 /**
  * Dispatched when the window be set actived from not being actived.
@@ -179,11 +179,12 @@ public class JWindow extends JPopup{
 	 * @see #hide()
 	 */	
 	override public function setVisible(v:Boolean):void{
+		var st:Stage = stage;
 		super.setVisible(v);
 		if(v && isActivable()){
 			setActive(true);
 		}else{
-			lostActiveAction();
+			lostActiveAction(stage);
 		}
 	}
 	
@@ -207,8 +208,8 @@ public class JWindow extends JPopup{
 		return activable;
 	}
 	
-	override protected function disposeProcess():void{
-		lostActiveAction();
+	override protected function disposeProcess(st:Stage):void{
+		lostActiveAction(st);
 	}	
 		
 	/**
@@ -228,7 +229,7 @@ public class JWindow extends JPopup{
 			if(b){
 				active();
 			}else{
-				deactive();
+				deactive(stage);
 			}
 		}
 	}
@@ -254,16 +255,21 @@ public class JWindow extends JPopup{
 	}
 			
 	/**
-	 * Returns all displable windows currently. A window was disposed or destroied will not 
+	 * Returns all displable windows currently on specified stage. A window was disposed or destroied will not 
 	 * included by this array.
+	 * @param st the stage, if it is null, the <code>AsWingManager.getStage()</code> will be called.
 	 * @return all displable windows currently.
 	 * @see JPopup#getPopups()
 	 */
-	public static function getWindows():Array{
-		var vec:Vector = getPopupsVector();
+	public static function getWindows(st:Stage=null):Array{		
+		if(st == null){
+			st = AsWingManager.getStage();
+		}
+		var fm:FocusManager = FocusManager.getManager(st);
+		var vec:Vector = fm.getPopupsVector();
 		var arr:Array = new Array();
 		for(var i:int=0; i<vec.size(); i++){
-			var win:Object = vec.get(i);
+			var win:* = vec.get(i);
 			if(win is JWindow){
 				arr.push(win);
 			}
@@ -279,17 +285,22 @@ public class JWindow extends JPopup{
 	 * @return owned windows of the specifid owner.
 	 * @see JPopup#getOwnedPopupsWithOwner()
 	 */
-	public static function getOwnedWindowsWithOwner(owner:*):Array{
-		var ws:Array = new Array();
-		var n:int = getPopupsVector().size();
-		var vec:Vector = getPopupsVector();
-		for(var i:int=0; i<n; i++){
-			var w:JPopup = JPopup(vec.get(i));
-			if(w is JWindow && w.getOwner() === owner){
-				ws.push(w);
+	public static function getOwnedWindowsWithOwner(owner:DisplayObjectContainer):Array{
+		var fm:FocusManager = FocusManager.getManager(owner.stage);
+		if(fm){
+			var ws:Array = new Array();
+			var vec:Vector = fm.getPopupsVector();
+			var n:int = vec.size();
+			for(var i:int=0; i<n; i++){
+				var w:JPopup = vec.get(i);
+				if(w is JWindow && w.getOwner() === owner){
+					ws.push(w);
+				}
 			}
+			return ws;
+		}else{
+			return [];
 		}
-		return ws;
 	}
 	
 	//--------------------------------------------------------
@@ -308,9 +319,9 @@ public class JWindow extends JPopup{
 	}
 	*/
 	
-	private function lostActiveAction():void{
+	private function lostActiveAction(st:Stage):void{
 		if(isActive()){
-			deactive();
+			deactive(st);
 			if(getLootActiveFrom() != null && getLootActiveFrom().isShowing()){
 				getLootActiveFrom().active();
 			}
@@ -342,34 +353,40 @@ public class JWindow extends JPopup{
 	}
 	
 	private function active(programmatic:Boolean=true):void{
+		var fm:FocusManager = FocusManager.getManager(stage);
+		if(fm == null){
+			return;
+		}
 		actived = true;
-		setKeyMapActived(true);
-		var vec:Vector = getPopupsVector();
+		var vec:Vector = fm.getPopupsVector();
 		for(var i:int=0; i<vec.size(); i++){
 			var w:JWindow = vec.get(i) as JWindow;
 			if(w != null && w != this){
 				if(w.isActive()){
-					w.deactive(programmatic);
+					w.deactive(w.stage, programmatic);
 					if(w.isShowing()){
 						setLootActiveFrom(w);
 					}
 				}
 			}
 		}
-		FocusManager.getCurrentManager().setActiveWindow(this);
+		fm.setActiveWindow(this);
 		focusAtThisWindow();
 		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_ACTIVATED, programmatic));
 	}
 	
-	private function deactive(programmatic:Boolean=true):void{
+	private function deactive(st:Stage, programmatic:Boolean=true):void{
 		actived = false;
 		//recored this last focus component
-		focusWhenDeactive = FocusManager.getCurrentManager().getFocusOwner();
+		var fm:FocusManager = FocusManager.getManager(st);
+		if(fm == null){
+			return;
+		}
+		focusWhenDeactive = fm.getFocusOwner();
 		if(!AsWingUtils.isAncestor(this, focusWhenDeactive)){
 			focusWhenDeactive = null;
 		}
-		setKeyMapActived(false);
-		FocusManager.getCurrentManager().setActiveWindow(null);
+		fm.setActiveWindow(null);
 		dispatchEvent(new WindowEvent(WindowEvent.WINDOW_DEACTIVATED, programmatic));
 	}
 	

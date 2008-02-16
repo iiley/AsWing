@@ -5,11 +5,12 @@
 package org.aswing
 {
 
-import org.aswing.util.HashSet;
 import flash.display.Stage;
 import flash.events.Event;
-import org.aswing.util.Timer;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
 
+import org.aswing.util.HashSet;
 /**
  * RepaintManager use to manager the component's painting.
  * 
@@ -19,12 +20,9 @@ import org.aswing.util.Timer;
  * it immediately, you should call paintImmediately method, but it is not fast.</p>
  * @author iiley
  */	
-public class RepaintManager
-{
+public class RepaintManager{
 	
 	private static var instance:RepaintManager;
-	private static var stage:Stage;
-	private static var time:int = 0;
 	
 	/**
 	 * Although it's a set in fact, but it work more like a queue
@@ -52,20 +50,20 @@ public class RepaintManager
 		validateQueue = new HashSet();
 		renderring = false;
 		alwaysUseTimer = false;
-		timer = new Timer(40, false);
-		timer.addActionListener(__render);
+		timer = new Timer(19, 1);
+		timer.addEventListener(TimerEvent.TIMER, __timerRender);
 	}
 	
 	/**
 	 * Init the repaint manager, it will works better when it is inited.
 	 * By default, it will be inited when a component is added to stage automatically.
 	 */	
-	internal function init(theStage:Stage):void{
+	/*internal function init(theStage:Stage):void{
 		if(stage == null){
 			stage = theStage;
 			stage.addEventListener(Event.RENDER, __render);
 		}
-	}
+	}*/
 	
 	public static function getInstance():RepaintManager{
 		if(instance == null){
@@ -80,11 +78,11 @@ public class RepaintManager
 	 * It is better smooth for the rendering for Event.RENDER way, but if you make AsWing 
 	 * components works with Flex component, you should change to timer way.
 	 * @param b true to make it always use timer, false not.
-	 * @param delay the timer delay, by default it is 40 ms.
+	 * @param delay the timer delay, by default it is 19 ms.
 	 */
-	public function setAlwaysUseTimer(b:Boolean, delay:int=40):void{
+	public function setAlwaysUseTimer(b:Boolean, delay:int=19):void{
 		alwaysUseTimer = b;
-		timer.setDelay(delay);
+		timer.delay = delay;
 	}
 		
 	/**
@@ -93,7 +91,7 @@ public class RepaintManager
 	 */
 	public function addRepaintComponent(com:Component):void{
 		repaintQueue.add(com);
-		renderLater();
+		renderLater(com);
 	}
 	
 	/**
@@ -106,7 +104,7 @@ public class RepaintManager
 		var validateRoot:Component = getValidateRootComponent(com);
 		if(validateRoot != null){
 			validateQueue.add(validateRoot);
-			renderLater();
+			renderLater(com);
 		}
 	}
 	
@@ -116,16 +114,19 @@ public class RepaintManager
 	 */	
 	public function addInvalidRootComponent(com:Component):void{
 		validateQueue.add(com);
-		renderLater();
+		renderLater(com);
 	}
-	
-	private function renderLater():void{
-		if(stage != null && !renderring && !alwaysUseTimer){
-			stage.invalidate();
-		}else{
-			if(!timer.isRunning()){
+		
+	private function renderLater(c:Component):void{
+		var st:Stage = c.stage;
+		if(alwaysUseTimer || st == null || renderring){
+			if(!timer.running){
+				timer.reset();
 				timer.start();
 			}
+		}else{
+			st.addEventListener(Event.RENDER, __render, false, 0, true);
+			st.invalidate();
 		}
 	}
 	
@@ -154,14 +155,23 @@ public class RepaintManager
 		return validateRoot;
 	}
 	
+	private function __timerRender(e:TimerEvent):void{
+		__render();
+		e.updateAfterEvent();
+	}
+	
 	/**
 	 * Every frame this method will be executed to invoke the painting of components needed.
 	 */
-	private function __render(e:Event):void{
+	private function __render(e:Event=null):void{
+		if(e){
+			var st:Stage = e.currentTarget as Stage;
+			st.removeEventListener(Event.RENDER, __render);
+		}
 		var i:int;
 		var n:int;
 		var com:Component;
-		time++;
+		//time++;
 		
 		renderring = true;
 		

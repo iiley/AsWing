@@ -4,13 +4,14 @@
 
 package org.aswing{
 
-import org.aswing.util.*;
 import flash.display.*;
-import org.aswing.event.*;
 import flash.events.*;
-import org.aswing.graphics.*;
-import org.aswing.geom.*;
 import flash.geom.Rectangle;
+
+import org.aswing.event.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.util.*;
 
 /**
  * Dispatched when the popup opened.
@@ -36,9 +37,7 @@ import flash.geom.Rectangle;
  * @author iiley
  */
 public class JPopup extends JRootPane{
-	
-	private static var popups:Vector;
-	
+		
 	protected var ground_mc:Sprite;
 	protected var modalMC:Sprite;
 	protected var owner:*;
@@ -81,20 +80,22 @@ public class JPopup extends JRootPane{
 		ground_mc.addChild(modalMC);
 		ground_mc.addChild(this);
 		
-		visible = false;
-		addEventListener(PopupEvent.POPUP_OPENED, __popupOpennedAddToList);
+		d_visible = false;
+		addEventListener(Event.ADDED_TO_STAGE, __popupOpennedAddToList);
 		addEventListener(Event.REMOVED_FROM_STAGE, __popupOfffromDisplayList);
-		addEventListener(PopupEvent.POPUP_OPENED, __popupOpenAddListenerStage);
-		addEventListener(PopupEvent.POPUP_CLOSED, __popupOpenRemoveListenerStage);
 	}
 	
 	private function __popupOpennedAddToList(e:Event):void{
-		if(!getPopupsVector().contains(this)){
-			getPopupsVector().append(this);
+		var fm:FocusManager = FocusManager.getManager(stage);
+		if(!fm.getPopupsVector().contains(this)){
+			fm.getPopupsVector().append(this);
 		}
+		stage.addEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false, 0, true);
 	}
 	private function __popupOfffromDisplayList(e:Event):void{
-		getPopupsVector().remove(this);	
+		var fm:FocusManager = FocusManager.getManager(stage);
+		fm.getPopupsVector().remove(this);
+		stage.removeEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false);
 	}
 		
 	/**
@@ -242,10 +243,11 @@ public class JPopup extends JRootPane{
 	 */
 	public function dispose():void{
 		if(isAddedToList()){
+			var st:Stage = stage;
 			d_visible = false;
 			//TODO check this
 			//getPopupOwner().removeEventListener(listenerToOwner);
-			disposeProcess();
+			disposeProcess(st);
 			ground_mc.parent.removeChild(ground_mc);
 			if(getPopupOwner() != null){
 				getPopupOwner().removeOwnedEquipedPopup(this);
@@ -257,7 +259,7 @@ public class JPopup extends JRootPane{
 	/**
 	 * override this method to do process when disposing
 	 */
-	protected function disposeProcess():void{
+	protected function disposeProcess(st:Stage):void{
 	}	
 	
 	/**
@@ -341,6 +343,22 @@ public class JPopup extends JRootPane{
 		}
 		lastDragPos = newPos;
 	}
+	
+	/**
+	 * Returns all displable windows currently on specified stage. A window was disposed or destroied will not 
+	 * included by this array.
+	 * @param st the stage, if it is null, the <code>AsWingManager.getStage()</code> will be called.
+	 * @return all displable windows currently.
+	 * @see JPopup#getPopups()
+	 */
+	public static function getPopups(st:Stage=null):Array{
+		if (st == null){
+			st = AsWingManager.getStage();
+		}
+		var fm:FocusManager = FocusManager.getManager(st);
+		return fm.getPopupsVector().toArray();
+	}
+	
 	/**
 	 * Return an array containing all the popups this popup currently owns.
 	 */
@@ -358,40 +376,30 @@ public class JPopup extends JRootPane{
 	public function getOwnedEquipedPopups():Array{
 		return ownedEquipedPopups.toArray();
 	}
-	
-	protected static function getPopupsVector():Vector{
-		if(popups == null){
-			popups = new Vector();
-		}
-		return popups;
-	}
-	
-	/**
-	 * Returns all displable windows currently. A window was disposed or destroied will not 
-	 * included by this array.
-	 * @return all displable windows currently.
-	 */
-	public static function getPopups():Array{
-		return getPopupsVector().toArray();
-	}
-	
+		
 	/**
 	 * getOwnedPopupsWithOwner(owner:JPopup)<br>
-	 * getOwnedPopupsWithOwner(owner:MovieClip)
+	 * getOwnedPopupsWithOwner(owner:DisplayObjectContainer)
 	 * <p>
 	 * Returns owned windows of the specifid owner.
 	 * @return owned windows of the specifid owner.
 	 */
-	public static function getOwnedPopupsWithOwner(owner:*):Array{
-		var ws:Array = new Array();
-		var n:int = getPopupsVector().size();
-		for(var i:int=0; i<n; i++){
-			var w:JPopup = JPopup(getPopupsVector().get(i));
-			if(w.getOwner() === owner){
-				ws.push(w);
+	public static function getOwnedPopupsWithOwner(owner:DisplayObjectContainer):Array{
+		var fm:FocusManager = FocusManager.getManager(owner.stage);
+		if(fm){
+			var ws:Array = new Array();
+			var pv:Vector = fm.getPopupsVector();
+			var n:int = pv.size();
+			for(var i:int=0; i<n; i++){
+				var w:JPopup = JPopup(pv.get(i));
+				if(w.getOwner() === owner){
+					ws.push(w);
+				}
 			}
+			return ws;
+		}else{
+			return [];
 		}
-		return ws;
 	}	
 	
 	/**
@@ -453,15 +461,21 @@ public class JPopup extends JRootPane{
 	//--------------------------------------------------------
 	
 	private function __popupOpenAddListenerStage(e:Event):void{
-		AsWingManager.getStage().addEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false, 0, true);
+		if(stage){
+			stage.addEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false, 0, true);
+		}
 	}
 	
 	private function __popupOpenRemoveListenerStage(e:Event):void{
-		AsWingManager.getStage().removeEventListener(Event.RESIZE, __resetModelMCWhenStageResized);
+		if(stage){
+			stage.removeEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false);
+		}
 	}
 	
 	private function __resetModelMCWhenStageResized(e:Event):void{
-		resetModalMC();
+		if(isVisible()){
+			resetModalMC();
+		}
 	}
 	
 	private function equipPopupContents():void{

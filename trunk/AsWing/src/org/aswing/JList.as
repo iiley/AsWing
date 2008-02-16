@@ -4,13 +4,14 @@
 
 package org.aswing{
 
-import org.aswing.geom.*;
-import org.aswing.graphics.*;
+import flash.events.MouseEvent;
+
 import org.aswing.dnd.*;
 import org.aswing.event.*;
-import flash.events.MouseEvent;
-import org.aswing.util.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
 import org.aswing.plaf.basic.BasicListUI;
+import org.aswing.util.*;
 
 
 /**
@@ -1841,9 +1842,9 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     	cellCom.removeEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onItemReleaseOutSide);
     }
     	
-	protected function createItemEventObj(cellCom:*, type:String):ListItemEvent{
+	protected function createItemEventObj(cellCom:*, type:String, e:MouseEvent):ListItemEvent{
 		var cell:ListCell = getCellByCellComponent(Component(cellCom));
-		var event:ListItemEvent = new ListItemEvent(type, cell.getCellValue(), cell);
+		var event:ListItemEvent = new ListItemEvent(type, cell.getCellValue(), cell, e);
 		return event;
 	}
 	
@@ -1883,42 +1884,42 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
      * Event Listener For All Items
      */
 	private function __onItemMouseDown(e:MouseEvent):void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_MOUSE_DOWN));
+		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_MOUSE_DOWN, e));
 	}
 		
     /**
      * Event Listener For All Items
      */	
 	private function __onItemClick(e:MouseEvent):void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_CLICK));
+		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_CLICK, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
 	private function __onItemReleaseOutSide(e:ReleaseEvent):void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_RELEASE_OUT_SIDE));
+		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_RELEASE_OUT_SIDE, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
 	private function __onItemRollOver(e:MouseEvent):void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OVER));
+		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OVER, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
 	private function __onItemRollOut(e:MouseEvent):void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OUT));
+		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OUT, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
 	private function __onItemDoubleClick(e:MouseEvent):void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_DOUBLE_CLICK));
+		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_DOUBLE_CLICK, e));
 	}
 	
 	//-------------------------------Drag and Drop---------------------------------

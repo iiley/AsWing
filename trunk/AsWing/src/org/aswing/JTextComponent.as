@@ -57,11 +57,13 @@ public class JTextComponent extends Component implements EditableComponent{
 	private function __onTextComponentTextInput(e:TextEvent):void{
     	if(!getTextField().multiline){ //fix the bug that fp in interenet browser single line TextField Ctrl+Enter will entered a newline bug
     		var text:String = e.text;
-    		if(KeyboardManager.getInstance().isKeyDown(Keyboard.CONTROL) 
-    			&& KeyboardManager.getInstance().isKeyDown(Keyboard.ENTER)){
-				if(text.length == 1 && text.charCodeAt(0) == 10){
-					e.preventDefault();
-				}
+    		var km:KeyboardManager = getKeyboardManager();
+    		if(km){
+	    		if(km.isKeyDown(Keyboard.CONTROL) && km.isKeyDown(Keyboard.ENTER)){
+					if(text.length == 1 && text.charCodeAt(0) == 10){
+						e.preventDefault();
+					}
+	    		}
     		}
     	}
 	}
