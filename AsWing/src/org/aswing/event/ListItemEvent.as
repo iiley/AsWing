@@ -4,14 +4,16 @@
 
 package org.aswing.event{
 
-import org.aswing.ListCell;
 import flash.events.Event;
+import flash.events.MouseEvent;
+
+import org.aswing.ListCell;
 
 /**
  * The event for items of List.
  * @author iiley
  */
-public class ListItemEvent extends AWEvent{
+public class ListItemEvent extends MouseEvent{
 	
 	/**
      *  The <code>ListItemEvent.ITEM_CLICK</code> constant defines the value of the
@@ -166,8 +168,14 @@ public class ListItemEvent extends AWEvent{
 	private var value:*;
 	private var cell:ListCell;
 	
-	public function ListItemEvent(type:String, value:*, cell:ListCell){
-		super(type, false, false);
+	/**
+	 * @param type
+	 * @param value
+	 * @param cell
+	 * @param e the original mouse event
+	 */
+	public function ListItemEvent(type:String, value:*, cell:ListCell, e:MouseEvent){
+		super(type, false, false, e.localX, e.localY, e.relatedObject, e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown);
 		this.value = value;
 		this.cell = cell;
 	}
@@ -181,7 +189,7 @@ public class ListItemEvent extends AWEvent{
 	}
 	
 	override public function clone():Event{
-		return new ListItemEvent(type, value, cell);
+		return new ListItemEvent(type, value, cell, this);
 	}
 }
 }
