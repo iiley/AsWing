@@ -408,12 +408,12 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
         var column:int = columnModel.getColumn(viewColumn).getModelIndex();
         if (column != -1 && isColumnSortable(column)) {
             var status:int = getSortingStatus(column);
-            if (!KeyboardManager.getInstance().isKeyDown(Keyboard.CONTROL)) {
+            if (!e.ctrlKey) {
                 cancelSorting();
             }
             // Cycle the sorting states through {NOT_SORTED, ASCENDING, DESCENDING} or 
             // {NOT_SORTED, DESCENDING, ASCENDING} depending on whether shift is pressed. 
-            status = status + (KeyboardManager.getInstance().isKeyDown(Keyboard.SHIFT) ? -1 : 1);
+            status = status + (e.shiftKey ? -1 : 1);
             status = (status + 4) % 3 - 1; // signed mod, returning {-1, 0, 1}
             setSortingStatus(column, status);
         }
