@@ -4,11 +4,12 @@
 
 package org.aswing.skinbuilder.orange{
 
-import org.aswing.plaf.basic.BasicLookAndFeel;
-import org.aswing.plaf.*;
-import org.aswing.*;
-import org.aswing.skinbuilder.*;
 import flash.filters.DropShadowFilter;
+
+import org.aswing.*;
+import org.aswing.plaf.*;
+import org.aswing.plaf.basic.BasicLookAndFeel;
+import org.aswing.skinbuilder.*;
 
 /**
  * TransLookAndFeel, the art works is designed by Raku(http://hi.baidu.com/rakuikou).
@@ -1162,8 +1163,8 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"Frame.backgroundMargin", new InsetsUIResource(4, 0, 0, 0), 
 			"Frame.activeBG", Frame_activeBG, 
 			"Frame.inactiveBG", Frame_inactiveBG, 
-			"Frame.titleBarLayout", SkinFrameTitleBarLayout, 
-			"Frame.titleBarOpaque", false, 
+			"Frame.titleBarBG", SkinFrameTitleBarBG, 
+			"Frame.titleBarButtonGap", 0, 
 			"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
 			"Frame.normalIcon", SkinFrameNormalIcon,
 			"Frame.maximizeIcon", SkinFrameMaximizeIcon, 
