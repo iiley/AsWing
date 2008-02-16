@@ -1901,14 +1901,38 @@ public class Component extends AWSprite{
      */	
 	public function invalidate():void{
     	valid = false;
-    	clearPreffeSizeCaches();
+    	clearPreferSizeCaches();
     	var par:Container = getParent();
     	if(par != null && par.isValid()){
     		par.invalidate();
     	}
 	}
 	
-	protected function clearPreffeSizeCaches():void{
+    /**
+     * Invalidates this component and all parents above it's preferred size caches.
+     * <p>
+     * By default all components' prefer sizes(max, min, prefer) have caches, if you 
+     * make some call that cached a invalided component's sizes(for example call invalided 
+     * component's <code>getPreferredSize()</code>) but then you modifid the component again, 
+     * so it's prefer size need to be renew, <code>invalidatePreferSizeCaches</code> will be 
+     * helpful now.
+     * </p>
+     * <p>
+     * Generally you do not need to call this method unless you get above situation.
+     * </p>
+     * @see       #validate()
+     * @see       #setCachePreferSizes()
+     * @see       org.aswing.LayoutManager
+     */		
+	public function invalidatePreferSizeCaches():void{
+    	clearPreferSizeCaches();
+    	var par:Container = getParent();
+    	if(par != null){
+    		par.invalidatePreferSizeCaches();
+    	}
+	}
+	
+	protected function clearPreferSizeCaches():void{
     	cachedMaximumSize = null;
     	cachedMinimumSize = null;
     	cachedPreferredSize = null;
