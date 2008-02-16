@@ -114,7 +114,7 @@ public class UIManager
 		return getDefaults().getInsets(key);
 	}
 	
-	public static function getInstance(key:String):Object{
+	public static function getInstance(key:String):*{
 		return getDefaults().getInstance(key);
 	}
 	

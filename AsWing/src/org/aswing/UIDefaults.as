@@ -143,7 +143,7 @@ public class UIDefaults extends HashMap
 		return this.get(key) as Class;
 	}
 	
-	public function getInstance(key:String):Object{
+	public function getInstance(key:String):*{
 		var value:* = this.get(key);
 		if(value is Class){
 			return getCreateInstance(value as Class);

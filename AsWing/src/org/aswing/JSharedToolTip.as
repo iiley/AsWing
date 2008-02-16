@@ -3,9 +3,9 @@
 */
 
 package org.aswing{
-	import flash.utils.Dictionary;
-	import flash.display.InteractiveObject;
-	
+
+import flash.utils.Dictionary;
+import flash.display.InteractiveObject;	
 	
 /**
  * Shared instance Tooltip to saving instances.

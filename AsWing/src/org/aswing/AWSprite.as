@@ -519,18 +519,25 @@ public class AWSprite extends Sprite
 	private var pressedTarget:DisplayObject;
 	private function __awSpriteMouseDownListener(e:MouseEvent):void{
 		pressedTarget = e.target as DisplayObject;
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener, false, 0, true);
+		if(stage){
+			stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener, false, 0, true);
+			addEventListener(Event.REMOVED_FROM_STAGE, __awStageRemovedFrom);
+		}
+	}
+	private function __awStageRemovedFrom(e:Event):void{
+		pressedTarget = null;
+		stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 	}
 	private function __awStageMouseUpListener(e:MouseEvent):void{
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
+		if(stage) stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 		var isOutSide:Boolean = false;
 		var target:DisplayObject = e.target as DisplayObject;
 		if(!(this == target || AsWingUtils.isAncestorDisplayObject(this, target))){
 			isOutSide = true;
 		}
-		dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE, pressedTarget, isOutSide));
+		dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE, pressedTarget, isOutSide, e));
 		if(isOutSide){
-			dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE_OUT_SIDE, pressedTarget, isOutSide));
+			dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE_OUT_SIDE, pressedTarget, isOutSide, e));
 		}
 
 		pressedTarget = null;

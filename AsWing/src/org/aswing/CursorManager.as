@@ -6,14 +6,16 @@ package org.aswing{
 	
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Sprite;
-import flash.ui.Mouse;
-import org.aswing.util.DepthManager;
-import flash.events.MouseEvent;
-import flash.events.Event;
 import flash.display.InteractiveObject;
+import flash.display.Sprite;
+import flash.display.Stage;
+import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.ui.Mouse;
 import flash.utils.Dictionary;
-import org.aswing.util.Reflection;
+
+import org.aswing.util.DepthManager;
+import org.aswing.util.WeakMap;
 	
 /**
  * The CursorManager, manage the cursor, hide system mouse cursor, show custom cursor, 
@@ -22,29 +24,67 @@ import org.aswing.util.Reflection;
  */
 public class CursorManager{
 	
-	private static var root:DisplayObjectContainer = null;
-	private static var cursorHolder:DisplayObjectContainer = null;
-	private static var currentCursor:DisplayObject = null;
+	protected var root:DisplayObjectContainer = null;
+	protected var cursorHolder:DisplayObjectContainer = null;
+	protected var currentCursor:DisplayObject = null;
+	
+	/**
+	 * Create a CursorManage
+	 * @param cursorRoot the container to hold the cursors
+	 * @see #getManager()
+	 */
+	public function CursorManager(cursorRoot:DisplayObjectContainer){
+		setCursorContainerRoot(cursorRoot);
+	}
+	
+	private static var managers:WeakMap = new WeakMap();
+	
+	/**
+	 * Returns the default cursor manager for specified stage.
+	 * <p>
+	 * Generally, you should call this method to get cursor manager, 
+	 * it will create one manager for each stage.
+	 * </p>
+	 * @param stage the stage, if pass null, the inital Stage of <code>AsWingManager.getStage()</code> 
+	 * 			will be used.
+	 */
+	public static function getManager(stage:Stage=null):CursorManager{
+		if(stage == null){
+			stage = AsWingManager.getStage();
+		}
+		if(stage == null){
+			return null;
+		}
+		var manager:CursorManager = managers.getValue(stage);
+		if(manager == null){
+			manager = new CursorManager(stage);
+			managers.put(stage, manager);
+		}
+		return manager;
+	}
 	
 	/**
 	 * Sets the container to hold the cursors(in fact it will hold the cursor's parent--a sprite).
 	 * By default(if you have not set one), it is the stage if <code>AsWingManager</code> is inited.
 	 * @param theRoot the container to hold the cursors.
-	 * @see org.aswing.AsWingManager#getStage()
 	 */
-	public static function setCursorContainerRoot(theRoot:DisplayObjectContainer):void{
+	protected function setCursorContainerRoot(theRoot:DisplayObjectContainer):void{
 		if(theRoot != root){
+			if(root){
+				root.removeEventListener(Event.DEACTIVATE, __referenceEvent);
+			}
 			root = theRoot;
+			//Make root reference this manager to keep manager will not be GC until root be GC.
+			root.addEventListener(Event.DEACTIVATE, __referenceEvent);
 			if(cursorHolder != null && cursorHolder.parent != root){
 				root.addChild(cursorHolder);
 			}
 		}
 	}
+	private function __referenceEvent(e:Event):void{//just for keep stage reference this manager
+	}
 	
-	private static function getCursorContainerRoot():DisplayObjectContainer{
-		if(root == null){
-			return AsWingManager.getStage();
-		}
+	protected function getCursorContainerRoot():DisplayObjectContainer{
 		return root;
 	}
 	
@@ -55,7 +95,7 @@ public class CursorManager{
 	 * @param cursor the display object to be add to the cursor container to be the cursor
 	 * @param hideSystemCursor whether or not hide the system cursor when custom cursor shows.
 	 */
-	public static function showCustomCursor(cursor:DisplayObject, hideSystemCursor:Boolean=true):void{
+	public function showCustomCursor(cursor:DisplayObject, hideSystemCursor:Boolean=true):void{
 		if(hideSystemCursor){
 			Mouse.hide();
 		}else{
@@ -89,7 +129,7 @@ public class CursorManager{
 		}
 	}
 	
-	private static function __mouseMove(e:MouseEvent):void{
+	private function __mouseMove(e:MouseEvent):void{
 		cursorHolder.x = cursorHolder.parent.mouseX;
 		cursorHolder.y = cursorHolder.parent.mouseY;
 		DepthManager.bringToTop(cursorHolder);
@@ -100,7 +140,7 @@ public class CursorManager{
 	 * @param cursor the showing cursor, if it is not the showing cursor, nothing 
 	 * will happen
 	 */
-	public static function hideCustomCursor(cursor:DisplayObject):void{
+	public function hideCustomCursor(cursor:DisplayObject):void{
 		if(cursor != currentCursor){
 			return;
 		}
@@ -117,32 +157,48 @@ public class CursorManager{
 		}
 	}
 	
-	private static var tiggerCursorMap:Dictionary = new Dictionary(true);
+	private var tiggerCursorMap:Dictionary = new Dictionary(true);
 	
 	/**
-	 * Sets the cursor when mouse on the specified trigger.
+	 * Sets the cursor when mouse on the specified trigger. null to remove cursor for that trigger.
 	 * @param trigger where the cursor will shown when the mouse on the trigger
-	 * @param cursor the cursor object
+	 * @param cursor the cursor object, if cursor is null, the trigger's current cursor will be removed
 	 */
-	public static function setCursor(trigger:InteractiveObject, cursor:DisplayObject):void{
+	public function setCursor(trigger:InteractiveObject, cursor:DisplayObject):void{
 		tiggerCursorMap[trigger] = cursor;
-		trigger.addEventListener(MouseEvent.ROLL_OVER, __triggerOver, false, 0, true);
-		trigger.addEventListener(MouseEvent.ROLL_OUT, __triggerOut, false, 0, true);
+		if(cursor != null){
+			trigger.addEventListener(MouseEvent.ROLL_OVER, __triggerOver, false, 0, true);
+			trigger.addEventListener(MouseEvent.ROLL_OUT, __triggerOut, false, 0, true);
+			trigger.addEventListener(MouseEvent.MOUSE_UP, __triggerUp, false, 0, true);
+		}else{
+			trigger.removeEventListener(MouseEvent.ROLL_OVER, __triggerOver, false);
+			trigger.removeEventListener(MouseEvent.ROLL_OUT, __triggerOut, false);
+			trigger.removeEventListener(MouseEvent.MOUSE_UP, __triggerUp, false);
+			delete tiggerCursorMap[trigger];
+		}
 	}
-	
-	private static function __triggerOver(e:MouseEvent):void{
+		
+	private function __triggerOver(e:MouseEvent):void{
 		var trigger:Object = e.currentTarget;
 		var cursor:DisplayObject = tiggerCursorMap[trigger] as DisplayObject;
-		if(cursor){
+		if(cursor && !e.buttonDown){
 			showCustomCursor(cursor);
 		}
 	}
 	
-	private static function __triggerOut(e:MouseEvent):void{
+	private function __triggerOut(e:MouseEvent):void{
 		var trigger:Object = e.currentTarget;
 		var cursor:DisplayObject = tiggerCursorMap[trigger] as DisplayObject;
 		if(cursor){
 			hideCustomCursor(cursor);
+		}
+	}
+	
+	private function __triggerUp(e:MouseEvent):void{
+		var trigger:InteractiveObject = e.currentTarget as InteractiveObject;
+		var cursor:DisplayObject = tiggerCursorMap[trigger] as DisplayObject;
+		if(cursor && trigger.hitTestPoint(e.stageX, e.stageY, true)){
+			showCustomCursor(cursor);
 		}
 	}
 }

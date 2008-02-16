@@ -196,9 +196,9 @@ public class AsWingUtils{
     	return false;
     }
     
-    public static function getStageMousePosition():IntPoint{
-    	var st:Stage = AsWingManager.getStage();
-    	return new IntPoint(st.mouseX, st.mouseY);
+    public static function getStageMousePosition(stage:Stage=null):IntPoint{
+    	if(stage == null) stage = AsWingManager.getStage();
+    	return new IntPoint(stage.mouseX, stage.mouseY);
     }
     
     /**
@@ -222,6 +222,9 @@ public class AsWingUtils{
     
     /**
      * Returns the currently visible maximized bounds in a display object(viewable the stage area).
+     * <p>
+     * Note : your stage must be StageAlign.TOP_LEFT align unless this returned value may not be right.
+     * </>
      * @param dis the display object, default is stage
      */
     public static function getVisibleMaximizedBounds(dis:DisplayObject=null):IntRectangle{
@@ -235,9 +238,15 @@ public class AsWingUtils{
     	if(stage.scaleMode != StageScaleMode.NO_SCALE){
     		return new IntRectangle(0, 0, stage.stageWidth, stage.stageHeight);
     	}
-    	
-        var sw:Number = stage.stageWidth;
+    	var sw:Number = stage.stageWidth;
         var sh:Number = stage.stageHeight;
+        var b:IntRectangle = new IntRectangle(0, 0, sw, sh);
+        if(dis != null){
+        	var p:Point = dis.globalToLocal(new Point(0, 0));
+        	b.setLocation(new IntPoint(p.x, p.y));
+        }
+        return b;
+        /*
         var sa:String = stage.align;
         var initStageSize:IntDimension = AsWingManager.getInitialStageSize();
         var dw:Number = sw - initStageSize.width;
@@ -282,7 +291,7 @@ public class AsWingUtils{
                 b.y -= dh/2;
                 break;
         }        
-        return b;
+        return b;*/
     }
     
     /**
@@ -749,9 +758,12 @@ public class AsWingUtils{
      * @see #updateComponentTreeUI()
      * @see org.aswing.Component#updateUI()
      */
-    public static function updateAllComponentUI():void{
+    public static function updateAllComponentUI(stage:Stage=null):void{
+    	if(stage == null){
+    		stage = AsWingManager.getStage();
+    	}
 		if(AsWingManager.isStageInited()){
-			updateChildrenUI(AsWingManager.getStage());
+			updateChildrenUI(stage);
 		}
     }
     

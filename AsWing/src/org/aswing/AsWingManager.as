@@ -5,11 +5,13 @@
 package org.aswing{
 	
 import flash.display.*;
+import flash.events.Event;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
+
 import org.aswing.error.AsWingManagerNotInited;
 import org.aswing.geom.IntDimension;
-import flash.utils.Timer;
-import flash.events.TimerEvent;
-import flash.events.Event;
+import org.aswing.util.HashSet;
 
 /**
  * The main manager for AsWing framework.
@@ -41,26 +43,40 @@ public class AsWingManager{
      */
     public static function setRoot(root:DisplayObjectContainer):void{
         ROOT = root;
-        if(stage == null && root.stage != null){
+        if(root != null && stage == null && root.stage != null){
         	initStage(root.stage);
         }
     }
     
     /**
-     * Init AsWing as a standard setting.
-     * @param root the default root container for aswing popups
+     * Init AsWing as a standard setting. This method is very important for your App.
+     * <p>
+     * <ul>
+     * <li>If your app is a general Web app or AIR app just have one window(i mean just one stage), you can easy 
+     * to pass your root here, and then later you can easy to use <code>AsWingManager.getStage()</code>.
+     * </li>
+     * <li>If your app is a multi-stage app, (for example AIR app with more than one NativeWindow), you'd better to pass null for this, 
+     * 	then the manager will not reference to your stage to make it is GC able when the NativeWindow is close.
+     * </li>
+     * </ul>
+     * </p>
+     * @param root the default root container for aswing popups, or null to make no default root.
      * @param _preventNullFocus set true to prevent focus transfer to null, false, not manage to do this
      * @param workWithFlex set this to true if your application ui has both AsWing components and Flex components.
      * @see #setRoot()
      * @see #setPreventNullFocus()
      * @see RepaintManager#setAlwaysUseTimer()
      */
-    public static function initAsStandard(root:DisplayObjectContainer, 
-    	_preventNullFocus:Boolean=true, workWithFlex:Boolean=false):void{
+    public static function initAsStandard(
+    				root:DisplayObjectContainer, 
+    				_preventNullFocus:Boolean=true, 
+    				workWithFlex:Boolean=false):void{
 		setRoot(root);
-		stage.align = StageAlign.TOP_LEFT;
-		stage.scaleMode = StageScaleMode.NO_SCALE;
-		stage.stageFocusRect = false;
+		if(stage){
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.stageFocusRect = false;
+		}
 		preventNullFocus = _preventNullFocus;
 		RepaintManager.getInstance().setAlwaysUseTimer(workWithFlex);
     }
@@ -110,8 +126,12 @@ public class AsWingManager{
     }
     
     /**
-     * Returns the root container which components base on. or symbol libraray located in.
-     * If you have not set a specified root, the stage will be the root to be returned.
+     * Returns the root container which components base on.
+     * If you have not set a specified root, the first stage will be the root to be returned.
+     * <p>
+     * Take care to use this method if you are working on a multiple native windows AIR project, 
+     * because there maybe more than one stage.
+     * </p>
 	 * @param checkError whethor or not check root is inited set.
      * @return the root container, or null--not root set and AsWingManager not stage inited.
 	 * @throws AsWingManagerNotInited if checkError and both root and stage is null.
@@ -135,10 +155,6 @@ public class AsWingManager{
 			stage = theStage;
 	        INITIAL_STAGE_WIDTH = stage.stageWidth;
 	        INITIAL_STAGE_HEIGHT = stage.stageHeight;
-			RepaintManager.getInstance().init(stage);
-			KeyboardManager.getInstance().init(stage);
-			FocusManager.getCurrentManager().init(stage);
-			stage.addEventListener(Event.ENTER_FRAME, __enterFrame);
 		}
 	}
 	
@@ -151,10 +167,16 @@ public class AsWingManager{
 	}
 	
 	/**
-	 * Returns the stage.
+	 * Returns the stage inited by <code>initAsStandard()</code> or <code>setRoot</code>.
+	 * <p>
+     * Take care to use this method if you are working on a multiple native windows AIR project, 
+     * because there maybe more than one stage.
+     * </p>
 	 * @param checkError whethor or not check is stage is inited set.
 	 * @return the stage.
 	 * @throws AsWingManagerNotInited if checkError and stage is null.
+	 * @see #initAsStandard()
+	 * @see #setRoot()
 	 */
 	public static function getStage(checkError:Boolean=true):Stage{
 		if(checkError && stage==null){
@@ -178,12 +200,27 @@ public class AsWingManager{
 		}
 	}
 	
+	private static var frameTrigger:Sprite;
 	/**
 	 * Adds a function to the queue to be invoked at next enter frame time
 	 * @param func the function to be invoked at next frame
 	 */
 	public static function callNextFrame(func:Function):void{
+		if(frameTrigger == null){
+			frameTrigger = new Sprite();
+			frameTrigger.addEventListener(Event.ENTER_FRAME, __enterFrame);
+		}
 		nextFrameCalls.push(func);
+	}
+	
+	private static var timers:HashSet = new HashSet();
+	public static function callLater(func:Function, time:int=40):void{
+		var timer:Timer = new Timer(time, 1);
+		timers.add(timer);
+		timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void{
+			timers.remove(e.currentTarget);
+			func();
+		});
 	}
 	
 	private static function __update(e:TimerEvent):void{

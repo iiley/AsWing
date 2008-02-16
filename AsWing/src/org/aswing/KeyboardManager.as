@@ -4,13 +4,13 @@
 
 package org.aswing{
 	
-import flash.display.Stage;
-import flash.events.KeyboardEvent;
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
-import org.aswing.util.*;
-import flash.ui.Keyboard;
 import flash.events.EventDispatcher;
-import flash.system.IME;
+import flash.events.KeyboardEvent;
+import flash.ui.Keyboard;
+
+import org.aswing.util.*;
 
 /**
  * Dispatched when key is down.
@@ -36,73 +36,48 @@ import flash.system.IME;
  */
 public class KeyboardManager extends EventDispatcher{
 	
-	private static var instance:KeyboardManager;
+	protected static var defaultMnemonicModifier:Array = [Keyboard.CONTROL, Keyboard.SHIFT];
 	
-	private var keymaps:Vector;
-	private var keySequence:Vector;
-	private var selfKeyMap:KeyMap;
-	private var inited:Boolean;
-	private var keyJustActed:Boolean;
+	protected var keySequence:Vector;
+	protected var keymap:KeyMap;
+	protected var inited:Boolean;
+	protected var mnemonicModifier:Array;
+	protected var keyJustActed:Boolean;
+	protected var enabled:Boolean;
 	
-	private var mnemonicModifier:Array;
 	
 	/**
 	 * Singleton class, 
 	 * Don't create instance directly, in stead you should call <code>getInstance()</code>.
 	 */
 	public function KeyboardManager(){
+		enabled = true;
 		inited = false;
 		keyJustActed = false;
-		keymaps = new Vector();
 		keySequence = new Vector();
-		selfKeyMap = new KeyMap();
-		mnemonicModifier = [Keyboard.CONTROL, Keyboard.SHIFT];
-		registerKeyMap(selfKeyMap);
-	}
-	
-	/**
-	 * Returns the global keyboard controller.
-	 */
-	public static function getInstance():KeyboardManager{
-		if(instance == null){
-			instance = new KeyboardManager();
-		}
-		return instance;
+		keymap = new KeyMap();
+		mnemonicModifier = null;
 	}
 	
 	/**
 	 * Init the keyboad manager, it will only start works when it is inited.
-	 * By default, it will be inited when a component is added to stage automatically.
+	 * @param root the key trigger root of this keyboard manager.
+	 * @throws Error if it is already inited.
 	 */
-	public function init(stage:Stage):void{
+	public function init(root:DisplayObjectContainer):void{
 		if(!inited){
 			inited = true;
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown, false, 0, true);
-			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp, false, 0, true);
-			stage.addEventListener(Event.DEACTIVATE, __deactived, false, 0, true);
+			root.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown, false, 0, true);
+			root.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp, false, 0, true);
+			root.addEventListener(Event.DEACTIVATE, __deactived, false, 0, true);
 			
-			//stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDownCap, true);
-			//stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUpCap, true);
+			//root.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDownCap, true);
+			//root.addEventListener(KeyboardEvent.KEY_UP, __onKeyUpCap, true);
+		}else{
+			throw new Error("This KeyboardManager was already inited!");
 		}
 	}
-	
-	/**
-	 * Registers a key action map to the controller
-	 */
-	public function registerKeyMap(keyMap:KeyMap):void{
-		if(!keymaps.contains(keyMap)){
-			keymaps.append(keyMap);
-		}
-	}
-	
-	/**
-	 * Unregisters a key action map to the controller
-	 * @param keyMap the key map
-	 */
-	public function unregisterKeyMap(keyMap:KeyMap):void{
-		keymaps.remove(keyMap);
-	}
-	
+		
 	/**
 	 * Registers a key action to the default key map of this controller.
 	 * @param key the key type
@@ -110,7 +85,7 @@ public class KeyboardManager extends EventDispatcher{
 	 * @see KeyMap#registerKeyAction()
 	 */
 	public function registerKeyAction(key:KeyType, action:Function):void{
-		selfKeyMap.registerKeyAction(key, action);
+		keymap.registerKeyAction(key, action);
 	}
 	
 	/**
@@ -119,7 +94,11 @@ public class KeyboardManager extends EventDispatcher{
 	 * @see KeyMap#unregisterKeyAction()
 	 */
 	public function unregisterKeyAction(key:KeyType):void{
-		selfKeyMap.unregisterKeyAction(key);
+		keymap.unregisterKeyAction(key);
+	}
+	
+	public function getKeyMap():KeyMap{
+		return keymap;
 	}
 	
 	/**
@@ -132,23 +111,47 @@ public class KeyboardManager extends EventDispatcher{
 	}
 	
 	/**
-	 * Returns whether or not the key is down. 
-	 * This method is same to <code>getInstance().isKeyDown()</code> 
-	 * @param the key code
-	 * @return true if the specified key is down, false if not.
-	 */
-	public static function isDown(keyCode:uint):Boolean{
-		return getInstance().isKeyDown(keyCode);
-	}
-	
-	/**
 	 * Sets the mnemonic modifier key codes, the default is [Ctrl, Shift], however 
 	 * for normal UI frameworks, it is [Alt], but because the flashplayer or explorer will 
 	 * eat [Alt] for thier own mnemonic modifier, so we set our default to [Ctrl, Shift].
+	 * <p>
+	 * Sets null to make it allways keep same to <code>getDefaultMnemonicModifier</code>
+	 * </p>
 	 * @param keyCodes the array of key codes to be the mnemoic modifier.
 	 */
 	public function setMnemonicModifier(keyCodes:Array):void{
-		mnemonicModifier = keyCodes.concat();
+		if(keyCodes == null){
+			keyCodes = null;
+		}else{
+			mnemonicModifier = keyCodes.concat();
+		}
+	}
+	
+	public static function getDefaultMnemonicModifier():Array{
+		return defaultMnemonicModifier.concat();
+	}
+	
+	public static function setDefaultMnemonicModifier(keyCodes:Array):void{
+		defaultMnemonicModifier = keyCodes.concat();
+	}
+	
+	public function setEnabled(b:Boolean):void{
+		enabled = b;
+		if(!b){
+			keySequence.clear();
+		}
+	}
+	
+	public function isEnabled():Boolean{
+		return enabled;
+	}
+	
+	public function getMnemonicModifier():Array{
+		if(mnemonicModifier == null){
+			return getDefaultMnemonicModifier();
+		}else{
+			return mnemonicModifier.concat();
+		}
 	}
 	
 	/**
@@ -156,12 +159,13 @@ public class KeyboardManager extends EventDispatcher{
 	 * @return whether or not the mnemonic modifier keys is down.
 	 */
 	public function isMnemonicModifierDown():Boolean{
-		for(var i:int=0; i<mnemonicModifier.length; i++){
-			if(!isKeyDown(mnemonicModifier[i])){
+		var mm:Array = getMnemonicModifier();
+		for(var i:int=0; i<mm.length; i++){
+			if(!isKeyDown(mm[i])){
 				return false;
 			}
 		}
-		return mnemonicModifier.length > 0;
+		return mm.length > 0;
 	}
 	
 	/**
@@ -173,22 +177,24 @@ public class KeyboardManager extends EventDispatcher{
 	}
 		
 	private function __onKeyDown(e:KeyboardEvent) : void {
+		if(!enabled){
+			return;
+		}
 		dispatchEvent(e);
 		var code:uint = e.keyCode;
 		if(!keySequence.contains(code)){
 			keySequence.append(code);
 		}
 		keyJustActed = false;
-		var n:int = keymaps.size();
-		for(var i:int=0; i<n; i++){
-			var keymap:KeyMap = KeyMap(keymaps.get(i));
-			if(keymap.fireKeyAction(keySequence.toArray())){
-				keyJustActed = true;
-			}
+		if(keymap.fireKeyAction(keySequence.toArray())){
+			keyJustActed = true;
 		}
 	}
 
 	private function __onKeyUp(e:KeyboardEvent) : void {
+		if(!enabled){
+			return;
+		}
 		dispatchEvent(e);
 		var code:uint = e.keyCode;
 		keySequence.remove(code);

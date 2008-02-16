@@ -216,9 +216,7 @@ public class Component extends AWSprite{
 		border = DefaultEmptyDecoraterResource.INSTANCE;
 		backgroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
 		foregroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
-		if(!AsWingManager.isStageInited()){
-			addEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
-		}
+		
 		font = DefaultEmptyDecoraterResource.DEFAULT_FONT;
 		background = DefaultEmptyDecoraterResource.DEFAULT_BACKGROUND_COLOR;
 		foreground = DefaultEmptyDecoraterResource.DEFAULT_FOREGROUND_COLOR;
@@ -259,11 +257,6 @@ public class Component extends AWSprite{
 				makeAllTobeUIElement(con.getChildAt(i));
 			}
 		}
-	}
-	
-	private function __repaintManagerStarter(e:Event):void{
-		AsWingManager.initStage(stage);
-		removeEventListener(Event.ADDED_TO_STAGE, __repaintManagerStarter);
 	}
 		    
 	/**
@@ -1908,14 +1901,38 @@ public class Component extends AWSprite{
      */	
 	public function invalidate():void{
     	valid = false;
-    	clearPreffeSizeCaches();
+    	clearPreferSizeCaches();
     	var par:Container = getParent();
     	if(par != null && par.isValid()){
     		par.invalidate();
     	}
 	}
 	
-	protected function clearPreffeSizeCaches():void{
+    /**
+     * Invalidates this component and all parents above it's preferred size caches.
+     * <p>
+     * By default all components' prefer sizes(max, min, prefer) have caches, if you 
+     * make some call that cached a invalided component's sizes(for example call invalided 
+     * component's <code>getPreferredSize()</code>) but then you modifid the component again, 
+     * so it's prefer size need to be renew, <code>invalidatePreferSizeCaches</code> will be 
+     * helpful now.
+     * </p>
+     * <p>
+     * Generally you do not need to call this method unless you get above situation.
+     * </p>
+     * @see       #validate()
+     * @see       #setCachePreferSizes()
+     * @see       org.aswing.LayoutManager
+     */		
+	public function invalidatePreferSizeCaches():void{
+    	clearPreferSizeCaches();
+    	var par:Container = getParent();
+    	if(par != null){
+    		par.invalidatePreferSizeCaches();
+    	}
+	}
+	
+	protected function clearPreferSizeCaches():void{
     	cachedMaximumSize = null;
     	cachedMinimumSize = null;
     	cachedPreferredSize = null;
@@ -2003,9 +2020,10 @@ public class Component extends AWSprite{
 	 * @param force force to paint the focus rect nomatter if it is focused.
 	 */
 	public function paintFocusRect(force:Boolean=false):void{
-		if(ui != null){
-			if(force || FocusManager.getCurrentManager().isTraversing() && isFocusOwner()){
-				var fr:Sprite = FocusManager.getCurrentManager().moveFocusRectUpperTo(this);
+		var fm:FocusManager = FocusManager.getManager(stage);
+		if(ui && fm){
+			if(force || fm.isTraversing() && isFocusOwner()){
+				var fr:Sprite = fm.moveFocusRectUpperTo(this);
 				fr.graphics.clear();
 				ui.paintFocus(this, new Graphics2D(fr.graphics), new IntRectangle(0, 0, width, height));
 			}
@@ -2134,6 +2152,18 @@ public class Component extends AWSprite{
 	}
 	
 	/**
+	 * Returns the keyboard manager of this component's <code>JRootPane</code> ancestor.
+	 * @return the keyboard manager, or null if no root pane ancestor.
+	 */
+	public function getKeyboardManager():KeyboardManager{
+		var rootPane:JRootPane = getRootPaneAncestor();
+		if(rootPane){
+			return rootPane.getKeyboardManager();
+		}
+		return null;
+	}
+	
+	/**
 	 * Removes this component from its parent, 
 	 * whatever it is as a component child or only a display object child, 
 	 * or it's parent is just a display object container.
@@ -2218,7 +2248,8 @@ public class Component extends AWSprite{
      *     focus owner; <code>false</code> otherwise
      */
     public function isFocusOwner():Boolean {
-        return (FocusManager.getCurrentManager().getFocusOwner() == this);
+    	var fm:FocusManager = FocusManager.getManager(stage);
+        return (fm != null && fm.getFocusOwner() == this);
     }
     
     /**
@@ -2286,6 +2317,14 @@ public class Component extends AWSprite{
 		}else{
 			return this;
 		}
+	}
+	
+	/**
+	 * Returns the focus manager for this component's stage, 
+	 * or null if this component is not on stage.
+	 */
+	public function getFocusManager():FocusManager{
+		return FocusManager.getManager(stage);
 	}
     
     internal function fireFocusKeyDownEvent(e:KeyboardEvent):void{
@@ -2377,12 +2416,16 @@ public class Component extends AWSprite{
 		if(!((isFocusable() || getFocusTransmit() != null) && isEnabled())){
 			return;
 		}
-		var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+		var fm:FocusManager = FocusManager.getManager(stage);
+		if(fm == null){
+			return;
+		}
+		var focusOwner:Component = fm.getFocusOwner();
 		var target:DisplayObject = e.target as DisplayObject;
 		if(focusOwner == null){
 			var focusObj:InteractiveObject = null;
-			if(AsWingManager.getStage(false) != null){
-				focusObj = AsWingManager.getStage(false).focus;
+			if(stage != null){
+				focusObj = stage.focus;
 			}
 			if(focusObj == null){
 				requestFocus();
@@ -2428,9 +2471,13 @@ public class Component extends AWSprite{
 	
 	private function __focusIn(e:FocusEvent):void{
 		if(e.target == getInternalFocusObject() && isFocusable()){
-			var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+			var fm:FocusManager = FocusManager.getManager(stage);
+			if(fm == null){
+				return;
+			}
+			var focusOwner:Component = fm.getFocusOwner();
 			if(this != focusOwner){
-	    		FocusManager.getCurrentManager().setFocusOwner(this);
+	    		fm.setFocusOwner(this);
 	    		paintFocusRect();
 	    		dispatchEvent(new AWEvent(AWEvent.FOCUS_GAINED));
    			}
@@ -2442,9 +2489,13 @@ public class Component extends AWSprite{
 		//	return;
 		//}
 		if(e.target == getInternalFocusObject() && isFocusable()){
-			var focusOwner:Component = FocusManager.getCurrentManager().getFocusOwner();
+			var fm:FocusManager = FocusManager.getManager(stage);
+			if(fm == null){
+				return;
+			}
+			var focusOwner:Component = fm.getFocusOwner();
 			if(this == focusOwner){
-	    		FocusManager.getCurrentManager().setFocusOwner(null);
+	    		fm.setFocusOwner(null);
 	    		dispatchEvent(new AWEvent(AWEvent.FOCUS_LOST));
    			}
 		}

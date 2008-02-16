@@ -92,7 +92,7 @@ public class JLabel extends Component{
 
     private var iconTextGap:int;
     private var selectable:Boolean;
-    private var textFilters:Array = [];
+    private var textFilters:Array = null;
     
     /**
      * Creates a label.

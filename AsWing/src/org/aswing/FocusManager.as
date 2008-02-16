@@ -6,11 +6,14 @@ package org.aswing{
 
 import flash.display.*;
 import flash.events.*;
-import flash.ui.Keyboard;
-import org.aswing.util.DepthManager;
 import flash.geom.Point;
 import flash.text.TextField;
+import flash.ui.Keyboard;
+
 import org.aswing.event.*;
+import org.aswing.util.DepthManager;
+import org.aswing.util.Vector;
+import org.aswing.util.WeakMap;
 
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
@@ -20,12 +23,15 @@ import org.aswing.event.*;
  */
 public class FocusManager{
 	
-	private static var instance:FocusManager;
-	private static var traversalEnabled:Boolean = true;
-		
-	private static var oldFocusOwner:Component;
-	private static var focusOwner:Component;
-	private static var activeWindow:JWindow;
+	private static var managers:WeakMap = new WeakMap();
+	private static var defaultTraversalEnabled:Boolean = true;
+	
+	private var oldFocusOwner:Component;
+	private var focusOwner:Component;
+	private var popups:Vector;
+	private var activeWindow:JWindow;
+	private var traversalEnabled:Boolean = true;
+	private var traversalDefault:Boolean = true;
 		
 	private var stage:Stage;
 	private var focusRect:Sprite;
@@ -33,10 +39,56 @@ public class FocusManager{
 	private var defaultPolicy:FocusTraversalPolicy;
 	private var traversing:Boolean;
 		
-	public function FocusManager(){
+	public function FocusManager(theStage:Stage){
 		traversing = false;
 		inited = false;
 		defaultPolicy = new ContainerOrderFocusTraversalPolicy();
+		popups = new Vector();
+		init(theStage);
+	}
+	
+    /**
+     * Returns the current FocusManager instance
+     *
+     * @return this the current FocusManager instance
+     * @see #setCurrentManager
+     */
+	public static function getManager(theStage:Stage):FocusManager{
+		if(theStage == null){
+			return null;
+		}
+		var manager:FocusManager = managers.getValue(theStage);
+		if(manager == null){
+			manager = new FocusManager(theStage);
+			managers.put(theStage, manager);
+		}		
+		return manager;
+	}
+	private function __referenceEvent(e:Event):void{//just for keep stage reference this manager
+	}
+	
+	/**
+     * Sets the current FocusManager instance. If null is specified, 
+     * then the current FocusManager is replaced with a new instance of FocusManager.
+     * 
+     * @param newManager the new FocusManager
+     * @see #getCurrentManager
+     * @see org.aswing.FocusManager
+	 */
+	public static function setManager(theStage:Stage, newManager:FocusManager):void{
+		if(theStage == null){
+			throw new Error("theStage can't be null!");
+		}
+		if(newManager == null){
+			newManager = new FocusManager(theStage);
+		}
+		var oldManager:FocusManager = managers.getValue(theStage);
+		if(oldManager != newManager){
+			if(oldManager != null){
+				oldManager.uninit();
+			}
+			managers.put(theStage, newManager);
+		}
 	}
 	
 	/**
@@ -56,7 +108,13 @@ public class FocusManager{
 			focusRect.mouseEnabled = false;
 			focusRect.visible = false;
 			stage.addChild(focusRect);
+			//Make stage reference this manager to keep manager will not be GC until stage be GC.
+			stage.addEventListener(Event.DEACTIVATE, __referenceEvent);
 		}
+	}
+	
+	public function getPopupsVector():Vector{
+		return popups;
 	}
 	
 	private var focusPaintedComponent:Component;
@@ -115,8 +173,23 @@ public class FocusManager{
 	 */
 	public function uninit():void{
 		if(stage != null){
-			stage.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange);
-			stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
+			stage.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange, false);
+			stage.removeEventListener(FocusEvent.MOUSE_FOCUS_CHANGE, __onMouseFocusChange, false);
+			stage.removeEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown, false);
+			stage.removeEventListener(KeyboardEvent.KEY_UP, __onKeyUp, false);
+			stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown, false);
+			stage = null;
+			focusOwner = null;
+			activeWindow = null;
+			defaultPolicy = null;
+			focusPaintedComponent = null;
+			if(focusRect.parent){
+				focusRect.parent.removeChild(focusRect);
+			}
+			focusRect = null;
+			inited = false;
+			oldFocusOwner = null;
+			traversing = false;
 		}
 	}
 	
@@ -137,7 +210,7 @@ public class FocusManager{
 	}
 	
 	private function __onKeyFocusChange(e:FocusEvent):void{
-		if(!traversalEnabled){
+		if(!isTraversalEnabled()){
 			return;
 		}
 		if(focusOwner != null){
@@ -199,76 +272,80 @@ public class FocusManager{
 	}
 		
 	/**
-	 * Disables the traversal by keys pressing.
-	 * If this method called, TAB... keys will not effect the focus traverse. And component will not fire 
-	 * any Key events when there are focused and key pressed.
+	 * The default to disables or enables the traversal by keys pressing.
+	 * @see #setTraversalEnabled()
+	 * @see #setTraversalAsDefault()
 	 */
-	public static function disableTraversal():void{
-		traversalEnabled = false;
+	public static function setDefaultTraversalEnabled(b:Boolean):void{
+		defaultTraversalEnabled = b;
 	}
 	
 	/**
-	 * Enables the traversal by keys pressing.
-	 * If this method called, TAB... keys will effect the focus traverse. And component will fire 
-	 * Key events when there are focused and key pressed.
+	 * Returns the default value for <code>defaultTraversalEnabled</code>.
+	 * @see #setTraversalEnabled()
+	 * @see #setTraversalAsDefault()
 	 */
-	public static function enableTraversal():void{
-		traversalEnabled = true;
+	public static function isDefaultTraversalEnabled():Boolean{
+		return defaultTraversalEnabled;
 	}
 	
 	/**
-	 * Returns whether the traversal enabled.
-	 * @return whether the traversal enabled.
-	 * @see #disableTraversal()
-	 * @see #enableTraversal()
+	 * Disables or enables the traversal by keys pressing.
+	 * This will call <code>setTraversalAsDefault(false)</code>
+	 * <p>
+	 * If this method called, TAB... keys will or not effect the focus traverse with this focus system. 
+	 * </p>
+	 * <p>
+	 * And component will or not fire any Key events when there are focused and key pressed.
+	 * </p>
+	 * @see #setTraversalAsDefault()
+	 * @see #setDefaultTraversalEnabled()
 	 */
-	public static function isTraversalEnabled():Boolean{
+	public function setTraversalEnabled(b:Boolean):void{
+		traversalEnabled = b;
+		setTraversalAsDefault(false);
+	}
+	
+	/**
+	 * Returns traversal by keys pressing is enabled or not. 
+	 * If <code>isTraversalAsDefault()</code> returns true, this will returns <code>isDefaultTraversalEnabled</code>
+	 * <p>
+	 * If this method called, TAB... keys will or not effect the focus traverse with this focus system. 
+	 * </p>
+	 * <p>
+	 * And component will or not fire any Key events when there are focused and key pressed.
+	 * </p>
+	 * @see #isTraversalAsDefault()
+	 * @see #setDefaultTraversalEnabled()
+	 */
+	public function isTraversalEnabled():Boolean{
 		return traversalEnabled;
 	}
 	
-    /**
-     * Returns the current FocusManager instance
-     *
-     * @return this the current FocusManager instance
-     * @see #setCurrentManager
-     */
-	public static function getCurrentManager():FocusManager{		
-		if(instance == null){
-			instance = new FocusManager();	
-		}		
-		return instance;
+	/**
+	 * Sets whether or not to use default value for traversal enabled.
+	 * @see #isTraversalEnabled()
+	 * @see #setDefaultTraversalEnabled()
+	 */
+	public function setTraversalAsDefault(b:Boolean):void{
+		traversalDefault = b;
 	}
 	
 	/**
-     * Sets the current FocusManager instance. If null is specified, 
-     * then the current FocusManager is replaced with a new instance of FocusManager.
-     * 
-     * @param newManager the new FocusManager
-     * @see #getCurrentManager
-     * @see org.aswing.FocusManager
+	 * Returns whether or not to use default value for traversal enabled.
+	 * @see #isTraversalEnabled()
+	 * @see #setDefaultTraversalEnabled()
 	 */
-	public static function setCurrentManager(newManager:FocusManager):void{
-		if(newManager == null){
-			newManager = new FocusManager();
-		}
-		var oldManager:FocusManager = instance;
-		if(oldManager != newManager){
-			if(oldManager != null){
-				oldManager.uninit();
-			}
-			instance = newManager;
-			if(oldManager != null && oldManager.stage != null){
-				instance.init(oldManager.stage);
-			}
-		}
+	public function isTraversalAsDefault():Boolean{
+		return traversalDefault;
 	}
-
+	
 	/**
      * Returns the previous focused component.
      *
      * @return the previous focused component.
      */
-	public static function getPreviousFocusedComponent():Component{
+	public function getPreviousFocusedComponent():Component{
 		return oldFocusOwner;
 	}
 

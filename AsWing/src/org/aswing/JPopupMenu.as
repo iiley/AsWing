@@ -4,14 +4,15 @@
 
 package org.aswing{
 
+import flash.events.Event;
+import flash.events.MouseEvent;
+
+import org.aswing.event.ContainerEvent;
+import org.aswing.event.PopupEvent;
+import org.aswing.geom.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicPopupMenuUI;
-import org.aswing.geom.*;
 import org.aswing.util.*;
-import flash.events.MouseEvent;
-import org.aswing.event.PopupEvent;
-import org.aswing.event.ContainerEvent;
-import flash.events.Event;
 
 /**
  * An implementation of a popup menu -- a small window that pops up
@@ -56,7 +57,7 @@ public class JPopupMenu extends Container implements MenuElement{
 		
 		popup.addEventListener(ContainerEvent.COM_ADDED, __popMenuChildAdd);
 		popup.addEventListener(ContainerEvent.COM_REMOVED, __popMenuChildRemove);
-				
+		
 		updateUI();
 	}
 
@@ -159,22 +160,6 @@ public class JPopupMenu extends Container implements MenuElement{
 	override public function setVisible(b:Boolean):void {
 		if (b == isVisible())
 			return;
-		// if closing, first close all Submenus
-		if (b == false) {
-			getSelectionModel().clearSelection();
-		} else {
-			// This is a popup menu with MenuElement children,
-			// set selection path before popping up!
-			if (isPopupMenu()) {
-				var subEles:Array = getSubElements();
-				if (subEles.length > 0) {
-					var me:Array = [this, subEles[0]];
-					MenuSelectionManager.defaultManager().setSelectedPath(me, true);
-				} else {
-					MenuSelectionManager.defaultManager().setSelectedPath([this], true);
-				}
-			}
-		}
 		//ensure the owner will be applied here
 		var owner:* = AsWingUtils.getOwnerAncestor(invoker);
 		popup.changeOwner(owner);
@@ -189,7 +174,27 @@ public class JPopupMenu extends Container implements MenuElement{
 				setInUse(false);
 			}
 		}
-		popup.setMnemonicForcedToWork(b);
+		// if closing, first close all Submenus
+		if (b == false) {
+			getSelectionModel().clearSelection();
+		} else {
+			// This is a popup menu with MenuElement children,
+			// set selection path before popping up!
+			if (isPopupMenu()) {
+				var subEles:Array = getSubElements();
+				if (subEles.length > 0) {
+					var me:Array = [this, subEles[0]];
+					MenuSelectionManager.defaultManager().setSelectedPath(stage, me, true);
+				} else {
+					MenuSelectionManager.defaultManager().setSelectedPath(stage, [this], true);
+				}
+			}
+		}
+		if(b){
+			popup.setMnemonicTriggerProxy(stage);
+		}else{
+			popup.setMnemonicTriggerProxy(null);
+		}
 	}
 	
 	override public function isVisible():Boolean{
@@ -208,7 +213,7 @@ public class JPopupMenu extends Container implements MenuElement{
 
 	/**
 	 * Sets the invoker of this popup menu -- the component in which
-	 * the popup menu menu is to be displayed.
+	 * the popup menu is to be displayed.
 	 *
 	 * @param invoker the <code>Component</code> in which the popup
 	 *		menu is displayed
@@ -325,7 +330,7 @@ public class JPopupMenu extends Container implements MenuElement{
 	}
 	
 	private function adjustPopupLocationToFitScreen(gp:IntPoint):IntPoint{
-		var globalBounds:IntRectangle = AsWingUtils.getVisibleMaximizedBounds();
+		var globalBounds:IntRectangle = AsWingUtils.getVisibleMaximizedBounds(popup.parent);
 		if(gp.x + popup.getWidth() > globalBounds.x + globalBounds.width){
 			gp.x = gp.x - popup.getWidth();
 		}
@@ -434,8 +439,8 @@ public class JPopupMenu extends Container implements MenuElement{
 	}
 	
 	private function __addMouseDownListenerToStage():void{
-		if(showingMenuPopups.size()>0 && !popupMenuMouseDownListening){
-			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown, false, 0, true);
+		if(showingMenuPopups.size()>0 && !popupMenuMouseDownListening && stage != null){
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown, false, 0, true);
 			popupMenuMouseDownListening = true;
 		}
 	}
@@ -443,11 +448,10 @@ public class JPopupMenu extends Container implements MenuElement{
 	private function __popupClosed(e:PopupEvent) : void {
 		var source:* = e.target;
 		showingMenuPopups.remove(source);
-		if(showingMenuPopups.size() == 0 && popupMenuMouseDownListening){
-			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown);
+		if(showingMenuPopups.size() == 0 && popupMenuMouseDownListening && stage != null){
+			stage.removeEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown);
 			popupMenuMouseDownListening = false;
 		}
 	}
-	
 }
 }

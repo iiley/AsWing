@@ -125,6 +125,8 @@ public class AbstractButton extends Component{
     private var        iconTextGap:int;	
     private var        shiftOffset:int = 0;
     private var        shiftOffsetSet:Boolean=false;
+    
+    private var textFilters:Array = null;
 	
 	public function AbstractButton(text:String="", icon:Icon=null){
 		super();
@@ -208,7 +210,7 @@ public class AbstractButton extends Component{
     	if(isOnStage()){
     		dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, true, false, 0, 0));
     	}else{
-    		AsWingManager.getStage().dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, true, false, 0, 0));
+    		dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE, this, false, new MouseEvent(MouseEvent.MOUSE_UP)));
     	}
     	dispatchEvent(new MouseEvent(MouseEvent.CLICK, true, false, 0, 0));
     	dispatchEvent(new MouseEvent(MouseEvent.ROLL_OUT, true, false, 0, 0));
@@ -389,6 +391,17 @@ public class AbstractButton extends Component{
 		}else{
 			return new Insets(m.top, m.left, m.bottom, m.right);
 		}
+	}
+	
+	public function setTextFilters(fs:Array):void{
+		if(textFilters != fs){
+			textFilters = fs;
+			repaint();
+		}
+	}
+	
+	public function getTextFilters():Array{
+		return textFilters;
 	}
 	
 	/**
