@@ -5,17 +5,16 @@
 package org.aswing.plaf.basic
 {
 	
-import org.aswing.*;
-import org.aswing.graphics.Graphics2D;
-import org.aswing.geom.IntRectangle;
-import org.aswing.geom.IntDimension;
-import org.aswing.Component;
-import org.aswing.plaf.*;
-import org.aswing.event.AWEvent;
-import flash.utils.getTimer;
 import flash.text.*;
-import org.aswing.event.FocusKeyEvent;
 import flash.ui.Keyboard;
+
+import org.aswing.*;
+import org.aswing.event.AWEvent;
+import org.aswing.event.FocusKeyEvent;
+import org.aswing.geom.IntDimension;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.*;
 
 /**
  * Basic Button implementation.
@@ -110,7 +109,7 @@ public class BasicButtonUI extends BaseComponentUI{
 		}
 		var model:ButtonModel = button.getModel();
 		if(e.keyCode == Keyboard.SPACE && !(model.isRollOver() && model.isPressed())){
-	    	FocusManager.getCurrentManager().setTraversing(true);
+	    	setTraversingTrue();
 			model.setRollOver(true);
 			model.setArmed(true);
 			model.setPressed(true);
@@ -123,12 +122,19 @@ public class BasicButtonUI extends BaseComponentUI{
 		}
 		if(e.keyCode == Keyboard.SPACE){
 			var model:ButtonModel = button.getModel();
-	    	FocusManager.getCurrentManager().setTraversing(true);
+	    	setTraversingTrue();
 			model.setPressed(false);
 			model.setArmed(false);
 			//b.fireActionEvent();
 			model.setRollOver(false);
 		}
+    }
+    
+    protected function setTraversingTrue():void{
+    	var fm:FocusManager = FocusManager.getManager(button.stage);
+    	if(fm){
+    		fm.setTraversing(true);
+    	}
     }
     
     //--------------------------------------------------
@@ -213,6 +219,7 @@ public class BasicButtonUI extends BaseComponentUI{
 				new TextFormat(null, null, null, null, null, true), 
 				b.getMnemonicIndex());
 		}
+    	textField.filters = b.getTextFilters();
     }
     
     protected function getTextPaintColor(b:AbstractButton):ASColor{

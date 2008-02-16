@@ -4,20 +4,21 @@
 
 package org.aswing.plaf.basic{
 
+import flash.display.DisplayObjectContainer;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.events.TimerEvent;
+import flash.geom.Rectangle;
+import flash.utils.Timer;
+
 import org.aswing.*;
+import org.aswing.event.*;
 import org.aswing.geom.*;
+import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.frame.*;
 import org.aswing.resizer.Resizer;
-import flash.display.Sprite;
-import flash.events.MouseEvent;
-import org.aswing.event.*;
-import org.aswing.graphics.*;
-import flash.events.Event;
-import flash.display.DisplayObjectContainer;
-import flash.utils.Timer;
-import flash.events.TimerEvent;
-import flash.geom.Rectangle;
 
 /**
  * Basic frame ui imp.
@@ -61,13 +62,13 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	    resizeArrowColor = getColor("resizeArrow");
 	    resizeArrowLightColor = getColor("resizeArrowLight");
 	    resizeArrowDarkColor = getColor("resizeArrowDark");
+	    var ico:Icon = frame.getIcon();
+	    if(ico is UIResource){
+	    	frame.setIcon(getIcon(getPropertyPrefix()+"icon"));
+	    }
     }
     
     protected function installComponents():void {
-    	titleBar = createTitleBar();
-    	titleBar.setUIElement(true);
-    	frame.insert(0, titleBar, WindowLayout.TITLE);
-    	
     	if(frame.getResizer() == null || frame.getResizer() is UIResource){
 	    	var resizer:Resizer = getInstance(getPropertyPrefix()+"resizer") as Resizer;
 	    	frame.setResizer(resizer);
@@ -81,15 +82,12 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	}
 	
 	protected function installListeners():void{
-		titleBar.addEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
-		titleBar.addEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
-		titleBar.doubleClickEnabled = true;
-		titleBar.addEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
-		
+		frame.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, __titleBarChanged);
 		frame.addEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.addEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		frame.addEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
 		frame.addEventListener(Event.REMOVED_FROM_STAGE, __frameClosed);
+		__titleBarChanged(null);
 	}
 
     override public function uninstallUI(c:Component):void {
@@ -105,19 +103,17 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     }
     
 	protected function uninstallComponents():void{
-		frame.remove(titleBar);
+		frame.setTitleBar(null);
 		removeBoundsMC();
 	}
 	
 	protected function uninstallListeners():void{
-		titleBar.removeEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
-		titleBar.removeEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
-		titleBar.removeEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
-		
+		frame.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, __titleBarChanged);
 		frame.removeEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 		frame.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		frame.removeEventListener(PopupEvent.POPUP_CLOSED, __frameClosed);
 		frame.removeEventListener(Event.REMOVED_FROM_STAGE, __frameClosed);
+		removeTitleBarListeners();
 		if(flashTimer != null){
 			flashTimer.stop();
 			flashTimer = null;
@@ -146,13 +142,13 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	private function __flashTick(e:TimerEvent):void{
 		flashingActivedColor = !flashingActivedColor;
 		frame.repaint();
-		titleBar.repaint();
+		titleBar.getSelf().repaint();
 	}
     
 	private function __flashComplete(e:TimerEvent):void{
 		flashing = false;
 		frame.repaint();
-		titleBar.repaint();
+		titleBar.getSelf().repaint();
 	}
 
 	/**
@@ -174,16 +170,32 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     	super.paintBackGround(c, g, b);
     }
     
-    /**
-     * Override this method to create different title bar
-     */
-    protected function createTitleBar():FrameTitleBar{
-    	var tb:FrameTitleBar = new FrameTitleBar(frame);
-    	//To get default UI from Defauls property
-    	tb.updateUI();
-    	return tb;
-    }
     //----------------------------------------------------------
+	
+	private function __titleBarChanged(e:PropertyChangeEvent):void{
+		var oldTC:Component;
+		if(e && e.getOldValue()){
+			var oldT:FrameTitleBar = e.getOldValue();
+			oldTC = oldT.getSelf();
+		}
+		if(oldTC){
+			oldTC.removeEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
+			oldTC.removeEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
+			oldTC.removeEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
+		}
+		titleBar = frame.getTitleBar();
+		removeTitleBarListeners();
+	}
+	
+	protected function removeTitleBarListeners():void{
+		if(titleBar){
+			var titleBarC:Component = titleBar.getSelf();
+			titleBarC.addEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
+			titleBarC.addEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
+			titleBarC.doubleClickEnabled = true;
+			titleBarC.addEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
+		}
+	}
 	
 	private function isMaximizedFrame():Boolean{
 		var state:Number = frame.getState();
@@ -198,13 +210,16 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	private var startPos:IntPoint;
 	private var startMousePos:IntPoint;
     private function __onTitleBarPress(e:MouseEvent):void{
-    	if(e.target != titleBar){
+    	if(e.target != titleBar && e.target != titleBar.getLabel()){
+    		return;
+    	}
+    	if(!titleBar.isTitleEnabled()){
     		return;
     	}
     	if(frame.isDragable() && !isMaximizedFrame()){
     		if(frame.isDragDirectly()){
     			var db:Rectangle = frame.getInsets().getInsideBounds(frame.getMaximizedBounds()).toRectangle();
-    			var gap:Number = titleBar.getHeight();
+    			var gap:Number = titleBar.getSelf().getHeight();
     			db.x -= (frame.width - gap);
     			db.y -= frame.getInsets().top;
     			db.width += (frame.width - gap*2);
@@ -214,17 +229,24 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     		}else{
     			startMousePos = frame.getMousePosition();
     			startPos = frame.getLocation();
-    			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove, false, 0, true);
+    			if(frame.stage){
+    				frame.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove, false, 0, true);
+    			}
     		}
     	}
     }
     
     private function __onTitleBarRelease(e:ReleaseEvent):void{
-    	if(e.getPressTarget() != titleBar){
+    	if(e.getPressTarget() != titleBar && e.getPressTarget() != titleBar.getLabel()){
+    		return;
+    	}
+    	if(!titleBar.isTitleEnabled()){
     		return;
     	}
     	frame.stopDrag();
-    	AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
+    	if(frame.stage){
+    		frame.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
+    	}
     	if(frame.isDragable() && !isMaximizedFrame() && !frame.isDragDirectly()){
 	    	var dest:IntPoint = representMoveBounds();
 	    	frame.setLocation(dest);
@@ -234,7 +256,10 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     }
     
     private function __onTitleBarDoubleClick(e:Event):void{
-    	if(e.target != titleBar){
+    	if(e.target != titleBar && e.target != titleBar.getLabel()){
+    		return;
+    	}
+    	if(!titleBar.isTitleEnabled()){
     		return;
     	}
 		if(frame.isResizable()){
@@ -256,6 +281,9 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     		flashTimer.stop();
     		flashTimer = null;
     	}
+    	if(frame.stage){
+    		frame.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
+    	}
     }
     
     private function removeBoundsMC():void{
@@ -275,7 +303,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     	bounds.y = startPos.y + currentMousePos.y - startMousePos.y;
     	
     	//these make user can't drag frames out the stage
-    	var gap:Number = titleBar.getHeight();
+    	var gap:Number = titleBar.getSelf().getHeight();
     	var frameMaxBounds:IntRectangle = frame.getMaximizedBounds();
     	
     	var topLeft:IntPoint = frameMaxBounds.leftTop();

@@ -4,15 +4,16 @@
 
 package org.aswing.plaf.basic { 
 
+import flash.display.DisplayObject;
+import flash.events.Event;
+import flash.events.MouseEvent;
+
 import org.aswing.*;
+import org.aswing.event.ReleaseEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.table.*;
-import flash.events.MouseEvent;
-import org.aswing.event.ReleaseEvent;
-import flash.events.Event;
-import flash.display.DisplayObject;
 
 /**
  * @author iiley
@@ -61,6 +62,7 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		header.addEventListener(MouseEvent.ROLL_OUT, __onHeaderRollout);
 		header.addEventListener(MouseEvent.MOUSE_DOWN, __onHeaderPressed);
 		header.addEventListener(ReleaseEvent.RELEASE, __onHeaderReleased);
+		header.addEventListener(Event.REMOVED_FROM_STAGE, __headerRemovedFromStage);
 	}
 	
 	override public function uninstallUI(c:Component):void {
@@ -83,24 +85,36 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		header.removeEventListener(MouseEvent.ROLL_OUT, __onHeaderRollout);
 		header.removeEventListener(MouseEvent.MOUSE_DOWN, __onHeaderPressed);
 		header.removeEventListener(ReleaseEvent.RELEASE, __onHeaderReleased);
+		header.removeEventListener(Event.REMOVED_FROM_STAGE, __headerRemovedFromStage);
 	}
 	
 	//*************************************************
 	//			 Event Handlers
 	//*************************************************
 	
+	private function __headerRemovedFromStage(e:Event):void{
+		header.stage.removeEventListener(MouseEvent.MOUSE_MOVE, 
+			__onRollOverMouseMoving);
+		header.stage.removeEventListener(MouseEvent.MOUSE_MOVE, 
+			__onMouseMoving);
+	}
+	
 	private function __onHeaderRollover(e:MouseEvent):void{
 		if(!e.buttonDown){
-			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, 
-				__onRollOverMouseMoving, false, 0, true);
+			if(header.stage){
+				header.stage.addEventListener(MouseEvent.MOUSE_MOVE, 
+					__onRollOverMouseMoving, false, 0, true);
+			}
 		}
 	}
 	
 	private function __onHeaderRollout(e:MouseEvent):void{
 		if(e == null || !e.buttonDown){
-			CursorManager.hideCustomCursor(resizeCursor);
-			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, 
-				__onRollOverMouseMoving);
+			CursorManager.getManager(header.stage).hideCustomCursor(resizeCursor);
+			if(header.stage){
+				header.stage.removeEventListener(MouseEvent.MOUSE_MOVE, 
+					__onRollOverMouseMoving);
+			}
 		}
 	}
 	
@@ -111,9 +125,9 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		var p:IntPoint = header.getMousePosition();
 		if(header.getTable().hitTestMouse() && 
 			canResize(getResizingColumn(p, header.columnAtPoint(p)))){
-			CursorManager.showCustomCursor(resizeCursor, true);
+			CursorManager.getManager(header.stage).showCustomCursor(resizeCursor, true);
 		}else{
-			CursorManager.hideCustomCursor(resizeCursor);
+			CursorManager.getManager(header.stage).hideCustomCursor(resizeCursor);
 		}
 	}
 	
@@ -133,16 +147,20 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 			if (canResize(resizingColumn)) {
 				header.setResizingColumn(resizingColumn);
 				mouseXOffset = p.x - resizingColumn.getWidth();
-				AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, 
-					__onMouseMoving, false, 0, true);
+				if(header.stage){
+					header.stage.addEventListener(MouseEvent.MOUSE_MOVE, 
+						__onMouseMoving, false, 0, true);
+				}
 				resizing = true;
 			}
 		}
 	}
 	
 	private function __onHeaderReleased(e:Event):void{
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, 
-			__onMouseMoving);
+		if(header.stage){
+			header.stage.removeEventListener(MouseEvent.MOUSE_MOVE, 
+				__onMouseMoving);
+		}
 		header.setResizingColumn(null);
 		resizing = false;
 		__onRollOverMouseMoving(null);

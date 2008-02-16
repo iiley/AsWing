@@ -1,6 +1,9 @@
 package org.aswing.plaf.basic{
 	
+import flash.display.DisplayObject;
+import flash.display.Shape;
 import flash.events.*;
+import flash.geom.Point;
 
 import org.aswing.*;
 import org.aswing.event.*;
@@ -8,10 +11,6 @@ import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.splitpane.*;
-import flash.display.Sprite;
-import flash.geom.Point;
-import flash.display.DisplayObject;
-import flash.display.Shape;
 
 /**
  * @private
@@ -410,6 +409,8 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 			pressFlag = true;
 			return;
 		}
+		spliting = true;
+		showMoveCursor();
 		startDragPos = sp.getMousePosition();
 		startLocation = sp.getDividerLocation();
 		startDividerPos = divider.getGlobalLocation();
@@ -432,6 +433,10 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		
 		validateDivMoveWithCurrentMousePos();
 		sp.removeEventListener(MouseEvent.MOUSE_MOVE, __div_mouse_moving);
+		if(!divider.hitTestMouse()){
+			hideMoveCursor();
+		}
+		spliting = false;
 	}
 
 	protected function __div_mouse_moving(e:MouseEvent) : void {
@@ -481,21 +486,39 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 			Math.min(newLocation, getMaximumDividerLocation()));
 		return newLocation - startLocation;
 	}
-
-	protected function __div_rollover(e:Event) : void {
-		if(isVertical()){
-			CursorManager.showCustomCursor(vSplitCursor);
-		}else{
-			CursorManager.showCustomCursor(hSplitCursor);
+	
+	protected function __div_rollover(e:MouseEvent) : void {
+		if(!e.buttonDown && !spliting){
+			showMoveCursor();
 		}
 	}
 
 	protected function __div_rollout(e:Event) : void {
-		if(isVertical()){
-			CursorManager.hideCustomCursor(vSplitCursor);
-		}else{
-			CursorManager.hideCustomCursor(hSplitCursor);
+		if(!spliting){
+			hideMoveCursor();
 		}
+	}
+	
+	protected var spliting:Boolean = false;
+	protected var cursorManager:CursorManager;
+	protected function showMoveCursor():void{
+		cursorManager = CursorManager.getManager(sp.stage);
+		if(isVertical()){
+			cursorManager.hideCustomCursor(hSplitCursor);
+			cursorManager.showCustomCursor(vSplitCursor);
+		}else{
+			cursorManager.hideCustomCursor(vSplitCursor);
+			cursorManager.showCustomCursor(hSplitCursor);
+		}
+	}
+	
+	protected function hideMoveCursor():void{
+		if(cursorManager == null){
+			return;
+		}
+		cursorManager.hideCustomCursor(vSplitCursor);
+		cursorManager.hideCustomCursor(hSplitCursor);
+		cursorManager = null;
 	}
     
     //-----------------------------------------------------------------------

@@ -90,7 +90,7 @@ public class BasicPopupMenuUI extends BaseComponentUI implements MenuElementUI{
 					path.push(subs[subs.length-1]);
 				}
 			}
-			manager.setSelectedPath(path, false);
+			manager.setSelectedPath(popupMenu.stage, path, false);
 		}else if(manager.isNextPageKey(code)){
 			root = MenuElement(path[0]);
 			if(root.getSubElements().length > 1 && !(root is JPopupMenu)){
@@ -110,7 +110,7 @@ public class BasicPopupMenuUI extends BaseComponentUI implements MenuElementUI{
 					path.push(subs[0]);
 				}
 			}
-			manager.setSelectedPath(path, false);
+			manager.setSelectedPath(popupMenu.stage, path, false);
 		}else if(manager.isNextItemKey(code)){
 			subs = popupMenu.getSubElements();
 			if(subs.length > 0){
@@ -120,7 +120,7 @@ public class BasicPopupMenuUI extends BaseComponentUI implements MenuElementUI{
 					path.push(subs[0]);
 				}
 			}
-			manager.setSelectedPath(path, false);
+			manager.setSelectedPath(popupMenu.stage, path, false);
 		}
 	}	   
 	

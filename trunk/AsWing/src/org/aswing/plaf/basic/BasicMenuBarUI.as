@@ -101,7 +101,7 @@ public class BasicMenuBarUI extends BaseComponentUI implements MenuElementUI{
 				if(smu.getSubElements().length > 0){
 					path.push(smu.getSubElements()[0]);
 				}
-				manager.setSelectedPath(path, false);
+				manager.setSelectedPath(menuBar.stage, path, false);
 			}
 		}
 	}
@@ -123,7 +123,7 @@ public class BasicMenuBarUI extends BaseComponentUI implements MenuElementUI{
 	}
 	
 	protected function __barFocusGained(e:AWEvent):void{
-		MenuSelectionManager.defaultManager().setSelectedPath([menuBar], false);
+		MenuSelectionManager.defaultManager().setSelectedPath(menuBar.stage, [menuBar], false);
 	}
 	
 	protected function __childAdded(e:ContainerEvent):void{

@@ -4,16 +4,16 @@
 
 package org.aswing.plaf.basic{
 
-import org.aswing.*;
-import org.aswing.plaf.*;
-import org.aswing.geom.*;
-import org.aswing.graphics.*;
-import org.aswing.util.*;
-import org.aswing.event.*;
+import flash.display.Shape;
 import flash.events.*;
 import flash.ui.Keyboard;
-import flash.display.Shape;
-import flash.display.Sprite;
+
+import org.aswing.*;
+import org.aswing.event.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.plaf.*;
+import org.aswing.util.*;
 
 /**
  * Basic slider ui imp.
@@ -664,11 +664,20 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	}
 	
 	private function __startHandleDrag():void{
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb, false, 0, true);
-		showValueTip();
+		if(slider.stage){
+			slider.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb, false, 0, true);
+			slider.addEventListener(Event.REMOVED_FROM_STAGE, __onMoveThumbRFS, false, 0, true);
+			showValueTip();
+		}
+	}
+	private function __onMoveThumbRFS(e:Event):void{
+		slider.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
+		slider.removeEventListener(Event.REMOVED_FROM_STAGE, __onMoveThumbRFS);
 	}
 	private function __stopHandleDrag():void{
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
+		if(slider.stage){
+			__onMoveThumbRFS(null);
+		}
 		disposValueTip();
 	}
 	private function __onMoveThumb(e:MouseEvent):void{

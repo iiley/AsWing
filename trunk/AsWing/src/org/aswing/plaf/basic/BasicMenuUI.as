@@ -102,7 +102,7 @@ public class BasicMenuUI extends BasicMenuItemUI{
 				if(popElement.getSubElements().length > 0){
 					path.push(popElement.getSubElements()[0]);
 				}
-				manager.setSelectedPath(path, false);
+				manager.setSelectedPath(menuItem.stage, path, false);
 			}
 		}else{
 			super.processKeyEvent(code);
@@ -122,14 +122,14 @@ public class BasicMenuUI extends BasicMenuItemUI{
 				if(menu.getDelay() <= 0) {
 					appendPath(getPath(), menu.getPopupMenu());
 				} else {
-					manager.setSelectedPath(getPath(), false);
+					manager.setSelectedPath(menuItem.stage, getPath(), false);
 					setupPostTimer(menu);
 				}
 			}
 		} else {
 			if(selectedPath.length > 0 && selectedPath[0] == menu.getParent()) {
 				// A top level menu's parent is by definition a JMenuBar
-				manager.setSelectedPath([menu.getParent(), menu, menu.getPopupMenu()], false);
+				manager.setSelectedPath(menuItem.stage, [menu.getParent(), menu, menu.getPopupMenu()], false);
 			}
 		}
 		menuItem.repaint();
@@ -140,7 +140,7 @@ public class BasicMenuUI extends BasicMenuItemUI{
 		var cnt:Container = menu.getParent();
 		if(cnt != null && cnt is JMenuBar) {
 			var me:Array = [cnt, menu, menu.getPopupMenu()];
-			MenuSelectionManager.defaultManager().setSelectedPath(me, false);
+			MenuSelectionManager.defaultManager().setSelectedPath(menuItem.stage, me, false);
 		}
 		menuItem.repaint();
 	}
@@ -156,7 +156,7 @@ public class BasicMenuUI extends BasicMenuItemUI{
 	//---------------------
 	protected function appendPath(path:Array, end:Object):void{
 		path.push(end);
-		MenuSelectionManager.defaultManager().setSelectedPath(path, false);
+		MenuSelectionManager.defaultManager().setSelectedPath(menuItem.stage, path, false);
 	}
 
 	protected function setupPostTimer(menu:JMenu):void {

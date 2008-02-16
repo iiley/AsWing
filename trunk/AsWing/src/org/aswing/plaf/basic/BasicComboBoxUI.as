@@ -146,7 +146,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     
     protected function getPopup():JPopup{
     	if(popup == null){
-    		popup = new JPopup(null, false);
+    		popup = new JPopup(box.root, false);
     		popup.setLayout(new BorderLayout());
     		popup.append(getScollPane(), BorderLayout.CENTER);
     		popup.setClipMasked(false);
@@ -174,22 +174,24 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		height += i.top + i.bottom;
 		i = getPopupList().getInsets();
 		height += i.top + i.bottom;
-		getPopup().changeOwner(box.root);
+		getPopup().changeOwner(AsWingUtils.getOwnerAncestor(box));
 		getPopup().setSizeWH(width, height);
 		getPopup().show();
 		startMoveToView();
-		AsWingManager.callNextFrame(__addMouseDownListenerToStage);
+		AsWingManager.callLater(__addMouseDownListenerToStage);
     }
     
     private function __addMouseDownListenerToStage():void{
-    	if(getPopup().isVisible()){
-			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped, false, 0, true);
+    	if(getPopup().isVisible() && box.stage){
+			box.stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped, false, 0, true);
     	}
     }
     
     private function hidePopup():void{
+    	if(box.stage){
+    		box.stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped);
+    	}
     	if(getPopup().isVisible()){
-	    	AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped);
 			popupTimer.stop();
 			getPopup().dispose();
     	}
