@@ -6,6 +6,7 @@ package org.aswing.event{
 	
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.events.MouseEvent;
 
 /**
  * Event for display object release and release outside.
@@ -19,7 +20,7 @@ import flash.events.Event;
  * </p>
  * @author iiley
  */
-public class ReleaseEvent extends AWEvent{
+public class ReleaseEvent extends MouseEvent{
 	
 	/**
      *  The <code>ReleaseEvent.RELEASE</code> constant defines the value of the
@@ -75,8 +76,8 @@ public class ReleaseEvent extends AWEvent{
 	private var pressTarget:DisplayObject;
 	private var releasedOutSide:Boolean;
 	
-	public function ReleaseEvent(type:String, pressTarget:DisplayObject, releasedOutSide:Boolean){
-		super(type, false, false);
+	public function ReleaseEvent(type:String, pressTarget:DisplayObject, releasedOutSide:Boolean, e:MouseEvent){
+		super(type, false, false, e.localX, e.localY, e.relatedObject, e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown);
 		this.pressTarget = pressTarget;
 		this.releasedOutSide = releasedOutSide;
 	}
@@ -98,7 +99,7 @@ public class ReleaseEvent extends AWEvent{
 	}
 	
 	override public function clone():Event{
-		return new ReleaseEvent(type, getPressTarget(), isReleasedOutSide());
+		return new ReleaseEvent(type, getPressTarget(), isReleasedOutSide(), this);
 	}
 	
 }
