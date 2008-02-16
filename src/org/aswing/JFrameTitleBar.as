@@ -36,6 +36,7 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 		setLayout(new FrameTitleBarLayout());
 		
 		buttonPane = new Container();
+		buttonPane.setCachePreferSizes(false);
 		buttonPaneLayout = new SoftBoxLayout(SoftBoxLayout.X_AXIS, 0);
 		buttonPane.setLayout(buttonPaneLayout);
 		titleLabel = new JLabel();
@@ -214,6 +215,7 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 			var index:int = -1;
 			if(iconifiedButton){
 				index = buttonPane.getIndex(iconifiedButton);
+				buttonPane.removeAt(index);
 				iconifiedButton.removeActionListener(__iconifiedPressed);
 			}
 			iconifiedButton = b;
@@ -229,6 +231,7 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 			var index:int = -1;
 			if(maximizeButton){
 				index = buttonPane.getIndex(maximizeButton);
+				buttonPane.removeAt(index);
 				maximizeButton.removeActionListener(__maximizePressed);
 			}
 			maximizeButton = b;
@@ -244,6 +247,7 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 			var index:int = -1;
 			if(restoreButton){
 				index = buttonPane.getIndex(restoreButton);
+				buttonPane.removeAt(index);
 				restoreButton.removeActionListener(__restorePressed);
 			}
 			restoreButton = b;
@@ -259,6 +263,7 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 			var index:int = -1;
 			if(closeButton){
 				index = buttonPane.getIndex(closeButton);
+				buttonPane.removeAt(index);
 				closeButton.removeActionListener(__closePressed);
 			}
 			closeButton = b;
@@ -379,7 +384,7 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 			setMaximizeButtonVisible(false);
 			setCloseButtonVisible(frame.isClosable());
 		}
-		frame.revalidateIfNecessary();
+		revalidateIfNecessary();
 	}
 }
 }

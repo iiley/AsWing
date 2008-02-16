@@ -280,10 +280,6 @@ public class JFrame extends JWindow{
 			resizable = b;
 			getResizer().setEnabled(b);
 			repaint();
-			for(var i:int=0; i<getComponentCount(); i++){
-				getComponent(i).repaint();
-			}
-			revalidate();
 			dispatchEvent(new FrameEvent(FrameEvent.FRAME_ABILITY_CHANGED, true));
 		}
 	}
@@ -333,10 +329,6 @@ public class JFrame extends JWindow{
 		if(closable != b){
 			closable = b;
 			repaint();
-			for(var i:int=0; i<getComponentCount(); i++){
-				getComponent(i).repaint();
-			}
-			revalidate();
 			dispatchEvent(new FrameEvent(FrameEvent.FRAME_ABILITY_CHANGED, true));
 		}
 	}
