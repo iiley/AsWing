@@ -4,12 +4,13 @@
 
 package org.aswing.resizer{
 	
-import flash.display.InteractiveObject;
-import flash.events.MouseEvent;
-import org.aswing.event.*;
+import flash.display.Stage;
 import flash.events.Event;
+import flash.events.MouseEvent;
+
 import org.aswing.AWSprite;
 import org.aswing.AsWingManager;
+import org.aswing.event.*;
 	
 /**
  * The Handler for Resizer's mc bars.
@@ -48,13 +49,17 @@ public class DefaultResizeBarHandler{
 		if(!resizer.isResizing() && (e ==null || !e.buttonDown)){
 			resizer.startArrowCursor();
 			__rotateArrow();
-			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow, false, 0, true);
+			if(mc.stage){
+				mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow, false, 0, true);
+			}
 		}
 	}
 	
 	private function __onRollOut(e:MouseEvent):void{
 		if(!resizer.isResizing() && !e.buttonDown){
-			mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+			if(mc.stage){
+				mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+			}
 			resizer.stopArrowCursor();
 		}
 	}
@@ -62,8 +67,10 @@ public class DefaultResizeBarHandler{
 	private function __onPress(e:MouseEvent):void{
 		resizer.setResizing(true);
 		startResize();
-		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
-		mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizing, false, 0, true);
+		if(mc.stage){
+			mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizing, false, 0, true);
+		}
 	}
 	
 	private function __onUp(e:MouseEvent):void{
@@ -73,7 +80,9 @@ public class DefaultResizeBarHandler{
 	private function __onRelease(e:Event):void{
 		resizer.setResizing(false);
 		resizer.stopArrowCursor();
-		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
+		if(mc.stage){
+			mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
+		}
 		finishResize();
 	}
 	
@@ -82,8 +91,8 @@ public class DefaultResizeBarHandler{
 	}
 	
 	private function __onDestroy(e:Event):void{
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
+		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
 	}
 	
 	private function __rotateArrow(e:Event=null):void{
