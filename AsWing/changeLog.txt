@@ -60,6 +60,13 @@ added default cells render value+"" instead of value.toString, solved value null
 added JClosableTabbedPane
 added PropertyTableModel
 added ensureRectVisible method to JViewport
+added setTextFilters function to JLabel and buttons
+added invalidatePreferSizeCaches function to Component
+----------AIR multi-stage(use multi NativeWindow) support-------------
+Added WeakMap, WeakReference tool to avoid memory leak
+CursorManager, FocusManager from static/sington to normal instance obj per stage.
+KeyboardManager from sington to normal instance per JRootPane.
+
 
 bugfixes:
 
@@ -67,3 +74,23 @@ fixed The button text is under icon then can't see bug
 fixed TabbedPaneUIs bugs
 fixed TabbedPane Tab and Accordion Header text font and color can't change bug.
 fixed JTextComponent some times with less width when column is set 0
+
+---------migrate from 1.2 to 1.3:----------
+
+AsWing Core:
+
+Change CursorManager static method call to CursorManager.getManager().methodCall
+Change FocusManager.getDefaultManager to FocusManager.getManager(stage)
+For KeyboardManager, now you need to create your KeyboardManager instance or get instances from JRootPane.getKeyboardManager()
+
+LookAndFeels based on SkinBuilderLAF:
+
+change 
+			"Frame.titleBarLayout", SkinFrameTitleBarLayout, 
+to
+
+
+			"Frame.titleBarBG", SkinFrameTitleBarBG, 
+			"Frame.titleBarButtonGap", 2, 
+
+_____________________________________________________
