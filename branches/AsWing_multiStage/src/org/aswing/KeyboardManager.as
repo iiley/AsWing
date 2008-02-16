@@ -61,7 +61,7 @@ public class KeyboardManager extends EventDispatcher{
 	
 	/**
 	 * Init the keyboad manager, it will only start works when it is inited.
-	 * By default, it will be inited when a component is added to stage automatically.
+	 * @param root the key trigger root of this keyboard manager.
 	 * @throws Error if it is already inited.
 	 */
 	public function init(root:DisplayObjectContainer):void{
