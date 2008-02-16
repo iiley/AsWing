@@ -257,10 +257,14 @@ public class JWindow extends JPopup{
 	/**
 	 * Returns all displable windows currently on specified stage. A window was disposed or destroied will not 
 	 * included by this array.
+	 * @param st the stage, if it is null, the <code>AsWingManager.getStage()</code> will be called.
 	 * @return all displable windows currently.
 	 * @see JPopup#getPopups()
 	 */
-	public static function getWindows(st:Stage):Array{
+	public static function getWindows(st:Stage=null):Array{		
+		if(st == null){
+			st = AsWingManager.getStage();
+		}
 		var fm:FocusManager = FocusManager.getManager(st);
 		var vec:Vector = fm.getPopupsVector();
 		var arr:Array = new Array();
