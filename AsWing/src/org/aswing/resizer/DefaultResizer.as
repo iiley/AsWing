@@ -122,11 +122,15 @@ public class DefaultResizer implements Resizer, UIResource{
 	}
 	
 	public function startArrowCursor():void{
-		CursorManager.showCustomCursor(resizeArrowCursor);
+		if(resizeMC && resizeMC.stage){
+			CursorManager.getManager(resizeMC.stage).showCustomCursor(resizeArrowCursor);
+		}
 	}
 	
 	public function stopArrowCursor():void{
-		CursorManager.hideCustomCursor(resizeArrowCursor);
+		if(resizeMC && resizeMC.stage){
+			CursorManager.getManager(resizeMC.stage).hideCustomCursor(resizeArrowCursor);
+		}
 	}
 	
 	private var resizingNow:Boolean = false;
