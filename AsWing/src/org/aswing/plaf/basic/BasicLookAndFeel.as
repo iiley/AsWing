@@ -4,20 +4,19 @@
 
 package org.aswing.plaf.basic{
 	
+import flash.filters.DropShadowFilter;
+
 import org.aswing.*;
 import org.aswing.plaf.*;
+import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
 import org.aswing.plaf.basic.background.*;
 import org.aswing.plaf.basic.border.*;
-import org.aswing.plaf.basic.icon.*;
-import org.aswing.plaf.basic.frame.*;
 import org.aswing.plaf.basic.cursor.*;
-import org.aswing.tree.*;
-import org.aswing.resizer.*;
-import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
-import org.aswing.tree.TreeLeafIcon;
+import org.aswing.plaf.basic.frame.*;
+import org.aswing.plaf.basic.icon.*;
 import org.aswing.plaf.basic.tree.BasicExpandControl;
-import org.aswing.plaf.basic.cursor.H_ResizeCursor;
-import flash.filters.DropShadowFilter;
+import org.aswing.resizer.*;
+import org.aswing.tree.*;
 
 /**
  * Note: All empty object should be undefined or an UIResource instance.
@@ -386,9 +385,9 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"Frame.resizeArrow", table.get("inactiveCaption"),
 			"Frame.resizeArrowLight", table.get("window"),
 			"Frame.resizeArrowDark", table.get("activeCaptionText"),			
-			"Frame.titleBarUI", org.aswing.plaf.basic.frame.TitleBarUI, 
-			"Frame.titleBarOpaque", true, 
-			"Frame.titleBarLayout", org.aswing.plaf.basic.frame.TitleBarLayout, 
+			"Frame.titleBarBG", org.aswing.plaf.basic.frame.BasicFrameTitleBarBG, 
+			"Frame.titleBarHeight", 22, 
+			"Frame.titleBarButtonGap", 2, 
 			"Frame.resizer", org.aswing.resizer.DefaultResizer,
 			"Frame.font", table.get("windowFont"),
 			"Frame.border", org.aswing.plaf.basic.border.FrameBorder,

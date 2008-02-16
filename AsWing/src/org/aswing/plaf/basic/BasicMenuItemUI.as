@@ -151,7 +151,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		if(path.length > 1 && path[path.length-1] == menuItem){
 			if(manager.isPageNavKey(code)){
 				path.pop();
-				manager.setSelectedPath(path, false);
+				manager.setSelectedPath(menuItem.stage, path, false);
 				MenuElement(path[path.length-1]).processKeyEvent(code);
 			}else if(manager.isItemNavKey(code)){
 				path.pop();
@@ -160,13 +160,13 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 				}else{
 					path.push(manager.nextSubElement(MenuElement(path[path.length-1]), menuItem));
 				}
-				manager.setSelectedPath(path, false);
+				manager.setSelectedPath(menuItem.stage, path, false);
 			}
 		}
 	}
 	
 	protected function __menuItemRollOver(e:MouseEvent):void{
-		MenuSelectionManager.defaultManager().setSelectedPath(getPath(), false);
+		MenuSelectionManager.defaultManager().setSelectedPath(menuItem.stage, getPath(), false);
 		menuItem.repaint();
 	}
 	
@@ -174,7 +174,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		var path:Array = MenuSelectionManager.defaultManager().getSelectedPath();
 		if(path.length > 1 && path[path.length-1] == menuItem){
 			path.pop();
-			MenuSelectionManager.defaultManager().setSelectedPath(path, false);
+			MenuSelectionManager.defaultManager().setSelectedPath(menuItem.stage, path, false);
 		}
 		menuItem.repaint();
 	}

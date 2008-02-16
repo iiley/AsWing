@@ -202,7 +202,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			var code:uint = e.keyCode;
 			var count:int = 1;
 			if(code == Keyboard.DOWN || code == Keyboard.RIGHT){
-				FocusManager.getCurrentManager().setTraversing(true);
+				setTraversingTrue();
 				index++;
 				while((!tabbedPane.isEnabledAt(index) || !tabbedPane.isVisibleAt(index)) && index<n){
 					index++;
@@ -218,7 +218,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 					firstIndex = Math.min(firstIndex + count, n-1);
 				}
 			}else if(code == Keyboard.UP || code == Keyboard.LEFT){
-				FocusManager.getCurrentManager().setTraversing(true);
+				setTraversingTrue();
 				index--;
 				while((!tabbedPane.isEnabledAt(index) || !tabbedPane.isVisibleAt(index)) && index>=0){
 					index--;
@@ -237,6 +237,13 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			tabbedPane.setSelectedIndex(index);
 		}
 	}
+    
+    protected function setTraversingTrue():void{
+    	var fm:FocusManager = FocusManager.getManager(tabbedPane.stage);
+    	if(fm){
+    		fm.setTraversing(true);
+    	}
+    }
 	
 	protected function __prevButtonReleased(e:Event):void{
 		if(firstIndex > 0){

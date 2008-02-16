@@ -91,10 +91,13 @@ public class BasicListUI extends BaseComponentUI{
     protected var focusGraphicsOwner:Graphics;
     
 	override public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):void{
-    	focusGraphics = g;
-    	focusRectangle = b;
-    	focusGraphicsOwner = FocusManager.getCurrentManager().moveFocusRectUpperTo(list).graphics;
-    	paintCurrentCellFocus();
+    	var fm:FocusManager = FocusManager.getManager(list.stage);
+    	if(fm){
+	    	focusGraphics = g;
+	    	focusRectangle = b;
+	    	focusGraphicsOwner = fm.moveFocusRectUpperTo(list).graphics;
+	    	paintCurrentCellFocus();
+    	}
     }
         
     private function paintCurrentCellFocus():void{
@@ -119,14 +122,6 @@ public class BasicListUI extends BaseComponentUI{
     		focusGraphicsOwner.clear();
     	super.paintFocus(list, focusGraphics, focusRectangle);
     	super.paintFocus(list, focusGraphics, paintFocusedCell.getCellComponent().getComBounds());
-    }
-        
-    protected function getIntervalSelectionKey():uint{
-    	return Keyboard.SHIFT;
-    }
-    
-    protected function getAdditionSelectionKey():uint{
-    	return Keyboard.CONTROL;
     }
     
     //----------
@@ -155,7 +150,8 @@ public class BasicListUI extends BaseComponentUI{
     	var code:uint = e.keyCode;
     	var dir:Number = 0;
     	if(code == Keyboard.UP || code == Keyboard.DOWN || code == Keyboard.SPACE){
-	    	FocusManager.getCurrentManager().setTraversing(true);
+    		var fm:FocusManager = FocusManager.getManager(list.stage);
+	    	if(fm) fm.setTraversing(true);
     	}
     	if(code == Keyboard.UP){
     		dir = -1;
@@ -181,13 +177,13 @@ public class BasicListUI extends BaseComponentUI{
     		return;
     	}
     	if(dir != 0 || (code == Keyboard.HOME || code == Keyboard.END)){
-    		if(KeyboardManager.getInstance().isKeyDown(getIntervalSelectionKey())){
+    		if(e.shiftKey){
 				var archor:int = list.getAnchorSelectionIndex();
 				if(archor < 0){
 					archor = index;
 				}
 				list.setSelectionInterval(archor, index, false);
-    		}else if(KeyboardManager.getInstance().isKeyDown(getAdditionSelectionKey())){
+    		}else if(e.ctrlKey){
     		}else{
 		    	list.setSelectionInterval(index, index, false);
     		}
@@ -204,7 +200,8 @@ public class BasicListUI extends BaseComponentUI{
     	}
     }
     private function __onSelectionChanged(e:SelectionEvent):void{
-    	if(FocusManager.getCurrentManager().isTraversing() && list.isFocusOwner()){
+    	var fm:FocusManager = FocusManager.getManager(list.stage);
+    	if(fm != null && fm.isTraversing() && list.isFocusOwner()){
     		if(focusGraphics == null){
     			list.paintFocusRect(true);
     		}
@@ -224,8 +221,8 @@ public class BasicListUI extends BaseComponentUI{
     private function __onItemMouseDown(e:ListItemEvent):void{
 		var index:int = list.getItemIndexByCell(e.getCell());
 		pressedIndex = index;
-		pressedCtrl = KeyboardManager.getInstance().isKeyDown(getAdditionSelectionKey());
-		pressedShift = KeyboardManager.getInstance().isKeyDown(getIntervalSelectionKey());
+		pressedCtrl = e.ctrlKey;
+		pressedShift = e.shiftKey;
 		doSelectionWhenRelease = false;
 		
 		if(list.getSelectionMode() == JList.MULTIPLE_SELECTION){

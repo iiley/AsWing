@@ -4,16 +4,18 @@
 
 package org.aswing.plaf.basic { 
 
+import flash.display.Shape;
+import flash.events.Event;
+import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
+import flash.ui.Keyboard;
+
 import org.aswing.*;
+import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.table.*;
-import org.aswing.event.*;
-import flash.ui.Keyboard;
-import flash.events.MouseEvent;
-import flash.events.Event;
-import flash.display.Shape;
 
 /**
  * @author iiley
@@ -88,11 +90,11 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		table.removeEventListener(MouseEvent.MOUSE_MOVE, __onTableMouseMove);
 	}
 	
-	protected function __onTablePress(e:Event):void{
+	protected function __onTablePress(e:MouseEvent):void{
 		if(table.getTableHeader().hitTestMouse()){
 			return;
 		}
-		selectMousePointed();
+		selectMousePointed(e);
 		table.addEventListener(MouseEvent.MOUSE_MOVE, __onTableMouseMove);
 		var editor:TableCellEditor = table.getCellEditor();
 		if(editor != null && editor.isCellEditing()){
@@ -131,14 +133,14 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		table.setViewPosition(viewPos);
 	}
 	
-	private function selectMousePointed():void{
+	private function selectMousePointed(e:MouseEvent):void{
 		var p:IntPoint = getMousePosOnTable();
 		var row:int = table.rowAtPoint(p);
 		var column:int = table.columnAtPoint(p);
 		if ((column == -1) || (row == -1)) {
 			return;
 		}
-		makeSelectionChange(row, column);
+		makeSelectionChange(row, column, e);
 	}
 	
 	private function addSelectMousePointed():void{
@@ -151,10 +153,10 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		changeSelection(row, column, false, true);
 	}
 	
-	private function makeSelectionChange(row:int, column:int):void {
+	private function makeSelectionChange(row:int, column:int, e:MouseEvent):void {
 		recordFocusIndecis(row, column);
-		var ctrl:Boolean = KeyboardManager.getInstance().isKeyDown(getAdditionSelectionKey());
-		var shift:Boolean = KeyboardManager.getInstance().isKeyDown(getIntervalSelectionKey());
+		var ctrl:Boolean = e.ctrlKey;
+		var shift:Boolean = e.shiftKey;
 
 		// Apply the selection state of the anchor to all cells between it and the
 		// current cell, and then select the current cell.
@@ -192,12 +194,6 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		return table.getLogicLocationFromPixelLocation(p);
 	}
 	
-	private function getIntervalSelectionKey():uint{
-		return Keyboard.SHIFT;
-	}
-	private function getAdditionSelectionKey():uint{
-		return Keyboard.CONTROL;
-	}	
 	private function getEditionKey():uint{
 		return Keyboard.ENTER;
 	}
@@ -305,8 +301,9 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 			rDir = 1;
 		}
 		if(cDir != 0 || rDir != 0){
-			moveFocus(rDir, cDir);
-			FocusManager.getCurrentManager().setTraversing(true);
+			moveFocus(rDir, cDir, e);
+    		var fm:FocusManager = FocusManager.getManager(table.stage);
+			if(fm) fm.setTraversing(true);
 			table.paintFocusRect();
 			return;
 		}
@@ -330,9 +327,9 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		return Math.max(0, Math.min(table.getColumnCount()-1, column));
 	}
 	
-	private function moveFocus(rDir:Number, cDir:Number):void{
-		var ctrl:Boolean = KeyboardManager.getInstance().isKeyDown(getAdditionSelectionKey());
-		var shift:Boolean = KeyboardManager.getInstance().isKeyDown(getIntervalSelectionKey());
+	private function moveFocus(rDir:Number, cDir:Number, e:KeyboardEvent):void{
+		var ctrl:Boolean = e.ctrlKey;
+		var shift:Boolean = e.shiftKey;
 		var rm:ListSelectionModel = table.getSelectionModel();
 		var cm:ListSelectionModel = table.getColumnModel().getSelectionModel();
 		var anchorRow:Number = rm.getAnchorSelectionIndex();

@@ -4,21 +4,21 @@
 
 package org.aswing.plaf.basic{
 	
-import org.aswing.*;
-import org.aswing.plaf.*;
-import org.aswing.graphics.*;
-import org.aswing.geom.*;
-import org.aswing.border.BevelBorder;
-import org.aswing.plaf.BaseComponentUI;
-import org.aswing.plaf.basic.adjuster.PopupSliderUI;
-import org.aswing.plaf.basic.icon.ArrowIcon;
+import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import org.aswing.event.FocusKeyEvent;
 import flash.ui.Keyboard;
+
+import org.aswing.*;
+import org.aswing.border.BevelBorder;
 import org.aswing.event.AWEvent;
+import org.aswing.event.FocusKeyEvent;
 import org.aswing.event.ReleaseEvent;
-import flash.display.InteractiveObject;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.plaf.*;
+import org.aswing.plaf.basic.adjuster.PopupSliderUI;
+import org.aswing.plaf.basic.icon.ArrowIcon;
 
 /**
  * Basic adjust ui imp.
@@ -310,7 +310,7 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 		if(popupWindow.isOnStage()){
 			popupWindow.dispose();
 		}
-		popupWindow.changeOwner(adjuster.root);
+		popupWindow.changeOwner(AsWingUtils.getOwnerAncestor(adjuster));
 		popupWindow.pack();
 		popupWindow.show();
 		var max:Number = adjuster.getMaximum();
@@ -343,11 +343,21 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 		
 		startMousePoint = adjuster.getMousePosition();
 		startValue = adjuster.getValue();
-		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider, false, 0, true);
+		if(adjuster.stage){
+			adjuster.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider, false, 0, true);
+			adjuster.addEventListener(Event.REMOVED_FROM_STAGE, __onMouseMoveOnSliderRemovedFromStage, false, 0, true);
+		}
+	}
+	
+	private function __onMouseMoveOnSliderRemovedFromStage(e:Event):void{
+		adjuster.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider);
+		adjuster.removeEventListener(Event.REMOVED_FROM_STAGE, __onMouseMoveOnSliderRemovedFromStage);
 	}
 	
 	private function __onArrowButtonReleased(e:Event):void{
-		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider);
+		if(adjuster.stage){
+			__onMouseMoveOnSliderRemovedFromStage(null);
+		}
 		popup.dispose();
 		adjuster.dispatchEvent(new AWEvent(AWEvent.ACT));
 	}

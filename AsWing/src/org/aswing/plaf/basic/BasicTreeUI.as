@@ -4,18 +4,18 @@
 
 package org.aswing.plaf.basic { 
 
+import flash.display.Shape;
+import flash.events.MouseEvent;
+import flash.ui.Keyboard;
+
 import org.aswing.*;
 import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
+import org.aswing.plaf.basic.tree.ExpandControl;
 import org.aswing.tree.*;
 import org.aswing.util.Vector;
-import flash.ui.Keyboard;
-import flash.display.Shape;
-import flash.events.MouseEvent;
-import flash.utils.getTimer;
-import org.aswing.plaf.basic.tree.ExpandControl;
 
 /**
  * @author iiley
@@ -329,20 +329,24 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		toggleExpandState(path);
 	}	
 	
-	protected function selectPathForEvent(path:TreePath):void{
+	protected function selectPathForEvent(path:TreePath, e:MouseEvent):void{
 		doSelectWhenRelease = false;
 		pressedPath = path;
 		if(tree.isPathSelected(path)){
 			doSelectWhenRelease = true;
 		}else{
-			doSelectPathForEvent();
+			doSelectPathForEvent(e);
 		}
 		paintFocusedIndex = tree.getRowForPath(path);
 	}
 	
-	protected function doSelectPathForEvent():void{
+	protected function doSelectPathForEvent(e:MouseEvent):void{
 		var path:TreePath = pressedPath;
-		if(isMultiSelectEvent()) {
+		var ctrl:Boolean = false;
+		var shift:Boolean = false;
+		ctrl = e.ctrlKey;
+		shift = e.shiftKey;
+		if(shift) {
 			var anchor:TreePath = tree.getAnchorSelectionPath();
 			var anchorRow:int = (anchor == null) ? -1 : getRowForPath(tree, anchor);
 	
@@ -352,7 +356,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 				var row:int = getRowForPath(tree, path);
 				var lastAnchorPath:TreePath = anchor;
 		
-				if (isToggleSelectionEvent()) {
+				if (ctrl) {
 					if (tree.isRowSelected(anchorRow)) {
 						tree.addSelectionInterval(anchorRow, row, false);
 					} else {
@@ -370,7 +374,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 				tree.setLeadSelectionPath(path);
 				ignoreLAChange = false;
 			}
-		}else if(isToggleSelectionEvent()) {
+		}else if(ctrl) {
 			// Should this event toggle the selection of this row?
 			/* Control toggles just this node. */
 			if(tree.isPathSelected(path)){
@@ -388,12 +392,6 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		}
 	}
 	
-	protected function isMultiSelectEvent():Boolean{
-		return KeyboardManager.getInstance().isKeyDown(Keyboard.SHIFT);
-	}
-	protected function isToggleSelectionEvent():Boolean{
-		return KeyboardManager.getInstance().isKeyDown(Keyboard.CONTROL);
-	}
 	//------------------------------handlers------------------------
 	private function __selectionModelPropertyChanged(e:PropertyChangeEvent):void{
 		selectionModel.resetRowSelection();
@@ -467,7 +465,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 			}
 			var bounds:IntRectangle = getPathBounds(tree, path);
 			if (p.x > bounds.x && p.x <= (bounds.x + bounds.width)) {
-			   selectPathForEvent(path);
+			   selectPathForEvent(path, e);
 			}
 		}
 	}
@@ -477,7 +475,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		
 	private function __onReleased(e:MouseEvent):void{
 		if(doSelectWhenRelease){
-			doSelectPathForEvent();
+			doSelectPathForEvent(e);
 			doSelectWhenRelease = false;
 		}
 	}
@@ -500,7 +498,8 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		var code:uint = e.keyCode;
 		var dir:int = 0;
 		if(isControlKey(code)){
-			FocusManager.getCurrentManager().setTraversing(true);
+    		var fm:FocusManager = FocusManager.getManager(tree.stage);
+			if(fm) fm.setTraversing(true);
 		}else{
 			return;
 		}
@@ -533,7 +532,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		}else if(code == Keyboard.RIGHT){
 			tree.expandRow(index);
 		}else if(dir != 0 || (code == Keyboard.HOME || code == Keyboard.END)){
-			if(isMultiSelectEvent()){
+			if(e.shiftKey){
 				var anchor:TreePath = tree.getAnchorSelectionPath();
 				var anchorRow:int = (anchor == null) ? -1 : getRowForPath(tree, anchor);
 				var lastAnchorPath:TreePath = anchor;
@@ -548,7 +547,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 				ignoreLAChange = false;
 				
 				paintFocusedIndex = index;
-			}else if(isToggleSelectionEvent()){
+			}else if(e.ctrlKey){
 				paintFocusedIndex = index;
 			}else{
 				tree.setSelectionInterval(index, index);
