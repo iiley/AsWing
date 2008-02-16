@@ -4,13 +4,14 @@
 
 package org.aswing.dnd{
 
+import flash.display.*;
+import flash.events.MouseEvent;
+import flash.geom.*;
+
 import org.aswing.*;
+import org.aswing.event.DragAndDropEvent;
 import org.aswing.geom.*;
 import org.aswing.util.*;
-import flash.display.*;
-import flash.geom.*;
-import flash.events.MouseEvent;
-import org.aswing.event.DragAndDropEvent;
 
 /**
  * Drag and Drop Manager.
@@ -43,7 +44,7 @@ public class DragManager{
 	private static var enteredComponent:Component;
 	
 	private static var listeners:Array = new Array();
-	
+	private static var curStage:Stage;
 	
 	/**
 	 * Sets the container to hold the draging image(in fact it will hold the image's parent--a sprite).
@@ -54,14 +55,7 @@ public class DragManager{
 	public static function setDragingImageContainerRoot(theRoot:DisplayObjectContainer):void{
 		root = theRoot;
 	}
-	
-	private static function getDragingImageContainerRoot():DisplayObjectContainer{
-		if(root == null){
-			return AsWingManager.getRoot();
-		}
-		return root;
-	}		
-	
+		
 	/**
 	 * startDrag(dragInitiator:Component, dragSource, dragImage:MovieClip, lis:DragListener)<br>
 	 * startDrag(dragInitiator:Component, dragSource, dragImage:MovieClip)<br>
@@ -81,7 +75,12 @@ public class DragManager{
 			throw new Error("The last dragging action is not finished, can't start a new one!");
 			return;
 		}
-		var stage:Stage = AsWingManager.getStage();
+		var stage:Stage = dragInitiator.stage;
+		if(stage == null){
+			throw new Error("The drag initiator is not on stage!");
+			return;
+		}
+		curStage = stage;
 		if(dragImage == null){
 			dragImage = new DefaultDragImage(dragInitiator);
 		}
@@ -98,7 +97,7 @@ public class DragManager{
 			runningMotion.forceStop();
 			runningMotion = null;
 		}
-		var container:DisplayObjectContainer = getDragingImageContainerRoot();
+		var container:DisplayObjectContainer = stage;
 		if(dragProxyMC == null){
 			dragProxyMC = new Sprite();
 			dragProxyMC.mouseEnabled = false;
@@ -113,13 +112,13 @@ public class DragManager{
 		}
 		container.addChild(dragProxyMC);
 		
-		var globalPos:IntPoint = AsWingUtils.getStageMousePosition();
+		var globalPos:IntPoint = AsWingUtils.getStageMousePosition(stage);
 		var dp:Point = container.globalToLocal(dragInitiator.getGlobalLocation().toPoint());
 		dragProxyMC.x = dp.x;
 		dragProxyMC.y = dp.y;
 		
 		dragProxyMC.addChild(dragImage.getDisplay());
-		dragProxyMC.startDrag(false, AsWingUtils.getVisibleMaximizedBounds().toRectangle());
+		dragProxyMC.startDrag(false, AsWingUtils.getVisibleMaximizedBounds(dragInitiator).toRectangle());
 		
 		mouseOffset = new IntPoint(container.mouseX - dp.x, container.mouseY - dp.y);
 		fireDragStartEvent(s_dragInitiator, s_sourceData, globalPos);
@@ -127,7 +126,7 @@ public class DragManager{
 		enteredComponent = null;
 		//initial image
 		s_dragImage.switchToRejectImage();
-		__onMouseMove(null);
+		__onMouseMoveOnStage(stage);
 		stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove, false, 0, true);
 		stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown, false, 0, true);
 		stage.addEventListener(MouseEvent.MOUSE_UP, __onMouseUp, false, 0, true);
@@ -182,7 +181,7 @@ public class DragManager{
 	 * @see #getDropTarget()
 	 */
 	public static function getCurrentDropTarget():DisplayObject{
-		return getDropTarget();
+		return getDropTarget(curStage);
 	}
 	
 	/**
@@ -193,7 +192,7 @@ public class DragManager{
 	 * @see #getDropTargetComponent()
 	 */
 	public static function getDropTargetComponent(pos:Point=null):Component{
-		return getDropTarget(pos, Component) as Component;
+		return getDropTarget(curStage, pos, Component) as Component;
 	}
 	
 	/**
@@ -203,7 +202,7 @@ public class DragManager{
 	 * @see #getDropTargetComponent()
 	 */
 	public static function getCurrentDropTargetComponent():Component{
-		return getDropTarget(null, Component) as Component;
+		return getDropTarget(curStage, null, Component) as Component;
 	}
 	
 	/**
@@ -215,6 +214,7 @@ public class DragManager{
 	 */
 	public static function getDropTragetDropTriggerComponent(pos:Point=null):Component{
 		return getDropTarget(
+			curStage, 
 			pos, 
 			Component, 
 			____dropTargetCheck) as Component;
@@ -228,6 +228,7 @@ public class DragManager{
 	 */
 	public static function getCurrentDropTargetDropTriggerComponent():Component{
 		return getDropTarget(
+			curStage, 
 			null, 
 			Component, 
 			____dropTargetCheck) as Component;
@@ -247,16 +248,16 @@ public class DragManager{
 	 * getDropTarget(null, null);
 	 * will return the first display object insance under the current mouse point, or null if not found.
 	 * </pre>
+	 * @param stage the stage where the drop target should be in
 	 * @param pos The point under which to look, in the coordinate space of the Stage.
 	 * @param targetType the class type of the target, default is null, means any display object.
 	 * @param addtionCheck, a check function, only return the target when function(target:DisplayOject) return true. 
 	 * default is null, means no this check.
 	 * @return drop target
 	 */
-	public static function getDropTarget(pos:Point=null, 
+	public static function getDropTarget(stage:Stage, pos:Point=null, 
 		targetType:Class=null, 
 		addtionCheck:Function=null):DisplayObject{
-		var stage:Stage = AsWingManager.getStage();
 		if(stage == null){
 			return null;
 		}
@@ -286,14 +287,12 @@ public class DragManager{
 		
 	//---------------------------------------------------------------------------------
 	
-	private static function __onMouseMove(e:MouseEvent):void{
-		var globalPos:IntPoint;
-		if(e == null){
-			globalPos = new IntPoint(AsWingManager.getStage().mouseX, AsWingManager.getStage().mouseY);
-		}else{
-			globalPos = new IntPoint(e.stageX, e.stageY);
-		}
-		
+	private static function __onMouseMoveOnStage(stage:Stage):void{
+		onMouseMove(stage.mouseX, stage.mouseY);
+	}
+	
+	private static function onMouseMove(mx:Number, my:Number):void{
+		var globalPos:IntPoint = new IntPoint(mx, my);
 		var dropC:Component = getCurrentDropTargetDropTriggerComponent();
 		if(dropC != enteredComponent){
 			if(enteredComponent != null){
@@ -314,7 +313,11 @@ public class DragManager{
 				fireDragOverringEvent(s_dragInitiator, s_sourceData, globalPos, enteredComponent);
 				enteredComponent.fireDragOverringEvent(s_dragInitiator, s_sourceData, globalPos);
 			}
-		}
+		}				
+	}
+	
+	private static function __onMouseMove(e:MouseEvent):void{
+		onMouseMove(e.stageX, e.stageY);
 	}
 	
 	private static function __onMouseUp(e:MouseEvent):void{
@@ -322,7 +325,8 @@ public class DragManager{
 	}
 	
 	private static function __onMouseDown(e:MouseEvent):void{
-		drop(); //why call drop again when mouse down?
+		drop(); 
+		//why call drop again when mouse down?
 		//just because if you released mouse outside of flash movie, then the mouse up
 		//was not triggered. So if that happened, when user reclick mouse, the drop will 
 		//fire (the right behavor to ensure dragging thing was dropped).
@@ -335,8 +339,7 @@ public class DragManager{
 		dragProxyMC.stopDrag();
 		var globalPos:IntPoint = AsWingUtils.getStageMousePosition();
 		var dropC:Component = getCurrentDropTargetDropTriggerComponent();
-		
-		var stage:Stage = AsWingManager.getStage();
+		var stage:Stage = curStage;
 		stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
 		stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
 		stage.removeEventListener(MouseEvent.MOUSE_UP, __onMouseUp);
@@ -357,6 +360,7 @@ public class DragManager{
 		if(s_dragListener != null){
 			removeDragListener(s_dragListener);
 		}
+		curStage = null;
 		s_dragImage = null;
 		s_dragListener = null;
 		s_sourceData = null;
