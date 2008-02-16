@@ -7,8 +7,8 @@ package org.aswing.plaf.basic.icon
 {
 	
 import org.aswing.*;
-import org.aswing.graphics.*;
 import org.aswing.geom.*;
+import org.aswing.graphics.*;
 
 /**
  * The icon for frame close.
@@ -25,13 +25,17 @@ public class FrameCloseIcon extends FrameIcon
 	{
 		var w:Number = width/2;
 		g.drawLine(
-			new Pen(getColor(), w/3), 
+			new Pen(getColor(c), w/3), 
 			x+(width-w)/2, y+(width-w)/2,
 			x+(width+w)/2, y+(width+w)/2);
 		g.drawLine(
-			new Pen(getColor(), w/3), 
+			new Pen(getColor(c), w/3), 
 			x+(width-w)/2, y+(width+w)/2,
 			x+(width+w)/2, y+(width-w)/2);		
 	}	
+	
+	override public function getIconWidth(c:Component):int{
+		return super.getIconWidth(c) + 2;
+	}
 }
 }
