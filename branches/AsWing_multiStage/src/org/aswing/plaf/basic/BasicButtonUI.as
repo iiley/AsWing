@@ -5,17 +5,16 @@
 package org.aswing.plaf.basic
 {
 	
-import org.aswing.*;
-import org.aswing.graphics.Graphics2D;
-import org.aswing.geom.IntRectangle;
-import org.aswing.geom.IntDimension;
-import org.aswing.Component;
-import org.aswing.plaf.*;
-import org.aswing.event.AWEvent;
-import flash.utils.getTimer;
 import flash.text.*;
-import org.aswing.event.FocusKeyEvent;
 import flash.ui.Keyboard;
+
+import org.aswing.*;
+import org.aswing.event.AWEvent;
+import org.aswing.event.FocusKeyEvent;
+import org.aswing.geom.IntDimension;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.*;
 
 /**
  * Basic Button implementation.
@@ -220,6 +219,7 @@ public class BasicButtonUI extends BaseComponentUI{
 				new TextFormat(null, null, null, null, null, true), 
 				b.getMnemonicIndex());
 		}
+    	textField.filters = b.getTextFilters();
     }
     
     protected function getTextPaintColor(b:AbstractButton):ASColor{
