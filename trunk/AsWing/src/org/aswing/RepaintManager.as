@@ -51,7 +51,7 @@ public class RepaintManager{
 		renderring = false;
 		alwaysUseTimer = false;
 		timer = new Timer(19, 1);
-		timer.addEventListener(TimerEvent.TIMER, __timerRender);
+		timer.addEventListener(TimerEvent.TIMER_COMPLETE, __timerRender);
 	}
 	
 	/**
