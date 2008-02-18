@@ -466,7 +466,8 @@ public class BasicLookAndFeel extends LookAndFeel{
 		
 		// *** Slider
 		comDefaults = [
-			"Slider.background", table.getFont("controlFont"),
+			"Slider.font", table.getFont("controlFont"),
+			"Slider.background", table.get("control"),
 			"Slider.foreground", table.get("controlText"),
 			"Slider.opaque", false,  
 			"Slider.focusable", true,  
@@ -545,8 +546,9 @@ public class BasicLookAndFeel extends LookAndFeel{
 		
 		// *** Accordion
 		comDefaults = [
+			"Accordion.font", table.getFont("controlFont"),
 			"Accordion.background", table.get("window"),
-			"Accordion.foreground", table.get("windowText"),
+			"Accordion.foreground", table.get("controlText"),
 			"Accordion.opaque", false,  
 			"Accordion.focusable", true,
 			"Accordion.motionSpeed", 50, 
