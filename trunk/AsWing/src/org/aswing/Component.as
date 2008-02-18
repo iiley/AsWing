@@ -10,6 +10,7 @@ import flash.display.InteractiveObject;
 import flash.display.Sprite;
 import flash.events.*;
 import flash.geom.*;
+import flash.utils.Dictionary;
 import flash.utils.getTimer;
 
 import org.aswing.dnd.*;
@@ -190,7 +191,7 @@ public class Component extends AWSprite{
 	private var toolTipText:String;
 	private var dragEnabled:Boolean;
 	private var dropTrigger:Boolean;
-	private var dragAcceptableInitiator:HashSet;
+	private var dragAcceptableInitiator:Dictionary;
 	private var dragAcceptableInitiatorAppraiser:Function;
 	
 	public function Component()
@@ -1298,18 +1299,14 @@ public class Component extends AWSprite{
 	 * the method <code>isDragAcceptableInitiator</code> later, and the default dragging 
 	 * image will take advantage to present a better picture when painting.
 	 * </p>
-	 * <p>
-	 * Don't forgot to call <code>removeDragAcceptableInitiator</code> when you don't need 
-	 * a initiator, to make sure this will not keep a reference count of Gabarge-celector.
-	 * </p>
 	 * @param com the acceptable drag initiator
 	 * @see #isDragAcceptableInitiator()
 	 */
 	public function addDragAcceptableInitiator(com:Component):void{
 		if(dragAcceptableInitiator == null){
-			dragAcceptableInitiator = new HashSet();
+			dragAcceptableInitiator = new Dictionary(true);
 		}
-		dragAcceptableInitiator.add(com);
+		dragAcceptableInitiator[com] = true;
 	}
 	
 	/**
@@ -1318,8 +1315,10 @@ public class Component extends AWSprite{
 	 * @see #addDragAcceptableInitiator()
 	 */
 	public function removeDragAcceptableInitiator(com:Component):void{
-		if(dragAcceptableInitiator != null)
-			dragAcceptableInitiator.remove(com);
+		if(dragAcceptableInitiator != null){
+			dragAcceptableInitiator[com] = undefined;
+			delete dragAcceptableInitiator[com];
+		}
 	}
 	
 	/**
@@ -1339,7 +1338,7 @@ public class Component extends AWSprite{
 	 */
 	public function isDragAcceptableInitiator(com:Component):Boolean{
 		if(dragAcceptableInitiator != null){
-			return dragAcceptableInitiator.contains(com);
+			return dragAcceptableInitiator[com] == true;
 		}else{
 			if(dragAcceptableInitiatorAppraiser != null){
 				return dragAcceptableInitiatorAppraiser(com);
