@@ -1054,11 +1054,12 @@ public class TenerLookAndFeel extends BasicLookAndFeel{
 			"Frame.opaque", true, 
 			"Frame.bg", SkinFrameBackground, //this will use Frame.activeBG and Frame.inactiveBG
 			"Frame.titleBarHeight", 24, //modify this to fit title bar height of bg image
-			"Frame.border", new SkinEmptyBorder(2, 3, 10, 6), //modify this to fit the frame bg image
+			"Frame.border", new SkinEmptyBorder(0, 4, 4, 4), //modify this to fit the frame bg image
+			"Frame.backgroundMargin", new InsetsUIResource(2, 0, 0, 0), 
 			"Frame.activeBG", Frame_activeBG, 
 			"Frame.inactiveBG", Frame_inactiveBG, 
 			"Frame.titleBarBG", SkinFrameTitleBarBG, 
-			"Frame.titleBarButtonGap", 2, 
+			"Frame.titleBarButtonGap", 0, 
 			"Frame.titleBarOpaque", false, 
 			"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
 			"Frame.normalIcon", SkinFrameNormalIcon,
@@ -1463,7 +1464,7 @@ public class TenerLookAndFeel extends BasicLookAndFeel{
 	     // *** PopupMenu
 	    comDefaults = [
 	        "PopupMenu.bgImage", Menu_bgImage, 
-	    	"PopupMenu.border", new SkinEmptyBorder(2, 2, 2, 2), 
+	    	//"PopupMenu.border", new SkinEmptyBorder(2, 2, 2, 2), 
 	        "PopupMenu.bg", TenerPopupMenuBackground
 	    ];
 	    table.putDefaults(comDefaults);
