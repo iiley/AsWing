@@ -221,6 +221,7 @@ public class AsWingManager{
 			timers.remove(e.currentTarget);
 			func();
 		});
+		timer.start();
 	}
 	
 	private static function __update(e:TimerEvent):void{
