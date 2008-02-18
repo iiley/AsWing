@@ -24,8 +24,6 @@ public class Test extends Sprite{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 	}
-	
-	private var timer:Timer;
 
 	private function init(e:Event=null):void{
 		AsWingManager.initAsStandard(this, true, false);
@@ -35,15 +33,6 @@ public class Test extends Sprite{
 		//to test buttons.
 		//UIManager.setLookAndFeel(new SkinBuilderLAF());
 		addChild(new TabbedPane());
-		timer = new Timer(1000, 1);
-		timer.addEventListener(TimerEvent.TIMER_COMPLETE, __timer);
-		timer.start();
-	}
-	
-	private function __timer(e:TimerEvent):void{
-		trace(timer.running);
-		timer.reset();
-		timer.start();
 	}
 }
 }
