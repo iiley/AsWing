@@ -46,7 +46,7 @@ public class Windows extends JPanel{
 		frame.setContentPane(pane);
 		frame.setDefaultButton(closeButton2);
 		frame.setComBoundsXYWH(100, 100, 400, 240);
-		KeyboardManager.getInstance().registerKeyAction(
+		frame.getKeyboardManager().registerKeyAction(
 			new KeySequence(KeyStroke.VK_SHIFT, KeyStroke.VK_P), 
 			__popupChild);
 	}
