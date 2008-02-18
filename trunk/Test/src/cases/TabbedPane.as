@@ -1,8 +1,9 @@
 package cases{
 
 import flash.display.Sprite;
-import org.aswing.*;
 import flash.events.*;
+
+import org.aswing.*;
 import org.aswing.event.InteractiveEvent;
 
 public class TabbedPane extends Sprite{
@@ -22,6 +23,8 @@ public class TabbedPane extends Sprite{
 		
 		tabbedPane = new JTabbedPane();
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
+		tabbedPane.setForeground(ASColor.RED);
+		tabbedPane.setFont(new ASFont("Arial", 20));
 		//tabbedPane.setVerticalAlignment(JTabbedPane.BOTTOM);
 		//tabbedPane.setBorder(new BevelBorder(new EmptyBorder(new LineBorder(null, ASColor.GRAY.darker(), 1), new Insets(2,2,2,2)), BevelBorder.LOWERED));
 		

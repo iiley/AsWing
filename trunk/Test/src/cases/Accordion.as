@@ -1,8 +1,9 @@
 package cases
 {
 import flash.display.Sprite;
-import org.aswing.*;
 import flash.events.*;
+
+import org.aswing.*;
 import org.aswing.border.*;
 
 public class Accordion extends Sprite

@@ -30,7 +30,7 @@ public class Tree extends Sprite
 		frame.setContentPane(pane);
 		button.addActionListener(__repaintTree);
 		
-		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("tree")));
+		//tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("tree")));
 		tree.setRootVisible(false);
 		
 		frame.setSizeWH(200, 200);

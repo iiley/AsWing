@@ -1,14 +1,14 @@
 package componetset{
 
-import org.aswing.*;
 import flash.events.*;
+
+import org.aswing.*;
 
 public class Menus extends JPanel{
 	
 	private var textArea:JTextArea; 
 	private var openItem:JMenuItem;
 	private var fileMenu:JMenu;
-	private var frame:JFrame;
 	
 	public function Menus():void {
 		super(new BorderLayout());
@@ -63,7 +63,9 @@ public class Menus extends JPanel{
 		textArea = new JTextArea();
 		append(new JScrollPane(textArea), BorderLayout.CENTER);
 		
-		KeyboardManager.getInstance().registerKeyAction(
+		var km:KeyboardManager = new KeyboardManager();
+		km.init(this);
+		km.registerKeyAction(
 			new KeySequence(KeyStroke.VK_SHIFT, KeyStroke.VK_A), 
 			__keyAction);
 	}
