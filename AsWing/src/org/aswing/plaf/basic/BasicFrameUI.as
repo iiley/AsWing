@@ -173,6 +173,9 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     //----------------------------------------------------------
 	
 	private function __titleBarChanged(e:PropertyChangeEvent):void{
+		if(e != null && e.getPropertyName() != JFrame.PROPERTY_TITLE_BAR){
+			return;
+		}
 		var oldTC:Component;
 		if(e && e.getOldValue()){
 			var oldT:FrameTitleBar = e.getOldValue();
