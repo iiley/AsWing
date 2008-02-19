@@ -155,8 +155,9 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 			owner.addEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged, false, 0, true);
 			owner.addEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange, false, 0, true);
 			owner.addEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange, false, 0, true);
+			
+			updateUIPropertiesFromOwner();
 		}
-		updateUIPropertiesFromOwner();
 		__stateChanged(null);
 	}
 	
