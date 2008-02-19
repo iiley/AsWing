@@ -19,7 +19,7 @@ public class AirMain extends Main{
 	public function AirMain(owner:DisplayObjectContainer){
 		super(owner);
 		
-		var file:File = File.applicationResourceDirectory;
+		var file:File = File.applicationDirectory;
 		rootPath = file.nativePath+"/";
 		workspacePath = rootPath+"workspace/";
 		openFile = new File(workspacePath);
@@ -108,7 +108,7 @@ public class AirMain extends Main{
 	}
 	
 	override protected function getAboutWords():String{
-		return "Version:1.0\nDate:2007-11-12\nDeveloped by aswing.org";
+		return "Version:1.0.1\nDate:2008-1-17\nDeveloped by aswing.org";
 	}
 	
 	override protected function checkIsExists(className:String, pkgName:String):Boolean{

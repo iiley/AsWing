@@ -5,4 +5,6 @@
 	</LookAndFeel>
 	<LookAndFeel name="Orange LAF" path="lafs/OrangeLAF.swf" clazz="org.aswing.skinbuilder.orange.OrangeLookAndFeel">
 	</LookAndFeel>
+	<LookAndFeel name="Tener LAF" path="lafs/TenerLAF.swf" clazz="cn.harryxu.tenerLaf.TenerLookAndFeel">
+	</LookAndFeel>
 </LookAndFeels>
