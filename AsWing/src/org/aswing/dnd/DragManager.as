@@ -118,7 +118,7 @@ public class DragManager{
 		dragProxyMC.y = dp.y;
 		
 		dragProxyMC.addChild(dragImage.getDisplay());
-		dragProxyMC.startDrag(false, AsWingUtils.getVisibleMaximizedBounds(dragInitiator).toRectangle());
+		dragProxyMC.startDrag(false);
 		
 		mouseOffset = new IntPoint(container.mouseX - dp.x, container.mouseY - dp.y);
 		fireDragStartEvent(s_dragInitiator, s_sourceData, globalPos);
