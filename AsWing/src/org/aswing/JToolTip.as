@@ -142,7 +142,9 @@ public class JToolTip extends Container{
 			timer.setInitialDelay(WAIT_TIME);
 		}
 		timer.restart();
-		getTargetComponent().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved, false, 0, true);
+		if(getTargetComponent()){
+			getTargetComponent().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved, false, 0, true);
+		}
 	}
 	
 	/**
@@ -150,7 +152,9 @@ public class JToolTip extends Container{
 	 */
 	public function stopWaitToPopup():void{
 		timer.stop();
-		getTargetComponent().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved);
+		if(getTargetComponent()){
+			getTargetComponent().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved);
+		}
 		last_tip_dropped_time = getTimer();
 	}
 	
@@ -357,18 +361,14 @@ public class JToolTip extends Container{
 	protected function listenOwner(comp:InteractiveObject, useWeakReference:Boolean = false):void{
 		comp.addEventListener(MouseEvent.ROLL_OVER, ____compRollOver, false, 0, useWeakReference);
 		comp.addEventListener(MouseEvent.ROLL_OUT, ____compRollOut, false, 0, useWeakReference);
-		//not need to listener to these two event?
-		//comp.addEventListener(AWEvent.HIDDEN, ____compRollOut, false, 0, useWeakReference);
-		//comp.addEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut, false, 0, useWeakReference);
 		comp.addEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut, false, 0, useWeakReference);
 	}
 	protected function unlistenOwner(comp:InteractiveObject):void{
 		comp.removeEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
 		comp.removeEventListener(MouseEvent.ROLL_OUT, ____compRollOut);
-		//not need to listener to these two event?
-		//comp.removeEventListener(AWEvent.HIDDEN, ____compRollOut);
-		//comp.removeEventListener(Event.REMOVED_FROM_STAGE, ____compRollOut);
 		comp.removeEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut);
+		//maybe showing, so this event need to remove
+		comp.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved);
 	}
 	
 	
