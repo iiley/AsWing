@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application 
+	xmlns="http://ns.adobe.com/air/application/1.0.M6"
+	appId="GuiBuilder"
+	version="1.0">
+	
+	<id>GuiBuilder</id>
+	<filename>GuiBuilder</filename>
+	<version>1.0.1</version>
+	
+	<name>GuiBuilder</name>
+	<description></description>
+	<copyright></copyright>
+	<title>GuiBuilder</title>
+	
+	<initialWindow>
+		<title>GuiBuilder</title>
+		<content>GuiBuilder.swf</content>
+		<systemChrome>standard</systemChrome>
+		<transparent>false</transparent>
+		<visible>true</visible>
+		<minimizable>true</minimizable>
+		<maximizable>true</maximizable>
+		<resizable>true</resizable>
+	</initialWindow>
+</application>
