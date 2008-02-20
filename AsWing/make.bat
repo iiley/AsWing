@@ -2,10 +2,11 @@
 REM Build script for AsWing
 REM written by Oliver "gencha" Salzburg 2008-02-20
 
-set flex_sdk_dir=C:\flex3sdk_b3_121207
+set flex_sdk_dir=path_to_flex_sdk
 
 if (%flex_sdk_dir%) == (path_to_flex_sdk) goto sdk_missing
 if (%flex_sdk_dir%) == () goto sdk_missing
+if not exist %flex_sdk_dir% goto sdk_missing
 
 if not exist src\manifest.xml goto manifest_missing
 
