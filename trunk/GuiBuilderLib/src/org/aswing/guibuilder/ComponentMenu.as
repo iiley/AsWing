@@ -16,7 +16,10 @@ public class ComponentMenu extends JPopupMenu{
 	/**
 	 * ComDefinition[]
 	 */
-	public function setComponents(coms:Array):void{
+	public function setComponents(coms:Array):void {
+		// Sort items
+		coms.sortOn( "sortValue" );
+		
 		for each(var def:ComDefinition in coms){
 			var item:JMenuItem = addMenuItem(def.getName());
 			item.putClientProperty("comDef", def);

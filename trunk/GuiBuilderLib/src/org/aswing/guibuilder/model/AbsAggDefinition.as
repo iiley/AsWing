@@ -7,7 +7,9 @@ import org.aswing.util.Reflection;
  * Aggregation class model definition.
  * @author iiley
  */
-public class AbsAggDefinition{
+public class AbsAggDefinition {
+	
+	public var sortValue:String; // sortValue has to be public so we can access it through Array.sortOn()
 	
 	protected var xml:*;
 	protected var name:String;
@@ -21,6 +23,7 @@ public class AbsAggDefinition{
 		this.xml = xml;
 		this.superDef = superDef;
 		name = xml.@name;
+		sortValue = name;
 		className = xml.@clazz;
 		clazz = Reflection.getClass(className);
 		var strs:Array = className.split(".");
