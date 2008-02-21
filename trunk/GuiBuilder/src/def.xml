@@ -31,15 +31,15 @@
 	</Type>
 
 	<Type name="Align" editor="org.aswing.guibuilder.property.AlignEditor"
-		serializer="org.aswing.guibuilder.property.IntSerializer">
+		serializer="org.aswing.guibuilder.property.AlignSerializer">
 	</Type>
 
 	<Type name="Axis" editor="org.aswing.guibuilder.property.AxisEditor"
-		serializer="org.aswing.guibuilder.property.IntSerializer">
+		serializer="org.aswing.guibuilder.property.AxisSerializer">
 	</Type>
 
 	<Type name="Orientation" editor="org.aswing.guibuilder.property.OrientationEditor"
-		serializer="org.aswing.guibuilder.property.IntSerializer">
+		serializer="org.aswing.guibuilder.property.OrientationSerializer">
 	</Type>
 
 	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor"
@@ -51,7 +51,7 @@
 	</Type>
 
 	<Type name="Constraints" editor="org.aswing.guibuilder.property.ConstraintsEditor"
-		serializer="org.aswing.guibuilder.property.StringSerializer">
+		serializer="org.aswing.guibuilder.property.ConstraintSerializer">
 	</Type>
 
 	<Type name="Color" editor="org.aswing.guibuilder.property.ColorEditor"
