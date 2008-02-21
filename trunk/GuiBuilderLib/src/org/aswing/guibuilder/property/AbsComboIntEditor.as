@@ -14,7 +14,7 @@ public class AbsComboIntEditor extends BasePropertyEditor implements PropertyEdi
 		combo = new JComboBox(labels);
 		combo.setPreferredWidth(70);
 		combo.addActionListener(__apply);
-		combo.setListCellFactory(new DefaultComboBoxListCellFactory(false, false));
+		combo.setListCellFactory(new DefaultComboBoxListCellFactory(false, true));
 		combo.revalidate();
 	}
 	
