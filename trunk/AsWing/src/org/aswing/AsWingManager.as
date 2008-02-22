@@ -213,12 +213,9 @@ public class AsWingManager{
 		nextFrameCalls.push(func);
 	}
 	
-	private static var timers:HashSet = new HashSet();
 	public static function callLater(func:Function, time:int=40):void{
 		var timer:Timer = new Timer(time, 1);
-		timers.add(timer);
 		timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void{
-			timers.remove(e.currentTarget);
 			func();
 		});
 		timer.start();
