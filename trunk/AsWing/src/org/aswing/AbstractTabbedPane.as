@@ -493,10 +493,11 @@ public class AbstractTabbedPane extends Container{
      * the results will be implementation defined.
      *
      * @param index  the index to be selected
+     * @param programmatic indicate if this is a programmatic change.
 	 */
-	public function setSelectedIndex(i:int):void{
+	public function setSelectedIndex(i:int, programmatic:Boolean=true):void{
 		if(i>=-1 && i<getComponentCount()){
-			getModel().setSelectedIndex(i);
+			getModel().setSelectedIndex(i, programmatic);
 		}
 	}
 	/**
@@ -504,10 +505,12 @@ public class AbstractTabbedPane extends Container{
      * will automatically set the <code>selectedIndex</code> to the index
      * corresponding to the specified component.
      *
+     * @param com the component to be selected
+     * @param programmatic indicate if this is a programmatic change.
      * @see #getSelectedComponent()
 	 */
-	public function setSelectedComponent(com:Component):void{
-		setSelectedIndex(getIndex(com));
+	public function setSelectedComponent(com:Component, programmatic:Boolean=true):void{
+		setSelectedIndex(getIndex(com), programmatic);
 	}
 	
 	public function getSelectedIndex():int{
