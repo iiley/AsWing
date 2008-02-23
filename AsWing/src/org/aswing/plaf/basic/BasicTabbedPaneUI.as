@@ -188,7 +188,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	protected function __onTabPanePressed(e:Event):void{
 		var index:int = getMousedOnTabIndex();
 		if(index >= 0 && tabbedPane.isEnabledAt(index)){
-			tabbedPane.setSelectedIndex(index);
+			tabbedPane.setSelectedIndex(index, false);
 		}
 	}
 	
@@ -234,7 +234,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 					firstIndex = Math.max(0, firstIndex - count);
 				}
 			}
-			tabbedPane.setSelectedIndex(index);
+			tabbedPane.setSelectedIndex(index, false);
 		}
 	}
     
