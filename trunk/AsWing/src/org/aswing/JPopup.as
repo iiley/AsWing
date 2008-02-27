@@ -165,6 +165,7 @@ public class JPopup extends JRootPane{
 		if(modal != m){
 			modal = m;
 			modalMC.visible = modal;
+			resetModalMC();
 		}
 	}
 	
