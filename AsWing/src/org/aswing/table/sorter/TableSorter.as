@@ -4,6 +4,8 @@
 
 package org.aswing.table.sorter{
 
+import flash.events.MouseEvent;
+
 import org.aswing.*;
 import org.aswing.event.*;
 import org.aswing.geom.*;
@@ -14,10 +16,6 @@ import org.aswing.table.TableColumnModel;
 import org.aswing.table.TableModel;
 import org.aswing.util.ArrayUtils;
 import org.aswing.util.HashMap;
-import flash.ui.Keyboard;
-import flash.ui.Mouse;
-import flash.events.MouseEvent;
-import flash.events.Event;
 
 /**
  * A class that make your JTable sortable. Usage:
@@ -411,12 +409,19 @@ public class TableSorter extends AbstractTableModel implements TableModelListene
             if (!e.ctrlKey) {
                 cancelSorting();
             }
-            // Cycle the sorting states through {NOT_SORTED, ASCENDING, DESCENDING} or 
-            // {NOT_SORTED, DESCENDING, ASCENDING} depending on whether shift is pressed. 
-            status = status + (e.shiftKey ? -1 : 1);
-            status = (status + 4) % 3 - 1; // signed mod, returning {-1, 0, 1}
+            status = nextSortingStatus(status, e.shiftKey);
             setSortingStatus(column, status);
         }
+    }
+    
+    // Cycle the sorting states through {NOT_SORTED, ASCENDING, DESCENDING} or 
+    // {NOT_SORTED, DESCENDING, ASCENDING} depending on whether shift is pressed.     
+    // You can override this method to change the arithmetic
+    protected function nextSortingStatus(curStatus:int, shiftKey:Boolean):int{
+    	var status:int = curStatus;
+	    status = status + (shiftKey ? -1 : 1);
+        status = (status + 4) % 3 - 1; // signed mod, returning {-1, 0, 1}
+        return status;
     }
 }
 }
