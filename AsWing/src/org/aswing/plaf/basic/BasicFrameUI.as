@@ -103,7 +103,6 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     }
     
 	protected function uninstallComponents():void{
-		frame.setTitleBar(null);
 		removeBoundsMC();
 	}
 	
