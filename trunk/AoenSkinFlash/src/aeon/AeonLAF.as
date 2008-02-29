@@ -28,9 +28,10 @@ public class AeonLAF extends BasicLookAndFeel{
 			   "ProgressBarUI", SkinProgressBarUI,
 			   "ComboBoxUI", SkinComboBoxUI,	   
 			   "SliderUI", SkinSliderUI,		   
-			   "AccordionUI", SkinAccordionUI, 
+			   "AdjusterUI", SkinAdjusterUI, 
 			   "TabbedPaneUI", SkinTabbedPaneUI,
 			   "SplitPaneUI", SkinSplitPaneUI,
+			   "ClosableTabbedPaneUI", SkinClosableTabbedPaneUI,
 			   //"TableUI", org.aswing.plaf.basic.BasicTableUI, 
 			   //"TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI
 		   ];
@@ -242,8 +243,9 @@ public class AeonLAF extends BasicLookAndFeel{
 			"Frame.titleBarHeight", 38, //modify this to fit title bar height of bg image
 			"Frame.border", new SkinEmptyBorder(0, 17, 12, 17), //modify this to fit the frame bg image
 			"Frame.activeBG", Frame_activeBG, 
-			"Frame.inactiveBG", Frame_inactiveBG, 
-			"Frame.titleBarLayout", SkinFrameTitleBarLayout, 
+			"Frame.inactiveBG", Frame_inactiveBG, 		
+			"Frame.titleBarBG", SkinFrameTitleBarBG, 
+			"Frame.titleBarButtonGap", 2,  
 			"Frame.titleBarOpaque", false, 
 			"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
 			"Frame.normalIcon", SkinFrameNormalIcon,
@@ -365,6 +367,65 @@ public class AeonLAF extends BasicLookAndFeel{
 			"TabbedPane.right.contentRoundImage", TabbedPane_right_contentRoundImage, 
 			"TabbedPane.contentRoundLineThickness", 1, //modify this to fit contentRoundImage
 			"TabbedPane.bg", null //bg is managed by SkinTabbedPaneUI
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** ClosableTabbedPane
+		comDefaults = [
+			"ClosableTabbedPane.tab", SkinClosableTabbedPaneTab, 
+			"ClosableTabbedPane.tabMargin", new InsetsUIResource(2, 3, 1, 3),  //modify this to fit header image
+			"ClosableTabbedPane.tabBorderInsets", new InsetsUIResource(0, 4, 0, 4),
+			"ClosableTabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 4, 0, 4), 
+			"ClosableTabbedPane.top.tab.defaultImage", TabbedPane_top_tab_defaultImage,
+			"ClosableTabbedPane.top.tab.pressedImage", TabbedPane_top_tab_pressedImage,
+			"ClosableTabbedPane.top.tab.disabledImage", TabbedPane_top_tab_disabledImage,
+			"ClosableTabbedPane.top.tab.rolloverImage", TabbedPane_top_tab_rolloverImage, 
+			"ClosableTabbedPane.top.tab.selectedImage", TabbedPane_top_tab_selectedImage, 
+			"ClosableTabbedPane.top.tab.rolloverSelectedImage", TabbedPane_top_tab_rolloverSelectedImage, 
+			
+			"ClosableTabbedPane.bottom.tab.defaultImage", TabbedPane_bottom_tab_defaultImage,
+			"ClosableTabbedPane.bottom.tab.pressedImage", TabbedPane_bottom_tab_pressedImage,
+			"ClosableTabbedPane.bottom.tab.disabledImage", TabbedPane_bottom_tab_disabledImage,
+			"ClosableTabbedPane.bottom.tab.rolloverImage", TabbedPane_bottom_tab_rolloverImage, 
+			"ClosableTabbedPane.bottom.tab.selectedImage", TabbedPane_bottom_tab_selectedImage, 
+			"ClosableTabbedPane.bottom.tab.rolloverSelectedImage", TabbedPane_bottom_tab_rolloverSelectedImage, 
+			
+			"ClosableTabbedPane.left.tab.defaultImage", TabbedPane_left_tab_defaultImage,
+			"ClosableTabbedPane.left.tab.pressedImage", TabbedPane_left_tab_pressedImage,
+			"ClosableTabbedPane.left.tab.disabledImage", TabbedPane_left_tab_disabledImage,
+			"ClosableTabbedPane.left.tab.rolloverImage", TabbedPane_left_tab_rolloverImage, 
+			"ClosableTabbedPane.left.tab.selectedImage", TabbedPane_left_tab_selectedImage, 
+			"ClosableTabbedPane.left.tab.rolloverSelectedImage", TabbedPane_left_tab_rolloverSelectedImage, 
+			
+			"ClosableTabbedPane.right.tab.defaultImage", TabbedPane_right_tab_defaultImage,
+			"ClosableTabbedPane.right.tab.pressedImage", TabbedPane_right_tab_pressedImage,
+			"ClosableTabbedPane.right.tab.disabledImage", TabbedPane_right_tab_disabledImage,
+			"ClosableTabbedPane.right.tab.rolloverImage", TabbedPane_right_tab_rolloverImage, 
+			"ClosableTabbedPane.right.tab.selectedImage", TabbedPane_right_tab_selectedImage, 
+			"ClosableTabbedPane.right.tab.rolloverSelectedImage", TabbedPane_right_tab_rolloverSelectedImage,  
+			
+			"ClosableTabbedPane.arrowLeft.defaultImage", TabbedPane_arrowLeft_defaultImage, 
+			"ClosableTabbedPane.arrowLeft.pressedImage", TabbedPane_arrowLeft_pressedImage, 
+			"ClosableTabbedPane.arrowLeft.disabledImage", TabbedPane_arrowLeft_disabledImage, 
+			"ClosableTabbedPane.arrowLeft.rolloverImage", TabbedPane_arrowLeft_rolloverImage, 
+			
+			"ClosableTabbedPane.arrowRight.defaultImage", TabbedPane_arrowRight_defaultImage, 
+			"ClosableTabbedPane.arrowRight.pressedImage", TabbedPane_arrowRight_pressedImage, 
+			"ClosableTabbedPane.arrowRight.disabledImage", TabbedPane_arrowRight_disabledImage, 
+			"ClosableTabbedPane.arrowRight.rolloverImage", TabbedPane_arrowRight_rolloverImage, 
+			
+			"ClosableTabbedPane.closeButton.defaultImage", TabbedPane_closeButton_defaultImage, 
+			"ClosableTabbedPane.closeButton.pressedImage", TabbedPane_closeButton_pressedImage, 
+			"ClosableTabbedPane.closeButton.disabledImage", TabbedPane_closeButton_disabledImage, 
+			"ClosableTabbedPane.closeButton.rolloverImage", TabbedPane_closeButton_rolloverImage,
+			
+			"ClosableTabbedPane.contentMargin", new InsetsUIResource(4, 4, 4, 4), //modify this to fit TabbedPane_contentRoundImage
+			"ClosableTabbedPane.top.contentRoundImage", TabbedPane_top_contentRoundImage, 
+			"ClosableTabbedPane.bottom.contentRoundImage", TabbedPane_bottom_contentRoundImage, 
+			"ClosableTabbedPane.left.contentRoundImage", TabbedPane_left_contentRoundImage, 
+			"ClosableTabbedPane.right.contentRoundImage", TabbedPane_right_contentRoundImage, 
+			"ClosableTabbedPane.contentRoundLineThickness", 1, //modify this to fit contentRoundImage
+			"ClosableTabbedPane.bg", null //bg is managed by SkinTabbedPaneUI
 		];
 		table.putDefaults(comDefaults);
 		
