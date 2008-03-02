@@ -51,7 +51,7 @@
 	</Type>
 
 	<Type name="Constraints" editor="org.aswing.guibuilder.property.ConstraintsEditor"
-		serializer="org.aswing.guibuilder.property.ConstraintSerializer">
+		serializer="org.aswing.guibuilder.property.StringSerializer">
 	</Type>
 
 	<Type name="Color" editor="org.aswing.guibuilder.property.ColorEditor"
