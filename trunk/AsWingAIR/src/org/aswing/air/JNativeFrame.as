@@ -202,5 +202,21 @@ package org.aswing.air
 	    	}
 	    	super.setSize(newSize);
 	    }
+	    public override function getX():int
+	    {
+	    	return nativeWindow.x;
+	    }
+	    public override function getY():int
+	    {
+	    	return nativeWindow.y;
+	    }
+	    public override function setX(x:int):void
+	    {
+	    	nativeWindow.x = x;
+	    }
+	    public override function setY(y:int):void
+	    {
+	    	nativeWindow.y = y;
+	    }
 	}
 }
