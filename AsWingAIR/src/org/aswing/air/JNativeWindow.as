@@ -91,7 +91,22 @@ package org.aswing.air
 	    	ignoreNativeResize = false;
 	    	super.setSize(new IntDimension(nativeWindow.width,nativeWindow.height));
 	    }
-		
+	    public override function getX():int
+	    {
+	    	return nativeWindow.x;
+	    }
+	    public override function getY():int
+	    {
+	    	return nativeWindow.y;
+	    }
+	    public override function setX(x:int):void
+	    {
+	    	nativeWindow.x = x;
+	    }
+	    public override function setY(y:int):void
+	    {
+	    	nativeWindow.y = y;
+	    }
 		
 	}
 }
