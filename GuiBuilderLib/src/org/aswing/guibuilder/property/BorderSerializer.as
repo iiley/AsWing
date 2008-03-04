@@ -7,6 +7,9 @@ import org.aswing.guibuilder.model.*;
 public class BorderSerializer implements PropertySerializer{
 	
 	public function decodeValue(valueXML:XML, pro:ProModel):ValueModel{
+		if(valueXML.@value == "null"){
+			return new SimpleValue(null);
+		}
 		var model:BorderModel = pro.getValue() as BorderModel;
 		if(model == null){
 			model = new BorderModel();
