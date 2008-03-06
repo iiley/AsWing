@@ -2,36 +2,43 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
+package org.aswing{
 	
-import flash.text.TextFormat;
 import flash.text.TextField;
+import flash.text.TextFormat;
+
+import org.aswing.geom.IntDimension;
 
 /**
  * Font that specified the font name, size, style and whether or not embed.
  * @author iiley
  */
-public class ASFont
-{
+public class ASFont{
+	
  	private var name:String;
  	private var size:uint;
  	private var bold:Boolean;
  	private var italic:Boolean;
  	private var underline:Boolean;
- 	private var embedFonts:Boolean;
  	private var textFormat:TextFormat;
+ 	
+ 	private var advancedProperties:ASFontAdvProperties;
  	
  	/**
  	 * Create a font.
  	 */
-	public function ASFont(name:String="Tahoma", size:Number=11, bold:Boolean=false, italic:Boolean=false, underline:Boolean=false, embedFonts:Boolean=false){
+	public function ASFont(name:String="Tahoma", size:Number=11, bold:Boolean=false, italic:Boolean=false, underline:Boolean=false, 
+		embedFontsOrAdvancedPros:*=null){
 		this.name = name;
 		this.size = size;
 		this.bold = bold;
 		this.italic = italic;
 		this.underline = underline;
-		this.embedFonts = embedFonts;
+		if(embedFontsOrAdvancedPros is ASFontAdvProperties){
+			advancedProperties = embedFontsOrAdvancedPros;
+		}else{
+			advancedProperties = new ASFontAdvProperties(embedFontsOrAdvancedPros==true);
+		}
 		textFormat = getTextFormat();
 	}
 	
@@ -40,7 +47,7 @@ public class ASFont
 	}
 	
 	public function changeName(name:String):ASFont{
-		return new ASFont(name, size, bold, italic, underline, embedFonts);
+		return new ASFont(name, size, bold, italic, underline, advancedProperties);
 	}
 	
 	public function getSize():uint{
@@ -48,7 +55,7 @@ public class ASFont
 	}
 	
 	public function changeSize(size:int):ASFont{
-		return new ASFont(name, size, bold, italic, underline, embedFonts);
+		return new ASFont(name, size, bold, italic, underline, advancedProperties);
 	}
 	
 	public function isBold():Boolean{
@@ -56,7 +63,7 @@ public class ASFont
 	}
 	
 	public function changeBold(bold:Boolean):ASFont{
-		return new ASFont(name, size, bold, italic, underline, embedFonts);
+		return new ASFont(name, size, bold, italic, underline, advancedProperties);
 	}
 	
 	public function isItalic():Boolean{
@@ -64,7 +71,7 @@ public class ASFont
 	}
 	
 	public function changeItalic(italic:Boolean):ASFont{
-		return new ASFont(name, size, bold, italic, underline, embedFonts);
+		return new ASFont(name, size, bold, italic, underline, advancedProperties);
 	}
 	
 	public function isUnderline():Boolean{
@@ -72,11 +79,15 @@ public class ASFont
 	}
 	
 	public function changeUnderline(underline:Boolean):ASFont{
-		return new ASFont(name, size, bold, italic, underline, embedFonts);
+		return new ASFont(name, size, bold, italic, underline, advancedProperties);
 	}
 	
 	public function isEmbedFonts():Boolean{
-		return embedFonts;
+		return advancedProperties.isEmbedFonts();
+	}
+	
+	public function getAdvancedProperties():ASFontAdvProperties{
+		return advancedProperties;
 	}
 	
 	/**
@@ -86,9 +97,9 @@ public class ASFont
 	 * @param endIndex The zero-based index position specifying the last character of the desired range of text. 
 	 */
 	public function apply(textField:TextField, beginIndex:int=-1, endIndex:int=-1):void{
+		advancedProperties.apply(textField);
 		textField.setTextFormat(textFormat, beginIndex, endIndex);
 		textField.defaultTextFormat = textFormat;
-		textField.embedFonts = embedFonts;
 	}
 	
 	/**
@@ -97,6 +108,28 @@ public class ASFont
 	 */
 	public function getTextFormat():TextFormat{
 		return new TextFormat(name, size, null, bold, italic, underline);
+	}
+	
+	/**
+	 * Computes text size with this font.
+	 * @param text the text to be compute
+	 * @includeGutters whether or not include the 2-pixels gutters in the result
+	 * @return the computed size of the text
+	 * @see org.aswing.AsWingUtils#computeStringSizeWithFont
+	 */
+	public function computeTextSize(text:String, includeGutters:Boolean=true):IntDimension{
+		return AsWingUtils.computeStringSizeWithFont(this, text, includeGutters);
+	}
+	
+	public function toString():String{
+		return "ASFont[" 
+			+ "name : " + name 
+			+ ", size : " + size 
+			+ ", bold : " + bold 
+			+ ", italic : " + italic 
+			+ ", underline : " + underline 
+			+ ", advanced : " + advancedProperties 
+			+ "]";
 	}
 }
 
