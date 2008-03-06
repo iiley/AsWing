@@ -26,6 +26,9 @@ public class ASFont{
  	
  	/**
  	 * Create a font.
+ 	 * @param embedFontsOrAdvancedPros a boolean to indicate whether or not embedFonts or 
+ 	 * 			a <code>ASFontAdvProperties</code> instance.
+ 	 * @see org.aswing.ASFontAdvProperties
  	 */
 	public function ASFont(name:String="Tahoma", size:Number=11, bold:Boolean=false, italic:Boolean=false, underline:Boolean=false, 
 		embedFontsOrAdvancedPros:*=null){
