@@ -60,7 +60,7 @@ public class AsWingUtils{
      * Shared text field to count the text size
      */
     private static var TEXT_FIELD:TextField = new TextField();
-    private static var TEXT_FORMAT:TextFormat = null;
+    private static var TEXT_FONT:ASFont = null;
     {
     	TEXT_FIELD.autoSize = TextFieldAutoSize.LEFT;
     	TEXT_FIELD.type = TextFieldType.DYNAMIC;
@@ -351,7 +351,6 @@ public class AsWingUtils{
         textR:IntRectangle,
         textIconGap:int):String
     {
-    	var textFormat:TextFormat = f.getTextFormat();
         if (icon != null) {
             iconR.width = icon.getIconWidth(c);
             iconR.height = icon.getIconHeight(c);
@@ -363,7 +362,7 @@ public class AsWingUtils{
         if(textIsEmpty){
             textR.width = textR.height = 0;
         }else{
-        	var textS:IntDimension = computeStringSize(textFormat, text);
+        	var textS:IntDimension = inter_computeStringSize(f, text);
             textR.width = textS.width;
             textR.height = textS.height;
         }
@@ -390,7 +389,7 @@ public class AsWingUtils{
             }
             
             if (textR.width > availTextWidth) {
-                text = layoutTextWidth(text, textR, availTextWidth, textFormat);
+                text = layoutTextWidth(text, textR, availTextWidth, f);
             }
         }
 
@@ -490,68 +489,106 @@ public class AsWingUtils{
     /**
      * Not include the gutters
      */
-    public static function stringWidth(tf:TextFormat, ch:String):Number{
+    private static function inter_stringWidth(font:ASFont, ch:String):Number{
     	TEXT_FIELD.text = ch;
-    	if(TEXT_FORMAT != tf){
-    		TEXT_FIELD.setTextFormat(tf);
-    		TEXT_FORMAT = tf;
+    	if(TEXT_FONT != font){
+    		font.apply(TEXT_FIELD);
+    		TEXT_FONT = font;
     	}
         return TEXT_FIELD.textWidth;
     }
     
-    /**
-     * Not include the gutters
-     */
-    public static function stringSize(tf:TextFormat, str:String):IntDimension{
+    private static function inter_computeStringSize(font:ASFont, str:String):IntDimension{
     	TEXT_FIELD.text = str;
-    	if(TEXT_FORMAT != tf){
-    		TEXT_FIELD.setTextFormat(tf);
-    		TEXT_FORMAT = tf;
+    	if(TEXT_FONT != font){
+    		font.apply(TEXT_FIELD);
+    		TEXT_FONT = font;
     	}
-    	return new IntDimension(Math.ceil(TEXT_FIELD.textWidth), Math.ceil(TEXT_FIELD.textHeight));
+        return new IntDimension(Math.ceil(TEXT_FIELD.width), Math.ceil(TEXT_FIELD.height));
     }
         
-    public static function computeStringWidth(tf:TextFormat, str:String):Number{
+    private static function inter_computeStringWidth(font:ASFont, str:String):Number{
     	TEXT_FIELD.text = str;
-    	if(TEXT_FORMAT != tf){
-    		TEXT_FIELD.setTextFormat(tf);
-    		TEXT_FORMAT = tf;
+    	if(TEXT_FONT != font){
+    		font.apply(TEXT_FIELD);
+    		TEXT_FONT = font;
     	}
         return TEXT_FIELD.width;
     }
     
-    public static function computeStringHeight(tf:TextFormat, str:String):Number{
+    private static function inter_computeStringHeight(font:ASFont, str:String):Number{
     	TEXT_FIELD.text = str;
-    	if(TEXT_FORMAT != tf){
-    		TEXT_FIELD.setTextFormat(tf);
-    		TEXT_FORMAT = tf;
+    	if(TEXT_FONT != font){
+    		font.apply(TEXT_FIELD);
+    		TEXT_FONT = font;
     	}
         return TEXT_FIELD.height;
     }
     
-    public static function computeStringSize(tf:TextFormat, str:String):IntDimension{
-    	TEXT_FIELD.text = str;
-    	if(TEXT_FORMAT != tf){
-    		TEXT_FIELD.setTextFormat(tf);
-    		TEXT_FORMAT = tf;
-    	}
-    	return new IntDimension(Math.ceil(TEXT_FIELD.width), Math.ceil(TEXT_FIELD.height));
+    private static var TEXT_FIELD_EXT:TextField = new TextField();
+    {
+    	TEXT_FIELD_EXT.autoSize = TextFieldAutoSize.LEFT;
+    	TEXT_FIELD_EXT.type = TextFieldType.DYNAMIC;
     }
+    
+    /**
+     * Computes the text size of specified textFormat, text, and textfield.
+     * @param tf the textformat of the text
+     * @param str the text to be computes
+     * @param includeGutters whether or not include the 2-pixels gutters in the result
+     * @param textField if a textField is specifed, the embedFonts, antiAliasType, gridFitType, sharpness, 
+     * 			and thickness properties of this textField will take effects.
+	 * @return the computed size of the text
+     */
+    public static function computeStringSize(tf:TextFormat, str:String, includeGutters:Boolean=true, 
+    	textField:TextField=null):IntDimension{
+    	if(textField){
+    		TEXT_FIELD_EXT.embedFonts = textField.embedFonts;
+    		TEXT_FIELD_EXT.antiAliasType = textField.antiAliasType;
+    		TEXT_FIELD_EXT.gridFitType = textField.gridFitType;
+    		TEXT_FIELD_EXT.sharpness = textField.sharpness;
+    		TEXT_FIELD_EXT.thickness = textField.thickness;
+    	}
+    	TEXT_FIELD_EXT.text = str;
+    	TEXT_FIELD_EXT.setTextFormat(tf);
+    	if(includeGutters){
+    		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.width), Math.ceil(TEXT_FIELD_EXT.height));
+    	}else{
+    		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
+    	}
+    }
+    
+    /**
+     * Computes the text size of specified font, text.
+     * @param tf the font of the text
+     * @param str the text to be computes
+     * @param includeGutters whether or not include the 2-pixels gutters in the result
+	 * @return the computed size of the text
+     */
+    public static function computeStringSizeWithFont(font:ASFont, str:String, includeGutters:Boolean=true):IntDimension{
+    	TEXT_FIELD_EXT.text = str;
+    	font.apply(TEXT_FIELD_EXT);
+    	if(includeGutters){
+    		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.width), Math.ceil(TEXT_FIELD_EXT.height));
+    	}else{
+    		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
+    	}
+    }    
     
     /**
      * before call this method textR.width must be filled with correct value of whole text.
      */
-    public static function layoutTextWidth(text:String, textR:IntRectangle, availTextWidth:Number, tf:TextFormat):String{
+    private static function layoutTextWidth(text:String, textR:IntRectangle, availTextWidth:Number, font:ASFont):String{
         if (textR.width <= availTextWidth) {
             return text;
         }
         var clipString:String = "...";
-        var totalWidth:int = Math.round(computeStringWidth(tf, clipString));
+        var totalWidth:int = Math.round(inter_computeStringWidth(font, clipString));
         if(totalWidth > availTextWidth){
-            totalWidth = Math.round(computeStringWidth(tf, ".."));
+            totalWidth = Math.round(inter_computeStringWidth(font, ".."));
             if(totalWidth > availTextWidth){
                 text = ".";
-                textR.width = Math.round(computeStringWidth(tf, "."));
+                textR.width = Math.round(inter_computeStringWidth(font, "."));
                 if(textR.width > availTextWidth){
                     textR.width = 0;
                     text = "";
@@ -574,12 +611,12 @@ public class AsWingUtils{
             while(li<ri){
                 var i:int = li + (ri - li)/2;
                 var subText:String = text.substring(0, i);
-                var length:int = Math.ceil(lastWidth + computeStringWidth(tf, subText));
+                var length:int = Math.ceil(lastWidth + inter_computeStringWidth(font, subText));
                 
                 if((li == i - 1) && li>0){
                     if(length > availTextWidth){
                         subText = text.substring(0, li);
-                        textR.width = Math.ceil(lastWidth + computeStringWidth(tf, text.substring(0, li)));
+                        textR.width = Math.ceil(lastWidth + inter_computeStringWidth(font, text.substring(0, li)));
                     }else{
                         textR.width = length;
                     }
@@ -623,9 +660,8 @@ public class AsWingUtils{
         horizontalAlignment:Number,
         viewR:IntRectangle,
         textR:IntRectangle):String
-    {        
-        var tf:TextFormat = f.getTextFormat();
-		var	textFieldSize:IntDimension = AsWingUtils.computeStringSize(tf, text);
+    {
+		var	textFieldSize:IntDimension = inter_computeStringSize(f, text);
         var textIsEmpty:Boolean = (text==null || text=="");
         if(textIsEmpty){
             textR.width = textR.height = 0;
@@ -643,7 +679,7 @@ public class AsWingUtils{
 
             var availTextWidth:Number = viewR.width;
             if (textR.width > availTextWidth) {
-                text = layoutTextWidth(text, textR, availTextWidth, tf);
+                text = layoutTextWidth(text, textR, availTextWidth, f);
             }
         }
         if(horizontalAlignment == CENTER){

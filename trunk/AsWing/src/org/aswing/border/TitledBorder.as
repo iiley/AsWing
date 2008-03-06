@@ -418,8 +418,7 @@ public class TitledBorder extends DecorateBorder{
 		
 	private function getTextFieldSize():IntDimension{
     	if (textFieldSize == null){
-	    	var tf:TextFormat = getFont().getTextFormat();
-			textFieldSize = AsWingUtils.computeStringSize(tf, title);   	
+			textFieldSize = getFont().computeTextSize(title);  	
     	}
     	return textFieldSize;
 	}

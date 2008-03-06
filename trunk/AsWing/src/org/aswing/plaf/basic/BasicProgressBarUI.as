@@ -119,7 +119,7 @@ public class BasicProgressBarUI extends BaseComponentUI{
 		}
 		
 		if(sp.getString() != null){
-			var textSize:IntDimension = AsWingUtils.stringSize(c.getFont().getTextFormat(), sp.getString());
+			var textSize:IntDimension = c.getFont().computeTextSize(sp.getString(), false);
 			if (sp.getOrientation() == JProgressBar.VERTICAL){
 				size.width = Math.max(size.width, textSize.height);
 				size.height = Math.max(size.height, textSize.width);

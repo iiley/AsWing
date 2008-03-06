@@ -383,8 +383,8 @@ public class JTextComponent extends Component implements EditableComponent{
 	protected function countColumnRowSize():void{
 		var str:String = "mmmmm";
 		var tf:TextFormat = getFont().getTextFormat();
-		var textFieldSize:IntDimension = AsWingUtils.computeStringSize(tf, str);
-		var textSize:IntDimension = AsWingUtils.stringSize(tf, str);
+		var textFieldSize:IntDimension = AsWingUtils.computeStringSize(tf, str, true, getTextField());
+		var textSize:IntDimension = AsWingUtils.computeStringSize(tf, str, false, getTextField());
 		
 		columnWidth = textSize.width/5;
 		rowHeight = textSize.height;

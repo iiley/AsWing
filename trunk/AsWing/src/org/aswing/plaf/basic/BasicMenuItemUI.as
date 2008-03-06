@@ -630,7 +630,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 			acceleratorRect.width = acceleratorRect.height = 0;
 			acceleratorText = "";
 		}else {
-			var td:IntDimension = AsWingUtils.computeStringSize(accelFont.getTextFormat(), acceleratorText);
+			var td:IntDimension = accelFont.computeTextSize(acceleratorText);
 			acceleratorRect.width = td.width;
 			acceleratorRect.height = td.height;
 		}
