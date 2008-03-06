@@ -114,6 +114,7 @@ public class JTextComponent extends Component implements EditableComponent{
 	 */
 	override public function setFont(f:ASFont):void{
 		super.setFont(f);
+		setFontValidated(true);
 		if(getFont() != null){
 			getFont().apply(getTextField());
 			invalidateColumnRowSize();
