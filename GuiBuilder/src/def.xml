@@ -653,6 +653,10 @@
 		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
+
+	<Com name="JClosableTabbedPane" clazz="org.aswing.JClosableTabbedPane" sup="JTabbedPane">
+	</Com>
+
 	<Com name="JSplitPane" clazz="org.aswing.JSplitPane" sup="Container">
 		<Property label="Orientation" name="Orientation" type="Orientation" category="Feature" order="10">
 		</Property>
