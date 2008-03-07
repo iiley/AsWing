@@ -6,6 +6,7 @@ package org.aswing.plaf.basic{
 	
 import flash.display.InteractiveObject;
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
@@ -128,12 +129,14 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	protected function installListeners():void{
 		adjuster.addStateListener(__onValueChanged);
 		adjuster.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onInputTextKeyDown);
+		adjuster.addEventListener(AWEvent.FOCUS_GAINED, __onFocusGained);
 		adjuster.addEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
 	}
     
     protected function uninstallListeners():void{
 		adjuster.removeStateListener(__onValueChanged);
 		adjuster.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onInputTextKeyDown);
+		adjuster.removeEventListener(AWEvent.FOCUS_GAINED, __onFocusGained);
 		adjuster.removeEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
     }
     
@@ -269,9 +272,21 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 		adjuster.setValue(value);
 		//revalidte a legic text
 		fillInputTextWithCurrentValue();
-		if(!fireActOnlyIfChanged || value != oldValue){
-			adjuster.dispatchEvent(new AWEvent(AWEvent.ACT));
+		if(!fireActOnlyIfChanged){
+			fireActionEvent();
+		}else if(value != startEditingValue){
+			fireActionEvent();
 		}
+	}
+	
+	protected var startEditingValue:int;
+	protected function fireActionEvent():void{
+		startEditingValue = adjuster.getValue();
+		adjuster.dispatchEvent(new AWEvent(AWEvent.ACT));
+	}
+	
+	private function __onFocusGained(e:AWEvent):void{
+		startEditingValue = adjuster.getValue();
 	}
 	
 	private function __onFocusLost(e:AWEvent):void{
@@ -359,7 +374,7 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 			__onMouseMoveOnSliderRemovedFromStage(null);
 		}
 		popup.dispose();
-		adjuster.dispatchEvent(new AWEvent(AWEvent.ACT));
+		fireActionEvent();
 	}
 	
 	private function __onMouseMoveOnSlider(e:MouseEvent):void{
