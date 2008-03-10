@@ -2464,9 +2464,9 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 		if(tree != null){
 			var path:TreePath = tree.getEditingPath(this);
 			if(path != null){
+				getModel().valueForPathChanged(tree.getEditingPath(this), source.getCellEditorValue());
 				dispatchEvent(new TreeCellEditEvent(TreeCellEditEvent.EDITING_STOPPED, 
 					path, path.getLastPathComponent(), source.getCellEditorValue()));
-				getModel().valueForPathChanged(tree.getEditingPath(this), source.getCellEditorValue());
 			}
 		}
 		requestFocus();
