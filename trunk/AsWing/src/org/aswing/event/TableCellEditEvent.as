@@ -119,11 +119,11 @@ public class TableCellEditEvent extends AWEvent{
 		return column;
 	}
 	
-	public function getOldValue():int{
+	public function getOldValue():*{
 		return oldValue;
 	}
 	
-	public function getNewValue():int{
+	public function getNewValue():*{
 		return newValue;
 	}
 	
