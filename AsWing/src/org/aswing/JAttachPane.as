@@ -46,7 +46,7 @@ public class JAttachPane extends AssetPane{
 	 * @param applicationDomain the applicationDomain for the class placed in. default is null means current domain.
 	 * @see #setPath()
 	 */
-	public function JAttachPane(assetClassName:String, prefferSizeStrategy:int=1, applicationDomain:ApplicationDomain=null) {
+	public function JAttachPane(assetClassName:String=null, prefferSizeStrategy:int=1, applicationDomain:ApplicationDomain=null) {
 		super(null, prefferSizeStrategy);		
 		setName("JAttachPane");
 		this.className = assetClassName;
