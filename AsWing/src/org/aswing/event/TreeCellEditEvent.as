@@ -94,6 +94,8 @@ public class TreeCellEditEvent extends AWEvent{
 		
 	public function TreeCellEditEvent(type:String, path:TreePath, oldValue:*=null, newValue:*=null){
 		super(type, bubbles, cancelable);
+		this.oldValue = oldValue;
+		this.newValue = newValue;
 	}
 		
 	public function getPath():TreePath{
