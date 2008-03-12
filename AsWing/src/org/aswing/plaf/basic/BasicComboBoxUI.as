@@ -191,8 +191,8 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	if(box.stage){
     		box.stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped);
     	}
+		popupTimer.stop();
     	if(getPopup().isVisible()){
-			popupTimer.stop();
 			getPopup().dispose();
     	}
     }

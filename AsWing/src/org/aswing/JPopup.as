@@ -59,11 +59,11 @@ public class JPopup extends JRootPane{
 	public function JPopup(owner:*=null, modal:Boolean=false){
 		super();
 		if(owner == null){
-			owner = AsWingManager.getRoot();
+			owner = AsWingManager.getRoot(false);
 		}
 		if(owner is JPopup || owner is DisplayObjectContainer){
 			this.owner = owner;
-		}else{
+		}else if(owner != null){
 			throw new TypeError(this + " JPopup's owner is not a DisplayObjectContainer or JPopup, owner is : " + owner);
 		}
 		this.modal = modal;
@@ -148,12 +148,16 @@ public class JPopup extends JRootPane{
 	 */
 	public function changeOwner(owner:*):void{
 		if(owner == null){
-			owner = AsWingManager.getRoot();
+			owner = AsWingManager.getRoot(false);
 		}
 		if(this.owner != owner){
 			this.owner = owner;
 			if(isAddedToList()){
-				equipPopupContents();
+				if(owner == null){
+					throw new Error("This popup is alreay on display list, can't be owned to null, please dispose it first.");
+				}else{
+					equipPopupContents();
+				}
 			}
 		}
 	}
