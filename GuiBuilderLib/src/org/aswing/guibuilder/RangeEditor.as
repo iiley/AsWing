@@ -204,6 +204,14 @@ public class RangeEditor{
 		}
 	}
 	
+	/**
+	 * Returns the component the RangeEditor is currently bound to
+	 * @return The component the RangeEditor is currently bound to
+	 */
+	public function getBoundComp():Component {
+		return comp;
+	}
+	
 	protected function synEditorRange():void{
 		editorMC.graphics.clear();
 		if(comp == null || editorMC.stage == null || comp.stage == null){
