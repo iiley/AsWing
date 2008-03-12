@@ -17,7 +17,7 @@ public class OnlineMain extends Main{
 	}
 	
 	override protected function getAboutWords():String{
-		return "Version:1.0 online trial\nDate:2007-10-7\nCreated by aswing.org\n \n" 
+		return "Version:1.3.0 online trial\nDate:2008-03-12\nCreated by aswing.org\n \n" 
 				+ "For a AIR version, you can open aswing home to download.";
 	}
 
