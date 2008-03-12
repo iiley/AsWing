@@ -5,10 +5,8 @@ import cases.color.*;
 
 import flash.display.*;
 import flash.events.Event;
-import flash.events.TimerEvent;
 import flash.filters.*;
 import flash.text.*;
-import flash.utils.Timer;
 
 import org.aswing.*;
 
@@ -26,13 +24,13 @@ public class Test extends Sprite{
 	}
 
 	private function init(e:Event=null):void{
-		AsWingManager.initAsStandard(this, true, false);
+		//AsWingManager.initAsStandard(this, true, false);
 		this.stage.frameRate = 25;
 		//create other case instance here to test others
 		//for example change below with addChild(new Button());
 		//to test buttons.
-		//UIManager.setLookAndFeel(new SkinBuilderLAF());
-		addChild(new TabbedPane());
+		//UIManager.setLookAndFeel(new AeonLAF());
+		addChild(new NormalMenu());
 	}
 }
 }
