@@ -41,6 +41,11 @@ public class RangeEditor{
 	
 	protected var dragging:Boolean;
 	
+	protected var moveAlongGrid:Boolean;
+	protected var scaleAlongGrid:Boolean;
+	protected var gridResolutionX:uint;
+	protected var gridResolutionY:uint;
+	
 	public function RangeEditor(){
 		super();
 		
@@ -61,6 +66,11 @@ public class RangeEditor{
 		resizeArrowCursor = Cursor.createCursor(Cursor.H_RESIZE_CURSOR);
 		moveArrowCursor = Cursor.createCursor(Cursor.HV_MOVE_CURSOR);
 	
+		// For now, grid is disabled by default
+		moveAlongGrid 	= false;
+		scaleAlongGrid 	= false;
+		gridResolutionX = 10;
+		gridResolutionY = 10;
 	}
 	
 	private var startPos:Point;
@@ -120,8 +130,21 @@ public class RangeEditor{
 		var newRange:IntRectangle = startRange.clone();
 		newRange.x += xMove*dx;
 		newRange.y += yMove*dy;
+		
+		// Align new coordinates along grid
+		if( moveAlongGrid ) {
+			newRange.x = newRange.x - ( newRange.x % gridResolutionX );
+			newRange.y = newRange.y - ( newRange.y % gridResolutionY );
+		}
+		
 		newRange.width += xScale*dx;
-		newRange.height += yScale*dy;
+		newRange.height += yScale * dy;
+		
+		// Align scale along grid
+		if( scaleAlongGrid ) {
+			newRange.width 	= newRange.width 	- ( newRange.width 	% gridResolutionX );
+			newRange.height = newRange.height - ( newRange.height % gridResolutionY );
+		}
 		comp.setBounds(newRange);
 	}
 	
@@ -219,6 +242,28 @@ public class RangeEditor{
 	
 	private function __compResized(e:ResizedEvent):void{
 		synEditorRange();
+	}
+	
+	public function setEnableGrid( enable:Boolean, resolutionX:uint = 10, resolutionY:uint = 10 ):void {
+		moveAlongGrid 	= enable;
+		gridResolutionX = resolutionX;
+		gridResolutionY = resolutionY;
+	}
+	public function setGridResolutionX( resolutionX:uint ):void {
+		gridResolutionX = resolutionX;
+	}
+	public function setGridResolutionY( resolutionY:uint ):void {
+		gridResolutionY = resolutionY;
+	}
+	
+	public function getGridEnabled():Boolean {
+		return moveAlongGrid;
+	}
+	public function getGridResolutionX():uint {
+		return gridResolutionX;
+	}
+	public function getGridResolutionY():uint {
+		return gridResolutionY;
 	}
 }
 }
