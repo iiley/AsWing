@@ -1,4 +1,4 @@
-package org.aswing.guibuilder.property{
+﻿package org.aswing.guibuilder.property{
 
 import org.aswing.guibuilder.model.SimpleValue;
 import org.aswing.guibuilder.model.ValueModel;
@@ -8,29 +8,20 @@ import org.aswing.JComboBox;
 import flash.events.Event;
 import org.aswing.guibuilder.model.ProModel;
 import org.aswing.guibuilder.util.MathUtils;
-import org.aswing.util.HashMap;
 
 public class AlignEditor extends BasePropertyEditor implements PropertyEditor {
 	
 	private var combo:JComboBox;
 	
-	private var values:HashMap;
-	private var reverseValues:HashMap;
+	private var values:Array;
 		
 	public function AlignEditor(){
-		values = new HashMap();
-		values.put( "Center", 0 );
-		values.put( "Top", 1 );
-		values.put( "Left", 2 );
-		values.put( "Bottom", 3 );
-		values.put( "Right", 4 );
-		
-		reverseValues = new HashMap();
-		reverseValues.put( 0, "Center" );
-		reverseValues.put( 1, "Top" );
-		reverseValues.put( 2, "Left" );
-		reverseValues.put( 3, "Bottom" );
-		reverseValues.put( 4, "Right" );
+		values = new Array();
+		values.push( "Center" );
+		values.push( "Top" );
+		values.push( "Left" );
+		values.push( "Bottom" );
+		values.push( "Right" );
 		
 		combo = new JComboBox(["Center", "Top", "Left", "Bottom", "Right"]);
 		combo.setEditable(true);
@@ -43,7 +34,7 @@ public class AlignEditor extends BasePropertyEditor implements PropertyEditor {
 			combo.setSelectedItem("");
 		}else {
 			var index:int = MathUtils.parseInteger( String( v ) );
-			combo.setSelectedItem( reverseValues.get( index ) );
+			combo.setSelectedItem( values[ index ] );
 		}
 	}	
 	
@@ -52,7 +43,7 @@ public class AlignEditor extends BasePropertyEditor implements PropertyEditor {
 		if(value == null || value == ""){
 			return ProModel.NONE_VALUE_SET;
 		}else{
-			return new SimpleValue( values.get( value ) );
+			return new SimpleValue( values.indexOf( value ) );
 		}
 	}
 	
