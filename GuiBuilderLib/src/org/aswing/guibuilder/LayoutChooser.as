@@ -81,6 +81,7 @@ public class LayoutChooser{
 			}
 			layouts.push(m);
 		}
+		layouts.sort();
 		layoutList.setListData(layouts);
 		if(selectedCur){
 			layoutList.setSelectedValue(curModel);
