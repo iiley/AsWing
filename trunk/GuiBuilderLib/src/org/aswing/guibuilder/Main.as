@@ -359,6 +359,12 @@ public class Main extends JWindow{
 			}else{
 				var selRow:int = hiberarchyPane.getTree().getSelectionRow();
 				var parent:ComModel = curCom.getParent();
+				
+				// Remove selection rectangle if it is currently bound to the component that is about to be deleted
+				if( rangeEditor.getBoundComp() == curCom.getDisplay() ) {
+					rangeEditor.bindTo( null );
+				}
+				
 				curFile.removeComponent(curCom);
 				if(selRow > 0){
 					hiberarchyPane.getTree().setSelectionRow(selRow-1);
