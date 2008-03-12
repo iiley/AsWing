@@ -22,6 +22,9 @@ public class LayoutChooser{
 	
 	public function LayoutChooser(){
 		dialog = new JFrame(null, "Layout Chooser", true);
+		dialog.getTitleBar().setMaximizeButton(null);
+		dialog.getTitleBar().setIconifiedButton(null);
+		
 		dialog.setSizeWH(400, 300);
 		AsWingUtils.centerLocate(dialog);
 		
