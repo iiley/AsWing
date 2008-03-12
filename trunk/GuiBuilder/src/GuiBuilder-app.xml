@@ -24,10 +24,10 @@
 	<name>AsWing GuiBuilder</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>1.0.1</version>
+	<version>1.3.0</version>
 
 	<!-- Description, displayed in the AIR application installer. Optional. -->
-	<description>AsWing WYSWYG GuiBuilder 1.0.1 for AIR beta3 rumtime</description>
+	<description>AsWing WYSWYG GuiBuilder 1.3.0 for AIR beta3 rumtime</description>
 
 	<!-- Copyright information. Optional -->
 	<copyright>BSD licensed by org.aswing.</copyright>
@@ -39,7 +39,7 @@
 		<content>[This value will be overwritten by Flex Builder in the output app.xml]</content>
 		
 		<!-- The title of the main window. Optional. -->
-		<title>AsWing GuiBuilder 1.0.1</title>
+		<title>AsWing GuiBuilder 1.3.0</title>
 
 		<!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
 		<!-- <systemChrome></systemChrome> -->
