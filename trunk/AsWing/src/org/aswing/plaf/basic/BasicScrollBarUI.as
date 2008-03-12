@@ -323,6 +323,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
     }
     
     private function __stopDragThumb(e:Event):void{
+    	__stopHandleDrag();
     	if(!scrollbar.isEnabled()){
     		return;
     	}
@@ -331,7 +332,6 @@ public class BasicScrollBarUI extends BaseComponentUI{
     	}
     	offset = 0;
     	isDragging = false;
-    	__stopHandleDrag();
     	scrollbar.setValueIsAdjusting(false);
     }
     
