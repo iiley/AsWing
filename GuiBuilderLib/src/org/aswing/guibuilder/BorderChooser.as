@@ -17,6 +17,8 @@ public class BorderChooser{
 	
 	public function BorderChooser(){
 		dialog = new JFrame(null, "Border Chooser", true);
+		dialog.getTitleBar().setMaximizeButton(null);
+		dialog.getTitleBar().setIconifiedButton(null);
 		var pane:Container = dialog.getContentPane();
 		borderList = new JList();
 		borderList.setSelectionMode(JList.SINGLE_SELECTION);

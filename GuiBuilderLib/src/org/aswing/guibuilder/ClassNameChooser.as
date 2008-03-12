@@ -37,6 +37,8 @@ public class ClassNameChooser{
 		ins = this;
 		
 		dialog = new JFrame(null, "Enter Full Class Name");
+		dialog.getTitleBar().setMaximizeButton(null);
+		dialog.getTitleBar().setIconifiedButton(null);
 		classInput = new JTextField("MyPane", 12);
 		pkgInput = new JTextField("test", 12);
 		okButton = new JButton("OK");

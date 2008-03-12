@@ -77,6 +77,8 @@ public class FontChooser{
 		pane.append(bottom, BorderLayout.SOUTH);
 		
 		dialog = new JFrame(null, "Font Chooser", true);
+		dialog.getTitleBar().setMaximizeButton(null);
+		dialog.getTitleBar().setIconifiedButton(null);
 		dialog.setContentPane(pane);
 		dialog.setSizeWH(300, 300);
 		AsWingUtils.centerLocate(dialog);
