@@ -191,6 +191,8 @@
 <Layouts>
 	<Layout name="EmptyLayout" clazz="org.aswing.EmptyLayout">
 	</Layout>
+	<Layout name="CenterLayout" clazz="org.aswing.CenterLayout">
+	</Layout>
 	<Layout name="FlowLayout" clazz="org.aswing.FlowLayout">
 		<Property label="align" name="Alignment" type="Align" editorParam="hor-only">
 		</Property>
