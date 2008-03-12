@@ -75,6 +75,7 @@ public class Main extends JWindow{
 		var previewPane:AssetPane = new AssetPane(preview);
 		previewPane.setBackground(ASColor.GRAY.brighter());
 		previewPane.setBorder(new BevelBorder(null, BevelBorder.LOWERED));
+		previewPane.setFocusable(true);
 		
 		selContainer = new Sprite();
 		selTrigger = new Sprite();
@@ -279,6 +280,7 @@ public class Main extends JWindow{
 	
 	private function __revalidateSelection(e:Event):void{
 		if(curCom != null){
+			curCom.getDisplay().invalidatePreferSizeCaches();
 			curCom.getDisplay().revalidate();
 		}
 	}
@@ -335,7 +337,7 @@ public class Main extends JWindow{
 				curFile.addComponent(curCom, comM);
 				hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(curCom)));
 			}
-			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(comM)));
+			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(comM)), false);
 		}
 	}
 	
@@ -371,7 +373,7 @@ public class Main extends JWindow{
 		var path:TreePath = hiberarchyPane.getTree().getSelectionPath();
 		curFile.removeComponent(mod);
 		curFile.addComponent(par, mod, index-1);
-		hiberarchyPane.getTree().setSelectionPath(path);
+		hiberarchyPane.getTree().setSelectionPath(path, false);
 	}
 	private function __downChildCom(e:Event):void{
 		var mod:ComModel = curCom;
@@ -384,7 +386,7 @@ public class Main extends JWindow{
 			index=0;
 		}
 		curFile.addComponent(par, mod, index);
-		hiberarchyPane.getTree().setSelectionPath(path);
+		hiberarchyPane.getTree().setSelectionPath(path, false);
 	}
 	private function __leftChildCom(e:Event):void{
 		var mod:ComModel = curCom;
@@ -392,7 +394,7 @@ public class Main extends JWindow{
 		if(leftPar != null){
 			curFile.removeComponent(mod);
 			curFile.addComponent(leftPar, mod);
-			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(leftPar)));
+			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(leftPar)), false);
 		}
 	}
 	private function __rightChildCom(e:Event):void{
@@ -402,7 +404,7 @@ public class Main extends JWindow{
 			curFile.removeComponent(mod);
 			curFile.addComponent(rightPar, mod);
 			hiberarchyPane.getTree().expandPath(new TreePath(curFile.getPath(rightPar.getParent())));
-			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(rightPar)));
+			hiberarchyPane.getTree().setSelectionPath(new TreePath(curFile.getPath(rightPar)), false);
 		}
 	}
 	
@@ -570,7 +572,10 @@ public class Main extends JWindow{
 			if(cc){
 				var mm:ComModel  = cc.getClientProperty(ComModel.DISPLAY_MODEL_KEY);
 				if(mm){
-					setCurrentCom(mm);
+					//sel it next frame to make the edited property input box focus lost and validate the value
+					AsWingManager.callNextFrame(function():void{
+						setCurrentCom(mm);
+					});
 					return;
 				}
 			}
