@@ -22,7 +22,15 @@
 		serializer="org.aswing.guibuilder.property.IntDimensionSerializer">
 	</Type>
 
+	<Type name="Size" editor="org.aswing.guibuilder.property.SizeEditor"
+		serializer="org.aswing.guibuilder.property.IntDimensionSerializer">
+	</Type>
+
 	<Type name="IntPoint" editor="org.aswing.guibuilder.property.IntPointEditor"
+		serializer="org.aswing.guibuilder.property.IntPointSerializer">
+	</Type>
+
+	<Type name="Location" editor="org.aswing.guibuilder.property.LocationEditor"
 		serializer="org.aswing.guibuilder.property.IntPointSerializer">
 	</Type>
 
@@ -31,15 +39,15 @@
 	</Type>
 
 	<Type name="Align" editor="org.aswing.guibuilder.property.AlignEditor"
-		serializer="org.aswing.guibuilder.property.IntSerializer">
+		serializer="org.aswing.guibuilder.property.AlignSerializer">
 	</Type>
 
 	<Type name="Axis" editor="org.aswing.guibuilder.property.AxisEditor"
-		serializer="org.aswing.guibuilder.property.IntSerializer">
+		serializer="org.aswing.guibuilder.property.AxisSerializer">
 	</Type>
 
 	<Type name="Orientation" editor="org.aswing.guibuilder.property.OrientationEditor"
-		serializer="org.aswing.guibuilder.property.IntSerializer">
+		serializer="org.aswing.guibuilder.property.OrientationSerializer">
 	</Type>
 
 	<Type name="Layout" editor="org.aswing.guibuilder.property.LayoutEditor"
@@ -263,9 +271,9 @@
 		</Property>
 		<Property label="Enabled" name="Enabled" type="Boolean" action="repaint" category="Common" order="10">
 		</Property>
-		<Property label="Location" name="Location" type="IntPoint" action="revalidate" category="Layout" order="10">
+		<Property label="Location" name="Location" type="Location" action="revalidate" category="Layout" order="10">
 		</Property>
-		<Property label="Size" name="Size" type="IntDimension" action="revalidate" category="Layout" order="10">
+		<Property label="Size" name="Size" type="Size" action="revalidate" category="Layout" order="10">
 		</Property>
 		<Property label="PreferSize" name="PreferredSize" type="PreferSize" action="revalidate" category="Layout" order="10">
 		</Property>
@@ -286,7 +294,7 @@
 		<Property label="Getter scope" name="getter_scope" type="Scope" editorParam="none-enabled" category="Common" order="10">
 			<Value value="none"></Value>
 		</Property>
-		<Property label="Size" name="Size" type="IntDimension" action="revalidate" category="Layout" order="10">
+		<Property label="Size" name="Size" type="Size" action="revalidate" category="Layout" order="10">
 			<Value value="400,400" ></Value>
 		</Property>
 	</Com>
@@ -630,7 +638,7 @@
 	</Com>
 	
 	<Com name="JAccordion" clazz="org.aswing.JAccordion" sup="Container">
-		<Property label="Size" name="Size" type="IntDimension" action="revalidate" category="Layout" order="10">
+		<Property label="Size" name="Size" type="Size" action="revalidate" category="Layout" order="10">
 			<Value value="300,300" ></Value>
 		</Property>
 		<Property label="Hor alig" name="HorizontalAlignment" type="Align" editorParam="hor-only" category="Feature" order="10">
@@ -653,6 +661,10 @@
 		<Property label="Layout" name="Layout" type="Layout" action="reAppendChildren" editorParam="disabled" category="Layout" order="-10">
 		</Property>
 	</Com>
+
+	<Com name="JClosableTabbedPane" clazz="org.aswing.JClosableTabbedPane" sup="JTabbedPane">
+	</Com>
+
 	<Com name="JSplitPane" clazz="org.aswing.JSplitPane" sup="Container">
 		<Property label="Orientation" name="Orientation" type="Orientation" category="Feature" order="10">
 		</Property>
