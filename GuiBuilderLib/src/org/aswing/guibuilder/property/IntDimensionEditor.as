@@ -21,8 +21,16 @@ public class IntDimensionEditor extends BasePropertyEditor implements PropertyEd
 		widthInput = new IntInput("w:", "", 0, 4);
 		heightInput = new IntInput("h:", "", 0, 4);
 		pane.appendAll(widthInput, heightInput);
-		widthInput.addEventListener(AWEvent.ACT, __apply);
-		heightInput.addEventListener(AWEvent.ACT, __apply);
+		widthInput.addEventListener(AWEvent.ACT, __handApply);
+		heightInput.addEventListener(AWEvent.ACT, __handApply);
+	}
+	
+	protected function __handApply(e:AWEvent):void{
+		handApply();
+	}
+	
+	protected function handApply():void{
+		__apply(null);
 	}
 	
 	public function getDisplay():Component{

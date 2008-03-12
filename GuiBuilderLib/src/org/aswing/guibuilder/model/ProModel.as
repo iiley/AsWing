@@ -82,6 +82,10 @@ public class ProModel{
 		return xml;
 	}
 	
+	public function getOwner():Model{
+		return owner;
+	}
+	
 	protected function captureDefaultProperty(name:String):ValueModel{
 		if(valueSerializer is DefaultValueHelper){
 			var helper:DefaultValueHelper = valueSerializer as DefaultValueHelper;

@@ -24,8 +24,16 @@ public class IntPointEditor extends BasePropertyEditor implements PropertyEditor
 		xInput = new IntInput("x:", "", 0, 4);
 		yInput = new IntInput("y:", "", 0, 4);
 		pane.appendAll(xInput, yInput);
-		xInput.addEventListener(AWEvent.ACT, __apply);
-		yInput.addEventListener(AWEvent.ACT, __apply);
+		xInput.addEventListener(AWEvent.ACT, __handApply);
+		yInput.addEventListener(AWEvent.ACT, __handApply);
+	}
+	
+	protected function __handApply(e:AWEvent):void{
+		handApply();
+	}
+	
+	protected function handApply():void{
+		__apply(null);
 	}
 	
 	public function getDisplay():Component{

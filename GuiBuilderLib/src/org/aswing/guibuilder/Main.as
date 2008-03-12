@@ -2,6 +2,7 @@ package org.aswing.guibuilder{
 
 import flash.display.*;
 import flash.events.*;
+import flash.geom.Point;
 import flash.net.*;
 
 import org.aswing.ASColor;
@@ -41,6 +42,9 @@ import org.aswing.tree.TreePath;
 public class Main extends JWindow{
 	
 	private var preview:Sprite;
+	private var selContainer:Sprite; //trigger preview components selection
+	private var selTrigger:Sprite; //trigger preview components selection
+	private var rangeEditor:RangeEditor;
 	private var previewRangeShape:Shape;
 	private var newMenu:JMenu;
 	protected var toolBarPane:ToolBarPane;
@@ -71,6 +75,14 @@ public class Main extends JWindow{
 		var previewPane:AssetPane = new AssetPane(preview);
 		previewPane.setBackground(ASColor.GRAY.brighter());
 		previewPane.setBorder(new BevelBorder(null, BevelBorder.LOWERED));
+		
+		selContainer = new Sprite();
+		selTrigger = new Sprite();
+		selContainer.addChild(selTrigger);
+		selTrigger.addEventListener(MouseEvent.MOUSE_DOWN, __selTriggerDown);
+		rangeEditor = new RangeEditor();
+		previewPane.setForegroundDecorator(new SelTriggerGround(selContainer, selTrigger));
+		rangeEditor.addTo(selContainer);
 		
 		toolBarPane = new ToolBarPane();
 		toolBarPane.getSaveButton().setEnabled(false);
@@ -195,6 +207,7 @@ public class Main extends JWindow{
 		toolBarPane.getRevalidateButton().setEnabled(false);
 		toolBarPane.getAboutButton().addActionListener(__showAbout);
 		toolBarPane.getRangeCheck().addActionListener(__fileRangeChanged);
+		toolBarPane.getPreviewCheck().addActionListener(__previewChanged);
 		
 		toolBarPane.getLAFsCombo().setModel(LookAndFeelManager.getIns().getLookAndFeels());
 		toolBarPane.getLAFsCombo().addActionListener(__lafSelectionChanged);
@@ -398,6 +411,9 @@ public class Main extends JWindow{
 	}
 	
 	private function __comSelection(e:TreeSelectionEvent):void{
+		if(e.isProgrammatic()){
+			return;
+		}
 		if(hiberarchyPane.getTree().getSelectionPath() != null){
 			setCurrentCom(hiberarchyPane.getTree().getSelectionPath().getLastPathComponent());
 		}else{
@@ -447,7 +463,7 @@ public class Main extends JWindow{
 			setCurrentCom(null);
 			if(file != null){
 				hiberarchyPane.getTree().addEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
-				hiberarchyPane.getTree().setSelectionRow(0);
+				hiberarchyPane.getTree().setSelectionRow(0, false);
 			}else{
 				hiberarchyPane.getTree().removeEventListener(TreeSelectionEvent.TREE_SELECTION_CHANGED, __comSelection);
 			}
@@ -456,12 +472,23 @@ public class Main extends JWindow{
 	}
 	
 	protected function setCurrentCom(comModel:ComModel):void{
+		if(comModel == null){
+			hiberarchyPane.getTree().clearSelection();
+			rangeEditor.bindTo(null);
+		}else if(curFile){
+			var path:TreePath = new TreePath(curFile.getPath(comModel));
+			hiberarchyPane.getTree().setSelectionPath(path);
+			hiberarchyPane.getTree().makePathVisible(path);
+			hiberarchyPane.getTree().scrollPathToVisible(path);
+		}
 		this.curCom = comModel;
 		propertyPane.setModel(comModel);
 		hiberarchyPane.setOperatable(comModel != null);
 		toolBarPane.getRevalidateButton().setEnabled(comModel != null);
 		toolBarPane.getGenerateComCodeButton().setEnabled(comModel != null);
 		if(comModel != null){
+			rangeEditor.bindTo(comModel.getDisplay());
+			
 			if(comModel == curFile.getRoot()){
 				hiberarchyPane.setOperatable(false);
 				hiberarchyPane.getAddChildButton().setEnabled(true);
@@ -524,5 +551,59 @@ public class Main extends JWindow{
 			previewRangeShape.graphics.endFill();
 		}
 	}
+	
+	private function __previewChanged(e:Event=null):void{
+		if(toolBarPane.getPreviewCheck().isSelected()){
+			selTrigger.visible = false;
+		}else{
+			selTrigger.visible = true;
+		}
+	}
+	
+	//______________________
+	
+	private function __selTriggerDown(e:MouseEvent):void{
+		var unders:Array = preview.stage.getObjectsUnderPoint(new Point(e.stageX, e.stageY));
+		var n:int = unders.length;
+		for(var i:int=n-1; i>=0; i--){
+			var cc:Component = unders[i] as Component;
+			if(cc){
+				var mm:ComModel  = cc.getClientProperty(ComModel.DISPLAY_MODEL_KEY);
+				if(mm){
+					setCurrentCom(mm);
+					return;
+				}
+			}
+		}
+		setCurrentCom(null);
+	}
 }
+}
+
+import org.aswing.*;
+import flash.display.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+	
+
+class SelTriggerGround implements GroundDecorator{
+	
+	private var trigger:Sprite;
+	private var container:Sprite;
+	
+	public function SelTriggerGround(con:Sprite, t:Sprite){
+		container = con;
+		trigger = t;
+	}
+	
+	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):void{
+		trigger.graphics.clear();
+		trigger.graphics.beginFill(0, 0);
+		trigger.graphics.drawRect(b.x, b.y, b.width, b.height);
+		trigger.graphics.endFill();
+	}
+	
+	public function getDisplay(c:Component):DisplayObject{
+		return container;
+	}
 }

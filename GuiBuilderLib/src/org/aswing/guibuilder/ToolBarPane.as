@@ -3,10 +3,10 @@ package org.aswing.guibuilder{
 import org.aswing.JButton;
 import org.aswing.JCheckBox;
 import org.aswing.JComboBox;
+import org.aswing.JLabel;
 import org.aswing.JSeparator;
 import org.aswing.JSpacer;
 import org.aswing.JToolBar;
-import org.aswing.JLabel;
 
 public class ToolBarPane extends JToolBar{
 	
@@ -17,6 +17,7 @@ public class ToolBarPane extends JToolBar{
 	private var generateComCodeButton:JButton;
 	private var revalidateButton:JButton;
 	private var rangeCheck:JCheckBox;
+	private var previewCheck:JCheckBox;
 	
 	private var lafsCombo:JComboBox;
 	private var aboutButton:JButton;
@@ -38,6 +39,8 @@ public class ToolBarPane extends JToolBar{
 		revalidateButton.setToolTipText("Revalidate selected component to make the ui to be refreshed!");
 		rangeCheck = new JCheckBox("View Range");
 		rangeCheck.setToolTipText("Whether draw a background to indicate root component range");
+		previewCheck = new JCheckBox("Preview");
+		previewCheck.setToolTipText("If preview selected, you can interactive with builded componenet, \nbut can't select components with mouse down.");
 		rangeCheck.setSelected(true);
 		
 		lafsCombo = new JComboBox();
@@ -48,7 +51,7 @@ public class ToolBarPane extends JToolBar{
 		
 		appendAll(openButton, saveButton, closeButton, generateCodeButton, generateComCodeButton);
 		append(new JSeparator(JSeparator.VERTICAL));
-		appendAll(rangeCheck, revalidateButton);
+		appendAll(rangeCheck, previewCheck, revalidateButton);
 		append(JSpacer.createHorizontalSpacer(10));
 		appendAll(new JLabel("LAF:"), lafsCombo);
 		append(JSpacer.createHorizontalSpacer(10));
@@ -57,6 +60,10 @@ public class ToolBarPane extends JToolBar{
 	
 	public function getRangeCheck():JCheckBox{
 		return rangeCheck;
+	}
+	
+	public function getPreviewCheck():JCheckBox{
+		return previewCheck;
 	}
 	
 	public function getOpenButton():JButton{
