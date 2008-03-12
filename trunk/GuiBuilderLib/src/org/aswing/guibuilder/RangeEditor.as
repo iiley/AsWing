@@ -141,7 +141,7 @@ public class RangeEditor{
 		var sp:Sprite = new Sprite();
 		if(move){
 			sp.graphics.beginFill(0, 0);
-			sp.graphics.drawRect(3, 3, 6, 6);
+			sp.graphics.drawRect(3, 3, 8, 6);
 			sp.graphics.endFill();
 		}else{
 			sp.graphics.lineStyle(0, 0x000099, 1, false, LineScaleMode.NORMAL, null, JointStyle.BEVEL);
