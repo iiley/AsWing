@@ -8,6 +8,7 @@ import org.aswing.util.Vector;
  * @author iiley
  */
 public class ComModel implements Model{
+	public static const DISPLAY_MODEL_KEY:String = "displayModelKey";
 	
 	public static const ID_NAME:String = "id";
 	public static const ATTR_SCOPE_NAME:String = "attr_scope";
@@ -38,7 +39,12 @@ public class ComModel implements Model{
 		getterScope = "public";
 		id_counter++;
 		if(def != null){
-			id = "com" + id_counter;
+			var defn:String = def.getName();
+			if(defn.charAt(0) == "J"){
+				defn = defn.substr(1);
+			}
+			defn = defn.toLowerCase();
+			id = defn + id_counter;
 			create(def);
 		}
 	}
@@ -52,6 +58,7 @@ public class ComModel implements Model{
 		properties = new Vector();
 		var clazz:Class = def.getClass();
 		display = new clazz();
+		display.putClientProperty(DISPLAY_MODEL_KEY, this);
 		container = def.isContainer();
 		
 		var pros:Array = def.getProperties();
