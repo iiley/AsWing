@@ -7,6 +7,7 @@ import org.aswing.guibuilder.model.LayoutModel;
 import flash.events.Event;
 import org.aswing.guibuilder.model.ProModel;
 import org.aswing.border.TitledBorder;
+import org.aswing.border.BevelBorder;
 import org.aswing.event.InteractiveEvent;
 	
 
@@ -21,19 +22,23 @@ public class LayoutChooser{
 	
 	public function LayoutChooser(){
 		dialog = new JFrame(null, "Layout Chooser", true);
+		dialog.setSizeWH(400, 300);
+		AsWingUtils.centerLocate(dialog);
+		
 		var pane:Container = dialog.getContentPane();
 		layoutList = new JList();
 		layoutList.setSelectionMode(JList.SINGLE_SELECTION);
 		layoutList.setVisibleCellWidth(120);
+		
 		propertyPane = new PropertyPane();
-		dialog.setSizeWH(400, 300);
-		AsWingUtils.centerLocate(dialog);
+		pane.append(propertyPane, BorderLayout.CENTER);
+		
+		var scroll:JScrollPane = new JScrollPane(layoutList);
+		scroll.setBorder( new TitledBorder(null, "Layout") );
+		pane.append(scroll, BorderLayout.WEST);
+		
 		okButton = new JButton("OK");
 		cancelButton = new JButton("Cancel");
-		var scroll:JScrollPane = new JScrollPane(layoutList);
-		scroll.setBorder(new TitledBorder(null, "Layout"));
-		pane.append(scroll, BorderLayout.WEST);
-		pane.append(propertyPane, BorderLayout.CENTER);
 		var buttons:JPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20));
 		buttons.appendAll(okButton, cancelButton);
 		pane.append(buttons, BorderLayout.SOUTH);
