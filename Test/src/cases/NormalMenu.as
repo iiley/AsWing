@@ -18,7 +18,7 @@ public class NormalMenu extends Sprite{
 	private var frame:JFrame;
 	
 	public function doNormalMenuTest():void {
-		frame = new JFrame(null, "NormalMenuTest");
+		frame = new JFrame(this, "NormalMenuTest");
 		
 		var bar:JMenuBar = new JMenuBar();
 		
@@ -69,14 +69,14 @@ public class NormalMenu extends Sprite{
 		textArea = new JTextArea();
 		frame.getContentPane().append(new JScrollPane(textArea), BorderLayout.CENTER);
 		
-		KeyboardManager.getInstance().registerKeyAction(
+		frame.getKeyboardManager().registerKeyAction(
 			new KeySequence(KeyStroke.VK_SHIFT, KeyStroke.VK_A), 
 			__keyAction);
 			
 		frame.setSizeWH(400, 400);
 		frame.show();
 		
-		frame.stage.addEventListener(KeyboardEvent.KEY_DOWN, __stageKeyDown);
+		//frame.stage.addEventListener(KeyboardEvent.KEY_DOWN, __stageKeyDown);
 	}
 	
 	private function __stageKeyDown(e:KeyboardEvent):void{
