@@ -367,7 +367,7 @@ public class Main extends JWindow{
 				
 				curFile.removeComponent(curCom);
 				if(selRow > 0){
-					hiberarchyPane.getTree().setSelectionRow(selRow-1);
+					hiberarchyPane.getTree().setSelectionRow(selRow-1, false);
 				}
 			}
 		}
