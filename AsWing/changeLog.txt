@@ -94,3 +94,17 @@ to
 			"Frame.titleBarButtonGap", 2, 
 
 _____________________________________________________
+
+
+___________________AsWing 1.4________________
+Simply call AsWing means just AsWing AS3 version, AS2 version should call with AS2 or A2 keywords.
+additions:
+
+added ASFontAdvProperties to support embedFonts, antiAlias, gridType etc properties.
+
+bugfixes:
+
+fixed JAdjuster Action event not fired when lost focus with changes
+fixed JTree edit stopped event fired too early bug
+fixed TableCellEditEvent and TreeCellEditEvent methods return type bug
+fixed JPopup default owner bug
