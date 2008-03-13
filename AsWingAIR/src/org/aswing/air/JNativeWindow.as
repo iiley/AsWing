@@ -107,6 +107,13 @@ package org.aswing.air
 	    {
 	    	nativeWindow.y = y;
 	    }
-		
+	    public override function startDrag(lockCenter:Boolean=false, bounds:Rectangle=null):void
+	    {
+	    	nativeWindow.startMove();
+	    }
+	    public override function stopDrag():void
+	    {
+	    	nativeWindow.activate();
+	    }
 	}
 }
