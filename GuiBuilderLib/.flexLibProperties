@@ -31,6 +31,7 @@
     <classEntry path="org.aswing.guibuilder.model.SimpleValue"/>
     <classEntry path="org.aswing.guibuilder.LookAndFeelInfo"/>
     <classEntry path="org.aswing.guibuilder.CodeWindow"/>
+    <classEntry path="org.aswing.guibuilder.property.ArraySerializer"/>
     <classEntry path="org.aswing.guibuilder.DefaultValueHelper"/>
     <classEntry path="org.aswing.guibuilder.PropertyEditor"/>
     <classEntry path="org.aswing.guibuilder.property.IntEditor"/>
@@ -64,6 +65,7 @@
     <classEntry path="org.aswing.guibuilder.property.IntInput"/>
     <classEntry path="org.aswing.guibuilder.property.StringEditor"/>
     <classEntry path="org.aswing.guibuilder.FontChooser"/>
+    <classEntry path="org.aswing.guibuilder.property.ArrayEditor"/>
     <classEntry path="org.aswing.guibuilder.model.LayoutModel"/>
     <classEntry path="org.aswing.guibuilder.model.LayoutDefinition"/>
     <classEntry path="org.aswing.guibuilder.property.LocationEditor"/>
