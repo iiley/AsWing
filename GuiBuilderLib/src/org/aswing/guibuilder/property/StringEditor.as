@@ -10,7 +10,7 @@ import org.aswing.guibuilder.model.ValueModel;
 
 public class StringEditor extends BasePropertyEditor implements PropertyEditor{
 	
-	private var text:JTextField;
+	protected var text:JTextField;
 	
 	public function StringEditor(){
 		text = new JTextField("", 16);
