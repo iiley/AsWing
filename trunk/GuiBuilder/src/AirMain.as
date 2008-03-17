@@ -108,7 +108,7 @@ public class AirMain extends Main{
 	}
 	
 	override protected function getAboutWords():String{
-		return "Version:1.3.0\nDate:2008-3-12\nDeveloped by aswing.org";
+		return "Version:1.3.2\nDate:2008-3-17\nDeveloped by aswing.org";
 	}
 	
 	override protected function checkIsExists(className:String, pkgName:String):Boolean{
