@@ -96,7 +96,7 @@ to
 _____________________________________________________
 
 
-___________________AsWing 1.4________________
+___________________AsWing 1.3.2________________
 Simply call AsWing means just AsWing AS3 version, AS2 version should call with AS2 or A2 keywords.
 additions:
 
