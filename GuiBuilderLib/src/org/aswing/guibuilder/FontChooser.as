@@ -83,6 +83,7 @@ public class FontChooser{
 		dialog.setSizeWH(300, 300);
 		AsWingUtils.centerLocate(dialog);
 		
+		dialog.setDefaultButton(okButton);
 		okButton.addActionListener(__ok);
 		cancelButton.addActionListener(__cancel);
 		

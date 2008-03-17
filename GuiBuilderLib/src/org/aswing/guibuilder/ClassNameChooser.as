@@ -54,7 +54,7 @@ public class ClassNameChooser{
 		dialog.setContentPane(form);
 		dialog.pack();
 		AsWingUtils.centerLocate(dialog);
-		
+		dialog.setDefaultButton(okButton);
 		okButton.addActionListener(__ok);
 		cancelButton.addActionListener(__cancel);
 	}

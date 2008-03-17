@@ -47,6 +47,7 @@ public class LayoutChooser{
 		pane.append(buttons, BorderLayout.SOUTH);
 		
 		layoutList.addSelectionListener(__layoutSelection);
+		dialog.setDefaultButton(okButton);
 		okButton.addActionListener(__ok);
 		cancelButton.addActionListener(__cancel);
 	}

@@ -39,6 +39,7 @@ public class BorderChooser{
 		pane.append(buttons, BorderLayout.SOUTH);
 		
 		borderList.addSelectionListener(__borderSelection);
+		dialog.setDefaultButton(okButton);
 		okButton.addActionListener(__ok);
 		cancelButton.addActionListener(__cancel);
 	}
