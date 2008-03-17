@@ -1,8 +1,6 @@
 package org.aswing.guibuilder.property{
 	
-import org.aswing.guibuilder.DefaultValueHelper;
 import org.aswing.guibuilder.PropertySerializer;
-import org.aswing.guibuilder.model.Model;
 import org.aswing.guibuilder.model.ProModel;
 import org.aswing.guibuilder.model.SimpleValue;
 import org.aswing.guibuilder.model.ValueModel;
@@ -39,7 +37,7 @@ public class ArraySerializer implements PropertySerializer{
 		}
 		var arr:Array = value.getValue() as Array;
 		if(arr){
-			return "[" + arr.join(",") + "]";
+			return "['"+ arr.join("','") + "']";
 		}else{
 			return null;
 		}
