@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <actionScriptProperties mainApplicationPath="GuiBuilder.as" version="3">
-  <compiler additionalCompilerArguments="-include-libraries E:\workspace_2\GuiBuilderLib\bin\GuiBuilderLib.swc E:\workspace_2\AsWing\bin\AsWing.swc" copyDependentFiles="true" enableModuleDebug="true" flexSDK="Flex 3 (Beta 3)" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersion="9.0.28" htmlPlayerVersionCheck="true" outputFolderPath="bin" sourceFolderPath="src" strict="true" useApolloConfig="true" verifyDigests="true" warn="true">
+  <compiler additionalCompilerArguments="-include-libraries E:\workspace_2\GuiBuilderLib\bin\GuiBuilderLib.swc E:\workspace_2\AsWing\bin\AsWing.swc" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersion="9.0.28" htmlPlayerVersionCheck="true" outputFolderPath="bin" sourceFolderPath="src" strict="true" useApolloConfig="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
       <libraryPathEntry kind="4" path=""/>
       <libraryPathEntry kind="3" linkType="1" path="/AsWing/bin/AsWing.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/AsWingAIR/bin/AsWingAIR.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/GuiBuilderLib/bin/GuiBuilderLib.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
