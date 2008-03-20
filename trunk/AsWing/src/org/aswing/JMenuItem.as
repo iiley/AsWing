@@ -107,15 +107,15 @@ public class JMenuItem extends AbstractButton implements MenuElement{
 	 * Returns the window that owned this menu.
 	 * @return window that owned this menu, or null no window owned this menu yet.
 	 */
-	public function getWindowOwner():JWindow{
+	public function getRootPaneOwner():JRootPane{
 		var pp:Component = this;
 		do{
 			pp = pp.getParent();
 			if(pp is JPopupMenu){
 				pp = JPopupMenu(pp).getInvoker();
 			}
-			if(pp is JWindow){
-				return JWindow(pp);
+			if(pp is JRootPane){
+				return JRootPane(pp);
 			}
 		}while(pp != null);
 		return null;
@@ -124,7 +124,13 @@ public class JMenuItem extends AbstractButton implements MenuElement{
 	protected function inUseChanged():void{
 		var acc:KeyType = getAccelerator();
 		if(acc != null){
-			var keyMap:KeyMap = getWindowOwner().getKeyMap();
+			var rOwner:JRootPane = getRootPaneOwner();
+			if(rOwner == null){
+				throw new Error("The menu item has accelerator, " + 
+						"it or it's popupMenu must be in a JRootPane(or it's subclass).");
+				return;
+			}
+			var keyMap:KeyMap = rOwner.getKeyMap();
 			if(keyMap != null){
 				if(isInUse()){
 					keyMap.registerKeyAction(acc, __acceleratorAction);
