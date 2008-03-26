@@ -967,7 +967,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      */
     public function setLeadSelectionPath(newPath:TreePath):void {
 		var oldValue:TreePath = leadPath;
-		if((oldValue==null && newPath !=null) || !oldValue.equals(newPath)){
+		if((oldValue==null && newPath !=null) || (oldValue!=null && !oldValue.equals(newPath))){
 			leadPath = newPath;
 			firePropertyChange(LEAD_SELECTION_PATH_PROPERTY, oldValue, newPath);
 		}
@@ -982,7 +982,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      */
     public function setAnchorSelectionPath(newPath:TreePath):void {
 		var oldValue:TreePath = anchorPath;
-		if((oldValue==null && newPath !=null) || !oldValue.equals(newPath)){
+		if((oldValue==null && newPath !=null) || (oldValue!=null && !oldValue.equals(newPath))){
 			anchorPath = newPath;
 			firePropertyChange(ANCHOR_SELECTION_PATH_PROPERTY, oldValue, newPath);
 		}
