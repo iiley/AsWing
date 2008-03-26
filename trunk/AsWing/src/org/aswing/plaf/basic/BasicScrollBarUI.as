@@ -81,6 +81,9 @@ public class BasicScrollBarUI extends BaseComponentUI{
 		if(containsKey(pp+"barWidth")){
 			scrollBarWidth = getInt(pp+"barWidth");
 		}
+		if(containsKey(pp+"minimumThumbLength")){
+			minimumThumbLength = getInt(pp+"minimumThumbLength");
+		}
 		LookAndFeel.installBasicProperties(scrollbar, pp);
         LookAndFeel.installBorderAndBFDecorators(scrollbar, pp);
 	}

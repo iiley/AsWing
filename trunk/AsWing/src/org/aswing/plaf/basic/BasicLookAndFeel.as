@@ -285,6 +285,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"ScrollBar.opaque", true,  
 			"ScrollBar.focusable", true, 
 			"ScrollBar.barWidth", 16, 
+			"ScrollBar.minimumThumbLength", 9, 
 			"ScrollBar.font", table.getFont("controlFont"),
 			"ScrollBar.thumbBackground", table.get("control"),
 			"ScrollBar.thumbShadow", table.get("controlShadow"),
