@@ -346,6 +346,8 @@
 		<Property label="Label" name="Text" type="String" category="Feature" order="0">
 			<Value value="label"></Value>
 		</Property>
+		<Property label="Selectable" name="Selectable" type="Boolean" action="repaint" category="Feature" order="1">
+		</Property>
 		<Property label="Hor alig" name="HorizontalAlignment" type="Align" action="revalidate" editorParam="hor-only" category="Feature" order="10">
 		</Property>
 		<Property label="Ver alig" name="VerticalAlignment" type="Align" action="revalidate" editorParam="ver-only" category="Feature" order="10">
