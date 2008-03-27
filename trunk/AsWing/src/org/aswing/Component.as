@@ -164,6 +164,7 @@ public class Component extends AWSprite{
 	private var minimumSize:IntDimension;
 	private var maximumSize:IntDimension;
 	private var preferredSize:IntDimension;
+	
 	private var cachePreferSizes:Boolean;
 	private var cachedPreferredSize:IntDimension;
 	private var cachedMinimumSize:IntDimension;
@@ -1628,16 +1629,17 @@ public class Component extends AWSprite{
 	 * @see #setMinimumSize()
 	 */
 	public function getMinimumSize():IntDimension{
-		if(minimumSize != null){
+		if(isDirectReturnSize(minimumSize)){
 			return minimumSize.clone();
 		}else if(isCachePreferSizes() && cachedMinimumSize != null){
 			return cachedMinimumSize.clone();
 		}else{
+			var tempSize:IntDimension = mixSetSize(countMinimumSize(), minimumSize);			
 			if(isCachePreferSizes()){
-				cachedMinimumSize = countMinimumSize();
+				cachedMinimumSize = tempSize;
 				return cachedMinimumSize.clone();
 			}else{
-				return countMinimumSize();
+				return tempSize;
 			}
 		}
 	}
@@ -1646,16 +1648,17 @@ public class Component extends AWSprite{
 	 * @see #setMaximumSize()
 	 */	
 	public function getMaximumSize():IntDimension{
-		if(maximumSize != null){
+		if(isDirectReturnSize(maximumSize)){
 			return maximumSize.clone();
 		}else if(isCachePreferSizes() && cachedMaximumSize != null){
 			return cachedMaximumSize.clone();
 		}else{
+			var tempSize:IntDimension = mixSetSize(countMaximumSize(), maximumSize);
 			if(isCachePreferSizes()){
-				cachedMaximumSize = countMaximumSize();
+				cachedMaximumSize = tempSize;
 				return cachedMaximumSize.clone();
 			}else{
-				return countMaximumSize();
+				return tempSize;
 			}
 		}
 	}
@@ -1664,18 +1667,34 @@ public class Component extends AWSprite{
 	 * @see #setPreferredSize()
 	 */	
 	public function getPreferredSize():IntDimension{
-		if(preferredSize != null){
+		if(isDirectReturnSize(preferredSize)){
 			return preferredSize.clone();
 		}else if(isCachePreferSizes() && cachedPreferredSize != null){
 			return cachedPreferredSize.clone();
 		}else{
+			var tempSize:IntDimension = mixSetSize(countPreferredSize(), preferredSize);
 			if(isCachePreferSizes()){
-				cachedPreferredSize = countPreferredSize();
+				cachedPreferredSize = tempSize;
 				return cachedPreferredSize.clone();
 			}else{
-				return countPreferredSize();
+				return tempSize;
 			}
 		}
+	}
+	
+	private function isDirectReturnSize(s:IntDimension):Boolean{
+		return s != null && (s.width != -1 && s.height != -1);
+	}
+	
+	private function mixSetSize(counted:IntDimension, setted:IntDimension):IntDimension{
+		if(setted != null){
+			if(setted.width != -1){
+				counted.width = setted.width;
+			}else if(setted.height != -1){
+				counted.height = setted.height;
+			}
+		}
+		return counted;
 	}
 	
 	/**
@@ -1742,13 +1761,18 @@ public class Component extends AWSprite{
 	public function getPreferredWidth():int {
 		return getPreferredSize().width;
 	}
+	
 	/**
-	 * Calls <code>setPreferredSize(preferredWidth, getPreferredHeight())</code>
+	 * Sets preferred width, -1 means auto count.
 	 * @see #setPreferredSize()
 	 */
 	public function setPreferredWidth(preferredWidth:int):void {
-		setPreferredSize(new IntDimension(preferredWidth, getPreferredHeight()));
+		if(preferredSize == null){
+			preferredSize = new IntDimension(-1, -1);
+		}
+		preferredSize.width = preferredWidth;
 	}
+	
 	/**
 	 * Returns <code>getPreferredSize().height</code>
 	 * @see #getPreferredSize()
@@ -1756,13 +1780,18 @@ public class Component extends AWSprite{
 	public function getPreferredHeight():int {
 		return getPreferredSize().height;
 	}
+	
 	/**
-	 * Calls <code>setPreferredSize(getPreferredWidth(), preferredHeight)</code>
+	 * Sets preferred width, -1 means auto count.
 	 * @see #setPreferredSize()
 	 */
 	public function setPreferredHeight(preferredHeight:int):void {
-		setPreferredSize(new IntDimension(getPreferredWidth(), preferredHeight));
+		if(preferredSize == null){
+			preferredSize = new IntDimension(-1, -1);
+		}
+		preferredSize.height = preferredHeight;
 	}
+	
 	/**
 	 * Returns <code>getMaximumSize().width</code>
 	 * @see #getMaximumSize()
@@ -1771,11 +1800,14 @@ public class Component extends AWSprite{
 		return getMaximumSize().width;
 	}
 	/**
-	 * Calls <code>setMaximumSize(maximumWidth, getMaximumHeight())</code>
+	 * Sets maximum width, -1 means auto count.
 	 * @see #setMaximumSize()
 	 */
 	public function setMaximumWidth(maximumWidth:int):void {
-		setMaximumSize(new IntDimension(maximumWidth, getMaximumHeight()));
+		if(maximumSize == null){
+			maximumSize = new IntDimension(-1, -1);
+		}
+		maximumSize.width = maximumWidth;
 	}
 	/**
 	 * Returns <code>getMaximumSize().height</code>
@@ -1785,11 +1817,14 @@ public class Component extends AWSprite{
 		return getMaximumSize().height;
 	}
 	/**
-	 * Calls <code>setMaximumSize(getMaximumWidth(), maximumHeight)</code>
+	 * Sets maximum height, -1 means auto count.
 	 * @see #setMaximumSize()
 	 */
 	public function setMaximumHeight(maximumHeight:int):void {
-		setMaximumSize(new IntDimension(getMaximumWidth(), maximumHeight));
+		if(maximumSize == null){
+			maximumSize = new IntDimension(-1, -1);
+		}
+		maximumSize.height = maximumHeight;
 	}
 	/**
 	 * Returns <code>getMinimumSize().width</code>
@@ -1799,11 +1834,14 @@ public class Component extends AWSprite{
 		return getMinimumSize().width;
 	}
 	/**
-	 * Calls <code>setMinimumSize(minimumWidth, getMinimumHeight())</code>
+	 * Sets minimum width, -1 means auto count.
 	 * @see #setMinimumSize()
 	 */
 	public function setMinimumWidth(minimumWidth:int):void {
-		setMinimumSize(new IntDimension(minimumWidth, getMinimumHeight()));
+		if(minimumSize == null){
+			minimumSize = new IntDimension(-1, -1);
+		}
+		minimumSize.width = minimumWidth;
 	}	
 	/**
 	 * Returns <code>getMinimumSize().height</code>
@@ -1813,11 +1851,14 @@ public class Component extends AWSprite{
 		return getMinimumSize().height;
 	}
 	/**
-	 * Calls <code>setMinimumSize(getMinimumWidth(), minimumHeight)</code>
+	 * Sets minimum height, -1 means auto count.
 	 * @see #setMinimumSize()
 	 */
 	public function setMinimumHeight(minimumHeight:int):void {
-		setMinimumSize(new IntDimension(getMinimumWidth(), minimumHeight));
+		if(minimumSize == null){
+			minimumSize = new IntDimension(-1, -1);
+		}
+		minimumSize.height = minimumHeight;
 	}
 	
 	/**
