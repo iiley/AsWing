@@ -4,11 +4,11 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.GroundDecorator;
-import org.aswing.geom.IntRectangle;
-import org.aswing.*;
 import flash.display.*;
+
+import org.aswing.*;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.*;
 
 public class SkinProgressBarForeground implements GroundDecorator, UIResource{
@@ -76,7 +76,11 @@ public class SkinProgressBarForeground implements GroundDecorator, UIResource{
 		}
 		var bounds:IntRectangle = bounds.clone();
 		if(fgMargin != null){
-			bounds = fgMargin.getInsideBounds(bounds);
+			if(bar.getOrientation() == AsWingConstants.HORIZONTAL){
+				bounds = fgMargin.getInsideBounds(bounds);
+			}else{//transfer if vertical
+				bounds = new Insets(fgMargin.right, fgMargin.top, fgMargin.left, fgMargin.bottom).getInsideBounds(bounds);
+			}
 		}
 		imageContainer.x = bounds.x;
 		imageContainer.y = bounds.y;

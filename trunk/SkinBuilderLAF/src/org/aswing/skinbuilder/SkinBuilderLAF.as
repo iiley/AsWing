@@ -1387,7 +1387,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ProgressBar.foreground", table.get("controlText"),
 			"ProgressBar.bg", SkinProgressBarBackground, 
 			"ProgressBar.fg", SkinProgressBarForeground,
-			"ProgressBar.fgMargin", new InsetsUIResource(2, 2, 2, 2), //modify this to margin fg
+			"ProgressBar.fgMargin", new InsetsUIResource(2, 2, 2, 2), //modify this to margin fg, concider HORIZONTAL, vertical will be transfered
 			"ProgressBar.verticalBGImage", ProgressBar_verticalBGImage, 
 			"ProgressBar.horizotalBGImage", ProgressBar_horizotalBGImage, 
 			"ProgressBar.verticalFGImage", ProgressBar_verticalFGImage, 
