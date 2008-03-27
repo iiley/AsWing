@@ -70,6 +70,9 @@ public class BasicProgressBarUI extends BaseComponentUI{
 	}
 	
 	protected function uninstallComponents():void{
+		if(stringText.parent != null) {
+    		stringText.parent.removeChild(stringText);
+		}
 		stringText = null;
 		iconDecorator = null;
 	}
@@ -93,6 +96,7 @@ public class BasicProgressBarUI extends BaseComponentUI{
 	    	AsWingUtils.applyTextFontAndColor(stringText, sp.getFont(), sp.getForeground());
 			
 			if (sp.getOrientation() == JProgressBar.VERTICAL){
+				//TODO use bitmap to achieve rotate
 				stringText.rotation = -90;
 				stringText.x = Math.round(b.x + (b.width - stringText.width)/2);
 				stringText.y = Math.round(b.y + (b.height - stringText.height)/2 + stringText.height);
