@@ -448,6 +448,7 @@ public class Component extends AWSprite{
         if (ui != null) {
             ui.installUI(this);
         }
+        clearPreferSizeCaches();
         revalidate();
         repaint();
     }
