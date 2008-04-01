@@ -184,12 +184,13 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 			oldTC.removeEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
 			oldTC.removeEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
 			oldTC.removeEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
+			oldTC.doubleClickEnabled = false;
 		}
 		titleBar = frame.getTitleBar();
-		removeTitleBarListeners();
+		addTitleBarListeners();
 	}
 	
-	protected function removeTitleBarListeners():void{
+	protected function addTitleBarListeners():void{
 		if(titleBar){
 			var titleBarC:Component = titleBar.getSelf();
 			titleBarC.addEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
@@ -198,6 +199,16 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 			titleBarC.addEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
 		}
 	}
+	
+	protected function removeTitleBarListeners():void{
+		if(titleBar){
+			var titleBarC:Component = titleBar.getSelf();
+			titleBarC.removeEventListener(MouseEvent.MOUSE_DOWN, __onTitleBarPress);
+			titleBarC.removeEventListener(ReleaseEvent.RELEASE, __onTitleBarRelease);
+			titleBarC.doubleClickEnabled = false;
+			titleBarC.removeEventListener(MouseEvent.DOUBLE_CLICK, __onTitleBarDoubleClick);
+		}
+	} 
 	
 	private function isMaximizedFrame():Boolean{
 		var state:Number = frame.getState();
