@@ -290,9 +290,6 @@ public class AWSprite extends Sprite
 	 * @param child the child to be bringed to top.
 	 */
 	public function bringToTop(child:DisplayObject):void{
-		if(child.parent != this){
-			throw new Error("The child is not in this AWSprite1");
-		}
 		var index:int = numChildren-1;
 		if(foregroundChild != null){
 			if(foregroundChild != child){
@@ -311,9 +308,6 @@ public class AWSprite extends Sprite
 	 * @param child the child to be bringed to bottom.
 	 */	
 	public function bringToBottom(child:DisplayObject):void{
-		if(child.parent != this){
-			throw new Error("The child is not in this AWSprite1");
-		}
 		var index:int = 0;
 		if(backgroundChild != null){
 			if(backgroundChild != child){
