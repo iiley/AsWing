@@ -114,7 +114,9 @@ public class BasicListUI extends BaseComponentUI{
     	}
 		paintFocusedCell = list.getCellByIndex(index);
 		paintFocusedIndex = index;
-		paintCellFocus(paintFocusedCell.getCellComponent());
+		if(paintFocusedCell){
+			paintCellFocus(paintFocusedCell.getCellComponent());
+		}
     }
     
     protected function paintCellFocus(cellComponent:Component):void{
@@ -177,6 +179,8 @@ public class BasicListUI extends BaseComponentUI{
     		return;
     	}
     	if(dir != 0 || (code == Keyboard.HOME || code == Keyboard.END)){
+		    list.ensureIndexIsVisible(index);
+		    list.validate();
     		if(e.shiftKey){
 				var archor:int = list.getAnchorSelectionIndex();
 				if(archor < 0){
@@ -189,7 +193,6 @@ public class BasicListUI extends BaseComponentUI{
     		}
     		//this make sure paintFocusedCell rememberd
     		paintCellFocusWithIndex(index);
-		    list.ensureIndexIsVisible(index);
     	}else{
     		if(code == Keyboard.SPACE){
 		    	list.addSelectionInterval(index, index, false);
@@ -205,7 +208,8 @@ public class BasicListUI extends BaseComponentUI{
     		if(focusGraphics == null){
     			list.paintFocusRect(true);
     		}
-    		paintCellFocusWithIndex(list.getLeadSelectionIndex());
+    		//Because paint focus is called in __onKeyDown, so it is not needed here?
+    		//paintCellFocusWithIndex(list.getLeadSelectionIndex());
     	}
     }
     
