@@ -208,8 +208,7 @@ public class BasicListUI extends BaseComponentUI{
     		if(focusGraphics == null){
     			list.paintFocusRect(true);
     		}
-    		//Because paint focus is called in __onKeyDown, so it is not needed here?
-    		//paintCellFocusWithIndex(list.getLeadSelectionIndex());
+    		paintCellFocusWithIndex(list.getLeadSelectionIndex());
     	}
     }
     
