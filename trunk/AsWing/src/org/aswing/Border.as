@@ -19,18 +19,18 @@ public interface Border extends Decorator
 {
 	/**
 	 * Updates the border.
-	 * @param com the component which owns the border.
+	 * @param c the component which owns the border.
 	 * @param g the graphics of the component, you can paint picture onto it.
-	 * @param bounds the bounds of the border should be.
+	 * @param b the bounds of the border should be.
 	 */
-	function updateBorder(com:Component, g:Graphics2D, bounds:IntRectangle):void;
+	function updateBorder(c:Component, g:Graphics2D, b:IntRectangle):void;
 	
 	/**
 	 * Returns the insets of the border.
-	 * @param com the component which owns the border.
-	 * @param the bounds of the border should be.
+	 * @param c the component which owns the border.
+	 * @param b the bounds of the border should be.
 	 */
-	function getBorderInsets(com:Component, bounds:IntRectangle):Insets;	
+	function getBorderInsets(c:Component, b:IntRectangle):Insets;	
 }
 
 }

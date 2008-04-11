@@ -22,11 +22,11 @@ public interface GroundDecorator extends Decorator
 {
 	/**
 	 * Updates the decorator.
-	 * @param com the component which owns the ground decorator.
+	 * @param c the component which owns the ground decorator.
 	 * @param g the graphics of the component, you can paint picture onto it.
-	 * @param bounds the bounds of the component can be decorated.
+	 * @param b the bounds of the component can be decorated.
 	 */
-	function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void;
+	function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):void;
 
 }
 
