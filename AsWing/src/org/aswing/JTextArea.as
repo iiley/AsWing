@@ -4,12 +4,13 @@
 
 package org.aswing{
 
-import org.aswing.geom.IntDimension;
-import org.aswing.geom.IntRectangle;
-import org.aswing.geom.IntPoint;
-import org.aswing.event.InteractiveEvent;
-import flash.text.*;
 import flash.events.Event;
+import flash.text.*;
+
+import org.aswing.event.InteractiveEvent;
+import org.aswing.geom.IntDimension;
+import org.aswing.geom.IntPoint;
+import org.aswing.geom.IntRectangle;
 import org.aswing.plaf.basic.BasicTextAreaUI;
 
 /**
@@ -211,6 +212,12 @@ public class JTextArea extends JTextComponent implements Viewportable{
     		return;
     	}
     	var t:TextField = getTextField();
+    	if(focusScrolling){//avoid scroll change when make focus
+    		var vp:IntPoint = getViewPosition();
+    		t.scrollH = vp.x;
+    		t.scrollV = vp.y + 1;
+    		return;
+    	}
 		var newViewPos:IntPoint = new IntPoint(t.scrollH, t.scrollV-1);
 		if(!getViewPosition().equals(newViewPos)){
 			viewPos.setLocation(newViewPos);
@@ -221,6 +228,15 @@ public class JTextArea extends JTextComponent implements Viewportable{
 			lastMaxScrollV = t.maxScrollV;
 			lastMaxScrollH = t.maxScrollH;
 			revalidate();
+		}
+	}
+	
+	private var focusScrolling:Boolean = false;
+	override public function makeFocus():void{
+		if(getFocusTransmit() == null){
+			focusScrolling = true;
+			super.makeFocus();
+			focusScrolling = false;
 		}
 	}
 	
