@@ -26,10 +26,10 @@ public class StringUtils
  	}
  	
  	/**
- 	 * remove all the blankspace in targetString
+ 	 * remove the blankspaces of left and right in targetString
  	 */
  	public static function trim(targetString:String):String{
- 		return replace(targetString," ","");
+ 		return trimLeft(trimRight(targetString));
  	}
  	
  	/**
