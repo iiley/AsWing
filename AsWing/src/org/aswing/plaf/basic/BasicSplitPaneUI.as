@@ -31,7 +31,8 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	protected var startLocation:int;
 	protected var startDividerPos:IntPoint;
 	protected var dragRepresentationMC:Shape;
-	protected var pressFlag:Boolean;  //the flag for pressed left or right collapseButton	
+	protected var pressFlag:Boolean;  //the flag for pressed left or right collapseButton
+	protected var mouseInDividerFlag:Boolean;	
 	
 	public function BasicSplitPaneUI() {
 		super();
@@ -419,13 +420,10 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	}
 
 	protected function __div_released(e:ReleaseEvent) : void {
-		if (e.target != divider) return;		
+		if (e.getPressTarget() != divider) return;		
 		if (pressFlag){
 			pressFlag = false;
 			return;
-		}
-		if(!divider.hitTestMouse()){
-			__div_rollout(e);
 		}
 		if(dragRepresentationMC != null && sp.contains(dragRepresentationMC)){
 			sp.removeChild(dragRepresentationMC);
@@ -433,10 +431,10 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 		
 		validateDivMoveWithCurrentMousePos();
 		sp.removeEventListener(MouseEvent.MOUSE_MOVE, __div_mouse_moving);
-		if(!divider.hitTestMouse()){
+		spliting = false;
+		if(!mouseInDividerFlag){
 			hideMoveCursor();
 		}
-		spliting = false;
 	}
 
 	protected function __div_mouse_moving(e:MouseEvent) : void {
@@ -488,12 +486,14 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 	}
 	
 	protected function __div_rollover(e:MouseEvent) : void {
+		mouseInDividerFlag = true;
 		if(!e.buttonDown && !spliting){
 			showMoveCursor();
 		}
 	}
 
 	protected function __div_rollout(e:Event) : void {
+		mouseInDividerFlag = false;
 		if(!spliting){
 			hideMoveCursor();
 		}
