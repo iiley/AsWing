@@ -119,6 +119,22 @@ If you call setPreferredWith() to set a number(!=-1) the width will be locked.
 setPreferredWith(-1) to make it return to be auto counted.
 Same to maximim and miminum sizes.
 
+Make JTextArea avoid scroll change when make focus
+
+added DefaultsDecorator to make ComponentUI default change behavor correcter
+now
+//-------
+var ui:ComponentUI = aCom.getUI();
+ui.putDefault(xxx, xxx);
+ui.putDefault(xxx, xxx);
+...
+aCom.setUI(ui);
+//-------
+Will runs more better about some skin assets defaults properties changing there.
+
 bugfixes:
 
-clear size caches when change component UI
+fixed drag jframe buggy issue after changed LAF
+fixed AWSprite bringToTop/Bottom bug when useBitmapCache
+fixed a JList key navigation bug
+
