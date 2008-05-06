@@ -21,7 +21,7 @@ public class OrangeProgressBarFG extends SkinProgressBarForeground{
 		
 	override protected function checkReloadAssets(c:Component):void{
 		if(!loaded){
-			var ui:ComponentUI = c.getUI();
+			var ui:ComponentUI = getDefaultsOwner(c);
 			verticalImage = ui.getInstance(getPropertyPrefix()+"verticalFGImage") as DisplayObject;
 			horizotalImage = ui.getInstance(getPropertyPrefix()+"horizotalFGImage") as DisplayObject;
 			fgMargin = ui.getInsets(getPropertyPrefix()+"fgMargin");
