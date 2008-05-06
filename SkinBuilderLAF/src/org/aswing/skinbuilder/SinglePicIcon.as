@@ -4,14 +4,16 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.Icon;
-import org.aswing.Component;
 import flash.display.DisplayObject;
-import org.aswing.plaf.UIResource;
-import org.aswing.error.ImpMissError;
 
-public class SinglePicIcon implements Icon, UIResource{
+import org.aswing.Component;
+import org.aswing.Icon;
+import org.aswing.error.ImpMissError;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.DefaultsDecoratorBase;
+import org.aswing.plaf.UIResource;
+
+public class SinglePicIcon extends DefaultsDecoratorBase implements Icon, UIResource{
 	
 	protected var image:DisplayObject;
 	protected var loaded:Boolean;
@@ -27,7 +29,7 @@ public class SinglePicIcon implements Icon, UIResource{
 	
 	protected function checkLoad(c:Component):void{
 		if(!loaded){
-			image = c.getUI().getInstance(getDefaltsKey()) as DisplayObject;
+			image = getDefaultsOwner(c).getInstance(getDefaltsKey()) as DisplayObject;
 			loaded = true;
 		}
 	}

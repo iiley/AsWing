@@ -4,9 +4,9 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.plaf.basic.splitpane.Divider;
 import org.aswing.*;
 import org.aswing.plaf.*;
+import org.aswing.plaf.basic.splitpane.Divider;
 
 
 public class SkinSplitPaneDivider extends Divider implements Orientable{
@@ -18,15 +18,22 @@ public class SkinSplitPaneDivider extends Divider implements Orientable{
 	
 	public function SkinSplitPaneDivider(sp:JSplitPane){
 		super(sp);
-		setBackgroundDecorator(new SkinSplitPaneDividerBackground());
+		var ui:ComponentUI = sp.getUI();
+		var bg:SkinSplitPaneDividerBackground = new SkinSplitPaneDividerBackground();
+		bg.setDefaultsOwner(ui);
+		setBackgroundDecorator(bg);
 		icon = null;
 		leftIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowLeft.");
+		leftIco.setDefaultsOwner(ui);
 		leftIco.checkSetup(sp);
 		rightIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowRight.");
+		rightIco.setDefaultsOwner(ui);
 		rightIco.checkSetup(sp);
 		upIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowUp.");
+		upIco.setDefaultsOwner(ui);
 		upIco.checkSetup(sp);
 		downIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowDown.");
+		downIco.setDefaultsOwner(ui);
 		downIco.checkSetup(sp);
 	}
 	

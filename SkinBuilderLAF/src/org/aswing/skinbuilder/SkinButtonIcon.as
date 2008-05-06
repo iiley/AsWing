@@ -4,11 +4,12 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.*;
 import flash.display.*;
-import org.aswing.plaf.*;
+
+import org.aswing.*;
 import org.aswing.error.ImpMissError;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.*;
 
 /**
  * Skin button icon.
@@ -17,7 +18,7 @@ import org.aswing.error.ImpMissError;
  * if they are defined in the assets properties.
  * @author iiley
  */
-public class SkinButtonIcon implements Icon, UIResource{
+public class SkinButtonIcon extends DefaultsDecoratorBase implements Icon, UIResource{
 	
 	private var forceWidth:int = -1;
 	private var forceHeight:int = -1;
@@ -26,11 +27,14 @@ public class SkinButtonIcon implements Icon, UIResource{
     protected var fixedPrefix:String;
     protected var setuped:Boolean;
     
-	public function SkinButtonIcon(forceWidth:int=-1, forceHeight:int=-1, fixedPrefix:String=null){
+	public function SkinButtonIcon(forceWidth:int=-1, forceHeight:int=-1, fixedPrefix:String=null, owner:Component=null){
 		this.forceWidth = forceWidth;
 		this.forceHeight = forceHeight;
 		setuped = false;
 		this.fixedPrefix = fixedPrefix;
+		if(owner != null){
+			setDefaultsOwner(owner.getUI());
+		}
 		stateAsset = new ButtonStateObject();
 	}
 	
@@ -66,7 +70,7 @@ public class SkinButtonIcon implements Icon, UIResource{
 	
 	public function checkSetup(c:Component):void{
 		if(!setuped){
-			setupAssets(c.getUI());
+			setupAssets(getDefaultsOwner(c));
 			setuped = true;
 		}		
 	}

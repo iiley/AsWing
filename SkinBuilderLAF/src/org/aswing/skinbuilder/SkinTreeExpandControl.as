@@ -1,18 +1,20 @@
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.tree.TreePath;
-import org.aswing.plaf.basic.tree.ExpandControl;
-import org.aswing.geom.IntRectangle;
-import org.aswing.Component;
-import org.aswing.plaf.UIResource;
-import flash.display.DisplayObject;
-import org.aswing.graphics.BitmapBrush;
-import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.DisplayObject;
 import flash.geom.Matrix;
 
-public class SkinTreeExpandControl implements ExpandControl, UIResource{
+import org.aswing.Component;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.BitmapBrush;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.DefaultsDecoratorBase;
+import org.aswing.plaf.UIResource;
+import org.aswing.plaf.basic.tree.ExpandControl;
+import org.aswing.tree.TreePath;
+
+public class SkinTreeExpandControl extends DefaultsDecoratorBase implements ExpandControl, UIResource{
 	
 	protected var leafControlImage:DisplayObject;
 	protected var folderExpandedControlImage:DisplayObject;
@@ -31,9 +33,10 @@ public class SkinTreeExpandControl implements ExpandControl, UIResource{
 	public function paintExpandControl(c:Component, g:Graphics2D, bounds:IntRectangle, 
 		totalChildIndent:int, path:TreePath, row:int, expanded:Boolean, leaf:Boolean):void{
 		if(!loaded){
-			leafControlImage = c.getUI().getInstance("Tree.leafControlImage") as DisplayObject;
-			folderExpandedControlImage = c.getUI().getInstance("Tree.folderExpandedControlImage") as DisplayObject;
-			folderCollapsedControlImage = c.getUI().getInstance("Tree.folderCollapsedControlImage") as DisplayObject;
+			var ui:ComponentUI = getDefaultsOwner(c);
+			leafControlImage = ui.getInstance("Tree.leafControlImage") as DisplayObject;
+			folderExpandedControlImage = ui.getInstance("Tree.folderExpandedControlImage") as DisplayObject;
+			folderCollapsedControlImage = ui.getInstance("Tree.folderCollapsedControlImage") as DisplayObject;
 			loaded = true;
 		}
 		

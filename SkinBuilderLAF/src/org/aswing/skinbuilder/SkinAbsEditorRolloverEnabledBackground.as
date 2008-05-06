@@ -104,7 +104,7 @@ public class SkinAbsEditorRolloverEnabledBackground extends SkinAbsEditorBackgro
 		this.c = c;
 		this.bounds = bounds.clone();
 		if(!loaded){
-			reloadAssets(c.getUI());
+			reloadAssets(getDefaultsOwner(c));
 			loaded = true;
 		}
 		

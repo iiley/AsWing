@@ -20,7 +20,8 @@ public class SkinComboBoxUI extends BasicComboBoxUI{
 		btn.setOpaque(false);
 		btn.setMargin(new Insets());
 		btn.setBackgroundDecorator(null);
-		btn.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix()+"arrowButton."));
+		var ico:SkinButtonIcon = new SkinButtonIcon(-1, -1, getPropertyPrefix()+"arrowButton.", box);
+		btn.setIcon(ico);
 		return btn;
 	}
 }

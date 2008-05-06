@@ -4,9 +4,9 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.plaf.basic.accordion.BasicAccordionHeader;
 import org.aswing.*;
-import org.aswing.plaf.basic.background.ButtonBackground;
+import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.basic.accordion.BasicAccordionHeader;
 
 public class SkinTabbedPaneTab extends BasicAccordionHeader{
 	
@@ -14,7 +14,8 @@ public class SkinTabbedPaneTab extends BasicAccordionHeader{
 	protected var bottomBG:SkinButtonBackground;
 	protected var leftBG:SkinButtonBackground;
 	protected var rightBG:SkinButtonBackground;
-	protected var tabPlacement:int;
+	protected var tabPlacement:int;	
+	protected var defaultsOwner:ComponentUI;
 	
 	public function SkinTabbedPaneTab(){
 		super();
@@ -43,6 +44,10 @@ public class SkinTabbedPaneTab extends BasicAccordionHeader{
 		bottomBG = new SkinButtonBackground(getPropertyPrefix() + "bottom.tab.");
 		leftBG = new SkinButtonBackground(getPropertyPrefix() + "left.tab.");
 		rightBG = new SkinButtonBackground(getPropertyPrefix() + "right.tab.");
+		topBG.setDefaultsOwner(owner.getUI());
+		bottomBG.setDefaultsOwner(owner.getUI());
+		leftBG.setDefaultsOwner(owner.getUI());
+		rightBG.setDefaultsOwner(owner.getUI());
 		tb.setBackgroundDecorator(topBG);
 		return tb;
 	}

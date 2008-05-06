@@ -4,15 +4,15 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.geom.IntRectangle;
-import org.aswing.*;
 import flash.display.DisplayObject;
-import org.aswing.plaf.*;
-import flash.display.Sprite;
-import org.aswing.error.ImpMissError;
 
-public class SinglePicBackground implements GroundDecorator, UIResource{
+import org.aswing.*;
+import org.aswing.error.ImpMissError;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.*;
+
+public class SinglePicBackground extends DefaultsDecoratorBase implements GroundDecorator, UIResource{
 	protected var image:DisplayObject;
 	protected var loaded:Boolean;
 	protected var avoidBorderMargin:Boolean;
@@ -29,7 +29,8 @@ public class SinglePicBackground implements GroundDecorator, UIResource{
 	
 	protected function checkLoad(c:Component):void{
 		if(!loaded){
-			image = c.getUI().getInstance(getDefaltsKey()) as DisplayObject;
+			var ui:ComponentUI = getDefaultsOwner(c);
+			image = ui.getInstance(getDefaltsKey()) as DisplayObject;
 			loaded = true;
 		}
 	}

@@ -14,7 +14,7 @@ import org.aswing.geom.*;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.*;
 
-public class OrientableThumb implements GroundDecorator, Icon, UIResource{
+public class OrientableThumb extends DefaultsDecoratorBase implements GroundDecorator, Icon, UIResource{
 	
     protected var thumb:AWSprite;
     protected var verticalContainer:ButtonStateObject;
@@ -53,14 +53,14 @@ public class OrientableThumb implements GroundDecorator, Icon, UIResource{
 		verticle = false;
 		initSelfHandlers();
 	}
-	
+		
 	private function checkReloadAssets(c:Component):void{
 		if(verticalContainer){
 			return;
 		}
 		verticalContainer = new ButtonStateObject();
 		horizontalContainer = new ButtonStateObject();
-		var ui:ComponentUI = c.getUI();
+		var ui:ComponentUI = getDefaultsOwner(c);
 		verticalContainer.setDefaultImage(getAsset(ui, "thumbVertical.defaultImage"));
 		verticalContainer.setPressedImage(getAsset(ui, "thumbVertical.pressedImage"));
 		verticalContainer.setDisabledImage(getAsset(ui, "thumbVertical.disabledImage"));

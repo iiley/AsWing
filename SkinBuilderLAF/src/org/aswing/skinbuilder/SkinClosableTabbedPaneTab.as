@@ -14,11 +14,15 @@ public class SkinClosableTabbedPaneTab extends SkinTabbedPaneTab implements Clos
 	
 	public function SkinClosableTabbedPaneTab(){
 		super();
+	}
+	
+	override public function initTab(owner:Component):void{
+		super.initTab(owner);
 		closeButton = new JButton();
 		closeButton.setOpaque(false);
 		closeButton.setMargin(new Insets());
 		closeButton.setBackgroundDecorator(null);
-		closeButton.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix()+"closeButton."));
+		closeButton.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix()+"closeButton.", owner));
 		closeButton.pack();
 		closeButtonSize = closeButton.getSize();
 		button.addChild(closeButton);

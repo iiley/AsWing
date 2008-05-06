@@ -4,15 +4,16 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.plaf.basic.*;
-import org.aswing.plaf.basic.tabbedpane.Tab;
+import flash.display.DisplayObject;
+import flash.display.Sprite;
+
 import org.aswing.*;
+import org.aswing.event.InteractiveEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
-import flash.display.DisplayObject;
 import org.aswing.plaf.UIResource;
-import flash.display.Sprite;
-import org.aswing.event.InteractiveEvent;
+import org.aswing.plaf.basic.*;
+import org.aswing.plaf.basic.tabbedpane.Tab;
 
 public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorator, UIResource{
 	
@@ -43,17 +44,29 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 		
 		tabbedPane.setBackgroundDecorator(this);
 	}
+	
+	override protected function uninstallDefaults():void{
+		super.uninstallDefaults();
+		if(contentRoundImageContainer.numChildren > 0){
+			contentRoundImageContainer.removeChildAt(0);
+		}
+
+		while(tabs.length > 0){
+			var header:Tab = Tab(tabs.pop());
+			tabBarMC.removeChild(header.getTabComponent());
+		}
+	}
     
 	override protected function createNextButton():AbstractButton{
 		var b:JButton = new JButton();
-		b.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix() + "arrowRight."));
+		b.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix() + "arrowRight.", tabbedPane));
 		b.setBackgroundDecorator(null);
 		return b;
 	}
 	
 	override protected function createPrevButton():AbstractButton{
 		var b:JButton = new JButton();
-		b.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix() + "arrowLeft."));
+		b.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix() + "arrowLeft.", tabbedPane));
 		b.setBackgroundDecorator(null);
 		return b;
 	}

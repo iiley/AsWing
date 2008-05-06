@@ -14,7 +14,7 @@ import org.aswing.geom.*;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.*;
 
-public class SelfHandleStateDecorator implements GroundDecorator, Icon, UIResource{
+public class SelfHandleStateDecorator extends DefaultsDecoratorBase implements GroundDecorator, Icon, UIResource{
 	
     protected var thumb:ButtonStateObject;
     
@@ -48,7 +48,7 @@ public class SelfHandleStateDecorator implements GroundDecorator, Icon, UIResour
 			return;
 		}
 		loaded = true;
-		var ui:ComponentUI = c.getUI();
+		var ui:ComponentUI = getDefaultsOwner(c);
 		var defaultImage:DisplayObject = getAsset(ui, "defaultImage");
 		origWidth = defaultImage.width;
 		origHeight = defaultImage.height;
