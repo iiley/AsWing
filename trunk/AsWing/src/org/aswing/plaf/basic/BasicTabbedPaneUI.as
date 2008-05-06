@@ -23,7 +23,7 @@ import org.aswing.event.FocusKeyEvent;
  */
 public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	
-	protected static var topBlankSpace:int = 4;
+	protected var topBlankSpace:int = 4;
 	
 	protected var shadow:ASColor;
 	protected var darkShadow:ASColor;
@@ -114,6 +114,9 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var tabMargin:Insets = getInsets(pp+"tabMargin");
 		if(tabMargin == null) tabMargin = new InsetsUIResource(1, 1, 1, 1);
 		
+		if(containsKey(pp+"topBlankSpace")){
+			topBlankSpace = getInt(pp+"topBlankSpace");
+		}
 		if(containsKey(pp+"tabGap")){
 			tabGap = getInt(pp+"tabGap");
 		}

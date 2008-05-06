@@ -573,6 +573,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"TabbedPane.tabMargin", new InsetsUIResource(2, 3, 1, 3),
 			"TabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2), 
 			"TabbedPane.contentRoundLineThickness", 1, 
+			"TabbedPane.topBlankSpace", 4, 
 			"TabbedPane.maxTabWidth", 1000];
 		table.putDefaults(comDefaults);
 		
@@ -592,6 +593,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"ClosableTabbedPane.tabMargin", new InsetsUIResource(2, 3, 1, 3),
 			"ClosableTabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2), 
 			"ClosableTabbedPane.contentRoundLineThickness", 1, 
+			"ClosableTabbedPane.topBlankSpace", 4, 
 			"ClosableTabbedPane.maxTabWidth", 1000];
 		table.putDefaults(comDefaults);
 		
