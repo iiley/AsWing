@@ -13,9 +13,14 @@ public class BasicClosableTabbedPaneTab implements ClosableTab{
 	protected var label:JLabel;
 	protected var button:AbstractButton;
 	protected var margin:Insets;
+	protected var owner:Component;
 	
 	public function BasicClosableTabbedPaneTab(){
 		super();
+	}
+	
+	public function initTab(owner:Component):void{
+		this.owner = owner;
 		panel = new Container();
 		panel.setLayout(new BorderLayout());
 		label = new JLabel();

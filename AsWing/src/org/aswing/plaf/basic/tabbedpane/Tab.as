@@ -12,7 +12,13 @@ import org.aswing.*;
  * @private
  */
 public interface Tab{
-
+	
+	/**
+	 * Inits the tab
+	 * @param owner the tab owner component
+	 */
+	function initTab(owner:Component):void;
+	
 	/**
 	 * Sets text and icon to the header
 	 */

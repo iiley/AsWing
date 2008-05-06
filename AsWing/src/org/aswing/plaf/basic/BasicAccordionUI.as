@@ -140,6 +140,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	if(header == null){
     		header = new BasicAccordionHeader();
     	}
+    	header.initTab(accordion);
     	header.getTabComponent().setFocusable(false);
     	return header;
     }

@@ -16,8 +16,13 @@ public class BasicTabbedPaneTab implements Tab{
 	
 	protected var label:JLabel;
 	protected var margin:Insets;
+	protected var owner:Component;
 	
 	public function BasicTabbedPaneTab(){
+	}
+	
+	public function initTab(owner:Component):void{
+		this.owner = owner;
 		label = new JLabel();
 		margin = new Insets(0,0,0,0);
 	}
