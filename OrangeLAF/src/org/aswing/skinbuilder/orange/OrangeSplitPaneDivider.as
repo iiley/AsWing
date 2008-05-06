@@ -14,15 +14,16 @@ public class OrangeSplitPaneDivider extends Divider implements Orientable{
 	
 	public function OrangeSplitPaneDivider(sp:JSplitPane){
 		super(sp);
-		setBackgroundDecorator(new OrangeSplitPaneDividerBackground());
+		
+		setBackgroundDecorator(new OrangeSplitPaneDividerBackground(sp));
 		icon = null;
-		leftIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowLeft.");
+		leftIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowLeft.", sp);
 		leftIco.checkSetup(sp);
-		rightIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowRight.");
+		rightIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowRight.", sp);
 		rightIco.checkSetup(sp);
-		upIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowUp.");
+		upIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowUp.", sp);
 		upIco.checkSetup(sp);
-		downIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowDown.");
+		downIco = new SkinButtonIcon(-1, -1, "SplitPane.arrowDown.", sp);
 		downIco.checkSetup(sp);
 	}
 	

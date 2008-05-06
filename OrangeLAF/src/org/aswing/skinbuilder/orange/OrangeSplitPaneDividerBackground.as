@@ -1,15 +1,16 @@
 package org.aswing.skinbuilder.orange{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.GroundDecorator;
-import org.aswing.geom.IntRectangle;
-import org.aswing.*;
 import flash.display.DisplayObject;
-import org.aswing.plaf.UIResource;
-import org.aswing.plaf.ComponentUI;
 import flash.display.Sprite;
 
-public class OrangeSplitPaneDividerBackground implements GroundDecorator, UIResource{
+import org.aswing.*;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.DefaultsDecoratorBase;
+import org.aswing.plaf.UIResource;
+
+public class OrangeSplitPaneDividerBackground extends DefaultsDecoratorBase implements GroundDecorator, UIResource{
 	
 	protected var verticalImage:DisplayObject;
 	protected var horizotalImage:DisplayObject;
@@ -19,16 +20,17 @@ public class OrangeSplitPaneDividerBackground implements GroundDecorator, UIReso
 	protected var imageContainer:Sprite;
 	protected var loaded:Boolean;
 	
-	public function OrangeSplitPaneDividerBackground(){
+	public function OrangeSplitPaneDividerBackground(owner:Component){
 		super();
 		imageContainer = AsWingUtils.createSprite(null, "imageContainer");
 		imageContainer.mouseChildren = false;
 		loaded = false;
+		setDefaultsOwner(owner.getUI());
 	}
 	
 	protected function checkReloadAssets(c:Component):void{
 		if(!loaded){
-			var ui:ComponentUI = c.getUI();
+			var ui:ComponentUI = getDefaultsOwner(c);
 			verticalImage = ui.getInstance(getPropertyPrefix()+"verticalBGImage") as DisplayObject;
 			horizotalImage = ui.getInstance(getPropertyPrefix()+"horizotalBGImage") as DisplayObject;
 			verticalDisabledImage = ui.getInstance(getPropertyPrefix()+"verticalBGDisabledImage") as DisplayObject;
