@@ -15,8 +15,13 @@ import org.aswing.plaf.basic.tabbedpane.Tab;
 public class BasicAccordionHeader implements Tab{
 	
 	protected var button:AbstractButton;
+	protected var owner:Component;
 	
 	public function BasicAccordionHeader(){
+	}
+	
+	public function initTab(owner:Component):void{
+		this.owner = owner;
 		button = createHeaderButton();
 	}
 	

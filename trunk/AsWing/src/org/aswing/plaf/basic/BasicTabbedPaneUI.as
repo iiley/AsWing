@@ -454,6 +454,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     	if(tab == null){
     		tab = new BasicTabbedPaneTab();
     	}
+    	tab.initTab(tabbedPane);
     	tab.getTabComponent().setFocusable(false);
     	return tab;
     }

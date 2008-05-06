@@ -68,23 +68,27 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     }	
     
     //------------------------------------------------------
-
+	
+	protected function createTextField():JTextField{
+		var tf:JTextField = new JTextField("", 1); //set rows 1 to ensure the JTextField has a perfer height when empty
+		tf.setBorder(null);
+        tf.setOpaque(false);
+        tf.setFocusable(false);
+        tf.setBackgroundDecorator(null);
+        return tf;
+	}
     
     protected function getTextField():JTextField{
         if(textField == null){
-            textField = new JTextField("", 1); //set rows 1 to ensure the JTextField has a perfer height when empty
-            textField.setBorder(null);
-            textField.setOpaque(false);
-            textField.setFocusable(false);
-            textField.setBackgroundDecorator(null);
+        	textField = createTextField();
             initHandler();
         }
         return textField;
     }
 
     private function initHandler():void{
-        textField.getTextField().addEventListener(KeyboardEvent.KEY_DOWN, __textKeyDown);
-        textField.getTextField().addEventListener(FocusEvent.FOCUS_OUT, __grapValueFormText);
+        getTextField().getTextField().addEventListener(KeyboardEvent.KEY_DOWN, __textKeyDown);
+        getTextField().getTextField().addEventListener(FocusEvent.FOCUS_OUT, __grapValueFormText);
     }
 	
     private function __grapValueFormText(e:Event):void{
@@ -96,7 +100,7 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     }
     
     private function grapValueFormText():Boolean{
-    	if(textField.isEditable() && value !== getTextField().getText()){
+    	if(getTextField().isEditable() && value !== getTextField().getText()){
     		value = getTextField().getText();
     		return true;
     	}
@@ -104,7 +108,7 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     }
 
     private function __textKeyDown(e:KeyboardEvent):void{
-    	if(textField.isEditable() && e.keyCode == Keyboard.ENTER){
+    	if(getTextField().isEditable() && e.keyCode == Keyboard.ENTER){
 	        grapValueFormText();
 	        dispatchEvent(new AWEvent(AWEvent.ACT));
      	}
