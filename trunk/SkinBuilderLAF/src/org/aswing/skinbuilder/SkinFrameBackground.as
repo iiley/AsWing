@@ -4,15 +4,17 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.geom.IntRectangle;
-import org.aswing.*;
 import flash.display.DisplayObject;
-import org.aswing.plaf.UIResource;
 import flash.display.Sprite;
-import org.aswing.plaf.ComponentUI;
 
-public class SkinFrameBackground implements GroundDecorator, UIResource{
+import org.aswing.*;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.DefaultsDecoratorBase;
+import org.aswing.plaf.UIResource;
+
+public class SkinFrameBackground extends DefaultsDecoratorBase implements GroundDecorator, UIResource{
 	
 	protected var imageContainer:Sprite;
 	protected var activeBG:DisplayObject;
@@ -30,16 +32,16 @@ public class SkinFrameBackground implements GroundDecorator, UIResource{
 		inactiveBG.visible = false;
 	}
 	
-	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
+	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
 		if(activeBG == null){
-			reloadAssets(com.getUI());
+			reloadAssets(getDefaultsOwner(c));
 		}
-		var frame:JFrame = JFrame(com);
+		var frame:JFrame = JFrame(c);
 		activeBG.visible = frame.getFrameUI().isPaintActivedFrame();
 		inactiveBG.visible = !frame.getFrameUI().isPaintActivedFrame();
 		//not use bounds, avoid the border
-		activeBG.width = inactiveBG.width = com.width;
-		activeBG.height = inactiveBG.height = com.height;
+		activeBG.width = inactiveBG.width = c.width;
+		activeBG.height = inactiveBG.height = c.height;
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{

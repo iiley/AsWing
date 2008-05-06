@@ -4,17 +4,18 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.GroundDecorator;
-import org.aswing.geom.IntRectangle;
-import org.aswing.*;
 import flash.display.DisplayObject;
-import org.aswing.plaf.UIResource;
-import org.aswing.plaf.ComponentUI;
 import flash.display.Sprite;
-import org.aswing.error.ImpMissError;
 
-public class OrientableComponentBackground implements GroundDecorator, UIResource{
+import org.aswing.*;
+import org.aswing.error.ImpMissError;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.ComponentUI;
+import org.aswing.plaf.DefaultsDecoratorBase;
+import org.aswing.plaf.UIResource;
+
+public class OrientableComponentBackground extends DefaultsDecoratorBase implements GroundDecorator, UIResource{
 
 	protected var verticalImage:DisplayObject;
 	protected var horizotalImage:DisplayObject;
@@ -32,7 +33,7 @@ public class OrientableComponentBackground implements GroundDecorator, UIResourc
 	
 	protected function checkReloadAssets(c:Component):void{
 		if(!loaded){
-			var ui:ComponentUI = c.getUI();
+			var ui:ComponentUI = getDefaultsOwner(c);
 			verticalImage = ui.getInstance(getPropertyPrefix()+"verticalBGImage") as DisplayObject;
 			horizotalImage = ui.getInstance(getPropertyPrefix()+"horizotalBGImage") as DisplayObject;
 			verticalDisabledImage = ui.getInstance(getPropertyPrefix()+"verticalBGDisabledImage") as DisplayObject;

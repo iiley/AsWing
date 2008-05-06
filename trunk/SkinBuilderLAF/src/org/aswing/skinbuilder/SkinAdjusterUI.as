@@ -19,7 +19,8 @@ public class SkinAdjusterUI extends BasicAdjusterUI{
 		btn.setFocusable(false);
 		btn.setBackgroundDecorator(null);
 		btn.setMargin(new Insets(0, 0, 0, 0));
-		btn.setIcon(new SkinButtonIcon(-1, -1, getPropertyPrefix()+"arrowButton."));
+		var ico:SkinButtonIcon = new SkinButtonIcon(-1, -1, getPropertyPrefix()+"arrowButton.", adjuster);
+		btn.setIcon(ico);
 		return btn;
 	}
 	

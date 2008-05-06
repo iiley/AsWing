@@ -4,14 +4,15 @@
 
 package org.aswing.skinbuilder{
 	
-import org.aswing.graphics.Graphics2D;
-import org.aswing.geom.IntRectangle;
-import org.aswing.*;
 import flash.display.*;
-import org.aswing.plaf.*;
-import org.aswing.error.ImpMissError;
 
-public class SkinAbsEditorBackground implements GroundDecorator, UIResource{
+import org.aswing.*;
+import org.aswing.error.ImpMissError;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.*;
+
+public class SkinAbsEditorBackground extends DefaultsDecoratorBase implements GroundDecorator, UIResource{
 	
 	protected var imageContainer:Sprite;
 	protected var defaultImage:DisplayObject;
@@ -56,7 +57,7 @@ public class SkinAbsEditorBackground implements GroundDecorator, UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
 		if(!loaded){
-			reloadAssets(c.getUI());
+			reloadAssets(getDefaultsOwner(c));
 			loaded = true;
 		}
 		

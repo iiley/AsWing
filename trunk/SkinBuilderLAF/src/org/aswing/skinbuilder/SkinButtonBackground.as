@@ -4,14 +4,15 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.plaf.*;
-import org.aswing.plaf.basic.*;
+import flash.display.*;
+
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.Graphics2D;
-import flash.display.*;
+import org.aswing.plaf.*;
+import org.aswing.plaf.basic.*;
 
-public class SkinButtonBackground implements GroundDecorator, UIResource{
+public class SkinButtonBackground extends DefaultsDecoratorBase implements GroundDecorator, UIResource{
 	
     protected var stateAsset:ButtonStateObject;
     protected var setuped:Boolean;
@@ -55,13 +56,13 @@ public class SkinButtonBackground implements GroundDecorator, UIResource{
  		return stateAsset;
  	}
  	
- 	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
+ 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
  		if(!setuped){
- 			setupAssets(com.getUI());
+ 			setupAssets(getDefaultsOwner(c));
  			setuped = true;
  		}
  		
- 		var button:AbstractButton = AbstractButton(com);
+ 		var button:AbstractButton = AbstractButton(c);
  		var model:ButtonModel = button.getModel();
  		stateAsset.setEnabled(model.isEnabled());
  		stateAsset.setPressed(model.isPressed() && model.isArmed());

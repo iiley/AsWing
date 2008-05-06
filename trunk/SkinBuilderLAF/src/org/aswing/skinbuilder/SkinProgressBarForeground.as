@@ -11,7 +11,7 @@ import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.*;
 
-public class SkinProgressBarForeground implements GroundDecorator, UIResource{
+public class SkinProgressBarForeground extends DefaultsDecoratorBase implements GroundDecorator, UIResource{
 
 	protected var verticalImage:DisplayObject;
 	protected var horizotalImage:DisplayObject;
@@ -29,7 +29,7 @@ public class SkinProgressBarForeground implements GroundDecorator, UIResource{
 	
 	protected function checkReloadAssets(c:Component):void{
 		if(!loaded){
-			var ui:ComponentUI = c.getUI();
+			var ui:ComponentUI = getDefaultsOwner(c);
 			verticalImage = ui.getInstance(getPropertyPrefix()+"verticalFGImage") as DisplayObject;
 			horizotalImage = ui.getInstance(getPropertyPrefix()+"horizotalFGImage") as DisplayObject;
 			fgMargin = ui.getInsets(getPropertyPrefix()+"fgMargin");
