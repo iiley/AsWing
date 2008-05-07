@@ -270,6 +270,8 @@ public class Container extends Component{
 		
 		if (valid) {
 			revalidate();
+	    }else{
+	    	invalidatePreferSizeCaches();
 	    }
 	}
 	
@@ -351,7 +353,9 @@ public class Container extends Component{
 			
 			if (valid) {
 				revalidate();
-		    }
+		    }else{
+	    		invalidatePreferSizeCaches();
+	    	}
 		}
 		return com;
 	}
