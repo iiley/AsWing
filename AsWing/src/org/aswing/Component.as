@@ -1933,33 +1933,43 @@ public class Component extends AWSprite{
 	
     /**
      * Invalidates this component.  This component and all parents
-     * above it are marked as needing to be laid out.  This method can
-     * be called often, so it needs to execute quickly.
+     * above it are marked as needing to be laid out, and all <code>clearPreferSizeCaches</code>.
+     * This method can be called often, so it needs to execute quickly.
      * @see       #validate()
      * @see       #doLayout()
+     * @see       #invalidatePreferSizeCaches()
      * @see       org.aswing.LayoutManager
      */	
 	public function invalidate():void{
+    	invalidateTree();
+    	invalidatePreferSizeCaches();
+	}
+	
+	/**
+     * Makes this component and all parents
+     * above it are marked as needing to be laid out.
+	 */
+	protected function invalidateTree():void{
     	valid = false;
-    	clearPreferSizeCaches();
     	var par:Container = getParent();
     	if(par != null && par.isValid()){
-    		par.invalidate();
+    		par.invalidateTree();
     	}
 	}
 	
     /**
-     * Invalidates this component and all parents above it's preferred size caches.
+     * Clears this component and all parents above it's preferred size caches.
      * <p>
      * By default all components' prefer sizes(max, min, prefer) have caches, if you 
-     * make some call that cached a invalided component's sizes(for example call invalided 
-     * component's <code>getPreferredSize()</code>) but then you modifid the component again, 
-     * so it's prefer size need to be renew, <code>invalidatePreferSizeCaches</code> will be 
-     * helpful now.
+     * make some call that cached a invalided component's sizes but then you modifid 
+     * the component again, so it's prefer size need to be renew, 
+     * <code>invalidatePreferSizeCaches</code> will be helpful now.
      * </p>
      * <p>
-     * Generally you do not need to call this method unless you get above situation.
+     * Generally you do not need to call this method manually unless you get above situation.
+     * this method will be called inside <code>invalidate()</code> automatically.
      * </p>
+     * @see       #invalidate()
      * @see       #validate()
      * @see       #setCachePreferSizes()
      * @see       org.aswing.LayoutManager
