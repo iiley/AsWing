@@ -137,4 +137,5 @@ bugfixes:
 fixed drag jframe buggy issue after changed LAF
 fixed AWSprite bringToTop/Bottom bug when useBitmapCache
 fixed a JList key navigation bug
+fixed a preferred size cache bug that a non-valid component invalidate will not get cache fresh
 
