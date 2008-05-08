@@ -223,7 +223,6 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
     	var td:IntDimension = adjuster.getSize();
 		var insets:Insets = adjuster.getInsets();
 		var top:int = insets.top;
-		var bottom:int = td.height - insets.bottom;
 		var left:int = insets.left;
 		var right:int = td.width - insets.right;
 		var gap:int = getTextButtonGap();
@@ -268,7 +267,6 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	private function __inputTextAction(fireActOnlyIfChanged:Boolean=false):void{
 		var text:String = inputText.getText();
 		var value:int = adjuster.getValueParser()(text);
-		var oldValue:int = adjuster.getValue();
 		adjuster.setValue(value);
 		//revalidte a legic text
 		fillInputTextWithCurrentValue();

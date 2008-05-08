@@ -12,10 +12,10 @@ import org.aswing.plaf.UIResource;
  * @private
  */
 public class ColorChooserBorder extends EmptyBorder implements UIResource{
-{
+
 	public function ColorChooserBorder(){
 		super(null, new Insets(6, 6, 6, 6));
 	}
-}
+
 }
 }

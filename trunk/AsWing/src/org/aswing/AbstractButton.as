@@ -981,11 +981,11 @@ public class AbstractButton extends Component{
 		getModel().setArmed(true);
 		getModel().setPressed(true);
 	}
-	private function __mouseUpListener(e:Event):void{
+	/*private function __mouseUpListener(e:Event):void{
 		if(isRollOverEnabled()) {
 			getModel().setRollOver(true);
 		}
-	}
+	}*/
 	private function __mouseReleaseListener(e:Event):void{
 		getModel().setPressed(false);
 		getModel().setArmed(false);

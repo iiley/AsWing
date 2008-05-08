@@ -57,7 +57,6 @@ public class ScrollPaneLayout extends EmptyLayout{
     		var size:IntDimension = getScrollBarsSize(scrollPane);
     		var i:Insets = scrollPane.getInsets();
     		size = size.increaseSize(i.getOutsideSize());
-    		var vsb:JScrollBar = scrollPane.getVerticalScrollBar();
 	    	var viewport:Viewportable = scrollPane.getViewport();
 	    	if(viewport != null){
 	    		i = viewport.getViewportPane().getInsets();

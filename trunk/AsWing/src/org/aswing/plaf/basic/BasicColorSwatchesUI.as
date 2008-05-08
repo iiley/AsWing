@@ -185,7 +185,7 @@ public class BasicColorSwatchesUI extends BaseComponentUI implements ColorSwatch
     	}
     }
     private function __colorTilesPaneReleased(e:MouseEvent):void{
-    	var p:IntPoint = new IntPoint(e.localX, e.localY)//colorTilesPane.getMousePosition();
+    	var p:IntPoint = new IntPoint(e.localX, e.localY);//colorTilesPane.getMousePosition();
     	var color:ASColor = getColorWithPosAtColorTilesPane(p);
     	if(color != null){
     		colorSwatches.setSelectedColor(color);

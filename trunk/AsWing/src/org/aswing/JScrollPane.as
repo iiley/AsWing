@@ -219,8 +219,6 @@ public class JScrollPane extends Container{
      */
 	public function setViewport(vp:Viewportable):void{
 		if(viewport != vp){
-			var oldViewport:Viewportable = viewport;
-			var newViewport:Viewportable = vp;
 			if(viewport != null){
 				remove(viewport.getViewportPane());
 			}

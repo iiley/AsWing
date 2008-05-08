@@ -233,7 +233,7 @@ public class BasicAccordionUI extends BaseComponentUI implements LayoutManager{
     	if(headers.length > 0){
     		var n:int = accordion.getComponentCount();
     		var code:uint = e.keyCode;
-    		var index:int, count:int;
+    		var index:int;
 	    	if(code == Keyboard.DOWN){
 	    		setTraversingTrue();
 		    	index = accordion.getSelectedIndex();

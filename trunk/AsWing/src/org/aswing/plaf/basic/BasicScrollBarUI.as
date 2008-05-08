@@ -494,9 +494,6 @@ public class BasicScrollBarUI extends BaseComponentUI{
      * Override this method to paint diff thumb in your LAF.
      */
     private function paintThumb(thumMC:Sprite, size:IntDimension, isPressed:Boolean):void{
-    	
-    	var w:int = size.width;
-    	var h:int = size.height;
     	thumMC.graphics.clear();
     	var g:Graphics2D = new Graphics2D(thumMC.graphics);
     	if(thumbDecorator != null){

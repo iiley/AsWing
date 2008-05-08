@@ -270,7 +270,6 @@ public class FixedHeightLayoutCache extends AbstractLayoutCache{
 	
 	private function nextVisibleFHTreeStateNode(info:EnumerationInfo):TreePath{		
 		var nextIndex:int = info.nextIndex;
-		var childCount:int = info.childCount;
 		var parent:FHTreeStateNode = info.parent;
 		var retObject:TreePath;
 		if(nextIndex == -1){
@@ -490,7 +489,7 @@ public class FixedHeightLayoutCache extends AbstractLayoutCache{
 			// PENDING(scott): make sure that changedIndexs are sorted in
 			// ascending order.
 			if(changedParentNode != null && changedIndexs != null && (maxCounter = changedIndexs.length) > 0) {
-			var children:Array = e.getChildren();
+
 			var isVisible:Boolean = (changedParentNode.isVisible() &&
 				 changedParentNode.isExpanded());
 	

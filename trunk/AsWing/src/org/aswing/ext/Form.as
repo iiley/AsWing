@@ -306,7 +306,6 @@ public class Form extends JPanel implements LayoutManager{
     	var insets:Insets = getInsets();
 		var sx:int = insets.left;
 		var sy:int = insets.top;
-		var h:int = getHeight() - insets.getMarginHeight();
 		var w:int = getWidth() - insets.getMarginWidth();
     	n = getComponentCount();
     	for(i=0; i<n; i++){

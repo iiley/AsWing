@@ -165,7 +165,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	private var defaultEditorsByColumnClass:HashMap;
 	private var selectionForeground:ASColor;
 	private var selectionBackground:ASColor;
-	private var surrendersFocusOnKeystroke:Boolean;
+	//private var surrendersFocusOnKeystroke:Boolean;
 	private var columnSelectionAdjusting:Boolean;
 	private var rowSelectionAdjusting:Boolean;
 	
@@ -401,7 +401,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		if (rowHeight < 1){
 			throw new RangeError("New row height less than 1");
 		}
-		var old:int = this.rowHeight;
+		//var old:int = this.rowHeight;
 		this.rowHeight = rowHeight;
 		resizeAndRepaint();
 		//firePropertyChange("rowHeight", old, rowHeight);
@@ -425,7 +425,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @see	 #getRowMargin()
 	 */	
 	public function setRowMargin(rowMargin:int):void{
-		var old:int = this.rowMargin;
+		//var old:int = this.rowMargin;
 		this.rowMargin = rowMargin;
 		resizeAndRepaint();
 		//firePropertyChange("rowMargin", old, rowMargin);
@@ -481,7 +481,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			trace("New color is null, Ignored");
 			return;
 		}
-		var old:ASColor = this.gridColor;
+		//var old:ASColor = this.gridColor;
 		this.gridColor = gridColor;
 		//firePropertyChange("gridColor", old, gridColor);
 		repaint();
@@ -597,7 +597,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			|| mode == AUTO_RESIZE_ALL_COLUMNS)
 		{
 			if(mode != autoResizeMode){
-				var old:int = autoResizeMode;
+				//var old:int = autoResizeMode;
 				autoResizeMode = mode;
 				resizeAndRepaint();
 				if (tableHeader != null){
@@ -632,7 +632,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 */	
 	public function setAutoCreateColumnsFromModel(autoCreateColumnsFromModel:Boolean):void{
 		if (this.autoCreateColumnsFromModel != autoCreateColumnsFromModel){
-			var old:Boolean = this.autoCreateColumnsFromModel;
+			//var old:Boolean = this.autoCreateColumnsFromModel;
 			this.autoCreateColumnsFromModel = autoCreateColumnsFromModel;
 			if (autoCreateColumnsFromModel){
 				createDefaultColumnsFromModel();
@@ -875,7 +875,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	public function setCellSelectionEnabled(cellSelectionEnabled:Boolean):void{
 		setRowSelectionAllowed(cellSelectionEnabled);
 		setColumnSelectionAllowed(cellSelectionEnabled);
-		var old:Boolean = this.cellSelectionEnabled;
+		//var old:Boolean = this.cellSelectionEnabled;
 		this.cellSelectionEnabled = cellSelectionEnabled;
 		//firePropertyChange("cellSelectionEnabled", old, cellSelectionEnabled);
 	}
@@ -1065,7 +1065,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		}
 		
 		var rvTmp:Array = new Array();
-		var n:int = 0;
 		for (var i:int = iMin; i <= iMax; i++){
 			if (selectionModel.isSelectedIndex(i)){
 				rvTmp.push(i);
@@ -2103,7 +2102,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			tableRowsDeleted(e);
 			return ;
 		}
-		var modelColumn:int = e.getColumn();
 		var end:int = e.getLastRow();
 		if (end != int.MAX_VALUE){
 			revalidate();
@@ -2135,8 +2133,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		if (end < 0){
 			end = (getRowCount() - 1);
 		}
-		var deletedCount:int = ((end - start) + 1);
-		var previousRowCount:int = (getRowCount() + deletedCount);
+		//var deletedCount:int = ((end - start) + 1);
+		//var previousRowCount:int = (getRowCount() + deletedCount);
 		selectionModel.removeIndexInterval(start, end);
 		checkLeadAnchor();
 		//var rh:int = getAllRowHeight();
@@ -2212,9 +2210,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		}
 		resizeAndRepaint();
 	}
-	private function limit(i:int, a:int, b:int):int{
-		return Math.min(b, Math.max(i, a));
-	}
+	
 	/**
 	 * Invoked when the selection model of the <code>TableColumnModel</code>
 	 * is changed.
@@ -2378,7 +2374,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	}
 	
 	public function setCellEditor(anEditor:TableCellEditor):void{
-		var oldEditor:TableCellEditor = cellEditor;
+		//var oldEditor:TableCellEditor = cellEditor;
 		cellEditor = anEditor;
 		//firePropertyChange("tableCellEditor", oldEditor, anEditor);
 	}
@@ -2673,7 +2669,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		}	
 		
 		//layout each eyeable cells
-		var header:JTableHeader = getTableHeader();
 
 		var cm:TableColumnModel = getColumnModel();
 		var columnMargin:int = cm.getColumnMargin();
@@ -2771,7 +2766,6 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			clearCells();
 			return;
 		}
-		var isSame:Boolean = true;
 		for(var i:int = lastColumnCellFactories.length-1; i>=0; i--){
 			if(lastColumnCellFactories[i] != this.getCellFactory(0, i)){
 				clearCells();

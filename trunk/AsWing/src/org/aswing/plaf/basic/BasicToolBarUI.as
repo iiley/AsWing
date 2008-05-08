@@ -101,7 +101,7 @@ public class BasicToolBarUI extends BaseComponentUI{
  	private function __propertyChanged(e:PropertyChangeEvent):void{
  		if(e.getPropertyName() == "backgroundDecorator"){
  			var btn:AbstractButton = e.target as AbstractButton;
- 			var oldG:GroundDecorator = e.getOldValue();
+ 			//var oldG:GroundDecorator = e.getOldValue();
  			var newG:GroundDecorator = e.getNewValue();
  			if(!(newG is ToolBarButtonBgAdapter)){
     			var bgAdapter:ToolBarButtonBgAdapter = new ToolBarButtonBgAdapter(newG);

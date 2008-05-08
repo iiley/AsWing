@@ -84,7 +84,6 @@ public class VerticalLayout extends EmptyLayout {
 	 */
     override public function preferredLayoutSize(target:Container):IntDimension{
     	var count:int = target.getComponentCount();
-    	var insets:Insets = target.getInsets();
     	var width:int = 0;
     	var height:int = 0;
     	for(var i:int=0; i<count; i++){
@@ -116,7 +115,6 @@ public class VerticalLayout extends EmptyLayout {
     	var size:IntDimension = target.getSize();
     	var insets:Insets = target.getInsets();
     	var rd:IntRectangle = insets.getInsideBounds(size.getBounds());
-    	var ch:int = rd.height;
     	var cw:int = rd.width;
     	var x:int = rd.x;
     	var y:int = rd.y;

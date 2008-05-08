@@ -794,7 +794,6 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	 */
 	public function setFirstVisibleIndex(index:int):void{
     	var factory:ListCellFactory = getCellFactory();
-		var m:ListModel = getModel();		
 		var p:IntPoint = getViewPosition();
 		if(factory.isAllCellHasSameHeight() || factory.isShareCells()){
 			p.y = index * factory.getCellHeight();
@@ -828,8 +827,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	 * @see setFirstVisibleIndex()
 	 */
 	public function setLastVisibleIndex(index:int):void{
-    	var factory:ListCellFactory = getCellFactory();
-		var m:ListModel = getModel();		
+    	var factory:ListCellFactory = getCellFactory();	
 		var p:IntPoint = getViewPosition();
 		if(factory.isAllCellHasSameHeight() || factory.isShareCells()){
 			p.y = (index + 1) * factory.getCellHeight() - getExtentSize().height;
@@ -1053,7 +1051,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	}
 	
 	protected function removeCellFromeContainer(cell:ListCell):void{
-		cell.getCellComponent().removeFromContainer()
+		cell.getCellComponent().removeFromContainer();
 		comToCellMap.remove(cell.getCellComponent());
 		removeHandlersFromCell(cell.getCellComponent());
 	}
@@ -1073,7 +1071,6 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 			return;
 		}
 		
-		var iw:int = getWidth();
 		var i:int;
 		var cell:ListCell;
 		//create needed
@@ -1506,7 +1503,6 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     }
     
     private function layoutWhenNotShareCellsAndNotSameHeight():void{
-    	var factory:ListCellFactory = getCellFactory();
 		var m:ListModel = getModel();
 		var ir:IntRectangle = getInsets().getInsideBounds(getSize().getBounds());
     	var cellWidth:int = Math.max(ir.width, viewWidth);
@@ -1848,7 +1844,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		return event;
 	}
 	
-	private function getItemIndexByCellComponent(item:Component):int{
+	protected function getItemIndexByCellComponent(item:Component):int{
 		var cell:ListCell = comToCellMap.get(item);
 		return getItemIndexByCell(cell);
 	}

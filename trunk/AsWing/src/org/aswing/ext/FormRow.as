@@ -391,7 +391,7 @@ public class FormRow extends JPanel implements LayoutManager{
 			if(c){
 				c.setComBoundsXYWH(sx, sy, pw, ph);
 			}
-			sx += (pw + gap)
+			sx += (pw + gap);
 		}
 	}
 	

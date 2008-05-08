@@ -91,7 +91,6 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	}
 
     override public function uninstallUI(c:Component):void {
-        var frame:JFrame = JFrame(c);
         uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

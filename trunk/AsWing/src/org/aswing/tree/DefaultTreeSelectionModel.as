@@ -634,7 +634,6 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 		listSelectionModel.clearSelection();
 		if(selection != null && rowMapper != null) {
 		    var aRow:int;
-		    var validCount:int = 0;
 		    var rows:Array = rowMapper.getRowsForPaths(selection);
 			var counter:int = 0;
 			var maxCounter:int = selection.length;
@@ -698,7 +697,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 	 * @param listener the listener to be removed.
 	 */
 	public function removePropertyChangeListener(listener:Function):void{
-		removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, listener)
+		removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, listener);
 	}
 	
     /**
@@ -885,7 +884,6 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 		    var bitSet:Array = new Array();
 		    var counter:int;
 		    var pathCount:int = paths.length;
-		    var anIndex:int;
 		    var min:int = -1;
 		    var validCount:int = 0;
 		    var tempPath:Array = new Array(1);

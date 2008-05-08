@@ -289,7 +289,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		var isSelected:Boolean = shouldPaintSelected();
 		
 		// Paint the Check
-		paintCheckIcon(b, useCheckAndArrow() ? checkIcon : null, 
+		paintCheckIcon(b, useCheckAndArrow(), 
 			g, checkIconRect.x, checkIconRect.y);
 
 		var icon:Icon = null;
@@ -365,7 +365,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		}
 
 		// Paint the Arrow
-		paintArrowIcon(b, useCheckAndArrow() ? arrowIcon : null, 
+		paintArrowIcon(b, useCheckAndArrow(), 
 			g, arrowIconRect.x, arrowIconRect.y);
 	 }
 	
@@ -437,7 +437,6 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
     }	
 	
 	protected function paintMenuBackground(menuItem:JMenuItem, g:Graphics2D, r:IntRectangle, bgColor:ASColor):void {
-		var model:ButtonModel = menuItem.getModel();
 		var color:ASColor = bgColor;
 		if(menuItem.isOpaque()) {
 			if (!shouldPaintSelected()) {

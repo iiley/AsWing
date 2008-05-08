@@ -62,11 +62,11 @@ public class Graphics2D {
 		this.target = target;
 	}
 	
-	private function setTarget(target:Graphics):void{
+	protected function setTarget(target:Graphics):void{
 		this.target = target;
 	}
 	
-	private function dispose():void{
+	protected function dispose():void{
 		target = null;
 	}
 	
@@ -625,7 +625,7 @@ public class Graphics2D {
 	 * @see #fillRoundRect()
 	 */
 	public function roundRect(x:Number,y:Number,width:Number,height:Number, radius:Number, topRightRadius:Number=-1, bottomLeftRadius:Number=-1, bottomRightRadius:Number=-1):void{
-		var tlR:Number = radius;
+		//var tlR:Number = radius;
 		if(topRightRadius == -1) topRightRadius = radius;
 		if(bottomLeftRadius == -1) bottomLeftRadius = radius;
 		if(bottomRightRadius == -1) bottomRightRadius = radius;

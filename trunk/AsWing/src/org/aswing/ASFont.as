@@ -38,7 +38,7 @@ public class ASFont{
 		this.italic = italic;
 		this.underline = underline;
 		if(embedFontsOrAdvancedPros is ASFontAdvProperties){
-			advancedProperties = embedFontsOrAdvancedPros;
+			advancedProperties = embedFontsOrAdvancedPros as ASFontAdvProperties;
 		}else{
 			advancedProperties = new ASFontAdvProperties(embedFontsOrAdvancedPros==true);
 		}

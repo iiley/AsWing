@@ -188,8 +188,6 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
     	var lc:Component = sp.getLeftComponent();
     	var rc:Component = sp.getRightComponent();
     	var dvSize:int = getDividerSize();
-    	var lcSize:int = 0;
-    	var rcSize:int = 0;
     	location = Math.floor(location);
     	if(location < 0){
     		//collapse left
@@ -447,7 +445,6 @@ public class BasicSplitPaneUI extends SplitPaneUI implements LayoutManager{
 			if(!sp.contains(dragRepresentationMC)){
 				sp.addChild(dragRepresentationMC);
 			}
-			var mouseP:IntPoint = sp.getMousePosition();
 			var newGlobalPos:IntPoint = startDividerPos.clone();
 			if(isVertical()){
 				newGlobalPos.y += getCurrentMovedDistance();

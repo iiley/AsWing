@@ -286,10 +286,10 @@ public class DefaultTableColumnModel implements TableColumnModel{
 		var oldModel:ListSelectionModel = selectionModel;
 		if (newModel != oldModel){
 			if (oldModel != null){
-				oldModel.removeListSelectionListener(__selectionChanged)
+				oldModel.removeListSelectionListener(__selectionChanged);
 			}
 			selectionModel = newModel;
-			newModel.addListSelectionListener(__selectionChanged)
+			newModel.addListSelectionListener(__selectionChanged);
 			checkLeadAnchor();
 		}
 	}

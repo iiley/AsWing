@@ -89,9 +89,9 @@ public class JLoadPane extends AssetPane{
 		if(url == null){
 			urlRequest = null;
 		}else if(url is URLRequest){
-			urlRequest = url;
+			urlRequest = url as URLRequest;
 		}else{
-			urlRequest = new URLRequest(url);
+			urlRequest = new URLRequest(url as String);
 		}
 		this.context = context;
 		regularAssetContainer = assetContainer;

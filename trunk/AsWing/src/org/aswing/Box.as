@@ -23,7 +23,7 @@ public class Box extends JPanel{
      * @param gap (optional)the gap between each component, default 0
 	 * @see org.aswing.SoftBoxLayout
 	 */
-	public function Box(axis:int=BoxLayout.X_AXIS, gap:int=0){
+	public function Box(axis:int=0, gap:int=0){
 		super();
 		setName("Box");
 		setLayout(new BoxLayout(axis, gap));

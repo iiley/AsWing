@@ -296,9 +296,6 @@ public class JMenu extends JMenuItem implements MenuElement{
 		}
 	}
 	
-	private function __menuCreated():void{
-	}
-	
 	//--------------------------------
 	
     override public function setInUse(b:Boolean):void{

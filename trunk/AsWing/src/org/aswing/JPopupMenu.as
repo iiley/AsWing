@@ -27,7 +27,7 @@ import org.aswing.util.*;
  */
 public class JPopupMenu extends Container implements MenuElement{
 		
-	private static var popupMenuMouseDownListening:Boolean = false;;
+	private static var popupMenuMouseDownListening:Boolean = false;
 	private static var showingMenuPopups:HashSet = new HashSet();
 	
 	protected var selectionModel:SingleSelectionModel;
@@ -219,7 +219,7 @@ public class JPopupMenu extends Container implements MenuElement{
 	 *		menu is displayed
 	 */
 	public function setInvoker(invoker:Component):void {
-		var oldInvoker:Component = this.invoker;
+		//var oldInvoker:Component = this.invoker;
 		this.invoker = invoker;
 		popup.changeOwner(AsWingUtils.getOwnerAncestor(invoker));
 //		if ((oldInvoker != this.invoker) && (ui != null)) {

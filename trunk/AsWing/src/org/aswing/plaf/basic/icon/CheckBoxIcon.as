@@ -59,8 +59,6 @@ public class CheckBoxIcon implements Icon, UIResource
 		var h:Number = getIconHeight(c);
 		var cx:Number = x + w/2;
 		var cy:Number = y + h/2;
-		var xr:Number = w/2;
-		var yr:Number = h/2;
 				
 		var brush:SolidBrush = new SolidBrush(darkShadow);
 		g.fillRectangle(brush,x, y, w, h);

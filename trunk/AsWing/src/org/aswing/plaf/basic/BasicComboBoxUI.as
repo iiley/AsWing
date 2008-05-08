@@ -208,7 +208,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	var visibleBounds:IntRectangle = AsWingUtils.getVisibleMaximizedBounds(popupPane.parent);
     	var distToBottom:int = visibleBounds.y + visibleBounds.height - downDest.y - popupPaneHeight;
     	var distToTop:int = upDest.y - visibleBounds.y;
-    	var dest:IntPoint;
     	var gp:IntPoint = box.getGlobalLocation();
     	if(distToBottom > 0 || (distToBottom < 0 && distToTop < 0 && distToBottom > distToTop)){
     		moveDir = 1;
@@ -247,7 +246,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     		speed = popupPane.height - scrollRect.height;
 			popupTimer.stop();
     	}
-		var p:IntPoint = popupPane.getGlobalLocation();
 		if(moveDir > 0){
 			scrollRect.y -= speed;
 			scrollRect.height += speed;
@@ -355,7 +353,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	var td:IntDimension = box.getSize();
 		var insets:Insets = box.getInsets();
 		var top:int = insets.top;
-		var bottom:int = td.height - insets.bottom;
 		var left:int = insets.left;
 		var right:int = td.width - insets.right;
 		
