@@ -55,7 +55,7 @@ public class ArrowIcon implements Icon, UIResource
 	}
 	
 	protected function nextPoint(p:Point, dir:Number, dis:Number):Point{
-		return new Point(p.x+Math.cos(dir)*dis, p.y+Math.sin(dir)*dis)
+		return new Point(p.x+Math.cos(dir)*dis, p.y+Math.sin(dir)*dis);
 	}
 	
 	public function getIconHeight(c:Component):int

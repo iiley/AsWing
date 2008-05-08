@@ -338,7 +338,6 @@ public class DragManager{
 	private static function drop():void{
 		dragProxyMC.stopDrag();
 		var globalPos:IntPoint = AsWingUtils.getStageMousePosition();
-		var dropC:Component = getCurrentDropTargetDropTriggerComponent();
 		var stage:Stage = curStage;
 		stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
 		stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);

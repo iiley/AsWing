@@ -99,7 +99,7 @@ public class Pen implements IPen{
 	 * 
 	 */
 	public function setCaps(caps:String):void{
-		this._caps=caps
+		this._caps=caps;
 	}
 	
 	public function getJoints():String{
@@ -110,7 +110,7 @@ public class Pen implements IPen{
 	 * 
 	 */
 	public function setJoints(joints:String):void{
-		this._joints=joints
+		this._joints=joints;
 	}
 	
 	public function getMiterLimit():Number{

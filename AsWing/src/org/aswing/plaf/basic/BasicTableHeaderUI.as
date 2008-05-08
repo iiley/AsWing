@@ -139,7 +139,6 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		
 		var p:IntPoint = header.getMousePosition();
 		//First find which header cell was hit
-		var columnModel:TableColumnModel = header.getColumnModel();
 		var index:int = header.columnAtPoint(p);
 		if(index >= 0){
 			//The last 3 pixels + 3 pixels of next column are for resizing
@@ -170,7 +169,6 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 		var mouseX:int = header.getMousePosition().x;
 		var resizingColumn:TableColumn = header.getResizingColumn();
 		if (resizingColumn != null) {
-			var oldWidth:int = resizingColumn.getWidth();
 			var newWidth:int;
 			newWidth = mouseX - mouseXOffset;
 			resizingColumn.setWidth(newWidth);

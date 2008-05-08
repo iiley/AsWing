@@ -1,14 +1,11 @@
 /*
  Copyright aswing.org, see the LICENCE.txt.
 */
-package org.aswing.plaf.basic { 
-import flash.display.MovieClip;
+package org.aswing.plaf.basic {
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.geom.Matrix;
-import flash.text.TextField;
-import flash.ui.Mouse;
 
 import org.aswing.*;
 import org.aswing.border.BevelBorder;
@@ -19,7 +16,7 @@ import org.aswing.colorchooser.VerticalLayout;
 import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
-import org.aswing.plaf.BaseComponentUI;
+import org.aswing.plaf.BaseComponentUI; 
 
 /**
  * @private
@@ -42,9 +39,7 @@ public class BasicColorMixerUI extends BaseComponentUI {
 	private var SAdjuster:JAdjuster;
 	private var LAdjuster:JAdjuster;
 	private var hexText:JTextField;
-	
-	private var colorMixerListener:Object;
-		
+			
 	public function BasicColorMixerUI(){
 		super();		
 	}
@@ -272,26 +267,17 @@ public class BasicColorMixerUI extends BaseComponentUI {
 		LAdjusterUpdating = false;
 	}
 	
-	private function getRFromRAdjuster():Number{
-		return RAdjuster.getValue();
-	}
 	private var RAdjusterUpdating:Boolean;
 	private function updateRAdjusterWithL(v:Number):void{
 		RAdjusterUpdating = true;
 		RAdjuster.setValue(v);
 		RAdjusterUpdating = false;
 	}
-	private function getGFromGAdjuster():Number{
-		return GAdjuster.getValue();
-	}
 	private var GAdjusterUpdating:Boolean;
 	private function updateGAdjusterWithG(v:Number):void{
 		GAdjusterUpdating = true;
 		GAdjuster.setValue(v);
 		GAdjusterUpdating = false;
-	}
-	private function getBFromBAdjuster():Number{
-		return BAdjuster.getValue();
 	}
 	private var BAdjusterUpdating:Boolean;
 	private function updateBAdjusterWithB(v:Number):void{
@@ -593,21 +579,12 @@ public class BasicColorMixerUI extends BaseComponentUI {
 	}
 		
 	private function updateRGBAdjustersWithColor(color:ASColor):void{
-		var rr:Number = color.getRed();
-		var gg:Number = color.getGreen();
-		var bb:Number = color.getBlue();
+
 		updateRAdjusterWithL(color.getRed());
 		updateGAdjusterWithG(color.getGreen());
 		updateBAdjusterWithB(color.getBlue());
 	}
 	
-	private function updateHLSAdjustersWithColor(color:ASColor):void{
-		var hls:Object = getHLS(color);
-		var hh:Number = hls.h;
-		var ss:Number = hls.s;
-		var ll:Number = hls.l;		
-		updateHLSAdjustersWithHLS(hh, ll, ss);
-	}
 	private function updateHLSAdjustersWithHLS(h:Number, l:Number, s:Number):void{
 		updateHAdjusterWithH(h);
 		updateLAdjusterWithL(l);
@@ -654,9 +631,9 @@ public class BasicColorMixerUI extends BaseComponentUI {
 	private function getLColorsStartY():Number{
 		return getMCsMarginSize() + getColorRectMargin();
 	}
-	private function getLColorsStartX():Number{
-		return getHSSize().width + getMCsMarginSize() + getColorRectMargin()*2 + getHS2LGap();
-	}	
+	//private function getLColorsStartX():Number{
+	//	return getHSSize().width + getMCsMarginSize() + getColorRectMargin()*2 + getHS2LGap();
+	//}	
 	
 	private function paintHSMC():void{
 		HSMC.graphics.clear();

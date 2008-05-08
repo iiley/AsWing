@@ -64,7 +64,6 @@ public class CaveBorder extends DecorateBorder{
     	var y2:Number = y1 + h;
     	
     	var textR:IntRectangle = new IntRectangle(bounds.x+bounds.width/2, bounds.y, 0, 0);
-    	var viewR:IntRectangle = new IntRectangle(bounds.x, bounds.y, bounds.width, bounds.height);
     	
     	var pen:Pen = new Pen(lineColor, lineThickness);
     	if(round <= 0){

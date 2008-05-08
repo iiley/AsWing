@@ -84,7 +84,7 @@ public class BoxLayout extends EmptyLayout
      * @param get new gap
      */	
     public function setGap(gap:int=0):void {
-    	this.gap = gap
+    	this.gap = gap;
     }
     
     /**

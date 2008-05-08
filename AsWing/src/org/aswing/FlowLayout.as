@@ -256,7 +256,6 @@ public class FlowLayout extends EmptyLayout{
 		for (var i:int = rowStart ; i < rowEnd ; i++) {
 	    	var m:Component = target.getComponent(i);
 	    	var d:IntDimension = m.getSize();
-	    	var td:IntDimension = target.getSize();
 	    	if (m.isVisible()) {
         	    m.setLocation(new IntPoint(x, y + (height - d.height) / 2));
                 x += d.width + hgap;
@@ -277,7 +276,6 @@ public class FlowLayout extends EmptyLayout{
 		var insets:Insets = target.getInsets();
 	    var td:IntDimension = target.getSize();
 	    var marginW:int = margin ? hgap*2 : 0;
-	    var marginH:int = margin ? vgap*2 : 0;
 		var maxwidth:int = td.width - (insets.left + insets.right + marginW);
 		var nmembers:int = target.getComponentCount();
 		var x:int = 0;

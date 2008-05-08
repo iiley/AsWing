@@ -22,7 +22,7 @@ public class DepthManager{
 		var parent:DisplayObjectContainer = mc.parent;
 		if(parent == null){ return; }
 		if(parent.getChildIndex(mc) != 0){
-			parent.setChildIndex(mc, 0)
+			parent.setChildIndex(mc, 0);
 		}
 	}
 	

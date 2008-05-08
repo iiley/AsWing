@@ -28,7 +28,7 @@ public class JRootPane extends Container{
 	private var triggerProxy:InteractiveObject;
 	
 	//TODO imp
-	private var menuBar:*;
+	//private var menuBar:*;
 	
 	public function JRootPane(){
 		super();

@@ -722,9 +722,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		
 		positRendererPaneX(x);
 		
-		var cx:int = 0 - x;
 		var cy:int = startY;
-		var maxY:int = b.height;
 		
 		var showBounds:IntRectangle = b.clone();
 		showBounds.y = y;
@@ -734,7 +732,6 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		var paintingEnumerator:Array = treeState.getVisiblePathsFrom(initialPath, showRowCount);
 		if(paintingEnumerator == null) paintingEnumerator = [];
 		var row:int = treeState.getRowContainingYLocation(showBounds.y);
-		var endY:int = showBounds.y + showBounds.height;
 		
 		var expanded:Boolean;
 		var leaf:Boolean;
@@ -750,7 +747,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 			var path:TreePath = paintingEnumerator[i];
 			var cellCom:Component = cell.getCellComponent();
 			if(i < paintingN){
-				leaf = treeModel.isLeaf(path.getLastPathComponent())
+				leaf = treeModel.isLeaf(path.getLastPathComponent());
 				if(leaf){
 					expanded = false;
 				}else {

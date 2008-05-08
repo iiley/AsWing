@@ -154,7 +154,6 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	protected function countTrackRect(b:IntRectangle):void{
 		var thumbSize:IntDimension = getThumbSize();
 		var h_margin:int, v_margin:int;
-		var drawRect:IntRectangle;
 		if(isVertical()){
 			v_margin = Math.ceil(thumbSize.height/2.0);
 			h_margin = thumbSize.width/3-1;
@@ -431,10 +430,6 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 			return;
 		}		
 		var tickBounds:IntRectangle = drawRect;
-		var i:int;
-		var w:int = tickBounds.width;
-		var h:int = tickBounds.height;
-		var centerEffect:int, tickHeight:int;
 		var majT:int = slider.getMajorTickSpacing();
 		var minT:int = slider.getMinorTickSpacing();
 		var max:int = slider.getMaximum();
@@ -451,7 +446,6 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 			yPos = 0;
 
 			if ( minT > 0 ) {
-				var offset:int = 0;
 				while ( value <= max ) {
 					yPos = yPositionForValue( value );
 					paintMinorTickForVertSlider( g, tickBounds, xPos, yPos );
@@ -708,9 +702,8 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 		var mp:IntPoint = slider.getMousePosition();
 		var mx:int = mp.x;
 		var my:int = mp.y;
-		var thumbR:IntRectangle = thumbRect;
 		
-		var thumbMin:int, thumbMax:int, thumbPos:int, minPos:int, maxPos:int;
+		var thumbPos:int, minPos:int, maxPos:int;
 		var halfThumbLength:int;
 		var sliderValue:int;
 		var paintThumbRect:IntRectangle = thumbRect.clone();

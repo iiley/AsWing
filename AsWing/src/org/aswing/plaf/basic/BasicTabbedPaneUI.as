@@ -548,7 +548,6 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		tabBarBounds.y = contentBounds.y;
 		tabBarBounds.width = Math.min(tabBarBounds.width, contentBounds.width);
 		tabBarBounds.height = Math.min(tabBarBounds.height, contentBounds.height);
-		var tabMargin:Insets = tabbedPane.getMargin();
 		var transformedTabMargin:Insets = getTransformedMargin();
 		var placement:int = tabbedPane.getTabPlacement();
 		if(placement == JTabbedPane.LEFT){

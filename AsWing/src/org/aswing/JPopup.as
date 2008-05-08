@@ -464,19 +464,7 @@ public class JPopup extends JRootPane{
 	}
 	
 	//--------------------------------------------------------
-	
-	private function __popupOpenAddListenerStage(e:Event):void{
-		if(stage){
-			stage.addEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false, 0, true);
-		}
-	}
-	
-	private function __popupOpenRemoveListenerStage(e:Event):void{
-		if(stage){
-			stage.removeEventListener(Event.RESIZE, __resetModelMCWhenStageResized, false);
-		}
-	}
-	
+		
 	private function __resetModelMCWhenStageResized(e:Event):void{
 		if(isVisible()){
 			resetModalMC();

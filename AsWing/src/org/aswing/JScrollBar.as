@@ -37,9 +37,7 @@ public class JScrollBar extends Component implements Orientable{
      * Vertical orientation.
      */
     public static const VERTICAL:int   = AsWingConstants.VERTICAL;
-	       
-	private var modelListener:Object;
-	
+	       	
 	private var model:BoundedRangeModel;
 	private var orientation:Number;
 	private var unitIncrement:Number;
@@ -117,7 +115,6 @@ public class JScrollBar extends Component implements Orientable{
 	 * @param the data model
 	 */
 	public function setModel(newModel:BoundedRangeModel):void{
-		var oldModel:BoundedRangeModel = model;
 		if (model != null){
 			model.removeStateListener(__modelStateListener);
 		}

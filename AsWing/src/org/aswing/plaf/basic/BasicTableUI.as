@@ -251,7 +251,6 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		damagedArea.setLocation(damagedArea.getLocation().move(startX, startY));
 		
 		var pen:Pen = new Pen(table.getGridColor(), 1);
-		var brush:IBrush = new SolidBrush(table.getSelectionBackground());
 		if (table.getShowHorizontalLines()) {
 			var x1:Number = damagedArea.x + 0.5;
 			var x2:Number = damagedArea.x + damagedArea.width - 1;
@@ -330,13 +329,6 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	private function moveFocus(rDir:Number, cDir:Number, e:KeyboardEvent):void{
 		var ctrl:Boolean = e.ctrlKey;
 		var shift:Boolean = e.shiftKey;
-		var rm:ListSelectionModel = table.getSelectionModel();
-		var cm:ListSelectionModel = table.getColumnModel().getSelectionModel();
-		var anchorRow:Number = rm.getAnchorSelectionIndex();
-		var anchorCol:Number = cm.getAnchorSelectionIndex();
-		
-		var oldRow:Number = restrictRow(focusRow);
-		var oldColumn:Number = restrictColumn(focusColumn);
 		focusRow += rDir;
 		focusRow = restrictRow(focusRow);
 		focusColumn += cDir;

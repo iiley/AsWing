@@ -52,7 +52,7 @@ public class Arrow implements Icon{
 	}
 	
 	protected function nextPoint(p:Point, dir:Number, dis:Number):Point{
-		return new Point(p.x+Math.cos(dir)*dis, p.y+Math.sin(dir)*dis)
+		return new Point(p.x+Math.cos(dir)*dis, p.y+Math.sin(dir)*dis);
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{

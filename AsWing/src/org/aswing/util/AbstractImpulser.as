@@ -4,7 +4,7 @@
 package org.aswing.util{
 	
  
-import flash.events.EventDispatcher
+import flash.events.EventDispatcher;
 import org.aswing.event.AWEvent;
 
 /**

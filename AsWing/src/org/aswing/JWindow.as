@@ -179,7 +179,6 @@ public class JWindow extends JPopup{
 	 * @see #hide()
 	 */	
 	override public function setVisible(v:Boolean):void{
-		var st:Stage = stage;
 		super.setVisible(v);
 		if(v && isActivable()){
 			setActive(true);

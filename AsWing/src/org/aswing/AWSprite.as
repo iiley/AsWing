@@ -382,7 +382,7 @@ public class AWSprite extends Sprite
 	public function setClipMasked(m:Boolean):void{
 		if(m != clipMasked){
 			clipMasked = m;
-			setUsingBitmap(cacheAsBitmap && clipMasked)
+			setUsingBitmap(cacheAsBitmap && clipMasked);
 			if(clipMasked){
 				checkCreateMaskShape();
 				if(maskShape.parent != this){

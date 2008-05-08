@@ -6,7 +6,6 @@ package org.aswing
 {
 import org.aswing.event.*;
 import org.aswing.util.Timer;
-import org.aswing.event.*;
 import flash.events.Event;
 import org.aswing.plaf.basic.BasicProgressBarUI;
 
@@ -117,7 +116,6 @@ public class JProgressBar extends Component implements Orientable{
      * @param  newModel the <code>BoundedRangeModel</code> to use
      */
 	public function setModel(newModel:BoundedRangeModel):void {
-		var oldModel:BoundedRangeModel = model;
 		if (model != null){
 			model.removeStateListener(__onModelStateChanged);
 		}

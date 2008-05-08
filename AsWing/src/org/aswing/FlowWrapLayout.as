@@ -83,7 +83,6 @@ public class FlowWrapLayout extends FlowLayout{
     override public function preferredLayoutSize(target:Container):IntDimension {
 		var dim:IntDimension = new IntDimension(0, 0);
 		var nmembers:int = target.getComponentCount();
-		var wrapX:int = getPreferWidth() - (isMargin() ? hgap*2 : 0);
 		var x:int = 0;
 		var rowHeight:int = 0;
 		var visibleNum:int = 0;

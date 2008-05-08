@@ -58,11 +58,11 @@ public class ViewportLayout extends EmptyLayout{
 		 * vpSize which we're converting.
 		 */
 	
-		var insets:Insets = vp.getInsets();
+		//var insets:Insets = vp.getInsets();
 		//var viewPrefSize:IntDimension = view.getPreferredSize();
-		var vpSize:IntDimension = vp.getSize();
+		//var vpSize:IntDimension = vp.getSize();
 		var extentSize:IntDimension = vp.getExtentSize();
-		var showBounds:IntRectangle = new IntRectangle(insets.left, insets.top, extentSize.width, extentSize.height);
+		//var showBounds:IntRectangle = new IntRectangle(insets.left, insets.top, extentSize.width, extentSize.height);
 
 		var viewSize:IntDimension = vp.getViewSize();
 	

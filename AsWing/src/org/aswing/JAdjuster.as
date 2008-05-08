@@ -57,7 +57,6 @@ public class JAdjuster extends Component implements Orientable{
 		return value;
 	};
 		
-	private var modelListener:Object;
 	private var model:BoundedRangeModel;
 	private var columns:int;
 	private var orientation:int;
@@ -178,7 +177,6 @@ public class JAdjuster extends Component implements Orientable{
 	 * @param the data model
 	 */
 	public function setModel(newModel:BoundedRangeModel):void{
-		var oldModel:BoundedRangeModel = model;
 		if (model != null){
 			model.removeStateListener(__onModelStateChanged);
 		}

@@ -2098,7 +2098,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
     /**
      * Expands the root path, assuming the current TreeModel has been set.
      */
-    private function expandRoot():void {
+    protected function expandRoot():void {
 		var	model:TreeModel = getModel();
 	
 		if(model != null && model.getRoot() != null) {
@@ -2112,7 +2112,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * the root, this will return an empty array.  If <code>path</code>
      * is <code>null</code>, <code>null</code> will be returned.
      */
-    private function getModelIndexsForPath(path:TreePath):Array {
+    protected function getModelIndexsForPath(path:TreePath):Array {
 		if(path != null) {
 		    var model:TreeModel = getModel();
 		    var count:int = path.getPathCount();
@@ -2137,7 +2137,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * or the <code>TreeModel</code> is <code>null</code>, it will return
      * <code>null</code>.
      */
-    private function getPathForIndexs(indexs:Array):TreePath {
+    protected function getPathForIndexs(indexs:Array):TreePath {
 		if(indexs == null)
 		    return null;
 	
@@ -2169,7 +2169,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
      * is marked collapsed.<p>
      * This will fail if a <code>TreeWillExpandListener</code> vetos it.
      */
-    private function setExpandedState(path:TreePath, state:Boolean):void {
+    protected function setExpandedState(path:TreePath, state:Boolean):void {
 		if(path != null) {
 		    // Make sure all parents of path are expanded.
 		    var stack:Stack;
@@ -2195,7 +2195,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 				    if(!isExpanded(parentPath)) {
 						try {
 						    fireTreeWillExpand(parentPath);
-						} catch (eve:Error) {
+						} catch (eve1:Error) {
 						    // Expand vetoed!
 						    return;
 						}
@@ -2217,7 +2217,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 				if(cValue != null && cValue==true) {
 				    try {
 						fireTreeWillCollapse(path);
-				    }catch (eve:Error) {
+				    }catch (eve2:Error) {
 						return;
 				    }
 				    expandedState.put(path, false);
@@ -2234,7 +2234,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 				if(cValue == null || !(cValue==true)) {
 				    try {
 						fireTreeWillExpand(path);
-				    }catch (eve:Error) {
+				    }catch (eve3:Error) {
 						return;
 				    }
 				    expandedState.put(path, true);

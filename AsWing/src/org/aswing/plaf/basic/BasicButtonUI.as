@@ -201,7 +201,6 @@ public class BasicButtonUI extends BaseComponentUI{
      */
     protected function paintText(b:AbstractButton, textRect:IntRectangle, text:String):void{
     	b.bringToTop(textField);
-    	var model:ButtonModel = b.getModel();
     	var font:ASFont = b.getFont();
     	
 		if(textField.text != text){

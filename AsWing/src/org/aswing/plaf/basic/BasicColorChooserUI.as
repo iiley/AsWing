@@ -27,7 +27,6 @@ public class BasicColorChooserUI extends BaseComponentUI {
 	private var chooser:JColorChooser;
 	private var previewColorLabel:JLabel;
 	private var previewColorIcon:PreviewColorIcon;
-	private var modelListener:Object;
 	
 	public function BasicColorChooserUI(){
 		super();		

@@ -489,14 +489,14 @@ public class AsWingUtils{
     /**
      * Not include the gutters
      */
-    private static function inter_stringWidth(font:ASFont, ch:String):Number{
+    /*private static function inter_stringWidth(font:ASFont, ch:String):Number{
     	TEXT_FIELD.text = ch;
     	if(TEXT_FONT != font){
     		font.apply(TEXT_FIELD);
     		TEXT_FONT = font;
     	}
         return TEXT_FIELD.textWidth;
-    }
+    }*/
     
     private static function inter_computeStringSize(font:ASFont, str:String):IntDimension{
     	TEXT_FIELD.text = str;
@@ -516,14 +516,6 @@ public class AsWingUtils{
         return TEXT_FIELD.width;
     }
     
-    private static function inter_computeStringHeight(font:ASFont, str:String):Number{
-    	TEXT_FIELD.text = str;
-    	if(TEXT_FONT != font){
-    		font.apply(TEXT_FIELD);
-    		TEXT_FONT = font;
-    	}
-        return TEXT_FIELD.height;
-    }
     
     private static var TEXT_FIELD_EXT:TextField = new TextField();
     {
@@ -599,7 +591,6 @@ public class AsWingUtils{
             }
             return text;
         }else{
-            var nChars:Number;
             var lastWidth:Number = totalWidth;
             
             

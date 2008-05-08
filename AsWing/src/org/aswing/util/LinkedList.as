@@ -19,10 +19,6 @@ public class LinkedList implements List
 	 * the tail node in this list
 	 */
 	private var tail:ListNode;
-	/**
-	 * the current node in this list
-	 */
-	private var current:ListNode;
 	
 	/**
 	 * the number of nodes in this list

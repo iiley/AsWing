@@ -156,8 +156,6 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 	 */
 	public function getRowToModelIndex(index:int):int {
 	    var child:FHTreeStateNode;
-	    var lastRow:int = getRow() + 1;
-	    var retValue:int = lastRow;
 
 	    // This too could be a binary search!
 	    var counter:int = 0;
@@ -484,7 +482,7 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 	 * Adds newChild to this nodes children at the appropriate location.
 	 * The location is determined from the childIndex of newChild.
 	 */
-	private function addNode(newChild:FHTreeStateNode):void {
+	/*private function addNode(newChild:FHTreeStateNode):void {
 	    var added:Boolean = false;
 	    var childIndex:int = newChild.getChildIndex();
 
@@ -499,7 +497,7 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 	    }
 	    if(!added)
 			append(newChild);
-	}
+	}*/
 
 	/**
 	 * Removes the child at <code>modelIndex</code>.
@@ -703,7 +701,7 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 	 * of children that the child at <code>stopIndex</code> might
 	 * have.
 	 */
-	private function getNumExpandedChildrenTo(stopIndex:int):int {
+	/*private function getNumExpandedChildrenTo(stopIndex:int):int {
 	    var aChild:FHTreeStateNode;
 	    var retCount:int = stopIndex + 1;
 		var counter:int = 0;
@@ -718,12 +716,12 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 			}
 	    }
 	    return retCount;
-	}
+	}*/
 
 	/**
 	 * Messaged when this node either expands or collapses.
 	 */
-	private function didAdjustTree():void {
-	}
+	//private function didAdjustTree():void {
+	//}
 }
 }

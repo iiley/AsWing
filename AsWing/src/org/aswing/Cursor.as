@@ -2,10 +2,8 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing{
+package org.aswing {
 
-import flash.display.Sprite;
-import org.aswing.graphics.*;
 import flash.display.*;
 
 /**

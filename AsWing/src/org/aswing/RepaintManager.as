@@ -145,7 +145,7 @@ public class RepaintManager{
 			}
 		}
 		
-		var root:Component = null;
+		//var root:Component = null;
 		//TODO: check if the root here is needed, if not delte the var declar
 		for(i = validateRoot; i!=null; i=i.getParent()){
 			if(!i.isVisible()){

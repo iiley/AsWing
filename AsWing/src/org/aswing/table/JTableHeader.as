@@ -104,7 +104,7 @@ public class JTableHeader extends Container implements TableColumnModelListener{
 	 * @param table the new table
 	 */
 	public function setTable(table:JTable):void{
-		var old:JTable = this.table;
+		//var old:JTable = this.table;
 		this.table = table;
 		//firePropertyChange("table", old, table);
 	}
@@ -133,7 +133,7 @@ public class JTableHeader extends Container implements TableColumnModelListener{
 			trace("Error : New row height less than 1");
 			throw new Error("New row height less than 1");
 		}
-		var old:int = this.rowHeight;
+		//var old:int = this.rowHeight;
 		this.rowHeight = rowHeight;
 		resizeAndRepaint();
 		//firePropertyChange("rowHeight", old, rowHeight);
@@ -157,7 +157,7 @@ public class JTableHeader extends Container implements TableColumnModelListener{
 	 * @see	#getReorderingAllowed()
 	 */	
 	public function setReorderingAllowed(reorderingAllowed:Boolean):void{
-		var old:Boolean = this.reorderingAllowed;
+		//var old:Boolean = this.reorderingAllowed;
 		this.reorderingAllowed = reorderingAllowed;
 		//firePropertyChange("reorderingAllowed", old, reorderingAllowed);
 	}
@@ -181,7 +181,7 @@ public class JTableHeader extends Container implements TableColumnModelListener{
 	 * @see	#getResizingAllowed()   
 	 */	
 	public function setResizingAllowed(resizingAllowed:Boolean):void{
-		var old:Boolean = this.resizingAllowed;
+		//var old:Boolean = this.resizingAllowed;
 		this.resizingAllowed = resizingAllowed;
 		//firePropertyChange("resizingAllowed", old, resizingAllowed);
 	}
@@ -373,14 +373,6 @@ public class JTableHeader extends Container implements TableColumnModelListener{
 	 */	
 	public function setResizingColumn(aColumn:TableColumn):void{
 		resizingColumn = aColumn;
-	}
-	
-	private function getWidthInRightToLeft():int{
-		if ((table != null) && (table.getAutoResizeMode() != JTable.AUTO_RESIZE_OFF))
-		{
-			return table.getWidth();
-		}
-		return super.getWidth();
 	}
 }
 }
