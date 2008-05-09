@@ -1951,7 +1951,7 @@ public class Component extends AWSprite{
 	 */
 	protected function invalidateTree():void{
     	valid = false;
-    	var par:Container = getParent();
+    	var par:Component = getParent();
     	if(par != null && par.isValid()){
     		par.invalidateTree();
     	}
