@@ -120,6 +120,7 @@ setPreferredWith(-1) to make it return to be auto counted.
 Same to maximim and miminum sizes.
 
 Make JTextArea avoid scroll change when make focus
+Improved JPopupMenu popup location
 
 added DefaultsDecorator to make ComponentUI default change behavor correcter
 now
