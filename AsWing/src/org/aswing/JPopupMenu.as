@@ -181,13 +181,7 @@ public class JPopupMenu extends Container implements MenuElement{
 			// This is a popup menu with MenuElement children,
 			// set selection path before popping up!
 			if (isPopupMenu()) {
-				var subEles:Array = getSubElements();
-				if (subEles.length > 0) {
-					var me:Array = [this, subEles[0]];
-					MenuSelectionManager.defaultManager().setSelectedPath(stage, me, true);
-				} else {
-					MenuSelectionManager.defaultManager().setSelectedPath(stage, [this], true);
-				}
+				MenuSelectionManager.defaultManager().setSelectedPath(stage, [this], true);
 			}
 		}
 		if(b){
