@@ -734,7 +734,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 			"Menu.useMenuBarBackgroundForTopLevel", true, 
 			"Menu.menuPopupOffsetX", 0, 
 			"Menu.menuPopupOffsetY", 0, 
-			"Menu.submenuPopupOffsetX", 0, 
+			"Menu.submenuPopupOffsetX", -4, 
 			"Menu.submenuPopupOffsetY", 0
 	    ];
 	    table.putDefaults(comDefaults);
