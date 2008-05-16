@@ -275,8 +275,20 @@ public class JMenu extends JMenuItem implements MenuElement{
 		var p:IntPoint;
 		if(getParent() is JPopupMenu){
 			p = new IntPoint(getWidth(), 0);
-			p.x += getUIPropertyNumber("Menu.submenuPopupOffsetX");
-			p.y += getUIPropertyNumber("Menu.submenuPopupOffsetY");
+			var ofx:int = getUIPropertyNumber("Menu.submenuPopupOffsetX");
+			var ofy:int = getUIPropertyNumber("Menu.submenuPopupOffsetY");
+			p.x += ofx;
+			p.y += ofy;
+			if(stage){
+				var rect:IntRectangle = AsWingUtils.getVisibleMaximizedBounds(this);
+				var popupSize:IntDimension = getPopupMenu().getPreferredSize();
+				if(p.x + popupSize.width > rect.x + rect.width){
+					p.x = -ofx - popupSize.width;
+				}
+				if(p.y + popupSize.height > rect.y + rect.height){
+					p.y = -ofy - popupSize.height + getHeight();
+				}
+			}
 		}else{
 			p = new IntPoint(0, getHeight());
 			p.x += getUIPropertyNumber("Menu.menuPopupOffsetX");
