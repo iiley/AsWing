@@ -43,7 +43,7 @@ public class AttachIcon extends AssetIcon{
 	 * return the attach displayObject
 	 * if cannot create from Class then return null
 	 */
-	private function getAttachDisplayObject(assetClassName:String, ad:ApplicationDomain):DisplayObject{
+	protected function getAttachDisplayObject(assetClassName:String, ad:ApplicationDomain):DisplayObject{
 		className = assetClassName;
 		applicationDomain = (ad == null ? ApplicationDomain.currentDomain : ad);
 		var classReference:Class;
