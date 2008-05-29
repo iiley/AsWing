@@ -118,16 +118,20 @@ public class GridListLayout extends EmptyLayout{
 		var ncols:int = cols;
 		var list:GridList = target.getList();
 		var bounds:IntDimension = list.getExtentSize();
-		if (nrows > 0){
-			if(list.isTracksWidth()){
+		if(list.isTracksWidth() || list.isTracksHeight()){
+			if(list.isTracksHeight()){
 				nrows = Math.floor((bounds.height+vgap)/(tileHeight+vgap));
-			}
-			ncols = Math.floor(((ncomponents + nrows) - 1) / nrows);
-		}else{
-			if(list.isTracksWidth()){
+				ncols = Math.floor(((ncomponents + nrows) - 1) / nrows);
+			}else{
 				ncols = Math.floor((bounds.width+hgap)/(tileWidth+hgap));
+				nrows = Math.floor(((ncomponents + ncols) - 1) / ncols);
 			}
-			nrows = Math.floor(((ncomponents + ncols) - 1) / ncols);
+		}else{
+			if(nrows > 0){
+				ncols = Math.floor(((ncomponents + nrows) - 1) / nrows);
+			}else{
+				nrows = Math.floor(((ncomponents + ncols) - 1) / ncols);
+			}
 		}
 		var w:int = tileWidth;
 		var h:int = tileHeight;
@@ -158,16 +162,20 @@ public class GridListLayout extends EmptyLayout{
 		}
 		var bounds:IntRectangle = insets.getInsideBounds(target.getSize().getBounds());
 		var list:GridList = GridCellHolder(target).getList();
-		if (nrows > 0){
-			if(list.isTracksWidth()){
+		if(list.isTracksWidth() || list.isTracksHeight()){
+			if(list.isTracksHeight()){
 				nrows = Math.floor((bounds.height+vgap)/(tileHeight+vgap));
-			}
-			ncols = Math.floor(((ncomponents + nrows) - 1) / nrows);
-		}else{
-			if(list.isTracksWidth()){
+				ncols = Math.floor(((ncomponents + nrows) - 1) / nrows);
+			}else{
 				ncols = Math.floor((bounds.width+hgap)/(tileWidth+hgap));
+				nrows = Math.floor(((ncomponents + ncols) - 1) / ncols);
 			}
-			nrows = Math.floor(((ncomponents + ncols) - 1) / ncols);
+		}else{
+			if(nrows > 0){
+				ncols = Math.floor(((ncomponents + nrows) - 1) / nrows);
+			}else{
+				nrows = Math.floor(((ncomponents + ncols) - 1) / ncols);
+			}
 		}
 		var w:int = getTileWidth();
 		var h:int = getTileHeight();
