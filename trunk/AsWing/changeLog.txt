@@ -114,15 +114,15 @@ fixed JPopup default owner bug
 ___________________________AsWing A3 1.4_________________________
 additions:
 
-Adds ability to only set preferred width or height, another will be auto count by layout or UI.
+1. Added ability to only set preferred width or height, another will be auto count by layout or UI.
 If you call setPreferredWith() to set a number(!=-1) the width will be locked.
 setPreferredWith(-1) to make it return to be auto counted.
 Same to maximim and miminum sizes.
 
-Make JTextArea avoid scroll change when make focus
-Improved JPopupMenu popup location
+2. Make JTextArea avoid scroll change when make focus
+3. Improved JPopupMenu popup location
 
-added DefaultsDecorator to make ComponentUI default change behavor correcter
+4. Added DefaultsDecorator to make ComponentUI default change behavor correcter
 now
 //-------
 var ui:ComponentUI = aCom.getUI();
@@ -132,6 +132,9 @@ ui.putDefault(xxx, xxx);
 aCom.setUI(ui);
 //-------
 Will runs more better about some skin assets defaults properties changing there.
+
+5. Added MultipleAssetIcon by Srdjan
+6. Added GridList
 
 bugfixes:
 
