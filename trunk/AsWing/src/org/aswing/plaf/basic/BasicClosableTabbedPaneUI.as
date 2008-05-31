@@ -63,6 +63,7 @@ public class BasicClosableTabbedPaneUI extends BasicTabbedPaneUI{
     	if(tab == null){
     		tab = new BasicClosableTabbedPaneTab();
     	}
+    	tab.initTab(tabbedPane);
     	tab.getTabComponent().setFocusable(false);
     	return tab;
     }
