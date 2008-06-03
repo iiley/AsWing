@@ -257,6 +257,89 @@ public class GridList extends JViewport implements ListDataListener{
     	revalidate();
 	}
 	
+	
+    /**
+     * Returns the first index argument from the most recent 
+     * <code>addSelectionModel</code> or <code>setSelectionInterval</code> call.
+     * This is a convenience method that just delegates to the
+     * <code>selectionModel</code>.
+     *
+     * @return the index that most recently anchored an interval selection
+     * @see ListSelectionModel#getAnchorSelectionIndex
+     * @see #addSelectionInterval()
+     * @see #setSelectionInterval()
+     * @see #addSelectionListener()
+     */
+    public function getAnchorSelectionIndex():int {
+        return getSelectionModel().getAnchorSelectionIndex();
+    }
+
+    /**
+     * Returns the second index argument from the most recent
+     * <code>addSelectionInterval</code> or <code>setSelectionInterval</code>
+     * call.
+     * This is a convenience method that just  delegates to the 
+     * <code>selectionModel</code>.
+     *
+     * @return the index that most recently ended a interval selection
+     * @see ListSelectionModel#getLeadSelectionIndex
+     * @see #addSelectionInterval()
+     * @see #setSelectionInterval()
+     * @see #addSelectionListener()
+     */
+    public function getLeadSelectionIndex():int {
+        return getSelectionModel().getLeadSelectionIndex();
+    }	
+	
+    /** 
+     * @param index0 index0.
+     * @param index1 index1.
+     * @param programmatic indicate if this is a programmatic change.
+     * @see ListSelectionModel#setSelectionInterval
+     * @see #removeSelectionInterval()
+     */	
+	public function setSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
+		getSelectionModel().setSelectionInterval(index0, index1, programmatic);
+	}
+	
+    /** 
+     * @param index0 index0.
+     * @param index1 index1.
+     * @param programmatic indicate if this is a programmatic change.
+     * @see ListSelectionModel#addSelectionInterval()
+     * @see #removeSelectionInterval()
+     */	
+	public function addSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
+		getSelectionModel().addSelectionInterval(index0, index1, programmatic);
+	}
+
+    /** 
+     * @param index0 index0.
+     * @param index1 index1.
+     * @param programmatic indicate if this is a programmatic change.
+     * @see ListSelectionModel#removeSelectionInterval()
+     */	
+	public function removeSelectionInterval(index0:int, index1:int, programmatic:Boolean=true):void{
+		getSelectionModel().removeSelectionInterval(index0, index1, programmatic);
+	}
+	
+	/**
+	 * Selects all elements in the list.
+	 * 
+     * @param programmatic indicate if this is a programmatic change.
+	 * @see #setSelectionInterval
+	 */
+	public function selectAll(programmatic:Boolean=true):void {
+		setSelectionInterval(0, getModel().getSize()-1, programmatic);
+	}
+		
+	/**
+     * Selects a single cell.
+     * @param index the index to be seleted.
+     * @param programmatic indicate if this is a programmatic change.
+     * @see ListSelectionModel#setSelectionInterval
+     * @see #isSelectedIndex()
+	 */	
 	public function setSelectedIndex(index:int, programmatic:Boolean=true):void{
 		if(index >= getModel().getSize()){
 			return;
@@ -264,18 +347,37 @@ public class GridList extends JViewport implements ListDataListener{
 		getSelectionModel().setSelectionInterval(index, index, programmatic);
 	}
 	
+	/**
+	 * Return the selected index, if selection multiple, return the first.
+	 * if not selected any, return -1.
+	 * @return the selected index
+	 */	
 	public function getSelectedIndex():int{
 		return getSelectionModel().getMinSelectionIndex();	
 	}
 	
+	/**
+	 * Returns true if nothing is selected.
+	 * @return true if nothing is selected, false otherwise.
+	 */	
 	public function isSelectionEmpty():Boolean{
 		return getSelectionModel().isSelectionEmpty();
 	}
 	
+	/**
+	 * @return true if the index is selected, otherwise false.
+	 */	
 	public function isSelectedIndex(index:int):Boolean{
 		return getSelectionModel().isSelectedIndex(index);
 	}
 	
+	/**
+	 * Selects the specified object from the list. This will not cause a scroll, if you want to 
+	 * scroll to visible the selected value, call ensureIndexIsVisible().
+	 * @param value the value to be selected.
+     * @param programmatic indicate if this is a programmatic change.
+	 * @see #setSelectedIndex()
+	 */	
 	public function setSelectedValue(value:*, programmatic:Boolean=true):void{
 		var n:int = model.getSize();
 		for(var i:int=0; i<n; i++){
@@ -287,6 +389,10 @@ public class GridList extends JViewport implements ListDataListener{
 		setSelectedIndex(-1, programmatic); //there is not this value
 	}
 	
+	/**
+	 * Returns the first selected value, or null if the selection is empty.
+	 * @return the first selected value
+	 */	
 	public function getSelectedValue():*{
 		if(isSelectionEmpty()){
 			return null;
@@ -295,8 +401,99 @@ public class GridList extends JViewport implements ListDataListener{
 		}
 	}
 	
-	public function getCellByIndex(i:int):GridListCell{
-		return cells.elementAt(i);
+
+	/**
+	 * Returns an array of the values for the selected cells.
+     * The returned values are sorted in increasing index order.
+     * @return the selected values or an empty list if nothing is selected
+	 */
+	public function getSelectedValues():Array{
+		var values:Array = new Array();
+		var sm:ListSelectionModel = getSelectionModel();
+		var min:int = sm.getMinSelectionIndex();
+		var max:int = sm.getMaxSelectionIndex();
+		if(min < 0 || max < 0 || isSelectionEmpty()){
+			return values;
+		}
+		var vm:ListModel = getModel();
+		for(var i:int=min; i<=max; i++){
+			if(sm.isSelectedIndex(i)){
+				values.push(vm.getElementAt(i));
+			}
+		}
+		return values;
+	}
+	
+	/**
+	 * Returns an array of all of the selected indices in increasing order.
+	 * @return a array contains all selected indices
+	 */
+	public function getSelectedIndices():Array{
+		var indices:Array = new Array();
+		var sm:ListSelectionModel = getSelectionModel();
+		var min:int = sm.getMinSelectionIndex();
+		var max:int = sm.getMaxSelectionIndex();
+		if(min < 0 || max < 0 || isSelectionEmpty()){
+			return indices;
+		}
+		for(var i:int=min; i<=max; i++){
+			if(sm.isSelectedIndex(i)){
+				indices.push(i);
+			}
+		}
+		return indices;
+	}	
+	
+	/**
+	 * Selects a set of cells. 
+	 * <p> This will not cause a scroll, if you want to 
+	 * scroll to visible the selected value, call ensureIndexIsVisible().
+	 * @param indices an array of the indices of the cells to select.
+     * @param programmatic indicate if this is a programmatic change.
+     * @see #isSelectedIndex()
+     * @see #addSelectionListener()
+	 * @see #ensureIndexIsVisible()
+	 */	
+	public function setSelectedIndices(indices:Array, programmatic:Boolean=true):void{
+        var sm:ListSelectionModel = getSelectionModel();
+        sm.clearSelection();
+		var size:int = getModel().getSize();
+        for(var i:int = 0; i < indices.length; i++) {
+	    	if (indices[i] < size) {
+				sm.addSelectionInterval(indices[i], indices[i], programmatic);
+	    	}
+        }
+	}
+
+	/**
+	 * Selects a set of cells. 
+	 * <p> This will not cause a scroll, if you want to 
+	 * scroll to visible the selected value, call ensureIndexIsVisible().
+	 * @param values an array of the values to select.
+     * @param programmatic indicate if this is a programmatic change.
+     * @see #isSelectedIndex()
+     * @see #addSelectionListener()
+	 * @see #ensureIndexIsVisible()
+	 */	
+	public function setSelectedValues(values:Array, programmatic:Boolean=true):void{
+        var sm:ListSelectionModel = getSelectionModel();
+        sm.clearSelection();
+		var size:int = getModel().getSize();
+        for(var i:int=0; i<values.length; i++) {
+        	for(var j:int=0; j<size; j++){
+        		if(values[i] == getModel().getElementAt(j)){
+					sm.addSelectionInterval(j, j, programmatic);
+					break;
+        		}
+        	}
+        }
+	}		
+	
+	/**
+	 * Returns the cell by index.
+	 */
+	public function getCellByIndex(index:int):GridListCell{
+		return cells.elementAt(index);
 	}
 	
 	public function scrollToView(value:*):void{	
