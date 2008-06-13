@@ -94,7 +94,7 @@ public class GridList extends JViewport implements ListDataListener{
 	 * @param columns if == 0 it will auto (only one of col or row can be == 0)
 	 * @param rows if == 0 it will auto (only one of col or row can be == 0)
 	 */
-	public function GridList(model:ListModel, cellFactory:GridListCellFactory=null, columns:int=0, rows:int=2){
+	public function GridList(model:ListModel=null, cellFactory:GridListCellFactory=null, columns:int=0, rows:int=2){
 		super(createHolder(columns, rows));
 		setHorizontalAlignment(AsWingConstants.LEFT);
 		setVerticalAlignment(AsWingConstants.TOP);
@@ -185,6 +185,18 @@ public class GridList extends JViewport implements ListDataListener{
 	}
 	
 	/**
+	 * Set a array to be the list data, a new model will be created and the values is copied to the model.
+	 * This is not a good way, its slow. So suggest you to create a ListMode for example VectorListMode to JList,
+	 * When you modify ListMode, it will automatic update GridList if necessary.
+	 * @see #setModel()
+	 * @see org.aswing.ListModel
+	 */
+	public function setListData(ld:Array):void{
+		var m:ListModel = new VectorListModel(ld);
+		setModel(m);
+	}	
+	
+	/**
 	 * @return the model of this List
 	 */
 	public function getModel():ListModel{
@@ -244,6 +256,26 @@ public class GridList extends JViewport implements ListDataListener{
     	tileHolder.revalidate();
     	revalidate();
 	}
+		
+	public function setColumns(cols:int):void{
+		gridLayout.setColumns(cols);
+    	tileHolder.revalidate();
+    	revalidate();
+	}
+		
+	public function setRows(rows:int):void{
+		gridLayout.setRows(rows);
+    	tileHolder.revalidate();
+    	revalidate();
+	}
+		
+	public function getColumns():int{
+		return gridLayout.getColumns();
+	}
+		
+	public function getRows():int{
+		return gridLayout.getRows();
+	}
 	
 	public function setHGap(g:int):void{
 		gridLayout.setHgap(g);
@@ -257,6 +289,13 @@ public class GridList extends JViewport implements ListDataListener{
     	revalidate();
 	}
 	
+	public function getHGap():int{
+		return gridLayout.getHgap();
+	}
+	
+	public function getVGap():int{
+		return gridLayout.getVgap();
+	}
 	
     /**
      * Returns the first index argument from the most recent 
