@@ -768,6 +768,28 @@
 	<Com name="JCheckBoxMenuItem" clazz="org.aswing.JCheckBoxMenuItem" sup="JToggleButton">
 	</Com>
 
+	<Com name="GridList" clazz="org.aswing.ext.GridList" sup="JViewport">
+		<Property label="Data" name="ListData" type="Array" category="Feature" order="0">
+			<Value value="item1,item2,item3,item4,item5,itemABC,itemDEF,itemHIJKLMN,itemOPQ,itemRST,AnyOtherItem,addHere"></Value>
+		</Property>
+		<Property label="Selection mode" name="SelectionMode" type="IntEmu" editorParam="Single,Multiple" category="Feature" order="10">
+		</Property>
+		<Property label="Columns" name="Columns" type="int" action="revalidate" category="Feature" order="10">
+		</Property>
+		<Property label="Rows" name="Rows" type="int" action="revalidate" category="Feature" order="10">
+		</Property>
+		<Property label="Tile Width" name="TileWidth" type="int" action="revalidate" category="Feature" order="10">
+		</Property>
+		<Property label="Tile Height" name="TileHeight" type="int" action="revalidate" category="Feature" order="10">
+		</Property>
+		<Property label="HGap" name="HGap" type="int" action="revalidate" category="Feature" order="10">
+		</Property>
+		<Property label="VGap" name="VGap" type="int" action="revalidate" category="Feature" order="10">
+		</Property>
+		<Property label="AutoScroll" name="AutoScroll" type="Boolean" category="Feature" order="10">
+		</Property>
+	</Com>
+	
 </Components>
 
 </Definition>
