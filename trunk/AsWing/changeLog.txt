@@ -116,7 +116,7 @@ additions:
 
 1. Added ability to only set preferred width or height, another will be auto count by layout or UI.
 If you call setPreferredWith() to set a number(!=-1) the width will be locked.
-setPreferredWith(-1) to make it return to be auto counted.
+setPreferredWidth(-1) to make it return to be auto counted.
 Same to maximim and miminum sizes.
 
 2. Make JTextArea avoid scroll change when make focus
