@@ -163,6 +163,7 @@ public class GridList extends JViewport implements ListDataListener{
 	
 	public function setHolderLayout(layout:GridListLayout):void{
 		if(layout != gridLayout){
+			gridLayout = layout;
 			gridLayout.setTileWidth(getTileWidth());
 			gridLayout.setTileHeight(getTileHeight());
 			tileHolder.setLayout(gridLayout);
