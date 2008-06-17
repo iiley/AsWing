@@ -26,7 +26,7 @@ function listFolder( source, target, package ) {
 		var currentFile = files.item();
 		if( String( currentFile.name ).match( "\.as$" ) ) {
 			var component = String( currentFile.name ).replace( "\.as", "" );
-			target.writeLine( "\t<component id=\"" + component + "\" class=\"" + package + component + "\"/>" );
+			target.writeLine( "\t<component id=\"" + package + component + "\" class=\"" + package + component + "\"/>" );
 		}
 	}	
 }
