@@ -17,6 +17,7 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     private var textField:JTextField;
     private var lostingFocus:Boolean;
     protected var value:*;
+    protected var valueText:String;
     	
 	public function DefaultComboBoxEditor(){
 		lostingFocus = false;
@@ -36,6 +37,7 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
 		}else{
 			getTextField().setText(value+"");
 		}
+		valueText = getTextField().getText();
 	}
 	
 	public function addActionListener(listener:Function, priority:int=0, useWeakReference:Boolean=false):void{
@@ -100,7 +102,7 @@ public class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEd
     }
     
     private function grapValueFormText():Boolean{
-    	if(getTextField().isEditable() && value !== getTextField().getText()){
+    	if(getTextField().isEditable() && valueText != getTextField().getText()){
     		value = getTextField().getText();
     		return true;
     	}
