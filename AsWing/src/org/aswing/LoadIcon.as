@@ -18,11 +18,11 @@ import flash.system.LoaderContext;
  */
 public class LoadIcon extends AssetIcon{
 	
-	private var loader:Loader;
-	private var owner:Component;
-	private var urlRequest:URLRequest;
-	private var context:LoaderContext;
-	private var needCountSize:Boolean;
+	protected var loader:Loader;
+	protected var owner:Component;
+	protected var urlRequest:URLRequest;
+	protected var context:LoaderContext;
+	protected var needCountSize:Boolean;
 	
 	/**
 	 * Creates a LoadIcon with specified url/URLRequest, width, height.
@@ -99,6 +99,10 @@ public class LoadIcon extends AssetIcon{
 	override public function getDisplay(c:Component):DisplayObject{
 		owner = c;
 		return super.getDisplay(c);
+	}
+	
+	public function clone():LoadIcon{
+		return new LoadIcon(urlRequest, needCountSize ? -1 : width, needCountSize ? -1 : height, scale, context);
 	}
 }
 }
