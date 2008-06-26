@@ -230,7 +230,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     
     //-----------------------------
     
-    private function __movePopup(e:Event):void{
+    protected function __movePopup(e:Event):void{
     	var popupPane:JPopup = getPopup();
     	var popupPaneHeight:int = popupPane.getHeight();
     	var maxTime:int = 10;
@@ -256,7 +256,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	popupPane.scrollRect = scrollRect;
     }
     
-    private function __onFocusKeyDown(e:FocusKeyEvent):void{
+    protected function __onFocusKeyDown(e:FocusKeyEvent):void{
     	var code:uint = e.keyCode;
     	if(code == Keyboard.DOWN){
     		if(!isPopupVisible(box)){
@@ -297,20 +297,20 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	list.ensureIndexIsVisible(index);
     }
     
-    private function __onFocusLost(e:Event):void{
+    protected function __onFocusLost(e:Event):void{
     	hidePopup();
     }
     
-    private function __onBoxRemovedFromStage(e:Event):void{
+    protected function __onBoxRemovedFromStage(e:Event):void{
     	hidePopup();
     }
     
-    private function __onListItemReleased(e:Event):void{
+    protected function __onListItemReleased(e:Event):void{
     	hidePopup();
     	setComboBoxValueFromListSelection();
     }
     
-    private function __onBoxPressed(e:Event):void{
+    protected function __onBoxPressed(e:Event):void{
     	if(!isPopupVisible(box)){
     		if(box.isEditable()){
     			if(!box.getEditor().getEditorComponent().hitTestMouse()){
@@ -324,7 +324,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	}
     }
     
-    private function __onMouseDownWhenPopuped(e:Event):void{
+    protected function __onMouseDownWhenPopuped(e:Event):void{
     	if(!getPopup().hitTestMouse() && !box.hitTestMouse()){
     		hidePopup();
     	}

@@ -46,10 +46,10 @@ import org.aswing.plaf.basic.BasicComboBoxUI;
  */
 public class JComboBox extends Component implements EditableComponent{
 	
-	private var editor:ComboBoxEditor;
 	private var editable:Boolean;
-	private var popupList:JList;
 	private var maximumRowCount:int;
+	protected var editor:ComboBoxEditor;
+	protected var popupList:JList;
 	
 	/**
 	 * Create a combobox with specified data.
@@ -507,17 +507,17 @@ public class JComboBox extends Component implements EditableComponent{
 	}
 	
 	//----------------------------------------------------------
-	private function __editorActed(e:Event):void{
+	protected function __editorActed(e:Event):void{
 		if(!isPopupVisible()){
 			setSelectedItem(getEditor().getValue());
 		}
 	}
 	
-	private function __listSelectionChanged(e:SelectionEvent):void{
+	protected function __listSelectionChanged(e:SelectionEvent):void{
 		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, e.isProgrammatic()));
 	}
 	
-	private function indexInModel(value:*):int{
+	protected function indexInModel(value:*):int{
 		var model:ListModel = getModel();
 		var n:int = model.getSize();
 		for(var i:int=0; i<n; i++){
