@@ -2281,7 +2281,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		if (editor != null){
 			var value:Object = editor.getCellEditorValue();
 			setValueAt(value, editingRow, editingColumn);
-			dispatchEvent(new TableCellEditEvent(TableCellEditEvent.EDITING_STOPPED, editingRow, editingColumn, value, _storedValue));
+			dispatchEvent(new TableCellEditEvent(TableCellEditEvent.EDITING_STOPPED, editingRow, editingColumn, _storedValue, value));
 			removeEditor();
 		}
 	}
