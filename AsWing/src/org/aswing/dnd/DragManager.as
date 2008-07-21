@@ -396,7 +396,7 @@ public class DragManager{
 	
 	private static function fireDragOverringEvent(dragInitiator:Component, sourceData:SourceData, pos:IntPoint, targetComponent:Component):void{
 		var e:DragAndDropEvent = new DragAndDropEvent(
-			DragAndDropEvent.DRAG_ENTER, 
+			DragAndDropEvent.DRAG_OVERRING, 
 			dragInitiator, 
 			sourceData, 
 			pos, 
@@ -410,7 +410,7 @@ public class DragManager{
 	
 	private static function fireDragExitEvent(dragInitiator:Component, sourceData:SourceData, pos:IntPoint, targetComponent:Component, relatedTarget:Component):void{
 		var e:DragAndDropEvent = new DragAndDropEvent(
-			DragAndDropEvent.DRAG_ENTER, 
+			DragAndDropEvent.DRAG_EXIT, 
 			dragInitiator, 
 			sourceData, 
 			pos, 
@@ -425,7 +425,7 @@ public class DragManager{
 	
 	private static function fireDragDropEvent(dragInitiator:Component, sourceData:SourceData, pos:IntPoint, targetComponent:Component):void{
 		var e:DragAndDropEvent = new DragAndDropEvent(
-			DragAndDropEvent.DRAG_ENTER, 
+			DragAndDropEvent.DRAG_DROP, 
 			dragInitiator, 
 			sourceData, 
 			pos, 
