@@ -105,6 +105,7 @@ public class JLoadPane extends AssetPane{
 			removeChild(loader);
 			loader.mask = null;
 			addChild(assetContainer);
+			bringToBottom(assetContainer);
 			applyMaskAsset();
 		}
 		super.setAsset(asset);
@@ -124,6 +125,7 @@ public class JLoadPane extends AssetPane{
 				regularAssetContainer.mask = null;
 			}
 			addChild(assetContainer);
+			bringToBottom(assetContainer);
 			applyMaskAsset();
 		}
 		this.asset = asset;
