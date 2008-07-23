@@ -28,6 +28,7 @@ import org.aswing.border.EmptyBorder;
 import org.aswing.event.*;
 import org.aswing.geom.IntRectangle;
 import org.aswing.guibuilder.code.CodeGenerator;
+import org.aswing.guibuilder.code.HaxeCodeGenerator;
 import org.aswing.guibuilder.model.ComDefinition;
 import org.aswing.guibuilder.model.ComModel;
 import org.aswing.guibuilder.model.Definition;
@@ -289,9 +290,11 @@ public class Main extends JWindow{
 		if(curFile != null){
 			var generator:CodeGenerator = new CodeGenerator(curFile);
 			var code:String = generator.generateCode();
+			var hxGe:HaxeCodeGenerator = new HaxeCodeGenerator(curFile);
+			var hxCode:String = hxGe.generateCode();
 			CodeWindow.getIns().showCode(
 				curFile.getPackageName() + "." + curFile.getName(), 
-				code);
+				code, hxCode);
 		}
 	}
 	
@@ -300,9 +303,11 @@ public class Main extends JWindow{
 			var fm:FileModel = new FileModel(curCom, curCom.getID(), "yourpackage", true);
 			var generator:CodeGenerator = new CodeGenerator(fm);
 			var code:String = generator.generateCode();
+			var hxGe:HaxeCodeGenerator = new HaxeCodeGenerator(fm);
+			var hxCode:String = hxGe.generateCode();
 			CodeWindow.getIns().showCode(
 				fm.getPackageName() + "." + fm.getName(), 
-				code);
+				code, hxCode);
 		}
 	}
 	
