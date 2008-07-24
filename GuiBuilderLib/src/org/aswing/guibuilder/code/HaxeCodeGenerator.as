@@ -1,13 +1,13 @@
 package org.aswing.guibuilder.code{
 	
-import org.aswing.guibuilder.model.FileModel;
-import org.aswing.guibuilder.model.ComModel;
-import org.aswing.guibuilder.model.ProModel;
-import org.aswing.guibuilder.model.Definition;
-import org.aswing.guibuilder.model.LayoutModel;
-import org.aswing.guibuilder.model.LayoutDefinition;
-import org.aswing.guibuilder.model.BorderModel;
 import org.aswing.guibuilder.model.BorderDefinition;
+import org.aswing.guibuilder.model.BorderModel;
+import org.aswing.guibuilder.model.ComModel;
+import org.aswing.guibuilder.model.Definition;
+import org.aswing.guibuilder.model.FileModel;
+import org.aswing.guibuilder.model.LayoutDefinition;
+import org.aswing.guibuilder.model.LayoutModel;
+import org.aswing.guibuilder.model.ProModel;
 
 /**
  * @author Johan Coppens
@@ -216,11 +216,19 @@ public class HaxeCodeGenerator{
 		}
 		return false;
 	}
+	private function translateScope(scope:String):String{
+		if(scope == ComModel.SCOPE_PROTECTED){
+			return ComModel.SCOPE_PRIVATE;
+		}else if(scope == ComModel.SCOPE_INTERNAL){
+			return ComModel.SCOPE_PUBLIC;
+		}
+		return scope;
+	}
 	private function addMembersOfChildren(parent:ComModel):void{
 		var n:int = parent.getChildCount();
 		for(var i:int=0; i<n; i++){
 			var c:ComModel = parent.getChild(i);
-			line(c.getAttributeScope() + " var " + c.getID() + ":" + c.getDefinition().getShortClassName() + ";");
+			line(translateScope(c.getAttributeScope()) + " var " + c.getID() + ":" + c.getDefinition().getShortClassName() + ";");
 			addMembersOfChildren(c);
 		}
 	}
@@ -236,7 +244,7 @@ public class HaxeCodeGenerator{
 		}
 		var id:String = c.getID();
 		var func:String = "get" + (id.charAt(0).toUpperCase() + id.substr(1));
-		lineRise(c.getGetterScope() + " function " + func + "():" + c.getDefinition().getShortClassName()+"{");
+		lineRise(translateScope(c.getGetterScope()) + " function " + func + "():" + c.getDefinition().getShortClassName()+"{");
 		line("return " + id + ";");
 		lineDrop("}");
 	}
