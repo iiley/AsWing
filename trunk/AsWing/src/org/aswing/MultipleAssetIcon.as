@@ -120,7 +120,7 @@ public class MultipleAssetIcon implements Icon{
 		}
 		
 		relativeMaxSize.width = Math.max(relativeMaxSize.width, assetItem.getWidth());
-		relativeMaxSize.height = Math.max(relativeMaxSize.width, assetItem.getHeight());
+		relativeMaxSize.height = Math.max(relativeMaxSize.height, assetItem.getHeight());
 		
 		var maskShape:Shape = AsWingUtils.createShape(assetContainer, "maskShape");
 		assetContainer.addChild(assetItem.getAsset());
@@ -276,8 +276,8 @@ internal class AssetItem{
 	private var height:int;
 	private var scale:Boolean; 
 	private var asset:DisplayObject;
-	private var horizontalPosition:int;
-	private var verticalPosition:int;
+	private var hPosition:int;
+	private var vPosition:int;
 	
 	/**
 	 * Creates a AssetItem that holds asset properties.
@@ -290,16 +290,16 @@ internal class AssetItem{
 	 * 		the mc will be scale to this height when paint. If you do not specified the height, it will use 
 	 * 		asset.height.
 	 * @param scale (optional)whether scale MC to fix the width and height specified. Default is true
-	 * @param horizontalPosition The horizontal position of asset display object (affect only if scale is not true and asset size is bigged than asset display object)
-	 * @param verticalPosition The vertical position of asset display object (affect only if scale is not true and asset size is bigged than asset display object)
+	 * @param hPosition The horizontal position of asset display object (affect only if scale is not true and asset size is bigged than asset display object)
+	 * @param vPosition The vertical position of asset display object (affect only if scale is not true and asset size is bigged than asset display object)
 	 */ 
-	public function AssetItem(asset:DisplayObject=null, width:int=-1, height:int=-1, scale:Boolean=false, horizontalPosition:int=-1,  veticalPosition:int=-1 ){
+	public function AssetItem(asset:DisplayObject=null, width:int=-1, height:int=-1, scale:Boolean=false, hPosition:int=-1,  vPosition:int=-1 ){
 		this.asset = asset;
 		this.scale = scale;
 		this.width = width;
 		this.height = height;
-		this.horizontalPosition=horizontalPosition;
-		this.verticalPosition=verticalPosition;
+		this.hPosition=hPosition;
+		this.vPosition=vPosition;
 	}
 	
 	/**
@@ -331,17 +331,17 @@ internal class AssetItem{
 	}
 	
 	/**
-	 * Return horizontalPosition.
+	 * Return hPosition.
 	 */
 	public function getHorizontalPosition():int{
-		return horizontalPosition;
+		return hPosition;
 	}
 	
 	/**
-	 * Return verticallPosition.
+	 * Return vPosition.
 	 */
 	public function getVerticalPosition():int{
-		return verticalPosition;
+		return vPosition;
 	}
 	
 	/**
@@ -373,17 +373,17 @@ internal class AssetItem{
 	}
 	
 	/**
-	 * Set horizontalPosition.
+	 * Set hPosition.
 	 */
-	public function setHorizontalPosition(horizontalPosition:int):void{
-		this.horizontalPosition=horizontalPosition;
+	public function setHorizontalPosition(hPosition:int):void{
+		this.hPosition=hPosition;
 	}
 	
 	/**
-	 * Set verticallPosition.
+	 * Set vPosition.
 	 */
-	public function setVerticalPosition(verticalPosition:int):void{
-		this.verticalPosition=verticalPosition;
+	public function setVerticalPosition(vPosition:int):void{
+		this.vPosition=vPosition;
 	}
 	
 	/**
@@ -395,7 +395,7 @@ internal class AssetItem{
 	 public function clone():AssetItem{
 	 	var clazz:Class = Object(asset).constructor;
 	 	var clonedAsset:DisplayObject = new clazz();
-	 	var clone:AssetItem = new AssetItem(clonedAsset, width, height, scale, horizontalPosition,  verticalPosition);
+	 	var clone:AssetItem = new AssetItem(clonedAsset, width, height, scale, hPosition,  vPosition);
 	 	return clone;
 	 }
 }
