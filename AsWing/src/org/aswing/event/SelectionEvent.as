@@ -7,8 +7,9 @@ package org.aswing.event{
 import flash.events.Event;
 
 /**
- * The event for list selection change.
+ * The event for list and table selection change.
  * @see org.aswing.JList
+ * @see org.aswing.JTable
  * @see org.aswing.ListSelectionModel
  * @author iiley
  */
