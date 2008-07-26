@@ -1,9 +1,8 @@
 package org.aswing.table{
 
-import org.aswing.event.TableModelListener;
 import org.aswing.ListModel;
-import org.aswing.event.ListDataListener;
 import org.aswing.event.ListDataEvent;
+import org.aswing.event.ListDataListener;
 
 /**
  * The table model return the properties of a row to be column data.
@@ -64,7 +63,7 @@ public class PropertyTableModel extends AbstractTableModel implements ListDataLi
 	 * @param names column header labels.
 	 * @param properties property names for column values, "." means returns row data object directly.
 	 * @param translators the translators for each column, a null translator for a columns means return the property 
-	 * of that name directly. 
+	 * of that name directly. translator can be a PropertyTranslator instance or a Function(info:*, key:String):*
 	 */
 	public function PropertyTableModel(listModel:ListModel, names:Array, properties:Array, translators:Array){
 		super();
@@ -114,11 +113,17 @@ public class PropertyTableModel extends AbstractTableModel implements ListDataLi
 	 * @return the translated value for specified row and column.
 	 */
 	override public function getValueAt(rowIndex:int, columnIndex:int):*{
-		var translator:PropertyTranslator = translators[columnIndex];
+		var translator:* = translators[columnIndex];
 		var info:* = list.getElementAt(rowIndex);
 		var key:String = properties[columnIndex];
 		if(translator != null){
-			return translator.translate(info, key);
+			if(translator is PropertyTranslator){
+				return PropertyTranslator(translator).translate(info, key);
+			}else if(translator is Function){
+				return translator(info, key);
+			}else{
+				throw new Error("Translator must be a PropertyTranslator or a Function : " + translator);
+			}
 		}else{
 			if(key == "."){
 				return info;
