@@ -58,14 +58,14 @@ public class HashSet
 	}
 	
 	public function addAll(arr:Array):void{
-		for(var i:int=0; i<arr.length; i++){
-			add(arr[i]);
+		for each(var i:* in arr){
+			add(i);
 		}
 	}
 	
 	public function removeAll(arr:Array):void{
-		for(var i:int=0; i<arr.length; i++){
-			remove(arr[i]);
+		for each(var i:* in arr){
+			remove(i);
 		}
 	}
 	
