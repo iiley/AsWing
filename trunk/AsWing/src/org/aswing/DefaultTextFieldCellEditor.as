@@ -34,7 +34,7 @@ public class DefaultTextFieldCellEditor extends AbstractCellEditor{
 	/**
 	 * Subclass override this method to implement specified input restrict
 	 */
-	private function getRestrict():String{
+	protected function getRestrict():String{
 		return null;
 	}
 	

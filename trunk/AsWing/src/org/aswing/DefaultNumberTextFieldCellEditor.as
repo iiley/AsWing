@@ -18,7 +18,7 @@ public class DefaultNumberTextFieldCellEditor extends DefaultTextFieldCellEditor
 	/**
 	 * Subclass override this method to implement specified input restrict
 	 */
-	protected function getRestrict():String{
+	override protected function getRestrict():String{
 		return "-0123456789.E";
 	}
 	
