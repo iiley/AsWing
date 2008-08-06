@@ -56,6 +56,7 @@ public class PropertyTableModel extends AbstractTableModel implements ListDataLi
 	protected var names:Array;
 	protected var properties:Array;
 	protected var translators:Array;
+	protected var columnsEditable:Array;
 	
 	/**
 	 * Create a Property table model, column headers, properties names, and translators.
@@ -71,6 +72,7 @@ public class PropertyTableModel extends AbstractTableModel implements ListDataLi
 		this.names = names.concat();
 		this.properties = properties.concat();
 		this.translators = translators.concat();
+		columnsEditable = new Array();
 	}
 	
 	/**
@@ -137,6 +139,63 @@ public class PropertyTableModel extends AbstractTableModel implements ListDataLi
 	 */
 	override public function getColumnName(column:int):String {
 		return names[column];
+	}
+	
+	/**
+	 * Returns is the row column editable, default is true.
+	 *
+	 * @param   row			 the row whose value is to be queried
+	 * @param   column		  the column whose value is to be queried
+	 * @return				  is the row column editable, default is true.
+	 * @see #setValueAt()
+	 * @see #setCellEditable()
+	 * @see #setAllCellEditable()
+	 */
+	override public function isCellEditable(row:int, column:int):Boolean {
+		if(columnsEditable[column] == undefined){
+			return true;
+		}else{
+			return columnsEditable[column] == true;
+		}
+	}
+
+	/**
+	 * Returns is the column editable, default is true.
+	 *
+	 * @param   column		  the column whose value is to be queried
+	 * @return				  is the column editable, default is true.
+	 * @see #setValueAt()
+	 * @see #setCellEditable()
+	 * @see #setAllCellEditable()
+	 */
+	public function isColumnEditable(column:int):Boolean {
+		return isCellEditable(0, column);
+	}
+	
+	/**
+	 * Sets spcecifed column editable or not.
+	 * @param column the column whose value is to be queried
+	 * @param editable editable or not
+	 */
+	public function setColumnEditable(column:int, editable:Boolean):void{
+		columnsEditable[column] = editable;
+	}
+	
+	/**
+	 * Sets all cells editable or not.
+	 * @param editable editable or not
+	 */
+	public function setAllCellEditable(editable:Boolean):void{
+		for(var i:int = getColumnCount()-1; i>=0; i--){
+			columnsEditable[i] = editable;
+		}
+	}
+	
+	override public function setValueAt(aValue:*, rowIndex:int, columnIndex:int):void{
+		var info:* = list.getElementAt(rowIndex);
+		var key:String = properties[columnIndex];
+		info[key] = aValue;
+		fireTableCellUpdated(rowIndex, columnIndex);
 	}
 	
 	//__________Listeners for List Model, to keep table view updated when row objects changed__________
