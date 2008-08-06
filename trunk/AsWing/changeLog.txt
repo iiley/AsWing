@@ -147,4 +147,4 @@ fixed a preferred size cache bug that a non-valid component invalidate will not 
 
 ___________________________AsWing A3 1.5_________________________
 additions:
-1. added editable support to PropertyTableModel
+1. added function translator and editable support to PropertyTableModel
