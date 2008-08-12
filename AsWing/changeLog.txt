@@ -143,8 +143,9 @@ fixed AWSprite bringToTop/Bottom bug when useBitmapCache
 fixed a JList key navigation bug
 fixed a preferred size cache bug that a non-valid component invalidate will not get cache fresh
 
-
-
 ___________________________AsWing A3 1.5_________________________
-additions:
-1. added function translator and editable support to PropertyTableModel
+
+fixed DefaultComboBoxEditor a action event fire bug when list selection changed.
+made JLoadPane loaded asset always at bottom depth
+added function translator and editable support to PropertyTableModel
+added setMnemonicEnabled/isMnemonicEnabled methods to AbstractButton
