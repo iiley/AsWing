@@ -98,6 +98,7 @@ public class AbstractButton extends Component{
 	private var displayText:String;
 	private var mnemonic:int;
 	private var mnemonicIndex:int;
+	private var mnemonicEnabled:Boolean;
     private var margin:Insets;
     private var defaultMargin:Insets;
 
@@ -140,6 +141,7 @@ public class AbstractButton extends Component{
     	horizontalTextPosition = RIGHT;
     	
     	iconTextGap = 2;
+    	mnemonicEnabled = true;
     	this.text = text;
     	this.analyzeMnemonic();
     	this.defaultIcon = icon;
@@ -442,11 +444,31 @@ public class AbstractButton extends Component{
 		}
 	}
 	
+	/**
+	 * Sets whether or not enabled mnemonic.
+	 */
+	public function setMnemonicEnabled(b:Boolean):void{
+		if(mnemonicEnabled != b){
+			mnemonicEnabled = b;
+			analyzeMnemonic();
+		}
+	}
+	
+	/**
+	 * Returns whether or not enabled mnemonic.
+	 */	
+	public function isMnemonicEnabled():Boolean{
+		return mnemonicEnabled;
+	}
+	
 	private function analyzeMnemonic():void{
 		displayText = text;
 		mnemonic = -1;
 		mnemonicIndex = -1;
 		if(text == null){
+			return;
+		}
+		if(!mnemonicEnabled){
 			return;
 		}
 		var mi:int = text.indexOf("&");
