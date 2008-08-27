@@ -46,6 +46,7 @@ public class BasicToolTipUI extends BaseComponentUI{
 		b.setLayout(new BorderLayout());
 		label = new JLabel(b.getTipText());
 		label.setFont(null); //make it to use parent(JToolTip) font
+		label.setForeground(null); //make it to user parent(JToolTip) foreground
 		label.setUIElement(true);
 		b.append(label, BorderLayout.CENTER);
 	}
