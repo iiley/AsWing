@@ -23,6 +23,10 @@ public class CellPane extends Container{
 		valid = true;
 	}
 	
+	override protected function invalidateTree():void{
+		valid = true;
+	}
+	
 	override public function validate():void {
 		valid = true;
 	}
