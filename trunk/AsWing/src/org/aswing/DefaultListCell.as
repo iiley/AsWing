@@ -4,8 +4,8 @@
 
 package org.aswing{
 
-import org.aswing.geom.IntPoint;
 import org.aswing.event.*;
+import org.aswing.geom.IntPoint;
 
 /**
  * Default list cell, render item value.toString() text.
@@ -28,8 +28,15 @@ public class DefaultListCell extends AbstractListCell{
 	
 	override public function setCellValue(value:*) : void {
 		super.setCellValue(value);
-		getJLabel().setText(value + "");
+		getJLabel().setText(getStringValue(value));
 		__resized(null);
+	}
+	
+	/**
+	 * Override this if you need other value->string translator
+	 */
+	protected function getStringValue(value:*):String{
+		return value + "";
 	}
 	
 	override public function getCellComponent() : Component {
