@@ -146,6 +146,7 @@ fixed a preferred size cache bug that a non-valid component invalidate will not 
 ___________________________AsWing A3 1.5_________________________
 
 fixed DefaultComboBoxEditor a action event fire bug when list selection changed.
+fixed CellPane invalidateTree bug(it make JList/JTree/JTable continually validating can't stop)
 made JLoadPane loaded asset always at bottom depth
 added function translator and editable support to PropertyTableModel
 added setMnemonicEnabled/isMnemonicEnabled methods to AbstractButton
