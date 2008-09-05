@@ -5,13 +5,10 @@
 package org.aswing.tree { 
 
 import org.aswing.Component;
-import org.aswing.geom.IntRectangle;
 import org.aswing.Icon;
 import org.aswing.JLabel;
 import org.aswing.JTree;
-import org.aswing.tree.TreeCell;
-import org.aswing.tree.TreeFolderIcon;
-import org.aswing.tree.TreeLeafIcon;
+import org.aswing.geom.IntRectangle;
 
 /**
  * The default cell for tree.
@@ -75,6 +72,16 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 		return leaf_icon;
 	}
 	
+	protected function createExpandedFolderIcon(tree:JTree):Icon{
+		return tree.getUI().getIcon("Tree.folderExpandedIcon");
+	}
+	protected function createCollapsedFolderIcon(tree:JTree):Icon{
+		return tree.getUI().getIcon("Tree.folderCollapsedIcon");;
+	}
+	protected function createLeafIcon(tree:JTree):Icon{
+		return tree.getUI().getIcon("Tree.leafIcon");;
+	}
+	
 	//**********************************************************
 	//				  Implementing TableCell
 	//**********************************************************
@@ -90,12 +97,18 @@ public class DefaultTreeCell extends JLabel implements TreeCell {
 	
 	public function setTreeCellStatus(tree : JTree, selected : Boolean, expanded : Boolean, leaf : Boolean, row : int) : void {
 		if(expanded_folder_icon == null){
-			expanded_folder_icon = tree.getUI().getIcon("Tree.folderExpandedIcon");
-			collapsed_folder_icon = tree.getUI().getIcon("Tree.folderCollapsedIcon");
-			leaf_icon = tree.getUI().getIcon("Tree.leafIcon");
+			expanded_folder_icon = createExpandedFolderIcon(tree);
 			//make it can get image from tree ui properties
 			getUI().putDefault("Tree.folderExpandedImage", tree.getUI().getDefault("Tree.folderExpandedImage"));
+		}
+		if(collapsed_folder_icon == null){
+			collapsed_folder_icon = createCollapsedFolderIcon(tree);
+			//make it can get image from tree ui properties
 			getUI().putDefault("Tree.folderCollapsedImage", tree.getUI().getDefault("Tree.folderCollapsedImage"));
+		}
+		if(leaf_icon == null){
+			leaf_icon = createLeafIcon(tree);
+			//make it can get image from tree ui properties
 			getUI().putDefault("Tree.leafImage", tree.getUI().getDefault("Tree.leafImage"));
 		}
 		
