@@ -121,7 +121,6 @@ public class JProgressBar extends Component implements Orientable{
 		}
 		model = newModel;
 		if (model != null){
-			model.setExtent(0);
 			addListenerToModel();
 		}
 	}
