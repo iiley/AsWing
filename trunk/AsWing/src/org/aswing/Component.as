@@ -127,6 +127,13 @@ import org.aswing.util.*;
  */
 [Event(name="dragDrop", type="org.aswing.event.DragAndDropEvent")]
 
+/**
+ * Dispatched when a drag is moving on this component.
+ * @see #isDropTrigger()
+ * 
+ * @eventType org.aswing.event.DragAndDropEvent.DRAG_OVERRING
+ */
+[Event(name="dragOverring", type="org.aswing.event.DragAndDropEvent")]
 
 /**
  * The super class for all Components.
@@ -2401,21 +2408,21 @@ public class Component extends AWSprite{
 	}
 	/**
 	 * @private
-	 * Fires ON_DRAG_ENTER event.(Note, this method is only for DragManager use)
+	 * Fires DRAG_OVERRING event.(Note, this method is only for DragManager use)
 	 */
 	public function fireDragOverringEvent(dragInitiator:Component, sourceData:SourceData, mousePos:IntPoint):void{
 		dispatchEvent(new DragAndDropEvent(DragAndDropEvent.DRAG_OVERRING, dragInitiator, sourceData, mousePos, this));
 	}
 	/**
 	 * @private
-	 * Fires ON_DRAG_ENTER event.(Note, this method is only for DragManager use)
+	 * Fires DRAG_EXIT event.(Note, this method is only for DragManager use)
 	 */
 	public function fireDragExitEvent(dragInitiator:Component, sourceData:SourceData, mousePos:IntPoint, relatedTarget:Component):void{
 		dispatchEvent(new DragAndDropEvent(DragAndDropEvent.DRAG_EXIT, dragInitiator, sourceData, mousePos, this, relatedTarget));
 	}
 	/**
 	 * @private
-	 * Fires ON_DRAG_ENTER event.(Note, this method is only for DragManager use)
+	 * Fires DRAG_DROP event.(Note, this method is only for DragManager use)
 	 */
 	public function fireDragDropEvent(dragInitiator:Component, sourceData:SourceData, mousePos:IntPoint):void{
 		dispatchEvent(new DragAndDropEvent(DragAndDropEvent.DRAG_DROP, dragInitiator, sourceData, mousePos, this));
