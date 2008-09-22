@@ -20,6 +20,6 @@ public interface EditableComponent{
      * Sets the whether or not the component is editable.
      * @param b true to set to editable, false not editable.
      */
-	function setEnabled(b:Boolean):void;	
+	function setEditable(b:Boolean):void;	
 }
 }
