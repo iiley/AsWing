@@ -265,7 +265,7 @@ public class AWSprite extends Sprite
 	}
 	
 	override public function hitTestPoint(x:Number, y:Number, shapeFlag:Boolean=false):Boolean{
-		if(isClipMasked()){
+		if(isClipMasked() && !shapeFlag){
 			return maskShape.hitTestPoint(x, y, shapeFlag);
 		}else{
 			//TODO use bounds to test the x, y
@@ -274,7 +274,7 @@ public class AWSprite extends Sprite
 	}
 	
 	override public function hitTestObject(obj:DisplayObject):Boolean{
-		if(this.isClipMasked()){
+		if(isClipMasked()){
 			return maskShape.hitTestObject(obj);
 		}else{
 			//TODO use bounds to test the obj
