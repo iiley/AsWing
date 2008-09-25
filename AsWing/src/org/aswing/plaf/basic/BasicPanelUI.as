@@ -29,14 +29,14 @@ public class BasicPanelUI extends BaseComponentUI
 		uninstallDefaults(p);
 	}
 
-	private function installDefaults(p:JPanel):void {
+	protected function installDefaults(p:JPanel):void {
 		var pp:String = "Panel.";
 		LookAndFeel.installColorsAndFont(p, pp);
 		LookAndFeel.installBorderAndBFDecorators(p, pp);
 		LookAndFeel.installBasicProperties(p, pp);
 	}
 
-	private function uninstallDefaults(p:JPanel):void {
+	protected function uninstallDefaults(p:JPanel):void {
 		LookAndFeel.uninstallBorderAndBFDecorators(p);
 	}
 }
