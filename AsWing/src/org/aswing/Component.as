@@ -101,7 +101,7 @@ import org.aswing.util.*;
  * 
  * @eventType org.aswing.event.DragAndDropEvent.DRAG_RECOGNIZED
  */
-[Event(name="dragRecongnized", type="org.aswing.event.DragAndDropEvent")]
+[Event(name="dragRecognized", type="org.aswing.event.DragAndDropEvent")]
 
 /**
  * Dispatched when a drag is enter this component area.

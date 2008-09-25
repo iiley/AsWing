@@ -34,7 +34,7 @@ public class DragAndDropEvent extends AWEvent{
      *
      *  @eventType dragRecongnized
 	 */
-	public static const DRAG_RECOGNIZED:String = "dragRecongnized";	
+	public static const DRAG_RECOGNIZED:String = "dragRecognized";	
 	
 	/**
      *  The <code>DragAndDropEvent.DRAG_START</code> constant defines the value of the
