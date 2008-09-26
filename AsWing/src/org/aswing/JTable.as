@@ -504,11 +504,14 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *  There is no <code>getShowGrid</code> method as this state is held
 	 *  in two variables -- <code>showHorizontalLines</code> and <code>showVerticalLines</code> --
 	 *  each of which can be queried independently.
-	 *
+	 *  <br/>
+	 *  You may also need to call setIntercellSpacing() to set a proper gap of 
+	 *  columns and rows to avoid lines effect caused by different bgs between table and cell.
 	 * @param   showGrid true if table view should draw grid lines
 	 *
 	 * @see #setShowVerticalLines()
 	 * @see #setShowHorizontalLines()
+	 * @see #setIntercellSpacing()
 	 */	
 	public function setShowGrid(showGrid:Boolean):void{
 		setShowHorizontalLines(showGrid);
@@ -519,11 +522,15 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	/**
 	 *  Sets whether the table draws horizontal lines between cells.
 	 *  If <code>showHorizontalLines</code> is true it does; if it is false it doesn't.
-	 *
+	 *  <br/>
+	 *  You may also need to call setIntercellSpacing() to set a proper gap of 
+	 *  columns and rows to avoid lines effect caused by different bgs between table and cell.
+	 * 
 	 * @param   showHorizontalLines	  true if table view should draw horizontal lines
 	 * @see	 #getShowHorizontalLines()
 	 * @see	 #setShowGrid()
 	 * @see	 #setShowVerticalLines()
+	 * @see  #setIntercellSpacing()
 	 */	
 	public function setShowHorizontalLines(showHorizontalLines:Boolean):void{
 		var old:Boolean = this.showHorizontalLines;
@@ -537,11 +544,15 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	/**
 	 * Sets whether the table draws vertical lines between cells.
 	 * If <code>showVerticalLines</code> is true it does; if it is false it doesn't.
-	 *
+	 *  <br/>
+	 *  You may also need to call setIntercellSpacing() to set a proper gap of 
+	 *  columns and rows to avoid lines effect caused by different bgs between table and cell.
+	 * 
 	 * @param   showVerticalLines true if table view should draw vertical lines
 	 * @see     #getShowVerticalLines()
 	 * @see     #setShowGrid()
 	 * @see     #setShowHorizontalLines()
+	 * @see 	#setIntercellSpacing()
 	 */	
 	public function setShowVerticalLines(showVerticalLines:Boolean):void{
 		var old:Boolean = this.showVerticalLines;
