@@ -176,7 +176,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var n:int = tabbedPane.getComponentCount();
 		for(var i:int=firstIndex; i<n && i<=lastIndex+1; i++){
 			var b:IntRectangle = getDrawnTabBounds(i);
-			if(b.containsPoint(p)){
+			if(b && b.containsPoint(p)){
 				return i;
 			}
 		}
@@ -189,6 +189,10 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	}
 	
 	protected function __onTabPanePressed(e:Event):void{
+		if((prevButton.hitTestMouse() || nextButton.hitTestMouse())
+			&& (prevButton.isShowing() && nextButton.isShowing())){
+			return;
+		}
 		var index:int = getMousedOnTabIndex();
 		if(index >= 0 && tabbedPane.isEnabledAt(index)){
 			tabbedPane.setSelectedIndex(index, false);
