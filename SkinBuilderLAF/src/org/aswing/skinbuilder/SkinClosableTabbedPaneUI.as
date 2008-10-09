@@ -40,6 +40,10 @@ public class SkinClosableTabbedPaneUI extends SkinTabbedPaneUI{
 	}
 	
 	override protected function __onTabPanePressed(e:Event):void{
+		if((prevButton.hitTestMouse() || nextButton.hitTestMouse())
+			&& (prevButton.isShowing() && nextButton.isShowing())){
+			return;
+		}
 		var index:int = getMousedOnTabIndex();
 		if(index >= 0 && tabbedPane.isEnabledAt(index) && !isButtonEvent(e, index)){
 			tabbedPane.setSelectedIndex(index);
