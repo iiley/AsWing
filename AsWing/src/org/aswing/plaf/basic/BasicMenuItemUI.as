@@ -4,15 +4,16 @@
 
 package org.aswing.plaf.basic{
 
-import org.aswing.*;
-import org.aswing.graphics.*;
 import flash.display.*;
-import org.aswing.geom.*;
-import org.aswing.plaf.*;
-import flash.text.*;
-import flash.events.MouseEvent;
 import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.text.*;
+
+import org.aswing.*;
 import org.aswing.event.AWEvent;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.plaf.*;
 
 /**
  * @private
@@ -34,6 +35,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 	
 	protected var defaultTextIconGap:int;
 	protected var acceleratorFont:ASFont;
+	protected var acceleratorFontValidated:Boolean;
 
 	protected var arrowIcon:Icon;
 	protected var checkIcon:Icon;
@@ -79,6 +81,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		acceleratorForeground = getColor(pp + "acceleratorForeground");
 		acceleratorSelectionForeground = getColor(pp + "acceleratorSelectionForeground");
 		acceleratorFont = getFont(pp + "acceleratorFont");
+		acceleratorFontValidated = false;
 		
 		if(menuItem.getMargin() is UIResource) {
 			menuItem.setMargin(getInsets(pp + "margin"));
@@ -323,7 +326,8 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 				}
 			}
 			textField.visible = true;
-			paintTextField(b, textRect, textField, text, font, tc, true);
+			paintTextField(b, textRect, textField, text, font, tc, !b.isFontValidated());
+			b.setFontValidated(true);
 		}else{
 			textField.visible = false;
 		}
@@ -359,7 +363,8 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 				tc = acceleratorSelectionForeground;
 			}
 			accelTextField.visible = true;
-			paintTextField(b, accTextFieldRect, accelTextField, acceleratorText, acceleratorFont, tc, false);
+			paintTextField(b, accTextFieldRect, accelTextField, acceleratorText, acceleratorFont, tc, !acceleratorFontValidated);
+			acceleratorFontValidated = true;
 		}else{
 			accelTextField.visible = false;
 		}
@@ -453,9 +458,8 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		if(textField.text != text){
 			textField.text = text;
 		}
-		if(validateFont && !b.isFontValidated()){
+		if(validateFont){
 			AsWingUtils.applyTextFont(textField, font);
-			b.setFontValidated(true);
 		}
 		AsWingUtils.applyTextColor(textField, color);
 		textField.x = tRect.x;
