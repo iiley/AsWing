@@ -151,3 +151,4 @@ fixed JTabbedPane and JClosableTabbedPane tab scroll bug
 made JLoadPane loaded asset always at bottom depth
 added function translator and editable support to PropertyTableModel
 added setMnemonicEnabled/isMnemonicEnabled methods to AbstractButton
+improved resizer, more accurate in directly mode
