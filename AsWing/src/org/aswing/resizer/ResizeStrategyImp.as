@@ -33,10 +33,8 @@ public class ResizeStrategyImp implements ResizeStrategy{
  	 * getResizableMinSize and not max than getResizableMaxSize if these method are defineded
  	 * in the resized comopoent.
 	 */
-	public function getBounds(com:Component, movedX:int, movedY:int):IntRectangle{
-		var currentBounds:IntRectangle = com.getComBounds();
-		var minSize:IntDimension = com.getMinimumSize();
-		var maxSize:IntDimension = com.getMaximumSize();
+	public function getBounds(origBounds:IntRectangle, minSize:IntDimension, maxSize:IntDimension, movedX:int, movedY:int):IntRectangle{
+		var currentBounds:IntRectangle = origBounds.clone();
 		if(minSize == null){
 			minSize = new IntDimension(0, 0);
 		}

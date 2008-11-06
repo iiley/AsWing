@@ -4,7 +4,7 @@
 
 package org.aswing.resizer{
 
-import org.aswing.Component;
+import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 
 /**
@@ -15,7 +15,12 @@ public interface ResizeStrategy{
 	
 	/**
 	 * Count and return the new bounds what the component would be resized to.
+	 * @param origBounds the original bounds before resized
+	 * @param minSize can be null, means (0, 1)
+	 * @param maxSize can be null, means (very big)
+	 * @param movedX 
+	 * @param movedY 
 	 */
-	function getBounds(com:Component, movedX:int, movedY:int):IntRectangle;
+	function getBounds(origBounds:IntRectangle, minSize:IntDimension, maxSize:IntDimension, movedX:int, movedY:int):IntRectangle;
 }
 }

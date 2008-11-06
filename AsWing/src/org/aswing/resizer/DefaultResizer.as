@@ -4,14 +4,15 @@
 
 package org.aswing.resizer{
 
-import org.aswing.*;
-import org.aswing.geom.*;
-import org.aswing.plaf.UIResource;
-import org.aswing.event.AWEvent;
 import flash.display.*;
-import org.aswing.graphics.*;
-import flash.events.MouseEvent;
 import flash.events.Event;
+import flash.events.MouseEvent;
+
+import org.aswing.*;
+import org.aswing.event.AWEvent;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.plaf.UIResource;
 import org.aswing.util.DepthManager;
 
 /**
@@ -43,6 +44,7 @@ public class DefaultResizer implements Resizer, UIResource{
 	
 	private var startX:Number;
 	private var startY:Number;
+	private var startBounds:IntRectangle;
 	
 	protected var enabled:Boolean;
 	protected var resizeDirectly:Boolean;
@@ -59,6 +61,7 @@ public class DefaultResizer implements Resizer, UIResource{
 		resizeDirectly = false;
 		startX = 0;
 		startY = 0;
+		startBounds = new IntRectangle();
 		//Default colors
 	    resizeArrowColor = UIManager.getColor("resizeArrow");
 	    resizeArrowLightColor = UIManager.getColor("resizeArrowLight");
@@ -146,18 +149,21 @@ public class DefaultResizer implements Resizer, UIResource{
 		if(!resizeDirectly){
 			representRect(owner.getComBounds());
 		}
-		startX = resizeMC.mouseX;
-		startY = resizeMC.mouseY;
+		startX = resizeMC.stage.mouseX;
+		startY = resizeMC.stage.mouseY;
+		startBounds = owner.getComBounds();
 	}
 	
 	public function resizing(strategy:ResizeStrategy, e:MouseEvent):void{
-		var bounds:IntRectangle = strategy.getBounds(owner, resizeMC.mouseX - startX, resizeMC.mouseY - startY);
+		var bounds:IntRectangle = strategy.getBounds(
+			startBounds, 
+			owner.getMinimumSize(), 
+			owner.getMaximumSize(), 
+			e.stageX - startX, e.stageY - startY);
 		if(resizeDirectly){
 			owner.setBounds(bounds);
 			owner.revalidate();
 			e.updateAfterEvent();
-			startX = resizeMC.mouseX;//restart every time
-			startY = resizeMC.mouseY;//restart every time
 		}else{
 			representRect(bounds);
 		}
