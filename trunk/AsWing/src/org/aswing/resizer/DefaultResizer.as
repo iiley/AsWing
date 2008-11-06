@@ -145,12 +145,12 @@ public class DefaultResizer implements Resizer, UIResource{
 		return resizingNow;
 	}
 	
-	public function startResize(strategy:ResizeStrategy):void{
+	public function startResize(strategy:ResizeStrategy, e:MouseEvent):void{
 		if(!resizeDirectly){
 			representRect(owner.getComBounds());
 		}
-		startX = resizeMC.stage.mouseX;
-		startY = resizeMC.stage.mouseY;
+		startX = e.stageX;
+		startY = e.stageY;
 		startBounds = owner.getComBounds();
 	}
 	
