@@ -4,12 +4,10 @@
 
 package org.aswing.resizer{
 	
-import flash.display.Stage;
 import flash.events.Event;
 import flash.events.MouseEvent;
 
 import org.aswing.AWSprite;
-import org.aswing.AsWingManager;
 import org.aswing.event.*;
 	
 /**
@@ -66,7 +64,7 @@ public class DefaultResizeBarHandler{
 	
 	private function __onPress(e:MouseEvent):void{
 		resizer.setResizing(true);
-		startResize();
+		startResize(e);
 		if(mc.stage){
 			mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
 			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizing, false, 0, true);
@@ -99,8 +97,8 @@ public class DefaultResizeBarHandler{
 		resizer.setArrowRotation(arrowRotation);
 	}
 	
-	private function startResize():void{
-		resizer.startResize(strategy);
+	private function startResize(e:MouseEvent):void{
+		resizer.startResize(strategy, e);
 	}
 	
 	private function resizing(e:MouseEvent):void{
