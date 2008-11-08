@@ -1,7 +1,7 @@
 package org.aswing.guibuilder.model{
 
 import org.aswing.*;
-import org.aswing.util.Vector;	
+import org.aswing.util.ArrayList;	
 
 /**
  * Component Model
@@ -24,8 +24,8 @@ public class ComModel implements Model{
 	
 	private var def:ComDefinition;
 	private var display:Component;
-	private var children:Vector;
-	private var properties:Vector;
+	private var children:ArrayList;
+	private var properties:ArrayList;
 	private var container:Boolean;
 	private var parent:ComModel;
 	private var id:String;
@@ -54,8 +54,8 @@ public class ComModel implements Model{
 			throw new Error("This com model is already created!");
 		}
 		this.def = def;
-		children = new Vector();
-		properties = new Vector();
+		children = new ArrayList();
+		properties = new ArrayList();
 		var clazz:Class = def.getClass();
 		display = new clazz();
 		display.putClientProperty(DISPLAY_MODEL_KEY, this);

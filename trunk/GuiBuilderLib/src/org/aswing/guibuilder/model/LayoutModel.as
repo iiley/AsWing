@@ -1,7 +1,7 @@
 package org.aswing.guibuilder.model{
 
 import org.aswing.*;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 
 /**
  * Layout Model
@@ -10,7 +10,7 @@ import org.aswing.util.Vector;
 public class LayoutModel implements Model{
 	
 	private var def:LayoutDefinition;
-	private var properties:Vector;
+	private var properties:ArrayList;
 	private var layout:LayoutManager;
 	
 	public function LayoutModel(def:LayoutDefinition=null){
@@ -21,7 +21,7 @@ public class LayoutModel implements Model{
 	
 	private function init(def:LayoutDefinition):void{
 		this.def = def;
-		properties = new Vector();
+		properties = new ArrayList();
 		var pros:Array = def.getProperties();
 		for(var i:int=0; i<pros.length; i++){
 			properties.append(new ProModel(pros[i]));
