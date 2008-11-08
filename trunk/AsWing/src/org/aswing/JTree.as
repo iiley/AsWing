@@ -31,7 +31,7 @@ import org.aswing.tree.TreePath;
 import org.aswing.tree.TreePathMap;
 import org.aswing.tree.TreeSelectionModel;
 import org.aswing.util.Stack;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 
 /**
  * Dispatched when a property changed.
@@ -1261,7 +1261,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 		}
 	
 		var toggledPaths:Array = expandedState.keys();
-		var elements:Vector = null;
+		var elements:ArrayList = null;
 		var path:TreePath;
 		var value:Boolean;
 	
@@ -1275,7 +1275,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
 				if(path != parent && value==true &&
 				   parent.isDescendant(path) && isPathVisible(path)) {
 				    if (elements == null) {
-						elements = new Vector();
+						elements = new ArrayList();
 				    }
 				    elements.append(path);
 				}

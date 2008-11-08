@@ -215,7 +215,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 	private var cellFactory:ListCellFactory;
 	private var model:ListModel;
 	private var selectionModel:ListSelectionModel;
-	private var cells:Vector;
+	private var cells:ArrayList;
 	
 	private var firstVisibleIndex:int;
 	private var lastVisibleIndex:int;
@@ -257,7 +257,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		maxWidthCell = null;
 		cellPrefferSizes = new HashMap();
 		comToCellMap = new HashMap();
-		cells = new Vector();
+		cells = new ArrayList();
 		model = null;
 		autoDragAndDropType = DND_NONE;
 		

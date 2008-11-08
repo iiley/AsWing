@@ -2,17 +2,17 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.util
-{
+package org.aswing.util{
+
 /**
- * Vector, a List implemented based on Array
+ * ArrayList, a List implemented based on Array
  * 
  * 
  * @author firdosh
  * @author iiley
  */
-public class Vector implements List
-{
+public class ArrayList implements List{
+	
 	protected var _elements:Array;
 	public static const CASEINSENSITIVE:int=1;
 	public static const DESCENDING :int=2;
@@ -20,7 +20,7 @@ public class Vector implements List
 	public static const RETURNINDEXEDARRAY :int=8;	
 	public static const NUMERIC  :int=16;	
 	
-	public function Vector(){
+	public function ArrayList(){
 		_elements=new Array();	
 	}
 	
@@ -48,7 +48,7 @@ public class Vector implements List
 	 * <p>
 	 * for example:
 	 * <pre>
-	 * //hide all component in vector components without firstOne component
+	 * //hide all component in list components without firstOne component
 	 * var firstOne:Component = the first one;
 	 * components.eachWithout( 
 	 * 	   firstOne,
@@ -76,7 +76,7 @@ public class Vector implements List
 	}
 	
 	/**
-	 * Append the object to the Vector
+	 * Append the object to the ArrayList
 	 * 
 	 * @param obj the object to append
 	 * @param index where to append, if omited, appedn to the last position.
@@ -220,8 +220,8 @@ public class Vector implements List
 		}
 	}
 	
-	public function clone():Vector{
-		var cloned:Vector=new Vector();
+	public function clone():ArrayList{
+		var cloned:ArrayList=new ArrayList();
 		for (var i:int=0; i<_elements.length; i++){
 			cloned.append(_elements[i]);
 		}		
@@ -257,7 +257,7 @@ public class Vector implements List
 	}
 	
 	public function toString():String{
-		return "Vector : " + _elements.toString();
+		return "ArrayList : " + _elements.toString();
 	}
 	
 }

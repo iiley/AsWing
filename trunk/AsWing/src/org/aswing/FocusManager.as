@@ -12,7 +12,7 @@ import flash.ui.Keyboard;
 
 import org.aswing.event.*;
 import org.aswing.util.DepthManager;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 import org.aswing.util.WeakMap;
 
 /**
@@ -28,7 +28,7 @@ public class FocusManager{
 	
 	private var oldFocusOwner:Component;
 	private var focusOwner:Component;
-	private var popups:Vector;
+	private var popups:ArrayList;
 	private var activeWindow:JWindow;
 	private var traversalEnabled:Boolean = true;
 	private var traversalDefault:Boolean = true;
@@ -43,7 +43,7 @@ public class FocusManager{
 		traversing = false;
 		inited = false;
 		defaultPolicy = new ContainerOrderFocusTraversalPolicy();
-		popups = new Vector();
+		popups = new ArrayList();
 		init(theStage);
 	}
 	
@@ -113,7 +113,7 @@ public class FocusManager{
 		}
 	}
 	
-	public function getPopupsVector():Vector{
+	public function getPopupsVector():ArrayList{
 		return popups;
 	}
 	

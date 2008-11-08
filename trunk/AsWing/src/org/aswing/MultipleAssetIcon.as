@@ -10,7 +10,7 @@ import flash.display.Shape;
 
 import org.aswing.geom.IntDimension;
 import org.aswing.graphics.Graphics2D;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 
 /**
  * MultipleAssetIcon is a Icon impelmentation that use multiple decorative DisplayObject-s.
@@ -52,7 +52,7 @@ public class MultipleAssetIcon implements Icon{
 	/**
 	 * Contains AssetItem objects in order that need to be shown.
 	 */
-	private var assets:Vector;
+	private var assets:ArrayList;
 	
 	private var assetContainer:DisplayObjectContainer;
 	private var assetGapInsets:Insets;
@@ -77,7 +77,7 @@ public class MultipleAssetIcon implements Icon{
 	public function MultipleAssetIcon(absoluteSize:IntDimension=null){
 		this.absoluteSize = absoluteSize;
 		this.relativeMaxSize = new IntDimension(-1,-1);
-		assets =  new Vector();
+		assets =  new ArrayList();
 		assetContainer = AsWingUtils.createSprite(null, "assetContainer");
 		assetGapInsets = new Insets(0,0,0,0);
 	}

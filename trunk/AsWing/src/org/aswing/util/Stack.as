@@ -16,7 +16,7 @@ package org.aswing.util
  * When a stack is first created, it contains no items. 
  * @author iiley
  */	
-public class Stack extends Vector
+public class Stack extends ArrayList
 {
 	/**
      * Creates an empty Stack.

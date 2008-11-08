@@ -10,7 +10,7 @@ import flash.events.MouseEvent;
 import org.aswing.event.PopupEvent;
 import org.aswing.event.WindowEvent;
 import org.aswing.geom.*;
-import org.aswing.util.Vector;	
+import org.aswing.util.ArrayList;	
 
 /**
  * Dispatched when the window be set actived from not being actived.
@@ -265,7 +265,7 @@ public class JWindow extends JPopup{
 			st = AsWingManager.getStage();
 		}
 		var fm:FocusManager = FocusManager.getManager(st);
-		var vec:Vector = fm.getPopupsVector();
+		var vec:ArrayList = fm.getPopupsVector();
 		var arr:Array = new Array();
 		for(var i:int=0; i<vec.size(); i++){
 			var win:* = vec.get(i);
@@ -288,7 +288,7 @@ public class JWindow extends JPopup{
 		var fm:FocusManager = FocusManager.getManager(owner.stage);
 		if(fm){
 			var ws:Array = new Array();
-			var vec:Vector = fm.getPopupsVector();
+			var vec:ArrayList = fm.getPopupsVector();
 			var n:int = vec.size();
 			for(var i:int=0; i<n; i++){
 				var w:JPopup = vec.get(i);
@@ -357,7 +357,7 @@ public class JWindow extends JPopup{
 			return;
 		}
 		actived = true;
-		var vec:Vector = fm.getPopupsVector();
+		var vec:ArrayList = fm.getPopupsVector();
 		for(var i:int=0; i<vec.size(); i++){
 			var w:JWindow = vec.get(i) as JWindow;
 			if(w != null && w != this){

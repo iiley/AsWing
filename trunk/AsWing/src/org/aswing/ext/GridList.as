@@ -9,7 +9,7 @@ import flash.events.*;
 import org.aswing.*;
 import org.aswing.event.*;
 import org.aswing.geom.*;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 
 
 /**
@@ -80,7 +80,7 @@ public class GridList extends JViewport implements ListDataListener{
 	protected var cellFactory:GridListCellFactory;
 	protected var model:ListModel;
 	protected var selectionModel:ListSelectionModel;
-	protected var cells:Vector;
+	protected var cells:ArrayList;
 	protected var selectable:Boolean = true;
 	protected var autoScroll:Boolean = true;
 	protected var tileWidth:int = 40;
@@ -98,7 +98,7 @@ public class GridList extends JViewport implements ListDataListener{
 		super(createHolder(columns, rows));
 		setHorizontalAlignment(AsWingConstants.LEFT);
 		setVerticalAlignment(AsWingConstants.TOP);
-		cells = new Vector();
+		cells = new ArrayList();
 		if(model == null) model = new VectorListModel();
 		if(cellFactory == null) cellFactory = new GeneralGridListCellFactory(DefaultGridCell);
 		this.cellFactory = cellFactory;

@@ -6,7 +6,7 @@ package org.aswing.tree {
 
 import org.aswing.tree.MutableTreeNode;
 import org.aswing.tree.TreeNode;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 
 /**
  * A <code>DefaultMutableTreeNode</code> is a general-purpose node in a tree data
@@ -45,7 +45,7 @@ public class DefaultMutableTreeNode implements MutableTreeNode{
     protected var parent:MutableTreeNode;
 
     /** array of children, may be null if this node has no children */
-    private var _children:Vector;
+    private var _children:ArrayList;
 
     /** optional user object */
     private var userObject:*;
@@ -109,7 +109,7 @@ public class DefaultMutableTreeNode implements MutableTreeNode{
 	    }
 	    newChild.setParent(this);
 	    if (_children == null) {
-			_children = new Vector();
+			_children = new ArrayList();
 	    }
 	    _children.append(newChild, childIndex);
     }
