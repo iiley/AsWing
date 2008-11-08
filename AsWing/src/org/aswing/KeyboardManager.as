@@ -38,7 +38,7 @@ public class KeyboardManager extends EventDispatcher{
 	
 	protected static var defaultMnemonicModifier:Array = [Keyboard.CONTROL, Keyboard.SHIFT];
 	
-	protected var keySequence:Vector;
+	protected var keySequence:ArrayList;
 	protected var keymap:KeyMap;
 	protected var inited:Boolean;
 	protected var mnemonicModifier:Array;
@@ -54,7 +54,7 @@ public class KeyboardManager extends EventDispatcher{
 		enabled = true;
 		inited = false;
 		keyJustActed = false;
-		keySequence = new Vector();
+		keySequence = new ArrayList();
 		keymap = new KeyMap();
 		mnemonicModifier = null;
 	}

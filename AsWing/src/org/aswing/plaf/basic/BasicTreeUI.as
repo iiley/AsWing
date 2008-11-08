@@ -15,7 +15,7 @@ import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.tree.ExpandControl;
 import org.aswing.tree.*;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 
 /**
  * @author iiley
@@ -52,7 +52,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 	protected var treeModel:TreeModel;
 	protected var editor:TreeCellEditor;
 	protected var selectionModel:TreeSelectionModel;
-	protected var cells:Vector;
+	protected var cells:ArrayList;
 	protected var validCachedViewSize:Boolean;
 	protected var viewSize:IntDimension;
 	protected var lastViewPosition:IntPoint;
@@ -70,7 +70,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		rightChildIndent = 0;
 		
 		paintFocusedIndex = -1;
-		cells = new Vector();
+		cells = new ArrayList();
 		lastViewPosition = new IntPoint();
 		viewSize = new IntDimension();
 		validCachedViewSize = false;

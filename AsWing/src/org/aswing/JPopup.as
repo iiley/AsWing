@@ -43,7 +43,7 @@ public class JPopup extends JRootPane{
 	protected var owner:*;
 	protected var modal:Boolean;
 	
-	private var ownedEquipedPopups:Vector;
+	private var ownedEquipedPopups:ArrayList;
 	private var lastLAF:Object;	
 	
 	/**
@@ -68,7 +68,7 @@ public class JPopup extends JRootPane{
 		}
 		this.modal = modal;
 		setName("JPopup");
-		ownedEquipedPopups = new Vector();
+		ownedEquipedPopups = new ArrayList();
 		ground_mc = new Sprite();
 		ground_mc.name = "ground_mc";
 		ground_mc.visible = false;
@@ -393,7 +393,7 @@ public class JPopup extends JRootPane{
 		var fm:FocusManager = FocusManager.getManager(owner.stage);
 		if(fm){
 			var ws:Array = new Array();
-			var pv:Vector = fm.getPopupsVector();
+			var pv:ArrayList = fm.getPopupsVector();
 			var n:int = pv.size();
 			for(var i:int=0; i<n; i++){
 				var w:JPopup = JPopup(pv.get(i));

@@ -214,7 +214,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 	
 		    var validCount:int = 0;
 		    var beginLeadPath:TreePath = leadPath;
-		    var cPaths:Vector = new Vector();
+		    var cPaths:ArrayList = new ArrayList();
 		    var path:TreePath;
 	
 		    lastPaths.clear();
@@ -327,7 +327,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 	    } else {
 			var counter:int, validCount:int, oldCount:int;
 			var beginLeadPath:TreePath = leadPath;
-			var cPaths:Vector = null;
+			var cPaths:ArrayList = null;
 	
 			if(selection == null)
 			    oldCount = 0;
@@ -344,7 +344,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 					if (uniquePaths.get(path) == null) {
 					    validCount++;
 					    if(cPaths == null){
-							cPaths = new Vector();
+							cPaths = new ArrayList();
 					    }
 					    cPaths.append(new PathPlaceHolder(path, true));
 					    uniquePaths.put(path, true);
@@ -419,7 +419,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 				 * Yes, maybe:) */
 				clearSelection();
 		    }else{
-				var pathsToRemove:Vector = null;
+				var pathsToRemove:ArrayList = null;
 		
 				/* Find the paths that can be removed. */
 				for (var removeCounter:int = paths.length - 1; removeCounter >= 0; removeCounter--) {
@@ -427,7 +427,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
 				    if(path != null) {
 						if (uniquePaths.get(path) != null) {
 						    if(pathsToRemove == null){
-								pathsToRemove = new Vector();
+								pathsToRemove = new ArrayList();
 						    }
 						    uniquePaths.remove(path);
 						    pathsToRemove.append(new PathPlaceHolder(path, false));
@@ -927,7 +927,7 @@ public class DefaultTreeSelectionModel extends EventDispatcher implements TreeSe
       * Notifies listeners of a change in path. changePaths should contain
       * instances of PathPlaceHolder.
       */
-    private function notifyPathChange(changedPaths:Vector, oldLeadSelection:TreePath, programmatic:Boolean):void {
+    private function notifyPathChange(changedPaths:ArrayList, oldLeadSelection:TreePath, programmatic:Boolean):void {
 		var cPathCount:int = changedPaths.size();
 		var newness:Array = new Array(cPathCount); //boolean[]
 		var paths:Array = new Array(cPathCount); //TreePath[]

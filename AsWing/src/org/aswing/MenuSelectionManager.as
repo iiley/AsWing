@@ -11,7 +11,7 @@ import flash.ui.Keyboard;
 
 import org.aswing.event.InteractiveEvent;
 import org.aswing.util.ArrayUtils;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 import org.aswing.util.WeakReference;
 	
 /**
@@ -30,10 +30,10 @@ public class MenuSelectionManager extends EventDispatcher{
 		 	
 	private static var instance:MenuSelectionManager;
 	
-	protected var selection:Vector;
+	protected var selection:ArrayList;
 	
 	public function MenuSelectionManager(){
-		selection = new Vector();
+		selection = new ArrayList();
 	}
 	
 	public static function defaultManager():MenuSelectionManager{

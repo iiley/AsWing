@@ -6,7 +6,7 @@ package org.aswing.ext{
 
 import org.aswing.JPanel;
 import org.aswing.LayoutManager;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 import org.aswing.Component;
 import org.aswing.Container;
 import org.aswing.AsWingConstants;
@@ -69,7 +69,7 @@ public class FormRow extends JPanel implements LayoutManager{
     public static const BOTTOM:int  = AsWingConstants.BOTTOM;
         
     private var verticalAlignment:int;
-    private var columns:Vector;
+    private var columns:ArrayList;
     private var widthes:Array;
 	private var columnVerticalAlignments:Array;
 	private var gap:int;
@@ -83,7 +83,7 @@ public class FormRow extends JPanel implements LayoutManager{
 		super();
 		layout = this;
 		verticalAlignment = AsWingConstants.CENTER;
-		columns = new Vector();
+		columns = new ArrayList();
 		columns.appendAll(columnChildren);
 		appendChildren(columnChildren);
 		columnVerticalAlignments = new Array();
@@ -115,7 +115,7 @@ public class FormRow extends JPanel implements LayoutManager{
 	 */
 	public function setColumnChildren(columnChildren:Array):void{
 		removeAll();
-		columns = new Vector();
+		columns = new ArrayList();
 		columns.appendAll(columnChildren);
 		appendChildren(columnChildren);
 	}
@@ -139,7 +139,7 @@ public class FormRow extends JPanel implements LayoutManager{
 		}
 		columnChildrenIndecis = indices;
 		var childIndecis:Array = indices.split(",");
-		columns = new Vector();
+		columns = new ArrayList();
 		for(var i:int=0; i<childIndecis.length; i++){
 			var index:int = parseInt(childIndecis[i]);
 			if(isNaN(index)) index = -1;
