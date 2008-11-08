@@ -16,7 +16,7 @@ import org.aswing.guibuilder.model.ProDefinition;
 import org.aswing.guibuilder.model.ProModel;
 import org.aswing.util.HashMap;
 import org.aswing.util.HashSet;
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 
 public class PropertyPane extends JPanel{
 	
@@ -32,10 +32,10 @@ public class PropertyPane extends JPanel{
 	private var layoutForm:Form;
 	private var nocateForm:Form;
 	
-	private var commonOrders:Vector;
-	private var featureOrders:Vector;
-	private var layoutOrders:Vector;
-	private var nocateOrders:Vector;
+	private var commonOrders:ArrayList;
+	private var featureOrders:ArrayList;
+	private var layoutOrders:ArrayList;
+	private var nocateOrders:ArrayList;
 	
 	private var useCategory:Boolean;
 	
@@ -50,12 +50,12 @@ public class PropertyPane extends JPanel{
 		vp.setHorizontalAlignment(JViewport.LEFT);
 		append(new JScrollPane(vp));
 		
-		nocateOrders = new Vector();
+		nocateOrders = new ArrayList();
 		
 		if(useCategory){
-			commonOrders = new Vector();
-			featureOrders = new Vector();
-			layoutOrders = new Vector();
+			commonOrders = new ArrayList();
+			featureOrders = new ArrayList();
+			layoutOrders = new ArrayList();
 			
 			commonFolder = new Folder("Common");
 			commonFolder.setExpanded(true);
@@ -148,7 +148,7 @@ public class PropertyPane extends JPanel{
 		}
 	}
 	
-	private function insertEditor(form:Form, orders:Vector, order:int, row:FormRow):void{
+	private function insertEditor(form:Form, orders:ArrayList, order:int, row:FormRow):void{
 		var n:int = orders.size();
 		for(var i:int=0; i<n; i++){
 			if(orders.get(i) > order){

@@ -1,7 +1,7 @@
 package org.aswing.guibuilder.model{
 
 import org.aswing.Border;
-import org.aswing.util.Vector;	
+import org.aswing.util.ArrayList;	
 
 /**
  * Border model
@@ -10,7 +10,7 @@ import org.aswing.util.Vector;
 public class BorderModel implements Model{
 	
 	private var def:BorderDefinition;
-	private var properties:Vector;
+	private var properties:ArrayList;
 	private var border:Border;
 	
 	public function BorderModel(def:BorderDefinition=null){
@@ -21,7 +21,7 @@ public class BorderModel implements Model{
 	
 	private function init(def:BorderDefinition):void{
 		this.def = def;
-		properties = new Vector();
+		properties = new ArrayList();
 		var pros:Array = def.getProperties();
 		for(var i:int=0; i<pros.length; i++){
 			properties.append(new ProModel(pros[i]));

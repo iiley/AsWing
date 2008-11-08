@@ -1,6 +1,6 @@
 package org.aswing.guibuilder.model{
 
-import org.aswing.util.Vector;
+import org.aswing.util.ArrayList;
 import org.aswing.util.Reflection;	
 
 /**
@@ -17,7 +17,7 @@ public class AbsAggDefinition {
 	protected var shortClassName:String;
 	protected var clazz:Class;
 	protected var superDef:AbsAggDefinition;
-	protected var properties:Vector;
+	protected var properties:ArrayList;
 	
 	public function AbsAggDefinition(xml:*, superDef:AbsAggDefinition){
 		this.xml = xml;
@@ -28,7 +28,7 @@ public class AbsAggDefinition {
 		clazz = Reflection.getClass(className);
 		var strs:Array = className.split(".");
 		shortClassName = strs[strs.length-1];
-		properties = new Vector();
+		properties = new ArrayList();
 		if(superDef){
 			properties.appendAll(superDef.getProperties());
 		}
