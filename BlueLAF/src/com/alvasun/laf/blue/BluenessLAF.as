@@ -1234,7 +1234,7 @@ package com.alvasun.laf.blue {
 				"Frame.titleBarBG", SkinFrameTitleBarBG, 
 				"Frame.titleBarButtonGap", 0, 
 				"Frame.titleBarOpaque", false,
-				"Frame.dragDirectly", true, 
+				"Frame.dragDirectly", false, 
 				"Frame.icon", null,
 				"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
 				"Frame.normalIcon", SkinFrameNormalIcon,
