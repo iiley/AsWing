@@ -152,3 +152,4 @@ made JLoadPane loaded asset always at bottom depth
 added function translator and editable support to PropertyTableModel
 added setMnemonicEnabled/isMnemonicEnabled methods to AbstractButton
 improved resizer, more accurate in directly mode
+renamed org.aswing.util.Vector to org.aswing.util.ArrayList
