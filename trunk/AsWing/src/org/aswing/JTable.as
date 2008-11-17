@@ -1714,7 +1714,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	}
 	
 	/**
-	 * Returns the location in the JTable view area of the logic location.
+	 * Returns the logic location in the JTable view area of the pixel location.
 	 */
 	public function getLogicLocationFromPixelLocation(p:IntPoint):IntPoint{
 		var pp:IntPoint = p.clone();
