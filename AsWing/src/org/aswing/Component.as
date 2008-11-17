@@ -2018,7 +2018,7 @@ public class Component extends AWSprite{
 	public function paintImmediately():void{
 		if(isVisible() && isReadyToPaint()){
 			var paintBounds:IntRectangle = getPaintBoundsInRoot();
-			layoutClipAndTrigger(paintBounds);
+			layoutClipAndTrigger(null);
 			paint(getInsets().getInsideBounds(paintBounds));
 		}
 	}	
@@ -2089,7 +2089,13 @@ public class Component extends AWSprite{
 	
 	private function layoutClipAndTrigger(paintBounds:IntRectangle):void{
 		if(paintBounds == null){
-			paintBounds = getPaintBoundsInRoot();
+			var b:IntRectangle = new IntRectangle(0, 0, width, height);
+			var r:IntRectangle = getPaintBoundsInRoot();
+			var x1:int = Math.max(b.x, r.x);
+			var x2:int = Math.min(b.x + b.width, r.x + r.width);
+			var y1:int = Math.max(b.y, r.y);
+			var y2:int = Math.min(b.y + b.height, r.y + r.height);
+			paintBounds = new IntRectangle(x1, y1, x2 - x1, y2 - y1);
 		}else{
 			paintBounds = paintBounds.clone();
 		}
