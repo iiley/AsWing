@@ -186,6 +186,8 @@ public class JPopupMenu extends Container implements MenuElement{
 		}
 		if(b){
 			popup.setMnemonicTriggerProxy(stage);
+			//if the size is not changed, but children changed, this call make it fresh
+			revalidate();
 		}else{
 			popup.setMnemonicTriggerProxy(null);
 		}
