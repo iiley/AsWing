@@ -135,12 +135,13 @@ package com.alvasun.laf.blue {
 		 */		
 		override protected function initSystemFontDefaults(table:UIDefaults):void{
 			super.initSystemFontDefaults(table);
-			var font11 : ASFontUIResource = new ASFontUIResource("微软雅黑", 11);
-			var font12 : ASFontUIResource = new ASFontUIResource("微软雅黑", 12);
-			var font12Bold : ASFontUIResource = new ASFontUIResource("微软雅黑", 12, true);
-			var font12Underline : ASFontUIResource = new ASFontUIResource("微软雅黑", 12, false, false, true);
-			var font14 : ASFontUIResource = new ASFontUIResource("微软雅黑", 13);
-			var font14Bold : ASFontUIResource = new ASFontUIResource("微软雅黑", 13, true);
+			var fontName : String = "Tahoma";
+			var font11 : ASFontUIResource = new ASFontUIResource(fontName, 11);
+			var font12 : ASFontUIResource = new ASFontUIResource(fontName, 12);
+			var font12Bold : ASFontUIResource = new ASFontUIResource(fontName, 12, true);
+			var font12Underline : ASFontUIResource = new ASFontUIResource(fontName, 12, false, false, true);
+			var font14 : ASFontUIResource = new ASFontUIResource(fontName, 13);
+			var font14Bold : ASFontUIResource = new ASFontUIResource(fontName, 13, true);
 			var defaultSystemFonts:Array = [
 				"systemFont", font12, 
 				"menuFont", font12, 
@@ -1234,7 +1235,7 @@ package com.alvasun.laf.blue {
 				"Frame.titleBarBG", SkinFrameTitleBarBG, 
 				"Frame.titleBarButtonGap", 0, 
 				"Frame.titleBarOpaque", false,
-				"Frame.dragDirectly", false, 
+				"Frame.dragDirectly", true, 
 				"Frame.icon", null,
 				"Frame.iconifiedIcon", SkinFrameIconifiedIcon,
 				"Frame.normalIcon", SkinFrameNormalIcon,
