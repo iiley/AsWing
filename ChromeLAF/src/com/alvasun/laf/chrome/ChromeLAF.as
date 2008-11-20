@@ -130,10 +130,11 @@ package com.alvasun.laf.chrome {
 		 */		
 		override protected function initSystemFontDefaults(table:UIDefaults):void{
 			super.initSystemFontDefaults(table);
-			var font12 : ASFontUIResource = new ASFontUIResource("微软雅黑", 12);
-			var font12Bold : ASFontUIResource = new ASFontUIResource("微软雅黑", 12, true);
-			var font14 : ASFontUIResource = new ASFontUIResource("微软雅黑", 13);
-			var font14Bold : ASFontUIResource = new ASFontUIResource("微软雅黑", 13, true);
+			var fontName : String = "Tahoma";
+			var font12 : ASFontUIResource = new ASFontUIResource(fontName, 12);
+			var font12Bold : ASFontUIResource = new ASFontUIResource(fontName, 12, true);
+			var font14 : ASFontUIResource = new ASFontUIResource(fontName, 13);
+			var font14Bold : ASFontUIResource = new ASFontUIResource(fontName, 13, true);
 			var defaultSystemFonts:Array = [
 				"systemFont", font12, 
 				"menuFont", font12, 
