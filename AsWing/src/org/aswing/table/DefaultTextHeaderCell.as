@@ -26,7 +26,7 @@ public class DefaultTextHeaderCell extends DefaultTextCell{
 		if(header != null){
 			setBackground(header.getBackground());
 			setForeground(header.getForeground());
-			setFont(table.getFont());
+			setFont(header.getFont());
 		}
 	}
 }
