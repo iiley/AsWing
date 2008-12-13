@@ -116,7 +116,7 @@ package com.alvasun.laf.blue {
 				//"controlShadow", 0xC7C7C5,        	/* Shadow color for controls */
 				//"controlDkShadow", 0x666666,      	/* Dark shadow color for controls */
 				//"scrollbar", 0xE0E0E0             	/* Scrollbar background (usually the "track") */
-				"selectionBackground", 0xdbecf4,
+				"selectionBackground", 0xc4e2ff,
 				"selectionForeground", 0x000000, 
 			];
 					
@@ -135,7 +135,7 @@ package com.alvasun.laf.blue {
 		 */		
 		override protected function initSystemFontDefaults(table:UIDefaults):void{
 			super.initSystemFontDefaults(table);
-			var fontName : String = "Tahoma";
+			var fontName : String = "Tahoma";//"微软雅黑"
 			var font11 : ASFontUIResource = new ASFontUIResource(fontName, 11);
 			var font12 : ASFontUIResource = new ASFontUIResource(fontName, 12);
 			var font12Bold : ASFontUIResource = new ASFontUIResource(fontName, 12, true);
@@ -1405,6 +1405,7 @@ package com.alvasun.laf.blue {
 				"Table.focusable", true, 
 				"Table.font", table.getFont("font12"),
 				"Table.gridColor", new ASColorUIResource(0xd5d5d5),
+				"Table.background", new ASColorUIResource(0xffffff),
 			];
 			table.putDefaults(comDefaults);
 			
