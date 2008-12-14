@@ -1307,7 +1307,7 @@ package com.alvasun.laf.blue {
 			comDefaults = [
 				"ComboBox.opaque", false, 
 				"ComboBox.bg", SkinComboBoxBackground,
-				"ComboBox.border", new SkinEmptyBorder(2, 2, 2, 2), //modify this to fit the bg image
+				"ComboBox.border", new SkinEmptyBorder(1, 2, 0, 2), //modify this to fit the bg image
 				"ComboBox.popupBorder", BluenessComboBoxPopupBorder, 
 				"ComboBox.defaultImage", ComboBox_defaultImage, 
 				"ComboBox.defaultRolloverImage", ComboBox_defaultRolloverImage, 
