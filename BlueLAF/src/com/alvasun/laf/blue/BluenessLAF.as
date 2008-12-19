@@ -107,9 +107,9 @@ package com.alvasun.laf.blue {
 				//"text", 0xC0C0ff,                 	/* Text background color */
 				//"textText", 0x00FF00,             	/* Text foreground color */
 				//"textHighlight", 0x000080,        	/* Text background color when selected */
-				"textHighlightText", 0xFFFFFF,    	/* Text color when selected */
+				"textHighlightText", 0xFFFFFF,    		/* Text color when selected */
 				//"textInactiveText", 0x808080,     	/* Text color when disabled */
-				//"control", 0xF4F4F4,//0xEFEFEF,   	/* Default color for controls (buttons, sliders, etc) */
+				"control", 0xFEFEFE,   					/* Default color for controls (buttons, sliders, etc) */
 				"controlText", 0x000000,          		/* Default color for text in controls */
 				//"controlHighlight", 0xEEEEEE,     	/* Specular highlight (opposite of the shadow) */
 				//"controlLtHighlight", 0x666666,   	/* Highlight color for controls */
@@ -135,7 +135,7 @@ package com.alvasun.laf.blue {
 		 */		
 		override protected function initSystemFontDefaults(table:UIDefaults):void{
 			super.initSystemFontDefaults(table);
-			var fontName : String = "Tahoma";//"微软雅黑"
+			var fontName : String = "Tahoma";
 			var font11 : ASFontUIResource = new ASFontUIResource(fontName, 11);
 			var font12 : ASFontUIResource = new ASFontUIResource(fontName, 12);
 			var font12Bold : ASFontUIResource = new ASFontUIResource(fontName, 12, true);
@@ -147,7 +147,7 @@ package com.alvasun.laf.blue {
 				"menuFont", font12, 
 				"controlFont", font12, 
 				"windowFont", font12,
-				"frameFont", font14,
+				"frameFont", font14Bold,
 				"font11", font11,
 				"font12", font12,
 				"font12Bold", font12Bold,
@@ -1388,7 +1388,7 @@ package com.alvasun.laf.blue {
 			//JAccordion
 			comDefaults = [
 				"Accordion.header", SkinAccordionHeader, 
-				"Accordion.font", table.get("font14"),
+				"Accordion.font", table.get("font12Bold"),
 				"Accordion.motionSpeed", 100, 
 				"Accordion.tabMargin", new InsetsUIResource(2, 10, 2, 10),  //modify this to fit header image
 				"Accordion.header.defaultImage", Accordion_header_defaultImage,
@@ -1405,7 +1405,7 @@ package com.alvasun.laf.blue {
 				"Table.focusable", true, 
 				"Table.font", table.getFont("font12"),
 				"Table.gridColor", new ASColorUIResource(0xd5d5d5),
-				"Table.background", new ASColorUIResource(0xffffff),
+				//"Table.background", new ASColorUIResource(0xffffff),
 			];
 			table.putDefaults(comDefaults);
 			
@@ -1413,7 +1413,7 @@ package com.alvasun.laf.blue {
 			comDefaults = [
 				"TableHeader.opaque", true, 
 				"TableHeader.focusable", true, 
-				"TableHeader.font", table.getFont("font14"),
+				"TableHeader.font", table.getFont("font12Bold"),
 				"TableHeader.gridColor", new ASColorUIResource(0xd5d5d5),
 				"TableHeader.border", undefined, 
 				"TableHeader.cellBorder", undefined, 
@@ -1440,6 +1440,7 @@ package com.alvasun.laf.blue {
 				
 				"Tree.leftChildIndent", 15, //modify this to fit control images width
 				"Tree.rightChildIndent", 0, 
+				"Tree.rowHeight", 22, 
 				"Tree.expandControl", SkinTreeExpandControl, 
 				"Tree.leafControlImage", Tree_leafControlImage, 
 				"Tree.folderExpandedControlImage", Tree_folderExpandedControlImage, 
