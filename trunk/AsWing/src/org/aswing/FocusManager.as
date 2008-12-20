@@ -151,6 +151,7 @@ public class FocusManager{
 	}
 	
 	private function __focusPaintedComRemoved(e:Event):void{
+		focusRect.graphics.clear();
 		removeistenerToFocusPaintedComponent();
 	}
 	
