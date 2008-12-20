@@ -337,7 +337,7 @@ public class JViewport extends Container implements Viewportable{
     	if(verticalUnitIncrement != AUTO_INCREMENT){
     		return verticalUnitIncrement;
     	}else{
-    		return Math.max(getExtentSize().height/100, 1);
+    		return Math.max(getExtentSize().height/40, 1);
     	}
     }
     
@@ -359,7 +359,7 @@ public class JViewport extends Container implements Viewportable{
     	if(horizontalUnitIncrement != AUTO_INCREMENT){
     		return horizontalUnitIncrement;
     	}else{
-    		return Math.max(getExtentSize().width/100, 1);
+    		return Math.max(getExtentSize().width/40, 1);
     	}
     }
     
