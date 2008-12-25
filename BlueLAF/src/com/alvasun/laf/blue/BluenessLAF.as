@@ -102,7 +102,7 @@ package com.alvasun.laf.blue {
 				"window", 0xf7f7f7,               		/* JWindow的内部背景颜色 */
 				//"windowBorder", 0x000000,
 				"windowText", 0x000000,					/* 字体颜色，主要用于下边的JFrame JToolBar的前景颜色 */
-				"menu", 0xe7e7e7,						/* 菜单背景颜色 */
+				"menu", 0xfdfdfd,						/* 菜单背景颜色 */
 				"menuText", 0x000000,					/* 菜单字体颜色 */
 				//"text", 0xC0C0ff,                 	/* Text background color */
 				//"textText", 0x00FF00,             	/* Text foreground color */
