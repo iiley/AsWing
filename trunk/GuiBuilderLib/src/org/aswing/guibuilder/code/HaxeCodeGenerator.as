@@ -95,7 +95,7 @@ public class HaxeCodeGenerator{
 		//add some additional classes
 		line("//importing some additional classes");
 		line("import org.aswing.ASColor;");
-		line("import org.aswing.ASWingConstants;");		
+		line("import org.aswing.AsWingConstants;");		
 	}
 	
 	private function addClass():void{
