@@ -2,21 +2,26 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 package org.aswing.colorchooser { 
+import flash.display.DisplayObject;
+import flash.display.Shape;
+
 import org.aswing.ASColor;
 import org.aswing.Component;
 import org.aswing.Icon;
 import org.aswing.graphics.*;
-import flash.display.DisplayObject;
 /**
  * @author iiley
  */
 public class NoColorIcon implements Icon {
+	
+	private var shape:Shape;
 	private var width:Number;
 	private var height:Number;
 	
 	public function NoColorIcon(width:int, height:int){
 		this.width = width;
 		this.height = height;
+		shape = new Shape();
 	}
 
 	/**
@@ -37,6 +42,8 @@ public class NoColorIcon implements Icon {
 	 * Draw the icon at the specified location.
 	 */
 	public function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void{
+		shape.graphics.clear();
+		g = new Graphics2D(shape.graphics);
 		g.beginDraw(new Pen(ASColor.BLACK, 1));
 		g.beginFill(new SolidBrush(ASColor.WHITE));
 		var w:Number = width/2 + 1;
@@ -50,7 +57,7 @@ public class NoColorIcon implements Icon {
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{
-		return null;
+		return shape;
 	}	
 }
 }
