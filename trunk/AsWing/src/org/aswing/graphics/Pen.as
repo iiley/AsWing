@@ -19,7 +19,7 @@ import org.aswing.ASColor;
  */
 public class Pen implements IPen{
 	
-	private var _thickness:uint;
+	private var _thickness:Number;
 	private var _color:ASColor;
 	private var _pixelHinting:Boolean;
 	private var _scaleMode:String;
@@ -31,7 +31,7 @@ public class Pen implements IPen{
 	 * Create a Pen.
 	 */
 	public function Pen(color:ASColor,
-				 thickness:uint=1, 
+				 thickness:Number=1, 
 				 pixelHinting:Boolean = false, 
 				 scaleMode:String = "normal", 
 				 caps:String = null, 
@@ -58,14 +58,14 @@ public class Pen implements IPen{
 		this._color=color;
 	}
 	
-	public function getThickness():uint{
+	public function getThickness():Number{
 		return _thickness;
 	}
 	
 	/**
 	 * 
 	 */
-	public function setThickness(thickness:uint):void{
+	public function setThickness(thickness:Number):void{
 		this._thickness=thickness;
 	}
 	
