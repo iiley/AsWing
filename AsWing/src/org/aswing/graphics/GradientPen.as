@@ -4,8 +4,8 @@
 
 package org.aswing.graphics{
 		
-import flash.geom.Matrix;
 import flash.display.Graphics;
+import flash.geom.Matrix;
 
 /**
  * GradientPen to draw Gradient lines.
@@ -17,7 +17,7 @@ import flash.display.Graphics;
  */		
 public class GradientPen implements IPen{
 	
-	private var thickness:uint;
+	private var pen:Pen;
 	private var fillType:String;
 	private var colors:Array;
 	private var alphas:Array;
@@ -27,8 +27,8 @@ public class GradientPen implements IPen{
 	private var interpolationMethod:String;
 	private var focalPointRatio:Number;
 
-	public function GradientPen(thickness:uint,fillType:String, colors:Array, alphas:Array, ratios:Array, matrix:Matrix = null, spreadMethod:String = "pad", interpolationMethod:String = "rgb", focalPointRatio:Number = 0){
-		this.thickness = thickness;
+	public function GradientPen(pen:Pen,fillType:String, colors:Array, alphas:Array, ratios:Array, matrix:Matrix = null, spreadMethod:String = "pad", interpolationMethod:String = "rgb", focalPointRatio:Number = 0){
+		this.pen = pen;
 		this.fillType = fillType;
 		this.colors = colors;
 		this.alphas = alphas;
@@ -131,6 +131,7 @@ public class GradientPen implements IPen{
 	 * 
 	 */
 	public function setTo(target:Graphics):void{
+		pen.setTo(target);
 		target.lineGradientStyle(fillType,colors,alphas,ratios,matrix,spreadMethod,interpolationMethod,focalPointRatio);
 	}
 }
