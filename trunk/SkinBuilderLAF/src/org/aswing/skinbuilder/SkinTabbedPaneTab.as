@@ -22,7 +22,7 @@ public class SkinTabbedPaneTab extends BasicAccordionHeader{
 		tabPlacement = -1;
 	}
 	
-	public function setTabPlacement(tp:int):void{
+	override public function setTabPlacement(tp:int):void{
 		if(tabPlacement != tp){
 			tabPlacement = tp;
 			if(tp == JTabbedPane.TOP){
