@@ -23,9 +23,7 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 	protected var left_contentRoundImage:DisplayObject;
 	protected var right_contentRoundImage:DisplayObject;
 	protected var contentRoundImageSetPlacement:int;
-	
-	protected var topTabCom:Component;
-	
+		
 	public function SkinTabbedPaneUI(){
 		super();
 		contentRoundImageContainer = AsWingUtils.createSprite(null, "contentRoundImageContainer");
@@ -76,7 +74,7 @@ public class SkinTabbedPaneUI extends BasicTabbedPaneUI implements GroundDecorat
 		return contentRoundImageContainer;
 	}
 	
-    override protected function drawBaseLine(tabBarBounds:IntRectangle, g:Graphics2D, fullB:IntRectangle):void{
+    override protected function drawBaseLine(tabBarBounds:IntRectangle, g:Graphics2D, fullB:IntRectangle, selTabB:IntRectangle):void{
     	var b:IntRectangle = tabBarBounds.clone();
     	var placement:int = tabbedPane.getTabPlacement();
     	
