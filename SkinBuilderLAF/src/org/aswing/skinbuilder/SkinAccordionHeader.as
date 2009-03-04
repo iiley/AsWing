@@ -4,9 +4,8 @@
 
 package org.aswing.skinbuilder{
 
-import org.aswing.plaf.basic.accordion.BasicAccordionHeader;
 import org.aswing.*;
-import org.aswing.plaf.basic.background.ButtonBackground;
+import org.aswing.plaf.basic.accordion.BasicAccordionHeader;
 
 public class SkinAccordionHeader extends BasicAccordionHeader{
 	
@@ -16,7 +15,9 @@ public class SkinAccordionHeader extends BasicAccordionHeader{
 
 	override protected function createHeaderButton():AbstractButton{
 		var tb:JButton = new JButton();
-		tb.setBackgroundDecorator(new SkinButtonBackground(getPropertyPrefix()));
+		var sbg:SkinButtonBackground = new SkinButtonBackground(getPropertyPrefix());
+		sbg.setDefaultsOwner(owner.getUI());
+		tb.setBackgroundDecorator(sbg);
 		return tb;
 	}
 	
