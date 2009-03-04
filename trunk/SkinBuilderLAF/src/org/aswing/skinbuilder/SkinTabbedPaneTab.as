@@ -40,6 +40,7 @@ public class SkinTabbedPaneTab extends BasicAccordionHeader{
 	
 	override protected function createHeaderButton():AbstractButton{
 		var tb:JButton = new JButton();
+		tb.setTextFilters([]);
 		topBG = new SkinButtonBackground(getPropertyPrefix() + "top.tab.");
 		bottomBG = new SkinButtonBackground(getPropertyPrefix() + "bottom.tab.");
 		leftBG = new SkinButtonBackground(getPropertyPrefix() + "left.tab.");
