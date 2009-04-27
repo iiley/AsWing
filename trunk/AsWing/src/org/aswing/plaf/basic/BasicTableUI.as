@@ -91,7 +91,7 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	}
 	
 	protected function __onTablePress(e:MouseEvent):void{
-		if(table.getTableHeader().hitTestMouse()){
+		if(!table.getCellPane().hitTestMouse()){
 			return;
 		}
 		selectMousePointed(e);
@@ -103,7 +103,7 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	}
 	
 	private function __onTableClicked(e:ClickCountEvent):void{
-		if(table.getTableHeader().hitTestMouse()){
+		if(!table.getCellPane().hitTestMouse()){
 			return;
 		}
 		var p:IntPoint = getMousePosOnTable();
@@ -125,7 +125,7 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		if(!table.isEnabled()){
 			return;
 		}
-		if(table.getTableHeader().hitTestMouse()){
+		if(!table.getCellPane().hitTestMouse()){
 			return;
 		}
 		var viewPos:IntPoint = table.getViewPosition();
@@ -369,6 +369,9 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 			height = r.y + r.height;
 		}
 		height += table.getTableHeader().getPreferredHeight();
+		if(table.getFooter()){
+			height += table.getFooter().getPreferredHeight();
+		}
 		return new IntDimension(width, height);
 	}
 		
@@ -390,7 +393,9 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 			d.width = table.getColumnModel().getTotalColumnWidth();
 		}
 		d.height -= table.getTableHeader().getHeight();
-				
+		if(table.getFooter()){
+			d.height -= table.getFooter().getHeight();
+		}
 		return d;
 	}
 
@@ -431,13 +436,15 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 	 * The maximum width is the sum of the maximum widths of each column.
 	 */
 	override public function getMaximumSize(c:Component):IntDimension {
-		var width:int = 0;
+		/*var width:int = 0;
 		var enumeration:Array = table.getColumnModel().getColumns();
 		for(var i:int=0; i<enumeration.length; i++){
 			var aColumn:TableColumn = enumeration[i];
 			width += aColumn.getMaxWidth();
 		}
 		return table.getInsets().getOutsideSize(createTableSize(width));
+		*/
+		return IntDimension.createBigDimension();		
 	}	
 	
 	public function toString():String{

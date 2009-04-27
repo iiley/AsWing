@@ -345,7 +345,7 @@ public class JTableHeader extends Container implements TableColumnModelListener{
 	 */	
 	private function initializeLocalVars():void{
 		setOpaque(true);
-		setRowHeight(20);
+		setRowHeight(24);
 		table = null;
 		reorderingAllowed = true;
 		resizingAllowed = true;

@@ -5,6 +5,9 @@
 package org.aswing.plaf.basic.icon{
 	
 import flash.display.*;
+import flash.filters.BevelFilter;
+import flash.filters.BitmapFilterType;
+
 import org.aswing.*;
 import org.aswing.graphics.*;
 
@@ -24,12 +27,14 @@ public class CheckBoxMenuItemCheckIcon extends MenuCheckIcon{
 		g = new Graphics2D(shape.graphics);
 		var menu:AbstractButton = AbstractButton(c);
 		if(menu.isSelected()){
-			g.beginDraw(new Pen(ASColor.BLACK, 2));
+			g.beginDraw(new Pen(c.getMideground(), 2));
 			g.moveTo(x, y+4);
 			g.lineTo(x+3, y+7);
-			g.lineTo(x+7, y+2);
+			g.lineTo(x+8, y+2);
 			g.endDraw();
 		}
+		shape.filters =
+			[new BevelFilter(1, 90, 0x0, 0, 0xFFFFFF, 1, 1, 1, 1, 1, BitmapFilterType.OUTER)];
 	}
 	
 	override public function getDisplay(c:Component):DisplayObject{

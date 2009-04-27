@@ -30,6 +30,7 @@ public class BasicFrameTitleBarBG implements GroundDecorator, UIResource{
 	}
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):void{
+		return;
 		var bar:FrameTitleBar = FrameTitleBar(c);
 		var frameUI:FrameUI = bar.getFrame().getUI() as FrameUI;
 		if(activeColor == null){

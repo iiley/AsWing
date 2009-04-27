@@ -10,10 +10,9 @@ import org.aswing.Component;
 /**
  * @private
  */
-public class PopupSliderThumbIcon extends SliderThumbIcon
-{
-	public function PopupSliderThumbIcon()
-	{
+public class PopupSliderThumbIcon extends SliderThumbIcon{
+	
+	public function PopupSliderThumbIcon(){
 		super();
 	}
 	
@@ -21,14 +20,12 @@ public class PopupSliderThumbIcon extends SliderThumbIcon
 		return "Adjuster.";
 	}	
 	
-	override public function getIconHeight(c:Component):int
-	{
+	override public function getIconHeight(c:Component):int{
 		return 12;
 	}
 	
-	override public function getIconWidth(c:Component):int
-	{
-		return 6;
+	override public function getIconWidth(c:Component):int{
+		return 12;
 	}	
 	
 }

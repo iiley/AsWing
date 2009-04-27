@@ -32,6 +32,10 @@ public class BasicTextComponentUI extends BaseComponentUI{
     	super.paint(c, g, r);
     }
     
+    override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+		//do not paint anything, the background decorator will paint
+	}
+    
 	override public function installUI(c:Component):void{
 		textComponent = JTextComponent(c);
 		installDefaults();

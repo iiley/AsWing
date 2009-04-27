@@ -4,20 +4,20 @@
 
 package org.aswing.plaf.basic{
 
+import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.geom.Rectangle;
+import flash.ui.Keyboard;
+
 import org.aswing.*;
-import org.aswing.graphics.*;
+import org.aswing.event.AWEvent;
+import org.aswing.event.FocusKeyEvent;
+import org.aswing.event.ListItemEvent;
 import org.aswing.geom.*;
+import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.icon.ArrowIcon;
 import org.aswing.util.Timer;
-import org.aswing.border.LineBorder;
-import flash.events.MouseEvent;
-import flash.events.Event;
-import flash.geom.Rectangle;
-import org.aswing.event.ListItemEvent;
-import org.aswing.event.FocusKeyEvent;
-import flash.ui.Keyboard;
-import org.aswing.event.AWEvent;
 
 /**
  * Basic combo box ui imp.
@@ -30,8 +30,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 	protected var box:JComboBox;
 	protected var popup:JPopup;
 	protected var scollPane:JScrollPane;
-    protected var arrowShadowColor:ASColor;
-    protected var arrowLightColor:ASColor;
 	
 	protected var popupTimer:Timer;
 	protected var moveDir:Number;
@@ -63,8 +61,6 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
         LookAndFeel.installBorderAndBFDecorators(box, pp);
         LookAndFeel.installColorsAndFont(box, pp);
         LookAndFeel.installBasicProperties(box, pp);
-		arrowShadowColor = getColor(pp+"arrowShadowColor");
-		arrowLightColor = getColor(pp+"arrowLightColor");
 	}
     
     protected function uninstallDefaults():void{
@@ -111,14 +107,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 	}
         
     override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
-    	if(c.isOpaque()){
-	 		var bgColor:ASColor;
-	 		bgColor = (c.getBackground() == null ? ASColor.WHITE : c.getBackground());
-	 		if(!box.isEnabled()){
-	 			bgColor = BasicGraphicsUtils.getDisabledColor(c);
-	 		}
-			g.fillRectangle(new SolidBrush(bgColor), b.x, b.y, b.width, b.height);
-    	}
+    	//do nothing, background decorator will paint it
     }
     
     /**
@@ -126,12 +115,16 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
      */
     protected function createDropDownButton():Component{
     	var btn:JButton = new JButton("", new ArrowIcon(
-    				Math.PI/2, 8,
-				    arrowLightColor,
-				    arrowShadowColor
+    				Math.PI/2, 16
     	));
     	btn.setFocusable(false);
     	btn.setPreferredSize(new IntDimension(16, 16));
+    	btn.setBackgroundDecorator(null);
+    	btn.setMargin(new Insets());
+    	btn.setBorder(null);
+    	//make it proxy to the combobox
+    	btn.setMideground(null);
+    	btn.setStyleTune(null);
     	return btn;
     }
     
@@ -139,7 +132,10 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	if(scollPane == null){
     		scollPane = new JScrollPane(getPopupList());
     		scollPane.setBorder(getBorder(getPropertyPrefix()+"popupBorder"));
-    		scollPane.setOpaque(true);
+    		scollPane.setOpaque(false);
+    		scollPane.setStyleProxy(box);
+    		scollPane.setBackground(null);
+    		scollPane.setStyleTune(null);
     	}
     	return scollPane;
     }
@@ -172,8 +168,10 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
 		var height:int = Math.min(box.getItemCount(), box.getMaximumRowCount())*cellHeight;
 		var i:Insets = getScollPane().getInsets();
 		height += i.top + i.bottom;
+		width += (i.right - i.left);
 		i = getPopupList().getInsets();
 		height += i.top + i.bottom;
+		width += (i.right - i.left);
 		getPopup().changeOwner(AsWingUtils.getOwnerAncestor(box));
 		getPopup().setSizeWH(width, height);
 		getPopup().show();

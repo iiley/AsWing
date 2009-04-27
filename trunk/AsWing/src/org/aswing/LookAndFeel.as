@@ -5,8 +5,8 @@
 package org.aswing
 {
 	
-import org.aswing.plaf.*;
 import org.aswing.error.*;
+import org.aswing.plaf.*;
 	
 /**
  * Reserved for look and feel implementation.
@@ -55,7 +55,8 @@ public class LookAndFeel
      * @see UIManager#getColor()
      */
     public static function installColors(c:Component, componentUIPrefix:String,
-    	defaultBgName:String="background", defaultFgName:String="foreground"):void{
+    	defaultBgName:String="background", defaultFgName:String="foreground", 
+    	defaultMgName:String="mideground"):void{
         var bg:ASColor = c.getBackground();
 		if (bg == null || bg is UIResource) {
 	    	c.setBackground(c.getUI().getColor(componentUIPrefix + defaultBgName));
@@ -65,6 +66,18 @@ public class LookAndFeel
 		if (fg == null || fg is UIResource) {
 	    	c.setForeground(c.getUI().getColor(componentUIPrefix + defaultFgName));
 		}
+
+        var mg:ASColor = c.getMideground();
+		if (mg == null || mg is UIResource) {
+	    	c.setMideground(c.getUI().getColor(componentUIPrefix + defaultMgName));
+		}
+    }
+    
+    public static function installStyleTune(c:Component, componentUIPrefix:String, pname:String="colorAdjust"):void{
+    	var ca:StyleTune = c.getStyleTune();
+    	if(ca == null || ca is UIResource){
+    		c.setStyleTune(c.getUI().getStyleTune(componentUIPrefix+pname));
+    	}
     }
     
     /**
@@ -89,11 +102,15 @@ public class LookAndFeel
     /**
      * @see #installColors()
      * @see #installFont()
+     * @see #installStyleTune()
      */
     public static function installColorsAndFont(c:Component, componentUIPrefix:String,
-    	defaultBgName:String="background", defaultFgName:String="foreground", defaultFontName:String="font"):void{
-    	installColors(c, componentUIPrefix, defaultBgName, defaultFgName);
+    	defaultBgName:String="background", defaultFgName:String="foreground", 
+    	defaultFontName:String="font", defaultMgName:String="mideground", 
+    	defaultCaName:String="colorAdjust"):void{
+    	installColors(c, componentUIPrefix, defaultBgName, defaultFgName, defaultMgName);
     	installFont(c, componentUIPrefix, defaultFontName);
+    	installStyleTune(c, componentUIPrefix, defaultCaName);
     }
 	
     /**

@@ -124,6 +124,14 @@ public class ASFont{
 		return AsWingUtils.computeStringSizeWithFont(this, text, includeGutters);
 	}
 	
+	/**
+	 * Clone a ASFont, most time you dont need to call this because ASFont 
+	 * is un-mutable class, but to avoid UIResource, you can call this.
+	 */
+	public function clone():ASFont{
+		return new ASFont(name, size, bold, italic, underline, advancedProperties);
+	}	
+	
 	public function toString():String{
 		return "ASFont[" 
 			+ "name : " + name 

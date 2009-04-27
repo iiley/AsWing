@@ -10,7 +10,6 @@ import flash.text.*;
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
-import org.aswing.util.HashMap;
 
 /**
  * TitledBorder, a border with a line rectangle and a title text.
@@ -22,7 +21,7 @@ public class TitledBorder extends DecorateBorder{
 		return UIManager.getFont("systemFont");
 	}
 	public static function get DEFAULT_COLOR():ASColor{
-		return ASColor.BLACK;
+		return UIManager.getColor("controlText");
 	}
 	public static function get DEFAULT_LINE_COLOR():ASColor{
 		return ASColor.GRAY;

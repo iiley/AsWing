@@ -44,6 +44,7 @@ public class JTabbedPane extends AbstractTabbedPane{
     public static const RIGHT:int   = AsWingConstants.RIGHT;	
 	
 	private var tabPlacement:int;
+	private var leadingOffset:int;
 	
     /**
      * JTabbedPane()
@@ -53,6 +54,7 @@ public class JTabbedPane extends AbstractTabbedPane{
 		super();
 		setName("JTabbedPane");
 		tabPlacement = TOP;
+		leadingOffset = 0;
 		
 		updateUI();
 	}
@@ -95,6 +97,27 @@ public class JTabbedPane extends AbstractTabbedPane{
      */
     public function getTabPlacement():int{
     	return tabPlacement;
+    }
+	
+    /**
+     * Sets the offset of the first tab.
+     *
+     * @param offset the offset of the first tab.
+     */
+    public function setLeadingOffset(offset:int):void {
+    	if(leadingOffset != offset){
+    		leadingOffset = offset;
+    		revalidate();
+    		repaint();
+    	}
+    }
+    
+    /**
+     * Returns the offset of the first tab.
+     * @see #setLeadingOffset()
+     */
+    public function getLeadingOffset():int{
+    	return leadingOffset;
     }
     
 	/**

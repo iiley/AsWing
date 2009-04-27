@@ -5,7 +5,6 @@
 package org.aswing
 {
 
-import org.aswing.*;
 import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.basic.BasicLookAndFeel;
 	
@@ -113,6 +112,10 @@ public class UIManager
 	public static function getInsets(key:String):Insets{
 		return getDefaults().getInsets(key);
 	}
+	
+	public static function getStyleTune(key:String):StyleTune{
+		return getDefaults().getStyleTune(key);
+	}	
 	
 	public static function getInstance(key:String):*{
 		return getDefaults().getInstance(key);

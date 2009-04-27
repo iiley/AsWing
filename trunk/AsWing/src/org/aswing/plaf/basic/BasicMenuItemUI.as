@@ -443,15 +443,24 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 	
 	protected function paintMenuBackground(menuItem:JMenuItem, g:Graphics2D, r:IntRectangle, bgColor:ASColor):void {
 		var color:ASColor = bgColor;
+		var tune:StyleTune = menuItem.getStyleTune();
 		if(menuItem.isOpaque()) {
 			if (!shouldPaintSelected()) {
 				color = menuItem.getBackground();
 			}
-			g.fillRectangle(new SolidBrush(color), r.x, r.y, r.width, r.height);
+			doPaintMenuBackground(menuItem, g, color, r, tune.round);
 		}else if(shouldPaintSelected() && (menuItem.getBackgroundDecorator() == null || menuItem.getBackgroundDecorator() == DefaultEmptyDecoraterResource.INSTANCE)){
-			g.fillRectangle(new SolidBrush(color), r.x, r.y, r.width, r.height);
+			doPaintMenuBackground(menuItem, g, color, r, tune.round);
 		}
-	}	
+	}
+	
+	protected function doPaintMenuBackground(c:JMenuItem, g:Graphics2D, cl:ASColor, r:IntRectangle, round:Number):void{
+		var tune:StyleTune = c.getStyleTune();
+		var style:StyleResult = new StyleResult(cl, tune);
+		
+		BasicGraphicsUtils.fillGradientRoundRect(g, r, style, Math.PI/2);
+		//BasicGraphicsUtils.drawGradientRoundRectLine(g, r, 1, style);
+	}
 	
 
 	protected function paintTextField(b:JMenuItem, tRect:IntRectangle, textField:TextField, text:String, font:ASFont, color:ASColor, validateFont:Boolean):void{

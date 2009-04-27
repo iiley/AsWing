@@ -5,13 +5,12 @@
 package org.aswing.plaf.basic.icon{
 	
 import flash.display.DisplayObject;
+import flash.display.Shape;
+import flash.geom.Point;
 
 import org.aswing.*;
-import org.aswing.geom.IntPoint;
 import org.aswing.graphics.*;
 import org.aswing.plaf.UIResource;
-import flash.geom.Point;
-import flash.display.Shape;
 
 /**
  * @private
@@ -23,16 +22,24 @@ public class SolidArrowIcon implements Icon, UIResource{
 	protected var width:Number;
 	protected var height:Number;
 	protected var arrow:Number;
-	protected var color:ASColor;
 	
 	public function SolidArrowIcon(arrow:Number, size:Number, color:ASColor){
 		this.arrow = arrow;
 		this.width = size;
 		this.height = size;
-		this.color = color;
 		shape = new Shape();
+		paintIconWithColor(color);
+	}	
+	
+	public function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void{
+		shape.x = x;
+		shape.y = y;
+	}
+	
+	public function paintIconWithColor(cl:ASColor):void{
 		var x:int = 0;
 		var y:int = 0;
+		shape.graphics.clear();
 		var g:Graphics2D = new Graphics2D(shape.graphics);
 		var center:Point = new Point(x + width/2, y + height/2);
 		var w:Number = width;
@@ -42,12 +49,7 @@ public class SolidArrowIcon implements Icon, UIResource{
 		ps1.push(nextPoint(back, arrow - Math.PI/2, w/2));
 		ps1.push(nextPoint(back, arrow + Math.PI/2, w/2));
 		
-		g.fillPolygon(new SolidBrush(color), ps1);
-	}	
-	
-	public function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void{
-		shape.x = x;
-		shape.y = y;
+		g.fillPolygon(new SolidBrush(cl), ps1);
 	}
 	
 	//nextPoint with Point

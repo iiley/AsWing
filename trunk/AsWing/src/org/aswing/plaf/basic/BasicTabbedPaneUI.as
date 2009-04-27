@@ -6,17 +6,19 @@ package org.aswing.plaf.basic{
 
 import flash.display.*;
 import flash.events.*;
+import flash.geom.Matrix;
 import flash.ui.Keyboard;
+
 import org.aswing.*;
 import org.aswing.border.*;
+import org.aswing.event.FocusKeyEvent;
+import org.aswing.event.InteractiveEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.icon.ArrowIcon;
-import org.aswing.util.*;
 import org.aswing.plaf.basic.tabbedpane.*;
-import org.aswing.event.InteractiveEvent;
-import org.aswing.event.FocusKeyEvent;
+import org.aswing.util.*;
 
 /**
  * @private
@@ -24,15 +26,7 @@ import org.aswing.event.FocusKeyEvent;
 public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	
 	protected var topBlankSpace:int = 4;
-	
-	protected var shadow:ASColor;
-	protected var darkShadow:ASColor;
-	protected var highlight:ASColor;
-	protected var lightHighlight:ASColor;
-	protected var arrowShadowColor:ASColor;
-	protected var arrowLightColor:ASColor;
-	protected var windowBG:ASColor;
-	
+		
 	protected var tabbedPane:JTabbedPane;
 	protected var tabBarSize:IntDimension;
 	protected var maxTabSize:IntDimension;
@@ -60,6 +54,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	protected var tabBarMC:Sprite;
 	protected var tabBarMaskMC:Shape;
 	protected var buttonHolderMC:Sprite;
+	protected var topTabCom:Component;
 	
 	public function BasicTabbedPaneUI() {
 		super();
@@ -94,16 +89,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		LookAndFeel.installColorsAndFont(tabbedPane, pp);
 		LookAndFeel.installBorderAndBFDecorators(tabbedPane, pp);
 		LookAndFeel.installBasicProperties(tabbedPane, pp);
-		
-		shadow = getColor(pp+"shadow");
-		darkShadow = getColor(pp+"darkShadow");
-		highlight = getColor(pp+"light");
-		lightHighlight = getColor(pp+"highlight");
-		arrowShadowColor = getColor(pp+"arrowShadowColor");
-		arrowLightColor = getColor(pp+"arrowLightColor");
-		windowBG = getColor("window");
-		if(windowBG == null) windowBG = tabbedPane.getBackground();
-		
+				
 		contentMargin = getInsets(pp+"contentMargin");
 		if(contentMargin == null) contentMargin = new Insets(8, 2, 2, 2);
 		maxTabWidth = getInt(pp+"maxTabWidth");
@@ -280,31 +266,29 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 	}
 	
 	protected function createPrevButton():AbstractButton{
-		var b:JButton = new JButton(null, createArrowIcon(Math.PI, true));
-		b.setMargin(new Insets(2, 2, 2, 2));
-		b.setDisabledIcon(createArrowIcon(Math.PI, false));
-		return b;
+		return createArrowButton(Math.PI);
+	}
+	
+	protected function createArrowButton(direction:Number):AbstractButton{
+    	var btn:JButton = new JButton("", createArrowIcon(direction, true));
+    	btn.setFocusable(false);
+    	btn.setPreferredSize(new IntDimension(16, 16));
+    	btn.setBackgroundDecorator(null);
+    	btn.setMargin(new Insets());
+    	btn.setBorder(null);
+    	//make it proxy to the combobox
+    	btn.setStyleProxy(tabbedPane);
+    	btn.setMideground(null);
+    	btn.setStyleTune(null);
+    	return btn;				
 	}
 	
 	protected function createNextButton():AbstractButton{
-		var b:JButton = new JButton(null, createArrowIcon(0, true));
-		b.setMargin(new Insets(2, 2, 2, 2));
-		b.setDisabledIcon(createArrowIcon(0, false));
-		return b;
+		return createArrowButton(0);
 	}
 	
 	protected function createArrowIcon(direction:Number, enable:Boolean):Icon{
-		var icon:Icon;
-		if(enable){
-			icon = new ArrowIcon(direction, 8,
-					arrowLightColor,
-					arrowShadowColor);
-		}else{
-			icon = new ArrowIcon(direction, 8, 
-					arrowLightColor.brighter(0.4),
-					arrowShadowColor.brighter(0.4));
-		}
-		return icon;
+		return new ArrowIcon(direction, 16);
 	}
 		
 	protected function getTabBarSize():IntDimension{
@@ -332,15 +316,16 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 				y += ts.height + offset;
 			}
 		}
+		var leadOffset:int = tabbedPane.getLeadingOffset();
 		maxTabSize = tabBarSize.clone();
 		if(isHorizontalPlacing){
 			tabBarSize.height += (topBlankSpace + contentMargin.top);
 			//blank space at start and end for selected tab expanding
-			tabBarSize.width += (tabBorderInsets.left + tabBorderInsets.right);
+			tabBarSize.width += (tabBorderInsets.left + tabBorderInsets.right + leadOffset);
 		}else{
 			tabBarSize.width += (topBlankSpace + contentMargin.top);
 			//blank space at start and end for selected tab expanding
-			tabBarSize.height += (tabBorderInsets.left + tabBorderInsets.right);
+			tabBarSize.height += (tabBorderInsets.left + tabBorderInsets.right + leadOffset);
 		}
 		return tabBarSize;
 	}
@@ -462,7 +447,15 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     		tab = new BasicTabbedPaneTab();
     	}
     	tab.initTab(tabbedPane);
-    	tab.getTabComponent().setFocusable(false);
+    	topTabCom = tab.getTabComponent();
+    	topTabCom.setFocusable(false);
+    	
+    	topTabCom.setStyleProxy(tabbedPane);
+    	topTabCom.setStyleTune(null);
+    	topTabCom.setForeground(null);
+    	topTabCom.setBackground(null);
+    	topTabCom.setMideground(null);
+    	topTabCom.setFont(null);
     	return tab;
     }
 
@@ -515,24 +508,27 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     }
     
     protected function getTransformedMargin():Insets{
+    	return transformMargin(tabbedPane.getMargin());
+    }
+    
+    protected function transformMargin(margin:Insets):Insets{
     	var placement:int = tabbedPane.getTabPlacement();
-    	var tabMargin:Insets = tabbedPane.getMargin();
-    	var transformedTabMargin:Insets = tabMargin.clone();
+    	var transformedMargin:Insets = margin.clone();
 		if(placement == JTabbedPane.LEFT){
-			transformedTabMargin.left = tabMargin.top;
-			transformedTabMargin.right = tabMargin.bottom;
-			transformedTabMargin.top = tabMargin.right;
-			transformedTabMargin.bottom = tabMargin.left;
+			transformedMargin.left = margin.top;
+			transformedMargin.right = margin.bottom;
+			transformedMargin.top = margin.right;
+			transformedMargin.bottom = margin.left;
 		}else if(placement == JTabbedPane.RIGHT){
-			transformedTabMargin.left = tabMargin.bottom;
-			transformedTabMargin.right = tabMargin.top;
-			transformedTabMargin.top = tabMargin.left;
-			transformedTabMargin.bottom = tabMargin.right;
+			transformedMargin.left = margin.bottom;
+			transformedMargin.right = margin.top;
+			transformedMargin.top = margin.left;
+			transformedMargin.bottom = margin.right;
 		}else if(placement == JTabbedPane.BOTTOM){
-			transformedTabMargin.top = tabMargin.bottom;
-			transformedTabMargin.bottom = tabMargin.top;
+			transformedMargin.top = margin.bottom;
+			transformedMargin.bottom = margin.top;
 		}
-		return transformedTabMargin;
+		return transformedMargin;
     }
 		
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
@@ -548,22 +544,27 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var horizontalPlacing:Boolean = isTabHorizontalPlacing();
 	  	var contentBounds:IntRectangle = b.clone();
 		var tabBarBounds:IntRectangle = getTabBarSize().getBounds(0, 0);
-		tabBarBounds.x = contentBounds.x;
-		tabBarBounds.y = contentBounds.y;
+		tabBarBounds.x = b.x;
+		tabBarBounds.y = b.y;
 		tabBarBounds.width = Math.min(tabBarBounds.width, contentBounds.width);
 		tabBarBounds.height = Math.min(tabBarBounds.height, contentBounds.height);
 		var transformedTabMargin:Insets = getTransformedMargin();
 		var placement:int = tabbedPane.getTabPlacement();
+		var leadingOffset:int = tabbedPane.getLeadingOffset();
 		if(placement == JTabbedPane.LEFT){
-			tabBarBounds.y += tabBorderInsets.left;//extra for expand 
+			tabBarBounds.y += tabBorderInsets.left + leadingOffset;//extra for expand 
+			tabBarBounds.height -= (tabBorderInsets.getMarginWidth() + leadingOffset);
 		}else if(placement == JTabbedPane.RIGHT){
 			tabBarBounds.x = contentBounds.x + contentBounds.width - tabBarBounds.width;
-			tabBarBounds.y += tabBorderInsets.left;//extra for expand 
+			tabBarBounds.y += tabBorderInsets.left + leadingOffset;//extra for expand 
+			tabBarBounds.height -= (tabBorderInsets.getMarginWidth() + leadingOffset);
 		}else if(placement == JTabbedPane.BOTTOM){
 			tabBarBounds.y = contentBounds.y + contentBounds.height - tabBarBounds.height;
-			tabBarBounds.x += tabBorderInsets.left;//extra for expand 
+			tabBarBounds.x += tabBorderInsets.left + leadingOffset;//extra for expand
+			tabBarBounds.width -= (tabBorderInsets.getMarginWidth() + leadingOffset);
 		}else{ //others value are all considered as TOP
-			tabBarBounds.x += tabBorderInsets.left;//extra for expand
+			tabBarBounds.x += tabBorderInsets.left + leadingOffset;//extra for expand
+			tabBarBounds.width -= (tabBorderInsets.getMarginWidth() + leadingOffset);
 		}
 		
 		var i:int = 0;
@@ -594,12 +595,16 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 				}
 			}
 		}
-		drawBaseLine(tabBarBounds, g, b);
 		if(selectedIndex >= 0){
 			if(drawTabWithFullInfosAt(selectedIndex, b, tba[selectedIndex], g, tabBarBounds, offsetPoint, transformedTabMargin) < 0){
 				lastIndex = Math.max(lastIndex, selectedIndex);
 			}
 		}
+		var selBounds:IntRectangle = null;
+		if(selectedIndex >= 0){
+			selBounds = getDrawnTabBounds(selectedIndex);
+		}
+		drawBaseLine(tabBarBounds, g, b, selBounds);
 		//invisible tab after last
 		for(i=lastIndex+2; i<n; i++){
 			getTab(i).getTabComponent().setVisible(false);
@@ -682,55 +687,124 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		}
 		return -1;
 	}
-	
 
     /**
      * override this method to draw different tab base line for your LAF
      */
-    protected function drawBaseLine(tabBarBounds:IntRectangle, g:Graphics2D, fullB:IntRectangle):void{
+    protected function drawBaseLine(tabBarBounds:IntRectangle, g:Graphics2D, fullB:IntRectangle, selTabB:IntRectangle):void{
+    	return;//dosn't draw line in this version
     	var b:IntRectangle = tabBarBounds.clone();
     	var placement:int = tabbedPane.getTabPlacement();
     	var pen:Pen;
-    	var lineT:Number = contentRoundLineThickness;
-    	var hlt:Number = lineT/2;
+    	var lineT:Number = 2;//contentRoundLineThickness;
+    	if(selTabB == null){
+    		selTabB = new IntRectangle(fullB.x + fullB.width/2, fullB.y + fullB.height/2, 0, 0);
+    	}
+    	selTabB = selTabB.clone();
+		var cl:ASColor = tabbedPane.getMideground();
+		var adjuster:StyleTune = tabbedPane.getStyleTune();
+		var style:StyleResult = new StyleResult(cl, adjuster);
+		var matrix:Matrix = new Matrix();
+		var dark:ASColor = style.bdark;
+		var light:ASColor = style.bdark.offsetHLS(0, 0.15, -0.1);
+		var leadingOffset:int = tabbedPane.getLeadingOffset();
     	if(isTabHorizontalPlacing()){
     		var isTop:Boolean = (placement == JTabbedPane.TOP);
     		if(isTop){
     			b.y = b.y + b.height - contentMargin.top;
+    		}else{
+    			b.y += contentMargin.top - lineT/2;
     		}
-    		b.height = contentMargin.top;
-    		b.width = fullB.width;
-    		b.x = fullB.x;
-    		BasicGraphicsUtils.fillGradientRect(g, b, 
-    			tabbedPane.getBackground(), windowBG, 
-    			isTop ? Math.PI/2 : -Math.PI/2);
-    		pen = new Pen(darkShadow, lineT);
-    		pen.setCaps(CapsStyle.SQUARE);
-			if(isTop){
-				g.drawRectangle(pen, b.x+hlt, b.y+hlt, fullB.width-lineT, fullB.rightBottom().y - b.y-lineT);
-			}else{
-				g.drawRectangle(pen, fullB.x+hlt, fullB.y+hlt, fullB.width-lineT, b.y+b.height-fullB.y-lineT);
-			}
+    		b.width += tabBorderInsets.getMarginWidth();
+    		b.x -= tabBorderInsets.left;
+			var leftPart:IntRectangle = new IntRectangle(b.x, b.y, selTabB.x-b.x, 2);
+			var rightPart:IntRectangle = new IntRectangle(selTabB.x+selTabB.width, b.y, b.x+b.width-(selTabB.x+selTabB.width), 2);
+			
+			matrix.createGradientBox(tabBorderInsets.left, 1, 0, leftPart.x, leftPart.y);
+    		g.fillRectangle(new GradientBrush(
+    				GradientBrush.LINEAR, 
+    				[dark.getRGB(),dark.getRGB()], 
+    				[0, 1], 
+    				[0, 255], 
+    				matrix
+    			), 
+    			leftPart.x, leftPart.y, leftPart.width, 1);
+    		/*g.fillRectangle(new GradientBrush(
+    				GradientBrush.LINEAR, 
+    				[light.getRGB(), light.getRGB()], 
+    				[0, 1], 
+    				[0, 255], 
+    				matrix
+    			), 
+    			leftPart.x, leftPart.y+1, leftPart.width, 1);
+    		*/
+			matrix.createGradientBox(tabBorderInsets.right, 1, Math.PI, 
+				rightPart.x+rightPart.width-tabBorderInsets.right, rightPart.y);
+    		g.fillRectangle(new GradientBrush(
+    				GradientBrush.LINEAR, 
+    				[dark.getRGB(),dark.getRGB()], 
+    				[0, 1], 
+    				[0, 255], 
+    				matrix
+    			), 
+    			rightPart.x, rightPart.y, rightPart.width, 1);
+    		/*g.fillRectangle(new GradientBrush(
+    				GradientBrush.LINEAR, 
+    				[light.getRGB(), light.getRGB()], 
+    				[0, 1], 
+    				[0, 255], 
+    				matrix
+    			), 
+    			rightPart.x, rightPart.y+1, rightPart.width, 1);*/
     	}else{
     		var isLeft:Boolean = (placement == JTabbedPane.LEFT);
     		if(isLeft){
     			b.x = b.x + b.width - contentMargin.top;
+    		}else{
+    			b.x += contentMargin.top - lineT/2;
     		}
-    		b.width = contentMargin.top;
-    		b.height = fullB.height;
-    		b.y = fullB.y;
-    		
-    		BasicGraphicsUtils.fillGradientRect(g, b, 
-    			tabbedPane.getBackground(), windowBG, 
-    			isLeft ? 0 : -Math.PI);
-    		pen = new Pen(darkShadow, lineT);
-    		pen.setCaps(CapsStyle.SQUARE);
-			if(isLeft){
-    			g.drawRectangle(pen, b.x+hlt, b.y+hlt, fullB.rightTop().x-b.x-lineT, b.height-lineT);
-			}else{
-				g.drawRectangle(pen, fullB.x+hlt, fullB.y+hlt, b.x+b.width-fullB.x-lineT, b.height-lineT);
-			}
-    		
+    		b.height += tabBorderInsets.getMarginWidth();
+    		b.y -= tabBorderInsets.left;
+    		    		
+			var topPart:IntRectangle = new IntRectangle(b.x, b.y, 2, selTabB.y-b.y);
+			var botPart:IntRectangle = new IntRectangle(b.x, selTabB.y+selTabB.height, 2, b.y+b.height-(selTabB.y+selTabB.height));
+						
+			matrix.createGradientBox(1, tabBorderInsets.left, Math.PI/2, topPart.x, topPart.y);
+    		g.fillRectangle(new GradientBrush(
+    				GradientBrush.LINEAR, 
+    				[dark.getRGB(),dark.getRGB()], 
+    				[0, 1], 
+    				[0, 255], 
+    				matrix
+    			), 
+    			topPart.x, topPart.y, 1, topPart.height);
+    		/*g.fillRectangle(new GradientBrush(
+    				GradientBrush.LINEAR, 
+    				[light.getRGB(), light.getRGB()], 
+    				[0, 1], 
+    				[0, 255], 
+    				matrix
+    			), 
+    			topPart.x+1, topPart.y, 1, topPart.height);
+    			*/
+			matrix.createGradientBox(1, tabBorderInsets.right, -Math.PI/2, 
+				botPart.x, botPart.y+botPart.height-tabBorderInsets.right);
+    		g.fillRectangle(new GradientBrush(
+    				GradientBrush.LINEAR, 
+    				[dark.getRGB(),dark.getRGB()], 
+    				[0, 1], 
+    				[0, 255], 
+    				matrix
+    			), 
+    			botPart.x, botPart.y, 1, botPart.height);
+    		/*g.fillRectangle(new GradientBrush(
+    				GradientBrush.LINEAR, 
+    				[light.getRGB(), light.getRGB()], 
+    				[0, 1], 
+    				[0, 255], 
+    				matrix
+    			), 
+    			botPart.x+1, botPart.y, 1, botPart.height);*/
     	}
     }	
 	
@@ -740,7 +814,6 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
      */
     protected function drawTabBorderAt(index:int, b:IntRectangle, paneBounds:IntRectangle, g:Graphics2D):void{
     	var placement:int = tabbedPane.getTabPlacement();
-    	var pen:Pen;
     	b = b.clone();//make a clone to be safty modification
     	if(index == tabbedPane.getSelectedIndex()){
     		if(isTabHorizontalPlacing()){
@@ -765,83 +838,30 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     	}
     	//This is important, should call this in sub-implemented drawTabBorderAt method
     	setDrawnTabBounds(index, b, paneBounds);
-    	var x1:Number = b.x+0.5;
-    	var y1:Number = b.y+0.5;
-    	var x2:Number = b.x + b.width-0.5;
-    	var y2:Number = b.y + b.height-0.5;
-    	if(placement == JTabbedPane.LEFT){
-    		BasicGraphicsUtils.drawControlBackground(g, b, getTabColor(index), Math.PI/2);
-    		
-    		pen = new Pen(darkShadow, 1);
-    		pen.setCaps(CapsStyle.SQUARE);
-    		g.beginDraw(pen);
-    		g.moveTo(x2, y1);
-    		g.lineTo(x1, y1);
-    		g.lineTo(x1, y2);
-    		g.lineTo(x2, y2);
-    		g.endDraw();
-    	}else if(placement == JTabbedPane.RIGHT){
-    		BasicGraphicsUtils.drawControlBackground(g, b, getTabColor(index), Math.PI/2);
-    		
-    		pen = new Pen(darkShadow, 1);
-    		pen.setCaps(CapsStyle.SQUARE);
-    		g.beginDraw(pen);
-    		g.moveTo(x1, y1);
-    		g.lineTo(x2, y1);
-    		g.lineTo(x2, y2);
-    		g.lineTo(x1, y2);
-    		g.endDraw();
-    	}else if(placement == JTabbedPane.BOTTOM){
-    		BasicGraphicsUtils.drawControlBackground(g, b, getTabColor(index), -Math.PI/2);
-    		
-    		pen = new Pen(darkShadow, 1);
-    		pen.setCaps(CapsStyle.SQUARE);
-    		g.beginDraw(pen);
-    		g.moveTo(x1, y1);
-    		g.lineTo(x1, y2);
-    		g.lineTo(x2, y2);
-    		g.lineTo(x2, y1);
-    		g.endDraw();
-    	}else{
-    		BasicGraphicsUtils.drawControlBackground(g, b, getTabColor(index), Math.PI/2);
-    		
-    		pen = new Pen(darkShadow, 1);
-    		pen.setCaps(CapsStyle.SQUARE);
-    		g.beginDraw(pen);
-    		g.moveTo(x1, y2);
-    		g.lineTo(x1, y1);
-    		g.lineTo(x2, y1);
-    		g.lineTo(x2, y2);
-    		g.endDraw();
-    		//removed below make it cleaner than button style
-//    		x1 += 1;
-//    		y1 += 1;
-//    		x2 -=1;
-//    		y2 -=1;
-//    		pen = new Pen(highlight, 1);
-//    		g.beginDraw(pen);
-//    		g.moveTo(x1, y2);
-//    		g.lineTo(x1, y1);
-//    		g.lineTo(x2, y1);
-//    		g.endDraw();
-//    		pen = new Pen(shadow, 1);
-//    		g.beginDraw(pen);
-//    		g.moveTo(x1, y1);
-//    		g.lineTo(x2, y1);
-//    		g.lineTo(x2, y2);
-//    		g.endDraw();
-    	}
-    }	
+		getTab(index).setTabPlacement(placement);
+    }
 	
+    /**
+     * override this method to draw different tab border for your LAF.<br>
+     * Note, you must call setDrawnTabBounds() to set the right bounds for each tab in this method
+     */	
 	protected function drawTabAt(index:int, bounds:IntRectangle, paneBounds:IntRectangle, g:Graphics2D, transformedTabMargin:Insets):void{
 		//trace("drawTabAt : " + index + ", bounds : " + bounds + ", g : " + g);
 		drawTabBorderAt(index, bounds, paneBounds, g);
 		
-		var viewRect:IntRectangle = bounds;//transformedTabMargin.getInsideBounds(bounds);
 		var tab:Tab = getTab(index);
-		tab.getTabComponent().setComBounds(viewRect);
-		tab.getTabComponent().validate();
-	}
+		tab.setSelected(index == tabbedPane.getSelectedIndex());
+		var tc:Component = tab.getTabComponent();
+		tc.setComBounds(getDrawnTabBounds(index));
+		if(index == tabbedPane.getSelectedIndex()){
+			if (tc.parent.contains(topTabCom)){
+				tc.parent.swapChildren(tc, topTabCom);
+			}
+			topTabCom = tc;
+		}		
+		
+		//tab.getTabComponent().validate();
+	}	
 	
 	protected function getTabColor(index:int):ASColor{
 		return tabbedPane.getBackground();
@@ -879,6 +899,13 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			w = Math.max(w, size.width);
 			h = Math.max(h, size.height);
 		}
+		var cm:Insets = contentMargin.clone();
+		cm.top = 0;//because tbs included top
+		cm = transformMargin(cm);
+		var csize:IntDimension = cm.getOutsideSize(new IntDimension(w, h));
+		w = csize.width;
+		h = csize.height;
+		
 		var tbs:IntDimension = getTabBarSize();
 		if(isTabHorizontalPlacing()){
 			w = Math.max(w, tbs.width);
@@ -888,7 +915,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			w += tbs.width;
 		}
 		
-		prefferedSize = contentMargin.getOutsideSize(insets.getOutsideSize(new IntDimension(w, h)));
+		prefferedSize = insets.getOutsideSize(new IntDimension(w, h));
 		return prefferedSize;
 	}
 
@@ -910,14 +937,21 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 			w = Math.max(w, size.width);
 			h = Math.max(h, size.height);
 		}
+		var cm:Insets = contentMargin.clone();
+		cm.top = 0;//because tbs included top
+		cm = transformMargin(cm);
+		var csize:IntDimension = cm.getOutsideSize(new IntDimension(w, h));
+		w = csize.width;
+		h = csize.height;
+		
 		var tbs:IntDimension = getTabBarSize();
 		if(isTabHorizontalPlacing()){
 			h += tbs.height;
 		}else{
 			w += tbs.width;
 		}
-		
-		minimumSize = contentMargin.getOutsideSize(insets.getOutsideSize(new IntDimension(w, h)));
+				
+		minimumSize = insets.getOutsideSize(new IntDimension(w, h));
 		return minimumSize;
 	}
 

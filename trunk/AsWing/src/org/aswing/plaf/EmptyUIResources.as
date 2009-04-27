@@ -6,8 +6,8 @@ package org.aswing.plaf
 {
 
 import org.aswing.Border;
-import org.aswing.Icon;
 import org.aswing.GroundDecorator;
+import org.aswing.Icon;
 
 /**
  * The default empty values for ui resources.
@@ -50,6 +50,11 @@ public class EmptyUIResources
 	 * The default empty value for color.
 	 */
 	public static const COLOR:ASColorUIResource = new ASColorUIResource();
+	
+	/**
+	 * The default empty value for style tune.
+	 */
+	public static const STYLE_TUNE:UIStyleTune = new UIStyleTune();
 }
 
 }

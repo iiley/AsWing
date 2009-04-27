@@ -19,12 +19,7 @@ public class FrameTitleBarLayout extends BorderLayout{
 	
 	protected function countMinSize(target:Container):void{
 		var bar:FrameTitleBar = FrameTitleBar(target);
-		var frameUI:ComponentUI = bar.getFrame().getUI();
-		if(frameUI){
-			minSize.height = frameUI.getInt("Frame.titleBarHeight");
-		}else{
-			minSize.height = UIManager.getInt("Frame.titleBarHeight");
-		}
+		minSize.height = bar.getMinimizeHeight();
 	}
 	
     override public function minimumLayoutSize(target:Container):IntDimension {

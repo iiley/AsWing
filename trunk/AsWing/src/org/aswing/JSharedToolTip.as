@@ -4,8 +4,8 @@
 
 package org.aswing{
 
-import flash.utils.Dictionary;
-import flash.display.InteractiveObject;	
+import flash.display.InteractiveObject;
+import flash.utils.Dictionary;	
 	
 /**
  * Shared instance Tooltip to saving instances.
@@ -37,6 +37,23 @@ public class JSharedToolTip extends JToolTip{
 			sharedInstance = new JSharedToolTip();
 		}
 		return sharedInstance;
+	}
+	
+	/**
+	 * Sets the shared JSharedToolTip instance.
+	 * <p>
+	 * You can only call this before any <code>getSharedInstance()</code> invoke, and 
+	 * you can only set it once. This is means, you'd better to call this at the beginning 
+	 * of your program.
+	 * </p>
+	 * @param ins the shared JSharedToolTip instance you want to use.
+	 */
+	public static function setSharedInstance(ins:JSharedToolTip):void{
+		if(sharedInstance){
+			throw new Error("sharedInstance is already set!");
+		}else{
+			sharedInstance = ins;
+		}
 	}
 	
     /**

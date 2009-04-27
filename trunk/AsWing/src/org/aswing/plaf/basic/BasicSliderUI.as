@@ -6,6 +6,7 @@ package org.aswing.plaf.basic{
 
 import flash.display.Shape;
 import flash.events.*;
+import flash.filters.GlowFilter;
 import flash.ui.Keyboard;
 
 import org.aswing.*;
@@ -25,11 +26,6 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	protected var slider:JSlider;
 	protected var thumbIcon:Icon;
 
-	protected var highlightColor:ASColor;
-	protected var shadowColor:ASColor;
-	protected var darkShadowColor:ASColor;
-	protected var lightColor:ASColor;
-	protected var tickColor:ASColor;
 	protected var progressColor:ASColor;
 	
 	protected var trackRect:IntRectangle;
@@ -45,6 +41,7 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	private static var scrollSpeedThrottle:Number = 60; // delay in milli seconds
 	private static var initialScrollSpeedThrottle:Number = 500; // first delay in milli seconds
 	
+	protected var trackCanvas:Shape;
 	protected var progressCanvas:Shape;
 	
 	public function BasicSliderUI(){
@@ -85,12 +82,6 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	
 	protected function configureSliderColors():void{
 		var pp:String = getPropertyPrefix();
-		highlightColor = getColor(pp+"highlight");
-		shadowColor = getColor(pp+"shadow");
-		darkShadowColor = getColor(pp+"darkShadow");
-		lightColor = getColor(pp+"light");
-		
-		tickColor = getColor(pp+"tickColor");
 		progressColor = getColor(pp+"progressColor");
 	}
 	
@@ -104,16 +95,20 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 		if(thumbIcon.getDisplay(slider)==null){
 			throw new Error("Slider thumb icon must has its own display object(getDisplay()!=null)!");
 		}
+		trackCanvas = new Shape();
 		progressCanvas = new Shape();
+		slider.addChild(trackCanvas);
 		slider.addChild(progressCanvas);
 		slider.addChild(thumbIcon.getDisplay(slider));
 	}
 	
 	protected function uninstallComponents():void{
+		slider.removeChild(trackCanvas);
 		slider.removeChild(progressCanvas);
 		slider.removeChild(thumbIcon.getDisplay(slider));
 		thumbIcon = null;
 		progressCanvas = null;
+		trackCanvas = null;
 	}
 	
 	protected function installListeners():void{
@@ -156,16 +151,18 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 		var h_margin:int, v_margin:int;
 		if(isVertical()){
 			v_margin = Math.ceil(thumbSize.height/2.0);
-			h_margin = thumbSize.width/3-1;
+			h_margin = 4/2;
+			//h_margin = thumbSize.width/3-1;
 			trackDrawRect.setRectXYWH(b.x+h_margin, b.y+v_margin, 
-				h_margin+2, b.height-v_margin*2);
+				thumbSize.width-h_margin*2, b.height-v_margin*2);
 			trackRect.setRectXYWH(b.x, b.y+v_margin, 
 				thumbSize.width, b.height-v_margin*2);
 		}else{
 			h_margin = Math.ceil(thumbSize.width/2.0);
-			v_margin = thumbSize.height/3-1;
+			v_margin = 4/2;
+			//v_margin = thumbSize.height/3-1;
 			trackDrawRect.setRectXYWH(b.x+h_margin, b.y+v_margin, 
-				b.width-h_margin*2, v_margin+2);
+				b.width-h_margin*2, thumbSize.height-v_margin*2);
 			trackRect.setRectXYWH(b.x+h_margin, b.y, 
 				b.width-h_margin*2, thumbSize.height);
 		}
@@ -368,23 +365,32 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 	//-------------------------
 	
 	protected function paintTrack(g:Graphics2D, drawRect:IntRectangle):void{
+		trackCanvas.graphics.clear();
 		if(!slider.getPaintTrack()){
 			return;
 		}
-		if(slider.isEnabled()){
-			BasicGraphicsUtils.paintLoweredBevel(g, drawRect, shadowColor, darkShadowColor, lightColor, highlightColor);
-			paintTrackProgress(new Graphics2D(progressCanvas.graphics), drawRect);
+		g = new Graphics2D(trackCanvas.graphics);
+		var verticle:Boolean = (slider.getOrientation() == AsWingConstants.VERTICAL);
+		var style:StyleTune = slider.getStyleTune();
+		var b:IntRectangle = drawRect.clone();
+		var radius:Number = 0;
+		if(verticle){
+			radius = Math.floor(b.width/2);
 		}else{
-			g.beginDraw(new Pen(lightColor, 1));
-			drawRect.grow(-1, -1);
-			g.rectangle(drawRect.x, drawRect.y, drawRect.width, drawRect.height);
-			g.endDraw();
+			radius = Math.floor(b.height/2);
 		}
+		if(radius > style.round){
+			radius = style.round;
+		}
+		g.fillRoundRect(new SolidBrush(slider.getBackground()), b.x, b.y, b.width, b.height, radius);
+		trackCanvas.filters = [new GlowFilter(0x0, style.shadowAlpha, 5, 5, 1, 1, true)];		
 	}
+	
 	protected function paintTrackProgress(g:Graphics2D, trackDrawRect:IntRectangle):void{
 		if(!slider.getPaintTrack()){
 			return;
-		}		
+		}
+		return;//do not paint progress here
 		var rect:IntRectangle = trackDrawRect.clone();
 		var width:int;
 		var height:int;
@@ -434,7 +440,7 @@ public class BasicSliderUI extends BaseComponentUI implements SliderUI{
 		var minT:int = slider.getMinorTickSpacing();
 		var max:int = slider.getMaximum();
 		
-		g.beginDraw(new Pen(tickColor, 0));
+		g.beginDraw(new Pen(slider.getForeground(), 0));
 			
 		var yPos:int = 0;
 		var value:int = 0;

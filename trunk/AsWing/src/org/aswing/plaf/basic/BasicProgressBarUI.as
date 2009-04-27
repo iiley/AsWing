@@ -5,12 +5,12 @@
 package org.aswing.plaf.basic{
 	
 import flash.text.*;
+
 import org.aswing.*;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
-import org.aswing.plaf.basic.background.ProgressBarIcon;
 import org.aswing.util.DepthManager;
 
 /**
@@ -22,9 +22,11 @@ public class BasicProgressBarUI extends BaseComponentUI{
 	protected var stringText:TextField;
 	protected var stateListener:Object;
 	protected var progressBar:JProgressBar;
+	protected var barSize:int;
 	
 	public function BasicProgressBarUI() {
 		super();
+		barSize = 12;//default
 	}
 
     protected function getPropertyPrefix():String {
@@ -50,6 +52,9 @@ public class BasicProgressBarUI extends BaseComponentUI{
 		LookAndFeel.installColorsAndFont(progressBar, pp);
 		LookAndFeel.installBasicProperties(progressBar, pp);
 		LookAndFeel.installBorderAndBFDecorators(progressBar, pp);
+		
+		barSize = getInt(pp+"barWidth");
+		if(barSize == -1) barSize = 1000;
 		if(!progressBar.isIndeterminateDelaySet()){
 			progressBar.setIndeterminateDelay(getUint(pp + "indeterminateDelay"));
 			progressBar.setIndeterminateDelaySet(false);
@@ -110,6 +115,10 @@ public class BasicProgressBarUI extends BaseComponentUI{
 			stringText.text = "";
 		}
 	}
+	
+    override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+    	//do nothing, background decorator will paint it
+    }	
 
     //--------------------------Dimensions----------------------------
     
@@ -142,10 +151,10 @@ public class BasicProgressBarUI extends BaseComponentUI{
     }
     
     protected function getPreferredInnerHorizontal():IntDimension{
-    	return new IntDimension(80, 12);
+    	return new IntDimension(80, barSize);
     }
     protected function getPreferredInnerVertical():IntDimension{
-    	return new IntDimension(12, 80);
+    	return new IntDimension(barSize, 80);
     }	
 	
 }

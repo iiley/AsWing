@@ -11,13 +11,11 @@ import org.aswing.graphics.*;
 /**
  * @private
  */
-public class DividerIcon implements Icon
-{
+public class DividerIcon implements Icon{
 	public function DividerIcon(){
 	}
 	
-	public function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void
-	{
+	public function updateIcon(com:Component, g:Graphics2D, x:int, y:int):void{
     	var w:Number = com.getWidth();
     	var h:Number = com.getHeight();
     	var ch:Number = h/2;
@@ -45,18 +43,15 @@ public class DividerIcon implements Icon
     	}			
 	}
 	
-	public function getIconHeight(c:Component):int
-	{
+	public function getIconHeight(c:Component):int{
 		return 0;
 	}
 	
-	public function getIconWidth(c:Component):int
-	{
+	public function getIconWidth(c:Component):int{
 		return 0;
 	}
 	
-	public function getDisplay(c:Component):DisplayObject
-	{
+	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}
 	

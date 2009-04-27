@@ -194,10 +194,17 @@ public class DefaultResizer implements Resizer, UIResource{
 				par.addChild(boundsShape);
 			}
 			DepthManager.bringToTop(boundsShape);
-			var x:Number = bounds.x;
-			var y:Number = bounds.y;
-			var w:Number = bounds.width;
-			var h:Number = bounds.height;
+			
+			var margin:Insets = owner.getResizerMargin();
+			var db:IntRectangle = bounds.clone();
+			db.x += margin.left;
+			db.y += margin.top;
+			db.width -= margin.getMarginWidth();
+			db.height -= margin.getMarginHeight();
+			var x:Number = db.x;
+			var y:Number = db.y;
+			var w:Number = db.width;
+			var h:Number = db.height;
 			var g:Graphics2D = new Graphics2D(boundsShape.graphics);
 			boundsShape.graphics.clear();
 			g.drawRectangle(new Pen(resizeArrowLightColor), x-1,y-1,w+2,h+2);
@@ -297,31 +304,37 @@ public class DefaultResizer implements Resizer, UIResource{
 		if(owner == null){
 			return;
 		}
-		var w:Number = owner.getWidth();
-		var h:Number = owner.getHeight();
+		if(owner.getChildIndex(resizeMC) < owner.getHighestIndexUnderForeground() - 1){
+			owner.bringToTop(resizeMC);
+		}
+		var margin:Insets = owner.getResizerMargin();
+		var x:Number = margin.left;
+		var y:Number = margin.top;
+		var w:Number = owner.getWidth() - margin.right - margin.left;
+		var h:Number = owner.getHeight() - margin.bottom - margin.top;
 		var r:Number = RESIZE_MC_WIDTH;
 		
 		topResizeMC.width = Math.max(0, w-r*2);
 		topResizeMC.x = r;
-		topResizeMC.y = 0;
+		topResizeMC.y = y;
 		leftResizeMC.height = Math.max(0, h-r*2);
-		leftResizeMC.x = 0;
+		leftResizeMC.x = x;
 		leftResizeMC.y = r;
 		rightResizeMC.height = Math.max(0, h-r*2);
-		rightResizeMC.x = w;
+		rightResizeMC.x = x+w;
 		rightResizeMC.y = r;
 		bottomResizeMC.width = Math.max(0, w-r*2);
 		bottomResizeMC.x = r;
-		bottomResizeMC.y = h;
+		bottomResizeMC.y = y+h;
 		
-		topLeftResizeMC.x = 0;
-		topLeftResizeMC.y = 0;
-		topRightResizeMC.x = w;
-		topRightResizeMC.y = 0;
-		bottomLeftResizeMC.x = 0;
-		bottomLeftResizeMC.y = h;
-		bottomRightResizeMC.x = w;
-		bottomRightResizeMC.y = h;
+		topLeftResizeMC.x = x;
+		topLeftResizeMC.y = y;
+		topRightResizeMC.x = x+w;
+		topRightResizeMC.y = y;
+		bottomLeftResizeMC.x = x;
+		bottomLeftResizeMC.y = y+h;
+		bottomRightResizeMC.x = x+w;
+		bottomRightResizeMC.y = y+h;
 	}
 }
 }

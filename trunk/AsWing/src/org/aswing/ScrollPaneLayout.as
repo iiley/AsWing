@@ -74,10 +74,10 @@ public class ScrollPaneLayout extends EmptyLayout{
     	var hsb:JScrollBar = scrollPane.getHorizontalScrollBar();
     	var size:IntDimension = new IntDimension();
     	if(vsb != null && scrollPane.getVerticalScrollBarPolicy() == JScrollPane.SCROLLBAR_ALWAYS){
-    		size.increaseSize(vsb.getPreferredSize());
+    		size.width = vsb.getPreferredWidth();
     	}
     	if(hsb != null && scrollPane.getHorizontalScrollBarPolicy() == JScrollPane.SCROLLBAR_ALWAYS){
-    		size.increaseSize(vsb.getPreferredSize());
+    		size.height = hsb.getPreferredHeight();
     	}
     	return size;
     }
@@ -91,7 +91,6 @@ public class ScrollPaneLayout extends EmptyLayout{
 	    	var i:Insets = scrollPane.getInsets();
 	    	var size:IntDimension = i.getOutsideSize();
 	    	size.increaseSize(getScrollBarsSize(scrollPane));
-	    	
 	    	var viewport:Viewportable = scrollPane.getViewport();
 	    	if(viewport != null){
 	    		size.increaseSize(viewport.getViewportPane().getPreferredSize());

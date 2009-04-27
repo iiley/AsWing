@@ -5,10 +5,11 @@
 package org.aswing.plaf
 {
 	
+import flash.display.InteractiveObject;
+
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
-import flash.display.InteractiveObject;
  
 /**
  * The interface for all UI delegate objects in the AsWing pluggable look and feel architecture. 
@@ -75,6 +76,13 @@ public interface ComponentUI
      * @see org.aswing.Component#updateUI
      */
     function uninstallUI(c:Component):void;
+    
+    /**
+     * Refresh the color and font and any other style properties the UI supported 
+     * and then repaint the component.
+     */
+    function refreshStyleProperties():void;
+    
     /**
      * Notifies this UI delegate that it's time to paint the specified
      * component.  This method is invoked by <code>Component</code> 
@@ -214,6 +222,8 @@ public interface ComponentUI
 	function getFont(key:String):ASFont;
 	
 	function getInsets(key:String):Insets;
+	
+	function getStyleTune(key:String):StyleTune;
 	
 	function getInstance(key:String):*;
 	

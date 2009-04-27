@@ -12,6 +12,7 @@ import org.aswing.plaf.*;
 import org.aswing.error.ImpMissError;
 
 /**
+ * Discard in aswing 2.0(Background raped his job)
  * @private
  */
 public class TextComponentBorder implements Border, UIResource{

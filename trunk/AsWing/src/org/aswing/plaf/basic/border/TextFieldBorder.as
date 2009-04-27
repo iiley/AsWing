@@ -5,6 +5,7 @@
 package org.aswing.plaf.basic.border{
 
 /**
+ * Discard in aswing 2.0(Background raped his job)
  * @private
  */
 public class TextFieldBorder extends TextComponentBorder{

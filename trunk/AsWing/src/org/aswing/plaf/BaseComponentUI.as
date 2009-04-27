@@ -5,14 +5,15 @@
 package org.aswing.plaf
 {
 	
+import flash.display.InteractiveObject;
+
 import org.aswing.*;
 import org.aswing.error.ImpMissError;
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
-import org.aswing.graphics.SolidBrush;
 import org.aswing.graphics.Pen;
-import flash.display.InteractiveObject;
+import org.aswing.graphics.SolidBrush;
 
 /**
  * The base class for ComponentUI.
@@ -24,15 +25,17 @@ public class BaseComponentUI implements ComponentUI
 	private var defaults:UIDefaults;
 	
 	
-	public function installUI(c:Component):void
-	{
+	public function installUI(c:Component):void{
 		throw new ImpMissError();
 	}
 	
-	public function uninstallUI(c:Component):void
-	{
+	public function uninstallUI(c:Component):void{
 		throw new ImpMissError();
 	}
+	
+    public function refreshStyleProperties():void{
+    	throw new ImpMissError();
+    }	
 	
 	public function putDefault(key:String, value:*):void
 	{
@@ -73,7 +76,7 @@ public class BaseComponentUI implements ComponentUI
 		if(c.isOpaque()){
 			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
 		}
-	}	
+	}
 	
     /**
      * Returns the object to receive the focus for the component.
@@ -194,6 +197,13 @@ public class BaseComponentUI implements ComponentUI
 			return defaults.getInsets(key);
 		}
 		return UIManager.getInsets(key);
+	}
+	
+	public function getStyleTune(key:String):StyleTune{
+		if(containsDefaultsKey(key)){
+			return defaults.getStyleTune(key);
+		}
+		return UIManager.getStyleTune(key);
 	}
 	
 	public function getInstance(key:String):*{

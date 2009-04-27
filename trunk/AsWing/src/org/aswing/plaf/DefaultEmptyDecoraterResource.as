@@ -10,7 +10,6 @@ import flash.display.DisplayObject;
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
-import org.aswing.border.EmptyBorder;
 
 /**
  * The default empty border to be the component border as default. So it can be 
@@ -27,17 +26,24 @@ public class DefaultEmptyDecoraterResource implements Icon, Border, GroundDecora
 	
 	public static const DEFAULT_BACKGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0);
 	public static const DEFAULT_FOREGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0xFFFFFF);
-	public static const DEFAULT_FONT:ASFontUIResource = new ASFontUIResource();	
+	public static const DEFAULT_MIDEGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0x1987FF);
+	public static const DEFAULT_FONT:ASFontUIResource = new ASFontUIResource();
+	public static const DEFAULT_STYLE_TUNE:UIStyleTune = new UIStyleTune();		
 	
 	/**
-	 * Used to be a null ui resource color.
+	 * Used to be a null ui resource color. it is not a UIResource instance, so can't be replace by another LAF.
 	 */
-	public static const NULL_COLOR:ASColorUIResource = new ASColorUIResource(0);
+	public static const NULL_COLOR:ASColor = new ASColor(0);
 	
 	/**
-	 * Used to be a null ui resource font.
+	 * Used to be a null ui resource font. it is not a UIResource instance, so can't be replace by another LAF.
 	 */
-	public static const NULL_FONT:ASFontUIResource = new ASFontUIResource();
+	public static const NULL_FONT:ASFont = new ASFont();
+	
+	/**
+	 * Used to be a null ui resource style tune. it is not a UIResource instance, so can't be replace by another LAF.
+	 */
+	public static const NULL_STYLE_TUNE:StyleTune = new StyleTune(0, 0, 0);
 	
 	public function DefaultEmptyDecoraterResource(){
 	}

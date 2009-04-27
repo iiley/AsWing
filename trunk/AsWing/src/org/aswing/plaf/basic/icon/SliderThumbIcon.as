@@ -4,14 +4,16 @@
 
 package org.aswing.plaf.basic.icon{
 
-import org.aswing.graphics.*;
-import org.aswing.Icon;
-import org.aswing.Component;
 import flash.display.*;
-import org.aswing.plaf.*;
-import org.aswing.plaf.basic.BasicGraphicsUtils;
+import flash.geom.Matrix;
+
 import org.aswing.ASColor;
-import org.aswing.geom.IntRectangle;
+import org.aswing.Component;
+import org.aswing.Icon;
+import org.aswing.StyleResult;
+import org.aswing.StyleTune;
+import org.aswing.graphics.*;
+import org.aswing.plaf.*;
 
 /**
  * @private
@@ -21,13 +23,8 @@ public class SliderThumbIcon implements Icon, UIResource{
 	protected var thumb:Sprite;
 	protected var enabledButton:SimpleButton;
 	protected var disabledButton:SimpleButton;
-	
-	protected var thumbLightHighlightColor:ASColor;
-	protected var thumbHighlightColor:ASColor;
-	protected var thumbLightShadowColor:ASColor;
-	protected var thumbDarkShadowColor:ASColor;
-	protected var thumbColor:ASColor;
-	
+	protected var overButton:SimpleButton;
+		
 	public function SliderThumbIcon(){
 		thumb = new Sprite();
 	}
@@ -36,25 +33,19 @@ public class SliderThumbIcon implements Icon, UIResource{
 		return "Slider.";
 	}	
 	
-	protected function initThumb(ui:ComponentUI):void{
-		var pp:String = getPropertyPrefix();
-		thumbHighlightColor = ui.getColor(pp+"thumbHighlight");
-		thumbLightHighlightColor = ui.getColor(pp+"thumbLightHighlight");
-		thumbLightShadowColor = ui.getColor(pp+"thumbShadow");
-		thumbDarkShadowColor = ui.getColor(pp+"thumbDarkShadow");
-		thumbColor = ui.getColor(pp+"thumb");
-		
+	protected function initThumb(c:Component):void{
 		//enabled
 		enabledButton = new SimpleButton();
 		var upState:Shape = new Shape();
 		var g:Graphics2D = new Graphics2D(upState.graphics);
+    	paintThumb(g, c, true, false);
+		var overState:Shape = new Shape();
+		g = new Graphics2D(overState.graphics);
+    	paintThumb(g, c, true, true);    	
     	
-    	var borderC:ASColor = thumbDarkShadowColor;
-    	var fillC:ASColor = thumbColor;
-    	paintThumb(g, borderC, fillC, true);
     	enabledButton.upState = upState; 
-		enabledButton.overState = upState;
-		enabledButton.downState = upState;
+		enabledButton.overState = overState;
+		enabledButton.downState = overState;
 		enabledButton.hitTestState = upState;
 		enabledButton.useHandCursor = false;
 		thumb.addChild(enabledButton);
@@ -64,9 +55,7 @@ public class SliderThumbIcon implements Icon, UIResource{
 		upState = new Shape();
 		g = new Graphics2D(upState.graphics);
     	
-    	borderC = thumbColor;
-    	fillC = thumbColor;
-    	paintThumb(g, borderC, fillC, false);
+    	paintThumb(g, c, false, false);
     	disabledButton.upState = upState; 
 		disabledButton.overState = upState;
 		disabledButton.downState = upState;
@@ -76,27 +65,38 @@ public class SliderThumbIcon implements Icon, UIResource{
 		disabledButton.visible = false;
 	}
 	
-	private function paintThumb(g:Graphics2D, borderC:ASColor, fillC:ASColor, enabled:Boolean):void{
-		if(!enabled){
-	    	g.beginDraw(new Pen(borderC));
-	    	g.beginFill(new SolidBrush(fillC));
-	    	g.rectangle(1, 1, getIconWidth(null)-2, getIconHeight(null)-2);
-	    	g.endFill();
-	    	g.endDraw();
-		}else{
-    		BasicGraphicsUtils.drawControlBackground(
-    			g, 
-    			new IntRectangle(0, 0, getIconWidth(null), getIconHeight(null)), 
-    			fillC,
-    			0);
-			g.drawRectangle(new Pen(borderC), 0.5, 0.5, getIconWidth(null)-1, getIconHeight(null)-1);
-		}
+	private function paintThumb(g:Graphics2D, c:Component, enabled:Boolean, over:Boolean):void{
+    	var tune:StyleTune = c.getStyleTune().mide;
+    	var cl:ASColor = c.getMideground();
+    	if(!enabled){//disabled
+    		cl = cl.offsetHLS(0, -0.1, -0.1);
+    		tune = tune.sharpen(0.2);
+    	}else if(over){//pressed
+    		cl = cl.offsetHLS(-0.20, 0, 0);
+    	}
+    	var style:StyleResult = new StyleResult(cl, tune);
+    	var w:int = getIconWidth(null);
+    	var h:int = getIconHeight(null);
+    	var matrix:Matrix = new Matrix();
+    	matrix.createGradientBox(w, h, Math.PI/2, 0, 0);
+    	var brush:GradientBrush = new GradientBrush(
+    		GradientBrush.LINEAR, 
+    		[style.blight.getRGB(), style.bdark.getRGB()], 
+    		[style.blight.getAlpha(), style.bdark.getAlpha()], 
+    		[0, 255], 
+    		matrix
+    	);
+    	g.fillEllipse(brush, 0, 0, w, h);
+    	
+    	matrix.createGradientBox(w, h, -Math.PI/2, 0, 0);
+    	brush.setColors([style.clight.getRGB(), style.cdark.getRGB()]);
+    	brush.setAlphas([style.clight.getAlpha(), style.cdark.getAlpha()]);
+    	g.fillEllipse(brush, 1, 1, w-2, h-2);
 	}
 	
-	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void
-	{
-		if(thumbColor == null){
-			initThumb(c.getUI());
+	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void{
+		if(enabledButton == null){
+			initThumb(c);
 		}
 		thumb.x = x;
 		thumb.y = y;
@@ -104,18 +104,15 @@ public class SliderThumbIcon implements Icon, UIResource{
 		enabledButton.visible = c.isEnabled();
 	}
 	
-	public function getIconHeight(c:Component):int
-	{
-		return 18;
+	public function getIconHeight(c:Component):int{
+		return 14;
 	}
 	
-	public function getIconWidth(c:Component):int
-	{
-		return 8;
+	public function getIconWidth(c:Component):int{
+		return 14;
 	}
 	
-	public function getDisplay(c:Component):DisplayObject
-	{
+	public function getDisplay(c:Component):DisplayObject{
 		return thumb;
 	}
 	

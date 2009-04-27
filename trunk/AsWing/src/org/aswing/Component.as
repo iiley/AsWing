@@ -186,6 +186,9 @@ public class Component extends AWSprite{
 	
 	private var background:ASColor;
 	private var foreground:ASColor;
+	private var mideground:ASColor;
+	private var styleTune:StyleTune;
+	private var styleProxy:Component;
 	private var backgroundDecorator:GroundDecorator;
 	private var foregroundDecorator:GroundDecorator;
 	private var font:ASFont;
@@ -201,6 +204,7 @@ public class Component extends AWSprite{
 	private var dropTrigger:Boolean;
 	private var dragAcceptableInitiator:Dictionary;
 	private var dragAcceptableInitiatorAppraiser:Function;
+	private var resizerMargin:Insets;
 	
 	public function Component()
 	{
@@ -229,6 +233,8 @@ public class Component extends AWSprite{
 		font = DefaultEmptyDecoraterResource.DEFAULT_FONT;
 		background = DefaultEmptyDecoraterResource.DEFAULT_BACKGROUND_COLOR;
 		foreground = DefaultEmptyDecoraterResource.DEFAULT_FOREGROUND_COLOR;
+		mideground = DefaultEmptyDecoraterResource.DEFAULT_MIDEGROUND_COLOR;
+		styleTune  = DefaultEmptyDecoraterResource.DEFAULT_STYLE_TUNE;
 		
 		addEventListener(FocusEvent.FOCUS_IN, __focusIn);
 		addEventListener(FocusEvent.FOCUS_OUT, __focusOut);
@@ -466,6 +472,7 @@ public class Component extends AWSprite{
 	
 	/**
 	 * Sets the border for the component, null to remove border.
+	 * Border's display object will always on top of background decorator but under other assets.
 	 * @param border the new border to set, or null.
 	 */
 	public function setBorder(b:Border):void{
@@ -476,7 +483,7 @@ public class Component extends AWSprite{
 			border = b;
 			
 			if(border != null && border.getDisplay(this) != null){
-				addChild(border.getDisplay(this));
+				addChildAt(border.getDisplay(this), getLowestIndexAboveBackground());
 			}
 			
 			repaint();
@@ -501,6 +508,33 @@ public class Component extends AWSprite{
 			return new Insets();
 		}else{
 			return border.getBorderInsets(this, getSize().getBounds());
+		}
+	}
+	
+
+
+	/**
+	 * Sets space for margin between the component's border and
+     * the resizer trigger.
+     *
+     * @param m the space between the component's border and the resizer trigger
+	 */
+	public function setResizerMargin(m:Insets):void{
+        if (resizerMargin != m) {
+        	resizerMargin = m;
+            revalidate();
+        	repaint();
+        }
+	}
+	
+	public function getResizerMargin():Insets{
+		var m:Insets = resizerMargin;
+		if(m == null){
+			return new InsetsUIResource();
+		}else if(m is UIResource){//make it can be replaced by LAF
+			return new InsetsUIResource(m.top, m.left, m.bottom, m.right);
+		}else{
+			return new Insets(m.top, m.left, m.bottom, m.right);
 		}
 	}	
 	
@@ -683,16 +717,14 @@ public class Component extends AWSprite{
 	/**
      * Gets the font of this component.
      * @return this component's font; if a font has not been set
-     * for this component and it has parent, the font of its parent is returned
+     * for this component and it has parent, the font of its style proxy is returned
      * @see #setFont()
      */
 	public function getFont():ASFont{
         if (font != null && font != DefaultEmptyDecoraterResource.NULL_FONT) {
             return font;
-        }else if(getParent() != null){
-        	return getParent().getFont();
-        }else if(parent is Component){
-        	return Component(parent).getFont();
+        }else if(getStyleProxy() != null){
+        	return getStyleProxy().getFont();
         }else{
         	return DefaultEmptyDecoraterResource.NULL_FONT;
         }
@@ -702,10 +734,12 @@ public class Component extends AWSprite{
      * Sets the background color of this component.
      * <p>
      * The background color affects each component differently.
+     * Generally it affects the background of a component, or to be the main 
+     * tinge of a component.
      *
      * @param c the color to become this component's color;
-     *          if this parameter is <code>null</code> and it has parent, then this
-     *          component will inherit the background color of its parent
+     *          if this parameter is <code>null</code> and it has style proxy, then this
+     *          component will inherit the background color of its style proxy.
      * @see #getBackground()
 	 */
 	public function setBackground(c:ASColor):void{
@@ -718,17 +752,15 @@ public class Component extends AWSprite{
 	/**
      * Gets the background color of this component.
      * @return this component's background color; if this component does
-     *          not have a background color and it has parent,
-     *          the background color of its parent is returned
+     *          not have a background color and it has style proxy,
+     *          the background color of its style proxy is returned
      * @see #setBackground()
 	 */
 	public function getBackground():ASColor{
 		if(background != null && background != DefaultEmptyDecoraterResource.NULL_COLOR){
 			return background;
-		}else if(getParent() != null){
-        	return getParent().getBackground();
-        }else if(parent is Component){
-        	return Component(parent).getBackground();
+		}else if(getStyleProxy() != null){
+        	return getStyleProxy().getBackground();
         }else{
         	return DefaultEmptyDecoraterResource.NULL_COLOR;
         }
@@ -737,11 +769,12 @@ public class Component extends AWSprite{
 	/**
      * Sets the foreground color of this component.
      * <p>
-     * The foreground color affects each component differently.
+     * The foreground color affects each component differently. 
+     * Generally it affects the text color of a component.
      *
      * @param c the color to become this component's color;
-     *          if this parameter is <code>null</code> and it has parent, then this
-     *          component will inherit the foreground color of its parent
+     *          if this parameter is <code>null</code> and it has style proxy, then this
+     *          component will inherit the foreground color of its style proxy.
      * @see #getForeground()
 	 */
 	public function setForeground(c:ASColor):void{
@@ -761,15 +794,126 @@ public class Component extends AWSprite{
 	public function getForeground():ASColor{
 		if(foreground != null && foreground != DefaultEmptyDecoraterResource.NULL_COLOR){
 			return foreground;
-		}else if(getParent() != null){
-        	return getParent().getForeground();
-        }else if(parent is Component){
-        	return Component(parent).getForeground();
+		}else if(getStyleProxy() != null){
+        	return getStyleProxy().getForeground();
         }else{
         	return DefaultEmptyDecoraterResource.NULL_COLOR;
         }
 	}
-		
+	
+	/**
+     * Sets the mideground color of this component.
+     * <p>
+     * The mideground color affects each component differently, 
+     * generally it affects the thumb color. Most component has no thumb will 
+     * not use this property.
+     *
+     * @param c the color to become this component's color;
+     *          if this parameter is <code>null</code> and it has style proxy, then this
+     *          component will inherit the mideground color of its style proxy.
+     * @see #getMideground()
+	 */
+	public function setMideground(c:ASColor):void{
+		if(mideground != c){
+			mideground = c;
+			repaint();
+		}
+	}
+	
+	/**
+     * Gets the mideground color of this component.
+     * @return this component's mideground color; if this component does
+     *          not have a mideground color and it has parent,
+     *          the mideground color of its parent is returned
+     * @see #setMideground()
+	 */
+	public function getMideground():ASColor{
+		if(mideground != null && mideground != DefaultEmptyDecoraterResource.NULL_COLOR){
+			return mideground;
+		}else if(getStyleProxy() != null){
+        	return getStyleProxy().getMideground();
+        }else{
+        	return DefaultEmptyDecoraterResource.NULL_COLOR;
+        }
+	}	
+	
+
+	/**
+     * Sets the style tune of this component.
+     * <p>
+     * The style tune affects each component differently based on its LAF UI implements, 
+     * generally it affects the border and content color gradient.
+     * </p>
+     * <p>
+     * Not every LAF UI will use style tune. BasicLookAndFeel use it mostly.
+     * </p>
+     * @param c the style tune to become this component's param;
+     *          if this parameter is <code>null</code>, then this
+     *          component will use <code>DefaultEmptyDecoraterResource.NULL_COLOR_ADJUSTER</code>
+     * @see #getColorAdjuster()
+	 */
+	public function setStyleTune(c:StyleTune):void{
+		if(styleTune != c){
+			styleTune = c;
+			repaint();
+		}
+	}
+	
+	/**
+     * Gets the style tune of this component.
+     * @return this component's style tune; if this component does
+     *          not have a mideground color then <code>DefaultEmptyDecoraterResource.NULL_STYLE_TUNE</code> 
+     * 			will be returned.
+     * @see #setColorAdjuster()
+	 */
+	public function getStyleTune():StyleTune{
+		if(styleTune != null && styleTune != DefaultEmptyDecoraterResource.NULL_STYLE_TUNE){
+			return styleTune;
+		}else if(getStyleProxy() != null){
+        	return getStyleProxy().getStyleTune();
+        }else{
+        	return DefaultEmptyDecoraterResource.NULL_STYLE_TUNE;
+        }
+	}
+	
+	/**
+	 * Sets the style proxy of the component.
+	 * <p>
+	 * Style proxy is used to provide the style(background, mideground, foreground and StyleTune) 
+	 * properties for this component if any of them are set to null or DefaultEmptyDecoraterResource.NULL_XXX.
+	 * </p>
+	 * <p>
+	 * For example, if you set a button's background to null, then getBackground of the button 
+	 * will return its style proxy's background.
+	 * </p>
+	 * By default(nr set to null) the proxy is the parent of this component
+	 * @param proxy the style proxy for this component
+	 */
+	public function setStyleProxy(proxy:Component):void{
+		styleProxy = proxy;
+	}
+	
+	/**
+	 * The style(background, mideground, foreground and StyleTune) proxy for this component, 
+	 * if any style property for this component are null or DefaultEmptyDecoraterResource.NULL_XXX 
+	 * then the proxy's related property will be used.
+	 * <p>
+	 * If the style proxy is not set(or set to null), then the component's parent component will be returned.
+	 * </p>
+	 * @return the style proxy of this component
+	 */
+	public function getStyleProxy():Component{
+		if(styleProxy != null){
+			return styleProxy;
+		}else if(getParent() != null){
+        	return getParent();
+        }else if(parent is Component){
+        	return Component(parent);
+        }else{
+        	return null;
+        }	
+	}	
+	
     /**
      * If true the component paints every pixel within its bounds. 
      * Otherwise, the component may not paint some or all of its
@@ -1168,6 +1312,9 @@ public class Component extends AWSprite{
 	 * @param b the bounds to be the masked clip, null to make it show all. Default is null.
 	 */
 	public function setClipBounds(b:IntRectangle):void{
+		if(b == null && clipBounds == null){
+			return;
+		}
 		var changed:Boolean = false;
 		if(b == null && clipBounds != null){
 			clipBounds = null;
@@ -1537,14 +1684,19 @@ public class Component extends AWSprite{
      * Returns the value of the property with the specified key. 
      * Only properties added with putClientProperty will return a non-null value.
      * @param key the being queried
+     * @param defaultValue if the value doesn't exists, the defaultValue will be returned
      * @return the value of this property or null
      * @see #putClientProperty()
      */
-    public function getClientProperty(key:*):*{
+    public function getClientProperty(key:*, defaultValue:*=undefined):*{
     	if(clientProperty == null){
-    		return undefined;
+    		return defaultValue;
     	}
-    	return clientProperty.get(key);
+    	if(clientProperty.containsKey(key)){
+    		return clientProperty.getValue(key);
+    	}else{
+    		return defaultValue;
+    	}
     }
     
     /**
