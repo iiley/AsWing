@@ -226,6 +226,36 @@ public class ASColor{
 		return getASColorWithHLS(getHue(), getLuminance(), newSaturation, getAlpha());
 	}
 	
+	/**
+	 * Create a new <code>ASColor</code> with just scale the hue luminace and saturation channel values.
+	 * @param hScale scale for hue
+	 * @param lScale scale for luminance
+	 * @param sScale scale for saturation
+	 * @return the new <code>ASColor</code> scaled
+	 */
+	public function scaleHLS(hScale:Number, lScale:Number, sScale:Number):ASColor{
+		var h:Number = getHue() * hScale;
+		var l:Number = getLuminance() * lScale;
+		var s:Number = getSaturation() * sScale;
+		return getASColorWithHLS(h, l, s, alpha);
+	}
+	
+	/**
+	 * Create a new <code>ASColor</code> with just offset the hue luminace and saturation channel values.
+	 * @param hOffset offset for hue
+	 * @param lOffset offset for luminance
+	 * @param sOffset offset for saturation
+	 * @return the new <code>ASColor</code> offseted
+	 */
+	public function offsetHLS(hOffset:Number, lOffset:Number, sOffset:Number):ASColor{
+		var h:Number = getHue() + hOffset;
+		if(h > 1) h -= 1;
+		if(h < 0) h += 1;
+		var l:Number = getLuminance() + lOffset;
+		var s:Number = getSaturation() + sOffset;
+		return getASColorWithHLS(h, l, s, alpha);
+	}	
+	
     /**
      * Creates a new <code>ASColor</code> that is a darker version of this
      * <code>ASColor</code>.
@@ -388,6 +418,14 @@ public class ASColor{
 		}else{
 			return false;
 		}
+	}
+	
+	/**
+	 * Clone a ASColor, most time you dont need to call this because ASColor 
+	 * is un-mutable class, but to avoid UIResource, you can call this.
+	 */
+	public function clone():ASColor{
+		return new ASColor(getRGB(), getAlpha());
 	}
 }
 

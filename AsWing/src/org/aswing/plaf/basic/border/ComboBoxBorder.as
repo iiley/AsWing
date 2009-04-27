@@ -14,6 +14,7 @@ import org.aswing.graphics.Graphics2D;
 import org.aswing.geom.IntRectangle;
 
 /**
+ * Discard in aswing 2.0(Background raped his job)
  * @private
  */
 public class ComboBoxBorder extends BevelBorder implements UIResource{

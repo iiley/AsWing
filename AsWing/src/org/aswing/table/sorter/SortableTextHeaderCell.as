@@ -22,6 +22,9 @@ public class SortableTextHeaderCell extends DefaultTextHeaderCell{
 		this.tableSorter = tableSorter;
 		setHorizontalTextPosition(LEFT);
 		setIconTextGap(6);
+		//make it user parent property
+		setMideground(null);
+		setStyleTune(null);
 	}
 	
 	override public function setTableCellStatus(table:JTable, isSelected:Boolean, row:int, column:int):void{

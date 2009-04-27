@@ -25,14 +25,6 @@ public class BasicToggleButtonUI extends BasicButtonUI{
         return "ToggleButton.";
     }
         
-    /**
-     * Overriden so that the text will not be rendered as shifted for
-     * Toggle buttons and subclasses.
-     */
-    override protected function getTextShiftOffset():int{
-    	return 0;
-    }
-    
     override protected function paintIcon(b:AbstractButton, g:Graphics2D, iconRect:IntRectangle):void {
 		var model:ButtonModel = b.getModel();
 		var icon:Icon = null;

@@ -127,7 +127,7 @@ public class AbstractButton extends Component{
     private var        shiftOffset:int = 0;
     private var        shiftOffsetSet:Boolean=false;
     
-    private var textFilters:Array = null;
+    private var        textFilters:Array;
 	
 	public function AbstractButton(text:String="", icon:Icon=null){
 		super();
@@ -139,6 +139,8 @@ public class AbstractButton extends Component{
     	horizontalAlignment = CENTER;
     	verticalTextPosition = CENTER;
     	horizontalTextPosition = RIGHT;
+    	
+    	textFilters = new ArrayUIResource();
     	
     	iconTextGap = 2;
     	mnemonicEnabled = true;
@@ -312,7 +314,7 @@ public class AbstractButton extends Component{
     
     /**
      * Sets the state of the button. Note that this method does not
-     * trigger an Event for users.
+     * trigger ACT Event for users(will of course trigger STATE_CHANGED event).
      * Call <code>click</code> to perform a programatic action change.
      *
      * @param b  true if the button is selected, otherwise false
@@ -396,10 +398,8 @@ public class AbstractButton extends Component{
 	}
 	
 	public function setTextFilters(fs:Array):void{
-		if(textFilters != fs){
-			textFilters = fs;
-			repaint();
-		}
+		textFilters = fs;
+		repaint();
 	}
 	
 	public function getTextFilters():Array{

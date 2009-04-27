@@ -210,10 +210,7 @@ public class BasicTableHeaderUI extends BaseComponentUI{
 	}	
 	
 	override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
-		if(c.isOpaque()){
-	 		var bgColor:ASColor = (c.getBackground() == null ? ASColor.WHITE : c.getBackground());
-	    	BasicGraphicsUtils.drawControlBackground(g, b, bgColor, Math.PI/2);
-		}
+		//do nothing, background decorator will do this job
 	}
 	
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{

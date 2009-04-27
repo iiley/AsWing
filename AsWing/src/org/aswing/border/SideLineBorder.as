@@ -60,7 +60,7 @@ public class SideLineBorder extends DecorateBorder
 	 * @param color the color of the border. Default is ASColor.BLACK
 	 * @param thickness the thickness of the border. Default is 1
 	 */
-	public function SideLineBorder(interior:Border=null, side:Number=NORTH, color:ASColor=null, thickness:Number=1) {
+	public function SideLineBorder(interior:Border=null, side:int=NORTH, color:ASColor=null, thickness:Number=1) {
 		super(interior);
 		if (color == null) color = ASColor.BLACK;
 		

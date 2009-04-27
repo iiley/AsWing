@@ -1,8 +1,10 @@
 package org.aswing.plaf.basic{
 
-import org.aswing.*;
 import flash.display.*;
+
+import org.aswing.*;
 import org.aswing.geom.*;
+import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.*;
 
 /**
@@ -52,6 +54,10 @@ public class BasicPopupMenuUI extends BaseComponentUI implements MenuElementUI{
 	}
 	
 	protected function uninstallListeners():void{
+	}
+	
+	override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+		//do nothing, border will do this job
 	}
 	
 	//-----------------

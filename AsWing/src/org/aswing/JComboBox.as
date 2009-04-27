@@ -163,8 +163,7 @@ public class JComboBox extends Component implements EditableComponent{
 	public function getPopupList():JList{
 		if(popupList == null){
 			popupList = new JList(null, new DefaultComboBoxListCellFactory());
-			popupList.setSelectionMode(JList.SINGLE_SELECTION);		
-			popupList.addSelectionListener(__listSelectionChanged);
+			popupList.setSelectionMode(JList.SINGLE_SELECTION);
 		}
 		return popupList;
 	}
@@ -262,20 +261,22 @@ public class JComboBox extends Component implements EditableComponent{
 	}
 	
 	/**
-	 * Apply a new foreground to combobox and its editor and its popup list.
+	 * Apply a new foreground to combobox and its editor.
+	 * It will not apply this to popup list from 2.0, you can call <code>getPopupList()</code> 
+	 * to operate manually.
 	 */
 	override public function setForeground(c:ASColor):void{
 		super.setForeground(c);
-		getPopupList().setForeground(c);
 		getEditor().getEditorComponent().setForeground(c);
 	}
 	
 	/**
-	 * Apply a new background to combobox and its editor and its popup list.
+	 * Apply a new background to combobox and its editor.
+	 * It will not apply this to popup list from 2.0, you can call <code>getPopupList()</code> 
+	 * to operate manually.
 	 */
 	override public function setBackground(c:ASColor):void{
 		super.setBackground(c);
-		getPopupList().setBackground(c);
 		getEditor().getEditorComponent().setBackground(c);
 	}
 	
@@ -511,10 +512,6 @@ public class JComboBox extends Component implements EditableComponent{
 		if(!isPopupVisible()){
 			setSelectedItem(getEditor().getValue());
 		}
-	}
-	
-	protected function __listSelectionChanged(e:SelectionEvent):void{
-		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, e.isProgrammatic()));
 	}
 	
 	protected function indexInModel(value:*):int{

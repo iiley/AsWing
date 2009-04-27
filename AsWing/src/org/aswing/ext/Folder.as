@@ -33,11 +33,11 @@ public class Folder extends JPanel{
 	public static const TOP:int = AsWingConstants.TOP;
 	public static const BOTTOM:int = AsWingConstants.BOTTOM;
 	
-	private var titleButton:JToggleButton;
-	private var contentPane:Component;
-	private var title:String;
-	private var titlePosition:int;
-	private var gap:int;
+	protected var titleButton:JToggleButton;
+	protected var contentPane:Component;
+	protected var title:String;
+	protected var titlePosition:int;
+	protected var gap:int;
 	
 	/**
 	 * Folder(title:String, titlePosition:Number, gap:Number)<br>
@@ -52,7 +52,7 @@ public class Folder extends JPanel{
 		this.titlePosition = titlePosition;
 		this.gap = gap;
 		setLayout(new BorderLayout(0, gap));
-		titleButton = new JToggleButton();
+		titleButton = createTitleButton();
 		titleButton.setSelected(false);
 		setForeground(new ASColor(0x336600));
 		setFocusable(false);
@@ -62,10 +62,14 @@ public class Folder extends JPanel{
 		changeTitleRepresentWhenStateChanged();
 	}
 	
+	protected function createTitleButton():JToggleButton{
+		return new JToggleButton();
+	}
+	
 	/**
 	 * Override this method to init different LAF title bar
 	 */
-	private function initTitleBar():void{
+	protected function initTitleBar():void{
 		setFont(new ASFont("Dialog", 12, true));
 		titleButton.setFont(null);
 		titleButton.setHorizontalAlignment(AsWingConstants.LEFT);
@@ -80,7 +84,7 @@ public class Folder extends JPanel{
 	/**
 	 * Override this method to control the title representation.
 	 */
-	private function changeTitleRepresentWhenStateChanged():void{
+	protected function changeTitleRepresentWhenStateChanged():void{
 		if(isExpanded()){
 			titleButton.setText("- " + getTitle());
 		}else{
@@ -88,7 +92,7 @@ public class Folder extends JPanel{
 		}
 	}
 	
-	private function __titleSelectionChanged(e:InteractiveEvent):void{
+	protected function __titleSelectionChanged(e:InteractiveEvent):void{
 		getContentPane().setVisible(titleButton.isSelected());
 		changeTitleRepresentWhenStateChanged();
 		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, e.isProgrammatic()));

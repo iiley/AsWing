@@ -120,6 +120,7 @@ public class JTextComponent extends Component implements EditableComponent{
 			invalidateColumnRowSize();
 		}
 	}
+
 	
 	override public function setForeground(c:ASColor):void{
 		super.setForeground(c);
@@ -128,7 +129,7 @@ public class JTextComponent extends Component implements EditableComponent{
     		getTextField().alpha = getForeground().getAlpha();
   		}
 	}
-	
+		
 	public function setText(text:String):void{
 		if(getTextField().text != text){
 			getTextField().text = text;
@@ -386,8 +387,11 @@ public class JTextComponent extends Component implements EditableComponent{
 		var tf:TextFormat = getFont().getTextFormat();
 		var textFieldSize:IntDimension = AsWingUtils.computeStringSize(tf, str, true, getTextField());
 		var textSize:IntDimension = AsWingUtils.computeStringSize(tf, str, false, getTextField());
-		
-		columnWidth = textSize.width/5;
+		if(tf.font == "NSimSun"){
+			columnWidth = Math.round(textSize.width/4 + int(tf.size)/6);
+		}else{
+			columnWidth = textSize.width/5;
+		}
 		rowHeight = textSize.height;
 		widthMargin = textFieldSize.width - textSize.width;
 		heightMargin = textFieldSize.height - textSize.height;

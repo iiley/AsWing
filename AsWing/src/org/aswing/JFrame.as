@@ -178,9 +178,6 @@ public class JFrame extends JWindow{
     override public function setUI(newUI:ComponentUI):void{
     	if(newUI is FrameUI){
     		super.setUI(newUI);
-    		if(getTitleBar()){
-    			getTitleBar().updateUIPropertiesFromOwner();
-    		}
     	}else{
     		throw new ArgumentError("JFrame just accept FrameUI instance!!!");
     	}

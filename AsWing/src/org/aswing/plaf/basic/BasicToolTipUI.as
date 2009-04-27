@@ -4,10 +4,11 @@
 
 package org.aswing.plaf.basic{
 	
-import org.aswing.plaf.BaseComponentUI;
 import org.aswing.*;
 import org.aswing.event.ToolTipEvent;
-import flash.filters.DropShadowFilter;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.plaf.BaseComponentUI;
 
 /**
  * @private
@@ -45,6 +46,7 @@ public class BasicToolTipUI extends BaseComponentUI{
 		var b:JToolTip = tooltip;
 		b.setLayout(new BorderLayout());
 		label = new JLabel(b.getTipText());
+		label.setOpaque(false);
 		label.setFont(null); //make it to use parent(JToolTip) font
 		label.setForeground(null); //make it to user parent(JToolTip) foreground
 		label.setUIElement(true);
@@ -53,6 +55,10 @@ public class BasicToolTipUI extends BaseComponentUI{
 	
 	protected function installListeners():void{
 		tooltip.addEventListener(ToolTipEvent.TIP_TEXT_CHANGED, __tipTextChanged);
+	}
+	
+	override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+		//do nothing, let background decorator to do things
 	}
 	
 	private function __tipTextChanged(e:ToolTipEvent):void{

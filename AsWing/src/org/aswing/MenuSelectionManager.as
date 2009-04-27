@@ -10,8 +10,8 @@ import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
 
 import org.aswing.event.InteractiveEvent;
-import org.aswing.util.ArrayUtils;
 import org.aswing.util.ArrayList;
+import org.aswing.util.ArrayUtils;
 import org.aswing.util.WeakReference;
 	
 /**
@@ -31,9 +31,11 @@ public class MenuSelectionManager extends EventDispatcher{
 	private static var instance:MenuSelectionManager;
 	
 	protected var selection:ArrayList;
+	protected var keyEnabled:Boolean;
 	
 	public function MenuSelectionManager(){
 		selection = new ArrayList();
+		keyEnabled = true;
 	}
 	
 	public static function defaultManager():MenuSelectionManager{
@@ -48,6 +50,14 @@ public class MenuSelectionManager extends EventDispatcher{
 	 */
 	public static function setDefaultManager(m:MenuSelectionManager):void{
 		instance = m;
+	}
+	
+	public function setKeyEnabled(b:Boolean):void{
+		keyEnabled = b;
+	}
+	
+	public function isKeyEnabled():Boolean{
+		return keyEnabled;
 	}
 	
 	protected var lastTriggerRef:WeakReference = new WeakReference();
@@ -251,7 +261,7 @@ public class MenuSelectionManager extends EventDispatcher{
 	}
 	
 	protected function __onMSMKeyDown(e:KeyboardEvent):void{
-		if(selection.size() == 0){
+		if(selection.size() == 0 || !isKeyEnabled()){
 			return;
 		}
 		var code:uint = e.keyCode;

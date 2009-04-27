@@ -4,50 +4,65 @@
 
 package org.aswing.plaf.basic.border{
 	
-import org.aswing.graphics.*;
+import flash.display.DisplayObject;
+import flash.display.Shape;
+import flash.geom.Matrix;
+
 import org.aswing.*;
 import org.aswing.geom.*;
-import flash.display.DisplayObject;
+import org.aswing.graphics.*;
 import org.aswing.plaf.UIResource;
-import org.aswing.plaf.ComponentUI;
 
 /**
  * @private
  */
 public class TableHeaderCellBorder implements Border, UIResource{
 	
-	private var shadow:ASColor;
-    private var darkShadow:ASColor;
-    private var highlight:ASColor;
-    private var lightHighlight:ASColor;
+	protected var shape:Shape;
     
 	public function TableHeaderCellBorder(){
+		shape = new Shape();
 	}
-	
-	private function reloadColors(ui:ComponentUI):void{
-		shadow = ui.getColor("Button.shadow");
-		darkShadow = ui.getColor("Button.darkShadow");
-		highlight = ui.getColor("Button.light");
-		lightHighlight = ui.getColor("Button.highlight");
-	}
-	
+		
 	public function updateBorder(c:Component, g:Graphics2D, b:IntRectangle):void{
-		if(shadow == null){
-			reloadColors(c.getUI());
+		b = b.clone();
+		b.height -= 4;
+		b.y += 2;
+		if(c is AbstractButton){
+			trace("header AbstractButton");
 		}
-		var pen:Pen = new Pen(darkShadow, 1);
-		g.drawLine(pen, b.x+b.width-0.5, b.y+4, b.x+b.width-0.5, Math.max(b.y+b.height-2, b.y+4));
-		g.fillRectangle(new SolidBrush(darkShadow), b.x, b.y+b.height-1, b.width, 1);
+		if(b.height > 0){
+			var cl:ASColor = c.getBackground();
+			var dark:ASColor = cl.offsetHLS(0, -0.2, 0);
+			var light:ASColor = cl.offsetHLS(0, 0.06, 0);
+			shape.graphics.clear();
+			g = new Graphics2D(shape.graphics);
+			var height:int = b.height;
+			var matrix:Matrix = new Matrix();
+			matrix.createGradientBox(b.width, b.height, Math.PI/2, b.x, b.y);
+			g.fillRectangle(new GradientBrush(
+				GradientBrush.LINEAR, 
+				[dark.getRGB(), dark.getRGB(), dark.getRGB()], 
+				[0, 1, 0], 
+				[0, 122, 255], 
+				matrix
+				), b.x+b.width-2, b.y, 1, b.height);
+			g.fillRectangle(new GradientBrush(
+				GradientBrush.LINEAR, 
+				[light.getRGB(), light.getRGB(), light.getRGB()], 
+				[0, 1, 0], 
+				[0, 122, 255], 
+				matrix
+				), b.x+b.width-1, b.y, 1, b.height);
+		}
 	}
 	
-	public function getBorderInsets(com:Component, bounds:IntRectangle):Insets
-	{
+	public function getBorderInsets(com:Component, bounds:IntRectangle):Insets{
 		return new Insets(0, 0, 1, 1);
 	}
 	
-	public function getDisplay(c:Component):DisplayObject
-	{
-		return null;
+	public function getDisplay(c:Component):DisplayObject{
+		return shape;
 	}
 	
 }

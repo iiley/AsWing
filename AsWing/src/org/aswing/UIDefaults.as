@@ -136,7 +136,15 @@ public class UIDefaults extends HashMap
 			i = EmptyUIResources.INSETS; //make it to be an ui resource then can override by next LAF
 		}
 		return i;
-	}	
+	}
+	
+	public function getStyleTune(key:String):StyleTune{
+		var i:StyleTune = getInstance(key) as StyleTune;
+		if(i == null){
+			i = EmptyUIResources.STYLE_TUNE; //make it to be an ui resource then can override by next LAF
+		}
+		return i;
+	}
 	
 	//-------------------------------------------------------------
 	public function getConstructor(key:String):Class{

@@ -4,17 +4,17 @@
 
 package org.aswing.plaf.basic{
 	
-import org.aswing.plaf.BaseComponentUI;
+import flash.display.Sprite;
+import flash.events.*;
+import flash.ui.Keyboard;
+
 import org.aswing.*;
+import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
+import org.aswing.plaf.BaseComponentUI;
+import org.aswing.plaf.basic.icon.ScrollBarArrowIcon;
 import org.aswing.util.*;
-import org.aswing.event.*;
-import flash.events.*;
-import org.aswing.plaf.basic.icon.ArrowIcon;
-import flash.display.Sprite;
-import flash.events.MouseEvent;
-import flash.ui.Keyboard;
 
 /**
  * The basic scrollbar ui.
@@ -419,6 +419,10 @@ public class BasicScrollBarUI extends BaseComponentUI{
     	paintAndLocateThumb(b);
     }
     
+	override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+		//do nothing, background decorator will paint it
+	}	    
+    
     private function paintAndLocateThumb(b:IntRectangle):void{
      	if(!scrollbar.isEnabled()){
     		if(isVertical()){
@@ -506,9 +510,7 @@ public class BasicScrollBarUI extends BaseComponentUI{
      * Override this method to paint diff thumb in your LAF.
      */    
     protected function createArrowIcon(direction:Number):Icon{
-    	var icon:Icon = new ArrowIcon(direction, scrollBarWidth/2,
-				    arrowLightColor,
-				    arrowShadowColor);
+    	var icon:Icon = new ScrollBarArrowIcon(direction, scrollBarWidth, scrollBarWidth);
 		return icon;
     }
     
@@ -520,6 +522,12 @@ public class BasicScrollBarUI extends BaseComponentUI{
     protected function createArrowButton():JButton{
 		var b:JButton = new JButton();
 		b.setFocusable(false);
+		b.setBackground(null);
+		b.setForeground(null);
+		b.setMideground(null);
+		b.setStyleTune(null);
+		b.setStyleProxy(scrollbar);
+		b.setPreferredSize(new IntDimension(scrollBarWidth, scrollBarWidth));
 		return b;
     }
         
@@ -572,16 +580,26 @@ public class BasicScrollBarUI extends BaseComponentUI{
 	//--------------------------Layout----------------------------
 	protected function layoutVScrollbar(sb:JScrollBar):void{
     	var rd:IntRectangle = sb.getPaintBounds();
-    	var w:int = scrollBarWidth;
-    	decrButton.setComBoundsXYWH(rd.x, rd.y, w, w);
-    	incrButton.setComBoundsXYWH(rd.x, rd.y + rd.height - w, w, w);
+    	var bd:IntDimension = decrButton.getPreferredSize();
+    	var w:int = bd.width;
+    	var h:int = bd.height;
+    	var x:int = rd.x;
+    	var y:int = rd.y;
+    	var sbw:int = scrollBarWidth;
+    	decrButton.setComBoundsXYWH(x+(sbw-w)/2, y, w, h);
+    	incrButton.setComBoundsXYWH(x+(sbw-w)/2, y + rd.height - h, w, h);
 	}
 	
 	protected function layoutHScrollbar(sb:JScrollBar):void{
     	var rd:IntRectangle = sb.getPaintBounds();
-    	var w:int = scrollBarWidth;
-    	decrButton.setComBoundsXYWH(rd.x, rd.y, w, w);
-    	incrButton.setComBoundsXYWH(rd.x + rd.width - w, rd.y, w, w);
+    	var bd:IntDimension = decrButton.getPreferredSize();
+    	var w:int = bd.width;
+    	var h:int = bd.height;
+    	var x:int = rd.x;
+    	var y:int = rd.y;
+    	var sbw:int = scrollBarWidth;
+    	decrButton.setComBoundsXYWH(x, y+(sbw-h)/2, w, h);
+    	incrButton.setComBoundsXYWH(x+rd.width-w, y+(sbw-h)/2, w, h);
 	}
 	    
 	public function layoutScrollBar():void{

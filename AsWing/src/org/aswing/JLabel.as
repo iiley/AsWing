@@ -165,10 +165,8 @@ public class JLabel extends Component{
 	}
 	
 	public function setTextFilters(fs:Array):void{
-		if(textFilters != fs){
-			textFilters = fs;
-			repaint();
-		}
+		textFilters = fs;
+		repaint();
 	}
 	
 	public function getTextFilters():Array{

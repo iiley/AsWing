@@ -64,7 +64,7 @@ public class SimpleTitledBorder extends DecorateBorder
 		this.align = align;
 		this.offset = offset;
 		this.font = (font==null ? UIManager.getFont("systemFont") : font);
-		this.color = (color==null ? ASColor.BLACK : color);
+		this.color = (color==null ? UIManager.getColor("controlText") : color);
 		textField = null;
 		colorFontValid = false;
 		textFieldSize = null;

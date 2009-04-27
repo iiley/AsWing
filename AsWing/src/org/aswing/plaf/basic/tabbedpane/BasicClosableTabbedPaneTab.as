@@ -14,6 +14,7 @@ public class BasicClosableTabbedPaneTab implements ClosableTab{
 	protected var button:AbstractButton;
 	protected var margin:Insets;
 	protected var owner:Component;
+	protected var placement:int;
 	
 	public function BasicClosableTabbedPaneTab(){
 		super();
@@ -33,6 +34,14 @@ public class BasicClosableTabbedPaneTab implements ClosableTab{
 		label.setFocusable(false);
 		button.setFocusable(false);
 		margin = new Insets(0,0,0,0);
+	}
+	
+	public function setTabPlacement(tp:int):void{	
+		placement = tp;
+	}
+	
+	public function getTabPlacement():int{
+		return placement;
 	}
 	
 	protected function createCloseButton():AbstractButton{

@@ -64,7 +64,16 @@ public class BasicButtonUI extends BaseComponentUI{
         LookAndFeel.installBorderAndBFDecorators(b, pp);
         LookAndFeel.installBasicProperties(b, pp);
         button.mouseChildren = false;
+        if(b.getTextFilters() is UIResource){
+        	b.setTextFilters(getInstance(pp + "textFilters"));
+        }
  	}
+	
+    override public function refreshStyleProperties():void{
+    	installDefaults(button);
+    	button.repaint();
+    	button.revalidate();
+    }	
 	
  	protected function uninstallDefaults(b:AbstractButton):void{
  		LookAndFeel.uninstallBorderAndBFDecorators(b);
@@ -174,7 +183,7 @@ public class BasicButtonUI extends BaseComponentUI{
     	
         if (text != null && text != ""){
         	textField.visible = true;
-        	if(b.getModel().isArmed()){
+        	if(b.getModel().isArmed() || b.getModel().isSelected()){
         		textRect.x += getTextShiftOffset();
         		textRect.y += getTextShiftOffset();
         	}

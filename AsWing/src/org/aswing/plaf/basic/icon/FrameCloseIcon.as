@@ -3,9 +3,10 @@
 */
 
 
-package org.aswing.plaf.basic.icon
-{
+package org.aswing.plaf.basic.icon{
 	
+import flash.display.CapsStyle;
+
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
@@ -15,27 +16,22 @@ import org.aswing.graphics.*;
  * @author iiley
  * @private
  */
-public class FrameCloseIcon extends FrameIcon
-{
+public class FrameCloseIcon extends FrameIcon{
+	
 	public function FrameCloseIcon(){
 		super();
 	}
 	
-	override public function updateIconImp(c:Component, g:Graphics2D, x:int, y:int):void
-	{
-		var w:Number = width/2;
-		g.drawLine(
-			new Pen(getColor(c), w/3), 
-			x+(width-w)/2, y+(width-w)/2,
-			x+(width+w)/2, y+(width+w)/2);
-		g.drawLine(
-			new Pen(getColor(c), w/3), 
-			x+(width-w)/2, y+(width+w)/2,
-			x+(width+w)/2, y+(width-w)/2);		
-	}	
-	
-	override public function getIconWidth(c:Component):int{
-		return super.getIconWidth(c) + 2;
+	override public function updateIconImp(c:StyleResult, g:Graphics2D, x:int, y:int):void{
+		var gap:int = 5;
+		var w:int = width-1-gap*2;
+		var h:int = height-1-gap*2;
+		var x1:int = x+gap;
+		var y1:int = y+gap;
+		var cl:ASColor = c.bdark;
+		var lightPane:Pen = new Pen(cl, 2, true, "normal", CapsStyle.ROUND);
+		g.drawLine(lightPane, x1, y1, x1+w, y1+h);
+		g.drawLine(lightPane, x1+w, y1, x1, y1+h);
 	}
 }
 }

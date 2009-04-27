@@ -4,30 +4,170 @@
 
 package org.aswing.plaf.basic{
 
-import org.aswing.graphics.*;
-import org.aswing.geom.*;
-import org.aswing.*;
 import flash.geom.Matrix;
+import flash.geom.Point;
+
+import org.aswing.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
 
 /**
  * @private
  */
 public class BasicGraphicsUtils{
 	
+	public static var gradientRatio:Array = [0, 255];
+	public static var roundRectBtmFix:Number = 0.5;
+	
+	/**
+	 * Returns the gradient brush with tune
+	 * @param tune the tune
+	 * @param matrix the matrix
+	 * @param border true means for border, false means for content
+	 */
+	public static function getGradientBrush(tune:StyleResult, matrix:Matrix, border:Boolean=false, ratios:Array=null):GradientBrush{
+		var light:ASColor;
+		var dark:ASColor;
+		if(border){
+			light = tune.blight;
+			dark  = tune.bdark;
+		}else{
+			light = tune.clight;
+			dark  = tune.cdark;
+		}
+		if(ratios == null){
+			ratios = gradientRatio;
+		}
+		return new GradientBrush(
+			GradientBrush.LINEAR, 
+			[light.getRGB(), dark.getRGB()], 
+			[light.getAlpha(), dark.getAlpha()], 
+			ratios, 
+			matrix
+			);
+	}
+	
+	public static function drawRoundRect(g:Graphics2D, x:Number, y:Number, w:Number, h:Number, r:Number):void{
+		var fix:Number = r > 5 ? 0 : roundRectBtmFix;
+		g.roundRect(x, y, w, h, r, r, r+fix, r+fix);
+	}
+	
+	private static var sharedMatrix:Matrix = new Matrix();
+	/**
+	 * Fill gradient round rectangle, if tune.round < roundRectBtmFix, it will fill rectangle with no round
+	 */
+	public static function fillGradientRoundRect(g:Graphics2D, b:IntRectangle, tune:StyleResult, direction:Number=1.5707963267948966, border:Boolean=false, matrixB:IntRectangle=null, ratios:Array=null):void{
+		if(matrixB == null){
+			matrixB = b;
+		}
+		sharedMatrix.createGradientBox(matrixB.width, matrixB.height, direction, matrixB.x, matrixB.y);
+		g.beginFill(getGradientBrush(tune, sharedMatrix, border, ratios));
+		var r:Number = tune.round;
+		if(r < roundRectBtmFix){
+			g.rectangle(b.x, b.y, b.width, b.height);
+		}else{
+			var fix:Number = roundRectBtmFix;
+			if(r > 5){
+				fix = 0;
+			}
+			g.roundRect(b.x, b.y, b.width, b.height, r, r, r+fix, r+fix);
+		}
+		g.endFill();
+	}
+	
+	public static function fillGradientRoundRectBottomRightAngle(g:Graphics2D, b:IntRectangle, tune:StyleResult, direction:Number=1.5707963267948966, border:Boolean=false, matrixB:IntRectangle=null):void{
+		if(matrixB == null){
+			matrixB = b;
+		}
+		sharedMatrix.createGradientBox(matrixB.width, matrixB.height, direction, matrixB.x, matrixB.y);
+		g.beginFill(getGradientBrush(tune, sharedMatrix, border));
+		var r:Number = tune.round;
+		if(r < roundRectBtmFix){
+			g.rectangle(b.x, b.y, b.width, b.height);
+		}else{
+			var fix:Number = roundRectBtmFix;
+			if(r > 5){
+				fix = 0;
+			}
+			g.roundRect(b.x, b.y, b.width, b.height, r, r, 0, 0);
+		}
+		g.endFill();
+	}	
+	
+	/**
+	 * Call draw path gradient round rectangle, if r < roundRectBtmFix, it will fill rectangle with no round
+	 */	
+	public static function drawRoundRectLine(g:Graphics2D, x:Number, y:Number, w:Number, h:Number, r:Number, t:Number):void{
+		if(r < roundRectBtmFix){
+			g.rectangle(x, y, w, h);
+			g.rectangle(x+t, y+t, w-t*2, h-t*2);
+		}else{
+			var fix:Number = roundRectBtmFix;
+			if(r > 5){
+				fix = 0;
+			}
+			g.roundRect(x, y, w, h, r, r, r+fix, r+fix);
+			r -= t/2;
+			g.roundRect(x+t, y+t, w-t*2, h-t*2, r, r, r+fix, r+fix);
+		}
+	}
+	
+	/**
+	 * Fill gradient round rectangle line, if tune.round < roundRectBtmFix, it will fill rectangle line with no round
+	 */	
+	public static function drawGradientRoundRectLine(g:Graphics2D, b:IntRectangle, t:Number, tune:StyleResult, direction:Number=1.5707963267948966, border:Boolean=true, matrixB:IntRectangle=null):void{
+		var w:Number = b.width;
+		var h:Number = b.height;
+		var x:Number = b.x;
+		var y:Number = b.y;
+		var r:Number = tune.round;
+		if(matrixB == null){
+			matrixB = b;
+		}
+		sharedMatrix.createGradientBox(matrixB.width, matrixB.height, direction, matrixB.x, matrixB.y);
+		g.beginFill(getGradientBrush(tune, sharedMatrix, border));
+		drawRoundRectLine(g, b.x, b.y, b.width, b.height, r, t);
+		g.endFill();
+	}
+	
+	public static function getArrowPath(width:Number, direction:Number, centerX:Number, centerY:Number, round:Boolean=true):Array{
+		var center:Point = new Point(centerX, centerY);
+		var w:Number = width;
+		var ps1:Array = new Array();
+		ps1.push(nextPoint(center, direction, w/2/2, round));
+		var back:Point = nextPoint(center, direction + Math.PI, w/2/2);
+		ps1.push(nextPoint(back, direction - Math.PI/2, w/2, round));
+		ps1.push(nextPoint(back, direction + Math.PI/2, w/2, round));
+		return ps1;
+	}
+	
+	private static function nextPoint(p:Point, dir:Number, dis:Number, round:Boolean=false):Point{
+		if(round){
+			return new Point(Math.round(p.x+Math.cos(dir)*dis), Math.round(p.y+Math.sin(dir)*dis));
+		}else{
+			return new Point(p.x+Math.cos(dir)*dis, p.y+Math.sin(dir)*dis);
+		}
+	}	
+	
 	public static function getDisabledColor(c:Component):ASColor{
 		var bg:ASColor = c.getBackground();
 		if(bg == null) bg = ASColor.BLACK;
+		return disabledColor(bg);
+	}
+	
+	public static function disabledColor(cl:ASColor):ASColor{
+		var bg:ASColor = cl;
 		var hue:Number = bg.getHue();
 		var lum:Number = bg.getLuminance();
 		var sat:Number = bg.getSaturation();
-		if(lum < 0.1){
-			lum *= 1.4;
+		if(lum < 0.6){
+			lum += 0.1;
 		}else{
-			lum *= 0.7;
+			lum -= 0.1;
 		}
-		sat *= 0.7;
+		sat -= 0.2;
 		return ASColor.getASColorWithHLS(hue, lum, sat, bg.getAlpha());
-	}
+	}	
 	
 	/**
 	 * For buttons style bezel by fill function

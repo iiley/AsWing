@@ -5,7 +5,6 @@
 package org.aswing.plaf.basic.tabbedpane{
 
 import org.aswing.*;
-import org.aswing.border.EmptyBorder;
 
 /**
  * BasicTabbedPaneTab implemented with a JLabel 
@@ -13,76 +12,75 @@ import org.aswing.border.EmptyBorder;
  * @private
  */
 public class BasicTabbedPaneTab implements Tab{
-	
-	protected var label:JLabel;
-	protected var margin:Insets;
+		
+	protected var button:AbstractButton;
 	protected var owner:Component;
+	protected var placement:int;
 	
 	public function BasicTabbedPaneTab(){
+		placement = 0;
 	}
 	
 	public function initTab(owner:Component):void{
 		this.owner = owner;
-		label = new JLabel();
-		margin = new Insets(0,0,0,0);
+		button = createHeaderButton();
+	}
+	
+	public function setTabPlacement(tp:int):void{	
+		placement = tp;
+	}
+	
+	public function getTabPlacement():int{
+		return placement;
+	}
+	
+	protected function createHeaderButton():AbstractButton{
+		var btn:AbstractButton = new JButton();
+		btn.setBackgroundDecorator(new TabBackground(this));
+		btn.setTextFilters([]);
+		return btn;
+	}
+	
+	public function setTextAndIcon(text : String, icon : Icon) : void {
+		button.setText(text);
+		button.setIcon(icon);
 	}
 	
 	public function setFont(font:ASFont):void{
-		label.setFont(font);
+		button.setFont(font);
 	}
 	
 	public function setForeground(color:ASColor):void{
-		label.setForeground(color);
+		button.setForeground(color);
 	}
 	
-	public function setMargin(m:Insets):void
-	{
-		if(!margin.equals(m)){
-			label.setBorder(new EmptyBorder(null, m));
-			margin = m.clone();
-		}
+	public function setSelected(b:Boolean):void{
+		//Do nothing here, if your header is selectable, you can set it here like
+		button.setSelected(b);
 	}
 	
-	public function setVerticalAlignment(alignment:int):void
-	{
-		label.setVerticalAlignment(alignment);
+    public function setVerticalAlignment(alignment:int):void {
+    	button.setVerticalAlignment(alignment);
+    }
+    public function setHorizontalAlignment(alignment:int):void {
+    	button.setHorizontalAlignment(alignment);
+    }
+    public function setVerticalTextPosition(textPosition:int):void {
+    	button.setVerticalTextPosition(textPosition);
+    }
+    public function setHorizontalTextPosition(textPosition:int):void {
+    	button.setHorizontalTextPosition(textPosition);
+    }
+    public function setIconTextGap(iconTextGap:int):void {
+    	button.setIconTextGap(iconTextGap);
+    }
+    public function setMargin(m:Insets):void{
+    	button.setMargin(m);
+    }
+
+	public function getTabComponent() : Component {
+		return button;
 	}
-	
-	public function getTabComponent():Component
-	{
-		return label;
-	}
-	
-	public function setHorizontalTextPosition(textPosition:int):void
-	{
-		label.setHorizontalTextPosition(textPosition);
-	}
-	
-	public function setTextAndIcon(text:String, icon:Icon):void
-	{
-		label.setText(text);
-		label.setIcon(icon);
-	}
-	
-	public function setIconTextGap(iconTextGap:int):void
-	{
-		label.setIconTextGap(iconTextGap);
-	}
-	
-	public function setSelected(b:Boolean):void
-	{
-		//do nothing
-	}
-	
-	public function setVerticalTextPosition(textPosition:int):void
-	{
-		label.setVerticalTextPosition(textPosition);
-	}
-	
-	public function setHorizontalAlignment(alignment:int):void
-	{
-		label.setHorizontalAlignment(alignment);
-	}
-	
+
 }
 }

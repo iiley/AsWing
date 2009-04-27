@@ -2,11 +2,12 @@ package org.aswing{
 
 import flash.events.Event;
 
-import org.aswing.event.AWEvent;
+import org.aswing.border.EmptyBorder;
 import org.aswing.event.FrameEvent;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.event.WindowEvent;
 import org.aswing.plaf.UIResource;
+import org.aswing.plaf.basic.BasicFrameTitleBarUI;
 
 /**
  * The default Imp of FrameTitleBar
@@ -17,12 +18,11 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 	protected var maximizeButton:AbstractButton;
 	protected var restoreButton:AbstractButton;
 	protected var closeButton:AbstractButton;
-	protected var activeTextColor:ASColor;
-	protected var inactiveTextColor:ASColor;
 	protected var titleLabel:JLabel;
 	protected var icon:Icon;
 	protected var text:String;
 	protected var titleEnabled:Boolean;
+	protected var minimizeHeight:int;
 	
 	protected var buttonPane:Container;
 	protected var buttonPaneLayout:SoftBoxLayout;
@@ -33,18 +33,30 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 	public function JFrameTitleBar(){
 		super();
 		titleEnabled = true;
+		minimizeHeight = 22;
 		setLayout(new FrameTitleBarLayout());
 		
 		buttonPane = new Container();
 		buttonPane.setCachePreferSizes(false);
 		buttonPaneLayout = new SoftBoxLayout(SoftBoxLayout.X_AXIS, 0);
 		buttonPane.setLayout(buttonPaneLayout);
+		var labelPane:Container = new Container();
+		labelPane.setBorder(new EmptyBorder(null, new Insets(-3)));//make label y offset -3
+		labelPane.setLayout(new BorderLayout());
 		titleLabel = new JLabel();
-		titleLabel.mouseEnabled = false;
-		titleLabel.mouseChildren = false;
 		titleLabel.setHorizontalAlignment(JLabel.LEFT);
-		append(titleLabel, BorderLayout.CENTER);
-		append(buttonPane, BorderLayout.EAST);
+		titleLabel.setVerticalAlignment(JLabel.TOP);
+		titleLabel.setUIElement(true);
+		labelPane.setUIElement(true);
+		labelPane.append(titleLabel, BorderLayout.CENTER);
+		labelPane.mouseEnabled = false;
+		labelPane.mouseChildren = false;
+		
+		append(labelPane, BorderLayout.CENTER);
+		var btnpP:Container = new Container();
+		btnpP.setLayout(new BorderLayout());
+		btnpP.append(buttonPane, BorderLayout.NORTH);
+		append(btnpP, BorderLayout.EAST);
 		
 		setIconifiedButton(createIconifiedButton());
 		setMaximizeButton(createMaximizeButton());
@@ -52,15 +64,28 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 		setCloseButton(createCloseButton());
 		setMaximizeButtonVisible(false);
 		buttonPane.appendAll(iconifiedButton, restoreButton, maximizeButton, closeButton);
+		buttonPane.setUIElement(true);
 		
-		setUIElement(true);
-		addEventListener(AWEvent.PAINT, __framePainted);
+		updateUI();
 	}
+	
+	override public function updateUI():void{
+    	setUI(UIManager.getUI(this));
+    }
+	
+    override public function getDefaultBasicUIClass():Class{
+    	return org.aswing.plaf.basic.BasicFrameTitleBarUI;
+    }
 	
 	protected function createPureButton():JButton{
 		var b:JButton = new JButton();
 		b.setBackgroundDecorator(null);
 		b.setMargin(new Insets());
+		b.setStyleTune(null);
+		b.setBackground(null);
+		b.setForeground(null);
+		b.setMideground(null);
+		b.setStyleProxy(this);
 		return b;
 	}
 	
@@ -80,59 +105,8 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 		return createPureButton();
 	}
 	
-	public function updateUIPropertiesFromOwner():void{
-		if(getIconifiedButton()){
-			getIconifiedButton().setIcon(getFrameIcon("Frame.iconifiedIcon"));
-		}
-		if(getMaximizeButton()){
-			getMaximizeButton().setIcon(getFrameIcon("Frame.maximizeIcon"));
-		}
-		if(getRestoreButton()){
-			getRestoreButton().setIcon(getFrameIcon("Frame.normalIcon"));
-		}
-		if(getCloseButton()){
-			getCloseButton().setIcon(getFrameIcon("Frame.closeIcon"));
-		}
-		
-		activeTextColor     = getFrameUIColor("Frame.activeCaptionText");
-		inactiveTextColor   = getFrameUIColor("Frame.inactiveCaptionText"); 	
-		setBackgroundDecorator(getTitleBGD("Frame.titleBarBG"));
-		buttonPaneLayout.setGap(getFrameUIInt("Frame.titleBarButtonGap"));
-		revalidateIfNecessary();
-		__activeChange(null);
-		__framePainted(null);
-	}
-	
-	protected function getFrameIcon(key:String):Icon{
-		if(owner.getUI()){
-			return owner.getUI().getIcon(key);
-		}else{
-			return UIManager.getIcon(key);
-		}
-	}
-	
-	protected function getTitleBGD(key:String):GroundDecorator{
-		if(owner.getUI()){
-			return owner.getUI().getGroundDecorator(key);
-		}else{
-			return UIManager.getGroundDecorator(key);
-		}
-	}
-	
-	protected function getFrameUIInt(key:String):int{
-		if(owner.getUI()){
-			return owner.getUI().getInt(key);
-		}else{
-			return UIManager.getInt(key);
-		}
-	}
-	
-	protected function getFrameUIColor(key:String):ASColor{
-		if(owner.getUI()){
-			return owner.getUI().getColor(key);
-		}else{
-			return UIManager.getColor(key);
-		}
+	public function setButtonIconGap(gap:int):void{
+		buttonPaneLayout.setGap(gap);
 	}
 	
 	public function getSelf():Component{
@@ -142,7 +116,6 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 	public function setFrame(f:JWindow):void{
 		if(owner){
 			owner.removeEventListener(FrameEvent.FRAME_ABILITY_CHANGED, __frameAbilityChanged);
-			owner.removeEventListener(AWEvent.PAINT, __framePainted);
 			owner.removeEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged);
 			owner.removeEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange);
 			owner.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
@@ -151,14 +124,12 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 		frame = f as JFrame;
 		if(owner){
 			owner.addEventListener(FrameEvent.FRAME_ABILITY_CHANGED, __frameAbilityChanged, false, 0, true);
-			owner.addEventListener(AWEvent.PAINT, __framePainted, false, 0, true);
 			owner.addEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged, false, 0, true);
 			owner.addEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange, false, 0, true);
 			owner.addEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange, false, 0, true);
-			
-			updateUIPropertiesFromOwner();
 		}
 		__stateChanged(null);
+		repaint();
 	}
 	
 	public function getFrame():JWindow{
@@ -171,6 +142,14 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 	
 	public function isTitleEnabled():Boolean{
 		return titleEnabled;
+	}
+	
+	public function setMinimizeHeight(h:int):void{
+		minimizeHeight = h;
+	}
+	
+	public function getMinimizeHeight():int{
+		return minimizeHeight;
 	}
 		
 	public function addExtraControl(c:Component, position:int):void{
@@ -209,6 +188,13 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 	
 	public function getText():String{
 		return text;
+	}
+	
+	public function isActive():Boolean{
+		if(owner){
+			return owner.isActive();
+		}
+		return true;
 	}
 	
 	public function setIconifiedButton(b:AbstractButton):void{
@@ -340,19 +326,10 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 	}
 	
 	private function __activeChange(e:Event):void{
-		if(getLabel()){
-			getLabel().setForeground(owner.isActive() ? activeTextColor : inactiveTextColor);
-			getLabel().repaint();
-		}
 		repaint();
+		//or paintImmediately();
 	}
-	
-	private function __framePainted(e:AWEvent):void{
-		if(getLabel()){
-			getLabel().setFont(owner.getFont());
-		}
-	}
-	
+			
 	private function __frameAbilityChanged(e:FrameEvent):void{
 		__stateChanged(null);
 	}

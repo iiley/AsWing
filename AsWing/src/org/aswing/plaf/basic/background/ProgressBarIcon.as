@@ -2,8 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic.background
-{
+package org.aswing.plaf.basic.background{
 	
 import flash.display.*;
 
@@ -11,78 +10,70 @@ import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
+import org.aswing.plaf.basic.BasicGraphicsUtils;
 
 /**
  * The barIcon decorator for ProgressBar.
- * @author senkay
  * @private
  */
-public class ProgressBarIcon implements GroundDecorator, UIResource
-{
-	private var indeterminatePercent:Number;
-	private var color:ASColor;
+public class ProgressBarIcon implements GroundDecorator, UIResource{
+	
+	protected var shape:Shape;
+	protected var indeterminatePercent:Number;
 	
 	public function ProgressBarIcon(){
+		shape = new Shape();
 		indeterminatePercent = 0;
 	}
-	
-	private function reloadColors(ui:ComponentUI):void{
-		color = ui.getColor("ProgressBar.progressColor");
+
+	public function getDisplay(c:Component):DisplayObject{
+		return shape;
 	}
 	
-	public function updateDecorator(com:Component, g:Graphics2D, b:IntRectangle):void{
-		if(color == null){
-			reloadColors(com.getUI());
+	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):void{
+		if(c is JProgressBar){
+			var bar:JProgressBar = JProgressBar(c);
+			
+			b = b.clone();
+			var percent:Number;
+			if(bar.isIndeterminate()){
+				percent = indeterminatePercent;
+				indeterminatePercent += 0.1;
+				if(indeterminatePercent > 1){
+					indeterminatePercent = 0;
+				}
+			}else{
+				percent = bar.getPercentComplete();
+			}
+			var verticle:Boolean = (bar.getOrientation() == AsWingConstants.VERTICAL);
+			shape.graphics.clear();
+			var style:StyleTune = c.getStyleTune().mide;
+			g = new Graphics2D(shape.graphics);
+			var radius:Number = 0;
+			var direction:Number;
+			if(verticle){
+				radius = Math.floor(b.width/2);
+				direction = 0;
+				b.height *= percent;
+			}else{
+				radius = Math.floor(b.height/2);
+				direction = Math.PI/2;
+				b.width *= percent;
+			}
+			if(radius > style.round){
+				radius = style.round;
+			}
+			if(b.width > 1){
+				var result:StyleResult = new StyleResult(c.getMideground(), style);
+				BasicGraphicsUtils.fillGradientRoundRect(g, b, result, direction);
+				BasicGraphicsUtils.drawGradientRoundRectLine(g, b, 1, result, direction);
+				if(b.width-radius*2 > 0){
+					g.fillRectangle(new SolidBrush(c.getMideground().changeAlpha(0.3)), radius, b.height-2.5, b.width-radius*2, 1.5);
+				}
+			}
+			//shape.filters = [new GlowFilter(0x0, result.shadow, 1, 1, 8, 1, true)];
 		}
-		var pb:JProgressBar = JProgressBar(com);
-		if(pb == null){
-			return;
-		}
-		
-		var box:IntRectangle = b.clone();
-		var percent:Number;
-		if(pb.isIndeterminate()){
-			percent = indeterminatePercent;
-			indeterminatePercent += 0.1;
-			if(indeterminatePercent > 1){
-				indeterminatePercent = 0;
-			}
-		}else{
-			percent = pb.getPercentComplete();
-		}
-		
-		var boxWidth:Number = 5;
-		var gap:Number = 1;
-		g.beginFill(new SolidBrush(color));
-		
-		if(pb.getOrientation() == JProgressBar.VERTICAL){
-			box.height = boxWidth;
-			var minY:Number = b.y + b.height - b.height * percent;
-			for(box.y = b.y+b.height-boxWidth; box.y >= minY; box.y -= (boxWidth+gap)){
-				g.rectangle(box.x, box.y, box.width, box.height);
-			}
-			if(box.y < minY && box.y + boxWidth > minY){
-				box.height = boxWidth - (minY - box.y);
-				box.y = minY;
-				g.rectangle(box.x, box.y, box.width, box.height);
-			}
-		}else{
-			box.width = boxWidth;
-			var maxX:Number = b.x + b.width * percent;
-			for(;box.x <= maxX - boxWidth; box.x += (boxWidth+gap)){
-				g.rectangle(box.x, box.y, box.width, box.height);
-			}
-			box.width = maxX - box.x;
-			if(box.width > 0){
-				g.rectangle(box.x, box.y, box.width, box.height);
-			}
-		}
-		g.endFill();
 	}
 	
-	public function getDisplay(c:Component):DisplayObject
-	{
-		return null;
-	}	
 }
 }

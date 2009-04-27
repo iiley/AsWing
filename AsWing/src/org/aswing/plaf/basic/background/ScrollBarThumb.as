@@ -2,18 +2,20 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic.background
-{
+package org.aswing.plaf.basic.background{
 	
-import org.aswing.graphics.*;
-import org.aswing.*;
-import org.aswing.geom.IntRectangle;
+import flash.display.CapsStyle;
 import flash.display.DisplayObject;
-import org.aswing.plaf.*;
-import flash.display.Sprite;
-import org.aswing.geom.IntDimension;
+import flash.display.LineScaleMode;
 import flash.events.*;
+import flash.geom.Point;
+
+import org.aswing.*;
 import org.aswing.event.*;
+import org.aswing.geom.IntDimension;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.*;
+import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 
 /**
@@ -21,16 +23,12 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
  * @author iiley
  * @private
  */
-public class ScrollBarThumb implements GroundDecorator, UIResource
-{
-	private var thumbHighlightColor:ASColor;
-    private var thumbLightHighlightColor:ASColor;
-    private var thumbLightShadowColor:ASColor;
-    private var thumbDarkShadowColor:ASColor;
-    private var thumbColor:ASColor;
-    private var thumb:AWSprite;
-    private var size:IntDimension;
-    private var verticle:Boolean;
+public class ScrollBarThumb implements GroundDecorator, UIResource{
+	
+	protected var bar:JScrollBar;
+    protected var thumb:AWSprite;
+    protected var size:IntDimension;
+    protected var verticle:Boolean;
         
 	protected var rollover:Boolean;
 	protected var pressed:Boolean;
@@ -41,61 +39,91 @@ public class ScrollBarThumb implements GroundDecorator, UIResource
 		pressed = false;
 		initSelfHandlers();
 	}
-	
-	private function reloadColors(ui:ComponentUI):void{
-		thumbHighlightColor = ui.getColor("ScrollBar.thumbHighlight");
-		thumbLightHighlightColor = ui.getColor("ScrollBar.thumbLightHighlight");
-		thumbLightShadowColor = ui.getColor("ScrollBar.thumbShadow");
-		thumbDarkShadowColor = ui.getColor("ScrollBar.thumbDarkShadow");
-		thumbColor = ui.getColor("ScrollBar.thumbBackground");
-	}
-	
+		
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
-		if(thumbColor == null){
-			reloadColors(c.getUI());
-		}
 		thumb.x = bounds.x;
 		thumb.y = bounds.y;
 		size = bounds.getSize();
-		var sb:JScrollBar = JScrollBar(c);
-		verticle = (sb.getOrientation() == JScrollBar.VERTICAL);
+		bar = JScrollBar(c);
+		verticle = (bar.getOrientation() == JScrollBar.VERTICAL);
 		paint();
 	}
 	
 	private function paint():void{
+		var x:Number = 0;
+		var y:Number = 0;
     	var w:Number = size.width;
     	var h:Number = size.height;
     	thumb.graphics.clear();
     	var g:Graphics2D = new Graphics2D(thumb.graphics);
-    	var rect:IntRectangle = new IntRectangle(0, 0, w, h);
-    	
-    	if(pressed){
-    		g.fillRectangle(new SolidBrush(thumbColor), rect.x, rect.y, rect.width, rect.height);
-    	}else{
-	    	BasicGraphicsUtils.drawControlBackground(g, rect, thumbColor, 
-	    		verticle ? 0 : Math.PI/2);
-    	}
-    	
-    	BasicGraphicsUtils.drawBezel(g, rect, pressed, 
-    		thumbLightShadowColor, 
-    		thumbDarkShadowColor, 
-    		thumbHighlightColor, 
-    		thumbLightHighlightColor
-    		);
-    		
-    		
-    	var p:Pen = new Pen(thumbDarkShadowColor, 0);
+    	var b:IntRectangle;
+		var direction:Number;
+		var notchSize:int;
     	if(verticle){
-	    	var ch:Number = h/2.0;
-	    	g.drawLine(p, 4, ch, w-4, ch);
-	    	g.drawLine(p, 4, ch+2, w-4, ch+2);
-	    	g.drawLine(p, 4, ch-2, w-4, ch-2);
+			direction = Math.PI/2;
+			notchSize = w - 6;
     	}else{
-	    	var cw:Number = w/2.0;
-	    	g.drawLine(p, cw, 4, cw, h-4);
-	    	g.drawLine(p, cw+2, 4, cw+2, h-4);
-	    	g.drawLine(p, cw-2, 4, cw-2, h-4);
-    	}		
+			direction = 0;
+			notchSize = h - 6;
+    	}
+    	b = new IntRectangle(x, y, w, h);
+    	var tune:StyleTune = bar.getStyleTune().mide;
+    	var style:StyleResult;
+    	var cl:ASColor = bar.getMideground().changeAlpha(1);
+    	if(!bar.isEnabled()){//disabled
+    		cl = cl.offsetHLS(0, -0.06, -0.03);
+    		tune = tune.sharpen(0.4);
+    	}else if(pressed){//pressed
+    		tune = tune.sharpen(0.8);
+    	}else if(rollover){//over
+    		cl = cl.offsetHLS(0, 0.06, 0);
+    	}
+
+    	style = new StyleResult(cl, tune);
+		BasicGraphicsUtils.fillGradientRoundRect(g, b, style, direction);
+		BasicGraphicsUtils.drawGradientRoundRectLine(g, b, 1, style, direction);
+		b = b.clone();
+		b.grow(-1, -1);
+		var innerStyle:StyleResult = new StyleResult(cl, tune);
+		innerStyle.bdark = innerStyle.cdark.offsetHLS(0, 0.06, 0);
+		innerStyle.blight = innerStyle.clight.offsetHLS(0, 0.06, 0);
+		BasicGraphicsUtils.drawGradientRoundRectLine(g, b, 1, innerStyle, direction);
+		
+		var snotchX:int = 0;
+		var snotchY:int = 0;
+		var lightPen:Pen = new Pen(innerStyle.blight, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE);
+		var darkPen:Pen = new Pen(style.blight, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE);
+		
+    	if(verticle){
+			snotchX = x + 3;
+			snotchY = y + h/2 - 3;
+			g.drawLine(lightPen, snotchX, snotchY, snotchX + notchSize, snotchY);
+			snotchY += 1;
+			g.drawLine(darkPen, snotchX, snotchY, snotchX + notchSize, snotchY);
+			snotchY += 1;
+			g.drawLine(lightPen, snotchX, snotchY, snotchX + notchSize, snotchY);
+			snotchY += 1;
+			g.drawLine(darkPen, snotchX, snotchY, snotchX + notchSize, snotchY);
+			snotchY += 1;
+			g.drawLine(lightPen, snotchX, snotchY, snotchX + notchSize, snotchY);
+			snotchY += 1;
+			g.drawLine(darkPen, snotchX, snotchY, snotchX + notchSize, snotchY);
+    	}else{
+			snotchX = x + w/2 - 3;
+			snotchY = y + 3;
+			g.drawLine(lightPen, snotchX, snotchY, snotchX, snotchY + notchSize);
+			snotchX += 1;
+			g.drawLine(darkPen, snotchX, snotchY, snotchX, snotchY + notchSize);
+			snotchX += 1;
+			g.drawLine(lightPen, snotchX, snotchY, snotchX, snotchY + notchSize);
+			snotchX += 1;
+			g.drawLine(darkPen, snotchX, snotchY, snotchX, snotchY + notchSize);
+			snotchX += 1;
+			g.drawLine(lightPen, snotchX, snotchY, snotchX, snotchY + notchSize);
+			snotchX += 1;
+			g.drawLine(darkPen, snotchX, snotchY, snotchX, snotchY + notchSize);
+    	}
+		thumb.alpha = bar.getMideground().getAlpha();
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{

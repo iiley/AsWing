@@ -6,11 +6,10 @@ package org.aswing{
 
 import org.aswing.event.*;
 import org.aswing.geom.*;
-import org.aswing.util.*;
 import org.aswing.plaf.*;
-import org.aswing.table.*;
 import org.aswing.plaf.basic.BasicTableUI;
-import flash.utils.getTimer;
+import org.aswing.table.*;
+import org.aswing.util.*;
 
 /**
  * Dispatched when the row selection changed.
@@ -147,6 +146,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	protected var cellPane:Container;
 	protected var headerPane:Container;
 	private var tableHeader:JTableHeader;
+	private var footer:Component;
 	private var rowCells:Array;
 	private var rowHeight:int;
 	private var rowMargin:int;
@@ -380,6 +380,32 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	}
 	
 	/**
+	 * Returns the footer component, it maybe null if there's no footer set.
+	 * @return the footer component, null if no footer set
+	 * @see #setFooter()
+	 */
+	public function getFooter():Component{
+		return footer;
+	}
+	
+	/**
+	 * Sets a component to be locate at the bottome of the table
+	 * @param footer a component to be the footer of the table
+	 */
+	public function setFooter(c:Component):void{
+		if(footer != c){
+			if(footer){
+				remove(footer);
+			}
+			footer = c;
+			if(footer){
+				append(footer);
+			}
+			revalidate();
+		}
+	}	
+	
+	/**
 	 * Returns the container that holds the cells.
 	 * @return the container that holds the cells.
 	 */
@@ -508,14 +534,21 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *  You may also need to call setIntercellSpacing() to set a proper gap of 
 	 *  columns and rows to avoid lines effect caused by different bgs between table and cell.
 	 * @param   showGrid true if table view should draw grid lines
-	 *
+	 * @param   affectCellSpacing whether change the internal cell spacing
 	 * @see #setShowVerticalLines()
 	 * @see #setShowHorizontalLines()
 	 * @see #setIntercellSpacing()
 	 */	
-	public function setShowGrid(showGrid:Boolean):void{
+	public function setShowGrid(showGrid:Boolean, affectCellSpacing:Boolean=true):void{
 		setShowHorizontalLines(showGrid);
 		setShowVerticalLines(showGrid);
+		if(affectCellSpacing){
+			if(showGrid){
+				setIntercellSpacing(new IntDimension(1, 1));
+			}else{
+				setIntercellSpacing(new IntDimension(0, 0));
+			}
+		}
 		repaint();
 	}
 	
@@ -527,15 +560,20 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *  columns and rows to avoid lines effect caused by different bgs between table and cell.
 	 * 
 	 * @param   showHorizontalLines	  true if table view should draw horizontal lines
+	 * @param   affectCellSpacing whether change the internal cell spacing
 	 * @see	 #getShowHorizontalLines()
 	 * @see	 #setShowGrid()
 	 * @see	 #setShowVerticalLines()
 	 * @see  #setIntercellSpacing()
 	 */	
-	public function setShowHorizontalLines(showHorizontalLines:Boolean):void{
+	public function setShowHorizontalLines(showHorizontalLines:Boolean, affectCellSpacing:Boolean=true):void{
 		var old:Boolean = this.showHorizontalLines;
 		this.showHorizontalLines = showHorizontalLines;
-		//firePropertyChange("showHorizontalLines", old, showHorizontalLines);
+		if(affectCellSpacing){
+			setIntercellSpacing(new IntDimension(
+				getIntercellSpacing().width, 
+				showHorizontalLines ? 1 : 0));
+		}
 		if(old != showHorizontalLines){
 			repaint();
 		}
@@ -549,15 +587,20 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 *  columns and rows to avoid lines effect caused by different bgs between table and cell.
 	 * 
 	 * @param   showVerticalLines true if table view should draw vertical lines
+	 * @param   affectCellSpacing whether change the internal cell spacing
 	 * @see     #getShowVerticalLines()
 	 * @see     #setShowGrid()
 	 * @see     #setShowHorizontalLines()
 	 * @see 	#setIntercellSpacing()
 	 */	
-	public function setShowVerticalLines(showVerticalLines:Boolean):void{
+	public function setShowVerticalLines(showVerticalLines:Boolean, affectCellSpacing:Boolean=true):void{
 		var old:Boolean = this.showVerticalLines;
 		this.showVerticalLines = showVerticalLines;
-		//firePropertyChange("showVerticalLines", old, showVerticalLines);
+		if(affectCellSpacing){
+			setIntercellSpacing(new IntDimension(
+				showVerticalLines ? 1 : 0, 
+				getIntercellSpacing().height));
+		}
 		if(old != showVerticalLines){
 			repaint();
 		}
@@ -2620,12 +2663,16 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var insets:Insets = getInsets();
 		var insetsX:int = insets.left;
 		var insetsY:int = insets.top;
+		var cWidth:int = getWidth() - insets.getMarginWidth();
+		var cHeight:int = getHeight() - insets.getMarginHeight();
 		
 		var headerHeight:int = getTableHeader().getPreferredHeight();
+		var footerHeight:int = 0;
+		var fotr:Component = getFooter();
 		
 		headerPane.setComBoundsXYWH(
 			insetsX, insetsY, 
-			getWidth() - insets.getMarginWidth(), 
+			cWidth, 
 			headerHeight
 		);
 		
@@ -2636,6 +2683,14 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			headerHeight);
 		getTableHeader().validate();
 		getTableHeader().paintImmediately();
+		//layout table footer
+		if(fotr){
+			fotr.setComBoundsXYWH(
+				insetsX, getHeight() - insets.bottom - fotr.getPreferredHeight(), 
+				cWidth, fotr.getPreferredHeight());
+			fotr.validate();
+			fotr.paintImmediately();
+		}
 		
 		var b:IntRectangle = new IntRectangle();
 		b.setSize(getExtentSize());
@@ -2647,6 +2702,11 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		cellPane.setComBounds(cellPaneBounds);
 
 		if (getRowCount() <= 0 || getColumnCount() <= 0) {
+			for each(var arr:Array in rowCells){
+				for each(var ccc:TableCell in arr){
+					ccc.getCellComponent().setVisible(false);
+				}
+			}
 			return;
 		}
 
@@ -2946,6 +3006,9 @@ public class JTable extends Container implements Viewportable, TableModelListene
     public function getExtentSize():IntDimension{
     	var d:IntDimension = getInsets().getInsideSize(getSize());
     	d.height -= getTableHeader().getHeight();
+    	if(getFooter()){
+    		d.height -= getFooter().getHeight();
+    	}
     	return d;
     }
     

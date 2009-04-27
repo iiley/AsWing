@@ -12,6 +12,7 @@ import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 
 /**
+ * Discard in aswing 2.0(Background raped his job)
  * @private
  */
 public class ProgressBarBorder extends LineBorder implements UIResource

@@ -11,7 +11,6 @@ import flash.utils.Timer;
 
 import org.aswing.error.AsWingManagerNotInited;
 import org.aswing.geom.IntDimension;
-import org.aswing.util.HashSet;
 
 /**
  * The main manager for AsWing framework.

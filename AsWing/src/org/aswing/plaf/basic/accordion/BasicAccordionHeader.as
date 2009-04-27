@@ -16,6 +16,7 @@ public class BasicAccordionHeader implements Tab{
 	
 	protected var button:AbstractButton;
 	protected var owner:Component;
+	protected var placement:int;
 	
 	public function BasicAccordionHeader(){
 	}
@@ -23,6 +24,14 @@ public class BasicAccordionHeader implements Tab{
 	public function initTab(owner:Component):void{
 		this.owner = owner;
 		button = createHeaderButton();
+	}
+	
+	public function setTabPlacement(tp:int):void{	
+		placement = tp;
+	}
+	
+	public function getTabPlacement():int{
+		return placement;
 	}
 	
 	protected function createHeaderButton():AbstractButton{

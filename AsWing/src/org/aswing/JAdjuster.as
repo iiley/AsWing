@@ -11,7 +11,7 @@ import org.aswing.plaf.basic.BasicAdjusterUI;
 /**
  * Dispatched when when user finish a adjusting.
  * @eventType org.aswing.event.AWEvent.ACT
- * @see org.aswing.AbstractButton#addActionListener()
+ * @see #addActionListener()
  */
 [Event(name="act", type="org.aswing.event.AWEvent")]
 
@@ -28,7 +28,7 @@ import org.aswing.plaf.basic.BasicAdjusterUI;
  * 
  * @author iiley
  */
-public class JAdjuster extends Component implements Orientable{
+public class JAdjuster extends Component implements Orientable, EditableComponent{
 
 	/** 
 	 * Horizontal orientation.
@@ -66,8 +66,7 @@ public class JAdjuster extends Component implements Orientable{
 
 	/**
 	 * Creates a adjuster with the specified columns input text and orientation<p>
-	 * Defalut model is a instance of <code>DefaultIntegerBoundedRangeModel</code>, if 
-	 * you need float value, you can create a <code>DefaultBoundedRangeModel</code> to it.
+	 * Defalut model is a instance of <code>DefaultBoundedRangeModel</code>.
 	 * @param columns (optional)the number of columns to use to calculate the input text preferred width
 	 * @param orientation (optional)the pop-up slider's orientation to either VERTICAL or HORIZONTAL.
 	 * @see org.aswing.DefaultIntegerBoundedRangeModel 
@@ -83,6 +82,9 @@ public class JAdjuster extends Component implements Orientable{
 		
 		setModel(new DefaultBoundedRangeModel(50, 0, 0, 100));
 		updateUI();
+		if(getInputText()){
+			getInputText().setRestrict("0123456789");
+		}
 	}
 	
 	/**

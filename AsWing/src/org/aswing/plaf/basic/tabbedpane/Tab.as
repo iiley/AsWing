@@ -19,6 +19,10 @@ public interface Tab{
 	 */
 	function initTab(owner:Component):void;
 	
+	function setTabPlacement(tp:int):void;
+	
+	function getTabPlacement():int;
+	
 	/**
 	 * Sets text and icon to the header
 	 */

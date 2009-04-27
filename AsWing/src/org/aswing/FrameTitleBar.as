@@ -15,12 +15,7 @@ public interface FrameTitleBar{
 	function setFrame(frame:JWindow):void;
 	
 	function getFrame():JWindow;
-	
-	/**
-	 * This method will be call when owner ui changed.
-	 */
-	function updateUIPropertiesFromOwner():void;
-	
+		
 	/**
 	 * Adds extra control to title bar
 	 * @param c the control
@@ -46,6 +41,17 @@ public interface FrameTitleBar{
 	 * @see #setTitleEnabled()
 	 */
 	function isTitleEnabled():Boolean;
+	
+	/**
+	 * Returns whether or not the frame is active
+	 */
+	function isActive():Boolean;
+	
+	function setButtonIconGap(gap:int):void;
+	
+	function setMinimizeHeight(h:int):void;
+	
+	function getMinimizeHeight():int;
 	
 	function setIcon(i:Icon):void;
 	

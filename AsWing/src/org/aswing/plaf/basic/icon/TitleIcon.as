@@ -28,6 +28,7 @@ public class TitleIcon implements Icon, UIResource{
 	
 	public function updateIcon(c:Component, g:Graphics2D, x:int, y:int):void{
 		shape.graphics.clear();
+		return;
 		g = new Graphics2D(shape.graphics);
 		//This is just for test the icon
 		//TODO draw a real beautiful icon for AsWing frame title
@@ -60,12 +61,14 @@ public class TitleIcon implements Icon, UIResource{
 	
 	public function getIconHeight(c:Component):int
 	{
-		return HEIGHT;
+		return 0;
+		//return HEIGHT;
 	}
 	
 	public function getIconWidth(c:Component):int
 	{
-		return WIDTH + 2;
+		return 0;
+		//return WIDTH + 2;
 	}
 	
 	public function getDisplay(c:Component):DisplayObject

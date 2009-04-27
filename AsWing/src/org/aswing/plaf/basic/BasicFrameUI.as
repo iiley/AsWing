@@ -66,6 +66,9 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	    if(ico is UIResource){
 	    	frame.setIcon(getIcon(getPropertyPrefix()+"icon"));
 	    }
+	    if(frame.getResizerMargin() is UIResource){
+	    	frame.setResizerMargin(getInsets(getPropertyPrefix()+"resizerMargin"));
+	    }
     }
     
     protected function installComponents():void {
@@ -161,11 +164,7 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
 	}
     //----------------------------------------------------------
     override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
-    	var bgMargin:Insets = c.getUI().getInsets(getPropertyPrefix()+"backgroundMargin");
-    	if(bgMargin){
-    		b = bgMargin.getInsideBounds(b);
-    	}
-    	super.paintBackGround(c, g, b);
+    	//do nothing background decorator will do this
     }
     
     //----------------------------------------------------------
@@ -334,10 +333,16 @@ public class BasicFrameUI extends BaseComponentUI implements FrameUI{
     		bounds.y = bottomLeft.y - gap;
     	}
     	
-		var x:Number = bounds.x;
-		var y:Number = bounds.y;
-		var w:Number = bounds.width;
-		var h:Number = bounds.height;
+    	var margin:Insets = frame.getResizerMargin();
+    	var db:IntRectangle = bounds.clone();
+		db.x += margin.left;
+		db.y += margin.top;
+		db.width -= margin.getMarginWidth();
+		db.height -= margin.getMarginHeight();
+		var x:Number = db.x;
+		var y:Number = db.y;
+		var w:Number = db.width;
+		var h:Number = db.height;
 		var g:Graphics2D = new Graphics2D(boundsMC.graphics);
 		boundsMC.graphics.clear();
 		g.drawRectangle(new Pen(resizeArrowLightColor, 1), x-1,y-1,w+2,h+2);

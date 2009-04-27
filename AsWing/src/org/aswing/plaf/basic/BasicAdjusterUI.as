@@ -6,12 +6,11 @@ package org.aswing.plaf.basic{
 	
 import flash.display.InteractiveObject;
 import flash.events.Event;
-import flash.events.FocusEvent;
 import flash.events.MouseEvent;
+import flash.filters.DropShadowFilter;
 import flash.ui.Keyboard;
 
 import org.aswing.*;
-import org.aswing.border.BevelBorder;
 import org.aswing.event.AWEvent;
 import org.aswing.event.FocusKeyEvent;
 import org.aswing.event.ReleaseEvent;
@@ -36,26 +35,14 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	protected var popupSliderUI:SliderUI;
 	protected var startMousePoint:IntPoint;
 	protected var startValue:Number;
-	
-	protected var thumbLightHighlightColor:ASColor;
-    protected var thumbHighlightColor:ASColor;
-    protected var thumbLightShadowColor:ASColor;
-    protected var thumbDarkShadowColor:ASColor;
-    protected var thumbColor:ASColor;
-    protected var arrowShadowColor:ASColor;
-    protected var arrowLightColor:ASColor;
-    
-    protected var highlightColor:ASColor;
-    protected var shadowColor:ASColor;
-    protected var darkShadowColor:ASColor;
-    protected var lightColor:ASColor;	
-	
+		
 	public function BasicAdjusterUI(){
 		super();
 		inputText   = new JTextField("", 3);
 		inputText.setFocusable(false);
 		popupSlider = new JSlider();
 		popupSlider.setFocusable(false);
+		popupSlider.setOpaque(false);
 	}
 	
 	public function getPopupSlider():JSlider{
@@ -89,8 +76,6 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
         LookAndFeel.installBorderAndBFDecorators(adjuster, pp);
         LookAndFeel.installColorsAndFont(adjuster, pp);
         LookAndFeel.installBasicProperties(adjuster, pp);
-		arrowShadowColor = getColor(pp+"arrowShadowColor");
-		arrowLightColor = getColor(pp+"arrowLightColor");
 	}
     
     protected function uninstallDefaults():void{
@@ -109,12 +94,14 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 		adjuster.addChild(inputText);
 		adjuster.addChild(arrowButton);
 		
+		inputText.getTextField().addEventListener(Event.CHANGE, __textChanged);
 		inputText.addEventListener(MouseEvent.MOUSE_WHEEL, __onInputTextMouseWheel);
 		arrowButton.addEventListener(MouseEvent.MOUSE_DOWN, __onArrowButtonPressed);
 		arrowButton.addEventListener(ReleaseEvent.RELEASE, __onArrowButtonReleased);
     }
     
 	protected function uninstallComponents():void{
+		inputText.getTextField().removeEventListener(Event.CHANGE, __textChanged);
 		inputText.removeEventListener(MouseEvent.MOUSE_WHEEL, __onInputTextMouseWheel);
 		arrowButton.removeEventListener(MouseEvent.MOUSE_DOWN, __onArrowButtonPressed);
 		arrowButton.removeEventListener(ReleaseEvent.RELEASE, __onArrowButtonReleased);
@@ -142,16 +129,18 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
     
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
 		super.paint(c, g, b);
-		var text:String = getShouldFilledText();
-		if(text != inputText.getText()){
-			inputText.setText(text);
-		}
+		fillInputTextWithCurrentValue();
 		layoutAdjuster();
 		getInputText().setEditable(adjuster.isEditable());
 		getInputText().setEnabled(adjuster.isEnabled());
 		arrowButton.setEnabled(adjuster.isEnabled());
+		inputText.setFont(adjuster.getFont());
+		inputText.setForeground(adjuster.getForeground());
 	}
 	
+    override protected function paintBackGround(c:Component, g:Graphics2D, b:IntRectangle):void{
+    	//do nothing, background decorator will paint it
+    }	
 	
 	//*******************************************************************************
 	//              Override these methods to easily implement different look
@@ -166,8 +155,11 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	}
 	
 	protected function initInputText():void{
+		inputText.setForeground(null);
 		inputText.setColumns(adjuster.getColumns());
-		inputText.setForeground(null);//make it grap the property from parent
+		inputText.setBackgroundDecorator(null);
+		inputText.setOpaque(false);
+		inputText.setBorder(null);
 		inputText.setFont(adjuster.getFont());
 	}
 	
@@ -176,13 +168,19 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	}
 	
 	protected function createArrowButton():Component{
-		var btn:JButton = new JButton(null, createArrowIcon());
-		btn.setMargin(new Insets(2, 2, 2, 2));
+    	var btn:JButton = new JButton("", createArrowIcon());
+    	btn.setFocusable(false);
+    	//btn.setPreferredSize(new IntDimension(16, 16));
+    	btn.setBackgroundDecorator(null);
+    	btn.setMargin(new Insets());
+    	btn.setBorder(null);
+    	//make it proxy to the combobox
+    	btn.setMideground(null);
+    	btn.setStyleTune(null);
 		btn.setForeground(null);//make it grap the property from parent
 		btn.setBackground(null);//make it grap the property from parent
 		btn.setFont(null);//make it grap the property from parent
-		btn.setFocusable(false);
-		return btn;
+    	return btn;
 	}
 	
 	protected function createPopupSliderUI():SliderUI{
@@ -190,17 +188,14 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	}
 	
 	protected function createArrowIcon() : Icon {
-		return new ArrowIcon(Math.PI/2, 6,
-				    arrowLightColor,
-				    arrowShadowColor);
+		return new ArrowIcon(Math.PI/2, 16);
 	}
 		
 	protected function getPopup():JPopup{
 		if(popup == null){
 			popup = new JPopup();
-			popup.setBorder(new BevelBorder(null, BevelBorder.RAISED));
 			popup.append(popupSlider, BorderLayout.CENTER);
-			popup.setBackground(adjuster.getBackground());
+			popup.filters = [new DropShadowFilter(4, 45, 0, 0.3)];
 		}
 		return popup;
 	}
@@ -257,11 +252,22 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
 	//--------------------- handlers--------------------
 	
 	private function __onValueChanged(e:Event):void{
-		fillInputTextWithCurrentValue();
+		if(!textInputing){
+			fillInputTextWithCurrentValue();
+		}
 	}
 	
 	private function __onInputTextMouseWheel(e:MouseEvent):void{
 		adjuster.setValue(adjuster.getValue()+e.delta*getUnitIncrement());
+	}
+	
+	private var textInputing:Boolean = false;
+	private function __textChanged(e:Event):void{
+		textInputing = true;
+		var text:String = inputText.getText();
+		var value:int = adjuster.getValueParser()(text);
+		adjuster.setValue(value);
+		textInputing = false;
 	}
 	
 	private function __inputTextAction(fireActOnlyIfChanged:Boolean=false):void{
