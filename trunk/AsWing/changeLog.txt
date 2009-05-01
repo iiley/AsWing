@@ -156,3 +156,19 @@ added setMnemonicEnabled/isMnemonicEnabled methods to AbstractButton
 improved resizer, more accurate in directly mode
 renamed org.aswing.util.Vector to org.aswing.util.ArrayList
 some other minor fixes/improvements
+
+___________________________AsWing 2.0 beta_________________________
+
+New default LookAndFeel
+Added style tune feature
+Added mideground color feature
+
+Added JStepper -- a Numeric Stepper component
+Improved JAdjuster, state change event will fired when input changes
+Fixed JComboBox selection change event bug
+Improved JTable(
+	will not limit its maximize size, 
+	added footer feature, it now can has a footer in its view, 
+	improved show/hide grid methods, easier use than before)
+New default LookAndFeel implemented 90%
+TODO:http://bbs.aswing.org/viewtopic.php?f=1&t=327&p=1133#p1133
