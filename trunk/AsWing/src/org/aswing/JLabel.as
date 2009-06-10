@@ -46,37 +46,37 @@ public class JLabel extends Component{
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static var CENTER:int  = AsWingConstants.CENTER;
+	public static const CENTER:int  = AsWingConstants.CENTER;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static var TOP:int     = AsWingConstants.TOP;
+	public static const TOP:int     = AsWingConstants.TOP;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static var LEFT:int    = AsWingConstants.LEFT;
+    public static const LEFT:int    = AsWingConstants.LEFT;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static var BOTTOM:int  = AsWingConstants.BOTTOM;
+    public static const BOTTOM:int  = AsWingConstants.BOTTOM;
  	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-    public static var RIGHT:int   = AsWingConstants.RIGHT;
+    public static const RIGHT:int   = AsWingConstants.RIGHT;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */        
-	public static var HORIZONTAL:int = AsWingConstants.HORIZONTAL;
+	public static const HORIZONTAL:int = AsWingConstants.HORIZONTAL;
 	/**
 	 * A fast access to AsWingConstants Constant
 	 * @see org.aswing.AsWingConstants
 	 */
-	public static var VERTICAL:int   = AsWingConstants.VERTICAL;
+	public static const VERTICAL:int   = AsWingConstants.VERTICAL;
 	
 	
 	private var icon:Icon;
