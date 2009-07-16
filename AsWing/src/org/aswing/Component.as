@@ -1480,7 +1480,7 @@ public class Component extends AWSprite{
 	 * Sets a function to judge whether a component is acceptable drag initiator.
 	 * This function will be called to judge when <code>dragAcceptableInitiator</code> set 
 	 * does not contains the component.
-	 * @param the judge function
+	 * @param the judge function func(initiator:Component):Boolean
 	 */
 	public function setDragAcceptableInitiatorAppraiser(func:Function):void{
 		dragAcceptableInitiatorAppraiser = func;

@@ -6,6 +6,7 @@ package org.aswing{
 	
 import flash.text.TextField;
 import flash.text.TextFormat;
+import flash.text.TextFormatAlign;
 
 import org.aswing.geom.IntDimension;
 
@@ -110,7 +111,10 @@ public class ASFont{
 	 * @return a new text format.
 	 */
 	public function getTextFormat():TextFormat{
-		return new TextFormat(name, size, null, bold, italic, underline);
+		return new TextFormat(
+			name, size, null, bold, italic, underline, 
+			"", "", TextFormatAlign.LEFT, 0, 0, 0, 0 
+			);
 	}
 	
 	/**
