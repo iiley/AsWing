@@ -1231,7 +1231,7 @@ public class Component extends AWSprite{
 	 * @param height the height of component to set
 	 * @see  #setSize()
 	 */	
-	public function setHeight(height:Number):void{
+	public function setHeight(height:int):void{
 		setSizeWH(getWidth(), height);
 	}
 	/**
