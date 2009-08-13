@@ -33,7 +33,6 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 	protected var acceleratorForeground:ASColor;
 	protected var acceleratorSelectionForeground:ASColor;
 	
-	protected var defaultTextIconGap:int;
 	protected var acceleratorFont:ASFont;
 	protected var acceleratorFontValidated:Boolean;
 
@@ -91,9 +90,6 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		checkIcon = getIcon(pp + "checkIcon");
 		installIcon(arrowIcon);
 		installIcon(checkIcon);
-		
-		//TODO get this from UI defaults
-		defaultTextIconGap = 4;
 	}
 	
 	protected function installIcon(icon:Icon):void{
@@ -260,11 +256,11 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 		var mi:JMenuItem = JMenuItem(c);
 		paintMenuItem(mi, g, b, checkIcon, arrowIcon,
 					  selectionBackground, selectionForeground,
-					  defaultTextIconGap);
+					  menuItem.getIconTextGap());
 	}
 	
 	protected function paintMenuItem(b:JMenuItem, g:Graphics2D, r:IntRectangle, checkIcon:Icon, arrowIcon:Icon, 
-		background:ASColor, foreground:ASColor, defaultTextIconGap:int):void{
+		background:ASColor, foreground:ASColor, textIconGap:int):void{
 		
 		var model:ButtonModel = b.getModel();
 		resetRects();
@@ -282,8 +278,8 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 			b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
 			viewRect, iconRect, textRect, acceleratorRect, 
 			checkIconRect, arrowIconRect,
-			b.getDisplayText() == null ? 0 : defaultTextIconGap,
-			defaultTextIconGap
+			b.getDisplayText() == null ? 0 : textIconGap,
+			textIconGap
 		);
 		
 		// Paint background
@@ -508,7 +504,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 	protected function getPreferredMenuItemSize(b:JMenuItem, 
 													 checkIcon:Icon,
 													 arrowIcon:Icon,
-													 defaultTextIconGap:int):IntDimension{
+													 textIconGap:int):IntDimension{
 		var icon:Icon = b.getIcon(); 
 		var text:String = b.getDisplayText();
 		var acceleratorText:String = getAcceleratorText(b);
@@ -522,8 +518,8 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 				  b.getVerticalAlignment(), b.getHorizontalAlignment(),
 				  b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
 				  viewRect, iconRect, textRect, acceleratorRect, checkIconRect, arrowIconRect,
-				  text == null ? 0 : defaultTextIconGap,
-				  defaultTextIconGap
+				  text == null ? 0 : textIconGap,
+				  textIconGap
 				  );
 		// find the union of the icon and text rects
 		r = textRect.union(iconRect);
@@ -556,20 +552,20 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 			
 			//Add on the widest accelerator 
 			r.width += maxAccValue;
-			r.width += defaultTextIconGap;
+			r.width += textIconGap;
 		}
 	
 		if(useCheckAndArrow()) {
 			// Add in the checkIcon
 			r.width += checkIconRect.width;
-			r.width += defaultTextIconGap;
+			r.width += textIconGap;
 			
 			// Add in the arrowIcon
-			r.width += defaultTextIconGap;
+			r.width += textIconGap;
 			r.width += arrowIconRect.width;
 		}	
 
-		r.width += 2*defaultTextIconGap;
+		r.width += 2*textIconGap;
 
 		var insets:Insets = b.getInsets();
 		if(insets != null) {
@@ -698,7 +694,7 @@ public class BasicMenuItemUI extends BaseComponentUI implements MenuElementUI{
 	
 	override public function getPreferredSize(c:Component):IntDimension{
 		var b:JMenuItem = JMenuItem(c);
-		return getPreferredMenuItemSize(b, checkIcon, arrowIcon, defaultTextIconGap);
+		return getPreferredMenuItemSize(b, checkIcon, arrowIcon, menuItem.getIconTextGap());
 	}
 
 	override public function getMinimumSize(c:Component):IntDimension{
