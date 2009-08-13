@@ -420,6 +420,12 @@ public class JViewport extends Container implements Viewportable{
 			return new IntPoint(0, 0);
 		}
 	}
+	
+	public function getVisibleRect():IntRectangle{
+		var p:IntPoint = getViewPosition();
+		var s:IntDimension = getExtentSize();
+		return new IntRectangle(p.x, p.y, s.width, s.height);
+	}
 
 	public function setViewPosition(p : IntPoint, programmatic:Boolean=true) : void {
 		restrictionViewPos(p);
