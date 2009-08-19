@@ -20,13 +20,16 @@ import org.aswing.util.ArrayUtils;
  * Initially, all buttons in the group are unselected. Once any button is selected, one button is always selected in the group. There is no way to turn a button programmatically to "off", in order to clear the button group. To give the appearance of "none selected", add an invisible radio button to the group and then programmatically select that button to turn off all the displayed radio buttons. For example, a normal button with the label "none" could be wired to select the invisible radio button. 
  * </p>
  * @author iiley
+ * @author Aron (added the allowUncheck feature)
  */
 public class ButtonGroup
 {
     // the list of buttons participating in this group
     protected var buttons:Array;
+    
+    private var allowUncheck : Boolean;
 
-    /**
+		/**
 	 * The current selection.
 	 */
     private var selection:ButtonModel = null;
@@ -128,6 +131,14 @@ public class ButtonGroup
         return selection;
     }
     
+    public function getSelectedIndex():int {
+        for (var i : int = 0; i < buttons.length; i++) 
+        {
+				if(AbstractButton(buttons[i]).isSelected()) return i;
+        }
+        return -1;
+    }
+    
     /**
      * Return the first selected button, if none, return null.
      */
@@ -157,6 +168,11 @@ public class ButtonGroup
             }
             m.setSelected(true);
         }
+        else if(!b && m != null && allowUncheck)
+        {
+			selection = null;
+			//m.setSelected(false);
+		}
     }
 
     /**
@@ -176,6 +192,11 @@ public class ButtonGroup
 	 */
     public function getButtonCount():Number {
     	return buttons.length;
+    }
+    
+    public function setAllowUncheck(allowUncheck : Boolean) : void
+    {
+    	this.allowUncheck = allowUncheck;
     }
 }
 
