@@ -282,7 +282,7 @@ public class DefaultResizer implements Resizer, UIResource{
 	/**
 	 * Override this method if you want to use another resize strategy.
 	 */
-	private function createResizeStrategy(wSign:Number, hSign:Number):ResizeStrategy{
+	protected function createResizeStrategy(wSign:Number, hSign:Number):ResizeStrategy{
 		return new ResizeStrategyImp(wSign, hSign); 
 	}
 	
