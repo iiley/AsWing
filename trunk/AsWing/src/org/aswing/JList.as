@@ -1157,7 +1157,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		viewHeight = h;
 	}
 	
-	private function createNewCell():ListCell{
+	protected function createNewCell():ListCell{
 		return getCellFactory().createNewCell();
 	}
 	
@@ -1860,7 +1860,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
 		}
 	}
 	
-	private function getCellByCellComponent(item:Component):ListCell{
+	protected function getCellByCellComponent(item:Component):ListCell{
 		return comToCellMap.get(item);
 	}
 	
@@ -1879,42 +1879,42 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     /**
      * Event Listener For All Items
      */
-	private function __onItemMouseDown(e:MouseEvent):void{
+	protected function __onItemMouseDown(e:MouseEvent):void{
 		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_MOUSE_DOWN, e));
 	}
 		
     /**
      * Event Listener For All Items
      */	
-	private function __onItemClick(e:MouseEvent):void{
+	protected function __onItemClick(e:MouseEvent):void{
 		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_CLICK, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
-	private function __onItemReleaseOutSide(e:ReleaseEvent):void{
+	protected function __onItemReleaseOutSide(e:ReleaseEvent):void{
 		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_RELEASE_OUT_SIDE, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
-	private function __onItemRollOver(e:MouseEvent):void{
+	protected function __onItemRollOver(e:MouseEvent):void{
 		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OVER, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
-	private function __onItemRollOut(e:MouseEvent):void{
+	protected function __onItemRollOut(e:MouseEvent):void{
 		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OUT, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
-	private function __onItemDoubleClick(e:MouseEvent):void{
+	protected function __onItemDoubleClick(e:MouseEvent):void{
 		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_DOUBLE_CLICK, e));
 	}
 	
