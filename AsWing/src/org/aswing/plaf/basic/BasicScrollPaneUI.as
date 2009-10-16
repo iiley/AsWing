@@ -41,7 +41,7 @@ public class BasicScrollPaneUI extends BaseComponentUI{
         return "ScrollPane.";
     }
     
-	private function installDefaults():void{
+	protected function installDefaults():void{
 		var pp:String = getPropertyPrefix();
         LookAndFeel.installColorsAndFont(scrollPane, pp);
         LookAndFeel.installBorderAndBFDecorators(scrollPane, pp);
@@ -56,22 +56,22 @@ public class BasicScrollPaneUI extends BaseComponentUI{
         }
 	}
     
-    private function uninstallDefaults():void{
+    protected function uninstallDefaults():void{
     	LookAndFeel.uninstallBorderAndBFDecorators(scrollPane);
     }
     
-	private function installComponents():void{
+	protected function installComponents():void{
     }
-	private function uninstallComponents():void{
+	protected function uninstallComponents():void{
     }
 	
-	private function installListeners():void{
+	protected function installListeners():void{
 		scrollPane.addAdjustmentListener(__adjustChanged);
 		scrollPane.addEventListener(ScrollPaneEvent.VIEWPORT_CHANGED, __viewportChanged);
 		__viewportChanged(null);
 	}
     
-    private function uninstallListeners():void{
+    protected function uninstallListeners():void{
 		scrollPane.removeAdjustmentListener(__adjustChanged);
 		scrollPane.removeEventListener(ScrollPaneEvent.VIEWPORT_CHANGED, __viewportChanged);
 		if(lastViewport != null){
@@ -80,7 +80,7 @@ public class BasicScrollPaneUI extends BaseComponentUI{
     }
     
 	//-------------------------listeners--------------------------
-    private function syncScrollPaneWithViewport():void{
+    protected function syncScrollPaneWithViewport():void{
 		var viewport:Viewportable = scrollPane.getViewport();
 		var vsb:JScrollBar = scrollPane.getVerticalScrollBar();
 		var hsb:JScrollBar = scrollPane.getHorizontalScrollBar();
