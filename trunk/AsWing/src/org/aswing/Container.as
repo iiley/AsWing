@@ -257,6 +257,7 @@ public class Container extends Component{
 		if(com.getParent() != null){
 			com.removeFromContainer();
 		}
+		com.container = this;
 		if(i < 0){
 			children.push(com);
 			addChild(com);
@@ -264,7 +265,6 @@ public class Container extends Component{
 			addChildAt(com, getChildIndexWithComponentIndex(i));
 			children.splice(i, 0, com);
 		}
-		com.container = this;
 		layout.addLayoutComponent(com, (constraints == null) ? com.getConstraints() : constraints);
 		dispatchEvent(new ContainerEvent(ContainerEvent.COM_ADDED, this, com));
 		
