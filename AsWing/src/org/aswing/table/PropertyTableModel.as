@@ -97,6 +97,14 @@ public class PropertyTableModel extends AbstractTableModel implements ListDataLi
 	public function getList():ListModel{
 		return list;
 	}
+	
+	/**
+	 * Return the properties.
+	 * @see #PropertyTableModel
+	 */
+	public function getProperties():Array{
+		return properties.concat();
+	}
 
 	override public function getRowCount():int{
 		if(list){
