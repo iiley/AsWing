@@ -1,4 +1,4 @@
-How to use AsWing A3?
+How to use AsWing
 
 See Test folder sources.
 
