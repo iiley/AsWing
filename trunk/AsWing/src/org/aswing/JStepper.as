@@ -254,9 +254,9 @@ public class JStepper extends Component{
 	 * @see #getValue()
 	 * @see BoundedRangeModel#setValue()
 	 */
-	public function setValue(value:int):void{
+	public function setValue(value:int, programmatic:Boolean=true):void{
 		var m:BoundedRangeModel = getModel();
-		m.setValue(value);
+		m.setValue(value, programmatic);
 	}
 	
 	/**

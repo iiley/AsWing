@@ -195,7 +195,10 @@ public class BasicStepperUI extends BaseComponentUI{
 	}
 	
 	private function __onInputTextMouseWheel(e:MouseEvent):void{
-		stepper.setValue(stepper.getValue()+e.delta*stepper.getUnitIncrement());
+		stepper.setValue(
+				stepper.getValue()+e.delta*stepper.getUnitIncrement(),
+				false
+		);
 	}
 	
 	private var textInputing:Boolean = false;
@@ -203,14 +206,14 @@ public class BasicStepperUI extends BaseComponentUI{
 		textInputing = true;
 		var text:String = inputText.getText();
 		var value:int = stepper.getValueParser()(text);
-		stepper.setValue(value);
+		stepper.setValue(value, false);
 		textInputing = false;
 	}
 	
 	private function __inputTextAction(fireActOnlyIfChanged:Boolean=false):void{
 		var text:String = inputText.getText();
 		var value:int = stepper.getValueParser()(text);
-		stepper.setValue(value);
+		stepper.setValue(value, false);
 		if(!fireActOnlyIfChanged){
 			fireActionEvent();
 		}else if(value != startEditingValue){
@@ -242,10 +245,10 @@ public class BasicStepperUI extends BaseComponentUI{
     		return;
     	}
     	if(code == Keyboard.HOME){
-    		stepper.setValue(stepper.getMinimum());
+    		stepper.setValue(stepper.getMinimum(), false);
     		return;
     	}else if(code == Keyboard.END){
-    		stepper.setValue(stepper.getMaximum() - stepper.getExtent());
+    		stepper.setValue(stepper.getMaximum() - stepper.getExtent(), false);
     		return;
     	}
     	if(code == Keyboard.UP){
@@ -261,7 +264,7 @@ public class BasicStepperUI extends BaseComponentUI{
 	}
 	
 	private function makeStepper(step:int):void{
-		stepper.setValue(stepper.getValue() + step);
+		stepper.setValue(stepper.getValue() + step, false);
 	}
 	
 	private var timerIncrement:int;
