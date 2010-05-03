@@ -8,7 +8,6 @@ import flash.display.BitmapData;
 import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 import flash.utils.Dictionary;
-import com.hexagonstar.util.debug.Debug;
 import flash.utils.getTimer;
 
 /**
@@ -44,7 +43,7 @@ public class Strategy8BitMedianCutAlpha extends EncodeStrategyBase{
 		var x:int;
 		var y:int;
 		
-		Debug.trace("++++++++++++++++++++++++++++++++++++");
+		Debug.traceMsg("++++++++++++++++++++++++++++++++++++");
 		
 		var time:int;
 		time = getTimer();
@@ -61,14 +60,14 @@ public class Strategy8BitMedianCutAlpha extends EncodeStrategyBase{
 			var pix:uint = pixels.readUnsignedInt();
 			colors[int(pix)] = pix;//there may casue problem because array only accept int not uint to be index
 		}
-		Debug.trace("++++++++ build Colors : " + (getTimer() - time));
+		Debug.traceMsg("++++++++ build Colors : " + (getTimer() - time));
 		time = getTimer();
 		for each(var pi:* in colors){
 			points.push(pi);
 		}
-		Debug.trace("start color number : " + points.length);
+		Debug.traceMsg("start color number : " + points.length);
 		
-		Debug.trace("++++++++ build Points : " + (getTimer() - time));
+		Debug.traceMsg("++++++++ build Points : " + (getTimer() - time));
 		time = getTimer();
 		
 		var block:Block = new Block(points, alphaWeight);
@@ -85,10 +84,10 @@ public class Strategy8BitMedianCutAlpha extends EncodeStrategyBase{
 			addToQueue(blockQueue, splited[1]);
 		}
 		
-		Debug.trace("++++++++ build Blocks : " + (getTimer() - time));
+		Debug.traceMsg("++++++++ build Blocks : " + (getTimer() - time));
 		time = getTimer();
 		
-		Debug.trace("block number : " + blockQueue.length);
+		Debug.traceMsg("block number : " + blockQueue.length);
 		
 		ihdr = new IHDR(w, h, IHDR.ByteDepth_8, IHDR.CT_IndexedColor);
 		
@@ -109,7 +108,7 @@ public class Strategy8BitMedianCutAlpha extends EncodeStrategyBase{
 		plte = new PLTE(plteBytes);
 		trns = new tRNS(trnsBytes);
 		
-		Debug.trace("++++++++ build PLTE : " + (getTimer() - time));
+		Debug.traceMsg("++++++++ build PLTE : " + (getTimer() - time));
 		time = getTimer();
 		
 		//build the IDAT chunk
@@ -133,7 +132,7 @@ public class Strategy8BitMedianCutAlpha extends EncodeStrategyBase{
 			}
 		}
 		
-		Debug.trace("++++++++ build IDAT : " + (getTimer() - time));
+		Debug.traceMsg("++++++++ build IDAT : " + (getTimer() - time));
 		time = getTimer();
 		
 		idatBytes.compress();
