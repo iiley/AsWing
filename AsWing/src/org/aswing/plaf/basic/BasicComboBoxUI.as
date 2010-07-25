@@ -223,7 +223,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     
     private function setComboBoxValueFromListSelection():void{
 		var selectedValue:Object = getPopupList().getSelectedValue();
-		box.setSelectedItem(selectedValue);
+		box.setSelectedItem(selectedValue, false);
     }
     
     //-----------------------------
