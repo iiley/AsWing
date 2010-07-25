@@ -110,6 +110,8 @@ public class FlowWrapLayout extends FlowLayout{
                 		dim.height += vgap;
                 	}
                 	x = 0;
+					//ghdu's way to make the layout more reasonable
+					rowHeight = 0;
                 }
 	    	}
 		}
