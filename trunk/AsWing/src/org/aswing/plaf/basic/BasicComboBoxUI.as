@@ -360,6 +360,7 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     	dropDownButton.setLocationXY(right - buttonSize.width, top);
     	box.getEditor().getEditorComponent().setLocationXY(left, top);
     	box.getEditor().getEditorComponent().setSizeWH(td.width-insets.left-insets.right- buttonSize.width, height);
+		box.getEditor().getEditorComponent().revalidate();
     }
     
     override public function getPreferredSize(c:Component):IntDimension{
