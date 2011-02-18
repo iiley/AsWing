@@ -1113,6 +1113,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		comDefaults = [
 			"TextArea.opaque", true, 
 			"TextArea.background", textBG,
+			"TextArea.foreground", table.get("controlText"), 
 			"TextArea.bg", SkinTextAreaBackground,
 			"TextArea.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"TextArea.defaultImage", TextArea_defaultImage, 
