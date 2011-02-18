@@ -45,7 +45,7 @@ public class JFrameTitleBar extends Container implements FrameTitleBar, UIResour
 		labelPane.setLayout(new BorderLayout());
 		titleLabel = new JLabel();
 		titleLabel.setHorizontalAlignment(JLabel.LEFT);
-		titleLabel.setVerticalAlignment(JLabel.TOP);
+		titleLabel.setVerticalAlignment(JLabel.CENTER);
 		titleLabel.setUIElement(true);
 		labelPane.setUIElement(true);
 		labelPane.append(titleLabel, BorderLayout.CENTER);
