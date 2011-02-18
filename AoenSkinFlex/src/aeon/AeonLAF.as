@@ -4,9 +4,10 @@
 
 package aeon{
 
-import org.aswing.plaf.basic.BasicLookAndFeel;
-import org.aswing.plaf.*;
 import org.aswing.*;
+import org.aswing.plaf.*;
+import org.aswing.plaf.basic.BasicLookAndFeel;
+import org.aswing.plaf.basic.border.EmptyBorderResource;
 import org.aswing.skinbuilder.*;
 
 /**
@@ -883,9 +884,12 @@ public class AeonLAF extends BasicLookAndFeel{
 	
 	override protected function initComponentDefaults(table:UIDefaults):void{
 		super.initComponentDefaults(table);
+		var textBG:ASColorUIResource = new ASColorUIResource(0xf3f3f3);
+		
 		// *** Button
 		var comDefaults:Array = [
 			"Button.opaque", false, 
+			"Button.foreground", table.get("controlText"), 
 			"Button.defaultImage", Button_defaultImage,
 			"Button.pressedImage", Button_pressedImage,
 			"Button.disabledImage", Button_disabledImage,
@@ -893,13 +897,15 @@ public class AeonLAF extends BasicLookAndFeel{
 			"Button.DefaultButton.defaultImage", Button_DefaultButton_defaultImage, 
 			"Button.bg", SkinButtonBackground,
 			"Button.margin", new InsetsUIResource(3, 3, 3, 2), //modify this to fit the image border margin 
-			"Button.textShiftOffset", 0
+			"Button.textShiftOffset", 0, 
+			"Button.textFilters", new ArrayUIResource([])
 		];
 		table.putDefaults(comDefaults);
 		
 		// *** ToggleButton
 		comDefaults = [
 			"ToggleButton.opaque", false, 
+			"ToggleButton.foreground", table.get("controlText"), 
 			"ToggleButton.defaultImage", ToggleButton_defaultImage,
 			"ToggleButton.pressedImage", ToggleButton_pressedImage,
 			"ToggleButton.disabledImage", ToggleButton_disabledImage,
@@ -908,7 +914,8 @@ public class AeonLAF extends BasicLookAndFeel{
 			"ToggleButton.rolloverImage", ToggleButton_rolloverImage,
 			"ToggleButton.rolloverSelectedImage", ToggleButton_rolloverSelectedImage,
 			"ToggleButton.bg", SkinToggleButtonBackground,
-			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2) //modify this to fit the image border margin
+			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2), //modify this to fit the image border margin, 
+			"ToggleButton.textFilters", new ArrayUIResource([])
 		];
 		table.putDefaults(comDefaults);
 
@@ -987,6 +994,8 @@ public class AeonLAF extends BasicLookAndFeel{
 		// *** TextField
 		comDefaults = [
 			"TextField.opaque", true, 
+			"TextField.background", textBG,
+			"TextField.foreground", table.get("controlText"), 
 			"TextField.bg", SkinTextFieldBackground,
 			"TextField.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"TextField.defaultImage", TextField_defaultImage, 
@@ -998,6 +1007,8 @@ public class AeonLAF extends BasicLookAndFeel{
 		// *** TextArea
 		comDefaults = [
 			"TextArea.opaque", true, 
+			"TextArea.background", textBG,
+			"TextArea.foreground", table.get("controlText"), 
 			"TextArea.bg", SkinTextAreaBackground,
 			"TextArea.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"TextArea.defaultImage", TextArea_defaultImage, 
@@ -1014,7 +1025,8 @@ public class AeonLAF extends BasicLookAndFeel{
 			"Frame.opaque", true, 
 			"Frame.bg", SkinFrameBackground, //this will use Frame.activeBG and Frame.inactiveBG
 			"Frame.titleBarHeight", 38, //modify this to fit title bar height of bg image
-			"Frame.border", new SkinEmptyBorder(0, 17, 12, 17), //modify this to fit the frame bg image
+			"Frame.border", new SkinEmptyBorder(0, 16, 14, 16), //modify this to fit the frame bg image
+			"Frame.resizerMargin", new InsetsUIResource(0, 1, 2, 2), 
 			"Frame.activeBG", Frame_activeBG, 
 			"Frame.inactiveBG", Frame_inactiveBG, 			
 			"Frame.titleBarBG", SkinFrameTitleBarBG, 
@@ -1044,6 +1056,21 @@ public class AeonLAF extends BasicLookAndFeel{
 			"Frame.closeIcon.pressedImage", Frame_closeIcon_pressedImage, 
 			"Frame.closeIcon.disabledImage", Frame_closeIcon_disabledImage, 
 			"Frame.closeIcon.rolloverImage", Frame_closeIcon_rolloverImage
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** FrameTitleBar
+		comDefaults = [
+			"FrameTitleBar.background", table.get("window"), 
+			"FrameTitleBar.foreground", table.get("windowText"), 
+			"FrameTitleBar.titleBarHeight", 39, 
+			"FrameTitleBar.buttonGap", 2, 
+			"FrameTitleBar.font", table.get("windowFont"), 
+			"FrameTitleBar.border", new EmptyBorderResource(null, new Insets(0, 0, 0, 0)), 
+			"FrameTitleBar.iconifiedIcon", SkinFrameIconifiedIcon,
+			"FrameTitleBar.normalIcon", SkinFrameNormalIcon,
+			"FrameTitleBar.maximizeIcon", SkinFrameMaximizeIcon, 
+			"FrameTitleBar.closeIcon", SkinFrameCloseIcon
 		];
 		table.putDefaults(comDefaults);
 		
