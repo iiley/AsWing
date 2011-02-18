@@ -43,6 +43,7 @@ public class SkinFrameBackground extends DefaultsDecoratorBase implements Ground
 		//not use bounds, avoid the border
 		activeBG.width = inactiveBG.width = c.width;
 		activeBG.height = inactiveBG.height = c.height;
+		
 		if(c.isOpaque()){
 			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
 		}
