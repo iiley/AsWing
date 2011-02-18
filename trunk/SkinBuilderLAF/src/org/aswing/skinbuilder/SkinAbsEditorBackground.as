@@ -10,6 +10,7 @@ import org.aswing.*;
 import org.aswing.error.ImpMissError;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.SolidBrush;
 import org.aswing.plaf.*;
 
 public class SkinAbsEditorBackground extends DefaultsDecoratorBase implements GroundDecorator, UIResource{
@@ -55,7 +56,7 @@ public class SkinAbsEditorBackground extends DefaultsDecoratorBase implements Gr
     	}
     }
 	
-	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):void{
 		if(!loaded){
 			reloadAssets(getDefaultsOwner(c));
 			loaded = true;
@@ -76,6 +77,10 @@ public class SkinAbsEditorBackground extends DefaultsDecoratorBase implements Gr
 		//not use bounds, avoid the border
 		lastViewedImage.width = c.width;
 		lastViewedImage.height = c.height;
+		
+		if(c.isOpaque()){
+			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
+		}
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{
