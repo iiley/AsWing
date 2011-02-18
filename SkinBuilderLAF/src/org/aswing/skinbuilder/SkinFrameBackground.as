@@ -10,6 +10,7 @@ import flash.display.Sprite;
 import org.aswing.*;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.SolidBrush;
 import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.DefaultsDecoratorBase;
 import org.aswing.plaf.UIResource;
@@ -32,7 +33,7 @@ public class SkinFrameBackground extends DefaultsDecoratorBase implements Ground
 		inactiveBG.visible = false;
 	}
 	
-	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):void{
 		if(activeBG == null){
 			reloadAssets(getDefaultsOwner(c));
 		}
@@ -42,6 +43,9 @@ public class SkinFrameBackground extends DefaultsDecoratorBase implements Ground
 		//not use bounds, avoid the border
 		activeBG.width = inactiveBG.width = c.width;
 		activeBG.height = inactiveBG.height = c.height;
+		if(c.isOpaque()){
+			g.fillRectangle(new SolidBrush(c.getBackground()), b.x, b.y, b.width, b.height);
+		}
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{

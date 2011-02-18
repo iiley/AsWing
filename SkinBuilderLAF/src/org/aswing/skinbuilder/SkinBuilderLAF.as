@@ -7,6 +7,7 @@ package org.aswing.skinbuilder{
 import org.aswing.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicLookAndFeel;
+import org.aswing.plaf.basic.border.EmptyBorderResource;
 
 /**
  * SkinBuilder LookAndFeel let you change the skin easily 
@@ -985,9 +986,12 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 	
 	override protected function initComponentDefaults(table:UIDefaults):void{
 		super.initComponentDefaults(table);
+		var textBG:ASColorUIResource = new ASColorUIResource(0xf3f3f3);
+		
 		// *** Button
 		var comDefaults:Array = [
 			"Button.background", new ASColorUIResource(0x839DAD), //this is just for calculate disabled color
+			"Button.foreground", table.get("controlText"), 
 			"Button.opaque", false, 
 			"Button.defaultImage", Button_defaultImage,
 			"Button.pressedImage", Button_pressedImage,
@@ -996,13 +1000,15 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Button.DefaultButton.defaultImage", Button_DefaultButton_defaultImage, 
 			"Button.bg", SkinButtonBackground,
 			"Button.margin", new InsetsUIResource(3, 3, 3, 2), //modify this to fit the image border margin 
-			"Button.textShiftOffset", 0
+			"Button.textShiftOffset", 0, 
+			"Button.textFilters", new ArrayUIResource([])
 		];
 		table.putDefaults(comDefaults);
 		
 		// *** ToggleButton
 		comDefaults = [
 			"ToggleButton.background", new ASColorUIResource(0x839DAD), //this is just for calculate disabled color
+			"ToggleButton.foreground", table.get("controlText"), 
 			"ToggleButton.opaque", false, 
 			"ToggleButton.defaultImage", ToggleButton_defaultImage,
 			"ToggleButton.pressedImage", ToggleButton_pressedImage,
@@ -1012,7 +1018,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"ToggleButton.rolloverImage", ToggleButton_rolloverImage,
 			"ToggleButton.rolloverSelectedImage", ToggleButton_rolloverSelectedImage,
 			"ToggleButton.bg", SkinToggleButtonBackground,
-			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2) //modify this to fit the image border margin
+			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2), //modify this to fit the image border margin, 
+			"ToggleButton.textFilters", new ArrayUIResource([])
 		];
 		table.putDefaults(comDefaults);
 
@@ -1092,6 +1099,8 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		// *** TextField
 		comDefaults = [
 			"TextField.opaque", true, 
+			"TextField.background", textBG,
+			"TextField.foreground", table.get("controlText"), 
 			"TextField.bg", SkinTextFieldBackground,
 			"TextField.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"TextField.defaultImage", TextField_defaultImage, 
@@ -1103,6 +1112,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 		// *** TextArea
 		comDefaults = [
 			"TextArea.opaque", true, 
+			"TextArea.background", textBG,
 			"TextArea.bg", SkinTextAreaBackground,
 			"TextArea.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
 			"TextArea.defaultImage", TextArea_defaultImage, 
@@ -1149,6 +1159,21 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Frame.closeIcon.pressedImage", Frame_closeIcon_pressedImage, 
 			"Frame.closeIcon.disabledImage", Frame_closeIcon_disabledImage, 
 			"Frame.closeIcon.rolloverImage", Frame_closeIcon_rolloverImage
+		];
+		table.putDefaults(comDefaults);
+		
+		// *** FrameTitleBar
+		comDefaults = [
+			"FrameTitleBar.background", table.get("window"), 
+			"FrameTitleBar.foreground", table.get("windowText"), 
+			"FrameTitleBar.titleBarHeight", 28, 
+			"FrameTitleBar.buttonGap", 2, 
+			"FrameTitleBar.font", table.get("windowFont"), 
+			"FrameTitleBar.border", new EmptyBorderResource(null, new Insets(0, 0, 0, 0)), 
+			"FrameTitleBar.iconifiedIcon", SkinFrameIconifiedIcon,
+			"FrameTitleBar.normalIcon", SkinFrameNormalIcon,
+			"FrameTitleBar.maximizeIcon", SkinFrameMaximizeIcon, 
+			"FrameTitleBar.closeIcon", SkinFrameCloseIcon
 		];
 		table.putDefaults(comDefaults);
 		
