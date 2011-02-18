@@ -1130,6 +1130,7 @@ public class SkinBuilderLAF extends BasicLookAndFeel{
 			"Frame.titleBarHeight", 28, //modify this to fit title bar height of bg image
 			"Frame.border", new SkinEmptyBorder(0, 4, 5, 4), //modify this to fit the frame bg image
 			"Frame.backgroundMargin", new InsetsUIResource(4, 0, 0, 0), 
+			"Frame.resizerMargin", new InsetsUIResource(0, 1, 2, 2), 
 			"Frame.activeBG", Frame_activeBG, 
 			"Frame.inactiveBG", Frame_inactiveBG, 
 			"Frame.titleBarBG", SkinFrameTitleBarBG, 
