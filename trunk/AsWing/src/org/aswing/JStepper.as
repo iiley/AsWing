@@ -29,7 +29,7 @@ import org.aswing.plaf.basic.BasicStepperUI;
  * 
  * @author iiley
  */
-public class JStepper extends Component{
+public class JStepper extends Component implements EditableComponent{
 
 	/**
 	 * The default translator translate a int value to a integer string representation.
