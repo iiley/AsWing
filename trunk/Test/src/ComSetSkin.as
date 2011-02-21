@@ -1,6 +1,6 @@
 package{
 
-import cn.harryxu.tenerLaf.TenerLookAndFeel;
+import aeon.AeonLAF;
 
 import componetset.*;
 
@@ -8,8 +8,9 @@ import flash.display.*;
 
 import org.aswing.*;
 import org.aswing.border.EmptyBorder;
+import org.aswing.skinbuilder.SkinBuilderLAF;
 
-[SWF (width="800", height="600")]//, backgroundColor="0xFFFFFF")]
+[SWF (width="800", height="600", backgroundColor="0xFFFFFF")]
 public class ComSetSkin extends Sprite{
 	
 	private var tabpane:JTabbedPane;
@@ -18,7 +19,7 @@ public class ComSetSkin extends Sprite{
 	public function ComSetSkin(){
 		super();
 		AsWingManager.initAsStandard(this);
-		UIManager.setLookAndFeel(new TenerLookAndFeel());
+		UIManager.setLookAndFeel(new AeonLAF());
 		
 		WINDOW = new JWindow();
 		

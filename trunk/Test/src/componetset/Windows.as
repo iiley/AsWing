@@ -1,8 +1,10 @@
 package componetset{
 
-import org.aswing.*;
-import org.aswing.border.TitledBorder;
 import flash.events.Event;
+
+import org.aswing.*;
+import org.aswing.border.LineBorder;
+import org.aswing.border.TitledBorder;
 
 public class Windows extends JPanel{
 	
@@ -44,6 +46,7 @@ public class Windows extends JPanel{
 		popupChild.addActionListener(__popupChild);
 		pane.append(popupChild);
 		frame.setContentPane(pane);
+		pane.setBorder(new LineBorder(null, ASColor.RED));
 		frame.setDefaultButton(closeButton2);
 		frame.setComBoundsXYWH(100, 100, 400, 240);
 		frame.getKeyboardManager().registerKeyAction(
@@ -52,6 +55,7 @@ public class Windows extends JPanel{
 	}
 	
 	private function __showFrame(e:Event):void{
+		frame.changeOwner(AsWingUtils.getPopupAncestor(this));
 		frame.show();
 	}
 	

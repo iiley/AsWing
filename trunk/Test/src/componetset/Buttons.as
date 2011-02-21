@@ -1,7 +1,8 @@
 package componetset{
 	
-import org.aswing.*;
 import cases.ColorDotIcon;
+
+import org.aswing.*;
 
 public class Buttons extends JPanel{
 	
@@ -117,6 +118,27 @@ public class Buttons extends JPanel{
 		ads.append(ad3);
 		ads.append(ad4);
 		top.append(ads);
+		
+		var st1:JStepper = new JStepper(3);
+		var st2:JStepper = new JStepper(6);
+		st2.setValueTranslator(
+			function(value:int):String{
+				return Math.round(value) + "%";
+			}
+		);
+		var st3:JStepper = new JStepper(7);
+		st3.setValueTranslator(
+			function(value:int):String{
+				return Math.round(value) + "cm";
+			}
+		);
+		st3.setEditable(false);
+		var st4:JStepper = new JStepper(4);
+		st4.setEnabled(false);
+		ads.append(st1);
+		ads.append(st2);
+		ads.append(st3);
+		ads.append(st4);
 		
 		var ta:JTextArea = new JTextArea();
 		append(new JScrollPane(ta), BorderLayout.CENTER);
