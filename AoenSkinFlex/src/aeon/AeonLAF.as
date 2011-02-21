@@ -32,7 +32,8 @@ public class AeonLAF extends BasicLookAndFeel{
 			   "AdjusterUI", SkinAdjusterUI, 
 			   "TabbedPaneUI", SkinTabbedPaneUI,
 			   "SplitPaneUI", SkinSplitPaneUI,
-			   "ClosableTabbedPaneUI", SkinClosableTabbedPaneUI,
+			   "ClosableTabbedPaneUI", SkinClosableTabbedPaneUI, 
+			   "StepperUI", SkinStepperUI, 
 			   //"TableUI", org.aswing.plaf.basic.BasicTableUI, 
 			   //"TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI
 		   ];
@@ -794,6 +795,16 @@ public class AeonLAF extends BasicLookAndFeel{
 	//_______________________________ Adjuster _____________________________
 	//======================================================================
 	//========= Arrow Images =======
+	
+	[Embed(source="assets/Aeon.swf", symbol="Adjuster_defaultImage")]
+	private var Adjuster_defaultImage:Class;
+	
+	[Embed(source="assets/Aeon.swf", symbol="Adjuster_uneditableImage")]
+	private var Adjuster_uneditableImage:Class;
+	
+	[Embed(source="assets/Aeon.swf", symbol="Adjuster_disabledImage")]
+	private var Adjuster_disabledImage:Class;
+	
 	[Embed(source="assets/Aeon.swf", symbol="Adjuster_arrowButton_defaultImage")]
 	private var Adjuster_arrowButton_defaultImage:Class;
 	
@@ -857,6 +868,43 @@ public class AeonLAF extends BasicLookAndFeel{
 	[Embed(source="assets/Aeon.swf", symbol="Adjuster_Slider_thumbVertical_rolloverImage")]
 	private var Adjuster_Slider_thumbVertical_rolloverImage:Class;
 	
+	
+	//---------------------------------------------------------------------
+	//___________________________ Stepper scale-9 _______________________
+	//=====================================================================
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_defaultImage")]
+	private var Stepper_defaultImage:Class;
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_uneditableImage")]
+	private var Stepper_uneditableImage:Class;
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_disabledImage")]
+	private var Stepper_disabledImage:Class;
+	//-------------------------------------arrows----------------------------
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_arrowUp_defaultImage")]
+	private var Stepper_arrowUp_defaultImage:Class;	
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_arrowUp_disabledImage")]
+	private var Stepper_arrowUp_disabledImage:Class;	
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_arrowUp_pressedImage")]
+	private var Stepper_arrowUp_pressedImage:Class;	
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_arrowUp_rolloverImage")]
+	private var Stepper_arrowUp_rolloverImage:Class;	
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_arrowDown_defaultImage")]
+	private var Stepper_arrowDown_defaultImage:Class;	
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_arrowDown_disabledImage")]
+	private var Stepper_arrowDown_disabledImage:Class;	
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_arrowDown_pressedImage")]
+	private var Stepper_arrowDown_pressedImage:Class;	
+	
+	[Embed(source="assets/Aeon.swf", symbol="Stepper_arrowDown_rolloverImage")]
+	private var Stepper_arrowDown_rolloverImage:Class;		
 	
 	
 	//----------------------------------------------------------------------
@@ -1264,6 +1312,15 @@ public class AeonLAF extends BasicLookAndFeel{
 		
 		// *** Adjuster
 		comDefaults = [
+			"Adjuster.opaque", true, 
+			"Adjuster.background", textBG, 
+			"Adjuster.foreground", table.get("controlText"), 
+			"Adjuster.bg", SkinAdjusterBackground,
+			"Adjuster.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
+			"Adjuster.defaultImage", Adjuster_defaultImage, 
+			"Adjuster.uneditableImage", Adjuster_uneditableImage, 
+			"Adjuster.disabledImage", Adjuster_disabledImage, 
+			
 			"Adjuster.arrowButton.defaultImage", Adjuster_arrowButton_defaultImage, 
 			"Adjuster.arrowButton.pressedImage", Adjuster_arrowButton_pressedImage, 
 			"Adjuster.arrowButton.disabledImage", Adjuster_arrowButton_disabledImage, 
@@ -1291,13 +1348,35 @@ public class AeonLAF extends BasicLookAndFeel{
 			
 			"Adjuster.Slider.thumbIcon", SkinAdjusterSliderThumb, 
 			
-			"Adjuster.Slider.background", table.getFont("controlFont"),
+			"Adjuster.Slider.background", textBG,
 			"Adjuster.Slider.foreground", table.get("controlText"),
 			"Adjuster.Slider.opaque", false,  
 			"Adjuster.Slider.focusable", true
 		];
 		table.putDefaults(comDefaults);
 		
+		// *** Stepper
+		comDefaults = [
+			"Stepper.opaque", true, 
+			"Stepper.background", textBG, 
+			"Stepper.foreground", table.get("controlText"), 
+			"Stepper.bg", SkinStepperBackground,
+			"Stepper.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
+			"Stepper.defaultImage", Stepper_defaultImage, 
+			"Stepper.uneditableImage", Stepper_uneditableImage, 
+			"Stepper.disabledImage", Stepper_disabledImage, 
+			
+			"Stepper.arrowUp.defaultImage", Stepper_arrowUp_defaultImage, 
+			"Stepper.arrowUp.pressedImage", Stepper_arrowUp_pressedImage, 
+			"Stepper.arrowUp.disabledImage", Stepper_arrowUp_disabledImage, 
+			"Stepper.arrowUp.rolloverImage", Stepper_arrowUp_rolloverImage, 
+			
+			"Stepper.arrowDown.defaultImage", Stepper_arrowDown_defaultImage, 
+			"Stepper.arrowDown.pressedImage", Stepper_arrowDown_pressedImage, 
+			"Stepper.arrowDown.disabledImage", Stepper_arrowDown_disabledImage, 
+			"Stepper.arrowDown.rolloverImage", Stepper_arrowDown_rolloverImage
+		];
+		table.putDefaults(comDefaults);		
 		
 		 // *** TableHeader
 		comDefaults = [
