@@ -9,6 +9,7 @@ import flash.filters.DropShadowFilter;
 import org.aswing.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicLookAndFeel;
+import org.aswing.plaf.basic.border.EmptyBorderResource;
 import org.aswing.skinbuilder.*;
 
 /**
@@ -30,6 +31,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			   "AdjusterUI", SkinAdjusterUI,	
 			   "TabbedPaneUI", SkinTabbedPaneUI, 
 			   "ClosableTabbedPaneUI", SkinClosableTabbedPaneUI,
+			   "StepperUI", SkinStepperUI, 
 			   "SplitPaneUI", OrangeSplitPaneUI
 		   ];
 		table.putDefaults(uiDefaults);
@@ -879,6 +881,18 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	//_______________________________ Adjuster _____________________________
 	//======================================================================
 	//========= Arrow Images =======
+	[Embed(source="assets/Adjuster_defaultImage.png", scaleGridTop="4", scaleGridBottom="17", 
+		scaleGridLeft="4", scaleGridRight="138")]
+	private var Adjuster_defaultImage:Class;
+	
+	[Embed(source="assets/Adjuster_uneditableImage.png", scaleGridTop="4", scaleGridBottom="17", 
+		scaleGridLeft="4", scaleGridRight="138")]
+	private var Adjuster_uneditableImage:Class;
+	
+	[Embed(source="assets/Adjuster_disabledImage.png", scaleGridTop="4", scaleGridBottom="17", 
+		scaleGridLeft="4", scaleGridRight="138")]
+	private var Adjuster_disabledImage:Class;
+	
 	[Embed(source="assets/Adjuster_arrowButton_defaultImage.png")]
 	private var Adjuster_arrowButton_defaultImage:Class;
 	
@@ -947,6 +961,46 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 	private var Adjuster_Slider_thumbVertical_rolloverImage:Class;
 	
 	
+	//---------------------------------------------------------------------
+	//___________________________ Stepper scale-9 _______________________
+	//=====================================================================
+	[Embed(source="assets/Stepper_defaultImage.png", scaleGridTop="4", scaleGridBottom="17", 
+		scaleGridLeft="4", scaleGridRight="138")]
+	private var Stepper_defaultImage:Class;
+	
+	[Embed(source="assets/Stepper_uneditableImage.png", scaleGridTop="4", scaleGridBottom="17", 
+		scaleGridLeft="4", scaleGridRight="138")]
+	private var Stepper_uneditableImage:Class;
+	
+	[Embed(source="assets/Stepper_disabledImage.png", scaleGridTop="4", scaleGridBottom="17", 
+		scaleGridLeft="4", scaleGridRight="138")]
+	private var Stepper_disabledImage:Class;
+	//-------------------------------------arrows----------------------------
+	
+	[Embed(source="assets/Stepper_arrowUp_defaultImage.png")]
+	private var Stepper_arrowUp_defaultImage:Class;	
+	
+	[Embed(source="assets/Stepper_arrowUp_disabledImage.png")]
+	private var Stepper_arrowUp_disabledImage:Class;	
+	
+	[Embed(source="assets/Stepper_arrowUp_pressedImage.png")]
+	private var Stepper_arrowUp_pressedImage:Class;	
+	
+	[Embed(source="assets/Stepper_arrowUp_rolloverImage.png")]
+	private var Stepper_arrowUp_rolloverImage:Class;	
+	
+	[Embed(source="assets/Stepper_arrowDown_defaultImage.png")]
+	private var Stepper_arrowDown_defaultImage:Class;	
+	
+	[Embed(source="assets/Stepper_arrowDown_disabledImage.png")]
+	private var Stepper_arrowDown_disabledImage:Class;	
+	
+	[Embed(source="assets/Stepper_arrowDown_pressedImage.png")]
+	private var Stepper_arrowDown_pressedImage:Class;	
+	
+	[Embed(source="assets/Stepper_arrowDown_rolloverImage.png")]
+	private var Stepper_arrowDown_rolloverImage:Class;	
+
 
 	//----------------------------------------------------------------------
 	//_______________________________ Table Header _________________________
@@ -1021,6 +1075,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		// *** Button
 		var comDefaults:Array = [
 			"Button.background", new ASColorUIResource(0x839DAD), //this is just for calculate disabled color
+			"Button.foreground", table.get("controlText"), 
 			"Button.opaque", false, 
 			"Button.defaultImage", Button_defaultImage,
 			"Button.pressedImage", Button_pressedImage,
@@ -1029,13 +1084,15 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"Button.DefaultButton.defaultImage", Button_DefaultButton_defaultImage, 
 			"Button.bg", SkinButtonBackground,
 			"Button.margin", new InsetsUIResource(3, 3, 3, 2), //modify this to fit the image border margin 
-			"Button.textShiftOffset", 0
+			"Button.textShiftOffset", 0, 
+			"Button.textFilters", new ArrayUIResource([])
 		];
 		table.putDefaults(comDefaults);
 		
 		// *** ToggleButton
 		comDefaults = [
 			"ToggleButton.background", new ASColorUIResource(0x839DAD), //this is just for calculate disabled color
+			"ToggleButton.foreground", table.get("controlText"), 
 			"ToggleButton.opaque", false, 
 			"ToggleButton.defaultImage", ToggleButton_defaultImage,
 			"ToggleButton.pressedImage", ToggleButton_pressedImage,
@@ -1045,7 +1102,8 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"ToggleButton.rolloverImage", ToggleButton_rolloverImage,
 			"ToggleButton.rolloverSelectedImage", ToggleButton_rolloverSelectedImage,
 			"ToggleButton.bg", SkinToggleButtonBackground,
-			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2) //modify this to fit the image border margin
+			"ToggleButton.margin", new InsetsUIResource(2, 3, 3, 2), //modify this to fit the image border margin, 
+			"ToggleButton.textFilters", new ArrayUIResource([])
 		];
 		table.putDefaults(comDefaults);
 
@@ -1161,6 +1219,7 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"Frame.titleBarHeight", 28, //modify this to fit title bar height of bg image
 			"Frame.border", new SkinEmptyBorder(0, 4, 5, 4), //modify this to fit the frame bg image
 			"Frame.backgroundMargin", new InsetsUIResource(4, 0, 0, 0), 
+			"Frame.resizerMargin", new InsetsUIResource(0, 1, 2, 2), 
 			"Frame.activeBG", Frame_activeBG, 
 			"Frame.inactiveBG", Frame_inactiveBG, 
 			"Frame.titleBarBG", SkinFrameTitleBarBG, 
@@ -1191,6 +1250,22 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"Frame.closeIcon.rolloverImage", Frame_closeIcon_rolloverImage
 		];
 		table.putDefaults(comDefaults);
+		
+		// *** FrameTitleBar
+		comDefaults = [
+			"FrameTitleBar.background", table.get("window"), 
+			"FrameTitleBar.foreground", table.get("windowText"), 
+			"FrameTitleBar.titleBarHeight", 28, 
+			"FrameTitleBar.buttonGap", 2, 
+			"FrameTitleBar.font", table.get("windowFont"), 
+			"FrameTitleBar.border", new EmptyBorderResource(null, new Insets(0, 0, 0, 0)), 
+			"FrameTitleBar.iconifiedIcon", SkinFrameIconifiedIcon,
+			"FrameTitleBar.normalIcon", SkinFrameNormalIcon,
+			"FrameTitleBar.maximizeIcon", SkinFrameMaximizeIcon, 
+			"FrameTitleBar.closeIcon", SkinFrameCloseIcon
+		];
+		table.putDefaults(comDefaults);
+		
 		
 		// *** ToolTip
 		comDefaults = [
@@ -1444,6 +1519,14 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 		
 		// *** Adjuster
 		comDefaults = [
+			"Adjuster.opaque", false, 
+			"Adjuster.foreground", table.get("controlText"), 
+			"Adjuster.bg", SkinAdjusterBackground,
+			"Adjuster.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
+			"Adjuster.defaultImage", Adjuster_defaultImage, 
+			"Adjuster.uneditableImage", Adjuster_uneditableImage, 
+			"Adjuster.disabledImage", Adjuster_disabledImage, 
+			
 			"Adjuster.arrowButton.defaultImage", Adjuster_arrowButton_defaultImage, 
 			"Adjuster.arrowButton.pressedImage", Adjuster_arrowButton_pressedImage, 
 			"Adjuster.arrowButton.disabledImage", Adjuster_arrowButton_disabledImage, 
@@ -1477,6 +1560,30 @@ public class OrangeLookAndFeel extends BasicLookAndFeel{
 			"Adjuster.Slider.focusable", true
 		];
 		table.putDefaults(comDefaults);
+		
+		
+		// *** Stepper
+		comDefaults = [
+			"Stepper.opaque", false, 
+			"Stepper.foreground", table.get("controlText"), 
+			"Stepper.bg", SkinStepperBackground,
+			"Stepper.border", new SkinEmptyBorder(3, 3, 3, 3), //modify this to fit the bg image
+			"Stepper.defaultImage", Stepper_defaultImage, 
+			"Stepper.uneditableImage", Stepper_uneditableImage, 
+			"Stepper.disabledImage", Stepper_disabledImage, 
+			
+			"Stepper.arrowUp.defaultImage", Stepper_arrowUp_defaultImage, 
+			"Stepper.arrowUp.pressedImage", Stepper_arrowUp_pressedImage, 
+			"Stepper.arrowUp.disabledImage", Stepper_arrowUp_disabledImage, 
+			"Stepper.arrowUp.rolloverImage", Stepper_arrowUp_rolloverImage, 
+			
+			"Stepper.arrowDown.defaultImage", Stepper_arrowDown_defaultImage, 
+			"Stepper.arrowDown.pressedImage", Stepper_arrowDown_pressedImage, 
+			"Stepper.arrowDown.disabledImage", Stepper_arrowDown_disabledImage, 
+			"Stepper.arrowDown.rolloverImage", Stepper_arrowDown_rolloverImage
+		];
+		table.putDefaults(comDefaults);
+		
 		
 		 // *** Table
 		comDefaults = [
