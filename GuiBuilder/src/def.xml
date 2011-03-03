@@ -431,6 +431,14 @@
 		</Property>
 	</Com>
 
+	<Com name="JStepper" clazz="org.aswing.JStepper" sup="Component">
+		<Property label="Orientation" name="Orientation" type="Orientation" category="Feature" order="10">
+		</Property>
+		<Property label="columns" name="Columns" type="int" action="revalidate" category="Feature" order="10">
+			<Value value="3"></Value>
+		</Property>
+	</Com>
+	
 	<Com name="JScrollBar" clazz="org.aswing.JScrollBar" sup="Component">
 		<Property label="Orientation" name="Orientation" type="Orientation" category="Feature" order="10">
 		</Property>
