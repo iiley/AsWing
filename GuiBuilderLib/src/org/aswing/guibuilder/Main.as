@@ -21,6 +21,7 @@ import org.aswing.JSplitPane;
 import org.aswing.JWindow;
 import org.aswing.LoadIcon;
 import org.aswing.SoftBox;
+import org.aswing.SolidBackground;
 import org.aswing.UIManager;
 import org.aswing.VectorListModel;
 import org.aswing.border.BevelBorder;
@@ -34,6 +35,7 @@ import org.aswing.guibuilder.model.ComModel;
 import org.aswing.guibuilder.model.Definition;
 import org.aswing.guibuilder.model.FileModel;
 import org.aswing.guibuilder.util.TextLoader;
+import org.aswing.plaf.basic.background.FrameBackground;
 import org.aswing.tree.DefaultMutableTreeNode;
 import org.aswing.tree.DefaultTreeModel;
 import org.aswing.tree.TreeModel;
@@ -65,7 +67,7 @@ public class Main extends JWindow{
 	public function Main(owner:DisplayObjectContainer){
 		super(owner, false);
 		AsWingManager.setRoot(this);
-		
+		setBackgroundDecorator(new SolidBackground(new ASColor(0xF1F3F1)));
 		emptyTreeModel = new DefaultTreeModel(new DefaultMutableTreeNode("Empty"));
 		files = new VectorListModel();
 		
@@ -87,6 +89,7 @@ public class Main extends JWindow{
 		rangeEditor.addTo(selContainer);
 		
 		toolBarPane = new ToolBarPane();
+		toolBarPane.setOpaque(false);
 		toolBarPane.getSaveButton().setEnabled(false);
 		var menuBar:JMenuBar = new JMenuBar();
 		newMenu = new JMenu("New");
@@ -99,6 +102,7 @@ public class Main extends JWindow{
 		var pane:JPanel = new JPanel(new BorderLayout());
 		var topBar:SoftBox = SoftBox.createHorizontalBox(2);
 		topBar.setOpaque(true);
+		topBar.setBackground(new ASColor(0xA5CE1C));
 		topBar.setBorder(new EmptyBorder(null, new Insets(2, 4, 0, 0)));
 		topBar.appendAll(menuBar, new JSeparator(JSeparator.VERTICAL), toolBarPane);
 		pane.append(topBar, BorderLayout.NORTH);
