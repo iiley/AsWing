@@ -90,7 +90,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 	
 	protected function initSystemColorDefaults(table:UIDefaults):void{
 		var defaultSystemColors:Array = [
-			"window", 0x2d6d89,  //window panel background color
+			"window", 0xe6e6e6,  //window panel background color
 			"windowText", 0xFFFFFE, /* ??? */
 			"menu", 0xeaeaea, /* Background color for menus */
 			"menuText", 0x5d5d5d, /* Text color for menus  */
@@ -656,7 +656,7 @@ public class BasicLookAndFeel extends LookAndFeel{
 		
 		 // *** ToolBar
 		comDefaults = [
-			"ToolBar.background", table.get("window"),
+			"ToolBar.background", new ASColorUIResource(0xA5CE1C),
 			"ToolBar.foreground", table.get("windowText"), 
 			"ToolBar.mideground", table.get("controlMide"), 
 			"ToolBar.colorAdjust", new UIStyleTune(0.18, 0.05, 0.20, 0.20), 
