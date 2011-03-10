@@ -25,6 +25,10 @@ public class DateRange{
 		}
 	}
 	
+	public static function singleDay(day:Date):DateRange{
+		return new DateRange(day, day);
+	} 
+	
 	public function getStart():Date{
 		return rangeStart;
 	}
