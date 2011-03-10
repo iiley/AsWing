@@ -3,6 +3,8 @@ package org.aswing.ext{
 import flash.events.Event;
 import flash.events.MouseEvent;
 
+import mx.controls.DateChooser;
+
 import org.aswing.ASColor;
 import org.aswing.BorderLayout;
 import org.aswing.BoxLayout;
@@ -16,11 +18,12 @@ import org.aswing.LayoutManager;
 import org.aswing.SoftBoxLayout;
 import org.aswing.WeightBoxLayout;
 import org.aswing.event.InteractiveEvent;
+import org.aswing.event.SelectionEvent;
 import org.aswing.util.ArrayList;
 import org.aswing.util.HashSet;
 
 /**
- * Dispatched when the datechooser's state changed, display month, year changed etc. 
+ * Dispatched when the datechooser's display page changed etc. 
  * @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
  */
 [Event(name="stateChanged", type="org.aswing.event.InteractiveEvent")]
@@ -33,6 +36,8 @@ import org.aswing.util.HashSet;
 [Event(name="selectionChanged", type="org.aswing.event.InteractiveEvent")]
 
 /**
+ * A Date Chooser for multipule or single date selection.<br/>
+ * The language can be changed by defaultDayNames, defaultMonthNames static members.
  * @author iiley (Burstyx Studio)
  */
 public class DateChooser extends JPanel{
@@ -40,7 +45,6 @@ public class DateChooser extends JPanel{
 	public static var defaultDayNames:Array = [" Su ", " Mo ", " Tu ", " We ", " Th ", " Fr ", " Sa "];
 	public static var defaultMonthNames:Array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	
-	protected var allowDisjointSelection:Boolean = false;
 	protected var allowMultipleSelection:Boolean = false;
 	protected var dayNames:Array;
 	protected var monthNames:Array;
@@ -50,6 +54,7 @@ public class DateChooser extends JPanel{
 	protected var displayedYear:int;
 	protected var selectableRange:DateRange;
 	protected var selectedDate:Date;
+	protected var selectedDates:Array;
 	protected var displayDate:Date;
 	protected var displayMonthDays:int;//the day count of displaying month
 	
@@ -69,13 +74,14 @@ public class DateChooser extends JPanel{
 		monthNames = defaultMonthNames.concat();
 		var today:Date = new Date();
 		disabledDays = new HashSet();
+		selectedDates = [];
 		selectableRange = new DateRange(
 			new Date(today.getFullYear()-100, 0), 
 			new Date(today.getFullYear()+50, 0));
 		createComponents();
 		setDisplayDate(today.getFullYear(), today.getMonth());
 	}
-	
+		
 	protected function createComponents():void{
 		monthCombo  = new JComboBox(monthNames);
 		yearCombo   = new JComboBox(getYearLabels());
@@ -137,7 +143,7 @@ public class DateChooser extends JPanel{
 				month = 11;
 				year--;
 			}
-			setDisplayDate(year, month);
+			setDisplayDate(year, month, false);
 		}
 	}
 	
@@ -150,24 +156,120 @@ public class DateChooser extends JPanel{
 				month = 0;
 				year++;
 			}
-			setDisplayDate(year, month);
+			setDisplayDate(year, month, false);
 		}
 	}
 	
 	private function __yearChanged(e:InteractiveEvent):void{
 		if(!e.isProgrammatic()){
-			setDisplayDate(displayStartYear+yearCombo.getSelectedIndex(), displayedMonth);
+			setDisplayDate(displayStartYear+yearCombo.getSelectedIndex(), displayedMonth, false);
 		}
 	}
 	
 	private function __monthChanged(e:InteractiveEvent):void{
 		if(!e.isProgrammatic()){
-			setDisplayDate(displayedYear, displayStartMonth+monthCombo.getSelectedIndex());
+			setDisplayDate(displayedYear, displayStartMonth+monthCombo.getSelectedIndex(), false);
 		}
 	}
 	
 	private function __dateLabelPress(e:MouseEvent):void{
 		var label:DateLabel = e.currentTarget as DateLabel;
+		var labelDate:Date = getDisplayLabelDate(label);
+		if(allowMultipleSelection){
+			if(!addSelection(labelDate, false)){
+				removeSelection(labelDate, false);
+			}
+		}else{
+			setSelectedDate(labelDate, false);
+		}
+	}
+	
+	public function addSelection(date:Date, programmatic:Boolean=true):Boolean{
+		if(null == date || isDateSelected(date)){
+			return false;
+		}
+		selectedDates.push(new Date(date.time));
+		selectedDate = date;
+		updateDateLabels();
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, programmatic));
+		return true;
+	}
+	
+	public function removeSelection(date:Date, programmatic:Boolean=true):Boolean{
+		if(null == date){
+			return false;
+		}
+		var n:int = selectedDates.length;
+		for(var i:int=0; i<n; i++){
+			var d:Date = selectedDates[i];
+			if(d.time == date.time){
+				selectedDates.splice(i, 1);
+				if(n > 1){
+					selectedDate = selectedDates[0];
+				}else{
+					selectedDate = null;
+				}
+				updateDateLabels();
+				dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, programmatic));
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public function setSelectedDate(date:Date, programmatic:Boolean=true):void{
+		if(selectedDate){
+			if(date != null && selectedDate.time == date.time){
+				return;
+			}
+		}else{
+			if(date == null){
+				return;
+			}
+		}
+		if(date){
+			selectedDate = new Date(date.time);
+			selectedDates = [selectedDate];
+		}else{
+			selectedDate = null;
+			selectedDates = [];
+		}
+		updateDateLabels();
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, programmatic));
+	}
+	
+	public function setSelectedDates(dates:Array, programmatic:Boolean=true):void{
+		var arr:Array = [];
+		for each(var date:Date in dates){
+			arr.push(DateRange.resetInDay(date));
+		}
+		selectedDates = arr;
+		updateDateLabels();
+		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, programmatic));
+	}
+	
+	/**
+	 * Return the selected date, null if there is no date selected
+	 */
+	public function getSelectedDate():Date{
+		if(selectedDate){
+			return new Date(selectedDate.time);
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * Return the selected date array, empty arry [] will be returned if there is no date selected
+	 */	
+	public function getSelectedDates():Array{
+		return selectedDates.concat();
+	}
+	
+	protected function getDisplayLabelDate(label:DateLabel):Date{
+		var date:Date = new Date(displayDate.time);
+		date.setDate(label.getDate());
+		return date;
 	}
 	
 	protected function updateDateLabels():void{
@@ -180,6 +282,7 @@ public class DateChooser extends JPanel{
 			label.setVisible(true);
 			date.setDate(i+1);
 			label.setDateEnabled(isDateEnabled(date));
+			label.setSelected(isDateSelected(date));
 		}
 		//hide no exists dates
 		for(; i<tileLabels.length; i++){
@@ -188,12 +291,33 @@ public class DateChooser extends JPanel{
 		}
 	}
 	
+	/**
+	 * @param date a date, time must be 00:00
+	 */
+	public function isDateSelected(date:Date):Boolean{
+		if(null == date){
+			return false;
+		}
+		if(allowMultipleSelection){
+			for each(var i:Date in selectedDates){
+				if(i.time == date.time){
+					return true;
+				}
+			}
+		}else{
+			if(selectedDate){
+				return selectedDate.time == date.time;
+			}
+		}
+		return false;
+	}
+	
 	public function isDateEnabled(date:Date):Boolean{
 		if(disabledDays.contains(date.getDay())){
 			return false;
 		}
 		for each(var r:DateRange in disabledRanges){
-			if(!r.isInRange(date)){
+			if(r.isInRange(date)){
 				return false;
 			}
 		}
@@ -232,26 +356,12 @@ public class DateChooser extends JPanel{
 		}
 		return labels;
 	}
-	
-	public function getSelectedDate():Date{
-		//TODO imp
-		return null;
-	}
-	
-	public function getSelectedRanges():Array{
-		//TODO imp
-		return [];
-	}
-	
-	public function setSelectedRanges(ranges:Array):void{
-		//TODO imp
-	}
-	
+		
 	public function highlightToday():void{
 		//TODO imp
 	}
 	
-	public function setDisplayDate(year:int, month:int):void{
+	public function setDisplayDate(year:int, month:int, programmatic:Boolean=true):void{
 		if(year < selectableRange.getStart().getFullYear()){
 			year = selectableRange.getStart().getFullYear();
 		}
@@ -272,6 +382,7 @@ public class DateChooser extends JPanel{
 			displayedYear = year;
 			displayedMonth = month;
 			displayPage();
+			dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
 		}
 	}
 	
@@ -424,14 +535,6 @@ public class DateChooser extends JPanel{
 	
 	public function getDisabledRanges():Array{
 		return disabledRanges;
-	}
-	
-	public function setAllowDisjointSelection(b:Boolean):void{
-		allowDisjointSelection = b;
-	}
-	
-	public function isAllowDisjointSelection():Boolean{
-		return allowDisjointSelection;
 	}
 	
 	public function setAllowMultipleSelection(b:Boolean):void{

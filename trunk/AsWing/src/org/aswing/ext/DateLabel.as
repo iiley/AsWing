@@ -88,7 +88,7 @@ public class DateLabel extends JLabel{
 			setBackground(selectionBackground);
 			setOpaque(true);
 		}else if(over){
-			setBackground(selectionBackground.changeAlpha(0.8));
+			setBackground(selectionBackground.changeAlpha(0.5));
 			setForeground(selectionForeground);
 			setOpaque(true);
 		}else if(out){
