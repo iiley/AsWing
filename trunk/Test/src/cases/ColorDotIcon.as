@@ -14,7 +14,7 @@ package cases
 		private var color:ASColor;
 		private var shape:Shape;
 		
-		public function ColorDotIcon(size:int=20, color:ASColor=ASColor.RED){
+		public function ColorDotIcon(size:int=20, color:ASColor=null){
 			shape = new Shape();
 			this.size = size;
 			if(color == null) color = ASColor.RED;
