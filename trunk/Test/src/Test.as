@@ -1,14 +1,12 @@
 package {
 
-import cases.*;
-import cases.color.*;
+import cases.DateChooserCase;
 
 import flash.display.*;
 import flash.events.Event;
 import flash.filters.*;
 import flash.text.*;
 
-import org.aswing.*;
 
 [SWF (width="360", height="300", backgroundColor="0x006666")]
 public class Test extends Sprite{
@@ -30,7 +28,14 @@ public class Test extends Sprite{
 		//for example change below with addChild(new Button());
 		//to test buttons.
 		//UIManager.setLookAndFeel(new AeonLAF());
-		addChild(new NormalMenu());
+		addChild(new DateChooserCase());
+		
+		var date:Date = new Date(2000, 1, 1);
+		trace(date);
+		date.setDate(30);
+		trace(date);
+		date.setDate(30);
+		trace(date);
 	}
 }
 }
