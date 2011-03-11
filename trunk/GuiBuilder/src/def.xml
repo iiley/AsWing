@@ -798,6 +798,17 @@
 		</Property>
 	</Com>
 	
+	<Com name="DateChooser" clazz="org.aswing.ext.DateChooser" sup="Component">
+		<Property label="Multiple Selection" name="AllowMultipleSelection" type="Boolean" category="Feature" order="10">
+		</Property>
+		<Property label="DayNames" name="DayNames" type="Array" category="Feature" order="10">
+			<Value value=" Su , Mo , Tu , We , Th , Fr , Sa "></Value>
+		</Property>
+		<Property label="MonthNames" name="MonthNames" type="Array" category="Feature" order="10">
+			<Value value="January,February,March,April,May,June,July,August,September,October,November,December"></Value>
+		</Property>
+	</Com>
+	
 </Components>
 
 </Definition>
