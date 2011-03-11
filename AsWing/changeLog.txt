@@ -170,5 +170,5 @@ Improved JTable(
 	will not limit its maximize size, 
 	added footer feature, it now can has a footer in its view, 
 	improved show/hide grid methods, easier use than before)
-New default LookAndFeel implemented 90%
-TODO:http://bbs.aswing.org/viewtopic.php?f=1&t=327&p=1133#p1133
+
+Added DateChooser
