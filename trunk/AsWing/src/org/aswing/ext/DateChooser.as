@@ -325,7 +325,7 @@ public class DateChooser extends JPanel{
 	}
 	
 	protected function createHeaderLabel(text:String):JLabel{
-		var label:JLabel = new JLabel(text);
+		var label:JLabel = new JLabel(text+"");
 		label.setOpaque(true);
 		label.setBackground(this.getBackground().brighter());
 		return label;
@@ -337,6 +337,7 @@ public class DateChooser extends JPanel{
 	
 	protected function getMonthLabels():Array{
 		var arr:Array = monthNames.concat();
+		arr.length = 12;
 		if(displayEndMonth < 11){
 			arr = arr.splice(displayEndMonth, 11-displayEndMonth);
 		}
@@ -498,6 +499,11 @@ public class DateChooser extends JPanel{
 	
 	public function setDayNames(names:Array):void{
 		dayNames = names.concat();
+		for(var i:int=0; i<headerLabels.length; i++){
+			var label:JLabel = headerLabels[i];
+			label.setText(names[i]+"");
+		}
+		revalidate();
 	}
 	
 	public function getDayNames():Array{
@@ -506,6 +512,7 @@ public class DateChooser extends JPanel{
 	
 	public function setMonthNames(names:Array):void{
 		monthNames = names.concat();
+		displayPage();
 	}
 	
 	public function getMonthNames():Array{
