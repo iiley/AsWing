@@ -172,3 +172,4 @@ Improved JTable(
 	improved show/hide grid methods, easier use than before)
 
 Added DateChooser
+Added WeightBoxLayout
