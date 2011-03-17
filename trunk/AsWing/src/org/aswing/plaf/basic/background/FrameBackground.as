@@ -72,7 +72,7 @@ public class FrameBackground implements GroundDecorator, UIResource{
 				new BevelFilter(1, 90, 0xFFFFFF, adjuster.shadowAlpha, 0x0, 0.1, 1, 1, 1, 1, BitmapFilterType.INNER), 
 				new BevelFilter(1, 90, 0x0, 0.1, 0xFFFFFF, adjuster.shadowAlpha, 1, 1, 1, 1, BitmapFilterType.OUTER)
 			];
-			
+			bar.visible = barHeight >= 2;
 			g = new Graphics2D(shape.graphics);
 			var ui:FrameUI = c.getUI() as FrameUI;
 			if(ui){
