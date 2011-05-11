@@ -176,7 +176,7 @@ class AWSprite extends Sprite
 	}
 	
 	private function d_swapChildren(child1:DisplayObject, child2:DisplayObject):Void{
-		swapChildren(child1, child2);
+		super.swapChildren(child1, child2);
 	}
 	
 	override public function swapChildren(child1:DisplayObject, child2:DisplayObject):Void{
