@@ -59,8 +59,8 @@ class Timer extends AbstractImpulser , implements Impulser{
 	}
 	private function clearInterval(lID:haxe.Timer):Void
 	{
-		lID.stop();
-		this.intervalID = null;
+		if(lID!=null)lID.stop();
+		lID = null;
 	}
     /**
      * Starts the <code>Timer</code>,

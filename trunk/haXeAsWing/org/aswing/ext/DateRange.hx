@@ -37,7 +37,7 @@ class DateRange{
 	
 	public function getStartMonth():Date {
 	//(Std.int(date.getTime()), 0,0,0,0,0)	
-		return resetInMonth(new Date(Std.int(rangeStart.getTime()), 0,0,0,0,0));
+		return resetInMonth(  Date.fromTime(Std.int(rangeStart.getTime())) );
 	}
 	
 	public function getEnd():Date{
@@ -45,7 +45,7 @@ class DateRange{
 	}
 	
 	public function getEndMonth():Date{
-		return resetInMonth( new Date(Std.int(rangeEnd.getTime()), 0,0,0,0,0));
+		return resetInMonth(Date.fromTime(Std.int(rangeEnd.getTime())));
 	}
 	
 	public function isInRange(date:Date):Bool{
@@ -61,15 +61,37 @@ class DateRange{
 	}
 	
 	public static function resetInMonth(date:Date):Date{
-	//why	date.setDate(1);
-		resetInDay(date);
-		return date;
+	//why	date.setDate(1); 
+		var datafloat:Float=DateChooser.convertToFloat(
+			{
+				year: date.getFullYear(),
+				month: date.getMonth(),
+				day: 1,
+				hours: date.getHours(),
+				minutes: date.getMinutes(),
+				seconds: date.getSeconds()
+			});
+		var  _date:Date=Date.fromTime(Std.int(datafloat));
+		resetInDay(_date);
+		return _date;
 	}
 	
-	public static function resetInDay(date:Date):Date{
+	public static function resetInDay(date:Date):Date {
+		var  _date:Date=null;	
 		if(date!=null)	{
 	//why		date.setHours(0, 0, 0, 0);
+			var datafloat:Float=DateChooser.convertToFloat(
+			{
+				year: date.getFullYear(),
+				month: date.getMonth(),
+				day: 1,
+				hours: date.getHours(),
+				minutes: date.getMinutes(),
+				seconds: date.getSeconds()
+			});
+			_date = Date.fromTime(Std.int(datafloat));
+		
 		}
-		return date;
+		return _date;
 	}
 }
