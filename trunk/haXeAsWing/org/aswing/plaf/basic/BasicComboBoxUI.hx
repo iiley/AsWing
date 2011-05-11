@@ -147,6 +147,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     		scollPane.setStyleProxy(box);
     		scollPane.setBackground(null);
     		scollPane.setStyleTune(null);
+		 
     	}
     	return scollPane;
     }
@@ -156,7 +157,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     		popup = new JPopup(box.root, false);
     		popup.setLayout(new BorderLayout());
     		popup.append(getScollPane(), BorderLayout.CENTER);
-    		popup.setClipMasked(false);
+    		popup.setClipMasked(false); 
     	}
     	return popup;
     }

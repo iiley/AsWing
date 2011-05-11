@@ -197,8 +197,8 @@ class Container extends Component{
 	 * @see #append()
 	 */
 	public function appendAll(coms: Array<Dynamic>):Void{
-		for (i in coms ){
-			var com:Component = flash.Lib.as(i,Component)	;
+		for (i in 0...coms.length ){
+			var com:Component = flash.Lib.as(coms[i],Component)	;
 			if(com != null){
 				append(com);
 			}

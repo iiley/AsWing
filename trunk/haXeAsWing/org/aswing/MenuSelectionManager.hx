@@ -94,20 +94,26 @@ class MenuSelectionManager extends EventDispatcher{
                 break;
             }
         }
+	
 		//       for(i=currentSelectionCount-1 ; i>=firstDifference; i--) {
-        for(i in currentSelectionCount-1 ...firstDifference){
+		i=currentSelectionCount-1 ;
+        while( i >=firstDifference ){
             var me:MenuElement = flash.Lib.as(selection.get(i),MenuElement);
             selection.removeAt(i);
             me.menuSelectionChanged(false);
+			i--;
         }
+	
+	
 		// for(i = firstDifference, c = path.length ; i < c ; i++) {
-        for(i  in firstDifference...path.length ){
+        for (i  in firstDifference...path.length ) {
+			
         	var tm:MenuElement = flash.Lib.as(path[i],MenuElement);
 		    if (tm != null) {
-				selection.append(tm);
+				selection.append(tm); 
 				tm.menuSelectionChanged(true);
 		    }
-		}
+		} 
 		if(firstDifference < path.length - 1 || currentSelectionCount != path.length){
 			fireSelectionChanged(programmatic);
 		}
@@ -273,7 +279,7 @@ class MenuSelectionManager extends EventDispatcher{
 		if(isEscKey(code)){
 			setSelectedPath(null, null, true);
 			return;
-		}
+		} 
 		var element:MenuElement = flash.Lib.as(selection.last(),MenuElement);
 		element.processKeyEvent(code);
 	}

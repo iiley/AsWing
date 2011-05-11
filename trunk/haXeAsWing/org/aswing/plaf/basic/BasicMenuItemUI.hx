@@ -62,14 +62,16 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 		super();
 	}
 	
-	override public function installUI(c:Component):Void{
+	override public function installUI(c:Component):Void {
+	 
 		menuItem = flash.Lib.as(c,JMenuItem);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
 
-	override public function uninstallUI(c:Component):Void{
+	override public function uninstallUI(c:Component):Void {
+ 
 		menuItem = flash.Lib.as(c,JMenuItem);
 		uninstallDefaults();
 		uninstallComponents();
@@ -183,9 +185,10 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 		menuItem.repaint();
 	}
 	
-	private function __menuItemRollOut(e:MouseEvent):Void{
+	private function __menuItemRollOut(e:MouseEvent):Void {
+		
 		var path:Array<Dynamic>= MenuSelectionManager.defaultManager().getSelectedPath();
-		if(path.length > 1 && path[path.length-1] == menuItem){
+		if (path.length > 1   && Std.is(path[path.length-1],JMenuItem)&&path[path.length-1] == menuItem){
 			path.pop();
 			MenuSelectionManager.defaultManager().setSelectedPath(menuItem.stage, path, false);
 		}
@@ -243,7 +246,9 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
             return [];
         }
         var parent:Component = menuItem.getParent();
-        if (flash.Lib.as(oldPath[i-1],MenuElement).getMenuComponent() == parent) {
+		var me:MenuElement = null;
+		me = flash.Lib.as(oldPath[i - 1], MenuElement);
+        if (me.getMenuComponent() == parent) {
             // The parent popup menu is the last so far
             newPath = oldPath.copy();
             newPath.push(menuItem);
@@ -256,7 +261,9 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
             // then copy up to that and add yourself...
             var j:Int=0;
             for (j  in 0...oldPath.length  ) { 
-                if (flash.Lib.as(oldPath[j],MenuElement).getMenuComponent() == parent){
+				me = flash.Lib.as(oldPath[j], MenuElement);
+				
+                if (me.getMenuComponent() == parent){
                     break;
                 }
             }
@@ -267,6 +274,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
     }	
     
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):Void{
+		
 		var mi:JMenuItem = flash.Lib.as(c,JMenuItem);
 		paintMenuItem(mi, g, b, checkIcon, arrowIcon,
 					  selectionBackground, selectionForeground,
