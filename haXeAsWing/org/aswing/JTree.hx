@@ -1264,12 +1264,14 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 		var toggledPaths:Array<Dynamic>= expandedState.keys();
 		var elements:ArrayList = null;
 		var path:TreePath;
-		var value:Bool;
+		var value:Bool=false;
 	
 		if(toggledPaths != null) {
-			for(i in 0...toggledPaths.length){
+			for (i in 0...toggledPaths.length) {
+				value = false;	
 				path = flash.Lib.as(toggledPaths[i],TreePath);
-				value = expandedState.get(path);
+				//why
+				if(path!=null)value = expandedState.get(path);
 				// Add the path if it is expanded, a descendant of parent,
 				// and it is visible (all parents expanded). This is rather
 				// expensive!
