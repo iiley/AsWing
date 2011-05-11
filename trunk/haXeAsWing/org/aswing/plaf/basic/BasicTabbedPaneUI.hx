@@ -375,6 +375,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 		
 	private function countPreferredTabSizeAt(index:Int):IntDimension{
 		var tab:Tab = getTab(index);
+		//why 
 		var size:IntDimension = tab.getTabComponent().getPreferredSize();
 		size.width = Std.int(Math.min(size.width, maxTabWidth));
 		return size;
@@ -436,7 +437,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 		return g;
 	}
 	
-	private function getTab(i:Int):Tab{
+	private function getTab(i:Int):Tab { 
     	return flash.Lib.as(tabs[i],Tab);
 	}
 	
@@ -494,16 +495,19 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
     		var i:Int;
     		var header:Tab;
     		if(comCount > tabs.length){
-    			for(i  in comCount...tabs.length){
+    			for(i  in tabs.length...comCount){
     				header = createNewTab();
     				setTabProperties(header, i);
     				tabBarMC.addChild(header.getTabComponent());
     				tabs.push(header);
     			}
-    		}else{
-    			for(i  in 0...tabs.length-comCount){
-    				header = flash.Lib.as(tabs.pop(),Tab);
+    		}else {
+			//for(i = tabs.length-comCount; i>0; i--){
+				var it:Int=tabs.length-comCount;
+    			while(it>0 ){
+    				header = flash.Lib.as(tabs.shift(),Tab);
     				tabBarMC.removeChild(header.getTabComponent());
+					it--;
     			}
     		}
     	}
