@@ -155,7 +155,7 @@ class BasicMenuUI extends BasicMenuItemUI{
 	private function __postTimerAct(e:Event):Void{
 		var menu:JMenu = getMenu();
 		var path:Array<Dynamic>= MenuSelectionManager.defaultManager().getSelectedPath();
-		if(path.length > 0 && path[path.length-1] == menu) {
+		if(path.length > 0 && Std.is(path[path.length-1],JMenu) && path[path.length-1] == menu) {
 			appendPath(path, menu.getPopupMenu());
 		}
 	}
