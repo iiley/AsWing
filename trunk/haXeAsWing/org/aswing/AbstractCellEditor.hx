@@ -123,8 +123,7 @@ class AbstractCellEditor implements CellEditor,implements TableCellEditor,implem
 		com.validate();
 	}
 	
-	private function __editorComponentFocusLost(e:Event):Void{
-		trace("__editorComponentFocusLost");
+	private function __editorComponentFocusLost(e:Event):Void{ 
 		cancelCellEditing();
 	}
 	
