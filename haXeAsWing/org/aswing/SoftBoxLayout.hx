@@ -225,6 +225,7 @@ class SoftBoxLayout extends EmptyLayout{
     		}else{
     			x = x + cw;
     		}
+			// 	for(var i:int=count-1; i>=0; i--) 
 	    	for(i in 0...count ){
 	    		var c:Component = target.getComponent(i);
 	    		if(c.isVisible()){

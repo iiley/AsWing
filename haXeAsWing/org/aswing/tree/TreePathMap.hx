@@ -48,7 +48,7 @@ class TreePathMap{
  		return map.containsKey(key.getLastPathComponent());
  	}
 
- 	public function get(key:TreePath):Dynamic{
+ 	public function get(key:TreePath):Dynamic {
   		return map.getValue(key.getLastPathComponent());
  	}
  	

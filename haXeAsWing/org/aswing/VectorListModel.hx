@@ -253,15 +253,29 @@ class VectorListModel extends AbstractListModel , implements MutableListModel,im
 	}	
 		
 	public function sort(compare:Dynamic, options:Int):Array<Dynamic>{
-		//why var returned:Array<Dynamic>= _elements.sort(compare, options);
+		  _elements.sort(function(a:Int,b:Int):Int {
+													if (a == b)
+														return 0;
+													if (a > b)
+														return 1;
+													else
+														return -1;
+												});
 		fireContentsChanged(this, 0, _elements.length-1, []);
-		return _elements;// returned;
+		return  _elements;
 	}
 	
 	public function sortOn(key:Dynamic, options:Int):Array<Dynamic>{
-		//why  var returned:Array<Dynamic>= _elements.sortOn(key, options);
+	     _elements.sort(function(a:Int,b:Int):Int {
+													if (a == b)
+														return 0;
+													if (a > b)
+														return 1;
+													else
+														return -1;
+												});
 		fireContentsChanged(this, 0, _elements.length-1, []);
-		return  _elements;// returned;
+		return   _elements;
 	}
 	
 	public function toString():String{
