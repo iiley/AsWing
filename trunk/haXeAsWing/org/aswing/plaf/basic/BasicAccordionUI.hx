@@ -380,7 +380,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     	vHeight = h;
     	vWidth = w;
     	vX = x;
-    	for(i in 0...selected){
+    	for(i in 0...selected+1){
     		if (!accordion.isVisibleAt(i)) continue;
     		header = getHeader(i);
     		tab = header.getTabComponent();
@@ -412,7 +412,8 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     	
     	y = accordion.getHeight() - insets.bottom;
 		//	for(i=count-1; i>selected; i--){
-    	for(i in  selected...count){
+		i=count-1;
+    	while(i>selected){
     		if (!accordion.isVisibleAt(i)) continue;
     		header = getHeader(i);
     		tab = header.getTabComponent();
@@ -425,6 +426,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     		header.setSelected(false);
     		vHeight -= size.height;
     		tab.validate();
+			i--;
     	}
     	destSize.setSizeWH(vWidth, vHeight);
     	for(i in 0...count){
