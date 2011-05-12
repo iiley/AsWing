@@ -4,15 +4,14 @@
 
 package org.aswing;
 
-	
+import flash.events.Event;
+import flash.events.MouseEvent;
+import org.aswing.event.ReleaseEvent;
+import org.aswing.geom.IntRectangle;
 import flash.display.DisplayObject;
 import flash.display.Shape;
 import flash.display.Sprite;
-import flash.events.Event;
-	import flash.events.MouseEvent;
-	import org.aswing.event.ReleaseEvent;
-	import org.aswing.geom.IntRectangle;
-	/**
+/**
  * Dispatched when the mouse released or released out side.
  * If you need a event like AS2 <code>onRelease</code> you can 
  * use <code>Event.CLICK</code>
@@ -49,12 +48,12 @@ class AWSprite extends Sprite
 	
 	private var clipMasked:Bool;
 	private var clipMaskRect:IntRectangle;
-	private var content:Sprite;
+ 
 	private var maskShape:Shape;
 	private var usingBitmap:Bool;
 	
 	public function new(clipMasked:Bool=false){
-		clipMasked=false;
+		this.clipMasked=false;
 			super();
 		focusRect = false;
 		usingBitmap = false;
@@ -67,17 +66,14 @@ class AWSprite extends Sprite
 		return super.addChild(child);
 	}
 	
-	private function d_addChildAt(child:DisplayObject, index:Int):DisplayObject
-	{
+	private function d_addChildAt(child:DisplayObject, index:Int):DisplayObject{
 		return super.addChildAt(child, index);
 	}
 	
 	override public function addChildAt(child:DisplayObject, index:Int):DisplayObject{
-		if(usingBitmap){
-			return content.addChildAt(child, index);
-		}else{
+		 
 			return d_addChildAt(child, index);
-		}
+		 
 	}
 	
 	private function d_removeChild(child:DisplayObject):DisplayObject{
@@ -88,19 +84,15 @@ class AWSprite extends Sprite
 	 * Returns whether or not the child is this sprite's direct child.
 	 */
 	private function isChild(child:DisplayObject):Bool{
-		if(usingBitmap){
-			return child.parent == content;
-		}else{
+	 
 			return child.parent == this;
-		}		
+	 	
 	}
 	
 	override public function removeChild(child:DisplayObject):DisplayObject{
-		if(usingBitmap){
-			return content.removeChild(child);
-		}else{
+	 
 			return d_removeChild(child);
-		}
+		 
 	}
 	
 	private function d_removeChildAt(index:Int):DisplayObject{
@@ -108,109 +100,60 @@ class AWSprite extends Sprite
 	}
 	
 	override public function removeChildAt(index:Int):DisplayObject{
-		if(usingBitmap){
-			return content.removeChildAt(index);
-		}else{
+	 
 			return d_removeChildAt(index);
-		}
+		 
 	}
 	
 	private function d_getChildAt(index:Int):DisplayObject{
 		return super.getChildAt(index);
 	}
 	
-	override public function getChildAt(index:Int):DisplayObject{
-		if(usingBitmap){
-			return content.getChildAt(index);
-		}else{
-			return d_getChildAt(index);
-		}
-	}
+	 
 	
 	private function d_getChildByName(name:String):DisplayObject{
 		return super.getChildByName(name);
 	}
 	
-	override public function getChildByName(name:String):DisplayObject{
-		if(usingBitmap){
-			return content.getChildByName(name);
-		}else{
-			return d_getChildByName(name);
-		}
-	}
+	 
 	
 	private function d_getChildIndex(child:DisplayObject):Int{
 		return super.getChildIndex(child);
 	}
-	
-	override public function getChildIndex(child:DisplayObject):Int{
-		if(usingBitmap){
-			return content.getChildIndex(child);
-		}else{
-			return d_getChildIndex(child);
-		}
-	}
+ 
 	
 	/**
 	 * Returns whether child is directly child of this sprite, true only if getChildIndex(child) >= 0.
 	 * @return true only if getChildIndex(child) >= 0.
 	 */
 	public function containsChild(child:DisplayObject):Bool{
-		if(usingBitmap){
-			return child.parent.parent == this;
-		}else{
+	 
 			return child.parent == this;
-		}		
+		 		
 	}
 	
 	private function d_setChildIndex(child:DisplayObject, index:Int):Void{
 		super.setChildIndex(child, index);
 	}
 	
-	override public function setChildIndex(child:DisplayObject, index:Int):Void{
-		if(usingBitmap){
-			content.setChildIndex(child, index);
-		}else{
-			d_setChildIndex(child, index);
-		}
-	}
+ 
 	
 	private function d_swapChildren(child1:DisplayObject, child2:DisplayObject):Void{
 		super.swapChildren(child1, child2);
 	}
 	
-	override public function swapChildren(child1:DisplayObject, child2:DisplayObject):Void{
-		if(usingBitmap){
-			content.swapChildren(child1, child2);
-		}else{
-			d_swapChildren(child1, child2);
-		}
-	}
-	
+	 
 	private function d_swapChildrenAt(index1:Int, index2:Int):Void{
 		super.swapChildrenAt(index1, index2);
 	}
 	
-	override public function swapChildrenAt(index1:Int, index2:Int):Void{
-		if(usingBitmap){
-			content.swapChildrenAt(index1, index2);
-		}else{
-			d_swapChildrenAt(index1, index2);
-		}
-	}
- 
+	 
+	
 	private function get_d_numChildren():Int{
 		return  numChildren;
 	}
 	
- 
-	public function get_numChildren():Int{
-		if(usingBitmap){
-			return content.numChildren;
-		}else{
-			return d_numChildren;
-		}
-	}
+	 
 	
 	/**
 	 * Adds a child DisplayObject instance to this DisplayObjectContainer instance. 
@@ -227,20 +170,7 @@ class AWSprite extends Sprite
 	 * @see #getHighestIndexUnderForeground()
 	 * @see #http://livedocs.macromedia.com/flex/2/langref/flash/display/DisplayObjectContainer.html#getChildIndex()
 	 */
-	public override function addChild(dis:DisplayObject):DisplayObject{
-		if(foregroundChild != null){
-			if(usingBitmap){
-				return content.addChildAt(dis, content.getChildIndex(foregroundChild));
-			}
-			d_addChild(dis);
-			d_swapChildren(dis, foregroundChild);
-			return dis;
-		}
-		if(usingBitmap){
-			return content.addChild(dis);
-		}
-		return d_addChild(dis);
-	}
+ 
 	
 	/**
 	 * Returns the current top index for a new child(none forground child).
@@ -266,23 +196,8 @@ class AWSprite extends Sprite
 		}
 	}
 	
-	override public function hitTestPoint(x:Float, y:Float, shapeFlag:Bool=false):Bool{
-		if(isClipMasked() && !shapeFlag){
-			return maskShape.hitTestPoint(x, y, shapeFlag);
-		}else{
-			//TODO use bounds to test the x, y
-			return super.hitTestPoint(x, y, shapeFlag);
-		}
-	}
-	
-	override public function hitTestObject(obj:DisplayObject):Bool{
-		if(isClipMasked()){
-			return maskShape.hitTestObject(obj);
-		}else{
-			//TODO use bounds to test the obj
-			return super.hitTestObject(obj);
-		}
-	}
+	 
+	 
 	
 	/**
 	 * Brings a child to top.
@@ -385,7 +300,7 @@ class AWSprite extends Sprite
 		if(m != clipMasked){
 			clipMasked = m;
 			setUsingBitmap(cacheAsBitmap && clipMasked);
-			if(clipMasked){
+			if(clipMasked)	{
 				checkCreateMaskShape();
 				if(maskShape.parent != this){
 					d_addChild(maskShape);
@@ -402,7 +317,7 @@ class AWSprite extends Sprite
 	}
 	
 	private function setClipMaskRect(b:IntRectangle):Void{
-		if(maskShape!=null){
+		if(maskShape!=null)	{
 			maskShape.x = b.x;
 			maskShape.y = b.y;
 			maskShape.height = b.height;
@@ -422,80 +337,10 @@ class AWSprite extends Sprite
 		var children:Array<Dynamic>;
 		var n:Int;
 		var i:Int;
-		if(usingBitmap){
-			if(content==null){
-				content = new Sprite();
-				content.tabEnabled = false;
-				content.mouseEnabled = false;
-			}
-			//move children from this to content
-			children = new Array<Dynamic>();
-			n = d_numChildren;
-			for(i in 0...n){
-				if(d_getChildAt(i) != maskShape){
-					children.push(d_getChildAt(i));
-				}
-			}
-			for(i in 0...children.length){
-				content.addChild(children[i]);
-			}
-			
-			d_addChild(content);
-			if(clipMasked){
-				//mask = null;
-				content.mask = maskShape;
-			}
-		}else{
-			d_removeChild(content);
-			
-			//move children from content to this
-			children = new Array<Dynamic>();
-			n = content.numChildren;
-			for(i in 0...n){
-				children.push(content.getChildAt(i));
-			}
-			for(i in 0...children.length){
-				d_addChild(children[i]);
-			}
-			
-			if(clipMasked){
-				//content.mask = null;
-				//mask = maskShape;
-			}
-		}
+		 
 	}
-	
-	 public function set_mask(value:DisplayObject):DisplayObject{
-		if(usingBitmap){
-			content.mask = value;
-		}else{
-			 mask = value;
-		}
-	
-			return value;
-		}
-	
-	 public function get_mask():DisplayObject{
-		if(usingBitmap){
-			return content.mask;
-		}else{
-			return  mask;
-		}
-	}
-	
-	 public function set_filters(value:Array<Dynamic>):Array<Dynamic>{
-		filters = value;
-		setUsingBitmap(cacheAsBitmap && clipMasked);
-	
-			return value;
-		}
-	
-	 public function set_cacheAsBitmap(value:Bool):Bool{
-		cacheAsBitmap = value;
-		setUsingBitmap(value && clipMasked);
-	
-			return value;
-		}
+   
+ 
 	
 	private function checkCreateMaskShape():Void{
 		if(maskShape==null){
@@ -521,7 +366,7 @@ class AWSprite extends Sprite
 	private var pressedTarget:DisplayObject;
 	private function __awSpriteMouseDownListener(e:MouseEvent):Void{
 		pressedTarget = flash.Lib.as(e.target,DisplayObject)	;
-		if(stage!=null){
+		if(stage!=null)	{
 			stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener, false, 0, true);
 			addEventListener(Event.REMOVED_FROM_STAGE, __awStageRemovedFrom);
 		}
@@ -531,14 +376,14 @@ class AWSprite extends Sprite
 		stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 	}
 	private function __awStageMouseUpListener(e:MouseEvent):Void{
-		if(stage!=null) stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
+		if(stage!=null)	stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 		var isOutSide:Bool= false;
 		var target:DisplayObject = flash.Lib.as(e.target,DisplayObject)	;
-		 if(!(this == target || AsWingUtils.isAncestorDisplayObject(this, target))){
+		if(!(this == target || AsWingUtils.isAncestorDisplayObject(this, target))){
 			isOutSide = true;
-		 }
+		}
 		dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE, pressedTarget, isOutSide, e));
-		if(isOutSide){
+		if(isOutSide)	{
 			dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE_OUT_SIDE, pressedTarget, isOutSide, e));
 		}
 
@@ -555,14 +400,6 @@ class AWSprite extends Sprite
 		}
 		return str;
 	}
-	public var d_numChildren(get_d_numChildren, null):Int;
-		
-	/*
-	public var mask(get_mask,set_mask):DisplayObject;
-	public var numChildren(get_numChildren,null):Int;
 
-	
-
-
-	*/
+		public var d_numChildren(get_d_numChildren,null):Int;
 }
