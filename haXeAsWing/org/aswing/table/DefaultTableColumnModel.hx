@@ -364,7 +364,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 				return new Array<Dynamic>();
 			}
 			var rv:Array<Dynamic>= new Array<Dynamic>();
-			for (i in iMin...iMax){
+			for (i in iMin...iMax+1){
 				if (selectionModel.isSelectedIndex(i)){
 					rv.push(i);
 				}
@@ -383,7 +383,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 			var iMin:Int= selectionModel.getMinSelectionIndex();
 			var iMax:Int= selectionModel.getMaxSelectionIndex();
 			var count:Int= 0;
-			for (i in iMin...iMax){
+			for (i in iMin...iMax+1){
 				if (selectionModel.isSelectedIndex(i)){
 					count++;
 				}

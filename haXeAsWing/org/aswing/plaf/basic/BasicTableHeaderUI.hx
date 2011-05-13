@@ -234,7 +234,7 @@ class BasicTableHeaderUI extends BaseComponentUI{
 		var cellRect:IntRectangle = header.getHeaderRect(cMin);
 		cellRect.x += Std.int(header.getTable().getColumnModel().getColumnMargin()/2);
 		var aColumn:TableColumn;
-		for (column in cMin...cMax){
+		for (column in cMin...cMax+1){
 			aColumn = cm.getColumn(column);
 			columnWidth = aColumn.getWidth();
 			cellRect.width = Std.int(columnWidth);

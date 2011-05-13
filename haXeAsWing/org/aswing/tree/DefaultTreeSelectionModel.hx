@@ -847,7 +847,7 @@ class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelecti
 		    var tempPath:Array<Dynamic>= new Array<Dynamic>();
 	
 		    if(min != -1) {
-				for(counter  in min...max){
+				for(counter  in min...max+1){
 				    if(lModel.isSelectedIndex(counter)){
 						bitSet[counter] = true;
 				    }
@@ -872,7 +872,7 @@ class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelecti
 				    bitSet[anIndex] = true;
 				}
 		    }
-		    for(counter  in min...max){
+		    for(counter  in min...max+1){
 				if(!(bitSet[counter] == true)){
 				    return false;
 				}

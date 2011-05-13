@@ -471,7 +471,7 @@ class GridList extends JViewport , implements ListDataListener{
 			return values;
 		}
 		var vm:ListModel = getModel();
-		for(i in min...max){
+		for(i in min...max+1){
 			if(sm.isSelectedIndex(i)){
 				values.push(vm.getElementAt(i));
 			}
@@ -491,7 +491,7 @@ class GridList extends JViewport , implements ListDataListener{
 		if(min < 0 || max < 0 || isSelectionEmpty()){
 			return indices;
 		}
-		for(i in min...max){
+		for(i in min...max+1){
 			if(sm.isSelectedIndex(i)){
 				indices.push(i);
 			}
@@ -670,7 +670,7 @@ class GridList extends JViewport , implements ListDataListener{
 		var i0:Int= Std.int(Math.min(e.getIndex0(), e.getIndex1()));
 		var i1:Int= Std.int(Math.max(e.getIndex0(), e.getIndex1()));
 		
-		for(i in i0...i1){
+		for(i in i0...i1+1){
 			var cell:GridListCell = createNewCell();
 			cells.append(cell, i);
 			cell.setCellValue(m.getElementAt(i));
@@ -712,7 +712,7 @@ class GridList extends JViewport , implements ListDataListener{
 		var i0:Int= Std.int(Math.min(e.getIndex0(), e.getIndex1()));
 		var i1:Int= Std.int(Math.max(e.getIndex0(), e.getIndex1()));
 		
-		for(i in i0...i1){
+		for(i in i0...i1+1){
 			var cell:GridListCell = cells.get(i);
 			cell.setCellValue(m.getElementAt(i));
 		}

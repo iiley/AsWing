@@ -268,7 +268,7 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 			var x2:Float= damagedArea.x + damagedArea.width - 1;
 			var y:Float= damagedArea.y + 0.5;
 			var rh:Int= table.getRowHeight();
-			for (row in rMin...rMax+1){
+			for (row in rMin...rMax+2){
 				if(row == rowCount){
 					y -= 1;
 				}
@@ -281,7 +281,7 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 			var x:Float= damagedArea.x + 0.5;
 			var y1:Float= damagedArea.y + 0.5;
 			var y2:Float= y1 + damagedArea.height - 1;
-			for (column in cMin...cMax+1){
+			for (column in cMin...cMax+2){
 				if(column == columnCount){
 					x -= 1;
 				}

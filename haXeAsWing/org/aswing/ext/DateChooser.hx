@@ -102,7 +102,7 @@ class DateChooser extends JPanel{
 			headerLabels.push(label);
 			headerBar.append(label);
 		}
-		for(i in 1...31){
+		for(i in 1...32){
 			var labelB:DateLabel = createDateLabel(i);
 			labelB.addEventListener(MouseEvent.MOUSE_DOWN, __dateLabelPress);
 			tileLabels.push(labelB);
@@ -377,7 +377,7 @@ class DateChooser extends JPanel{
 		var end:Int= selectableRange.getEnd().getFullYear();
 		var labels:Array<Dynamic>= [];
 		var n:Int= end - start + 1;
-		for(i in 0...n){
+		for(i in 0...n+1){
 			labels[i] = (start+i) + "";
 		}
 		return labels;

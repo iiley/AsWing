@@ -1146,7 +1146,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		}
 		
 		var rvTmp:Array<Dynamic>= new Array<Dynamic>();
-		for (i in iMin...iMax){
+		for (i in iMin...iMax+1){
 			if (selectionModel.isSelectedIndex(i)){
 				rvTmp.push(i);
 			}
@@ -1174,7 +1174,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		var iMin:Int= selectionModel.getMinSelectionIndex();
 		var iMax:Int= selectionModel.getMaxSelectionIndex();
 		var count:Int= 0;
-		for (i in iMin...iMax){
+		for (i in iMin...iMax+1){
 			if (selectionModel.isSelectedIndex(i)){
 				count++;
 			}
@@ -2825,10 +2825,13 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		}//invisible others rows
 	 
 		//invisible others rows
-		for(i in cr...rowCells.length){
-			for(c in 0...columnCount ){
+		for (i in cr...rowCells.length) {
+		//for(var c:int=columnCount-1; c>=0; c--){	
+			var c:Int = columnCount - 1;
+			while( c>=0 ){
 				var cell: TableCell= rowCells[i][c];
 				cell.getCellComponent().setVisible(false);
+				 c--;
 			}
 		}
 	}
@@ -2866,11 +2869,14 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 			clearCells();
 			return;
 		}
-		for(i in 0...lastColumnCellFactories.length ){
+		//for(var i:int = lastColumnCellFactories.length-1; i>=0; i--){
+		var i:Int = lastColumnCellFactories.length-1;
+		while(i>=0 ){
 			if(lastColumnCellFactories[i] != this.getCellFactory(0, i)){
 				clearCells();
 				return;
 			}
+			 i--;
 		}
 	}
 	
