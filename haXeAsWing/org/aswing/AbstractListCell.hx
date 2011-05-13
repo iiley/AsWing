@@ -32,6 +32,7 @@ class AbstractListCell implements ListCell{
 
 	public function setCellValue(value:Dynamic) : Void{
 		this.value = value;
+		
 	}
 
 	public function getCellValue():Dynamic{

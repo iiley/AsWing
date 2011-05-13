@@ -77,7 +77,7 @@ class AbstractTabbedPane extends Container{
     private var margin:Insets;
     
 	public function new() {
-		super();
+		
 		//default
     	verticalAlignment = CENTER;
     	horizontalAlignment = CENTER;
@@ -91,6 +91,7 @@ class AbstractTabbedPane extends Container{
 		enables = new Array<Dynamic>();
 		visibles = new Array<Dynamic>();
 		setModel(new DefaultSingleSelectionModel());
+		super();
 	}
 	
     /**
