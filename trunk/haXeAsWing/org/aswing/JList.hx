@@ -1387,6 +1387,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
     	var factory:ListCellFactory = getCellFactory();
     	
 		var ir:IntRectangle = getInsets().getInsideBounds(getSize().getBounds());
+ 
     	cellPane.setComBounds(ir);
     	
     	if(factory.isShareCells()){
@@ -1476,7 +1477,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			cellCom.validate();
 		}
 		var rlvi:Int= Std.int(Math.min(lastVisibleIndex+lastVisibleIndexOffset, listSize-1));
-		for(i in endIndex+1...rlvi){
+		for(i in endIndex+1...rlvi+1){
 			cellCom = flash.Lib.as(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
