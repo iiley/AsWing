@@ -1846,7 +1846,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
         if(tree != null) {
             var selection:Array<Dynamic>= new Array<Dynamic>();
 
-            for(counter in newMinIndex...newMaxIndex){
+            for(counter in newMinIndex...newMaxIndex+1){
                 selection[counter - newMinIndex] = tree.getPathForRow(this, counter);
             }
             return selection;
@@ -2193,7 +2193,9 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 						parentPath = parentPath.getParentPath();
 				    }
 				}
-				for(counter in 0...stack.size() ){
+				//for(var counter:int = stack.size() - 1; counter >= 0; counter--) {
+				var counter:Int = stack.size() - 1;
+				while(counter >= 0){
 				    parentPath =  flash.Lib.as(stack.pop(),TreePath);
 				    if(!isExpanded(parentPath)) {
 						try {
@@ -2205,6 +2207,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 						expandedState.put(parentPath, true);
 						fireTreeExpanded(parentPath);
 				    }
+					counter--;
 				}
 		    }catch(e:Error) {
 				if (expandedStack.size() < TEMP_STACK_SIZE) {
@@ -2323,14 +2326,17 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 	
 		if(selPaths != null) {
 		    var shouldRemove:Bool= false;
-	
-		    for(counter in 0...selPaths.length ){
+	//  for(var counter:int = selPaths.length - 1; counter >= 0; counter--) {
+			var counter:Int = selPaths.length - 1;
+		    while(counter >= 0){
 				if(selPaths[counter] != null &&
 				   path.isDescendant(selPaths[counter]) &&
 				   (!path.equals(selPaths[counter]) || includePath))
 				    shouldRemove = true;
 				else
 				    selPaths[counter] = null;
+					
+				counter--;
 		    }
 		    if(shouldRemove!=true) {
 				selPaths = null;
@@ -2350,10 +2356,13 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 		var sm:TreeSelectionModel = getSelectionModel();
 	
 		if (sm != null && pPath != null && oldChildren != null && oldChildren.length > 0) {
-		    for (counter in 0...oldChildren.length  ){
+			//for (var counter:int = oldChildren.length - 1; counter >= 0; counter--) {
+			var counter:Int = oldChildren.length - 1;
+		    while (counter >= 0  ){
 			// Might be better to call getDescendantSelectedPaths
 			// numerous times, then push to the model.
 			removeDescendantSelectedPaths(pPath.pathByAddingChild(oldChildren[counter]), true);
+			counter--;
 		    }
 		}
     } 
@@ -2399,11 +2408,13 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 
 	    var rPath:TreePath;
 	    var toRemove:Array<Dynamic>= new Array<Dynamic>();
-
-	    for(counter in 0...children.length ){
+		//  for(var counter:int = children.length - 1; counter >= 0; counter--) {
+		var counter:Int = children.length - 1;
+	    while(counter >= 0){
 			rPath = parent.pathByAddingChild(children[counter]);
 			if(expandedState.get(rPath) != null)
 			    toRemove.push(rPath);
+				counter--;
 	    }
 	    if(toRemove.length > 0){
 			removeDescendantToggledPaths(toRemove);

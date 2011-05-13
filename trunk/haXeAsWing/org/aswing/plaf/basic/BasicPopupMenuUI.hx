@@ -155,10 +155,12 @@ class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
 		var p:Array<Dynamic>= msm.getSelectedPath();
 		var me:MenuElement = null;		
 	//for(var i:Number = p.length-1 ; me == null && i >= 0 ; i--) {
-		for(i in p.length-1 ... 0 ){
+		var i:Int = p.length - 1 ;  
+		while(i >= 0  ){
 			if (	Std.is(p[i] , JPopupMenu)){
 				me = p[i];
 			}
+			i--;
 		}
 	
 		return me;
