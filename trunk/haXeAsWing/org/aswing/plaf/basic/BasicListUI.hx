@@ -246,7 +246,8 @@ class BasicListUI extends BaseComponentUI{
     
     private function doSelection():Void{
     	var index:Int= Std.int(pressedIndex);
-		if(pressedShift)	{
+		if (pressedShift)	{
+			
 			var archor:Int= list.getAnchorSelectionIndex();
 			if(archor < 0){
 				archor = index;
@@ -258,12 +259,14 @@ class BasicListUI extends BaseComponentUI{
 			}else{
 				list.removeSelectionInterval(index, index, false);
 			}
-		}else{
+		}else {
+			
 			list.setSelectionInterval(index, index, false);
 		}
     }
     
-    private function __onItemClick(e:ListItemEvent):Void{
+    private function __onItemClick(e:ListItemEvent):Void {
+	 
     	if(doSelectionWhenRelease)	{
     		doSelection();
     		doSelectionWhenRelease = false;

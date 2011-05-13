@@ -59,7 +59,7 @@ class DefaultListSelectionModel extends EventDispatcher , implements ListSelecti
 		var max:Int= Std.int(Math.max(index0, index1));
 		var changed:Bool= false;
 		if(min == minIndex && max == maxIndex){
-			for(i in min...max){
+			for(i in min...max+1){
 				if(value[i] != true){
 					changed = true;
 					break;
@@ -72,7 +72,7 @@ class DefaultListSelectionModel extends EventDispatcher , implements ListSelecti
 			minIndex = min;
 			maxIndex = max;
 			clearSelectionImp();
-			for(i in minIndex...maxIndex){
+			for(i in minIndex...maxIndex+1){
 				value[i] = true;
 			}
 			fireListSelectionEvent(min, max, programmatic);
@@ -91,7 +91,7 @@ class DefaultListSelectionModel extends EventDispatcher , implements ListSelecti
 		var min:Int= Std.int(Math.min(index0, index1));
 		var max:Int= Std.int(Math.max(index0, index1));
 		var changed:Bool= false;
-		for(i in min...max){
+		for(i in min...max+1){
 			if(value[i] != true){
 				value[i] = true;
 				changed = true;
@@ -127,7 +127,7 @@ class DefaultListSelectionModel extends EventDispatcher , implements ListSelecti
 		}else{//min==minIndex && max<maxIndex
 			minIndex = max + 1;
 		}
-		for(i in min...max){
+		for(i in min...max+1){
 			value[i] = null;
 		}
 		fireListSelectionEvent(min, max, programmatic);

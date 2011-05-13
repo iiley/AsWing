@@ -403,7 +403,7 @@ class ASColor{
 	}
 	
 	public function toString():String{
-		return "ASColor(rgb:"+rgb+", alpha:"+alpha+")";
+		return "ASColor(rgb:"+StringTools.hex(rgb)+", alpha:"+alpha+")";
 	}
 
 	/**

@@ -141,7 +141,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     
     private function getScollPane():JScrollPane{
     	if(scollPane == null){
-    		scollPane = new JScrollPane(getPopupList());
+    		scollPane = new JScrollPane(getPopupList(),JScrollPane.SCROLLBAR_ALWAYS);
     		scollPane.setBorder(getBorder(getPropertyPrefix()+"popupBorder"));
     		scollPane.setOpaque(false);
     		scollPane.setStyleProxy(box);
@@ -176,16 +176,18 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
 			cellHeight = box.getListCellFactory().getCellHeight();
 		}else{
 			cellHeight = box.getPreferredSize().height;
-		}
+		} 
 		var height:Int=Std.int( Math.min(box.getItemCount(), box.getMaximumRowCount())*cellHeight);
 		var i:Insets = getScollPane().getInsets();
+		 
 		height += i.top + i.bottom;
 		width += (i.right - i.left);
 		i = getPopupList().getInsets();
+ 
 		height += i.top + i.bottom;
 		width += (i.right - i.left);
-		getPopup().changeOwner(AsWingUtils.getOwnerAncestor(box));
-		getPopup().setSizeWH(width, height);
+		getPopup().changeOwner(AsWingUtils.getOwnerAncestor(box)); 
+		getPopup().setSizeWH(width, height); 
 		getPopup().show();
 		startMoveToView();
 		AsWingManager.callLater(__addMouseDownListenerToStage);

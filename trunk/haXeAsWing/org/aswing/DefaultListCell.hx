@@ -57,6 +57,7 @@ class DefaultListCell extends AbstractListCell{
 		jlabel.setOpaque(true);
 		jlabel.setFocusable(false);
 		jlabel.addEventListener(ResizedEvent.RESIZED, __resized);
+	 
 	}
 	
 	private function __resized(e:ResizedEvent):Void { 

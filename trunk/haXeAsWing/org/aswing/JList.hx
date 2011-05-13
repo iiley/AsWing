@@ -584,7 +584,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
      * @see ListSelectionModel#setSelectionInterval
      * @see #removeSelectionInterval()
      */	
-	public function setSelectionInterval(index0:Int, index1:Int, programmatic:Bool=true):Void{
+	public function setSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void {
 		getSelectionModel().setSelectionInterval(index0, index1, programmatic);
 	}
 	
@@ -648,7 +648,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		if(min < 0 || max < 0 || isSelectionEmpty()){
 			return indices;
 		}
-		for(i in min...max){
+		for(i in min...max+1){
 			if(sm.isSelectedIndex(i)){
 				indices.push(i);
 			}
@@ -690,7 +690,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			return values;
 		}
 		var vm:ListModel = getModel();
-		for(i in min...max){
+		for(i in min...max+1){
 			if(sm.isSelectedIndex(i)){
 				values.push(vm.getElementAt(i));
 			}
@@ -1485,7 +1485,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			lastVisibleIndex = -1;
 		}
 		//visible current needed
-		for(i in startIndex...endIndex){
+		for(i in startIndex...endIndex+1){
 			var cell:ListCell = flash.Lib.as(cells.get(i),ListCell);
 			cellCom = cell.getCellComponent();
 			cellCom.setVisible(true);
@@ -1582,7 +1582,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			cellCom.validate();
 		}
 		var rlvi:Int= Std.int(Math.min(lastVisibleIndex+lastVisibleIndexOffset, listSize-1));
-		for(i in endIndex+1...rlvi){
+		for(i in endIndex+1...rlvi+1){
 			cellCom = flash.Lib.as(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
@@ -1629,7 +1629,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			w = getPreferredCellWidthWhenNoCount();
 			h = m.getSize()*factory.getCellHeight();
 		}else{
-			for(i in i0...i1){
+			for(i in i0...i1+1){
 				var cell:ListCell = createNewCell();
 				cells.append(cell, i);
 				cell.setCellValue(m.getElementAt(i));
@@ -1689,7 +1689,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			h = m.getSize()*factory.getCellHeight();
 		}else{
 			var needRecountWidth:Bool= false;
-			for(i in i0...i1){
+			for(i in i0...i1+1){
 				cell = flash.Lib.as(cells.get(i),ListCell);
 				if(cell == maxWidthCell){
 					needRecountWidth = true;
@@ -1763,7 +1763,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			h = m.getSize()*factory.getCellHeight();
 		}else{
 			var needRecountWidth:Bool= false;
-			for(i in i0...i1){
+			for(i in i0...i1+1){
 				var newValue:Dynamic= m.getElementAt(i);
 				cell = flash.Lib.as(cells.get(i),ListCell);
 				s = getCachedCellPreferSize(cell);
