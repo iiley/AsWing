@@ -26,7 +26,7 @@ class DefaultListSelectionModel extends EventDispatcher , implements ListSelecti
 	inline public static var MULTIPLE_SELECTION:Int= 1;
 		
 	private static var MIN:Int= -1;
-	private static var MAX:Int= 2147483648;
+	private static var MAX:Int= AsWingConstants.MAX_VALUE;
 	
 	private var value:Array<Dynamic>;
 	private var minIndex:Int;

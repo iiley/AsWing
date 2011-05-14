@@ -48,7 +48,7 @@ class JTextArea extends JTextComponent , implements Viewportable{
  	/**
  	 * The default unit/block increment, it means auto count a value.
  	 */
- 	inline public static var AUTO_INCREMENT:Int= -2147483648;
+ 	inline public static var AUTO_INCREMENT:Int= AsWingConstants.MIN_VALUE;
  	
 	private static var defaultMaxChars:Int= 0;
  	
@@ -363,7 +363,7 @@ class JTextArea extends JTextComponent , implements Viewportable{
 	 * if it is located in a <code>JScrollPane</code>.
 	 */
 	public function scrollToBottomLeft():Void{
-		setViewPosition(new IntPoint(0, 2147483648));
+		setViewPosition(new IntPoint(0, AsWingConstants.MAX_VALUE));
 	}
 	/**
 	 * Scrolls to view bottom right content. 
@@ -371,7 +371,7 @@ class JTextArea extends JTextComponent , implements Viewportable{
 	 * if it is located in a <code>JScrollPane</code>.
 	 */	
 	public function scrollToBottomRight():Void{
-		setViewPosition(new IntPoint(2147483648, 2147483648));
+		setViewPosition(new IntPoint(AsWingConstants.MAX_VALUE, AsWingConstants.MAX_VALUE));
 	}
 	/**
 	 * Scrolls to view top left content. 
@@ -387,7 +387,7 @@ class JTextArea extends JTextComponent , implements Viewportable{
 	 * if it is located in a <code>JScrollPane</code>.
 	 */	
 	public function scrollToTopRight():Void{
-		setViewPosition(new IntPoint(2147483648, 0));
+		setViewPosition(new IntPoint(AsWingConstants.MAX_VALUE, 0));
 	}	    
 	
 	public function scrollRectToVisible(contentRect:IntRectangle, programmatic:Bool=true):Void{

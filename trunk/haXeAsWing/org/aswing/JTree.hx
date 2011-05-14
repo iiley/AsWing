@@ -180,7 +180,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
  	/**
  	 * The default unit/block increment, it means auto count a value.
  	 */
- 	inline public static var AUTO_INCREMENT:Int= -2147483648;
+ 	inline public static var AUTO_INCREMENT:Int= AsWingConstants.MIN_VALUE;
  	
     /**
      * The model that defines the tree displayed by this object.

@@ -101,7 +101,7 @@ class TableModelEvent extends ModelEvent {
     public function new(source:TableModel, firstRow:Int=-2, lastRow:Int=-2, column:Int=ALL_COLUMNS, type:String=UPDATE) {
     	super(source);
     	if(firstRow == -2){
-	        // Use 2147483648 instead of getRowCount() in case rows were deleted. 
+	        // Use AsWingConstants.MAX_VALUE instead of getRowCount() in case rows were deleted. 
 			init(0, 2147483647, column, type);
     	}else if(lastRow == -2){
         	init(firstRow, firstRow, column, type);
