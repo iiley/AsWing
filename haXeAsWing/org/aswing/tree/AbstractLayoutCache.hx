@@ -184,13 +184,13 @@ class AbstractLayoutCache implements RowMapper{
 	
 		    if(bounds == null) {
 				firstPath = getPathForRow(0);
-				endY = 2147483647;
+				endY = AsWingConstants.MAX_VALUE;
 		    }else {
 				firstPath = getPathClosestTo(bounds.x, bounds.y);
 				endY = bounds.height + bounds.y;
 		    }
 	
-		    var paths:Array<Dynamic>= getVisiblePathsFrom(firstPath, 2147483647);
+		    var paths:Array<Dynamic>= getVisiblePathsFrom(firstPath, AsWingConstants.MAX_VALUE);
 			var pn:Int= paths.length;
 		    if(paths != null && pn>0){
 				var pBounds:IntRectangle = getBounds(flash.Lib.as(paths[0],TreePath), null);

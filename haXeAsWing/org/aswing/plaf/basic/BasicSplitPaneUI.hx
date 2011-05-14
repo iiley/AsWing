@@ -213,7 +213,7 @@ class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
 			}
 			if(lc!=null)	lc.setVisible(false);
     		if(rc!=null)	rc.setVisible(true);
-    	}else if(location == 2147483648){
+    	}else if(location == AsWingConstants.MAX_VALUE){
     		//collapse right
 			if(isVertical()){
 				divider.setComBoundsXYWH(
@@ -338,7 +338,7 @@ class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
     
 	private function __collapseLeft(e:AWEvent) : Void{
 		pressFlag = true;
-		if(sp.getDividerLocation() == 2147483648){
+		if(sp.getDividerLocation() == AsWingConstants.MAX_VALUE){
 			sp.setDividerLocation(sp.getLastDividerLocation());
 			divider.getCollapseLeftButton().setEnabled(true);
 			divider.getCollapseRightButton().setEnabled(true);
@@ -356,8 +356,8 @@ class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
 			sp.setDividerLocation(sp.getLastDividerLocation());
 			divider.getCollapseRightButton().setEnabled(true);
 			divider.getCollapseLeftButton().setEnabled(true);
-		}else if(sp.getDividerLocation() != 2147483648){
-			sp.setDividerLocation(2147483648);
+		}else if(sp.getDividerLocation() != AsWingConstants.MAX_VALUE){
+			sp.setDividerLocation(AsWingConstants.MAX_VALUE);
 			divider.getCollapseRightButton().setEnabled(false);
 		}else{
 			divider.getCollapseRightButton().setEnabled(false);
@@ -375,10 +375,10 @@ class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
 			}
 			return;
 		}else if(code == KeyStroke.VK_END.getCode()){
-			if(sp.getDividerLocation() == 2147483648){
+			if(sp.getDividerLocation() == AsWingConstants.MAX_VALUE){
 				sp.setDividerLocation(sp.getLastDividerLocation());
 			}else{
-				sp.setDividerLocation(2147483648);
+				sp.setDividerLocation(AsWingConstants.MAX_VALUE);
 			}
 			return;
 		}
@@ -395,7 +395,7 @@ class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
     
     private function __div_location_changed(e:InteractiveEvent):Void{
     	layoutWithLocation(sp.getDividerLocation());
-        if(sp.getDividerLocation() >= 0 && sp.getDividerLocation() != 2147483648){
+        if(sp.getDividerLocation() >= 0 && sp.getDividerLocation() != AsWingConstants.MAX_VALUE){
         	divider.setEnabled(true);
         }else{
         	divider.setEnabled(false);

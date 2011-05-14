@@ -14,6 +14,10 @@ package org.aswing;
 class AsWingConstants{
 		
 		
+	inline public static var MAX_VALUE:Int= 2147483647;
+
+	inline public static var MIN_VALUE:Int=  -2147483648;
+
 		inline public static var NONE:Int= -1;
 
         /** 

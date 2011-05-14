@@ -406,7 +406,7 @@ class JSplitPane extends Container , implements Orientable{
      * Sets the location of the divider. This is passed off to the 
      * look and feel implementation, and then listeners are notified. A value
      * less than 0 means collapse left/top component. A value equals 
-     * 2147483648 means collapse right/top component.
+     * AsWingConstants.MAX_VALUE means collapse right/top component.
      *
      * @param location an int specifying a UI-specific value (typically a 
      *        pixel count)
@@ -416,7 +416,7 @@ class JSplitPane extends Container , implements Orientable{
 		if(oldValue != location){
 			dividerLocation = location;
 			// And update the last divider location.
-			if(oldValue >= 0 && oldValue != 2147483648){
+			if(oldValue >= 0 && oldValue != AsWingConstants.MAX_VALUE){
 				setLastDividerLocation(oldValue);
 			}
 			dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));

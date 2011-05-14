@@ -111,7 +111,7 @@ class BasicViewportUI extends BaseComponentUI{
     			viewpos.setLocationXY(0, 0);
     			
     		case Keyboard.END:
-    			viewpos.setLocationXY(2147483648, 2147483648);
+    			viewpos.setLocationXY(AsWingConstants.MAX_VALUE, AsWingConstants.MAX_VALUE);
     			
     	}
     	viewport.setViewPosition(viewpos);
