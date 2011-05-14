@@ -230,8 +230,7 @@ class BasicLabelUI extends BaseComponentUI{
         }
         size = b.getInsets().getOutsideSize(size);
 	 
-		size.width = 120;
-		size.height = 20;
+	
         return size;
     }    
     
