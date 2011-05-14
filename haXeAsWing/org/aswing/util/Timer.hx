@@ -53,14 +53,17 @@ class Timer extends AbstractImpulser , implements Impulser{
 	}
 	private function setInterval(f : Void -> Void, time_ms : Int ):haxe.Timer
 	{
-		var lID:haxe.Timer = haxe.Timer.delay(f,time_ms);
-		lID.run();
+		var lID:haxe.Timer = new haxe.Timer(time_ms);
+		lID.run=f;
 		return lID;
 	}
 	private function clearInterval(lID:haxe.Timer):Void
 	{
-		if(lID!=null)lID.stop();
-		lID = null;
+		if (lID != null)
+		{
+			lID.stop();
+			lID = null;
+		}
 	}
     /**
      * Starts the <code>Timer</code>,
