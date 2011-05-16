@@ -4,9 +4,11 @@
 
 package org.aswing{
 
-import org.aswing.graphics.Graphics2D;
-import org.aswing.geom.IntRectangle;
 import flash.display.DisplayObject;
+
+import org.aswing.border.EmptyBorder;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
 
 /**
  * A background with specified asset display object.
@@ -20,16 +22,40 @@ import flash.display.DisplayObject;
 public class AssetBackground implements GroundDecorator{
 	
 	protected var asset:DisplayObject;
+	protected var ignorBorderMargin:Boolean;
 	
-	public function AssetBackground(asset:DisplayObject){
+	/**
+	 * Create a asset background
+	 * @param asset the displayobject to be the background
+	 * @param ignorBorderMargin if it is set to true, the asset will be full filled in the owner, otherwish it will be push inside the borders(if it has borders)
+	 */
+	public function AssetBackground(asset:DisplayObject, ignorBorderMargin:Boolean=false){
 		this.asset = asset;
+		this.ignorBorderMargin = ignorBorderMargin;
 	}
 	
-	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):void{
-		asset.x = bounds.x;
-		asset.y = bounds.y;
-		asset.width = bounds.width;
-		asset.height = bounds.height;		
+	/**
+	 * Skin a component with this background and margin
+	 */
+	public function skin(comp:Component, margin:Insets=null):void{
+		comp.setBackgroundDecorator(this);
+		if(margin){
+			comp.setBorder(new EmptyBorder(null, margin));
+		}
+	}
+	
+	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):void{
+		if(ignorBorderMargin){
+			asset.x = 0;
+			asset.y = 0;
+			asset.width = c.width;
+			asset.height = c.height;	
+		}else{
+			asset.x = b.x;
+			asset.y = b.y;
+			asset.width = b.width;
+			asset.height = b.height;
+		}
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{
