@@ -28,7 +28,7 @@ public class EmptyFont extends ASFont{
 	 * Returns <code>new TextFormat()</code>.
 	 * @return <code>new TextFormat()</code>.
 	 */
-	override public function getTextFormat():TextFormat{
+	override public function createTextFormat():TextFormat{
 		return new TextFormat();
 	}	
 }

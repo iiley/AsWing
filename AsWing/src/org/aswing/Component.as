@@ -2188,6 +2188,25 @@ public class Component extends AWSprite{
 	}
 	
 	/**
+	 * Sets whether draw a filled transparent rect to obtain the mouse event (a trigger), the default value is tree.<br/>
+	 * If set to false, then there will be has ablity to obtain mouse event only use hit the area that has graphics.  
+	 */
+	public function setDrawTransparentTrigger(b:Boolean):void{
+		if(b != drawTransparentTrigger){
+			drawTransparentTrigger = b;
+			repaint();
+		}
+	}
+	
+	/**
+	 * Returns drawTransparentTrigger property.
+	 * @see #setDrawTransparentTrigger
+	 */
+	public function isDrawTransparentTrigger():Boolean{
+		return drawTransparentTrigger;
+	}
+	
+	/**
 	 * draw the component interface in specified bounds.
 	 * Sub class should override this method if you want to draw your component's face.
 	 * @param b this paiting bounds, it is opposite on the component corrdinarry.
