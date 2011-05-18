@@ -173,3 +173,9 @@ Improved JTable(
 
 Added DateChooser
 Added WeightBoxLayout
+
+__________________________AsWing 2.0_________________________________
+
+added setDrawTransparentTrigger()
+make all borders has own displayobject, this will make sure all border rendered on top of background decorater
+improved ASFont, support all TextFormat properties by pass a TextFormat instance to the constructor
