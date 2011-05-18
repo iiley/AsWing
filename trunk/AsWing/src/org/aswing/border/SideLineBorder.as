@@ -5,10 +5,11 @@
 package org.aswing.border
 {
 	
-import org.aswing.*;
-import org.aswing.graphics.*;
-import org.aswing.geom.*;
 import flash.display.*;
+
+import org.aswing.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
 
 /**
  * A border that draw a line at one side of a component.
@@ -41,6 +42,8 @@ public class SideLineBorder extends DecorateBorder
 	private var color:ASColor;
 	private var thickness:Number;
 	
+	private var shape:Shape;
+	
 	/**
 	 * SideLineBorder(interior:Border, side:Number, color:ASColor, thickness:Number) <br>
 	 * SideLineBorder(interior:Border, side:Number, color:ASColor) <br>
@@ -67,9 +70,14 @@ public class SideLineBorder extends DecorateBorder
 		this.side = side;
 		this.color = color;
 		this.thickness = thickness;
+		
+		shape = new Shape();
 	}
 
 	override public function updateBorderImp(com:Component, g:Graphics2D, b:IntRectangle):void{
+		g = new Graphics2D(shape.graphics);
+		shape.graphics.clear();
+		
  		var pen:Pen = new Pen(color, thickness);
  		var x1:Number, x2:Number, y1:Number, y2:Number;
  		if(side == SOUTH){
@@ -110,9 +118,8 @@ public class SideLineBorder extends DecorateBorder
     	return i;
     }   
      
-	override public function getDisplayImp():DisplayObject
-	{
-		return null;
+	override public function getDisplayImp():DisplayObject{
+		return shape;
 	}
 	
 	public function getColor():ASColor {

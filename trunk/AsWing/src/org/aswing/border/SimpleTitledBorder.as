@@ -136,7 +136,7 @@ public class SimpleTitledBorder extends DecorateBorder
 	
 	private function getTextFieldSize():IntDimension{
     	if (textFieldSize == null){
-	    	var tf:TextFormat = getFont().getTextFormat();
+	    	var tf:TextFormat = getFont().createTextFormat();
 			textFieldSize = AsWingUtils.computeStringSize(tf, title);   	
     	}
     	return textFieldSize;
@@ -198,8 +198,7 @@ public class SimpleTitledBorder extends DecorateBorder
     	return insets;
     }
 	
-	override public function getDisplayImp():DisplayObject
-	{
+	override public function getDisplayImp():DisplayObject{
 		return getTextField();
 	}	
 }

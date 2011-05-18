@@ -55,6 +55,7 @@ public class TitledBorder extends DecorateBorder{
 	private var beveled:Boolean;
 	private var textField:TextField;
 	private var textFieldSize:IntDimension;
+	private var sprite:Sprite;
 	
 	/**
 	 * Create a titled border.
@@ -86,18 +87,28 @@ public class TitledBorder extends DecorateBorder{
 		beveled = true;
 		textField = null;
 		textFieldSize = null;
+		sprite = new Sprite();
+		sprite.mouseChildren = false;
+		sprite.mouseEnabled = false;
+		initTextField();
 	}
 	
-	private function getTextField():TextField{
+	private function initTextField():TextField{
     	if(textField == null){
 	    	textField = new TextField();
 	    	textField.selectable = false;
 	    	textField.autoSize = TextFieldAutoSize.CENTER;
+			textField.mouseEnabled = false;
+			textField.mouseWheelEnabled = false;
+			sprite.addChild(textField);
     	}
     	return textField;
 	}
 	
 	override public function updateBorderImp(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+		g = new Graphics2D(sprite.graphics);
+		sprite.graphics.clear();
+		
     	var textHeight:Number = Math.ceil(getTextFieldSize().height);
     	var x1:Number = bounds.x + lineThickness*0.5;
     	var y1:Number = bounds.y + lineThickness*0.5;
@@ -298,9 +309,8 @@ public class TitledBorder extends DecorateBorder{
     	return insets;
     }
 	
-	override public function getDisplayImp():DisplayObject
-	{
-		return getTextField();
+	override public function getDisplayImp():DisplayObject{
+		return sprite;
 	}		
 	
 	//-----------------------------------------------------------------

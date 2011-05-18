@@ -384,7 +384,7 @@ public class JTextComponent extends Component implements EditableComponent{
 	
 	protected function countColumnRowSize():void{
 		var str:String = "mmmmm";
-		var tf:TextFormat = getFont().getTextFormat();
+		var tf:TextFormat = getFont().createTextFormat();
 		var textFieldSize:IntDimension = AsWingUtils.computeStringSize(tf, str, true, getTextField());
 		var textSize:IntDimension = AsWingUtils.computeStringSize(tf, str, false, getTextField());
 		if(tf.font == "NSimSun"){

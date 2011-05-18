@@ -97,6 +97,7 @@ public class DecorateBorder implements Border{
 			}else{
 				if(disContainer == null){
 					disContainer = new Sprite();
+					disContainer.mouseEnabled = false;
 					disContainer.addChild(selfDis);
 					disContainer.addChild(interDis);
 				}

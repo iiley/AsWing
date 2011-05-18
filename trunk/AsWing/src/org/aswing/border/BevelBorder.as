@@ -28,6 +28,8 @@ public class BevelBorder extends DecorateBorder {
     private var shadowInner:ASColor;
     private var shadowOuter:ASColor;
     private var thickness:Number;
+	
+	private var shape:Shape;
 
     /**
      * BevelBorder()<br> default bevelType to LOWERED<br>
@@ -67,10 +69,15 @@ public class BevelBorder extends DecorateBorder {
         	this.shadowInner = shadowInnerColor;
         }
         this.thickness = thickness;
+		
+		shape = new Shape();
     }
 
 
 	override public function updateBorderImp(com:Component, g:Graphics2D, b:IntRectangle):void{
+		g = new Graphics2D(shape.graphics);
+		shape.graphics.clear();
+		
         if (bevelType == RAISED) {
              paintRaisedBevel(com, g, b.x, b.y, b.width, b.height);
         }else{
@@ -84,7 +91,7 @@ public class BevelBorder extends DecorateBorder {
     
 	override public function getDisplayImp():DisplayObject
 	{
-		return null;
+		return shape;
 	}
 	
     /**

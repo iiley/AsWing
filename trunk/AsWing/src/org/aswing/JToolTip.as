@@ -197,11 +197,15 @@ public class JToolTip extends Container{
 		viewToolTip();
 	}
 	
+	protected function hasContent():Boolean{
+		return null != tipText;
+	}
+	
 	/**
 	 * view the tool tip on stage
 	 */
 	private function viewToolTip():void{
-		if(tipText == null){
+		if(!hasContent()){
 			return;
 		}
 		var containerPane:DisplayObjectContainer = getToolTipContainerRoot();

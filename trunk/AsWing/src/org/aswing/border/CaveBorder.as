@@ -32,6 +32,8 @@ public class CaveBorder extends DecorateBorder{
 	private var lineThickness:Number;
 	private var beveled:Boolean;
 	
+	private var shape:Shape;
+	
 	/**
 	 * Create a cave border.
 	 * @param interior the interior border.
@@ -49,9 +51,14 @@ public class CaveBorder extends DecorateBorder{
 		lineLightColor = DEFAULT_LINE_LIGHT_COLOR;
 		lineThickness = DEFAULT_LINE_THICKNESS;
 		beveled = true;
+		
+		shape = new Shape();
 	}
 	
 	override public function updateBorderImp(c:Component, g:Graphics2D, bounds:IntRectangle):void{
+		g = new Graphics2D(shape.graphics);
+		shape.graphics.clear();
+		
     	var x1:Number = bounds.x + lineThickness*0.5;
     	var y1:Number = bounds.y + lineThickness*0.5;
     	var w:Number = bounds.width - lineThickness;
@@ -145,7 +152,7 @@ public class CaveBorder extends DecorateBorder{
     }
 	
 	override public function getDisplayImp():DisplayObject{
-		return null;
+		return shape;
 	}		
 	
 	//-----------------------------------------------------------------

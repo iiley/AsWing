@@ -1,9 +1,9 @@
 /*
- Copyright aswing.org, see the LICENCE.txt.
+Copyright aswing.org, see the LICENCE.txt.
 */
 
 package org.aswing{
-	
+
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
@@ -16,74 +16,89 @@ import org.aswing.geom.IntDimension;
  */
 public class ASFont{
 	
- 	private var name:String;
- 	private var size:uint;
- 	private var bold:Boolean;
- 	private var italic:Boolean;
- 	private var underline:Boolean;
- 	private var textFormat:TextFormat;
- 	
- 	private var advancedProperties:ASFontAdvProperties;
- 	
- 	/**
- 	 * Create a font.
- 	 * @param embedFontsOrAdvancedPros a boolean to indicate whether or not embedFonts or 
- 	 * 			a <code>ASFontAdvProperties</code> instance.
- 	 * @see org.aswing.ASFontAdvProperties
- 	 */
-	public function ASFont(name:String="Tahoma", size:Number=11, bold:Boolean=false, italic:Boolean=false, underline:Boolean=false, 
-		embedFontsOrAdvancedPros:*=null){
-		this.name = name;
-		this.size = size;
-		this.bold = bold;
-		this.italic = italic;
-		this.underline = underline;
+	private var textFormat:TextFormat;
+	
+	private var advancedProperties:ASFontAdvProperties;
+	
+	/**
+	 * Create a font with properties or TextFormat.<br/>
+	 * If you specified a TextFormat param, then the font can use be seen a full featured TextFormat font, notic, the 
+	 * properties are copied to the font instance, so later change on the pass TextFormat will not affect the font.
+	 * @param nameOrTextFormat if it is a TextFormat, the font will use the TextFormat properties directly, so the follow size, bold, italic, 
+	 * underline params will be ignored except embedFontsOrAdvancedPros
+	 * @param size size
+	 * @param bold bold
+	 * @param italic italic
+	 * @param underline underline
+	 * @param embedFontsOrAdvancedPros a boolean to indicate whether or not embedFonts or 
+	 * 			a <code>ASFontAdvProperties</code> instance.
+	 * @see org.aswing.ASFontAdvProperties
+	 */
+	public function ASFont(nameOrTextFormat:*="Tahoma", size:Number=11, bold:Boolean=false, italic:Boolean=false, underline:Boolean=false, 
+						   embedFontsOrAdvancedPros:*=null){
 		if(embedFontsOrAdvancedPros is ASFontAdvProperties){
 			advancedProperties = embedFontsOrAdvancedPros as ASFontAdvProperties;
 		}else{
 			advancedProperties = new ASFontAdvProperties(embedFontsOrAdvancedPros==true);
 		}
-		textFormat = getTextFormat();
+		if(nameOrTextFormat is TextFormat){
+			textFormat = cloneTextFormat(nameOrTextFormat);
+		}else{
+			textFormat = new TextFormat(
+				nameOrTextFormat, size, null, bold, italic, underline, 
+				"", "", TextFormatAlign.LEFT, 0, 0, 0, 0 
+			);
+		}
 	}
 	
 	public function getName():String{
-		return name;
+		return textFormat.font;
 	}
 	
 	public function changeName(name:String):ASFont{
-		return new ASFont(name, size, bold, italic, underline, advancedProperties);
+		var tf:TextFormat = cloneTextFormat(textFormat);
+		tf.font = name;
+		return new ASFont(tf, 0, false, false, false, advancedProperties);
 	}
 	
 	public function getSize():uint{
-		return size;
+		return uint(textFormat.size);
 	}
 	
 	public function changeSize(size:int):ASFont{
-		return new ASFont(name, size, bold, italic, underline, advancedProperties);
+		var tf:TextFormat = cloneTextFormat(textFormat);
+		tf.size = size;
+		return new ASFont(tf, 0, false, false, false, advancedProperties);
 	}
 	
 	public function isBold():Boolean{
-		return bold;
+		return textFormat.bold;
 	}
 	
 	public function changeBold(bold:Boolean):ASFont{
-		return new ASFont(name, size, bold, italic, underline, advancedProperties);
+		var tf:TextFormat = cloneTextFormat(textFormat);
+		tf.bold = bold;
+		return new ASFont(tf, 0, false, false, false, advancedProperties);
 	}
 	
 	public function isItalic():Boolean{
-		return italic;
+		return textFormat.italic;
 	}
 	
 	public function changeItalic(italic:Boolean):ASFont{
-		return new ASFont(name, size, bold, italic, underline, advancedProperties);
+		var tf:TextFormat = cloneTextFormat(textFormat);
+		tf.italic = italic;
+		return new ASFont(tf, 0, false, false, false, advancedProperties);
 	}
 	
 	public function isUnderline():Boolean{
-		return underline;
+		return textFormat.underline;
 	}
 	
 	public function changeUnderline(underline:Boolean):ASFont{
-		return new ASFont(name, size, bold, italic, underline, advancedProperties);
+		var tf:TextFormat = cloneTextFormat(textFormat);
+		tf.underline = underline;
+		return new ASFont(tf, 0, false, false, false, advancedProperties);
 	}
 	
 	public function isEmbedFonts():Boolean{
@@ -110,11 +125,31 @@ public class ASFont{
 	 * Return a new text format that contains the font properties.
 	 * @return a new text format.
 	 */
-	public function getTextFormat():TextFormat{
-		return new TextFormat(
-			name, size, null, bold, italic, underline, 
-			"", "", TextFormatAlign.LEFT, 0, 0, 0, 0 
-			);
+	public function createTextFormat():TextFormat{
+		return cloneTextFormat(textFormat);
+	}
+	
+	private function cloneTextFormat(tf:TextFormat):TextFormat{
+		var newTF:TextFormat = new TextFormat();
+		newTF.align = tf.align;
+		newTF.blockIndent = tf.blockIndent;
+		newTF.bold = tf.bold;
+		newTF.bullet = tf.bullet;
+		newTF.color = tf.color;
+		newTF.font = tf.font;
+		newTF.indent = tf.indent;
+		newTF.italic = tf.italic;
+		newTF.kerning = tf.kerning;
+		newTF.leading = tf.leading;
+		newTF.leftMargin = tf.leftMargin;
+		newTF.letterSpacing = tf.letterSpacing;
+		newTF.rightMargin = tf.rightMargin;
+		newTF.size = tf.size;
+		newTF.tabStops = tf.tabStops;
+		newTF.target = tf.target;
+		newTF.underline = tf.underline;
+		newTF.url = tf.url;
+		return newTF;
 	}
 	
 	/**
@@ -133,17 +168,12 @@ public class ASFont{
 	 * is un-mutable class, but to avoid UIResource, you can call this.
 	 */
 	public function clone():ASFont{
-		return new ASFont(name, size, bold, italic, underline, advancedProperties);
+		return new ASFont(textFormat, 0, false, false, false, advancedProperties);
 	}	
 	
 	public function toString():String{
 		return "ASFont[" 
-			+ "name : " + name 
-			+ ", size : " + size 
-			+ ", bold : " + bold 
-			+ ", italic : " + italic 
-			+ ", underline : " + underline 
-			+ ", advanced : " + advancedProperties 
+		+ "textFormat : " + textFormat 
 			+ "]";
 	}
 }

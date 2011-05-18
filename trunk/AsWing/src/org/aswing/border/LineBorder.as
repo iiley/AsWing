@@ -4,16 +4,18 @@
 
 package org.aswing.border{
 
-import org.aswing.*;
-import org.aswing.graphics.*;
-import org.aswing.geom.*;
 import flash.display.*;
+
+import org.aswing.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
 
 /**
  * Line border, this will paint a rounded line for a component.
  */
 public class LineBorder extends DecorateBorder{
 	
+	private var shape:Shape;
 	private var color:ASColor;
 	private var thickness:Number;
 	private var round:Number;
@@ -33,11 +35,15 @@ public class LineBorder extends DecorateBorder{
 		this.color = color;
 		this.thickness = thickness;
 		this.round = round;
+		
+		shape = new Shape();
 	}
 	
 	override public function updateBorderImp(com:Component, g:Graphics2D, b:IntRectangle):void
 	{
  		var t:Number = thickness;
+		g = new Graphics2D(shape.graphics);
+		shape.graphics.clear();
     	if(round <= 0){
     		g.drawRectangle(new Pen(color, thickness), b.x + t/2, b.y + t/2, b.width - t, b.height - t);
     	}else{
@@ -51,9 +57,8 @@ public class LineBorder extends DecorateBorder{
     	return new Insets(width, width, width, width);
 	}
 	
-	override public function getDisplayImp():DisplayObject
-	{
-		return null;
+	override public function getDisplayImp():DisplayObject{
+		return shape;
 	}
 
 	public function getColor():ASColor {
