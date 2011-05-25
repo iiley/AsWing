@@ -63,6 +63,7 @@ import org.aswing.geom.*;
 public class Container extends Component{
 	
 	private var focusTraversalPolicy:FocusTraversalPolicy;
+	private var drawChildrenTransparentTrigger:Boolean;
 	protected var children:Array;
 	protected var layout:LayoutManager;
 		
@@ -71,6 +72,7 @@ public class Container extends Component{
 		super();
 		setName("Container");
 		focusTraversalPolicy = null;
+		drawChildrenTransparentTrigger = true;
 		children = new Array();
 		layout = new EmptyLayout();
 	}
@@ -83,6 +85,31 @@ public class Container extends Component{
 	public function getLayout():LayoutManager{
 		return layout;
 	}
+	
+	
+	/**
+	 * Sets whether children component will draw transparent trigger.<br/>
+	 * This property is similar to mouseChildren, means, if this method set false, all children will not draw trigger whether 
+	 * their draw transparent trigger is set to true or false. If this property set to true, then children will take their 
+	 * draw transparent trigger property as judgement.
+	 * @see Component#setDrawTransparentTrigger
+	 */
+	public function setChildrenDrawTransparentTrigger(b:Boolean):void{
+		if(b != drawChildrenTransparentTrigger){
+			drawChildrenTransparentTrigger = b;
+			repaint();
+			checkDrawTransparentTrigger();
+		}
+	}
+	
+	/**
+	 * Returns drawTransparentTrigger property.
+	 * @see setChildrenDrawTransparentTrigger
+	 * @see Component#isDrawTransparentTrigger
+	 */
+	public function isChildrenDrawTransparentTrigger():Boolean{
+		return drawChildrenTransparentTrigger;
+	}	
 	
 	/**
 	 * Sets the focus traversal policy to this container, or sets null to 
@@ -157,6 +184,16 @@ public class Container extends Component{
     		valid = true;
     	}
     }
+	
+	/**
+	 * Check itself and children
+	 */
+	override internal function checkDrawTransparentTrigger():void{
+		super.checkDrawTransparentTrigger();
+		for each(var c:Component in children){
+			c.checkDrawTransparentTrigger();
+		}
+	}
     
 	/**
 	 * layout this container
@@ -258,6 +295,7 @@ public class Container extends Component{
 			com.removeFromContainer();
 		}
 		com.container = this;
+		com.checkDrawTransparentTrigger();
 		if(i < 0){
 			children.push(com);
 			addChild(com);

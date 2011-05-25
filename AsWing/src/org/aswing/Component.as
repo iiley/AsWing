@@ -184,6 +184,8 @@ public class Component extends AWSprite{
 	protected var bounds:IntRectangle;
 	protected var readyToPaint:Boolean;
 	
+	private var transparentTriggerDrawn:Boolean = false;
+	
 	private var background:ASColor;
 	private var foreground:ASColor;
 	private var mideground:ASColor;
@@ -2207,6 +2209,33 @@ public class Component extends AWSprite{
 	}
 	
 	/**
+	 * Returns is need to draw transparent trigger based on itself property and parent set.
+	 */
+	protected function isNeedDrawTransparentTrigger():Boolean{
+		if(!isEnabled() || !drawTransparentTrigger){
+			return false;
+		}
+		var co:Container = container;
+		while(null != co){
+			if(!co.isChildrenDrawTransparentTrigger()){
+				return false;
+			}
+			co = co.container;
+		}
+		return true;
+	}
+	
+	/**
+	 * When reappend to another container, or container children set changed, this call need.
+	 */
+	internal function checkDrawTransparentTrigger():void{
+		var need:Boolean = isNeedDrawTransparentTrigger();
+		if(need != transparentTriggerDrawn){
+			repaint();
+		}
+	}
+	
+	/**
 	 * draw the component interface in specified bounds.
 	 * Sub class should override this method if you want to draw your component's face.
 	 * @param b this paiting bounds, it is opposite on the component corrdinarry.
@@ -2216,8 +2245,11 @@ public class Component extends AWSprite{
 		var g:Graphics2D = new Graphics2D(graphics);
 		
 		//fill a transparent rectangle to be the mouse trigger
-		if(isEnabled() && drawTransparentTrigger){
+		if(isNeedDrawTransparentTrigger()){
 			g.fillRectangle(bg_trigger_brush, b.x, b.y, b.width, b.height);
+			transparentTriggerDrawn = true;
+		}else{
+			transparentTriggerDrawn = false;
 		}
 		
 		if(backgroundDecorator != null){
