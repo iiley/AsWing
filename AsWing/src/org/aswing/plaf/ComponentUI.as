@@ -187,6 +187,8 @@ public interface ComponentUI
     /**
      * Puts a ui default value used to this UI instead of LAF defualt value.
      * The values should be put before installing then it can be used.
+	 * <br/>
+	 * Suggestion: put all this us particular values in the constructor 
      * @param key the key.
      * @param value the value.
      */

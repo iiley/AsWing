@@ -337,7 +337,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 	 * @see JComponent#getUIClassID
 	 * @see UIDefaults#getUI
 	 */
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "TableUI";
 	}
 	

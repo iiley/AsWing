@@ -28,7 +28,7 @@ public class JPanel extends Container{
     	return org.aswing.plaf.basic.BasicPanelUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "PanelUI";
 	}
 }

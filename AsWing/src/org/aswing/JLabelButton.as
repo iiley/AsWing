@@ -36,7 +36,7 @@ public class JLabelButton extends AbstractButton{
     	return org.aswing.plaf.basic.BasicLabelButtonUI;
     }
     
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "LabelButtonUI";
 	}
 	

@@ -1,10 +1,9 @@
 /*
  Copyright aswing.org, see the LICENCE.txt.
 */
+package org.aswing{
 
-package org.aswing
-{
-	import org.aswing.plaf.basic.BasicToggleButtonUI;
+import org.aswing.plaf.basic.BasicToggleButtonUI;
 	
 
 /**
@@ -13,14 +12,12 @@ package org.aswing
  * are subclasses of this class.
  * @author iiley
  */
-public class JToggleButton extends AbstractButton
-{
-	public function JToggleButton(text:String="", icon:Icon=null)
-	{
+public class JToggleButton extends AbstractButton{
+	
+	public function JToggleButton(text:String="", icon:Icon=null){
 		super(text, icon);
 		setName("JToggleButton");
     	setModel(new ToggleButtonModel());
-		//updateUI();
 	}
 	
     override public function updateUI():void{
@@ -31,7 +28,7 @@ public class JToggleButton extends AbstractButton
     	return org.aswing.plaf.basic.BasicToggleButtonUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ToggleButtonUI";
 	}
 	

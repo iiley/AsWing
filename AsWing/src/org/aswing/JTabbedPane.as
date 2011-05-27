@@ -67,7 +67,7 @@ public class JTabbedPane extends AbstractTabbedPane{
     	return org.aswing.plaf.basic.BasicTabbedPaneUI;
     }
 		
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "TabbedPaneUI";
 	}
 	

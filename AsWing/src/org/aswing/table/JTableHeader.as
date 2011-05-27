@@ -18,7 +18,6 @@ import org.aswing.plaf.basic.BasicTableHeaderUI;
  */
 public class JTableHeader extends Container implements TableColumnModelListener{
 
-	private static var uiClassID:String = "TableHeaderUI";
 	private var table:JTable;
 	private var columnModel:TableColumnModel;
 	private var reorderingAllowed:Boolean;
@@ -58,9 +57,8 @@ public class JTableHeader extends Container implements TableColumnModelListener{
     	return org.aswing.plaf.basic.BasicTableHeaderUI;
     }
 
-	
-	override public function getUIClassID():String{
-		return uiClassID;
+	override protected function getDetaultUIClassID():String{
+		return "TableHeaderUI";
 	}	
 	
 	/**

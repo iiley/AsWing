@@ -31,7 +31,7 @@ public class JAccordion extends AbstractTabbedPane{
     	return org.aswing.plaf.basic.BasicAccordionUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "AccordionUI";
 	}
 	

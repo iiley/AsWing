@@ -213,7 +213,7 @@ public class JFrame extends JWindow{
     	return getUI() as FrameUI;
     }
     
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "FrameUI";
 	}
 		

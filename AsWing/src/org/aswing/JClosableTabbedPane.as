@@ -28,7 +28,7 @@ public class JClosableTabbedPane extends JTabbedPane{
     	return org.aswing.plaf.basic.BasicClosableTabbedPaneUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ClosableTabbedPaneUI";
 	}
 	

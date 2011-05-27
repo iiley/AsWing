@@ -87,7 +87,7 @@ public class JStepper extends Component implements EditableComponent{
     	return org.aswing.plaf.basic.BasicStepperUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "StepperUI";
 	}
 	

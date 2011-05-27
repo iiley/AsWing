@@ -25,7 +25,7 @@ public class JRadioButtonMenuItem extends JMenuItem{
     	setModel(new ToggleButtonModel());
 	}
 
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "RadioButtonMenuItemUI";
 	}
 	

@@ -49,7 +49,7 @@ public class JSeparator extends Component implements Orientable{
 		setUI(UIManager.getUI(this));
 	}
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "SeparatorUI";
 	}
 	

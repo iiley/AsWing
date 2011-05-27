@@ -115,7 +115,7 @@ public class JViewport extends Container implements Viewportable{
     	return org.aswing.plaf.basic.BasicViewportUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ViewportUI";
 	}	
 

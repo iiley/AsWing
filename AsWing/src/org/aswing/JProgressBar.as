@@ -79,7 +79,7 @@ public class JProgressBar extends Component implements Orientable{
     	return org.aswing.plaf.basic.BasicProgressBarUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ProgressBarUI";
 	} 
 	

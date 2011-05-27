@@ -143,7 +143,7 @@ public class JSplitPane extends Container implements Orientable{
     	return org.aswing.plaf.basic.BasicSplitPaneUI;
     }
 
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "SplitPaneUI";
 	}
 	

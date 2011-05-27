@@ -22,7 +22,7 @@ public class JCheckBoxMenuItem extends JMenuItem{
 		setModel(new ToggleButtonModel());
 	}
 
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "CheckBoxMenuItemUI";
 	}
 	

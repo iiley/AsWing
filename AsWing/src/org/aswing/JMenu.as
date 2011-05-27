@@ -48,7 +48,7 @@ public class JMenu extends JMenuItem implements MenuElement{
 		}
 	}
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "MenuUI";
 	}
 	

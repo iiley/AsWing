@@ -63,7 +63,7 @@ public class JMenuBar extends Container implements MenuElement{
     	return getUI() as MenuElementUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "MenuBarUI";
 	}
 	
