@@ -291,7 +291,7 @@ public class JList extends Container implements LayoutManager, Viewportable, Lis
     	return org.aswing.plaf.basic.BasicListUI;
     }
     	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ListUI";
 	}
 	

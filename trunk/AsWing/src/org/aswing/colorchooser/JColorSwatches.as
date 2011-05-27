@@ -15,6 +15,7 @@ public class JColorSwatches extends AbstractColorChooserPanel {
 		
 	public function JColorSwatches() {
 		super();
+		setUIClassID("ColorSwatchesUI");
 		updateUI();
 	}
 	
@@ -25,10 +26,6 @@ public class JColorSwatches extends AbstractColorChooserPanel {
     override public function getDefaultBasicUIClass():Class{
     	return org.aswing.plaf.basic.BasicColorSwatchesUI;
     }
-	
-	override public function getUIClassID():String{
-		return "ColorSwatchesUI";
-	}
 	
 	/**
 	 * Adds a component to this panel's sections bar

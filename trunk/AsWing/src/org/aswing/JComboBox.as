@@ -102,7 +102,7 @@ public class JComboBox extends Component implements EditableComponent{
     	return org.aswing.plaf.basic.BasicComboBoxUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ComboBoxUI";
 	}
 	

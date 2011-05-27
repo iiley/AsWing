@@ -14,17 +14,15 @@ public class JColorMixer extends AbstractColorChooserPanel {
 	
 	public function JColorMixer() {
 		super();
+		
+		setUIClassID("ColorMixerUI");
 		updateUI();
 	}
 	
 	override public function updateUI():void{
 		setUI(UIManager.getUI(this));
 	}
-	
-	override public function getUIClassID():String{
-		return "ColorMixerUI";
-	}
-	
+		
     override public function getDefaultBasicUIClass():Class{
     	return org.aswing.plaf.basic.BasicColorMixerUI;
     }

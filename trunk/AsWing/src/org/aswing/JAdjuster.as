@@ -119,7 +119,7 @@ public class JAdjuster extends Component implements Orientable, EditableComponen
     	return org.aswing.plaf.basic.BasicAdjusterUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "AdjusterUI";
 	}
 	

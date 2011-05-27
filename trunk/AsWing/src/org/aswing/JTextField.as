@@ -46,7 +46,7 @@ public class JTextField extends JTextComponent{
     	return org.aswing.plaf.basic.BasicTextFieldUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "TextFieldUI";
 	}
 	

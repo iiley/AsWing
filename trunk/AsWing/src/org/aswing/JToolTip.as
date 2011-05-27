@@ -128,7 +128,7 @@ public class JToolTip extends Container{
     	return org.aswing.plaf.basic.BasicToolTipUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ToolTipUI";
 	}
 	

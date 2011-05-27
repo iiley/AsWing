@@ -108,7 +108,7 @@ public class JScrollPane extends Container{
     	return org.aswing.plaf.basic.BasicScrollPaneUI;
     }
     	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ScrollPaneUI";
 	}	
 	

@@ -21,7 +21,7 @@ public class JCheckBox extends JToggleButton{
 		setIconTextGap(1);
 	}
     
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "CheckBoxUI";
 	}
 	

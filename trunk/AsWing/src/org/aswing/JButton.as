@@ -60,7 +60,7 @@ public class JButton extends AbstractButton
     	return org.aswing.plaf.basic.BasicButtonUI;
     }
     
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ButtonUI";
 	}
 	

@@ -186,6 +186,7 @@ public class Component extends AWSprite{
 	
 	private var transparentTriggerDrawn:Boolean = false;
 	
+	private var uiClassID:String = null;
 	private var background:ASColor;
 	private var foreground:ASColor;
 	private var mideground:ASColor;
@@ -333,23 +334,47 @@ public class Component extends AWSprite{
 	public function getAwmlIndex():Number {
 		return awmlIndex;	
 	}
-	    
+	
 	/**
-     * Returns the <code>UIDefaults</code> key used to
-     * look up the name of the <code>org.aswing.plaf.ComponentUI</code>
-     * class that defines the look and feel
-     * for this component.  Most applications will never need to
-     * call this method.  Subclasses of <code>Component</code> that support
-     * pluggable look and feel should override this method to
-     * return a <code>UIDefaults</code> key that maps to the
-     * <code>ComponentUI</code> subclass that defines their look and feel.
-     *
-     * @return the <code>UIDefaults</code> key for a
-     *		<code>ComponentUI</code> subclass
-     * @see org.aswing.UIDefaults#getUI()
-     */
+	 * Set the ui class id, if id != getUIClassID(), then the component will apply a new UI, which 
+	 * according to the id.(from UIManager.getInstance(id))
+	 * @param id the ui class id for this component
+	 */
+	public function setUIClassID(id:String):void{
+		if(id != getUIClassID()){
+			uiClassID = id;
+			updateUI();
+		}
+	}
+	
+	/**
+	 * Returns the <code>UIDefaults</code> key used to
+	 * look up the name of the <code>org.aswing.plaf.ComponentUI</code>
+	 * class that defines the look and feel
+	 * for this component.  Most applications will never need to
+	 * call this method.  Subclasses of <code>Component</code> that support
+	 * pluggable look and feel should call <code>setUIClassID</code>
+	 * to set a <code>UIDefaults</code> key that maps to the
+	 * <code>ComponentUI</code> subclass that defines their look and feel.
+	 *
+	 * @return the <code>UIDefaults</code> key for a
+	 *		<code>ComponentUI</code> subclass
+	 * @see #setUIClassID()
+	 * @see org.aswing.UIDefaults#getUI()
+	 */
 	public function getUIClassID():String{
-		return "ComponentUI";
+		if(null == uiClassID){
+			return getDetaultUIClassID();
+		}
+		return uiClassID;
+	}
+	
+	/**
+	 * Override this method to return a default ui class id, if the id is not set(or set to null), 
+	 * the default value will be used.
+	 */
+	protected function getDetaultUIClassID():String{
+		return null;
 	}
 	
 	/**

@@ -79,7 +79,7 @@ public class JScrollBar extends Component implements Orientable{
     	return org.aswing.plaf.basic.BasicScrollBarUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ScrollBarUI";
 	}
 	

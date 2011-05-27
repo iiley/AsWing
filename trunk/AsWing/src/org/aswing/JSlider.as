@@ -76,7 +76,7 @@ public class JSlider extends Component implements Orientable{
     	return org.aswing.plaf.basic.BasicSliderUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "SliderUI";
 	}
 	

@@ -34,7 +34,7 @@ public class JSpacer extends Component{
     	return org.aswing.plaf.basic.BasicSpacerUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "SpacerUI";
 	}
 	

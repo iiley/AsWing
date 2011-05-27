@@ -41,7 +41,7 @@ public class JColorChooser extends AbstractColorChooserPanel {
     	return org.aswing.plaf.basic.BasicColorChooserUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ColorChooserUI";
 	}
 	

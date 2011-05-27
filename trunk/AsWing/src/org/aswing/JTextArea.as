@@ -97,7 +97,7 @@ public class JTextArea extends JTextComponent implements Viewportable{
     	return org.aswing.plaf.basic.BasicTextAreaUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "TextAreaUI";
 	}
 	

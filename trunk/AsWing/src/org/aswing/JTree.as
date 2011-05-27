@@ -448,15 +448,7 @@ public class JTree extends Container implements Viewportable, TreeModelListener,
     	return org.aswing.plaf.basic.BasicTreeUI;
     }
 
-
-    /**
-     * Returns the name of the L&F class that renders this component.
-     *
-     * @return the string "TreeUI"
-     * @see org.aswing.Component#getUIClassID()
-     * @see org.aswing.UIDefaults#getUI()
-     */
-    override public function getUIClassID():String {
+	override protected function getDetaultUIClassID():String{
         return "TreeUI";
     }
 

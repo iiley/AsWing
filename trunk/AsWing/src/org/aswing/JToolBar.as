@@ -59,7 +59,7 @@ public class JToolBar extends Container implements Orientable{
     	return org.aswing.plaf.basic.BasicToolBarUI;
     }
     	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "ToolBarUI";
 	}
 	

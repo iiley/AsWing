@@ -127,7 +127,7 @@ public class JLabel extends Component{
     	return org.aswing.plaf.basic.BasicLabelUI;
     }
 	
-	override public function getUIClassID():String{
+	override protected function getDetaultUIClassID():String{
 		return "LabelUI";
 	}
 
