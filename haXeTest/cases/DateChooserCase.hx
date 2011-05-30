@@ -9,7 +9,7 @@ import org.aswing.border.EmptyBorder;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.ext.DateChooser;
 import org.aswing.ext.DateRange;
-
+import org.aswing.util.DateAs;
 
 /**
  * @author iiley (Burstyx Studio)
@@ -25,8 +25,8 @@ class DateChooserCase extends Sprite{
 		chooser.setAllowMultipleSelection(true);
 		chooser.setBorder(new EmptyBorder(null, new Insets(4)));
 		chooser.setDisabledRanges([
-			new DateRange(new Date(2011, 2, 15), new Date(2011, 2, 25)), 
-			DateRange.singleDay(new Date())]);
+			new DateRange(new DateAs(2011, 2, 15,0,0,0), new DateAs(2011, 2, 25,0,0,0)), 
+			DateRange.singleDay(new DateAs(0,0,0,0,0,0))]);
 		frame.setContentPane(chooser);
 		frame.pack();
 		frame.show();
