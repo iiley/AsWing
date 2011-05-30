@@ -282,18 +282,20 @@ class DateChooser extends JPanel{
 		var i:Int= 0;
 		var label:DateLabel;
 		var date:DateAs =  DateAs.fromTime((displayDate.getTime()));
-	 
-		for(i in 0...days){
+	
+		while(i <days){
 			label = tileLabels[i];
 			label.setVisible(true);
 			date.setDate(i+1); 
 			label.setDateEnabled(isDateEnabled(date));
-			label.setSelected(isDateSelected(date));
+			label.setSelected(isDateSelected(date)); 
+			i++;
 		}
-		//hide no exists dates
-		for(i  in 0...tileLabels.length){
+		//hide no exists dates 
+		while(i<tileLabels.length){
 			label = tileLabels[i] ;
 			label.setVisible(false);
+			i++;
 		}
 	}
 	
@@ -322,8 +324,7 @@ class DateChooser extends JPanel{
 	 
 		if(disabledDays.contains(date.getDay())){
 			return false;
-		}
-				 
+		} 
 		if (disabledRanges != null )
 		{
 			for (  r  in disabledRanges ) {
