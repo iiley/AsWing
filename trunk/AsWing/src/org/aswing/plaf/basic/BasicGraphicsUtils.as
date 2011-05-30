@@ -116,10 +116,6 @@ public class BasicGraphicsUtils{
 	 * Fill gradient round rectangle line, if tune.round < roundRectBtmFix, it will fill rectangle line with no round
 	 */	
 	public static function drawGradientRoundRectLine(g:Graphics2D, b:IntRectangle, t:Number, tune:StyleResult, direction:Number=1.5707963267948966, border:Boolean=true, matrixB:IntRectangle=null):void{
-		var w:Number = b.width;
-		var h:Number = b.height;
-		var x:Number = b.x;
-		var y:Number = b.y;
 		var r:Number = tune.round;
 		if(matrixB == null){
 			matrixB = b;

@@ -45,7 +45,6 @@ public class ComboBoxPopupBorder implements Border, UIResource{
 		b.width -= 4;
 		b.height -= 4;
 		
-		var brush:SolidBrush = new SolidBrush(cl);
 		g.fillRoundRect(new SolidBrush(ml), b.x, b.y, b.width, b.height, round);
 		b.grow(-1, -1);
 		round--;

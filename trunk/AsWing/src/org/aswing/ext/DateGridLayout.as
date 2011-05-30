@@ -92,7 +92,6 @@ public class DateGridLayout implements LayoutManager{
 			for(var c:int=0; c<cols; c++){
 				i = ((r * cols) + c - indent);
 				if(i>=0 && i<days && i<n){
-					var comp:Component = target.getComponent(i);
 					target.getComponent(i).setComBoundsXYWH(x, y, w, h);
 				}
 				x += (w + hgap);
