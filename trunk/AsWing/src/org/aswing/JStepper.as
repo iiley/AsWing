@@ -5,7 +5,6 @@
 package org.aswing{
 
 import org.aswing.event.*;
-import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicStepperUI;
 
 /**

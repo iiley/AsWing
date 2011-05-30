@@ -4,14 +4,13 @@
 
 package org.aswing{
 
-import flash.events.MouseEvent;
-
 import org.aswing.dnd.*;
 import org.aswing.event.*;
 import org.aswing.geom.*;
-import org.aswing.graphics.*;
 import org.aswing.plaf.basic.BasicListUI;
 import org.aswing.util.*;
+
+import flash.events.MouseEvent;
 
 
 /**

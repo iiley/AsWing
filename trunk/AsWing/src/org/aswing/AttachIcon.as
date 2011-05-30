@@ -2,15 +2,9 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
-import flash.display.DisplayObject;
-import flash.display.Loader;
-import flash.utils.*;
+package org.aswing {
 
-import org.aswing.event.AttachEvent;
-import org.aswing.graphics.Graphics2D;
-import flash.display.Sprite;
+import flash.display.DisplayObject;
 import flash.system.ApplicationDomain;
 
 /**

@@ -1,12 +1,11 @@
-package org.aswing.plaf.basic.splitpane
-{
-import flash.display.DisplayObject;
+package org.aswing.plaf.basic.splitpane {
 
 import org.aswing.Component;
 import org.aswing.Icon;
 import org.aswing.JSplitPane;
-import org.aswing.geom.*;
 import org.aswing.graphics.*;
+
+import flash.display.DisplayObject;
 
 /**
  * @private

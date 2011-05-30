@@ -2,17 +2,16 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic
-{
-import flash.geom.Matrix;
+package org.aswing.plaf.basic {
 
 import org.aswing.*;
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.GradientBrush;
 import org.aswing.graphics.Graphics2D;
-import org.aswing.graphics.Pen;
 import org.aswing.plaf.BaseComponentUI;
+
+import flash.geom.Matrix;
 /**
  * A Basic L&F implementation of SeparatorUI.  This implementation 
  * is a "combined" view/controller.

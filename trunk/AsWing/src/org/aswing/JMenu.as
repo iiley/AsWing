@@ -4,9 +4,9 @@
 
 package org.aswing{
 
-import org.aswing.plaf.*;
-import org.aswing.plaf.basic.BasicMenuUI;
 import org.aswing.geom.*;
+import org.aswing.plaf.basic.BasicMenuUI;
+
 import flash.events.Event;
 
 /**

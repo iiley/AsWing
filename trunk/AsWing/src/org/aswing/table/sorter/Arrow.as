@@ -4,14 +4,13 @@
 
 package org.aswing.table.sorter{
 
+import org.aswing.*;
+import org.aswing.graphics.*;
+
 import flash.display.*;
 import flash.filters.DropShadowFilter;
 import flash.geom.Matrix;
 import flash.geom.Point;
-
-import org.aswing.*;
-import org.aswing.geom.*;
-import org.aswing.graphics.*;
 
 /**
  * @author iiley

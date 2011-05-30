@@ -6,8 +6,8 @@ package org.aswing.table{
 
 import org.aswing.*;
 import org.aswing.geom.*;
-import org.aswing.plaf.ComponentUI;
 import org.aswing.graphics.*;
+
 import flash.text.*;
 
 /**

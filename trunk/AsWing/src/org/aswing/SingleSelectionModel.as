@@ -4,7 +4,6 @@
 
 package org.aswing{
 
-import flash.events.IEventDispatcher;
 
 /**
  * A model that supports at most one indexed selection.

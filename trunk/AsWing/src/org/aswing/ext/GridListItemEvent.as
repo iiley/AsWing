@@ -6,8 +6,6 @@ package org.aswing.ext{
 
 import flash.events.*;
 
-import org.aswing.*;
-
 /**
  * The event for items of List.
  * @author iiley

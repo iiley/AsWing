@@ -3,13 +3,13 @@
 */
 
 
-package org.aswing.plaf.basic.icon{
-	
-import flash.display.CapsStyle;
+package org.aswing.plaf.basic.icon {
 
 import org.aswing.*;
-import org.aswing.geom.*;
 import org.aswing.graphics.*;
+
+import flash.display.CapsStyle;
+	
 
 /**
  * The icon for frame close.

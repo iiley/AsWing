@@ -2,13 +2,11 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
-	
-import org.aswing.geom.*;
-import org.aswing.graphics.*;
+package org.aswing {
+
 import org.aswing.plaf.*;
 import org.aswing.util.HashMap;
+	
 
 /**
  * A table of defaults for AsWing components.  Applications can set/get

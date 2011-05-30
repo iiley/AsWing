@@ -5,9 +5,9 @@
 
 package org.aswing{
 
-import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
 import org.aswing.event.SelectionEvent;
+
+import flash.events.EventDispatcher;
 
 /**
  * Default data model for list selections.

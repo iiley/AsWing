@@ -1,7 +1,5 @@
 package org.aswing.plaf.basic{
 
-import flash.display.*;
-
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.Graphics2D;

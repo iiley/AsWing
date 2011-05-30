@@ -1,15 +1,13 @@
 package org.aswing.plaf.basic.border{
 
-import flash.display.*;
-import flash.filters.BevelFilter;
-import flash.filters.BitmapFilterType;
-import flash.filters.DropShadowFilter;
-
 import org.aswing.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
+
+import flash.display.*;
+import flash.filters.DropShadowFilter;
 
 /**
  * @private

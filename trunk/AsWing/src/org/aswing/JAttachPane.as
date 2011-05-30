@@ -1,20 +1,17 @@
 /*
  Copyright aswing.org, see the LICENCE.txt.
 */
-	
-package org.aswing { 
-	
-import flash.display.DisplayObject;
-import flash.display.MovieClip;
-import flash.utils.*;
+package org.aswing {
 
 import org.aswing.event.AttachEvent;
 import org.aswing.geom.IntDimension;
+
+import flash.display.DisplayObject;
 import flash.display.Loader;
-import flash.display.Sprite;
-import flash.events.*;
-import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
+import flash.utils.*;
+ 
+	
 
 /**
  * Dispatched when when the symbol was attached.

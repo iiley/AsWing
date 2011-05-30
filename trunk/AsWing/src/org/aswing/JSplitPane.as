@@ -2,12 +2,12 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing{
-	
-import org.aswing.plaf.*;
-import flash.events.Event;
+package org.aswing {
+
 import org.aswing.event.*;
+import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicSplitPaneUI;
+	
 
 /**
  * Dispatched when the divider moved.

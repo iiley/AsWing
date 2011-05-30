@@ -2,18 +2,14 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing{
-	
-import flash.display.DisplayObject;
-import flash.display.Loader;
-import flash.display.Shape;
+package org.aswing {
 
 import org.aswing.geom.*;
-import org.aswing.graphics.*;
-import org.aswing.util.*;	
-import org.aswing.error.ImpMissError;
-import flash.display.Sprite;
+
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.Shape;
+	
 
 /**
  * Abstract class for A container with a decorative asset.

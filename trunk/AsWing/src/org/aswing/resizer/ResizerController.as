@@ -5,9 +5,6 @@
 package org.aswing.resizer{
 
 import org.aswing.Component;
-import org.aswing.resizer.DefaultResizer;
-import org.aswing.resizer.Resizer;
-import org.aswing.util.HashMap;
 
 /**
  * ResizerController make manage resizer feature easily.

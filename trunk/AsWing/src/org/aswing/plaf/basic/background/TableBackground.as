@@ -4,14 +4,7 @@
 
 package org.aswing.plaf.basic.background{
 
-import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.filters.BevelFilter;
-import flash.filters.BitmapFilterType;
-import flash.filters.GlowFilter;
-
 import org.aswing.ASColor;
-import org.aswing.AsWingManager;
 import org.aswing.Component;
 import org.aswing.GroundDecorator;
 import org.aswing.StyleResult;
@@ -20,6 +13,12 @@ import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
+
+import flash.display.DisplayObject;
+import flash.display.Shape;
+import flash.filters.BevelFilter;
+import flash.filters.BitmapFilterType;
+import flash.filters.GlowFilter;
 
 /**
  * @private

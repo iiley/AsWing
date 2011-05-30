@@ -2,13 +2,11 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing
-{
-import flash.events.Event;
-import flash.events.EventDispatcher;
+package org.aswing {
 
 import org.aswing.event.*;
-import org.aswing.util.*;
+
+import flash.events.EventDispatcher;
 
 /**
  * A generic implementation of SingleSelectionModel.

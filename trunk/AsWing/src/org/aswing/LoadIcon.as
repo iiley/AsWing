@@ -5,11 +5,11 @@
 package org.aswing{
 
 import org.aswing.graphics.Graphics2D;
+
 import flash.display.DisplayObject;
 import flash.display.Loader;
 import flash.events.*;
 import flash.net.URLRequest;
-import flash.display.Sprite;
 import flash.system.LoaderContext;
 
 /**
