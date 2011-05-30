@@ -22,7 +22,7 @@ import org.aswing.event.InteractiveEvent;
 import org.aswing.event.SelectionEvent;
 import org.aswing.util.ArrayList;
 import org.aswing.util.HashSet;
-
+import org.aswing.util.DateAs;
 /**
  * Dispatched when the datechooser's display page changed etc. 
  * @eventType org.aswing.event.InteractiveEvent.STATE_CHANGED
@@ -54,9 +54,9 @@ class DateChooser extends JPanel{
 	private var displayedMonth:Int;
 	private var displayedYear:Int;
 	private var selectableRange:DateRange;
-	private var selectedDate:Date;
+	private var selectedDate:DateAs;
 	private var selectedDates:Array<Dynamic>;
-	private var displayDate:Date;
+	private var displayDate:DateAs;
 	private var displayMonthDays:Int;//the day count of displaying month
 	
 	private var monthCombo:JComboBox;
@@ -74,12 +74,12 @@ class DateChooser extends JPanel{
 			super();
 		dayNames = defaultDayNames.copy();
 		monthNames = defaultMonthNames.copy();
-		var today:Date = new Date(0,0,0,0,0,0);
+		var today:DateAs = new DateAs(0,0,0,0,0,0);
 		disabledDays = new HashSet();
 		selectedDates = [];
 		selectableRange = new DateRange(
-			new Date(Std.int(today.getFullYear()-100), 0,0,0,0,0), 
-			new Date(Std.int(today.getFullYear()+50), 0,0,0,0,0));
+			new DateAs(Std.int(today.getFullYear()-100), 0,0,0,0,0), 
+			new DateAs(Std.int(today.getFullYear()+50), 0,0,0,0,0));
 		createComponents();
 		setDisplayDate(today.getFullYear(), today.getMonth());
 	}
@@ -176,7 +176,7 @@ class DateChooser extends JPanel{
 	
 	private function __dateLabelPress(e:MouseEvent):Void{
 		var label:DateLabel = flash.Lib.as(e.currentTarget,DateLabel)	;
-		var labelDate:Date = getDisplayLabelDate(label);
+		var labelDate:DateAs = getDisplayLabelDate(label);
 		if(allowMultipleSelection)	{
 			if(!addSelection(labelDate, false)){
 				removeSelection(labelDate, false);
@@ -186,18 +186,18 @@ class DateChooser extends JPanel{
 		}
 	}
 	
-	public function addSelection(date:Date, programmatic:Bool=true):Bool{
+	public function addSelection(date:DateAs, programmatic:Bool=true):Bool{
 		if(null == date || isDateSelected(date)){
 			return false;
 		}
-		selectedDates.push(Date.fromTime(Std.int(date.getTime())));
+		selectedDates.push(DateAs.fromTime((date.getTime())));
 		selectedDate = date;
 		updateDateLabels();
 		dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED, programmatic));
 		return true;
 	}
 	
-	public function removeSelection(date:Date, programmatic:Bool=true):Bool{
+	public function removeSelection(date:DateAs, programmatic:Bool=true):Bool{
 		if(null == date){
 			return false;
 		}
@@ -219,7 +219,7 @@ class DateChooser extends JPanel{
 		return false;
 	}
 	
-	public function setSelectedDate(date:Date, programmatic:Bool=true):Void{
+	public function setSelectedDate(date:DateAs, programmatic:Bool=true):Void{
 		if(selectedDate!=null)	{
 			if(date != null && selectedDate.getTime() == date.getTime()){
 				return;
@@ -230,7 +230,7 @@ class DateChooser extends JPanel{
 			}
 		}
 		if(date!=null)	{
-			selectedDate = Date.fromTime(Std.int(date.getTime()));
+			selectedDate = DateAs.fromTime((date.getTime()));
 			selectedDates = [selectedDate];
 		}else{
 			selectedDate = null;
@@ -253,9 +253,9 @@ class DateChooser extends JPanel{
 	/**
 	 * Return the selected date, null if there is no date selected
 	 */
-	public function getSelectedDate():Date{
+	public function getSelectedDate():DateAs{
 		if(selectedDate!=null)	{
-			return Date.fromTime(Std.int(selectedDate.getTime()) );
+			return DateAs.fromTime((selectedDate.getTime()) );
 		}else{
 			return null;
 		}
@@ -268,44 +268,27 @@ class DateChooser extends JPanel{
 		return selectedDates.copy();
 	}
 	
-	private function getDisplayLabelDate(label:DateLabel):Date {
+	private function getDisplayLabelDate(label:DateLabel):DateAs {
 	//	function new(year : Int, month : Int, day : Int, hour : Int, min : Int, sec : Int ) : Void;	
-		var date:Date =   Date.fromTime(Std.int(displayDate.getTime()));
+		var date:DateAs =   DateAs.fromTime(displayDate.getTime());
 	 
-		//why date.setDate(label.getDate());
-		var datafloat:Float=convertToFloat(
-			{
-				year: date.getFullYear(),
-				month: date.getMonth(),
-				day: label.getDate(),
-				hours: date.getHours(),
-				minutes: date.getMinutes(),
-				seconds: date.getSeconds()
-			});
-		return Date.fromTime(Std.int(datafloat));
+		  date.setDate(label.getDate());
+		
+		return date;
 	}
 	
 	private function updateDateLabels():Void{
 		var days:Int= displayMonthDays;
 		var i:Int= 0;
 		var label:DateLabel;
-		var date:Date =  Date.fromTime(Std.int(displayDate.getTime()));
+		var date:DateAs =  DateAs.fromTime((displayDate.getTime()));
+	 
 		for(i in 0...days){
 			label = tileLabels[i];
 			label.setVisible(true);
-			var datafloat:Float=convertToFloat(
-			{
-				year: date.getFullYear(),
-				month: date.getMonth(),
-				day: i+1,
-				hours: date.getHours(),
-				minutes: date.getMinutes(),
-				seconds: date.getSeconds()
-			});
-			//why date.setDate(i+1);
-			var _date:Date = Date.fromTime(Std.int(datafloat));
-			label.setDateEnabled(isDateEnabled(_date));
-			label.setSelected(isDateSelected(_date));
+			date.setDate(i+1); 
+			label.setDateEnabled(isDateEnabled(date));
+			label.setSelected(isDateSelected(date));
 		}
 		//hide no exists dates
 		for(i  in 0...tileLabels.length){
@@ -317,7 +300,7 @@ class DateChooser extends JPanel{
 	/**
 	 * @param date a date, time must be 00:00
 	 */
-	public function isDateSelected(date:Date):Bool{
+	public function isDateSelected(date:DateAs):Bool{
 		if(null == date){
 			return false;
 		}
@@ -335,17 +318,23 @@ class DateChooser extends JPanel{
 		return false;
 	}
 	
-	public function isDateEnabled(date:Date):Bool{
-		if(disabledDays.contains(date.getDay())||disabledRanges==null){
+	public function isDateEnabled(date:DateAs):Bool {
+	 
+		if(disabledDays.contains(date.getDay())){
 			return false;
 		}
 				 
-		for (  r  in disabledRanges ) {
-		 
-			if(r.isInRange(date)){
+		if (disabledRanges != null )
+		{
+			for (  r  in disabledRanges ) {
+				if(r.isInRange(date)){
 				return false;
+				}
 			}
 		}
+	 
+		 
+			
 		return selectableRange.isInRange(date);
 	}
 	
@@ -413,12 +402,12 @@ class DateChooser extends JPanel{
 	}
 	
 	private function isCanPageLeft():Bool{
-		var date:Date = DateRange.resetInMonth(Date.fromTime(Std.int(displayDate.getTime())));
+		var date:DateAs = DateRange.resetInMonth(DateAs.fromTime((displayDate.getTime())));
 		return date.getTime() > selectableRange.getStartMonth().getTime();
 	}
 	
 	private function isCanPageRight():Bool{
-		var date:Date = DateRange.resetInMonth(Date.fromTime(Std.int(displayDate.getTime())));
+		var date:DateAs = DateRange.resetInMonth(DateAs.fromTime((displayDate.getTime())));
 		return date.getTime() < selectableRange.getEndMonth().getTime();
 	}
 	
@@ -427,17 +416,17 @@ class DateChooser extends JPanel{
 	private var displayStartYear:Int;
 	
 	private function displayPage():Void{
-		displayDate = new Date(displayedYear, displayedMonth, 1, 0, 0, 0);
+		displayDate = new DateAs(displayedYear, displayedMonth, 1, 0, 0, 0);
 		displayStartYear = selectableRange.getStart().getFullYear();
 		var indent:Int= displayDate.getDay();
 		var days:Int= getDayCount(displayDate);
 		displayMonthDays = days;
 		dateGridLayout.setMonth(indent, days);
 		
-		var displayMonthStart:Date = new Date(displayedYear, 0, 1, 0, 0, 0);
-		var displayMonthEnd:Date = new Date(displayedYear, 11, 1, 0, 0, 0);
-		var selMonthStart:Date = selectableRange.getStartMonth();
-		var selMonthEnd:Date = selectableRange.getEndMonth();
+		var displayMonthStart:DateAs = new DateAs(displayedYear, 0, 1, 0, 0, 0);
+		var displayMonthEnd:DateAs = new DateAs(displayedYear, 11, 1, 0, 0, 0);
+		var selMonthStart:DateAs = selectableRange.getStartMonth();
+		var selMonthEnd:DateAs = selectableRange.getEndMonth();
 		displayStartMonth = 0;
 		if(selMonthStart.getTime() > displayMonthStart.getTime()){
 			displayStartMonth = selMonthStart.getMonth();
@@ -460,19 +449,21 @@ class DateChooser extends JPanel{
 	}
 	
 	//count the days of the month
-	private function getDayCount(d:Date):Int{
-		var date:Date = Date.fromTime(Std.int(d.getTime()));
+	private function getDayCount(d:DateAs):Int{
+		var date:DateAs = DateAs.fromTime((d.getTime()));
 		var month:Int = date.getMonth();
-		return date.getDate();
-		//why date.setDate(29);
+ 
+	    date.setDate(29);
+		 
 		if(date.getMonth() != month){
 			return 28;
 		}
-		//why date.setDate(30);
+		 date.setDate(30);
+		 
 		if(date.getMonth() != month){
 			return 29;
 		}
-		//why date.setDate(31);
+			 date.setDate(31);
 		if(date.getMonth() != month){
 			return 30;
 		}
@@ -581,56 +572,5 @@ class DateChooser extends JPanel{
 	
 	
 	
-	/**
-		Take a Time Structure and convert to a JulianDay number
-	*/
-	public static function convertToFloat(ts:TimeStruct) : Float {
-		var seconds : Int = (ts.hours * 3600) + (ts.minutes * 60) + ts.seconds;
-		//trace(seconds);
-		return calculate(ts.year,ts.month,ts.day, seconds);
-	}
-	/////////////////////////////////////////////////////////////////////
-	//                     Static Methods                              //
-	/////////////////////////////////////////////////////////////////////
-	/**
-		Return JulianDay number for UTC time
-		Month is 0=January
-	*/
-	public static function calculate(year:Int, month:Int, day:Int, seconds:Int) : Float
-	{
-		var mLookup : Array<Int> =
-			[0,-60,-30,0,31,61,92,122,153,184,214,245,275,306,337];
-		// checked
-		month = month + 1;
-		var d : Float = day + secondsToDecimalDay(seconds);
-		if(month < 3) {
-			month = month + 12;
-			year = year - 1;
-		}
-		var value = d
-			//+ Tools.int((153 * month - 457) / 5)
-			+ mLookup[month]
-			+ 365 * year
-			+ Math.floor(year / 4)
-			- Math.floor(year / 100)
-			+ Math.floor(year / 400)
-			+ 1721118.5;
-
-		return value;
-	}
-	/**
-		Convert an integer number of seconds into a decimal
-		day. 1 second = 0.00001157407407, 1 day = 1.0
-	*/
-	public static function secondsToDecimalDay(sec:Int) : Float {
-		return sec/86400;
-	}
-}
-typedef TimeStruct = {
-	var year : Int;
-	var month : Int;
-	var day : Int;
-	var hours : Int;
-	var minutes : Int;
-	var seconds : Int;
+	
 }
