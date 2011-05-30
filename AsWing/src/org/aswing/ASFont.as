@@ -71,8 +71,8 @@ public class ASFont{
 		return new ASFont(tf, 0, false, false, false, advancedProperties);
 	}
 	
-	public function isBold():Boolean{
-		return textFormat.bold;
+	public function isBold() : Boolean {
+		return (textFormat.bold as Boolean);
 	}
 	
 	public function changeBold(bold:Boolean):ASFont{
@@ -81,8 +81,8 @@ public class ASFont{
 		return new ASFont(tf, 0, false, false, false, advancedProperties);
 	}
 	
-	public function isItalic():Boolean{
-		return textFormat.italic;
+	public function isItalic() : Boolean {
+		return (textFormat.italic as Boolean);
 	}
 	
 	public function changeItalic(italic:Boolean):ASFont{
@@ -91,8 +91,8 @@ public class ASFont{
 		return new ASFont(tf, 0, false, false, false, advancedProperties);
 	}
 	
-	public function isUnderline():Boolean{
-		return textFormat.underline;
+	public function isUnderline() : Boolean {
+		return (textFormat.underline as Boolean);
 	}
 	
 	public function changeUnderline(underline:Boolean):ASFont{
