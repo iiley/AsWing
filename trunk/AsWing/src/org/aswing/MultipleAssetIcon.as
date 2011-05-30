@@ -146,15 +146,6 @@ public class MultipleAssetIcon implements Icon{
 	}
 	
 	/**
-	 * Return the number of assets.
-	 * 
-	 * @return
-	 */
-	private function getAssetsCount():uint{
-		return assets.size();
-	}
-	
-	/**
 	 * Return the asset item at index position.
 	 * 
 	 * @return
