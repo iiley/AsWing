@@ -2,11 +2,12 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing{
-	
-import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
+package org.aswing {
+
 import org.aswing.event.InteractiveEvent;
+
+import flash.events.EventDispatcher;
+	
 
 /**
  * The default implementation of BoundedRangeModel.

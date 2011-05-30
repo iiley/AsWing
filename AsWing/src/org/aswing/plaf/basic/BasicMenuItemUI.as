@@ -4,16 +4,15 @@
 
 package org.aswing.plaf.basic{
 
-import flash.display.*;
-import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.text.*;
-
 import org.aswing.*;
 import org.aswing.event.AWEvent;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
+
+import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.text.*;
 
 /**
  * @private

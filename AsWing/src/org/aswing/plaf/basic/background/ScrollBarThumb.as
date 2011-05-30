@@ -2,13 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic.background{
-	
-import flash.display.CapsStyle;
-import flash.display.DisplayObject;
-import flash.display.LineScaleMode;
-import flash.events.*;
-import flash.geom.Point;
+package org.aswing.plaf.basic.background {
 
 import org.aswing.*;
 import org.aswing.event.*;
@@ -17,6 +11,12 @@ import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
+
+import flash.display.CapsStyle;
+import flash.display.DisplayObject;
+import flash.display.LineScaleMode;
+import flash.events.*;
+	
 
 /**
  * The thumb decorator for JScrollBar.

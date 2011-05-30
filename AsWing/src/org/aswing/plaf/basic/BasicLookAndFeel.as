@@ -2,9 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic{
-	
-import flash.filters.DropShadowFilter;
+package org.aswing.plaf.basic {
 
 import org.aswing.*;
 import org.aswing.plaf.*;
@@ -12,11 +10,13 @@ import org.aswing.plaf.basic.adjuster.PopupSliderThumbIcon;
 import org.aswing.plaf.basic.background.*;
 import org.aswing.plaf.basic.border.*;
 import org.aswing.plaf.basic.cursor.*;
-import org.aswing.plaf.basic.frame.*;
 import org.aswing.plaf.basic.icon.*;
 import org.aswing.plaf.basic.tree.BasicExpandControl;
 import org.aswing.resizer.*;
 import org.aswing.tree.*;
+
+import flash.filters.DropShadowFilter;
+	
 
 /**
  * The art design named LastWing, work by lastdance. 

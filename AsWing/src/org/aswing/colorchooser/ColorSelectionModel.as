@@ -1,11 +1,10 @@
 /*
  Copyright aswing.org, see the LICENCE.txt.
 */
-
-package org.aswing.colorchooser { 
-import flash.events.EventDispatcher;
+package org.aswing.colorchooser {
 
 import org.aswing.ASColor;
+ 
 
 /**
  * @author iiley

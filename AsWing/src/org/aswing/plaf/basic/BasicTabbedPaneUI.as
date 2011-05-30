@@ -4,11 +4,6 @@
 
 package org.aswing.plaf.basic{
 
-import flash.display.*;
-import flash.events.*;
-import flash.geom.Matrix;
-import flash.ui.Keyboard;
-
 import org.aswing.*;
 import org.aswing.border.*;
 import org.aswing.event.FocusKeyEvent;
@@ -18,7 +13,11 @@ import org.aswing.graphics.*;
 import org.aswing.plaf.*;
 import org.aswing.plaf.basic.icon.ArrowIcon;
 import org.aswing.plaf.basic.tabbedpane.*;
-import org.aswing.util.*;
+
+import flash.display.*;
+import flash.events.*;
+import flash.geom.Matrix;
+import flash.ui.Keyboard;
 
 /**
  * @private

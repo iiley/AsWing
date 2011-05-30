@@ -1,8 +1,9 @@
-package org.aswing{
-	
+package org.aswing {
+
 import org.aswing.graphics.*;
+
 import flash.display.*;
-import org.aswing.error.*;
+	
 
 /**
  * Abstract class for A icon with a decorative displayObject.

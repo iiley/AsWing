@@ -4,12 +4,7 @@
 
 package org.aswing.plaf.basic.background{
 
-import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.filters.DropShadowFilter;
-
 import org.aswing.ASColor;
-import org.aswing.AsWingManager;
 import org.aswing.Component;
 import org.aswing.EditableComponent;
 import org.aswing.GroundDecorator;
@@ -18,6 +13,10 @@ import org.aswing.StyleTune;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.*;
 import org.aswing.plaf.UIResource;
+
+import flash.display.DisplayObject;
+import flash.display.Shape;
+import flash.filters.DropShadowFilter;
 
 /**
  * @private

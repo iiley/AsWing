@@ -1,15 +1,14 @@
 /*
  Copyright aswing.org, see the LICENCE.txt.
 */
-
-package org.aswing { 
-
- 
-import flash.text.TextField;
+package org.aswing {
 
 import org.aswing.border.EmptyBorder;
 import org.aswing.event.*;
 import org.aswing.geom.IntPoint;
+ 
+
+ 
 
 /**
  * JOptionPane makes it easy to pop up a standard dialog box that prompts users 

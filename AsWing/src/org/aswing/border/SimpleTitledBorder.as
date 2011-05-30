@@ -2,20 +2,19 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.border
-{
+package org.aswing.border {
+
+import org.aswing.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+
+import flash.display.*;
+import flash.text.*;
 	
 /**
  * A poor Title Border.
  * @author iiley
  */
-import flash.display.*;
-import flash.text.*;
-
-import org.aswing.*;
-import org.aswing.geom.*;
-import org.aswing.graphics.*;
-import org.aswing.util.HashMap;
 
 public class SimpleTitledBorder extends DecorateBorder
 {

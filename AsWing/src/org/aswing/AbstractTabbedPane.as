@@ -2,13 +2,12 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing{
-	
-import flash.events.Event;
+package org.aswing {
 
 import org.aswing.event.*;
 import org.aswing.plaf.*;
 import org.aswing.util.*;
+	
 
 /**
  *  Dispatched when the selected tab changed.

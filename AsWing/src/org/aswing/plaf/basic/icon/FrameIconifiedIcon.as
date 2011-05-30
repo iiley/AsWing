@@ -5,7 +5,6 @@
 package org.aswing.plaf.basic.icon{
 
 import org.aswing.*;
-import org.aswing.geom.*;
 import org.aswing.graphics.*;
 
 /**

@@ -4,6 +4,13 @@
 
 package org.aswing.plaf.basic{
 
+import org.aswing.*;
+import org.aswing.event.*;
+import org.aswing.geom.*;
+import org.aswing.graphics.*;
+import org.aswing.plaf.*;
+import org.aswing.resizer.Resizer;
+
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -11,14 +18,6 @@ import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Rectangle;
 import flash.utils.Timer;
-
-import org.aswing.*;
-import org.aswing.event.*;
-import org.aswing.geom.*;
-import org.aswing.graphics.*;
-import org.aswing.plaf.*;
-import org.aswing.plaf.basic.frame.*;
-import org.aswing.resizer.Resizer;
 
 /**
  * Basic frame ui imp.

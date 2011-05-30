@@ -4,9 +4,8 @@
 
 package org.aswing{
 
-import org.aswing.geom.*;
 import org.aswing.event.*;
-import org.aswing.error.*;
+import org.aswing.geom.*;
 import org.aswing.plaf.basic.BasicScrollPaneUI;
 
 /**

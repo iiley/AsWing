@@ -4,8 +4,6 @@
 
 package org.aswing{
 
-import flash.text.AntiAliasType;
-import flash.text.GridFitType;
 import flash.text.TextField;
 	
 

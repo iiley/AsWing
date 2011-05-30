@@ -2,10 +2,10 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.resizer{
-	
+package org.aswing.resizer {
+
 import org.aswing.geom.*;
-import org.aswing.Component;
+	
 
 /**
  * A basic implementation of ResizeStrategy.

@@ -1,11 +1,6 @@
 package org.aswing{
 
-import org.aswing.Component;
-import org.aswing.Container;
-import org.aswing.EmptyLayout;
 import org.aswing.geom.IntDimension;
-import org.aswing.Insets;
-import org.aswing.geom.IntPoint;
 
 /**
  * FlowWrapLayout wrap layout is extended FlowLayout, 

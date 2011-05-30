@@ -2,15 +2,13 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing{
-	
+package org.aswing {
+
 import flash.display.*;
 import flash.events.*;
 import flash.net.*;
 import flash.system.*;
-
-import org.aswing.geom.*;
-import org.aswing.util.*;
+	
 
 /**
  * Dispatched when data has loaded successfully. The complete event is always dispatched after the init event. 

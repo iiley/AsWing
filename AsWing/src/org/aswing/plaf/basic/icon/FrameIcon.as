@@ -4,18 +4,16 @@
 
 package org.aswing.plaf.basic.icon{
 
-import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.display.Sprite;
-import flash.filters.BevelFilter;
-import flash.filters.BitmapFilterType;
-import flash.filters.DropShadowFilter;
-
 import org.aswing.*;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
+
+import flash.display.DisplayObject;
+import flash.display.Shape;
+import flash.display.Sprite;
+import flash.filters.DropShadowFilter;
 
 /**
  * Frame title bar icon base.

@@ -2,18 +2,18 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 
-package org.aswing.plaf.basic.icon{
-	
+package org.aswing.plaf.basic.icon {
+
+import org.aswing.*;
+import org.aswing.graphics.*;
+import org.aswing.plaf.UIResource;
+
 import flash.display.DisplayObject;
 import flash.display.Shape;
 import flash.filters.DropShadowFilter;
 import flash.geom.Matrix;
 import flash.geom.Point;
-
-import org.aswing.*;
-import org.aswing.geom.*;
-import org.aswing.graphics.*;
-import org.aswing.plaf.UIResource;
+	
 
 /**
  * @private
