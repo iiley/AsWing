@@ -671,31 +671,6 @@ public class FHTreeStateNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * Asks all the children of the receiver for their totalChildCount
-	 * and returns this value (plus stopIndex).
-	 */
-	private function getCountTo(stopIndex:int):int {
-	    var aChild:FHTreeStateNode;
-	    var retCount:int = stopIndex + 1;
-		var counter:int = 0;
-		var maxCounter:int = getChildCount();
-	    for(; counter < maxCounter; counter++) {
-			aChild = FHTreeStateNode(getChildAt(counter));
-			if(aChild.childIndex >= stopIndex)
-			    counter = maxCounter;
-			else
-			    retCount += aChild.getTotalChildCount();
-	    }
-	    if(parent != null){
-			return retCount + (FHTreeStateNode(getParent())).getCountTo(childIndex);
-	    }
-	    if(!layoutCache.isRootVisible()){
-			return (retCount - 1);
-	    }
-	    return retCount;
-	}
-
-	/**
 	 * Returns the number of children that are expanded to
 	 * <code>stopIndex</code>. This does not include the number
 	 * of children that the child at <code>stopIndex</code> might
