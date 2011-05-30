@@ -25,7 +25,6 @@ public class BasicLabelButtonUI extends BasicButtonUI{
 	
     override protected function getTextPaintColor(bb:AbstractButton):ASColor{
     	var b:JLabelButton = bb as JLabelButton;
-		var pp:String = getPropertyPrefix();
 		var cl:ASColor = bb.getForeground();
 		var colors:StyleResult = new StyleResult(cl, bb.getStyleTune());
 		

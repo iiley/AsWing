@@ -694,7 +694,6 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
     	return;//dosn't draw line in this version
     	var b:IntRectangle = tabBarBounds.clone();
     	var placement:int = tabbedPane.getTabPlacement();
-    	var pen:Pen;
     	var lineT:Number = 2;//contentRoundLineThickness;
     	if(selTabB == null){
     		selTabB = new IntRectangle(fullB.x + fullB.width/2, fullB.y + fullB.height/2, 0, 0);
@@ -705,8 +704,6 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var style:StyleResult = new StyleResult(cl, adjuster);
 		var matrix:Matrix = new Matrix();
 		var dark:ASColor = style.bdark;
-		var light:ASColor = style.bdark.offsetHLS(0, 0.15, -0.1);
-		var leadingOffset:int = tabbedPane.getLeadingOffset();
     	if(isTabHorizontalPlacing()){
     		var isTop:Boolean = (placement == JTabbedPane.TOP);
     		if(isTop){

@@ -55,7 +55,7 @@ public class BasicSeparatorUI extends BaseComponentUI
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):void{
     	super.paint(c, g, b);
 		var sp:JSeparator = JSeparator(c);
-		var dark:ASColor = c.getBackground()
+		var dark:ASColor = c.getBackground();
 		var matrix:Matrix = new Matrix();
 		var brush:GradientBrush;
 		if (sp.getOrientation() == JSeparator.VERTICAL){

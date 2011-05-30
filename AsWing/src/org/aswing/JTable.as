@@ -2664,10 +2664,8 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var insetsX:int = insets.left;
 		var insetsY:int = insets.top;
 		var cWidth:int = getWidth() - insets.getMarginWidth();
-		var cHeight:int = getHeight() - insets.getMarginHeight();
 		
 		var headerHeight:int = getTableHeader().getPreferredHeight();
-		var footerHeight:int = 0;
 		var fotr:Component = getFooter();
 		
 		headerPane.setComBoundsXYWH(

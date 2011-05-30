@@ -4,7 +4,6 @@
 
 package org.aswing.plaf.basic.background{
 
-import org.aswing.AsWingConstants;
 import org.aswing.Component;
 import org.aswing.GroundDecorator;
 import org.aswing.Orientable;
@@ -35,8 +34,6 @@ public class ScrollBarBackground implements GroundDecorator, UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):void{
 		if(c is Orientable && c.isOpaque()){
-			var bar:Orientable = c as Orientable;
-			var verticle:Boolean = (bar.getOrientation() == AsWingConstants.VERTICAL);
 			shape.graphics.clear();
 			var style:StyleTune = c.getStyleTune();
 			g = new Graphics2D(shape.graphics);

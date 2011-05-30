@@ -47,7 +47,6 @@ public class ToggleButtonBackground implements GroundDecorator, UIResource{
 			var bo:IntRectangle = bounds.clone();
 			var matrix:Matrix = new Matrix();
 			var cDir:Number = Math.PI/2;
-			var paintDefault:Boolean = false;
 			
 	    	if(isPressing){//pressed
 	    		if(!b.isEnabled()){

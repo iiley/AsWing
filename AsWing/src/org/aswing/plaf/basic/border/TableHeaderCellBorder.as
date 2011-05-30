@@ -37,7 +37,6 @@ public class TableHeaderCellBorder implements Border, UIResource{
 			var light:ASColor = cl.offsetHLS(0, 0.06, 0);
 			shape.graphics.clear();
 			g = new Graphics2D(shape.graphics);
-			var height:int = b.height;
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox(b.width, b.height, Math.PI/2, b.x, b.y);
 			g.fillRectangle(new GradientBrush(
