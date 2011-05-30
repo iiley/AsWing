@@ -324,7 +324,8 @@ class DateChooser extends JPanel{
 	 
 		if(disabledDays.contains(date.getDay())){
 			return false;
-		} 
+		}
+			 
 		if (disabledRanges != null )
 		{
 			for (  r  in disabledRanges ) {
