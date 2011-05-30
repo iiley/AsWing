@@ -2,14 +2,7 @@
  Copyright aswing.org, see the LICENCE.txt.
 */
 package org.aswing.plaf.basic{
-
-import flash.display.MovieClip;
-import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.events.TextEvent;
-import flash.text.TextField;
-import flash.ui.Mouse;
-
+	
 import org.aswing.*;
 import org.aswing.border.BevelBorder;
 import org.aswing.colorchooser.*;
@@ -17,6 +10,9 @@ import org.aswing.event.*;
 import org.aswing.geom.*;
 import org.aswing.graphics.*;
 import org.aswing.plaf.*;
+
+import flash.events.Event;
+import flash.events.MouseEvent;
 
 /**
  * @private

@@ -1,26 +1,18 @@
 package org.aswing.ext{
+	import org.aswing.BorderLayout;
+	import org.aswing.BoxLayout;
+	import org.aswing.Container;
+	import org.aswing.JButton;
+	import org.aswing.JComboBox;
+	import org.aswing.JLabel;
+	import org.aswing.JPanel;
+	import org.aswing.SoftBoxLayout;
+	import org.aswing.WeightBoxLayout;
+	import org.aswing.event.InteractiveEvent;
+	import org.aswing.util.HashSet;
 
-import flash.events.Event;
-import flash.events.MouseEvent;
-
-import mx.controls.DateChooser;
-
-import org.aswing.ASColor;
-import org.aswing.BorderLayout;
-import org.aswing.BoxLayout;
-import org.aswing.Container;
-import org.aswing.JButton;
-import org.aswing.JComboBox;
-import org.aswing.JLabel;
-import org.aswing.JLabelButton;
-import org.aswing.JPanel;
-import org.aswing.LayoutManager;
-import org.aswing.SoftBoxLayout;
-import org.aswing.WeightBoxLayout;
-import org.aswing.event.InteractiveEvent;
-import org.aswing.event.SelectionEvent;
-import org.aswing.util.ArrayList;
-import org.aswing.util.HashSet;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 
 /**
  * Dispatched when the datechooser's display page changed etc. 
