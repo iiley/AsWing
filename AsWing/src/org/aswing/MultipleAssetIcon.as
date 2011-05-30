@@ -393,7 +393,7 @@ internal class AssetItem{
 	 */
 	 
 	public function clone() : AssetItem {
-		var clazz : Class = asset.constructor as Class;
+		var clazz : Class = (Object(asset).constructor as Class);
 	 	var clonedAsset:DisplayObject = new clazz();
 	 	var clone:AssetItem = new AssetItem(clonedAsset, width, height, scale, hPosition,  vPosition);
 	 	return clone;
