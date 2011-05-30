@@ -1,6 +1,6 @@
 package org.aswing.ext;
 import flash.errors.Error;
-
+import org.aswing.util.DateAs;
 
 
 /**
@@ -12,10 +12,10 @@ import flash.errors.Error;
  */
 class DateRange{
 	
-	private var rangeStart:Date;
-	private var rangeEnd:Date;
+	private var rangeStart:DateAs;
+	private var rangeEnd:DateAs;
 	
-	public function new(rangeStart:Date, rangeEnd:Date){
+	public function new(rangeStart:DateAs, rangeEnd:DateAs){
 		this.rangeStart = rangeStart;
 		this.rangeEnd = rangeEnd;
 		resetInDay(this.rangeStart);
@@ -27,28 +27,28 @@ class DateRange{
 		}
 	}
 	
-	public static function singleDay(day:Date):DateRange{
+	public static function singleDay(day:DateAs):DateRange{
 		return new DateRange(day, day);
 	} 
 	
-	public function getStart():Date{
+	public function getStart():DateAs{
 		return rangeStart;
 	}
 	
-	public function getStartMonth():Date {
+	public function getStartMonth():DateAs {
 	//(Std.int(date.getTime()), 0,0,0,0,0)	
-		return resetInMonth(  Date.fromTime(Std.int(rangeStart.getTime())) );
+		return resetInMonth(  DateAs.fromTime( rangeStart.getTime()) );
 	}
 	
-	public function getEnd():Date{
+	public function getEnd():DateAs{
 		return rangeEnd;
 	}
 	
-	public function getEndMonth():Date{
-		return resetInMonth(Date.fromTime(Std.int(rangeEnd.getTime())));
+	public function getEndMonth():DateAs{
+		return resetInMonth(DateAs.fromTime(rangeEnd.getTime()));
 	}
 	
-	public function isInRange(date:Date):Bool{
+	public function isInRange(date:DateAs):Bool{
 		resetInDay(date); //reset the day
 		if(rangeStart!=null && rangeEnd!=null){
 			return date.getTime() >= rangeStart.getTime() && date.getTime() <= rangeEnd.getTime();
@@ -60,38 +60,21 @@ class DateRange{
 		return true;
 	}
 	
-	public static function resetInMonth(date:Date):Date{
-	//why	date.setDate(1); 
-		var datafloat:Float=DateChooser.convertToFloat(
-			{
-				year: date.getFullYear(),
-				month: date.getMonth(),
-				day: 1,
-				hours: date.getHours(),
-				minutes: date.getMinutes(),
-				seconds: date.getSeconds()
-			});
-		var  _date:Date=Date.fromTime(Std.int(datafloat));
-		resetInDay(_date);
-		return _date;
+	public static function resetInMonth(date:DateAs):DateAs{
+	 	date.setDate(1); 
+		resetInDay(date);
+		return date;
 	}
 	
-	public static function resetInDay(date:Date):Date {
-		var  _date:Date=null;	
+	public static function resetInDay(date:DateAs):DateAs {
+		 
 		if(date!=null)	{
-	//why		date.setHours(0, 0, 0, 0);
-			var datafloat:Float=DateChooser.convertToFloat(
-			{
-				year: date.getFullYear(),
-				month: date.getMonth(),
-				day: 1,
-				hours: date.getHours(),
-				minutes: date.getMinutes(),
-				seconds: date.getSeconds()
-			});
-			_date = Date.fromTime(Std.int(datafloat));
+	 	 date.setHours(0);
+		 date.setMinutes(0);
+		 date.setSeconds(0); 
+		 
 		
 		}
-		return _date;
+		return date;
 	}
 }
