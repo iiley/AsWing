@@ -26,7 +26,7 @@ class DateChooserCase extends Sprite{
 		chooser.setBorder(new EmptyBorder(null, new Insets(4)));
 		chooser.setDisabledRanges([
 			new DateRange(new DateAs(2011, 2, 15,0,0,0), new DateAs(2011, 2, 25,0,0,0)), 
-			DateRange.singleDay(new DateAs(0,0,0,0,0,0))]);
+			DateRange.singleDay(new DateAs(1970,1,1,0,0,0))]);
 		frame.setContentPane(chooser);
 		frame.pack();
 		frame.show();
