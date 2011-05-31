@@ -74,12 +74,13 @@ class DateChooser extends JPanel{
 			super();
 		dayNames = defaultDayNames.copy();
 		monthNames = defaultMonthNames.copy();
-		var today:DateAs = new DateAs(0,0,0,0,0,0);
+		var now:Date = Date.now() ;
+		var today:DateAs =   DateAs.fromTime(now.getTime());
 		disabledDays = new HashSet();
 		selectedDates = [];
 		selectableRange = new DateRange(
-			new DateAs(Std.int(today.getFullYear()-100), 0,0,0,0,0), 
-			new DateAs(Std.int(today.getFullYear()+50), 0,0,0,0,0));
+			new DateAs(Std.int(today.getFullYear()-100), 1,1,0,0,0), 
+			new DateAs(Std.int(today.getFullYear()+50), 1,1,0,0,0));
 		createComponents();
 		setDisplayDate(today.getFullYear(), today.getMonth());
 	}
@@ -203,7 +204,7 @@ class DateChooser extends JPanel{
 		}
 		var n:Int= selectedDates.length;
 		for(i in 0...n){
-			var d:Date = selectedDates[i];
+			var d:DateAs = selectedDates[i];
 			if(d.getTime() == date.getTime()){
 				selectedDates.splice(i, 1);
 				if(n > 1){
@@ -241,8 +242,9 @@ class DateChooser extends JPanel{
 	}
 	
 	public function setSelectedDates(dates:Array<Dynamic>, programmatic:Bool=true):Void{
-		var arr:Array<Dynamic>= [];
-		for (date in dates ){
+		var arr:Array<Dynamic> = [];
+		var itr:Iterator<Dynamic> = dates.iterator();
+		for (date in itr ){
 			arr.push(DateRange.resetInDay(date));
 		}
 		selectedDates = arr;
@@ -306,8 +308,9 @@ class DateChooser extends JPanel{
 		if(null == date){
 			return false;
 		}
-		if(allowMultipleSelection)	{
-			for (i in selectedDates ){
+		if (allowMultipleSelection)	{
+			var itr:Iterator<Dynamic> = selectedDates.iterator();
+			for (i in itr ){
 				if(i.getTime() == date.getTime()){
 					return true;
 				}
@@ -328,7 +331,8 @@ class DateChooser extends JPanel{
 			 
 		if (disabledRanges != null )
 		{
-			for (  r  in disabledRanges ) {
+				var itr:Iterator<Dynamic> = disabledRanges.iterator();
+			for (  r  in itr ) {
 				if(r.isInRange(date)){
 				return false;
 				}
@@ -367,7 +371,9 @@ class DateChooser extends JPanel{
 		var start:Int= selectableRange.getStart().getFullYear();
 		var end:Int= selectableRange.getEnd().getFullYear();
 		var labels:Array<Dynamic>= [];
-		var n:Int= end - start + 1;
+		var n:Int = end - start + 1;
+		trace(start);
+		trace(end);
 		for(i in 0...n+1){
 			labels[i] = (start+i) + "";
 		}
