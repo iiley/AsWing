@@ -371,9 +371,9 @@ class DateChooser extends JPanel{
 		var start:Int= selectableRange.getStart().getFullYear();
 		var end:Int= selectableRange.getEnd().getFullYear();
 		var labels:Array<Dynamic>= [];
-		var n:Int = end - start + 1;
+		var n:Int = end - start ;
 	 
-		for(i in 0...n+1){
+		for(i in 0...n){
 			labels[i] = (start+i) + "";
 		}
 		return labels;
