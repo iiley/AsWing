@@ -13,6 +13,7 @@ import flash.geom.*;
 import flash.utils.Dictionary;
 import flash.utils.getTimer;
 
+import org.aswing.awml_internal;
 import org.aswing.dnd.*;
 import org.aswing.event.*;
 import org.aswing.geom.*;
@@ -161,9 +162,7 @@ public class Component extends AWSprite{
 	internal var container:Container;
 	private var clientProperty:HashMap;
 	
-	private var awmlID:String;
-	private var awmlIndex:Number;
-	private var awmlNamespace:String;
+	private var awmlInfo:AWMLTagInfo;
 	
 	private var clipBounds:IntRectangle;
 	private var alignmentX:Number;
@@ -278,61 +277,13 @@ public class Component extends AWSprite{
 	}
 		    
 	/**
-	 * Sets ID used to identify components created from AWML. Used to obtain components through 
-	 * {@link org.aswing.awml.AwmlManager}. You should never modify this value.
-	 * 
-	 * @param id the component's AWML ID
+	 * Get the awml info object, this is just for awml internal use.
 	 */
-	public function setAwmlID(id:String):void {
-		awmlID = id;	
-	}
-
-	/**
-	 * Returns ID used to identify components created from AWML.
-	 * 
-	 * @return the AWML ID
-	 */
-	public function getAwmlID():String {
-		return awmlID;
-	}
-
-	/**
-	 * Sets namespace used to identify components created from AWML. 
-	 * Used to obtain components through {@link org.aswing.awml.AwmlManager}. 
-	 * You should never modify this value.
-	 * 
-	 * @param theNamespace the new namespace name
-	 */
-	public function setAwmlNamespace(theNamespace:String):void {
-		awmlNamespace = theNamespace;	
-	}
-
-	/**
-	 * Returns namespace name used to identify components created from AWML.
-	 * 
-	 * @return the namespace name
-	 */
-	public function getAwmlNamespace():String {
-		return awmlNamespace;	
-	}
-
-	/**
-	 * Sets ID used to identify components created from AWML. Used to obtain components through 
-	 * {@link org.aswing.awml.AwmlManager}. You should never modify this value.
-	 * 
-	 * @param index the position index of the component
-	 */
-	public function setAwmlIndex(index:Number):void {
-		awmlIndex = index;	
-	}
-
-	/**
-	 * Returns position index of the component inside its AWML container.
-	 * 
-	 * @return the component index in the AWML
-	 */
-	public function getAwmlIndex():Number {
-		return awmlIndex;	
+	awml_internal function get awml_info():AWMLTagInfo {
+		if(null == awmlInfo){
+			awmlInfo = new AWMLTagInfo();
+		}
+		return awmlInfo;
 	}
 	
 	/**
