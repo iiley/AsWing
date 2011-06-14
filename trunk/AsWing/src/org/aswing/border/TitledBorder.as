@@ -75,7 +75,7 @@ public class TitledBorder extends DecorateBorder{
 		super(interior);
 		this.title = title;
 		this.position = position;
-		this.align = align;;
+		this.align = align;
 		this.edge = edge;
 		this.round = round;
 		
