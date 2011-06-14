@@ -19,13 +19,16 @@ public class ASFontAdvProperties{
 	
  	private var antiAliasType:String;
  	private var gridFitType:String;
- 	private var sharpness:Number;
- 	private var thickness:Number;
- 	private var embedFonts:Boolean;
+ 	private var sharpness:Object;
+ 	private var thickness:Object;
+ 	private var embedFonts:Object;
  	
-	public function ASFontAdvProperties(
-		embedFonts:Boolean=false, antiAliasType:String="normal", 
-		gridFitType:String="pixel", sharpness:Number=0, thickness:Number=0){
+	/**
+	 * Each property can be specifild null showing it is non-defined value, just like TextFormat. 
+	 */
+	public function ASFontAdvProperties(embedFonts:Object=false, antiAliasType:String="normal", 
+		gridFitType:String="pixel", sharpness:Object=0, thickness:Object=0){
+		
 		this.embedFonts = embedFonts;
 		this.antiAliasType = antiAliasType;
 		this.gridFitType = gridFitType;
@@ -49,27 +52,27 @@ public class ASFontAdvProperties{
 		return new ASFontAdvProperties(embedFonts, antiAliasType, newType, sharpness, thickness);
 	}
 	
-	public function getSharpness():Number{
+	public function getSharpness():Object{
 		return sharpness;
 	}
 	
-	public function changeSharpness(newSharpness:Number):ASFontAdvProperties{
+	public function changeSharpness(newSharpness:Object):ASFontAdvProperties{
 		return new ASFontAdvProperties(embedFonts, antiAliasType, gridFitType, newSharpness, thickness);
 	}
 	
-	public function getThickness():Number{
+	public function getThickness():Object{
 		return thickness;
 	}
 	
-	public function changeThickness(newThickness:Number):ASFontAdvProperties{
+	public function changeThickness(newThickness:Object):ASFontAdvProperties{
 		return new ASFontAdvProperties(embedFonts, antiAliasType, gridFitType, sharpness, newThickness);
 	}
 	
-	public function isEmbedFonts():Boolean{
+	public function isEmbedFonts():Object{
 		return embedFonts;
 	}
 	
-	public function changeEmbedFonts(ef:Boolean):ASFontAdvProperties{
+	public function changeEmbedFonts(ef:Object):ASFontAdvProperties{
 		return new ASFontAdvProperties(ef, antiAliasType, gridFitType, sharpness, thickness);
 	}	
 	
@@ -78,11 +81,52 @@ public class ASFontAdvProperties{
 	 * @param textField the text filed to be applied font.
 	 */
 	public function apply(textField:TextField):void{
-		textField.embedFonts = isEmbedFonts();
-		textField.antiAliasType = getAntiAliasType();
-		textField.gridFitType = getGridFitType();
-		textField.sharpness = getSharpness();
-		textField.thickness = getThickness();
+		if(null != isEmbedFonts()){
+			textField.embedFonts = isEmbedFonts() == true;
+		}
+		if(null != getAntiAliasType()){
+			textField.antiAliasType = getAntiAliasType();
+		}
+		if(null != getGridFitType()){
+			textField.gridFitType = getGridFitType();
+		}
+		
+		if(null != getSharpness()){
+			textField.sharpness = Number(getSharpness());
+		}
+		
+		if(null != getThickness()){
+			textField.thickness = Number(getThickness());
+		}
+	}
+	
+	
+	/**
+	 * When this font will take over an old font to apply to TextField, need call this to combine/replace propertie values.
+	 * <br/>
+	 * ASFont will call this method to takeover its aASFontAdvProperties selfly.
+	 * @return itself
+	 */
+	public function takeover(oldF:ASFontAdvProperties):ASFontAdvProperties{
+		if(null == oldF){
+			return this;
+		}
+		if(null == embedFonts){
+			embedFonts = oldF.embedFonts;
+		}
+		if(null == antiAliasType){
+			antiAliasType = oldF.antiAliasType;
+		}
+		if(null == gridFitType){
+			gridFitType = oldF.gridFitType;
+		}
+		if(null == sharpness){
+			sharpness = oldF.sharpness;
+		}
+		if(null == thickness){
+			thickness = oldF.thickness;
+		}
+		return this;
 	}
 	
 	public function toString():String{

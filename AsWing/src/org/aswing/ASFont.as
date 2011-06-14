@@ -23,7 +23,8 @@ public class ASFont{
 	/**
 	 * Create a font with properties or TextFormat.<br/>
 	 * If you specified a TextFormat param, then the font can use be seen a full featured TextFormat font, notic, the 
-	 * properties are copied to the font instance, so later change on the pass TextFormat will not affect the font.
+	 * properties are copied to the font instance, so later change on the pass TextFormat will not affect the font. And, 
+	 * notice that serveral calls at same frame, just the last font will take effet.
 	 * @param nameOrTextFormat if it is a TextFormat, the font will use the TextFormat properties directly, so the follow size, bold, italic, 
 	 * underline params will be ignored except embedFontsOrAdvancedPros
 	 * @param size size
@@ -45,7 +46,7 @@ public class ASFont{
 			textFormat = cloneTextFormat(nameOrTextFormat);
 		}else{
 			textFormat = new TextFormat(
-				nameOrTextFormat, size, null, bold, italic, underline, 
+				nameOrTextFormat, size, null, bold, italic, underline,  
 				"", "", TextFormatAlign.LEFT, 0, 0, 0, 0 
 			);
 		}
@@ -169,7 +170,76 @@ public class ASFont{
 	 */
 	public function clone():ASFont{
 		return new ASFont(textFormat, 0, false, false, false, advancedProperties);
-	}	
+	}
+	
+	/**
+	 * When this font will take over an old font to apply to TextField, need call this to combine/replace textFormat properties.
+	 * <br/>
+	 * Developer do not need to call this method, unless you are going to call apply() method manually.
+	 * @return itself
+	 */
+	public function takeover(oldF:ASFont):ASFont{
+		if(null == oldF || this == oldF){
+			return this;
+		}
+		var tf:TextFormat = oldF.textFormat;
+		if(null == textFormat.align){
+			textFormat.align = tf.align;
+		}
+		if(null == textFormat.blockIndent){
+			textFormat.blockIndent = tf.blockIndent;
+		}
+		if(null == textFormat.bold){
+			textFormat.bold = tf.bold;
+		}
+		if(null == textFormat.bullet){
+			textFormat.bullet = tf.bullet;
+		}
+		if(null == textFormat.color){
+			textFormat.color = tf.color;
+		}
+		if(null == textFormat.font){
+			textFormat.font = tf.font;
+		}
+		if(null == textFormat.indent){
+			textFormat.indent = tf.indent;
+		}
+		if(null == textFormat.italic){
+			textFormat.italic = tf.italic;
+		}
+		if(null == textFormat.kerning){
+			textFormat.kerning = tf.kerning;
+		}
+		if(null == textFormat.leading){
+			textFormat.leading = tf.leading;
+		}
+		if(null == textFormat.leftMargin){
+			textFormat.leftMargin = tf.leftMargin;
+		}
+		if(null == textFormat.letterSpacing){
+			textFormat.letterSpacing = tf.letterSpacing;
+		}
+		if(null == textFormat.rightMargin){
+			textFormat.rightMargin = tf.rightMargin;
+		}
+		if(null == textFormat.size){
+			textFormat.size = tf.size;
+		}
+		if(null == textFormat.tabStops){
+			textFormat.tabStops = tf.tabStops;
+		}
+		if(null == textFormat.target){
+			textFormat.target = tf.target;
+		}
+		if(null == textFormat.underline){
+			textFormat.underline = tf.underline;
+		}
+		if(null == textFormat.url){
+			textFormat.url = tf.url;
+		}
+		advancedProperties.takeover(oldF.advancedProperties);
+		return this;
+	}
 	
 	public function toString():String{
 		return "ASFont[" 
