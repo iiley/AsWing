@@ -661,7 +661,11 @@ public class Component extends AWSprite{
 	 */
 	public function setFont(newFont:ASFont):void{
 		if(font != newFont){
-			font = newFont;
+			if(null != newFont){
+				font = newFont.takeover(font);
+			}else{
+				font = newFont;
+			}
 			setFontValidated(false);
 			repaint();
 			revalidate();

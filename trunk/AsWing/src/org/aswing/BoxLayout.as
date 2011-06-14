@@ -56,7 +56,7 @@ public class BoxLayout extends EmptyLayout
      * @param gap  (optional)the gap between children, default is 0
      * 
      * @see #X_AXIS
-     * @see #X_AXIS
+     * @see #Y_AXIS
      */
     public function BoxLayout(axis:int=X_AXIS, gap:int=0){
     	setAxis(axis);

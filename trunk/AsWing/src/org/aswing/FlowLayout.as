@@ -125,7 +125,7 @@ public class FlowLayout extends EmptyLayout{
     public function getAlignment():int {
 		return align;
     }
-
+	
     /**
      * Sets the alignment for this layout.
      * Possible values are
@@ -143,7 +143,14 @@ public class FlowLayout extends EmptyLayout{
     	}
         this.align = align;
     }
-
+	
+	/**
+	 * alias of setAlignment
+	 */
+	public function setAlign(align:int):void {
+		setAlignment(align);
+	}
+	
     /**
      * Gets the horizontal gap between components.
      * @return     the horizontal gap between components
