@@ -182,12 +182,14 @@ public class ASFont{
 	
 	/**
 	 * If this font is not full featured, the null property values will be filled with default values.
+	 * @return a new ASFont instance will be returned if it is not full features, or, it returns itself. 
 	 * @see org.aswing.plaf.DefaultEmptyDecoraterResource#DEFAULT_FONT
 	 */
-	public function makeFullFeatured():void{
+	public function makeFullFeatured():ASFont{
 		if(!isFullFeatured()){
-			takeover(DefaultEmptyDecoraterResource.DEFAULT_FONT);
-			fullFeatured = true;
+			return takeover(DefaultEmptyDecoraterResource.DEFAULT_FONT);
+		}else{
+			return this;
 		}
 	}
 	
@@ -224,7 +226,7 @@ public class ASFont{
 	 * When this font will take over an old font to apply to TextField, need call this to combine/replace textFormat properties.
 	 * <br/>
 	 * Developer do not need to call this method, unless you are going to call apply() method manually.
-	 * @return itself
+	 * @return a new ASFont which indicated the font will takeover an old font properties
 	 */
 	public function takeover(oldF:ASFont):ASFont{
 		if(null == oldF){
@@ -234,63 +236,63 @@ public class ASFont{
 			return this;
 		}
 		var tf:TextFormat = oldF.textFormat;
-		if(null == textFormat.align){
-			textFormat.align = tf.align;
+		var newTextFormat:TextFormat = cloneTextFormat(textFormat);
+		if(null == newTextFormat.align){
+			newTextFormat.align = tf.align;
 		}
-		if(null == textFormat.blockIndent){
-			textFormat.blockIndent = tf.blockIndent;
+		if(null == newTextFormat.blockIndent){
+			newTextFormat.blockIndent = tf.blockIndent;
 		}
-		if(null == textFormat.bold){
-			textFormat.bold = tf.bold;
+		if(null == newTextFormat.bold){
+			newTextFormat.bold = tf.bold;
 		}
-		if(null == textFormat.bullet){
-			textFormat.bullet = tf.bullet;
+		if(null == newTextFormat.bullet){
+			newTextFormat.bullet = tf.bullet;
 		}
-		if(null == textFormat.color){
-			textFormat.color = tf.color;
+		if(null == newTextFormat.color){
+			newTextFormat.color = tf.color;
 		}
-		if(null == textFormat.font){
-			textFormat.font = tf.font;
+		if(null == newTextFormat.font){
+			newTextFormat.font = tf.font;
 		}
-		if(null == textFormat.indent){
-			textFormat.indent = tf.indent;
+		if(null == newTextFormat.indent){
+			newTextFormat.indent = tf.indent;
 		}
-		if(null == textFormat.italic){
-			textFormat.italic = tf.italic;
+		if(null == newTextFormat.italic){
+			newTextFormat.italic = tf.italic;
 		}
-		if(null == textFormat.kerning){
-			textFormat.kerning = tf.kerning;
+		if(null == newTextFormat.kerning){
+			newTextFormat.kerning = tf.kerning;
 		}
-		if(null == textFormat.leading){
-			textFormat.leading = tf.leading;
+		if(null == newTextFormat.leading){
+			newTextFormat.leading = tf.leading;
 		}
-		if(null == textFormat.leftMargin){
-			textFormat.leftMargin = tf.leftMargin;
+		if(null == newTextFormat.leftMargin){
+			newTextFormat.leftMargin = tf.leftMargin;
 		}
-		if(null == textFormat.letterSpacing){
-			textFormat.letterSpacing = tf.letterSpacing;
+		if(null == newTextFormat.letterSpacing){
+			newTextFormat.letterSpacing = tf.letterSpacing;
 		}
-		if(null == textFormat.rightMargin){
-			textFormat.rightMargin = tf.rightMargin;
+		if(null == newTextFormat.rightMargin){
+			newTextFormat.rightMargin = tf.rightMargin;
 		}
-		if(null == textFormat.size){
-			textFormat.size = tf.size;
+		if(null == newTextFormat.size){
+			newTextFormat.size = tf.size;
 		}
-		if(null == textFormat.tabStops){
-			textFormat.tabStops = tf.tabStops;
+		if(null == newTextFormat.tabStops){
+			newTextFormat.tabStops = tf.tabStops;
 		}
-		if(null == textFormat.target){
-			textFormat.target = tf.target;
+		if(null == newTextFormat.target){
+			newTextFormat.target = tf.target;
 		}
-		if(null == textFormat.underline){
-			textFormat.underline = tf.underline;
+		if(null == newTextFormat.underline){
+			newTextFormat.underline = tf.underline;
 		}
-		if(null == textFormat.url){
-			textFormat.url = tf.url;
+		if(null == newTextFormat.url){
+			newTextFormat.url = tf.url;
 		}
-		advancedProperties.takeover(oldF.advancedProperties);
-		fullFeatured = judegeWhetherFullFeatured();
-		return this;
+		var advP:ASFontAdvProperties = advancedProperties.takeover(oldF.advancedProperties);
+		return new ASFont(newTextFormat, 0, false, false, false, advP);
 	}
 	
 	public function toString():String{

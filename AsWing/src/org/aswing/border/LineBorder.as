@@ -39,8 +39,8 @@ public class LineBorder extends DecorateBorder{
 		shape = new Shape();
 	}
 	
-	override public function updateBorderImp(com:Component, g:Graphics2D, b:IntRectangle):void
-	{
+	override public function updateBorderImp(com:Component, g:Graphics2D, b:IntRectangle):void{
+		trace(color + " line border " + b);
  		var t:Number = thickness;
 		g = new Graphics2D(shape.graphics);
 		shape.graphics.clear();
