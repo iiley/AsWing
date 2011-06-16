@@ -9,6 +9,7 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 
 import org.aswing.geom.IntDimension;
+import org.aswing.plaf.DefaultEmptyDecoraterResource;
 
 /**
  * Font that specified the font name, size, style and whether or not embed.
@@ -17,7 +18,7 @@ import org.aswing.geom.IntDimension;
 public class ASFont{
 	
 	private var textFormat:TextFormat;
-	
+	private var fullFeatured:Boolean = false;
 	private var advancedProperties:ASFontAdvProperties;
 	
 	/**
@@ -44,11 +45,18 @@ public class ASFont{
 		}
 		if(nameOrTextFormat is TextFormat){
 			textFormat = cloneTextFormat(nameOrTextFormat);
+			fullFeatured = judegeWhetherFullFeatured();
 		}else{
 			textFormat = new TextFormat(
-				nameOrTextFormat, size, null, bold, italic, underline,  
+				nameOrTextFormat, size, 0x0, bold, italic, underline,  
 				"", "", TextFormatAlign.LEFT, 0, 0, 0, 0 
 			);
+			textFormat.blockIndent = 0;
+			textFormat.bullet = false;
+			textFormat.kerning = false;
+			textFormat.letterSpacing = 0;
+			textFormat.tabStops = [];
+			fullFeatured = true;
 		}
 	}
 	
@@ -173,13 +181,56 @@ public class ASFont{
 	}
 	
 	/**
+	 * If this font is not full featured, the null property values will be filled with default values.
+	 * @see org.aswing.plaf.DefaultEmptyDecoraterResource#DEFAULT_FONT
+	 */
+	public function makeFullFeatured():void{
+		if(!isFullFeatured()){
+			takeover(DefaultEmptyDecoraterResource.DEFAULT_FONT);
+			fullFeatured = true;
+		}
+	}
+	
+	/**
+	 * Returns whether or not very TextFormat property are specified non-null value.
+	 */
+	public function isFullFeatured():Boolean{
+		return fullFeatured;
+	}
+	
+	protected function judegeWhetherFullFeatured():Boolean{
+		if(null == textFormat.align) return false;
+		if(null == textFormat.blockIndent) return false;
+		if(null == textFormat.bold) return false;
+		if(null == textFormat.bullet) return false;
+		if(null == textFormat.color) return false;
+		if(null == textFormat.font) return false;
+		if(null == textFormat.indent) return false;
+		if(null == textFormat.italic) return false;
+		if(null == textFormat.kerning) return false;
+		if(null == textFormat.leading) return false;
+		if(null == textFormat.leftMargin) return false;
+		if(null == textFormat.letterSpacing) return false;
+		if(null == textFormat.rightMargin) return false;
+		if(null == textFormat.size) return false;
+		//if(null == textFormat.tabStops) return false;
+		if(null == textFormat.target) return false;
+		if(null == textFormat.underline) return false;
+		if(null == textFormat.url) return false;
+		return advancedProperties.isFullFeatured();
+	}
+	
+	/**
 	 * When this font will take over an old font to apply to TextField, need call this to combine/replace textFormat properties.
 	 * <br/>
 	 * Developer do not need to call this method, unless you are going to call apply() method manually.
 	 * @return itself
 	 */
 	public function takeover(oldF:ASFont):ASFont{
-		if(null == oldF || this == oldF){
+		if(null == oldF){
+			oldF = DefaultEmptyDecoraterResource.DEFAULT_FONT;
+		}
+		if(this == oldF){
 			return this;
 		}
 		var tf:TextFormat = oldF.textFormat;
@@ -238,6 +289,7 @@ public class ASFont{
 			textFormat.url = tf.url;
 		}
 		advancedProperties.takeover(oldF.advancedProperties);
+		fullFeatured = judegeWhetherFullFeatured();
 		return this;
 	}
 	

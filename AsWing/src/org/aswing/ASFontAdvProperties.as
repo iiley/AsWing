@@ -16,7 +16,7 @@ import flash.text.TextField;
  */
 public class ASFontAdvProperties{
 	
-	
+	private var fullFeatured:Boolean = false;
  	private var antiAliasType:String;
  	private var gridFitType:String;
  	private var sharpness:Object;
@@ -34,6 +34,7 @@ public class ASFontAdvProperties{
 		this.gridFitType = gridFitType;
 		this.sharpness = sharpness;
 		this.thickness = thickness;
+		fullFeatured = judegeWhetherFullFeatured();
 	}
 	
 	public function getAntiAliasType():String{
@@ -99,8 +100,7 @@ public class ASFontAdvProperties{
 			textField.thickness = Number(getThickness());
 		}
 	}
-	
-	
+		
 	/**
 	 * When this font will take over an old font to apply to TextField, need call this to combine/replace propertie values.
 	 * <br/>
@@ -126,8 +126,25 @@ public class ASFontAdvProperties{
 		if(null == thickness){
 			thickness = oldF.thickness;
 		}
+		fullFeatured = judegeWhetherFullFeatured();
 		return this;
 	}
+	
+	/**
+	 * Returns whether or not very property are specified non-null value.
+	 */
+	public function isFullFeatured():Boolean{
+		return fullFeatured;
+	}
+	
+	protected function judegeWhetherFullFeatured():Boolean{
+		if(null == this.antiAliasType) return false;
+		if(null == this.embedFonts) return false;
+		if(null == this.gridFitType) return false;
+		if(null == this.sharpness) return false;
+		if(null == this.thickness) return false;
+		return true;
+	}	
 	
 	public function toString():String{
 		return "ASFontAdvProperties[" 
