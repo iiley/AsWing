@@ -657,15 +657,35 @@ public class Component extends AWSprite{
 	/**
 	 * Sets the text font for this component.<br>
 	 * this method will cause a repaint and revalidate method call.<br>
-	 * @param newFont the font to set for this component.
+	 * To apply non-full-featured fonts, call supplyFont().
+	 * @param newFont the font(must be full featured) to set for this component.
+	 * @see ASFont#isFullFeatured()
+	 * @see #supplyFont()
 	 */
 	public function setFont(newFont:ASFont):void{
 		if(font != newFont){
-			if(null != newFont){
-				font = newFont.takeover(font);
-			}else{
-				font = newFont;
+			font = newFont;
+			if(null != font && !font.isFullFeatured()){
+				throw new Error("Cannot set a non-full-featured font, try supplyFont() instead.");
 			}
+			setFontValidated(false);
+			repaint();
+			revalidate();
+		}
+	}
+	
+	/**
+	 * Supply a new font to the current font, just like setTextFormat(), a new font will be set created by newFont.takeover oldFont.
+	 * The font's null value  will not be overrided.
+	 * Consider always use this method to apply font instead of setFont()
+	 * @see flash.text.TextFormat
+	 */
+	public function supplyFont(newFont:ASFont):void{
+		if(null == newFont){
+			return;
+		}
+		if(font != newFont){
+			font = newFont.takeover(font);
 			setFontValidated(false);
 			repaint();
 			revalidate();

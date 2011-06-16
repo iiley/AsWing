@@ -105,29 +105,27 @@ public class ASFontAdvProperties{
 	 * When this font will take over an old font to apply to TextField, need call this to combine/replace propertie values.
 	 * <br/>
 	 * ASFont will call this method to takeover its aASFontAdvProperties selfly.
-	 * @return itself
+	 * @return a new ASFontAdvProperties instance to show the taked over value
 	 */
 	public function takeover(oldF:ASFontAdvProperties):ASFontAdvProperties{
-		if(null == oldF){
-			return this;
-		}
+		var nadv:ASFontAdvProperties = new ASFontAdvProperties(embedFonts, antiAliasType, gridFitType, sharpness, thickness);
 		if(null == embedFonts){
-			embedFonts = oldF.embedFonts;
+			nadv.embedFonts = oldF.embedFonts;
 		}
 		if(null == antiAliasType){
-			antiAliasType = oldF.antiAliasType;
+			nadv.antiAliasType = oldF.antiAliasType;
 		}
 		if(null == gridFitType){
-			gridFitType = oldF.gridFitType;
+			nadv.gridFitType = oldF.gridFitType;
 		}
 		if(null == sharpness){
-			sharpness = oldF.sharpness;
+			nadv.sharpness = oldF.sharpness;
 		}
 		if(null == thickness){
-			thickness = oldF.thickness;
+			nadv.thickness = oldF.thickness;
 		}
-		fullFeatured = judegeWhetherFullFeatured();
-		return this;
+		nadv.fullFeatured = nadv.judegeWhetherFullFeatured();
+		return nadv;
 	}
 	
 	/**
