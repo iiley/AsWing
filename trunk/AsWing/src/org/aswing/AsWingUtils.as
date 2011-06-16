@@ -351,6 +351,9 @@ public class AsWingUtils{
         textR:IntRectangle,
         textIconGap:int):String
     {
+		if(!f.isFullFeatured()){
+			throw new Error("Font is not full featured : " + f);
+		}
         if (icon != null) {
             iconR.width = icon.getIconWidth(c);
             iconR.height = icon.getIconHeight(c);
@@ -499,6 +502,9 @@ public class AsWingUtils{
     }*/
     
     private static function inter_computeStringSize(font:ASFont, str:String):IntDimension{
+		if(!font.isFullFeatured()){
+			throw new Error("Font is not full featured : " + f);
+		}
     	TEXT_FIELD.text = str;
     	if(TEXT_FONT != font){
     		font.apply(TEXT_FIELD);
@@ -508,6 +514,9 @@ public class AsWingUtils{
     }
         
     private static function inter_computeStringWidth(font:ASFont, str:String):Number{
+		if(!font.isFullFeatured()){
+			throw new Error("Font is not full featured : " + f);
+		}
     	TEXT_FIELD.text = str;
     	if(TEXT_FONT != font){
     		font.apply(TEXT_FIELD);
@@ -558,6 +567,9 @@ public class AsWingUtils{
 	 * @return the computed size of the text
      */
     public static function computeStringSizeWithFont(font:ASFont, str:String, includeGutters:Boolean=true):IntDimension{
+		if(!font.isFullFeatured()){
+			throw new Error("Font is not full featured : " + f);
+		}
     	TEXT_FIELD_EXT.text = str;
     	font.apply(TEXT_FIELD_EXT);
     	if(includeGutters){
