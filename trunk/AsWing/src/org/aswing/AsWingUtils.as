@@ -503,7 +503,7 @@ public class AsWingUtils{
     
     private static function inter_computeStringSize(font:ASFont, str:String):IntDimension{
 		if(!font.isFullFeatured()){
-			throw new Error("Font is not full featured : " + f);
+			throw new Error("Font is not full featured : " + font);
 		}
     	TEXT_FIELD.text = str;
     	if(TEXT_FONT != font){
@@ -515,7 +515,7 @@ public class AsWingUtils{
         
     private static function inter_computeStringWidth(font:ASFont, str:String):Number{
 		if(!font.isFullFeatured()){
-			throw new Error("Font is not full featured : " + f);
+			throw new Error("Font is not full featured : " + font);
 		}
     	TEXT_FIELD.text = str;
     	if(TEXT_FONT != font){
@@ -568,7 +568,7 @@ public class AsWingUtils{
      */
     public static function computeStringSizeWithFont(font:ASFont, str:String, includeGutters:Boolean=true):IntDimension{
 		if(!font.isFullFeatured()){
-			throw new Error("Font is not full featured : " + f);
+			throw new Error("Font is not full featured : " + font);
 		}
     	TEXT_FIELD_EXT.text = str;
     	font.apply(TEXT_FIELD_EXT);
