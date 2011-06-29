@@ -685,10 +685,7 @@ public class Component extends AWSprite{
 			return;
 		}
 		if(font != newFont){
-			font = newFont.takeover(font);
-			setFontValidated(false);
-			repaint();
-			revalidate();
+			setFont(newFont.takeover(font));
 		}
 	}
 	
