@@ -60,6 +60,13 @@ public class ASFont{
 		}
 	}
 	
+	/**
+	 * Create a font with TextForamt and ASFontAdvProperties
+	 */
+	public static function create(textFormat:TextFormat, advPro:ASFontAdvProperties):ASFont{
+		return new ASFont(textFormat, 11, false, false, false, advPro);
+	}
+	
 	public function getName():String{
 		return textFormat.font;
 	}
