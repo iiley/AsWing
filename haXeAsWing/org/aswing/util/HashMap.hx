@@ -6,7 +6,7 @@ package org.aswing.util;
 
 
 import flash.errors.Error;
-import flash.utils.Dictionary; 
+import flash.utils.TypedDictionary; 
 /**
  * To successfully store and retrieve (key->value) mapping from a HashMap.
  * HashMap accept any type of object to be the key: number, string, Object etc... 
@@ -45,11 +45,11 @@ class HashMap
 {
 
     private var length:Int;
-    private var content:Dictionary;
+    private var content:TypedDictionary<Dynamic,Dynamic>;
 		
  	public function new(){
         length = 0;
-        content = new Dictionary();
+        content = new TypedDictionary<Dynamic,Dynamic>();
  	}
 
  	//-------------------public methods--------------------
@@ -72,14 +72,8 @@ class HashMap
   	 * Returns an Array of the keys in this HashMap.
   	 */
  	public function keys():Array<Dynamic>{
-  		var temp:Array<Dynamic>= new Array<Dynamic>();
-  		var index:Int = 0;
-		var itr:Iterator<Dynamic> = untyped __keys__(content).iterator();
-  		for(i in itr){
-   			temp[index] = i;
-   			index ++;
-  		}
-  		return temp;
+  	 
+  		return content.keys();
  	}
  	
  	/**
@@ -87,7 +81,7 @@ class HashMap
  	 * @param func the function to call
  	 */
  	public function eachKey(func:Dynamic -> Void):Void {
-		var itr:Iterator<Dynamic> = untyped __keys__(content).iterator();	
+		var itr:Array<Dynamic> = content.keys();	
   		for(i in itr){
   			func(i);
   		}
@@ -98,9 +92,9 @@ class HashMap
  	 * @param func the function to call
  	 */ 	
  	public function eachValue(func:Dynamic -> Void):Void{
-  		var itr:Iterator<Dynamic> = untyped __keys__(content).iterator();	
+  		var itr:Iterator<Dynamic> = content.iterator();	
   		for(i in itr){
-  			func(i);
+  			func( content.get(i) );
   		}
  	}
  	
@@ -110,9 +104,10 @@ class HashMap
  	public function values():Array<Dynamic>{
   		var temp:Array<Dynamic>= new Array<Dynamic>();
   		var index:Int= 0;
-  		var itr:Iterator<Dynamic> = untyped __keys__(content).iterator();	
-  		for(i in itr){
-   			temp[index] = i;
+  		var itr:Iterator<Dynamic> =  content.iterator();	
+  		for (i in itr) {
+		 	
+   			temp[index] = content.get(i);
    			index ++;
   		}
   		return temp;
@@ -123,7 +118,7 @@ class HashMap
   	 * This operation is more expensive than the containsKey method.
   	 */
  	public function containsValue(value:Dynamic):Bool{
-  		var itr:Iterator<Dynamic> = untyped __keys__(content).iterator();	
+  		var itr:Iterator<Dynamic> = content.iterator();	
   		for(i in itr){
    			if(i == value){
     			return true;
@@ -140,7 +135,7 @@ class HashMap
   	 */
  	public function containsKey(key:Dynamic ):Bool {
 	//untyped dict[key] = n;	
- 		if(untyped content[key] != null){
+ 		if(  content.get(key) != null){
  			return true;
  		}
   		return false;
@@ -156,7 +151,7 @@ class HashMap
      *           or it is null value originally.
  	 */
  	public function get(key:Dynamic):Dynamic{
- 		var value:Dynamic=untyped content[key];
+ 		var value:Dynamic=content.get(key);
  		if(value !=null){
  			return value;
  		}
@@ -198,7 +193,7 @@ class HashMap
    				length++;
  			}
  			var oldValue:Dynamic= this.get(key);
-   			untyped content[key]=value;
+   			content.set(key,value);
    			return oldValue;
   		}
  	}
@@ -217,9 +212,9 @@ class HashMap
  		if(exist!=true){
  			return null;
  		}
-  		var temp:Dynamic=untyped content[key];
+  		var temp:Dynamic=  content.get(key);
    		// delete content[key];
-		Reflect.deleteField(content, untyped key); 
+		content.delete(key); 
    		length--;
   		return temp;
  	}
@@ -229,7 +224,7 @@ class HashMap
  	 */
  	public function clear():Void{
   		length = 0;
-  		content = new Dictionary();
+  		content = new TypedDictionary<Dynamic,Dynamic>();
  	}
 
  	/**
@@ -237,9 +232,9 @@ class HashMap
  	 */
  	public function clone():HashMap{
   		var temp:HashMap = new HashMap();
-  		var itr:Iterator<Dynamic> = untyped __keys__(content).iterator();	
+  		var itr:Iterator<Dynamic> =  content.iterator();	
   		for(i in itr){
-   			temp.put(i, untyped content[i]);
+   			temp.put( content.get(i),  content.get(i));
   		}
   		return temp;
  	}
