@@ -324,6 +324,9 @@ public class BasicStepperUI extends BaseComponentUI{
     override public function getPreferredSize(c:Component):IntDimension{
     	var insets:Insets = stepper.getInsets();
     	inputText.setColumns(stepper.getColumns());
+		if(inputText.getFont() != stepper.getFont()){
+			inputText.setFont(stepper.getFont());
+		}
     	var inputSize:IntDimension = inputText.getPreferredSize();
     	var buttonSize:IntDimension = upButton.getPreferredSize(); 
     	inputSize.width += buttonSize.width;
