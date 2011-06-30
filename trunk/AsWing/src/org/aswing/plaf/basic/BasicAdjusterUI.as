@@ -232,6 +232,9 @@ public class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI{
     
     override public function getPreferredSize(c:Component):IntDimension{
     	var insets:Insets = adjuster.getInsets();
+		if(inputText.getFont() != adjuster.getFont()){
+			inputText.setFont(adjuster.getFont());
+		}
     	var textSize:IntDimension = inputText.getPreferredSize();
     	var btnSize:IntDimension = arrowButton.getPreferredSize();
     	var size:IntDimension = new IntDimension(
