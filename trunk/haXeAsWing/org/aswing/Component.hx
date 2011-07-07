@@ -18,7 +18,7 @@ import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
 	import flash.Lib;
-	import flash.utils.Dictionary; 
+	import flash.utils.TypedDictionary; 
 
 import org.aswing.dnd.SourceData;
 	import org.aswing.event.PropertyChangeEvent;
@@ -222,7 +222,7 @@ class Component extends AWSprite{
 	private var toolTipText:String;
 	private var dragEnabled:Bool;
 	private var dropTrigger:Bool;
-	private var dragAcceptableInitiator:Dictionary;
+	private var dragAcceptableInitiator:TypedDictionary<Dynamic,Dynamic> ;
 	private var dragAcceptableInitiatorAppraiser:Dynamic->Bool;
 	private var resizerMargin:Insets;
 	
@@ -1487,9 +1487,9 @@ class Component extends AWSprite{
 	 */
 	public function addDragAcceptableInitiator(com:Component):Void{
 		if(dragAcceptableInitiator == null){
-			dragAcceptableInitiator = new Dictionary(true);
+			dragAcceptableInitiator = new TypedDictionary<Dynamic,Dynamic>(true);
 		}
-		untyped dragAcceptableInitiator[com] = true;
+		  dragAcceptableInitiator.set(com,true);
 	}
 	
 	/**
@@ -1501,7 +1501,8 @@ class Component extends AWSprite{
 		if(dragAcceptableInitiator != null){
 			//dragAcceptableInitiator[com] = undefined;
 			//delete dragAcceptableInitiator[com];
-			Reflect.deleteField(dragAcceptableInitiator,   com.toString()); 
+			//Reflect.deleteField(dragAcceptableInitiator,   com.toString()); 
+			dragAcceptableInitiator.delete(com);
 		}
 	}
 	

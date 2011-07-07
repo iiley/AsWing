@@ -13,7 +13,7 @@ import flash.display.Stage;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.ui.Mouse;
-import flash.utils.Dictionary;
+import flash.utils.TypedDictionary;
 
 import org.aswing.util.DepthManager;
 import org.aswing.util.WeakMap;
@@ -39,7 +39,7 @@ class CursorManager{
 			cursorHolder=null;
 			currentCursor=null;
 			setCursorContainerRoot(cursorRoot);
-			tiggerCursorMap=new Dictionary(true);
+			tiggerCursorMap=new TypedDictionary<Dynamic,Dynamic>(true);
 	}
 	
 	private static var managers:WeakMap = new WeakMap();
@@ -162,7 +162,7 @@ class CursorManager{
 		}
 	}
 	
-	private var tiggerCursorMap:Dictionary;
+	private var tiggerCursorMap:TypedDictionary<Dynamic,Dynamic>;
 	
 	/**
 	 * Sets the cursor when mouse on the specified trigger. null to remove cursor for that trigger.
@@ -170,7 +170,7 @@ class CursorManager{
 	 * @param cursor the cursor object, if cursor is null, the trigger's current cursor will be removed
 	 */
 	public function setCursor(trigger:InteractiveObject, cursor:DisplayObject):Void{
-		untyped tiggerCursorMap[trigger] = cursor;
+		  tiggerCursorMap.set(trigger, cursor);
 		if(cursor != null){
 			trigger.addEventListener(MouseEvent.ROLL_OVER, __triggerOver, false, 0, true);
 			trigger.addEventListener(MouseEvent.ROLL_OUT, __triggerOut, false, 0, true);
@@ -179,13 +179,14 @@ class CursorManager{
 			trigger.removeEventListener(MouseEvent.ROLL_OVER, __triggerOver, false);
 			trigger.removeEventListener(MouseEvent.ROLL_OUT, __triggerOut, false);
 			trigger.removeEventListener(MouseEvent.MOUSE_UP, __triggerUp, false);
-			// delete tiggerCursorMap[trigger];
+			// delete 
+			tiggerCursorMap.delete(trigger);
 		}
 	}
 		
 	private function __triggerOver(e:MouseEvent):Void{
 		var trigger:Dynamic= e.currentTarget;
-		var cursor:DisplayObject = flash.Lib.as(untyped tiggerCursorMap[trigger] , DisplayObject);
+		var cursor:DisplayObject = flash.Lib.as( tiggerCursorMap.get(trigger) , DisplayObject);
  
 		if(cursor != null && !e.buttonDown){
 			showCustomCursor(cursor);
@@ -194,7 +195,7 @@ class CursorManager{
 	
 	private function __triggerOut(e:MouseEvent):Void{
 		var trigger:Dynamic= e.currentTarget;
-		var cursor:DisplayObject = flash.Lib.as(untyped tiggerCursorMap[trigger] , DisplayObject);
+		var cursor:DisplayObject = flash.Lib.as(tiggerCursorMap.get(trigger) , DisplayObject);
 		if(cursor!=null)	{
 			hideCustomCursor(cursor);
 		}
@@ -202,7 +203,7 @@ class CursorManager{
 	
 	private function __triggerUp(e:MouseEvent):Void{
 		var trigger:InteractiveObject = flash.Lib.as(e.currentTarget,InteractiveObject)	;
-		var cursor:DisplayObject = flash.Lib.as(untyped tiggerCursorMap[trigger] , DisplayObject);
+		var cursor:DisplayObject = flash.Lib.as(tiggerCursorMap.get(trigger) , DisplayObject);
 		if(cursor  != null&& trigger.hitTestPoint(e.stageX, e.stageY, true)){
 			showCustomCursor(cursor);
 		}
