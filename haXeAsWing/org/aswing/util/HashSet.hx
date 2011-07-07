@@ -5,7 +5,7 @@
 package org.aswing.util;
 
 	
-import flash.utils.Dictionary;
+import flash.utils.TypedDictionary;
 	
 /**
  * A collection that contains no duplicate elements. More formally, 
@@ -15,11 +15,11 @@ import flash.utils.Dictionary;
 class HashSet
 {
 	
-	private var container:Dictionary;
+	private var container:TypedDictionary<Dynamic,Dynamic>;
 	private var length:Int;
 	
 	public function new(){
-		container = new Dictionary();
+		container = new TypedDictionary<Dynamic,Dynamic>();
 		length = 0;
 	}
 	
@@ -31,11 +31,11 @@ class HashSet
 		if(!contains(o)){
 			length++;
 		}
-		untyped container[o] = o;
+		  container.set(o,o);
 	}
 	
 	public function contains(o:Dynamic):Bool{
-		return untyped container[o] !=null;
+		return   container.get(o) !=null;
 	}
 	
 	public function isEmpty():Bool{
@@ -45,6 +45,7 @@ class HashSet
 	public function remove(o:Dynamic):Bool{
 		if(contains(o)){
 			// delete container[o];
+			container.delete(o);
 			length--;
 			return true;
 		}else{
@@ -53,7 +54,7 @@ class HashSet
 	}
 	
 	public function clear():Void{
-		container = new Dictionary();
+		container = new TypedDictionary<Dynamic,Dynamic>();
 		length = 0;
 	}
 	
@@ -79,7 +80,7 @@ class HashSet
 	}
 	
 	public function each(func:Dynamic -> Void):Void{
-		var itr:Iterator<Dynamic> = untyped __keys__(container).iterator();	
+		var itr:Iterator<Dynamic> = container.keys();	
   		for(i in itr){	
 			func(i);
 		}
@@ -88,7 +89,7 @@ class HashSet
 	public function toArray():Array<Dynamic>{
 		var arr:Array<Dynamic>= new Array<Dynamic>();
 		var index:Int= 0;
-		var itr:Iterator<Dynamic> = untyped __keys__(container).iterator();	
+		var itr:Iterator<Dynamic> =  container.keys();	
   		for(i in itr){	
 			arr[index] = i;
 			index ++;

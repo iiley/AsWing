@@ -1,7 +1,7 @@
 package org.aswing.util;
 
 
-import flash.utils.Dictionary;
+import flash.utils.TypedDictionary;
 	
 /**
  * WeakReference, the value will be weak referenced.
@@ -9,7 +9,7 @@ import flash.utils.Dictionary;
  */
 class WeakReference{
 	
-	private var weakDic:Dictionary;
+	private var weakDic:TypedDictionary<Dynamic,Dynamic>;
 	
 	public function new(){
  
@@ -19,8 +19,8 @@ class WeakReference{
 		if(v == null){
 			weakDic = null;
 		}else{
-			weakDic = new Dictionary(true);
-			untyped weakDic[v] = null;
+			weakDic = new TypedDictionary<Dynamic,Dynamic>(true);
+			 weakDic.set(v,null);
 		}
 	
 			return v;
@@ -28,7 +28,7 @@ class WeakReference{
 	
 	public function get_value():Dynamic{
 		if (weakDic != null)	{
-			var itr:Iterator<Dynamic> = untyped __keys__(weakDic).iterator();	  	 
+			var itr:Iterator<Dynamic> = weakDic.keys();	  	 
 			for(v in itr){
 		 
 				return v;

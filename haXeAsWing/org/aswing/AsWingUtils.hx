@@ -16,7 +16,7 @@ import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
-import flash.utils.Dictionary;
+import flash.utils.TypedDictionary;
 
 import org.aswing.geom.IntPoint;
 	import org.aswing.geom.IntRectangle;
@@ -73,7 +73,7 @@ class AsWingUtils{
     	TEXT_FIELD.type = TextFieldType.DYNAMIC;
     }
     */
-    private static var weakComponentDic:Dictionary = new Dictionary(true);
+    private static var weakComponentDic:TypedDictionary<Dynamic,Dynamic> = new TypedDictionary<Dynamic,Dynamic>(true);
     
     /**
      * Create a sprite at specified parent with specified name.
@@ -776,8 +776,7 @@ class AsWingUtils{
      * All component will be registered here.
      */
     public static function weakRegisterComponent(c:Component):Void{
- 
-		Reflect.deleteField(weakComponentDic, untyped c.toString()); 
+		weakComponentDic.set(c,null); 
     }
     
     /**
@@ -789,7 +788,7 @@ class AsWingUtils{
      * @see org.aswing.Component#updateUI()
      */
     public static function updateAllComponentUIInMemory():Void {
-	 var itr:Iterator<Dynamic> = untyped __keys__(weakComponentDic).iterator();	
+	 var itr:Iterator<Dynamic> = weakComponentDic.keys();	
   		for(c in itr){	 
     		if(!c.isUIElement()){
     			c.updateUI();
