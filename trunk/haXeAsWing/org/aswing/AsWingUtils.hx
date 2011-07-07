@@ -788,7 +788,7 @@ class AsWingUtils{
      * @see org.aswing.Component#updateUI()
      */
     public static function updateAllComponentUIInMemory():Void {
-	 var itr:Iterator<Dynamic> = weakComponentDic.keys();	
+	 var itr:Array<Dynamic> = weakComponentDic.keys();	
   		for(c in itr){	 
     		if(!c.isUIElement()){
     			c.updateUI();

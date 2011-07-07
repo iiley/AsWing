@@ -80,7 +80,7 @@ class HashSet
 	}
 	
 	public function each(func:Dynamic -> Void):Void{
-		var itr:Iterator<Dynamic> = container.keys();	
+		var itr:Array<Dynamic> = container.keys();	
   		for(i in itr){	
 			func(i);
 		}
@@ -89,7 +89,7 @@ class HashSet
 	public function toArray():Array<Dynamic>{
 		var arr:Array<Dynamic>= new Array<Dynamic>();
 		var index:Int= 0;
-		var itr:Iterator<Dynamic> =  container.keys();	
+		var itr:Array<Dynamic>  =  container.keys();	
   		for(i in itr){	
 			arr[index] = i;
 			index ++;
