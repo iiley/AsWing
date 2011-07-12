@@ -1,6 +1,6 @@
 /**
  * ...
- * @author paling
+ * @author palign
  */
 
 package flash.display;

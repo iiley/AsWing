@@ -18,7 +18,7 @@ class Sprite extends  Shape
 	{
 		
 		super();
-		name = "Shape " + DisplayObject.mNameID;
+		name = "Sprite " + DisplayObject.mNameID;
 		target.name = name;
 		buttonMode = false;
 		
@@ -31,7 +31,7 @@ class Sprite extends  Shape
 		 target.useHandCursor = _buttonMode;
 		return  target.useHandCursor ;
 	}
- 
+  
 
 	public function startDrag(?lockCenter:Bool, ?bounds:Rectangle<Float>):Void
 	{
