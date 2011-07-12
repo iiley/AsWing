@@ -51,6 +51,7 @@ class Main extends Sprite
 	{
 		var dc:DrawCircle=e.target;
 		trace("__click");
+		 this.swapChildrenAt(1, 2); 
 	}
 	static function main() 
 	{
