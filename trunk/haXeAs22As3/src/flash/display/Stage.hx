@@ -44,7 +44,8 @@ class Stage extends EventDispatcher
 	{
 		mLastMouse= new Point<Float>(0, 0);
 		super();
-		
+		//flash.Mouse.
+		//flash.Key
 	}
 	function SetRoot(__root:DisplayObjectContainer)
 	{
