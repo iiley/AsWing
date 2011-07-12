@@ -10,7 +10,7 @@ import flash.geom.Point;
 class DisplayObjectContainer extends InteractiveObject
 {
 
-	public var mObjs : Array<DisplayObject>; 
+	var mObjs : Array<DisplayObject>; 
 	var __mouseChildren:Bool;
 	public var numChildren(GetNumChildren,null):Int;
 	public var mouseChildren(GetMouseChildren,SetMouseChildren):Bool;
@@ -24,7 +24,21 @@ class DisplayObjectContainer extends InteractiveObject
 		name = "DisplayObjectContainer " +  flash.display.DisplayObject.mNameID;
 	}
 	
-	 
+	override public function update():Void
+	{ 
+		super.update();  	 
+		Stage.renderCount=Stage.renderCount+1;		
+	    if (target.getDepth() != Stage.renderCount)
+	    {  
+			target.swapDepths(Stage.renderCount); 
+	    }
+		for (i in 0...mObjs.length)
+		{
+		   var mr:DisplayObject = mObjs[i]; 
+		   mr.update();
+		}
+		
+	}
 	public function GetMouseChildren() { return  __mouseChildren; }
  
 

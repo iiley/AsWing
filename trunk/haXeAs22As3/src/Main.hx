@@ -11,7 +11,7 @@ import flash.utils.Timer;
 import flash.display.Graphics;
 import flash.events.TimerEvent;
 import flash.events.MouseEvent;
-import flash.display.Stage;
+import flash.display.Stage; 
 /**
  * ...
  * @author paling
@@ -33,7 +33,7 @@ class Main extends Sprite
 		this.addChild(new DrawCircle());
 		var dc:DrawCircle;
 	 	this.addChildAt(dc = new DrawCircle(),0);
-	 
+	   
 		
 		dc.x = -80;
 		dc.buttonMode = true;

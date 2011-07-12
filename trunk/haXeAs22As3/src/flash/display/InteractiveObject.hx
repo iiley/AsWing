@@ -1,6 +1,9 @@
 package flash.display;
 
- 
+/**
+* @author	Hugh Sanderson
+* @author	Russell Weir
+**/
 class InteractiveObject extends DisplayObject
 {
 	public var doubleClickEnabled(__getDoubleClickEnabled,__setDoubleClickEnabled) : Bool;

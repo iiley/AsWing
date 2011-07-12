@@ -2,6 +2,7 @@ package flash.text;
 import flash.events.EventDispatcher;
 import flash.TextField;
 import flash.display.DisplayObject;
+import flash.display.Stage;
 class TextField extends   flash.display.InteractiveObject {
 
 	public var alwaysShowSelection : Bool;
@@ -49,7 +50,15 @@ class TextField extends   flash.display.InteractiveObject {
 		name = "TextField " + DisplayObject.mNameID;
 		target.name = name;
 	}
-	 
+	override public function update():Void
+	{  
+		super.update();  	
+		Stage.renderCount=Stage.renderCount+1; 
+	    if (target.getDepth() != Stage.renderCount)
+	    { 
+			target.swapDepths(Stage.renderCount); 		
+	    }  
+	}
 	function GetTextWidth():Float
 	{
 		return target.textWidth;

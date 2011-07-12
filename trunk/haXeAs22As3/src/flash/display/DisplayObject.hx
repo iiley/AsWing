@@ -58,15 +58,15 @@ class DisplayObject extends EventDispatcher, implements IBitmapDrawable
 	private var mGraphics:Graphics;
     private	var mX:Float;
 	private var mY:Float; 
-	private	var mStageX:Float;
+	private	var mStageX:Float; 
 	private var mStageY:Float; 
 	 var inMouseRoll:Bool;
 	 var inMouseDown:Bool;
-	
+
 	public function new()
 	{
 		inMouseDown=inMouseRoll = false;
-		name = "DisplayObject"; 		
+		name = "DisplayObject"+DisplayObject.mNameID; 		
 		mX = mY = mStageX = mStageY = 0;
 		//visible = false;
 		DisplayObject.mNameID++;
@@ -111,13 +111,16 @@ class DisplayObject extends EventDispatcher, implements IBitmapDrawable
 	public function setUseHandCursor(b:Bool):Bool{
 		return target.useHandCursor = b;
 	}
-	public function updateLocalXY():Void
+	public function update():Void
 	{
-		mStageX = parent.x;
-		mStageY = parent.y;
+		mStageX = parent.target._x;
+		mStageY = parent.target._y;
 		
-		if(target._x !=  mStageX + mX)target._x = mStageX + mX;
-		if(target._y !=  mStageY + mY)target._y = mStageY + mY;
+		
+		if(target._x !=  mStageX + mX) target._x = mStageX + mX;
+		if (target._y !=  mStageY + mY) target._y = mStageY + mY;
+		//	trace(name + " " +target._x + " " + target._y);
+	 
 	}
 	function onData() : Void 
 	{ 
