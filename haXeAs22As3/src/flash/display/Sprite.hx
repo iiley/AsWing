@@ -28,8 +28,9 @@ class Sprite extends  Shape
 
 	function SetButtonMode(_buttonMode:Bool)
 	{
-		 target.useHandCursor = _buttonMode;
-		return  target.useHandCursor ;
+		 useHandCursor = _buttonMode;
+	
+		return useHandCursor ;
 	}
   
 

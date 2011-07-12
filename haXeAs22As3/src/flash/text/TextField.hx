@@ -50,9 +50,9 @@ class TextField extends   flash.display.InteractiveObject {
 		name = "TextField " + DisplayObject.mNameID;
 		target.name = name;
 	}
-	override public function update():Void
+	override public function invalidate():Void
 	{  
-		super.update();  	
+		super.invalidate();  	
 		Stage.renderCount=Stage.renderCount+1; 
 	    if (target.getDepth() != Stage.renderCount)
 	    { 
