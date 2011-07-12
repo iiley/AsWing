@@ -273,8 +273,7 @@ class DisplayObjectContainer extends InteractiveObject
 		for ( i in 0...mObjs.length )
 		if ( mObjs[i] == child1 ) c1 = i;
 		else if  ( mObjs[i] == child2 ) c2 = i;
-		var target:flash.MovieClip;
-		var target1:flash.MovieClip;
+	 
 		if ( c1 != -1 && c2 != -1 )
 		{ 		
 			swap = mObjs[c1];
