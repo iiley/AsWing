@@ -108,20 +108,27 @@ class DisplayObject extends EventDispatcher, implements IBitmapDrawable
 	public function getUseHandCursor():Bool{
 		return target.useHandCursor;
 	}
-	public function setUseHandCursor(b:Bool):Bool{
+	public function setUseHandCursor(b:Bool):Bool {
+			 
 		return target.useHandCursor = b;
 	}
-	public function update():Void
+	public function invalidate():Void
 	{
 		mStageX = parent.target._x;
 		mStageY = parent.target._y;
-		
+		 
 		
 		if(target._x !=  mStageX + mX) target._x = mStageX + mX;
 		if (target._y !=  mStageY + mY) target._y = mStageY + mY;
 		//	trace(name + " " +target._x + " " + target._y);
 	 
 	}
+	override   public function dispatchEvent(event : Event) : Bool
+   { 
+	   
+	   if (this.parent != null) this.parent.dispatchEvent(event);
+	   return super.dispatchEvent(event);
+   }
 	function onData() : Void 
 	{ 
 	}
@@ -402,12 +409,12 @@ class DisplayObject extends EventDispatcher, implements IBitmapDrawable
 
 	// TODO:
 	  function GetMouseX() { 
-		var mLastMouse:Point<Float> = Stage.mLastMouse;
+		var mLastMouse:Point<Float> = stage.mLastMouse;
 		target.globalToLocal(mLastMouse);
 		return mLastMouse.x; 
 	}
 	  function GetMouseY() { 
-		var mLastMouse:Point<Float> = Stage.mLastMouse;
+		var mLastMouse:Point<Float> = stage.mLastMouse;
 		target.globalToLocal(mLastMouse);
 		return mLastMouse.y; 
 	}
@@ -525,6 +532,7 @@ class DisplayObject extends EventDispatcher, implements IBitmapDrawable
 			{
 				this.mask = inParent.mask;
 			}
+				target.useHandCursor = inParent.target.useHandCursor;
 		}
 		else if (mParent!=null && inParent==null)
 		{ 
@@ -535,6 +543,7 @@ class DisplayObject extends EventDispatcher, implements IBitmapDrawable
 			{
 				this.mask = null;
 			}
+		
 		}
 		else
 			mParent = inParent;

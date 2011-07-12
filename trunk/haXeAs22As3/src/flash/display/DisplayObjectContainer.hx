@@ -23,10 +23,18 @@ class DisplayObjectContainer extends InteractiveObject
 		mouseChildren = true;
 		name = "DisplayObjectContainer " +  flash.display.DisplayObject.mNameID;
 	}
-	
-	override public function update():Void
+	override public function setUseHandCursor(b:Bool):Bool {
+		
+		//for (i in 0...mObjs.length)
+		//{
+		//	 var mr = mObjs[i]; 
+			// mr.useHandCursor = b;
+		//}
+		return super.setUseHandCursor(b);
+	}
+	override public function invalidate():Void
 	{ 
-		super.update();  	 
+		super.invalidate();  	 
 		Stage.renderCount=Stage.renderCount+1;		
 	    if (target.getDepth() != Stage.renderCount)
 	    {  
@@ -35,7 +43,7 @@ class DisplayObjectContainer extends InteractiveObject
 		for (i in 0...mObjs.length)
 		{
 		   var mr:DisplayObject = mObjs[i]; 
-		   mr.update();
+		   mr.invalidate();
 		}
 		
 	}
