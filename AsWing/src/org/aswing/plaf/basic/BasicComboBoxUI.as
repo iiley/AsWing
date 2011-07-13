@@ -4,6 +4,7 @@
 
 package org.aswing.plaf.basic{
 
+import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
@@ -298,7 +299,13 @@ public class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI{
     }
     
     protected function __onFocusLost(e:Event):void{
-    	hidePopup();
+    	var fm:FocusManager = FocusManager.getManager(box.stage);
+		if(fm && box.stage){
+			var fo:InteractiveObject = box.stage.focus;
+			if(fo!=null && !AsWingUtils.isAncestorDisplayObject(popup, fo)){
+				hidePopup();
+			}
+		}
     }
     
     protected function __onBoxRemovedFromStage(e:Event):void{
