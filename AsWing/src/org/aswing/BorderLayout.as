@@ -6,8 +6,8 @@ package org.aswing{
 import org.aswing.Component;
 import org.aswing.Container;
 import org.aswing.EmptyLayout;
-import org.aswing.geom.IntDimension;
 import org.aswing.Insets;
+import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 
 /**
@@ -43,27 +43,9 @@ import org.aswing.geom.IntRectangle;
  */
  
 public class BorderLayout extends EmptyLayout{
+	
 	private var hgap:Number;
-
 	private var vgap:Number;
-
-	private var north:Component;
-
-	private var west:Component;
-
-	private var east:Component;
-
-    private var south:Component;
-
-	private var center:Component;
-    
-    private var firstLine:Component;
-
-	private var lastLine:Component;
-
-	private var firstItem:Component;
-
-	private var lastItem:Component;
 	
 	private var defaultConstraints:String;
 
@@ -92,29 +74,6 @@ public class BorderLayout extends EmptyLayout{
      */
     public static const CENTER:String  = "Center";
 
-	
-	public static const BEFORE_FIRST_LINE:String  = "First";
-
-
-    public static const AFTER_LAST_LINE:String  = "Last";
-
-
-    public static const BEFORE_LINE_BEGINS:String  = "Before";
-
-
-    public static const AFTER_LINE_ENDS:String  = "After";
-
-
-    public static const PAGE_START:String  = BEFORE_FIRST_LINE;
-
-
-    public static const PAGE_END:String  = AFTER_LAST_LINE;
-
-
-    public static const LINE_START:String  = BEFORE_LINE_BEGINS;
-
-
-    public static const LINE_END:String  = AFTER_LINE_ENDS;
 
     /**
      * Constructs a border layout with the specified gaps
@@ -171,56 +130,15 @@ public class BorderLayout extends EmptyLayout{
 		if (name == null) {
 	   		name = defaultConstraints;
 		}
-
-		if (CENTER == name) {
-		    center = comp;
-		} else if (NORTH == name) {
-		    north = comp;
-		} else if (SOUTH == name) {
-		    south = comp;
-		} else if (EAST == name) {
-		    east = comp;
-		} else if (WEST == name) {
-		    west = comp;
-		} else if (BEFORE_FIRST_LINE == name) {
-		    firstLine = comp;
-		} else if (AFTER_LAST_LINE == name) {
-		    lastLine = comp;
-		} else if (BEFORE_LINE_BEGINS == name) {
-		    firstItem = comp;
-		} else if (AFTER_LINE_ENDS == name) {
-		    lastItem = comp;
-		} else {
-			//defaut center
-		    center = comp;
-		}
+		comp.setConstraints(name);
     }
     
 	/**
 	 * 
 	 */
     override public function removeLayoutComponent(comp:Component):void {
-		if (comp == center) {
-		    center = null;
-		} else if (comp == north) {
-		    north = null;
-		} else if (comp == south) {
-		    south = null;
-		} else if (comp == east) {
-		    east = null;
-		} else if (comp == west) {
-		    west = null;
-		}
-		if (comp == firstLine) {
-		    firstLine = null;
-		} else if (comp == lastLine) {
-		    lastLine = null;
-		} else if (comp == firstItem) {
-		    firstItem = null;
-		} else if (comp == lastItem) {
-		    lastItem = null;
-		}
     }
+	
 	/**
 	 * 
 	 */
@@ -233,31 +151,30 @@ public class BorderLayout extends EmptyLayout{
 	 */
     override public function preferredLayoutSize(target:Container):IntDimension {
     	var dim:IntDimension = new IntDimension(0, 0);
-	    var ltr:Boolean = true;
 	    var c:Component = null;
 		
 		var d:IntDimension;
-		if ((c=getChild(EAST,ltr)) != null) {
+		if ((c=getChild(EAST, target)) != null) {
 		    d = c.getPreferredSize();
 		    dim.width += d.width + hgap;
 		    dim.height = Math.max(d.height, dim.height);
 		}
-		if ((c=getChild(WEST,ltr)) != null) {
+		if ((c=getChild(WEST, target)) != null) {
 		    d = c.getPreferredSize();
 		    dim.width += d.width + hgap;
 		    dim.height = Math.max(d.height, dim.height);
 		}
-		if ((c=getChild(CENTER,ltr)) != null) {
+		if ((c=getChild(CENTER, target)) != null) {
 		    d = c.getPreferredSize();
 		    dim.width += d.width;
 		    dim.height = Math.max(d.height, dim.height);
 		}
-		if ((c=getChild(NORTH,ltr)) != null) {
+		if ((c=getChild(NORTH, target)) != null) {
 		    d = c.getPreferredSize();
 		    dim.width = Math.max(d.width, dim.width);
 		    dim.height += d.height + vgap;
 		}
-		if ((c=getChild(SOUTH,ltr)) != null) {
+		if ((c=getChild(SOUTH, target)) != null) {
 		    d = c.getPreferredSize();
 		    dim.width = Math.max(d.width, dim.width);
 		    dim.height += d.height + vgap;
@@ -312,32 +229,31 @@ public class BorderLayout extends EmptyLayout{
 		var bottom:int = td.height - insets.bottom;
 		var left:int = insets.left;
 		var right:int = td.width - insets.right;
-	    var ltr:Boolean = true;
 	    var c:Component = null;
 	
 		var d:IntDimension;
-		if ((c=getChild(NORTH,ltr)) != null) {
+		if ((c=getChild(NORTH, target)) != null) {
 		    d = c.getPreferredSize();
 		    c.setBounds(new IntRectangle(left, top, right - left, d.height));
 		    top += d.height + vgap;
 		}
-		if ((c=getChild(SOUTH,ltr)) != null) {
+		if ((c=getChild(SOUTH, target)) != null) {
 		    d = c.getPreferredSize();
 		    c.setBounds(new IntRectangle(left, bottom - d.height, right - left, d.height));
 		    bottom -= d.height + vgap;
 		}
-		if ((c=getChild(EAST,ltr)) != null) {
+		if ((c=getChild(EAST, target)) != null) {
 		    d = c.getPreferredSize();
 		    c.setBounds(new IntRectangle(right - d.width, top, d.width, bottom - top));
 		    right -= d.width + hgap;
 		    //Flashout.log("East prefer size : " + d);
 		}
-		if ((c=getChild(WEST,ltr)) != null) {
+		if ((c=getChild(WEST, target)) != null) {
 		    d = c.getPreferredSize();
 		    c.setBounds(new IntRectangle(left, top, d.width, bottom - top));
 		    left += d.width + hgap;
 		}
-		if ((c=getChild(CENTER,ltr)) != null) {
+		if ((c=getChild(CENTER, target)) != null) {
 		    c.setBounds(new IntRectangle(left, top, right - left, bottom - top));
 		}
       
@@ -348,36 +264,16 @@ public class BorderLayout extends EmptyLayout{
      *
      * @param   key     The desired absolute position,
      *                  either NORTH, SOUTH, EAST, or WEST.
-     * @param   ltr     Is the component line direction left-to-right?
      */
-    private function getChild(key:String, ltr:Boolean):Component {
-        var result:Component = null;
-
-        if (key == NORTH) {
-            result = (firstLine != null) ? firstLine : north;
-        }
-        else if (key == SOUTH) {
-            result = (lastLine != null) ? lastLine : south;
-        }
-        else if (key == WEST) {
-            result = ltr ? firstItem : lastItem;
-            if (result == null) {
-                result = west;
-            }
-        }
-        else if (key == EAST) {
-            result = ltr ? lastItem : firstItem;
-            if (result == null) {
-                result = east;
-            }
-        }
-        else if (key == CENTER) {
-            result = center;
-        }
-        if (result != null && !result.isVisible()) {
-            result = null;
-        }
-        return result;
+    private function getChild(key:String, target:Container):Component{
+		var n:int = target.getComponentCount();
+		for(var i:int=0; i<n; i++){
+			var c:Component = target.getComponent(i);
+			if(c.getConstraints() == key){
+				return c;
+			}
+		}
+        return null;
     }
 
     public function toString():String {
