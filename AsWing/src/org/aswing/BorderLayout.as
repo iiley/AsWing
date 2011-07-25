@@ -269,7 +269,8 @@ public class BorderLayout extends EmptyLayout{
 		var n:int = target.getComponentCount();
 		for(var i:int=0; i<n; i++){
 			var c:Component = target.getComponent(i);
-			if(c.getConstraints() == key){
+			var cons:String = c.getConstraints()+"";
+			if(cons.toLowerCase() == key.toLowerCase()){
 				return c;
 			}
 		}
