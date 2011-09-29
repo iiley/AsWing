@@ -609,10 +609,10 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 		//count not viewed front tabs's width and invisible them
 		var offsetPoint:IntPoint = new IntPoint();
 		for(i in 0...firstIndex){
-			if(horizontalPlacing)	{
-				offsetPoint.x -= tba[i].width;
+			if(horizontalPlacing)   {
+					offsetPoint.x -= Std.int(tba[i].width);
 			}else{
-				offsetPoint.y -= tba[i].height;
+					offsetPoint.y -= Std.int(tba[i].height);
 			}
 			getTab(i).getTabComponent().setVisible(false);
 		}
