@@ -848,7 +848,7 @@ public class BasicTabbedPaneUI extends BaseComponentUI implements LayoutManager{
 		var tab:Tab = getTab(index);
 		tab.setSelected(index == tabbedPane.getSelectedIndex());
 		var tc:Component = tab.getTabComponent();
-		tc.setComBounds(getDrawnTabBounds(index));
+		tab.setComBounds(getDrawnTabBounds(index));
 		if(index == tabbedPane.getSelectedIndex()){
 			if (null != topTabCom && tc.parent.contains(topTabCom)){
 				tc.parent.swapChildren(tc, topTabCom);
