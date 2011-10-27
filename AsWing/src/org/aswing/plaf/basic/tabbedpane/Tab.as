@@ -5,6 +5,7 @@
 package org.aswing.plaf.basic.tabbedpane{
 
 import org.aswing.*;
+import org.aswing.geom.IntRectangle;
 
 /**
  * TabbedPane Tab
@@ -22,6 +23,8 @@ public interface Tab{
 	function setTabPlacement(tp:int):void;
 	
 	function getTabPlacement():int;
+	
+	function setComBounds(b:IntRectangle):void;
 	
 	/**
 	 * Sets text and icon to the header

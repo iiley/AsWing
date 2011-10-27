@@ -5,6 +5,7 @@
 package org.aswing.plaf.basic.accordion{
 
 import org.aswing.*;
+import org.aswing.geom.IntRectangle;
 import org.aswing.plaf.basic.tabbedpane.Tab;
 	
 /**
@@ -24,6 +25,10 @@ public class BasicAccordionHeader implements Tab{
 	public function initTab(owner:Component):void{
 		this.owner = owner;
 		button = createHeaderButton();
+	}
+	
+	public function setComBounds(b:IntRectangle):void{
+		button.setComBounds(b);
 	}
 	
 	public function setTabPlacement(tp:int):void{	

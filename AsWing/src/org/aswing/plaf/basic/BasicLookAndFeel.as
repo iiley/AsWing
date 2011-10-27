@@ -578,23 +578,23 @@ public class BasicLookAndFeel extends LookAndFeel{
 		
 	   // *** JClosableTabbedPane
 		comDefaults = [
-			"ClosableTabbedPane.background", new ASColorUIResource(0xE7E7E5),
+			"ClosableTabbedPane.background", table.get("window"),
 			"ClosableTabbedPane.foreground", table.get("controlText"), 
-			"ClosableTabbedPane.mideground", new ASColorUIResource(0x4dc1d0), 
-			"ClosableTabbedPane.colorAdjust", new UIStyleTune(0.01, -0.24, 0.01, 0.50, 4), 
+			"ClosableTabbedPane.mideground", new ASColorUIResource(0xcacbcb), 
+			"ClosableTabbedPane.colorAdjust", new UIStyleTune(0.01, -0.14, 0.01, 0.50, 4, new UIStyleTune(0.05, -0.23, 0.01, 0.50, 4)), 
 			"ClosableTabbedPane.opaque", false,  
 			"ClosableTabbedPane.focusable", true,  
-			"ClosableTabbedPane.shadow", new ASColorUIResource(0x888888),		
-			"ClosableTabbedPane.darkShadow", new ASColorUIResource(0x444444),		
-			"ClosableTabbedPane.light", table.getColor("controlHighlight"),	   
-	   		"ClosableTabbedPane.highlight", new ASColorUIResource(0xFFFFFF),
 			"ClosableTabbedPane.arrowShadowColor", new ASColorUIResource(0x000000),
 			"ClosableTabbedPane.arrowLightColor", new ASColorUIResource(0x444444),
 			"ClosableTabbedPane.font", table.getFont("controlFont"),
-			"ClosableTabbedPane.tabMargin", new InsetsUIResource(2, 3, 1, 3),
-			"ClosableTabbedPane.contentMargin", new InsetsUIResource(8, 2, 2, 2), 
-			"ClosableTabbedPane.contentRoundLineThickness", 2, 
-			"ClosableTabbedPane.topBlankSpace", 4, 
+			"ClosableTabbedPane.tabMargin", new InsetsUIResource(3, 8, 2, 8),
+			"ClosableTabbedPane.contentMargin", new InsetsUIResource(10, 2, 2, 2), 
+			"ClosableTabbedPane.selectedTabExpandInsets", new InsetsUIResource(0, 0, 0, 0), 
+			//indicate the insets of border bar
+			"ClosableTabbedPane.tabBorderInsets", new InsetsUIResource(0, 0, 0, 0), //new InsetsUIResource(0, 18, 0, 18),
+			"ClosableTabbedPane.contentRoundLineThickness", 0, 
+			"ClosableTabbedPane.tabGap", 2, 
+			"ClosableTabbedPane.topBlankSpace", 0, 
 			"ClosableTabbedPane.maxTabWidth", 1000];
 		table.putDefaults(comDefaults);
 		
