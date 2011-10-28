@@ -368,7 +368,9 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 			var r:IntRectangle = table.getCellRect(rowCount - 1, 0, true);
 			height = r.y + r.height;
 		}
-		height += table.getTableHeader().getPreferredHeight();
+    if(table.getTableHeader()){
+      height += table.getTableHeader().getPreferredHeight();
+    }
 		if(table.getFooter()){
 			height += table.getFooter().getPreferredHeight();
 		}
@@ -392,7 +394,9 @@ public class BasicTableUI extends BaseComponentUI implements TableUI{
 		}else{
 			d.width = table.getColumnModel().getTotalColumnWidth();
 		}
-		d.height -= table.getTableHeader().getHeight();
+    if (table.getTableHeader()){
+      d.height -= table.getTableHeader().getHeight();
+    }
 		if(table.getFooter()){
 			d.height -= table.getFooter().getHeight();
 		}

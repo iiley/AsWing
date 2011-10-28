@@ -2664,8 +2664,10 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		var insetsX:int = insets.left;
 		var insetsY:int = insets.top;
 		var cWidth:int = getWidth() - insets.getMarginWidth();
+		var cHeight:int = getHeight() - insets.getMarginHeight();
 		
-		var headerHeight:int = getTableHeader().getPreferredHeight();
+		var headerHeight:int = getTableHeader() ? getTableHeader().getPreferredHeight() : 0;
+		var footerHeight:int = 0;
 		var fotr:Component = getFooter();
 		
 		headerPane.setComBoundsXYWH(
@@ -2674,13 +2676,15 @@ public class JTable extends Container implements Viewportable, TableModelListene
 			headerHeight
 		);
 		
-		//layout table header
-		getTableHeader().setLocationXY(- viewPosition.x, 0);
-		getTableHeader().setSizeWH(
-			getLastTotalColumnWidth(), 
-			headerHeight);
-		getTableHeader().validate();
-		getTableHeader().paintImmediately();
+    if(getTableHeader()){
+      //layout table header
+      getTableHeader().setLocationXY(- viewPosition.x, 0);
+      getTableHeader().setSizeWH(
+        getLastTotalColumnWidth(), 
+        headerHeight);
+      getTableHeader().validate();
+      getTableHeader().paintImmediately();
+    }
 		//layout table footer
 		if(fotr){
 			fotr.setComBoundsXYWH(
@@ -2696,7 +2700,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
 		
 		var cellPaneBounds:IntRectangle = new IntRectangle();
 		cellPaneBounds.setSize(b.getSize());
-		cellPaneBounds.setLocation(new IntPoint(insetsX, insetsY+getTableHeader().getHeight()));
+		cellPaneBounds.setLocation(new IntPoint(insetsX, insetsY+getHeaderHeight()));
 		cellPane.setComBounds(cellPaneBounds);
 
 		if (getRowCount() <= 0 || getColumnCount() <= 0) {
@@ -3003,7 +3007,7 @@ public class JTable extends Container implements Viewportable, TableModelListene
     
     public function getExtentSize():IntDimension{
     	var d:IntDimension = getInsets().getInsideSize(getSize());
-    	d.height -= getTableHeader().getHeight();
+    	d.height -= getHeaderHeight();
     	if(getFooter()){
     		d.height -= getFooter().getHeight();
     	}
