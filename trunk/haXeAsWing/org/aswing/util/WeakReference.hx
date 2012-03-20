@@ -28,7 +28,7 @@ class WeakReference{
 	
 	public function get_value():Dynamic{
 		if (weakDic != null)	{
-			var itr:Iterator<Dynamic> = weakDic.keys();	  	 
+			var itr:Iterator<Dynamic> = weakDic.iterator();	  	 
 			for(v in itr){
 		 
 				return v;
