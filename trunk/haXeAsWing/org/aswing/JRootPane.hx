@@ -7,13 +7,15 @@ package org.aswing;
 
 import flash.display.InteractiveObject;
 import flash.events.KeyboardEvent;
+	#if(flash9)
 	import flash.events.TextEvent;
+	#end
 	import flash.events.Event;
 	import flash.text.TextField;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.error.ImpMissError;
-import org.aswing.util.HashMap;
+ 
 
 /**
  * The general AsWing window root container, it is the popup, window and frame's ancestor.
@@ -24,7 +26,7 @@ import org.aswing.util.HashMap;
 class JRootPane extends Container{
 	
 	private var defaultButton:JButton;
-	private var mnemonics:HashMap;
+	private var mnemonics:IntHash<AbstractButton>;
 	private var mnemonicJustActed:Bool;
 	private var keyManager:KeyboardManager;
 	
@@ -38,12 +40,12 @@ class JRootPane extends Container{
 		setName("JRootPane");
 		mnemonicJustActed = false;
 		layout = new BorderLayout();
-		mnemonics = new HashMap();
+		mnemonics = new IntHash<AbstractButton>();
 		keyManager = new KeyboardManager();
 		keyManager.init(this);
 		triggerProxy = this;//just make below call works
 		setMnemonicTriggerProxy(null);
-		addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
+		//addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
 	}
 	
 	public function setDefaultButton(button:JButton):Void{
@@ -106,16 +108,22 @@ class JRootPane extends Container{
 	 */
 	public function setMnemonicTriggerProxy(trigger:InteractiveObject):Void{
 		if(trigger != triggerProxy){
-			if(triggerProxy!=null)	{
-				triggerProxy.removeEventListener(TextEvent.TEXT_INPUT, __textInput, true);
-				triggerProxy.removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true);
+			if (triggerProxy != null)	{
+				#if(flash9)
+				triggerProxy.removeEventListener(TextEvent.TEXT_INPUT, __textInput);
+				
+				triggerProxy.removeEventListener(KeyboardEvent.KEY_DOWN, __keyDown);
+				#end
 			}
 			triggerProxy = trigger;
 			if(trigger == null){
 				trigger = this;
 			}
+			#if(flash9)
 			trigger.addEventListener(TextEvent.TEXT_INPUT, __textInput, true, 0, true);
+			
 			trigger.addEventListener(KeyboardEvent.KEY_DOWN, __keyDown, true, 0, true);
+			#end
 		}
 	}
 	
@@ -124,7 +132,7 @@ class JRootPane extends Container{
 	 */
 	public function registerMnemonic(button:AbstractButton):Void{
 		if(button.getMnemonic() >= 0){
-			mnemonics.put(button.getMnemonic(), button);
+			mnemonics.set(button.getMnemonic(), button);
 		}
 	}
 	
@@ -141,9 +149,11 @@ class JRootPane extends Container{
 	private function __keyDown(e:KeyboardEvent):Void{
 		mnemonicJustActed = false;
 		
-		var code:UInt= e.keyCode;
+	 
+		var code:Int =Std.int( e.keyCode);
+	 
 		
-		if(code == Keyboard.ENTER){
+		if(code == AWKeyboard.ENTER){
 			var dfBtn:AbstractButton = getDefaultButton();
 			if(dfBtn != null){
 				if(dfBtn.isShowing() && dfBtn.isEnabled()){
@@ -157,16 +167,18 @@ class JRootPane extends Container{
 			return;
 		}
 		//try to trigger the mnemonic
+		#if(flas9)
 		if(Std.is(stage.focus,TextField)){
 			if(!keyManager.isMnemonicModifierDown()){
 				return;
 			}
 		}
-		var mnBtn:AbstractButton = mnemonics.getValue(Std.int(code));
+		#end
+		var mnBtn:AbstractButton = mnemonics.get(Std.int(code));
 		if(mnBtn != null){
 			if(mnBtn.isShowing() && mnBtn.isEnabled()){
 				mnBtn.doClick();
-				var fm:FocusManager = FocusManager.getManager(stage);
+				var fm:FocusManager = FocusManager.getManager(AsWingManager.getStage());
 				if(fm!=null)	{
 					fm.setTraversing(true);
 					mnBtn.paintFocusRect();
@@ -175,14 +187,18 @@ class JRootPane extends Container{
 			}
 		}
 	}
-	
+	#if(flash)
 	private function __textInput(e:TextEvent):Void{
-		if(keyManager.isMnemonicModifierDown() || keyManager.isKeyJustActed()){
+		if (keyManager.isMnemonicModifierDown() || keyManager.isKeyJustActed()) {
+		
+	
 			e.preventDefault();
+	
 		}
 	}
-	
-	private function __removedFromStage(e:Event):Void{
-		mnemonics.clear();
-	}
+		#end
+	private function __removedFromStage(e:Event):Void{ 
+		//mnemonics.clear(); 
+		mnemonics = null;
+	} 
 }

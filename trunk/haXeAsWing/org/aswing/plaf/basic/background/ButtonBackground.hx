@@ -7,10 +7,10 @@ package org.aswing.plaf.basic.background;
 	
 import flash.display.DisplayObject;
 import flash.display.GradientType;
-import flash.display.Shape;
-import flash.filters.DropShadowFilter;
+import flash.display.Shape; 
 import flash.geom.Matrix;
-
+import flash.filters.DropShadowFilter;
+import flash.filters.BitmapFilter;
 import org.aswing.GroundDecorator;
 	import org.aswing.Component;
 	import org.aswing.AbstractButton;
@@ -37,7 +37,7 @@ class ButtonBackground implements GroundDecorator,implements UIResource{
 	} 
 		
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):Void{
-		var b:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+		var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
 		if(b == null){
 			return;
 		}
@@ -76,7 +76,7 @@ class ButtonBackground implements GroundDecorator,implements UIResource{
 			 
 	    		if (Std.is(b, JButton))
 				{
-					var _b:JButton = flash.Lib.as(b, JButton);
+					var _b:JButton = AsWingUtils.as(b, JButton);
 					if(_b.isDefaultButton()){//default button
 						paintDefault = true;
 					}
@@ -115,8 +115,10 @@ class ButtonBackground implements GroundDecorator,implements UIResource{
 				db.grow(-2, -2);
 				BasicGraphicsUtils.fillGradientRoundRect(
 					g, db, new StyleResult(cl, adjuster));
-			}
-	    	shape.filters = [new DropShadowFilter(1, 45, 0x0, style.shadow*shadowScale, 2, 2, 1, 1)];
+			} 
+			var shape_f:Array<BitmapFilter> = new Array<BitmapFilter>();
+            shape_f.push(new  DropShadowFilter(1, 45, 0x0, style.shadow * shadowScale, 2, 2, 1, 1));
+			shape.filters = shape_f;
 		}else{
 			shape.filters = [];
 		}

@@ -18,8 +18,10 @@ class JToggleButton extends AbstractButton
 	public function new(text:String="", icon:Icon=null)
 	{
 		super(text, icon);
+		setClipMasked(true);
 		setName("JToggleButton");
     	setModel(new ToggleButtonModel());
+		
 		//updateUI();
 	}
 	

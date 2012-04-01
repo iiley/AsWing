@@ -15,7 +15,7 @@ class StringUtils
  	}
  	
  	public static function castString(str:Dynamic):String{
- 		return flash.Lib.as(str , String);
+ 		return AsWingUtils.as(str , String);
  	}
  	
  	/**
@@ -85,7 +85,7 @@ class StringUtils
  			return false;
  		}
  		for(i in 0...chars.length){
- 			var code:UInt= chars.charCodeAt(i);
+ 			var code:Int= chars.charCodeAt(i);
  			if(code < 65 || code > 122 || (code > 90 && code < 97)){
  				return false;
  			}

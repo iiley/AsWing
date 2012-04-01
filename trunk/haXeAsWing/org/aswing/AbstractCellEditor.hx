@@ -18,7 +18,7 @@ import org.aswing.tree.TreeCellEditor;
 import org.aswing.util.ArrayUtils;
 import org.aswing.error.ImpMissError;
 import flash.events.Event;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 /**
  * @author paling
@@ -69,6 +69,7 @@ class AbstractCellEditor implements CellEditor,implements TableCellEditor,implem
 	
 	public function getCellEditorValue():Dynamic{		
 		throw new ImpMissError();
+		return null;
 	}
 	
    /**
@@ -78,6 +79,7 @@ class AbstractCellEditor implements CellEditor,implements TableCellEditor,implem
     */
 	private function setCellEditorValue(value:Dynamic):Void{		
 		throw new ImpMissError();
+ 
 	}
 
 	public function isCellEditable(clickCount : Int) : Bool{
@@ -103,7 +105,7 @@ class AbstractCellEditor implements CellEditor,implements TableCellEditor,implem
 		com.requestFocus();
 		//if com is a container and can't has focus, then focus its first sub child.
 		if(Std.is(com,Container)&& !com.isFocusOwner()){
-			var con:Container = flash.Lib.as(com,Container);
+			var con:Container = AsWingUtils.as(com,Container);
 			var sub:Component;
 			sub = con.getFocusTraversalPolicy().getDefaultComponent(con);
 			if(sub != null) sub.requestFocus();
@@ -132,7 +134,7 @@ class AbstractCellEditor implements CellEditor,implements TableCellEditor,implem
 	}
 	
 	private function __editorComponentKeyDown(e:FocusKeyEvent):Void{
-		if(e.keyCode == Keyboard.ESCAPE){
+		if(Std.int(e.keyCode) == AWKeyboard.ESCAPE){
 			cancelCellEditing();
 		}
 	}
@@ -163,13 +165,13 @@ class AbstractCellEditor implements CellEditor,implements TableCellEditor,implem
 	
 	private function fireEditingStopped():Void{
 		for(i in 0...listeners.length ){
-			var l:CellEditorListener = flash.Lib.as(listeners[i],CellEditorListener);
+			var l:CellEditorListener = AsWingUtils.as(listeners[i],CellEditorListener);
 			l.editingStopped(this);
 		}
 	}
 	private function fireEditingCanceled():Void{
 		for(i in 0...listeners.length ){
-			var l:CellEditorListener =  flash.Lib.as(listeners[i],CellEditorListener);
+			var l:CellEditorListener =  AsWingUtils.as(listeners[i],CellEditorListener);
 			l.editingCanceled(this);
 		}
 	}

@@ -7,7 +7,7 @@ package org.aswing.plaf.basic;
 
 import flash.display.Shape;
 import flash.events.MouseEvent;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.Insets;
 	import org.aswing.CellPane;
@@ -103,7 +103,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 	}
 	
 	override public function installUI(c:Component):Void{
-		tree = flash.Lib.as(c,JTree);
+		tree = AsWingUtils.as(c,JTree);
 		installDefaults();
 		installComponents();
 		installListeners();
@@ -147,7 +147,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 		editor = tree.getCellEditor();
 		setRootVisible(tree.isRootVisible());
 		
-		expandControl =flash.Lib.as( getInstance(pp+"expandControl") , ExpandControl);
+		expandControl =AsWingUtils.as( getInstance(pp+"expandControl") , ExpandControl);
 	}
 	
 	private function uninstallDefaults():Void{
@@ -274,7 +274,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 	
 	private function cellFactoryChanged():Void{
 		for(i in 0...cells.size() ){
-			var cell:TreeCell = flash.Lib.as(cells.get(i),TreeCell);
+			var cell:TreeCell = AsWingUtils.as(cells.get(i),TreeCell);
 			cell.getCellComponent().removeFromContainer();
 		}
 		cells.clear();
@@ -521,7 +521,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 		if(!tree.isEnabled()){
 			return;
 		}
-		var code:UInt= e.keyCode;
+		var code:Int= e.keyCode;
 		var dir:Int= 0;
 		if(isControlKey(code)){
     		var fm:FocusManager = FocusManager.getManager(tree.stage);
@@ -529,9 +529,9 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 		}else{
 			return;
 		}
-		if(code == Keyboard.UP){
+		if(code == AWKeyboard.UP){
 			dir = -1;
-		}else if(code == Keyboard.DOWN){
+		}else if(code == AWKeyboard.DOWN){
 			dir = 1;
 		}
 		
@@ -544,20 +544,20 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 			paintFocusedIndex = tree.getRowCount();
 		}
 		var index:Int= paintFocusedIndex + dir;
-		if(code == Keyboard.HOME){
+		if(code == AWKeyboard.HOME){
 			index = 0;
-		}else if(code == Keyboard.END){
+		}else if(code == AWKeyboard.END){
 			index = tree.getRowCount() - 1;
 		}
 		if(index < 0 || index >= tree.getRowCount()){
 			return;
 		}
 		var path:TreePath = tree.getPathForRow(index);
-		if(code == Keyboard.LEFT){
+		if(code == AWKeyboard.LEFT){
 			tree.collapseRow(index);
-		}else if(code == Keyboard.RIGHT){
+		}else if(code == AWKeyboard.RIGHT){
 			tree.expandRow(index);
-		}else if(dir != 0 || (code == Keyboard.HOME || code == Keyboard.END)){
+		}else if(dir != 0 || (code == AWKeyboard.HOME || code == AWKeyboard.END)){
 			if(e.shiftKey)	{
 				var anchor:TreePath = tree.getAnchorSelectionPath();
 				var anchorRow:Int= (anchor == null) ? -1 : getRowForPath(tree, anchor);
@@ -580,7 +580,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 			}
 			tree.scrollRowToVisible(index);
 		}else{
-			if(code == Keyboard.SPACE){
+			if(code == AWKeyboard.SPACE){
 				tree.addSelectionInterval(index, index);
 				tree.scrollRowToVisible(index);
 				ignoreLAChange = true;
@@ -598,14 +598,14 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 		tree.repaint();
 	}
 	
-	private function isControlKey(code:UInt):Bool{
-		return (code == Keyboard.UP || code == Keyboard.DOWN || code == Keyboard.SPACE
-			|| code == Keyboard.LEFT || code == Keyboard.RIGHT || code == Keyboard.HOME 
-			|| code == Keyboard.END || code == getEditionKey());
+	private function isControlKey(code:Int):Bool{
+		return (code == AWKeyboard.UP || code == AWKeyboard.DOWN || code == AWKeyboard.SPACE
+			|| code == AWKeyboard.LEFT || code == AWKeyboard.RIGHT || code == AWKeyboard.HOME 
+			|| code == AWKeyboard.END || code == getEditionKey());
 	}
 	
-	private function getEditionKey():UInt{
-		return Keyboard.ENTER;
+	private function getEditionKey():Int{
+		return AWKeyboard.ENTER;
 	}
 	
 	private function __viewportStateChanged(e:InteractiveEvent):Void{
@@ -627,24 +627,24 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 		if (changeName == JTree.LEAD_SELECTION_PATH_PROPERTY) {
 			if(ignoreLAChange!=true) {
 				updateLeadRow();
-				repaintPath(flash.Lib.as(ov,TreePath));
-				repaintPath(flash.Lib.as(nv,TreePath));
+				repaintPath(AsWingUtils.as(ov,TreePath));
+				repaintPath(AsWingUtils.as(nv,TreePath));
 			}
 		}else if (changeName == JTree.ANCHOR_SELECTION_PATH_PROPERTY) {
 			if(ignoreLAChange!=true) {
-				repaintPath(flash.Lib.as(ov,TreePath));
-				repaintPath(flash.Lib.as(nv,TreePath));
+				repaintPath(AsWingUtils.as(ov,TreePath));
+				repaintPath(AsWingUtils.as(nv,TreePath));
 			}
 		}else if(changeName == JTree.CELL_FACTORY_PROPERTY) {
 			cellFactoryChanged();
 		}else if(changeName == JTree.TREE_MODEL_PROPERTY) {
-			setModel(flash.Lib.as(nv,TreeModel));
+			setModel(AsWingUtils.as(nv,TreeModel));
 		}else if(changeName == JTree.ROOT_VISIBLE_PROPERTY) {
 			setRootVisible(nv == true);
 		}else if(changeName == JTree.ROW_HEIGHT_PROPERTY) {
 			setRowHeight(nv);
 		}else if(changeName == JTree.CELL_EDITOR_PROPERTY) {
-			setCellEditor(flash.Lib.as(nv,TreeCellEditor));
+			setCellEditor(AsWingUtils.as(nv,TreeCellEditor));
 		}else if(changeName == JTree.EDITABLE_PROPERTY) {
 			setEditable(nv == true);
 		}else if(changeName == JTree.SELECTION_MODEL_PROPERTY) {
@@ -715,9 +715,11 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 			b = ib;
 			b.setLocation(tree.getPixelLocationFromLogicLocation(b.getLocation()));
 		}
-		
+		//why	
+		/*
 		g.drawRectangle(new Pen(getDefaultFocusColorInner(), 1), b.x+0.5, b.y+0.5, b.width-1, b.height-1);
 		g.drawRectangle(new Pen(getDefaultFocusColorOutter(), 1), b.x+1.5, b.y+1.5, b.width-3, b.height-3);
+		*/
 	}
 	
 	private var rendererShape:Shape;
@@ -782,9 +784,13 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 				selected = tree.getSelectionModel().isPathSelected(path);
 				//trace("cell path = " + path);
 				bounds = treeState.getBounds(path, bounds);
-				//trace("bounds : " + bounds);
+				// trace("bounds : " + bounds);
+				 if (bounds == null)
+				 {
+					 bounds = new IntRectangle();
+				 }
 				cell.setCellValue(path.getLastPathComponent());
-				//trace(path.getLastPathComponent() + " cell value of " + cell);
+				// trace(path.getLastPathComponent() + " cell value of " + cell);
 				cellCom.setVisible(true);
 				cell.setTreeCellStatus(tree, selected, expanded, leaf, row);
 				boundsBuffer.setRectXYWH(bounds.x, cy, bounds.width, ih);
@@ -832,7 +838,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 			var removeIndex:Int= needNum;
 			var removed:Array<Dynamic>= cells.removeRange(removeIndex, cells.getSize()-1);
 			for(i in 0...removed.length){
-				cell = flash.Lib.as(removed[i],TreeCell);
+				cell = AsWingUtils.as(removed[i],TreeCell);
 				rendererPane.remove(cell.getCellComponent());
 			}
 		}
@@ -872,7 +878,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 	
 			if(descendants != null) {
 				for(i in 0...descendants.length){
-					treeState.setExpandedState(flash.Lib.as(descendants[i],TreePath), true);
+					treeState.setExpandedState(AsWingUtils.as(descendants[i],TreePath), true);
 				}
 			}
 			updateLeadRow();

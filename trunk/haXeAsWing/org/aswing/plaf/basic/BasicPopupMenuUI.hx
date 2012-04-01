@@ -24,13 +24,13 @@ class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
 	}
 	
 	override public function installUI(c:Component):Void{
-		popupMenu = flash.Lib.as(c,JPopupMenu);
+		popupMenu = AsWingUtils.as(c,JPopupMenu);
 		installDefaults();
 		installListeners();
 	}
 
 	override public function uninstallUI(c:Component):Void{
-		popupMenu = flash.Lib.as(c,JPopupMenu);
+		popupMenu = AsWingUtils.as(c,JPopupMenu);
 		uninstallDefaults();
 		uninstallListeners();
 	}
@@ -69,7 +69,7 @@ class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
 	/**
 	 * Subclass override this to process key event.
 	 */
-	public function processKeyEvent(code : UInt) : Void{
+	public function processKeyEvent(code : Int) : Void{
 		var manager:MenuSelectionManager = MenuSelectionManager.defaultManager();
 		var path:Array<Dynamic>= manager.getSelectedPath();
 		if(path[path.length-1] != popupMenu){
@@ -83,12 +83,12 @@ class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
 				path.pop();
 			}
 			if(path.length == 2 && !(	Std.is(path[0] , JPopupMenu))){ //generally means jmenubar here
-				root = flash.Lib.as(path[0],MenuElement);
-				prev = manager.prevSubElement(root, flash.Lib.as(path[1],MenuElement));
+				root = AsWingUtils.as(path[0],MenuElement);
+				prev = manager.prevSubElement(root, AsWingUtils.as(path[1],MenuElement));
 				path.pop();
 				path.push(prev);
 				if(prev.getSubElements().length > 0){
-					var prevPop:MenuElement = flash.Lib.as(prev.getSubElements()[0],MenuElement);
+					var prevPop:MenuElement = AsWingUtils.as(prev.getSubElements()[0],MenuElement);
 					path.push(prevPop);
 					if(prevPop.getSubElements().length > 0){
 						path.push(prevPop.getSubElements()[0]);
@@ -102,13 +102,13 @@ class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
 			}
 			manager.setSelectedPath(popupMenu.stage, path, false);
 		}else if(manager.isNextPageKey(code)){
-			root = flash.Lib.as(path[0],MenuElement);
+			root = AsWingUtils.as(path[0],MenuElement);
 			if(root.getSubElements().length > 1 && !(Std.is(root,JPopupMenu))){
-				var next:MenuElement = manager.nextSubElement(root, flash.Lib.as(path[1],MenuElement));
+				var next:MenuElement = manager.nextSubElement(root, AsWingUtils.as(path[1],MenuElement));
 				path = [root];
 				path.push(next);
 				if(next.getSubElements().length > 0){
-					var nextPop:MenuElement = flash.Lib.as(next.getSubElements()[0],MenuElement);
+					var nextPop:MenuElement = AsWingUtils.as(next.getSubElements()[0],MenuElement);
 					path.push(nextPop);
 					if(nextPop.getSubElements().length > 0){
 						path.push(nextPop.getSubElements()[0]);

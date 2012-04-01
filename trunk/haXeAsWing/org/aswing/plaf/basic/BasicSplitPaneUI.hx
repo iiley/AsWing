@@ -56,14 +56,14 @@ class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
     }
     
     override public function installUI(c:Component):Void{
-        sp = flash.Lib.as(c,JSplitPane);
+        sp = AsWingUtils.as(c,JSplitPane);
         installDefaults();
         installComponents();
         installListeners();
     }
 
     override public function uninstallUI(c:Component):Void{
-        sp = flash.Lib.as(c,JSplitPane);
+        sp = AsWingUtils.as(c,JSplitPane);
         uninstallDefaults();
         uninstallComponents();
         uninstallListeners();
@@ -365,7 +365,7 @@ class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
 	}
 	
 	private function __on_splitpane_key_down(e:FocusKeyEvent):Void{
-		var code:UInt= e.keyCode;
+		var code:Int= e.keyCode;
 		var dir:Float= 0;
 		if(code == KeyStroke.VK_HOME.getCode()){
 			if(sp.getDividerLocation() < 0){

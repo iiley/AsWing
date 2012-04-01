@@ -4,12 +4,12 @@
 
 package org.aswing.plaf.basic;
 
-	
+import flash.filters.BitmapFilter;
 import org.aswing.JToolTip;
-	import org.aswing.JLabel;
-	import org.aswing.Component;
-	import org.aswing.BorderLayout;
-	import org.aswing.event.ToolTipEvent;
+import org.aswing.JLabel;
+import org.aswing.Component;
+import org.aswing.BorderLayout;
+import org.aswing.event.ToolTipEvent;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.BaseComponentUI;
@@ -27,7 +27,7 @@ class BasicToolTipUI extends BaseComponentUI{
 	}
 	
     override public function installUI(c:Component):Void{
-    	tooltip = flash.Lib.as(c,JToolTip);
+    	tooltip = AsWingUtils.as(c,JToolTip);
         installDefaults();
         initallComponents();
         installListeners();
@@ -42,8 +42,10 @@ class BasicToolTipUI extends BaseComponentUI{
         LookAndFeel.installColorsAndFont(tooltip, pp);
         LookAndFeel.installBorderAndBFDecorators(tooltip, pp);
         LookAndFeel.installBasicProperties(tooltip, pp);
-        var filters:Dynamic= getInstance(getPropertyPrefix()+"filters")  ;
+		 
+        var filters:Array<BitmapFilter>= getInstance(getPropertyPrefix()+"filters")   ;
         tooltip.filters = filters;
+		 
 	}
 	
 	private function initallComponents():Void{

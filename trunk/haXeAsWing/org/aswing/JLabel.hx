@@ -7,7 +7,7 @@ package org.aswing;
 
 import org.aswing.plaf.basic.BasicLabelUI;
 import flash.display.DisplayObject;
-	
+import flash.filters.BitmapFilter;	
 /**
  * A display area for a short text string or an image, 
  * or both.
@@ -93,7 +93,7 @@ class JLabel extends Component{
 
     private var iconTextGap:Int;
     private var selectable:Bool;
-    private var textFilters:Array<Dynamic>;
+    private var textFilters:Array<BitmapFilter>;
     
     /**
      * Creates a label.
@@ -104,6 +104,7 @@ class JLabel extends Component{
 	public function new(?text:String="", ?icon:Icon=null, ?horizontalAlignment:Int=0) {
 		textFilters=null;
 			super();
+			setClipMasked(true);
 		setName("JLabel");
 		//default
     	this.verticalAlignment = CENTER;
@@ -142,7 +143,8 @@ class JLabel extends Component{
 	private function uninstallIcon(icon:Icon):Void{
 		var iconDis:DisplayObject = (icon == null ? null : icon.getDisplay(this));
 		if(iconDis != null && isChild(iconDis)){
-			removeChild(icon.getDisplay(this));
+			removeChild(icon.getDisplay(this)); 
+			//org.aswing.table.sorter.SortableTextHeaderCell err;
 		}
 	}
 	
@@ -168,12 +170,12 @@ class JLabel extends Component{
 		return selectable;
 	}
 	
-	public function setTextFilters(fs:Array < Dynamic > ):Void {	
+	public function setTextFilters(fs:Array < BitmapFilter > ):Void {	
 		textFilters = fs;
 		repaint();
 	}
 	
-	public function getTextFilters():Array<Dynamic>{
+	public function getTextFilters():Array<BitmapFilter>{
 		return textFilters;
 	}
 	

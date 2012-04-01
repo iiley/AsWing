@@ -32,8 +32,8 @@ class AWTextField extends TextField{
 	
 	public function new(){
 		super();
-		addEventListener(Event.SCROLL, __onAWTextFieldScroll);
-		addEventListener(Event.CHANGE, __onAWTextFieldChange);
+		 addEventListener(Event.SCROLL, __onAWTextFieldScroll);
+		 addEventListener(Event.CHANGE, __onAWTextFieldChange);
 	}
 	
 	private function __onAWTextFieldScroll(e:Event):Void{
@@ -72,29 +72,6 @@ class AWTextField extends TextField{
 			return value;
 		}
 	
-	/**
-	 * Appends new text and fire <code>InteractiveEvent.TEXT_CHANGED</code> event.
-	 */
-	override public function appendText(newText:String):Void{
-		super.appendText(newText);
-		fireTextChangeEvent();
-	}
-	
-	/**
-	 * Replace selected text and fire <code>InteractiveEvent.TEXT_CHANGED</code> event.
-	 */	
-	override public function replaceSelectedText(value:String):Void{
-		super.replaceSelectedText(value);
-		fireTextChangeEvent();
-	}
-	
-	/**
-	 * Replace text and fire <code>InteractiveEvent.TEXT_CHANGED</code> event.
-	 */	
-	override public function replaceText(beginIndex:Int, endIndex:Int, newText:String):Void{
-		super.replaceText(beginIndex, endIndex, newText);
-		fireTextChangeEvent();
-	}
 	
 	 public function set_scrollH(value:Int):Int{
 		if(value != scrollH){
@@ -113,4 +90,36 @@ class AWTextField extends TextField{
 	
 			return value;
 		}
+	#if (flash9)
+	
+	/**
+	 * Appends new text and fire <code>InteractiveEvent.TEXT_CHANGED</code> event.
+	 */
+  
+    override public function appendText(newText:String):Void{
+		this.text+=newText ;
+		fireTextChangeEvent();
+	}
+	/**
+	 * Replace selected text and fire <code>InteractiveEvent.TEXT_CHANGED</code> event.
+	 */	
+	
+    override   public function replaceSelectedText(value:String):Void {
+	 
+		 super.replaceSelectedText(value);
+		 
+		fireTextChangeEvent();
+	}
+	
+	/**
+	 * Replace text and fire <code>InteractiveEvent.TEXT_CHANGED</code> event.
+	 */	
+ 
+	override public function replaceText(beginIndex:Int, endIndex:Int, newText:String):Void{
+	 
+		super.replaceText(beginIndex, endIndex, newText);
+		 
+		fireTextChangeEvent();
+	}
+	#end
 }

@@ -28,7 +28,7 @@ class GeneralTreeCellFactory implements TreeCellFactory {
 	 * @return the tree cell
 	 */
 	public function createNewCell():TreeCell{
-		return flash.Lib.as(Type.createInstance( cellClass,[]) , TreeCell);  
+		return AsWingUtils.as(Type.createInstance( cellClass,[]) , TreeCell);  
 	}
 	
 	public function toString():String{

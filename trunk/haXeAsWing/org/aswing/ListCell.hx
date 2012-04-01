@@ -18,4 +18,6 @@ interface ListCell implements Cell{
 	 * @param index the index of the list item
 	 */
 	function setListCellStatus(list:JList, isSelected:Bool, index:Int):Void;
+	
+	function getAwmlIndex():Int;
 }

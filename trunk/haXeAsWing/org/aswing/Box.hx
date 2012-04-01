@@ -35,7 +35,7 @@ class Box extends JPanel{
 	 * @param axis the new axis
 	 */
 	public function setAxis(axis:Int):Void{
-		flash.Lib.as(getLayout(),BoxLayout).setAxis(axis);
+		AsWingUtils.as(getLayout(),BoxLayout).setAxis(axis);
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Box extends JPanel{
 	 * @return axis 
 	 */
 	public function getAxis():Int{
-		return flash.Lib.as(getLayout(),BoxLayout).getAxis();
+		return AsWingUtils.as(getLayout(),BoxLayout).getAxis();
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Box extends JPanel{
 	 * @param gap the new gap
 	 */
 	public function setGap(gap:Int):Void{
-		flash.Lib.as(getLayout(),BoxLayout).setGap(gap);
+		AsWingUtils.as(getLayout(),BoxLayout).setGap(gap);
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Box extends JPanel{
 	 * @return gap 
 	 */
 	public function getGap():Int{
-		return flash.Lib.as(getLayout(),BoxLayout).getGap();
+		return AsWingUtils.as(getLayout(),BoxLayout).getGap();
 	}
 	
 	/**

@@ -76,5 +76,6 @@ class SolidArrowIcon implements Icon,implements UIResource{
 	public function getDisplay(c:Component):DisplayObject{
 		return shape;
 	}
+ 
 	
 }

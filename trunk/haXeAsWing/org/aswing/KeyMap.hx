@@ -4,8 +4,7 @@
 
 package org.aswing;
 
-
-import org.aswing.util.HashMap;
+ 
 
 /**
  * KeyMap is a key definition -> action map.
@@ -14,13 +13,13 @@ import org.aswing.util.HashMap;
  */
 class KeyMap{
 	
-	private var map:HashMap;
+	private var map:Hash<KeyAction>;
 	
 	/**
 	 * Creates a key map.
 	 */
 	public function new(){
-		map = new HashMap();
+		map = new Hash<KeyAction>();
 	}
 	
 	/**
@@ -30,7 +29,7 @@ class KeyMap{
 	 * @param action the aciton function
 	 */
 	public function registerKeyAction(key:KeyType, action:Dynamic):Void{
-		map.put(getCodec(key), new KeyAction(key, action));
+		map.set(getCodec(key), new KeyAction(key, action));
 	}
 	
 	/**
@@ -78,7 +77,7 @@ class KeyMap{
 	 * @param key the key definition
 	 */
 	public function containsKey(key:KeyType):Bool{
-		return map.containsKey(getCodec(key));
+		return map.exists(getCodec(key));
 	}
 	
 	/**

@@ -37,7 +37,7 @@ interface Impulser{
      * @param delay the delay
      * @see #setInitialDelay()
      */	
-	 function setDelay(delay:UInt):Void;
+	 function setDelay(delay:Int):Void;
 	
     /**
      * Returns the delay between firings of events.
@@ -45,7 +45,7 @@ interface Impulser{
      * @see #setDelay()
      * @see #getInitialDelay()
      */	
-	 function getDelay():UInt;
+	 function getDelay():Int;
 	
     /**
      * Sets the <code>Impulser</code>'s initial delay,
@@ -60,7 +60,7 @@ interface Impulser{
      *
      * @see #setDelay()
      */	
-	 function setInitialDelay(initialDelay:UInt):Void;
+	 function setInitialDelay(initialDelay:Int):Void;
 	
     /**
      * Returns the <code>Impulser</code>'s initial delay.
@@ -68,7 +68,7 @@ interface Impulser{
      * @see #setInitialDelay()
      * @see #setDelay()
      */	
-	 function getInitialDelay():UInt;
+	 function getInitialDelay():Int;
 	
 	/**
      * If <code>flag</code> is <code>false</code>,
@@ -78,7 +78,7 @@ interface Impulser{
      * @param flag specify <code>false</code> to make the impulser
      *             stop after sending its first action event.
 	 */
-	 function setRepeats(flag:Bool):Void;
+	 function setRepeats(flag:Int):Void;
 	
     /**
      * Returns <code>true</code> (the default)

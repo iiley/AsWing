@@ -8,6 +8,7 @@ package org.aswing.ext;
 import flash.events.Event;
 	import flash.events.MouseEvent;
 	import org.aswing.JViewport;
+	import org.aswing.ListCell;
 	import org.aswing.ListModel;
 	import org.aswing.ListSelectionModel;
 	import org.aswing.VectorListModel;
@@ -694,7 +695,7 @@ class GridList extends JViewport , implements ListDataListener{
 		var cell:GridListCell;
 		
 		for(i in i0...i1){
-			cell = flash.Lib.as(cells.get(i),GridListCell);
+			cell = AsWingUtils.as(cells.get(i),GridListCell);
 			removeCellFromeContainer(cell);
 		}
 		cells.removeRange(i0, i1);
@@ -742,10 +743,20 @@ class GridList extends JViewport , implements ListDataListener{
     private var pressedIndex:Float;
     private var pressedCtrl:Bool;
     private var pressedShift:Bool;
-    private var doSelectionWhenRelease:Bool;    
-    
+    private var doSelectionWhenRelease:Bool;   
+	//why
+    private function  cellsIndexOf(cell:GridListCell):Int 
+	{ 
+		for(i in 0...cells.size()){
+			if(cells.get(i).getAwmlIndex() ==cell.getAwmlIndex()){
+				return i;
+			}
+		}
+		return -1;
+		
+	}
     private function __onItemMouseDownSelection(e:GridListItemEvent):Void{
-		var index:Int= cells.indexOf(e.getCell());
+		var index:Int= cellsIndexOf(e.getCell());
 		pressedIndex = index;
 		pressedCtrl = e.ctrlKey;
 		pressedShift = e.shiftKey;

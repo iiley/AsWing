@@ -6,23 +6,22 @@ package org.aswing.plaf.basic.icon;
 
 
 import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.filters.BevelFilter;
+import flash.display.Shape; 
 import flash.filters.BitmapFilterType;
-import flash.filters.DropShadowFilter;
 import flash.geom.Matrix;
-
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
 import org.aswing.Icon;
-	import org.aswing.Component;
-	import org.aswing.AbstractButton;
-	import org.aswing.ButtonModel;
-	import org.aswing.ASColor;
-	import org.aswing.StyleResult;
-	import org.aswing.StyleTune;
-	import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.SolidBrush;
-	import org.aswing.graphics.GradientBrush;
-	import org.aswing.plaf.UIResource;
+import org.aswing.Component;
+import org.aswing.AbstractButton;
+import org.aswing.ButtonModel;
+import org.aswing.ASColor;
+import org.aswing.StyleResult;
+import org.aswing.StyleTune;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.SolidBrush;
+import org.aswing.graphics.GradientBrush;
+import org.aswing.plaf.UIResource;
 
 /**
  * @private
@@ -36,7 +35,7 @@ class RadioButtonIcon implements Icon,implements UIResource{
 	}
 		
 	public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
-		var b:AbstractButton = flash.Lib.as(c,AbstractButton);
+		var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
 		var model:ButtonModel = b.getModel();
 		var drawDot:Bool= model.isSelected();
 		
@@ -103,7 +102,8 @@ class RadioButtonIcon implements Icon,implements UIResource{
 			var mcls:StyleResult = new StyleResult(cl, adjuster);
 			var matrix:Matrix = new Matrix();
 			var r:Float= w/4;
-			matrix.createGradientBox(r*2, r*2, Math.PI/5, x+r-r/2, y+r-r/2);
+			matrix.createGradientBox(r * 2, r * 2, Math.PI / 5, x + r - r / 2, y + r - r / 2);
+			//why
 			g.fillCircle(
 				new GradientBrush(
 					GradientBrush.RADIAL, 
@@ -115,10 +115,14 @@ class RadioButtonIcon implements Icon,implements UIResource{
 				x+w/2, y+h/2, r);
 		}
 		shape.alpha = alpha;
-		shape.filters = [
-			new DropShadowFilter(innerDis, 45, 0x0, style.shadow*shadowScale, 5, 5, 1, 1, true), 
-			new BevelFilter(1, 45, 0x0, style.shadow, 0xFFFFFF, style.shadow, 3, 3, 1, 1, BitmapFilterType.FULL)
-		];
+		var f :Array<BitmapFilter>= new Array<BitmapFilter>();
+        f.push(new  DropShadowFilter(innerDis, 45, 0x0, style.shadow * shadowScale, 5, 5, 1, 1, true) );
+		shape.filters = f;
+			
+			
+			//new flash.filters.BevelFilter(1, 45, 0x0, style.shadow, 0xFFFFFF, style.shadow, 3, 3, 1, 1, BitmapFilterType.FULL)
+			
+		 
 	}
 	
 	public function getIconHeight(c:Component):Int{
@@ -132,5 +136,5 @@ class RadioButtonIcon implements Icon,implements UIResource{
 	public function getDisplay(c:Component):DisplayObject{
 		return shape;
 	}
-	
+	 
 }

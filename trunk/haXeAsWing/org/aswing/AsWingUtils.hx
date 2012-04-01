@@ -5,20 +5,19 @@
 package org.aswing;
 
 
-import flash.display.DisplayObjectContainer;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.Shape;
 	import flash.display.DisplayObject;
 	import flash.display.Stage;
 	import flash.display.StageScaleMode;
+ 
 	import flash.geom.Point;
-import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
-import flash.text.TextFieldType;
-import flash.text.TextFormat;
-import flash.utils.TypedDictionary;
-
-import org.aswing.geom.IntPoint;
+	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFieldType;
+	import flash.text.TextFormat;  
+	import org.aswing.geom.IntPoint;
 	import org.aswing.geom.IntRectangle;
 	import org.aswing.geom.IntDimension;
 	/**
@@ -72,15 +71,25 @@ class AsWingUtils{
     	TEXT_FIELD.autoSize = TextFieldAutoSize.LEFT;
     	TEXT_FIELD.type = TextFieldType.DYNAMIC;
     }
-    */
-    private static var weakComponentDic:TypedDictionary<Dynamic,Dynamic> = new TypedDictionary<Dynamic,Dynamic>(true);
+    */ 
     
     /**
      * Create a sprite at specified parent with specified name.
      * The created sprite default property is mouseEnabled=false.
      * @return the sprite
      */ 
+	 
+	public   static function as<T>( v : Dynamic, c : Class<T>  ) : Null<T> {
+	 
+		if (Std.is(v, c)) {	
+			
+			return  v ;
+			}
+	
+		return null;
+	} 
 	public static function initAsStandard():Void {
+ 
 		TEXT_FIELD.autoSize = TextFieldAutoSize.LEFT;
     	TEXT_FIELD.type = TextFieldType.DYNAMIC;
  
@@ -89,7 +98,9 @@ class AsWingUtils{
 	}
     public static function createSprite(parent:DisplayObjectContainer=null, name:String=null):Sprite{
     	var sp:Sprite = new Sprite();
+		#if (flash9)
 		sp.focusRect = false;
+		#end
     	if(name != null){
     		sp.name = name;
     	}
@@ -108,15 +119,19 @@ class AsWingUtils{
      */ 
     public static function createLabel(parent:DisplayObjectContainer=null, name:String=null):TextField{
     	var textField:TextField = new TextField();
-    	textField.focusRect = false;
+    	
     	if(name != null){
     		textField.name = name;
     	}
  		textField.selectable = false;
  		textField.mouseEnabled = false;
- 		textField.mouseWheelEnabled = false;
+ 	
  		textField.autoSize = TextFieldAutoSize.LEFT;
- 		textField.tabEnabled = false;
+		#if (flash9)
+			textField.mouseWheelEnabled = false;
+			textField.focusRect = false;
+			textField.tabEnabled = false;
+		#end
     	if(parent != null){
     		parent.addChild(textField);
     	}
@@ -212,7 +227,7 @@ class AsWingUtils{
     
     public static function getStageMousePosition(stage:Stage=null):IntPoint{
     	if(stage == null) stage = AsWingManager.getStage();
-    	return new IntPoint(Std.int(stage.mouseX), Std.int(stage.mouseY));
+    	return new IntPoint(Std.int(AsWingManager.getStage().mouseX), Std.int(AsWingManager.getStage().mouseY));
     }
     
     /**
@@ -249,12 +264,12 @@ class AsWingUtils{
     	if(stage == null){
     		return new IntRectangle(200, 200);//just return a value here
     	}
-    	if (stage.scaleMode != StageScaleMode.NO_SCALE) {
+    	if (AsWingManager.getStage().scaleMode != StageScaleMode.NO_SCALE) {
 	 
-    		return new IntRectangle(0, 0, Std.int(stage.stageWidth), Std.int(stage.stageHeight));
+    		return new IntRectangle(0, 0, Std.int(AsWingManager.getStage().stageWidth), Std.int(AsWingManager.getStage().stageHeight));
     	}
-    	var sw:Float= stage.stageWidth;
-        var sh:Float= stage.stageHeight;
+    	var sw:Float= AsWingManager.getStage().stageWidth;
+        var sh:Float= AsWingManager.getStage().stageHeight;
         var b:IntRectangle = new IntRectangle(0, 0, Std.int(sw), Std.int(sh));
         if(dis != null){
         	var p:Point = dis.globalToLocal(new Point(0, 0));
@@ -324,7 +339,7 @@ class AsWingUtils{
      * 
      */
     public static function applyTextFont(text:TextField, font:ASFont):Void{
-    	font.apply(text);
+    	//font.apply(text);
     }
     
     /**
@@ -338,7 +353,7 @@ class AsWingUtils{
      * 
      */
     public static function applyTextColor(text:TextField, color:ASColor):Void{
-        if(text.textColor !=color.getRGB()){
+        if(Std.int(text.textColor) !=color.getRGB()){
         	text.textColor = color.getRGB();
         }
         if(text.alpha !=color.getAlpha()){
@@ -515,24 +530,27 @@ class AsWingUtils{
         return TEXT_FIELD.textWidth;
     }*/
     
-    private static function inter_computeStringSize(font:ASFont, str:String):IntDimension {
+	private static function inter_computeStringSize(font:ASFont, str:String):IntDimension {
  
     	TEXT_FIELD.text = str;
+		#if (flash9)
     	if(TEXT_FONT != font){
     		font.apply(TEXT_FIELD);
     		TEXT_FONT = font;
     	}
-		
+		 #end
         return new IntDimension(Math.ceil(TEXT_FIELD.width), Math.ceil(TEXT_FIELD.height));
     }
-        
+ 
     private static function inter_computeStringWidth(font:ASFont, str:String):Float{
     	TEXT_FIELD.text = str;
+		#if (flash9)
     	if(TEXT_FONT != font){
     		font.apply(TEXT_FIELD);
     		TEXT_FONT = font;
-    	}
-        return TEXT_FIELD.width;
+    	} 
+		 #end
+        return TEXT_FIELD.textWidth;
     }
     
     
@@ -553,6 +571,7 @@ class AsWingUtils{
      */
     public static function computeStringSize(tf:TextFormat, str:String, includeGutters:Bool=true, 
     	textField:TextField=null):IntDimension{
+			#if(flash9)
     	if(textField!=null)	{
     		TEXT_FIELD_EXT.embedFonts = textField.embedFonts;
     		TEXT_FIELD_EXT.antiAliasType = textField.antiAliasType;
@@ -560,9 +579,11 @@ class AsWingUtils{
     		TEXT_FIELD_EXT.sharpness = textField.sharpness;
     		TEXT_FIELD_EXT.thickness = textField.thickness;
     	}
+		TEXT_FIELD_EXT.setTextFormat(tf);
+		#end
     	TEXT_FIELD_EXT.text = str;
-    	TEXT_FIELD_EXT.setTextFormat(tf);
-    	if(includeGutters)	{
+    	
+    	if (includeGutters)	{ 
     		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.width), Math.ceil(TEXT_FIELD_EXT.height));
     	}else{
     		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
@@ -580,7 +601,7 @@ class AsWingUtils{
     	TEXT_FIELD_EXT.text = str;
     	font.apply(TEXT_FIELD_EXT);
     	if(includeGutters)	{
-    		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.width), Math.ceil(TEXT_FIELD_EXT.height));
+    		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
     	}else{
     		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
     	}
@@ -739,13 +760,14 @@ class AsWingUtils{
     public static function getPopupAncestor(c:Component):JPopup{
         while(c != null){
             if(Std.is(c,JPopup)){
-                return flash.Lib.as(c,JPopup);
+                return AsWingUtils.as(c,JPopup);
             }
             c = c.getParent();
         }
         return null;
     }
-    
+ 
+ 
     /**
      * Returns the first popup ancestor or display object root of c, or null if can't find the ancestor
      * @return the first popup ancestor or display object root of c, or null if can't find the ancestor
@@ -756,7 +778,7 @@ class AsWingUtils{
 		}
     	var popup:JPopup = getPopupAncestor(c);
     	if(popup == null){
-    		return flash.Lib.as(c.root,DisplayObjectContainer)	;
+    		return org.aswing.AsWingManager.getRoot()	;
     	}
     	return popup;
     }
@@ -769,16 +791,10 @@ class AsWingUtils{
     	while(dis != null && !(Std.is(dis,Component))){
     		dis = dis.parent;
     	}
-    	return flash.Lib.as(dis,Component)	;
+    	return AsWingUtils.as(dis,Component)	;
     }
     
-    /**
-     * All component will be registered here.
-     */
-    public static function weakRegisterComponent(c:Component):Void{
-		weakComponentDic.set(c,null); 
-    }
-    
+     
     /**
      * When call <code>setLookAndFeel</code> it will not change the UIs at created components.
      * Call this method to update all UIs of all components in memory whether it is displayable or not.
@@ -788,12 +804,15 @@ class AsWingUtils{
      * @see org.aswing.Component#updateUI()
      */
     public static function updateAllComponentUIInMemory():Void {
-	 var itr:Array<Dynamic> = weakComponentDic.keys();	
+		//why
+		/*
+	 var itr:Iterator<Dynamic>  =  weakComponentDic.iterator();	
   		for(c in itr){	 
     		if(!c.isUIElement()){
     			c.updateUI();
     		}
     	}
+		*/
     }
     
     /**
@@ -832,7 +851,7 @@ class AsWingUtils{
      */
     public static function updateChildrenUI(dis:DisplayObject):Void{
     	if(dis == null) return;
-    	var c:Component = flash.Lib.as(dis,Component)	;
+    	var c:Component = AsWingUtils.as(dis,Component)	;
     	if(c!=null)	{
     		if(c.isUIElement()){
     			return;
@@ -841,7 +860,7 @@ class AsWingUtils{
      	}
         //trace("UI updated : " + c);
         if(Std.is(dis,DisplayObjectContainer)){
-            var con:DisplayObjectContainer = flash.Lib.as(dis,DisplayObjectContainer);
+            var con:DisplayObjectContainer = AsWingUtils.as(dis,DisplayObjectContainer);
             for(i in 0...con.numChildren ){
                 updateChildrenUI(con.getChildAt(i));
             }

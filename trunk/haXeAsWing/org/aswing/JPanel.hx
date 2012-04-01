@@ -13,7 +13,7 @@ import org.aswing.plaf.basic.BasicPanelUI;
  */
 class JPanel extends Container{
 	
-	public function new(layout:LayoutManager=null){
+	public function new(?layout:LayoutManager=null){
 		super();
 		setName("JPanel");
 		if(layout == null) layout = new FlowLayout();

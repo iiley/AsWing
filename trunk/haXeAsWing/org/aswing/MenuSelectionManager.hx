@@ -8,7 +8,7 @@ package org.aswing;
 import flash.display.InteractiveObject;
 import flash.events.EventDispatcher;
 import flash.events.KeyboardEvent;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.event.InteractiveEvent;
 import org.aswing.util.ArrayList;
@@ -98,7 +98,7 @@ class MenuSelectionManager extends EventDispatcher{
 		//       for(i=currentSelectionCount-1 ; i>=firstDifference; i--) {
 		i=currentSelectionCount-1 ;
         while( i >=firstDifference ){
-            var me:MenuElement = flash.Lib.as(selection.get(i),MenuElement);
+            var me:MenuElement = AsWingUtils.as(selection.get(i),MenuElement);
             selection.removeAt(i);
             me.menuSelectionChanged(false);
 			i--;
@@ -108,7 +108,7 @@ class MenuSelectionManager extends EventDispatcher{
 		// for(i = firstDifference, c = path.length ; i < c ; i++) {
         for (i  in firstDifference...path.length ) {
 			
-        	var tm:MenuElement = flash.Lib.as(path[i],MenuElement);
+        	var tm:MenuElement = AsWingUtils.as(path[i],MenuElement);
 		    if (tm != null) {
 				selection.append(tm); 
 				tm.menuSelectionChanged(true);
@@ -130,7 +130,7 @@ class MenuSelectionManager extends EventDispatcher{
 				}
 				lastTrigger = trigger;
 				if(trigger!=null)	{
-					trigger.addEventListener(KeyboardEvent.KEY_DOWN, __onMSMKeyDown, false, 0, true);
+					trigger.addEventListener(KeyboardEvent.KEY_DOWN, __onMSMKeyDown, false, 0, false);
 				}
 				lastTriggerRef.value = trigger;
 			}
@@ -182,39 +182,39 @@ class MenuSelectionManager extends EventDispatcher{
      */
     public function isComponentPartOfCurrentMenu(c:Component):Bool{
         if(selection.size() > 0) {
-            var me:MenuElement = flash.Lib.as(selection.get(0),MenuElement);
+            var me:MenuElement = AsWingUtils.as(selection.get(0),MenuElement);
             return isComponentPartOfMenu(me, c);
         }else{
             return false;
         }
     }
     
-    public function isNavigatingKey(code:UInt):Bool{
+    public function isNavigatingKey(code:Int):Bool{
     	return isPageNavKey(code) || isItemNavKey(code);
     }
-    public function isPageNavKey(code:UInt):Bool{
+    public function isPageNavKey(code:Int):Bool{
     	return isPrevPageKey(code) || isNextPageKey(code);
     }
-    public function isItemNavKey(code:UInt):Bool{
+    public function isItemNavKey(code:Int):Bool{
     	return isPrevItemKey(code) || isNextItemKey(code);
     }
-    public function isPrevPageKey(code:UInt):Bool{
-    	return code == Keyboard.LEFT;
+    public function isPrevPageKey(code:Int):Bool{
+    	return code == AWKeyboard.LEFT;
     }
-    public function isPrevItemKey(code:UInt):Bool{
-    	return code == Keyboard.UP;
+    public function isPrevItemKey(code:Int):Bool{
+    	return code == AWKeyboard.UP;
     }
-    public function isNextPageKey(code:UInt):Bool{
-    	return code == Keyboard.RIGHT;
+    public function isNextPageKey(code:Int):Bool{
+    	return code == AWKeyboard.RIGHT;
     }
-    public function isNextItemKey(code:UInt):Bool{
-    	return code == Keyboard.DOWN;
+    public function isNextItemKey(code:Int):Bool{
+    	return code == AWKeyboard.DOWN;
     }
-    public function isEnterKey(code:UInt):Bool{
-    	return code == Keyboard.ENTER;
+    public function isEnterKey(code:Int):Bool{
+    	return code == AWKeyboard.ENTER;
     }
-    public function isEscKey(code:UInt):Bool{
-    	return code == Keyboard.TAB || code == Keyboard.ESCAPE;
+    public function isEscKey(code:Int):Bool{
+    	return code == AWKeyboard.TAB || code == AWKeyboard.ESCAPE;
     }
     
     public function nextSubElement(parent:MenuElement, sub:MenuElement):MenuElement{
@@ -240,7 +240,7 @@ class MenuSelectionManager extends EventDispatcher{
     	}else if(index < 0){
     		index = subs.length - 1;
     	}
-    	return flash.Lib.as(subs[index],MenuElement);
+    	return AsWingUtils.as(subs[index],MenuElement);
     }
 
     private function isComponentPartOfMenu(root:MenuElement, c:Component):Bool{
@@ -258,7 +258,7 @@ class MenuSelectionManager extends EventDispatcher{
             children = root.getSubElements();
 			//  for(i=0,d=children.length; i<d; i++) {
             for(i in 0...children.length){
-            	var me:MenuElement = flash.Lib.as(children[i],MenuElement);
+            	var me:MenuElement = AsWingUtils.as(children[i],MenuElement);
                 if(me != null && isComponentPartOfMenu(me, c)){
                     return true;
                 }
@@ -275,12 +275,12 @@ class MenuSelectionManager extends EventDispatcher{
 		if(selection.size() == 0 || !isKeyEnabled()){
 			return;
 		}
-		var code:UInt= e.keyCode;
+		var code:Int= e.keyCode;
 		if(isEscKey(code)){
 			setSelectedPath(null, null, true);
 			return;
 		} 
-		var element:MenuElement = flash.Lib.as(selection.last(),MenuElement);
+		var element:MenuElement = AsWingUtils.as(selection.last(),MenuElement);
 		element.processKeyEvent(code);
 	}
 	

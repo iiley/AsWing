@@ -34,7 +34,7 @@ class TabBackground implements GroundDecorator,implements UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		shape.graphics.clear();
-		var btn:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+		var btn:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
 		if(btn!=null)	{
 			var model:ButtonModel = btn.getModel();
 			var isPressing:Bool= model.isPressed() || model.isSelected();

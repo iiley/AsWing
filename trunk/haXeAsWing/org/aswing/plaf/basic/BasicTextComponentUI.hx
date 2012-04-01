@@ -40,28 +40,28 @@ class BasicTextComponentUI extends BaseComponentUI{
 	}
     
 	override public function installUI(c:Component):Void{
-		textComponent = flash.Lib.as(c,JTextComponent);
+		textComponent = AsWingUtils.as(c,JTextComponent);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
     
 	override public function uninstallUI(c:Component):Void{
-		textComponent = flash.Lib.as(c,JTextComponent);
+		textComponent = AsWingUtils.as(c,JTextComponent);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
  	}
  	
  	private function installDefaults():Void{
-        var pp:String= getPropertyPrefix();
+        var pp:String = getPropertyPrefix(); 
         LookAndFeel.installColorsAndFont(textComponent, pp);
         LookAndFeel.installBorderAndBFDecorators(textComponent, pp);
         LookAndFeel.installBasicProperties(textComponent, pp);
  	}
 	
  	private function uninstallDefaults():Void{
- 		LookAndFeel.uninstallBorderAndBFDecorators(textComponent);
+ 		LookAndFeel.uninstallBorderAndBFDecorators(textComponent); 
  	}
  	
  	private function installComponents():Void{

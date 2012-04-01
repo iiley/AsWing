@@ -46,8 +46,9 @@ class Timer extends AbstractImpulser , implements Impulser{
 	 * @see #setDelay()
      * @throws Error when init delay <= 0 or delay == null
 	 */
-	public function new(delay:UInt, repeats:Bool=true){
+	public function new(delay:Int, repeats:Int=0){
 		super(delay, repeats);
+		old_repeats = repeats;
 		this.intervalID = null;
 		
 	}
@@ -105,22 +106,41 @@ class Timer extends AbstractImpulser , implements Impulser{
      * canceling any pending firings and causing
      * it to fire with its initial delay.
      */
-    override public function restart():Void{
+    override public function restart():Void {
+		super.restart();
         stop();
+		
         start();
     }
-    
-    private function fireActionPerformed():Void{
+   
+    private function fireActionPerformed():Void {
+		
     	if(isInitalFire)	{
     		isInitalFire = false;
-    		if(repeats)	{
+			
+			if(isRepeats())	{
     			clearInterval(intervalID);
-    			intervalID = setInterval(fireActionPerformed,getDelay());
-    		}else{
-    			stop();
-    		}
+    			intervalID = setInterval(fireActionPerformed, getDelay());			 
+    		}else {
+				repeats  = repeats - 1;
+				if (repeats == 0)
+				{ 
+					repeats = -1;
+				}  
+				if (repeats > 0)
+				{  
+					start();
+				}else
+				{
+					stop(); 
+					dispatchEvent(new AWEvent(AWEvent.ACT_COMPLETE));
+				} 
+				
+			} 
     	}
-    	dispatchEvent(new AWEvent(AWEvent.ACT));
+		dispatchEvent(new AWEvent(AWEvent.ACT));
+ 
+    	
     }
     
 

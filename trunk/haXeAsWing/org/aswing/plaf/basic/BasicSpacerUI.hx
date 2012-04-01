@@ -23,11 +23,11 @@ class BasicSpacerUI extends BaseComponentUI
 	}
 	
 	override public function installUI(c:Component):Void{
-		installDefaults(flash.Lib.as(c,JSpacer));
+		installDefaults(AsWingUtils.as(c,JSpacer));
 	}
 	
 	override public function uninstallUI(c:Component):Void{
-		uninstallDefaults(flash.Lib.as(c,JSpacer));
+		uninstallDefaults(AsWingUtils.as(c,JSpacer));
 	}
 	
 	private function installDefaults(s:JSpacer):Void{

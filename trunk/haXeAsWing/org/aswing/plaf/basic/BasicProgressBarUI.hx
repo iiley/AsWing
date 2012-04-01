@@ -38,14 +38,14 @@ class BasicProgressBarUI extends BaseComponentUI{
     }    	
 
 	override public function installUI(c:Component):Void{
-		progressBar = flash.Lib.as(c,JProgressBar);
+		progressBar = AsWingUtils.as(c,JProgressBar);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
 	
 	override public function uninstallUI(c:Component):Void{
-		progressBar = flash.Lib.as(c,JProgressBar);	
+		progressBar = AsWingUtils.as(c,JProgressBar);	
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -71,10 +71,13 @@ class BasicProgressBarUI extends BaseComponentUI{
 	
 	private function installComponents():Void{
 		stringText = new TextField();
-		stringText.autoSize = TextFieldAutoSize.CENTER;
+	
 		 
 		stringText.mouseEnabled = false;
+		#if (flash9)
+		stringText.autoSize = TextFieldAutoSize.CENTER;
 		stringText.tabEnabled = false;
+		#end
 		stringText.selectable = false;
 		progressBar.addChild(stringText);
 	}
@@ -100,7 +103,7 @@ class BasicProgressBarUI extends BaseComponentUI{
 	
     override public function paint(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		super.paint(c, g, b);
-		var sp:JProgressBar = flash.Lib.as(c,JProgressBar);
+		var sp:JProgressBar = AsWingUtils.as(c,JProgressBar);
 		if(sp.getString() != null && sp.getString().length>0){
 			stringText.text = sp.getString();
 	    	AsWingUtils.applyTextFontAndColor(stringText, sp.getFont(), sp.getForeground());
@@ -128,7 +131,7 @@ class BasicProgressBarUI extends BaseComponentUI{
     //--------------------------Dimensions----------------------------
     
 	override public function getPreferredSize(c:Component):IntDimension{
-		var sp:JProgressBar = flash.Lib.as(c,JProgressBar);
+		var sp:JProgressBar = AsWingUtils.as(c,JProgressBar);
 		var size:IntDimension;
 		if (sp.getOrientation() == JProgressBar.VERTICAL){
 			size = getPreferredInnerVertical();

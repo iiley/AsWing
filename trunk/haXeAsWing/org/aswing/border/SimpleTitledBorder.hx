@@ -152,7 +152,7 @@ class SimpleTitledBorder extends DecorateBorder
     	if(textField == null){
 	    	textField = new TextField();
 	    	textField.selectable = false;
-	    	textField.autoSize = TextFieldAutoSize.CENTER;	    	 
+	    	//textField.autoSize = TextFieldAutoSize.CENTER;	    	 
     	}
     	return textField;
 	}

@@ -84,12 +84,12 @@ class JProgressBar extends Component , implements Orientable{
 		return "ProgressBarUI";
 	} 
 	
-	public function setIndeterminateDelay(delay:UInt):Void{
+	public function setIndeterminateDelay(delay:Int):Void{
 		indeterminatePaintTimer.setDelay(delay);
 		setIndeterminateDelaySet(true);
 	}
 	
-	public function getIndeterminateDelay():UInt{
+	public function getIndeterminateDelay():Int{
 		return indeterminatePaintTimer.getDelay();
 	}
 	

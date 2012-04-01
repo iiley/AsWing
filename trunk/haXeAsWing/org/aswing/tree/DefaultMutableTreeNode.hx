@@ -5,7 +5,7 @@
 package org.aswing.tree;
  
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.tree.MutableTreeNode;
 import org.aswing.tree.TreeNode;
 import org.aswing.util.ArrayList;
@@ -42,7 +42,9 @@ import org.aswing.util.ArrayList;
  * @author paling
  */
 class DefaultMutableTreeNode implements MutableTreeNode{
-
+	private static var AWML_INDEX:Int= 0;
+	 
+	private var awmlIndex:Int;
     /** this node's parent, or null if this node has no parent */
     private var parent:MutableTreeNode;
 
@@ -65,12 +67,16 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      * @param allowsChildren (optional)if true, the node is allowed to have child
      *        nodes -- otherwise, it is always a leaf node. Default is true.
      */
-    public function new(userObject:Dynamic, allowsChildren:Bool=true) {
+    public function new(userObject:Dynamic, allowsChildren:Bool = true) {
+		AWML_INDEX++;
+		awmlIndex = AWML_INDEX;
 		parent = null;
 		this.allowsChildren = allowsChildren;
 		this.userObject = userObject;
     }
-
+  	public function getAwmlIndex():Int{
+		return awmlIndex;	
+	}
 
     //
     //  Primitives
@@ -104,7 +110,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		    throw new Error("new child is an ancestor");
 		}
 
-	    var oldParent:MutableTreeNode = flash.Lib.as(newChild.getParent(),MutableTreeNode);
+	    var oldParent:MutableTreeNode = AsWingUtils.as(newChild.getParent(),MutableTreeNode);
 
 	    if (oldParent != null) {
 			oldParent.remove(newChild);
@@ -126,7 +132,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      *				<code>childIndex</code> is out of bounds
      */
     public function removeAt(childIndex:Int):Void{
-		var child:MutableTreeNode = flash.Lib.as(getChildAt(childIndex),MutableTreeNode);
+		var child:MutableTreeNode = AsWingUtils.as(getChildAt(childIndex),MutableTreeNode);
 		if(child != null){
 			_children.removeAt(childIndex);
 			child.setParent(null);
@@ -168,7 +174,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 			trace("Error : node has no children");
 		    throw new Error("node has no children");
 		}
-		return flash.Lib.as(_children.get(index),TreeNode);
+		return AsWingUtils.as(_children.get(index),TreeNode);
     }
 
     /**
@@ -199,9 +205,19 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		if (!isNodeChild(aChild)) {
 		    return -1;
 		}
-		return _children.indexOf(aChild);	// linear search
+		return childrenIndexOf(aChild);	// linear search
 	}
-
+	//why
+	private function  childrenIndexOf(aChild:TreeNode):Int
+	{ 
+		for(i in 0..._children.size()){
+			if(_children.get(i).getAwmlIndex() ==aChild.getAwmlIndex()){
+				return i;
+			}
+		}
+		return -1;
+		
+	}
     /**
      * Creates and returns a forward-order enumeration of this node's
      * children.  Modifying this node's child array invalidates any child
@@ -252,7 +268,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      * @see	#getUserObject
      * @see	#toString
      */
-    public function setUserObject(userObject:Dynamic):Void{
+    public function setUserObject(userObject:TreeNode):Void{
 		this.userObject = userObject;
     }
 
@@ -263,7 +279,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      * @see	#setUserObject
      * @see	#toString
      */
-    public function getUserObject():Dynamic{
+    public function getUserObject():TreeNode{
 		return userObject;
     }
 
@@ -278,7 +294,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      * tree.
      */
     public function removeFromParent():Void{
-		var parent:MutableTreeNode = flash.Lib.as(getParent(),MutableTreeNode);
+		var parent:MutableTreeNode = AsWingUtils.as(getParent(),MutableTreeNode);
 		if (parent != null) {
 		    parent.remove(this);
 		}
@@ -477,7 +493,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		    throw new Error ("nodes should be null");
 		}
 		
-		return (flash.Lib.as(last,DefaultMutableTreeNode)).getLevel() - getLevel();
+		return (AsWingUtils.as(last,DefaultMutableTreeNode)).getLevel() - getLevel();
     }
 
 
@@ -554,7 +570,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var retPath:Array<Dynamic>= new Array<Dynamic>();
 	
 		for(counter in 0...realPath.length){
-		    retPath[counter] = (flash.Lib.as(realPath[counter],DefaultMutableTreeNode)).getUserObject();
+		    retPath[counter] = (AsWingUtils.as(realPath[counter],DefaultMutableTreeNode)).getUserObject();
 		}
 		return retPath;
     }
@@ -607,7 +623,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		    var nextSibling:DefaultMutableTreeNode = getNextSibling();
 	
 		    if (nextSibling == null) {
-				var aNode:DefaultMutableTreeNode = flash.Lib.as(getParent(),DefaultMutableTreeNode);
+				var aNode:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
 				do {
 				    if (aNode == null) {
 						return null;
@@ -616,14 +632,14 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 				    if (nextSibling != null) {
 						return nextSibling;
 				    }
-				    aNode = flash.Lib.as(aNode.getParent(),DefaultMutableTreeNode);
+				    aNode = AsWingUtils.as(aNode.getParent(),DefaultMutableTreeNode);
 				} while(true);
 				return null;//just tell ide i'll return a value
 		    } else {
 				return nextSibling;
 		    }
 		} else {
-		    return flash.Lib.as(getChildAt(0),DefaultMutableTreeNode);
+		    return AsWingUtils.as(getChildAt(0),DefaultMutableTreeNode);
 		}
     }
 
@@ -641,7 +657,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      */
     public function getPreviousNode():DefaultMutableTreeNode {
 		var previousSibling:DefaultMutableTreeNode;
-		var myParent:DefaultMutableTreeNode = flash.Lib.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null) {
 		    return null;
@@ -732,7 +748,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var queue:Array<Dynamic>= new Array<Dynamic>();
 		queue.push(this);
 		while(queue.length > 0){
-			var node:TreeNode = flash.Lib.as(queue.shift(),TreeNode);
+			var node:TreeNode = AsWingUtils.as(queue.shift(),TreeNode);
 			arr.push(node);
 	    	var cd:Array<Dynamic>= node.children();
 	    	if(cd != null && cd.length > 0){
@@ -951,7 +967,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		    var  myParent:TreeNode = getParent();
 		    retval = (myParent != null && myParent == anotherNode.getParent());
 			
-			var mp:DefaultMutableTreeNode = flash.Lib.as(getParent(),DefaultMutableTreeNode);
+			var mp:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
 		    if (retval && !(mp.isNodeChild(anotherNode))) {
 		    	trace("Error : sibling has different parent");
 				throw new Error("sibling has different parent");
@@ -993,12 +1009,12 @@ class DefaultMutableTreeNode implements MutableTreeNode{
     public function getNextSibling():DefaultMutableTreeNode {
 		var retval:DefaultMutableTreeNode;
 	
-		var myParent:DefaultMutableTreeNode = flash.Lib.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null) {
 		    retval = null;
 		} else {
-		    retval = flash.Lib.as(myParent.getChildAfter(this),DefaultMutableTreeNode);	// linear search
+		    retval = AsWingUtils.as(myParent.getChildAfter(this),DefaultMutableTreeNode);	// linear search
 		}
 	
 		if (retval != null && !isNodeSibling(retval)) {
@@ -1021,12 +1037,12 @@ class DefaultMutableTreeNode implements MutableTreeNode{
     public function getPreviousSibling():DefaultMutableTreeNode {
 		var retval:DefaultMutableTreeNode;
 	
-		var myParent:DefaultMutableTreeNode = flash.Lib.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null) {
 		    retval = null;
 		} else {
-		    retval = flash.Lib.as(myParent.getChildBefore(this),DefaultMutableTreeNode);	// linear search
+		    retval = AsWingUtils.as(myParent.getChildBefore(this),DefaultMutableTreeNode);	// linear search
 		}
 	
 		if (retval != null && !isNodeSibling(retval)) {
@@ -1070,7 +1086,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var node:DefaultMutableTreeNode = this;
 	
 		while (!node.isLeaf()) {
-		    node = flash.Lib.as(node.getFirstChild(),DefaultMutableTreeNode);
+		    node = AsWingUtils.as(node.getFirstChild(),DefaultMutableTreeNode);
 		}
 	
 		return node;
@@ -1090,7 +1106,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var node:DefaultMutableTreeNode = this;
 	
 		while (!node.isLeaf()) {
-		    node = flash.Lib.as(node.getLastChild(),DefaultMutableTreeNode);
+		    node = AsWingUtils.as(node.getLastChild(),DefaultMutableTreeNode);
 		}
 	
 		return node;
@@ -1118,7 +1134,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      */
     public function getNextLeaf():DefaultMutableTreeNode {
 		var nextSibling:DefaultMutableTreeNode;
-		var myParent:DefaultMutableTreeNode = flash.Lib.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null)
 		    return null;
@@ -1153,7 +1169,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      */
     public function getPreviousLeaf():DefaultMutableTreeNode {
 		var previousSibling:DefaultMutableTreeNode;
-		var myParent:DefaultMutableTreeNode = flash.Lib.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null)
 		    return null;
@@ -1182,7 +1198,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var enum_:Array<Dynamic>= breadthFirstEnumeration(); // order matters not
 	
 		for (i in 0...enum_.length){
-		    node = flash.Lib.as(enum_[i],TreeNode);
+		    node = AsWingUtils.as(enum_[i],TreeNode);
 		    if (node.isLeaf()) {
 				count++;
 		    }

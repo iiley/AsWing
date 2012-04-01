@@ -7,19 +7,20 @@ package org.aswing.plaf.basic.icon;
 
 import flash.display.DisplayObject;
 import flash.display.Shape;
-import flash.display.Sprite;
-import flash.filters.BevelFilter;
-import flash.filters.BitmapFilterType;
-import flash.filters.DropShadowFilter;
+import flash.display.Sprite; 
+import flash.filters.BitmapFilterType; 
 
+import flash.filters.DropShadowFilter;
+import flash.filters.BitmapFilter;
+import org.aswing.AsWingManager;
 import org.aswing.Icon;
-	import org.aswing.Component;
-	import org.aswing.ASColor;
-	import org.aswing.AbstractButton;
-	import org.aswing.StyleResult;
-	import org.aswing.StyleTune;
-	import org.aswing.ButtonModel;
-	import org.aswing.geom.IntRectangle;
+import org.aswing.Component;
+import org.aswing.ASColor;
+import org.aswing.AbstractButton;
+import org.aswing.StyleResult;
+import org.aswing.StyleTune;
+import org.aswing.ButtonModel;
+import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
@@ -62,7 +63,7 @@ class FrameIcon implements Icon,implements UIResource{
 		box.graphics.clear();
 		g = new Graphics2D(box.graphics);
 		
-		var b:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+		var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
 		if(b == null){
 			return;
 		}
@@ -96,15 +97,21 @@ class FrameIcon implements Icon,implements UIResource{
 			BasicGraphicsUtils.fillGradientRoundRect(g, bounds, style);
     	}
     	BasicGraphicsUtils.drawGradientRoundRectLine(g, bounds, 1, style);
-    	box.filters = [
-    		//new BevelFilter(1, 90, 0xFFFFFF, 0.18, 0xFFFFFF, 0, 0, 0, 1, 1, BitmapFilterType.INNER), 
-    		new DropShadowFilter(1, 45, 0xFFFFFF, style.shadow*shadowScale, 1, 1, 1, 1)
-    		];
+  
 		
+    		//new flash.filters.BevelFilter(1, 90, 0xFFFFFF, 0.18, 0xFFFFFF, 0, 0, 0, 1, 1, BitmapFilterType.INNER),
+		
+     
+		var box_f:Array<BitmapFilter> = new Array<BitmapFilter>();
+		box_f.push(new  DropShadowFilter(1, 45, 0xFFFFFF, style.shadow * shadowScale, 1, 1, 1, 1));
+		box.filters = box_f;
 		dot.graphics.clear();
 		updateIconImp(style, new Graphics2D(dot.graphics), x, y);
-		//dot.filters = AsWingManager.USE_FILTERS ? 
-		//	[new DropShadowFilter(0, 70, 0x0, style.shadow*shadowScale*2, 2, 2, 8, 1)] : null;
+		/*
+		var dot_f:Array<BitmapFilter> = new Array<BitmapFilter>();
+		dot_f.push(new DropShadowFilter(0, 70, 0x0, style.shadow*shadowScale*2, 2, 2, 8, 1));
+		dot.filters = AsWingManager.USE_FILTERS ?  dot_f : null;
+		*/
 	}
 	
 	public function updateIconImp(style:StyleResult, g:Graphics2D, x:Int, y:Int):Void{}
@@ -124,5 +131,5 @@ class FrameIcon implements Icon,implements UIResource{
 	public function getDisplay(c:Component):DisplayObject{
 		return sprite;
 	}
-	
+ 
 }

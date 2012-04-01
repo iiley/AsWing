@@ -29,13 +29,13 @@ class BasicClosableTabbedPaneUI extends BasicTabbedPaneUI{
     }
 	
 	private function getClosableTab(i:Int):ClosableTab{
-    	return flash.Lib.as(tabs[i],ClosableTab);
+    	return AsWingUtils.as(tabs[i],ClosableTab);
 	}
 	
     override private function setTabProperties(header:Tab, i:Int):Void{
     	super.setTabProperties(header, i);
-    	flash.Lib.as(header,ClosableTab).getCloseButton().setEnabled(
-    		(flash.Lib.as(tabbedPane,JClosableTabbedPane)).isCloseEnabledAt(i)
+    	AsWingUtils.as(header,ClosableTab).getCloseButton().setEnabled(
+    		(AsWingUtils.as(tabbedPane,JClosableTabbedPane)).isCloseEnabledAt(i)
     		&& tabbedPane.isEnabledAt(i));
     }
 	
@@ -64,7 +64,7 @@ class BasicClosableTabbedPaneUI extends BasicTabbedPaneUI{
      * Just override this method if you want other LAF headers.
      */
     override private function createNewTab():Tab{    	
-    	var tab:Tab = flash.Lib.as(getInstance(getPropertyPrefix() + "tab") , Tab);
+    	var tab:Tab = AsWingUtils.as(getInstance(getPropertyPrefix() + "tab") , Tab);
     	if(tab == null){
     		tab = new BasicClosableTabbedPaneTab();
     	}
@@ -74,7 +74,7 @@ class BasicClosableTabbedPaneUI extends BasicTabbedPaneUI{
     }
     
 	private function isButtonEvent(e:Event, index:Int):Bool{
-		var eventTarget:DisplayObject = flash.Lib.as(e.target,DisplayObject)	;
+		var eventTarget:DisplayObject = AsWingUtils.as(e.target,DisplayObject)	;
 		if(eventTarget!=null)	{
 			var button:Component = getClosableTab(index).getCloseButton();
 			if(button == eventTarget || button.contains(eventTarget)){

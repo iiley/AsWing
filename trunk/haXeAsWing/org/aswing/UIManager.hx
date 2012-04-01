@@ -58,7 +58,7 @@ class UIManager
 	}
 	
 	public static function containsKey(key:String):Bool{
-		return getDefaults().containsKey(key);
+		return getDefaults().exists(key);
 	}
 	
 	public static function get(key:String):Dynamic{
@@ -81,7 +81,7 @@ class UIManager
 		return getDefaults().getInt(key);
 	}
 	
-	public static function getUint(key:String):UInt{
+	public static function getUint(key:String):Int{
 		return getDefaults().getUint(key);
 	}
 	

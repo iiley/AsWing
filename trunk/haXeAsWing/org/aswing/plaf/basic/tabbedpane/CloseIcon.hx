@@ -38,7 +38,9 @@ class CloseIcon implements Icon,implements UIResource{
 		if(!c.isEnabled()){
 			return; //do not paint X when not enabled
 		}
-		var w:Float= width/2;
+		var w:Float = width / 2;
+		//why	
+		/*
 		g.drawLine(
 			new Pen(getColor(), w/3), 
 			x+(width-w)/2, y+(width-w)/2,
@@ -47,6 +49,7 @@ class CloseIcon implements Icon,implements UIResource{
 			new Pen(getColor(), w/3), 
 			x+(width-w)/2, y+(width+w)/2,
 			x+(width+w)/2, y+(width-w)/2);		
+			*/
 	}
 		
 	public function getIconHeight(c:Component):Int{
@@ -61,5 +64,6 @@ class CloseIcon implements Icon,implements UIResource{
 	{
 		return shape;
 	}
+ 
 	
 }

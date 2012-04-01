@@ -3,20 +3,21 @@
 */
 
 package org.aswing.plaf.basic.background;
-
-	
+import flash.filters.GlowFilter;
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
 import flash.display.Shape;
-	import flash.display.DisplayObject;
-	import org.aswing.GroundDecorator;
-	import org.aswing.Component;
-	import org.aswing.JProgressBar;
-	import org.aswing.StyleTune;
-	import org.aswing.StyleResult;
-	import org.aswing.geom.IntRectangle;
-	import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.SolidBrush;
-	import org.aswing.plaf.UIResource;
-	import org.aswing.plaf.basic.BasicGraphicsUtils;
+import flash.display.DisplayObject;
+import org.aswing.GroundDecorator;
+import org.aswing.Component;
+import org.aswing.JProgressBar;
+import org.aswing.StyleTune;
+import org.aswing.StyleResult;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.SolidBrush;
+import org.aswing.plaf.UIResource;
+import org.aswing.plaf.basic.BasicGraphicsUtils;
 
 /**
  * The barIcon decorator for ProgressBar.
@@ -38,7 +39,7 @@ class ProgressBarIcon implements GroundDecorator,implements UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		if(Std.is(c,JProgressBar)){
-			var bar:JProgressBar =flash.Lib.as(c, JProgressBar);
+			var bar:JProgressBar =AsWingUtils.as(c, JProgressBar);
 			
 			b = b.clone();
 			var percent:Float;
@@ -76,8 +77,11 @@ class ProgressBarIcon implements GroundDecorator,implements UIResource{
 				if(b.width-radius*2 > 0){
 					g.fillRectangle(new SolidBrush(c.getMideground().changeAlpha(0.3)), radius, b.height-2.5, b.width-radius*2, 1.5);
 				}
+				//var f :Array<BitmapFilter>= new Array<BitmapFilter>();
+				//f.push(new GlowFilter(0x0, result.shadow, 1, 1, 8, 1, true));
+				//shape.filters = f;
 			}
-			//shape.filters = [new GlowFilter(0x0, result.shadow, 1, 1, 8, 1, true)];
+		 
 		}
 	}
 	

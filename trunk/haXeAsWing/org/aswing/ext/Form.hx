@@ -5,7 +5,7 @@
 package org.aswing.ext;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.BorderLayout;
 import org.aswing.CenterLayout;
 import org.aswing.Component;
@@ -317,7 +317,7 @@ class Form extends JPanel , implements LayoutManager{
     	for(i in 0...n){
     		var c:Component = getComponent(i);
     		if(c.isVisible()){
-	    		var row:FormRow = flash.Lib.as(c,FormRow)	;
+	    		var row:FormRow = AsWingUtils.as(c,FormRow)	;
 	    		var ph:Int= c.getPreferredHeight();
 	    		if(row!=null)	{
 	    			row.setColumnWidthes(columnWids);

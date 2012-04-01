@@ -5,9 +5,9 @@
 package org.aswing;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.MouseEvent;
-
+import flash.geom.Rectangle;
 import org.aswing.event.ListDataListener;
 	import org.aswing.event.InteractiveEvent;
 	import org.aswing.event.ListDataEvent;
@@ -17,8 +17,7 @@ import org.aswing.event.ListDataListener;
 	import org.aswing.geom.IntPoint;
 	import org.aswing.geom.IntDimension;
 	import org.aswing.geom.IntRectangle;
-	import org.aswing.plaf.basic.BasicListUI;
-import org.aswing.util.HashMap;
+	import org.aswing.plaf.basic.BasicListUI; 
 	import org.aswing.util.ArrayList;
 	import org.aswing.dnd.DragManager;
 	/**
@@ -200,8 +199,8 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 	private var viewHeight:Int;
 	private var viewWidth:Int;
 	private var maxWidthCell:ListCell;
-	private var cellPrefferSizes:HashMap; //use for catche sizes when not all cells same height
-	private var comToCellMap:HashMap; 
+	private var cellPrefferSizes:IntHash<IntDimension>; //use for catche sizes when not all cells same height
+	private var comToCellMap:IntHash<ListCell>; 
 	private var visibleRowCount:Int;
 	private var visibleCellWidth:Int;
 	//--
@@ -236,7 +235,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 	 * @param listData (optional)a ListModel or a Array.
 	 * @param cellFactory (optional)the cellFactory for this List.
 	 */
-	public function new(listData:Dynamic=null, cellFactory:ListCellFactory=null) {
+	public function new(listData:Dynamic=null, ?cellFactory:ListCellFactory=null) {
 		this.firstVisibleIndexOffset=0;
 		this.lastVisibleIndexOffset=0;
 			super();
@@ -264,32 +263,35 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		viewWidth = 0;
 		viewHeight = 0;
 		maxWidthCell = null;
-		cellPrefferSizes = new HashMap();
-		comToCellMap = new HashMap();
+		cellPrefferSizes = new IntHash<IntDimension>();
+		comToCellMap = new IntHash<ListCell>();
 		cells = new ArrayList();
 		model = null;
 		autoDragAndDropType = DND_NONE;
 		
 		if(cellFactory == null){
-			cellFactory = new DefaultListCellFactory(true);
+			this.cellFactory = new DefaultListCellFactory(true);
 		}
-		this.cellFactory = cellFactory;
+		else {
+			this.cellFactory = cellFactory;
+			
+		}
 		
 		if(listData == null){
 			setModel(new VectorListModel());
-		}else if(Std.is(listData,ListModel)){
-			setModel(flash.Lib.as(listData,ListModel)	);
-		}else{
-			setListData(flash.Lib.as(listData,Array) );
+		}else if(Std.is(listData,Array)){
+			setListData(AsWingUtils.as(listData,Array) );
 		}
-		
+		else if(Std.is(listData,ListModel)){
+			setModel(AsWingUtils.as(listData,ListModel)	);
+		}
 		updateUI();
 	}
 	
     override public function updateUI():Void{
     	//update cells ui
     	for(i in 0...cells.size() ){
-    		var cell:ListCell = flash.Lib.as(cells.get(i),ListCell);
+    		var cell:ListCell = AsWingUtils.as(cells.get(i),ListCell);
     		cell.getCellComponent().updateUI();
     	}
     	
@@ -810,7 +812,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			var num:Int=Std.int( Math.min(cells.getSize()-1, index));
 			var y:Int= 0;
 			for(i in 0...num){
-				var cell:ListCell = flash.Lib.as(cells.get(i),ListCell);
+				var cell:ListCell = AsWingUtils.as(cells.get(i),ListCell);
 				var s:IntDimension = getCachedCellPreferSize(cell);
 				if(s == null){
 					s = cell.getCellComponent().getPreferredSize();
@@ -844,7 +846,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			var num:Int= Std.int(Math.min(cells.getSize(), index+2));
 			var y:Int= 0;
 			for(i in 0...num){
-				var cell:ListCell = flash.Lib.as(cells.get(i),ListCell);
+				var cell:ListCell = AsWingUtils.as(cells.get(i),ListCell);
 				var s:IntDimension = getCachedCellPreferSize(cell);
 				if(s == null){
 					s = cell.getCellComponent().getPreferredSize();
@@ -1055,13 +1057,13 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 	private function addCellToContainer(cell:ListCell):Void{
 		cell.getCellComponent().setFocusable(false);
 		cellPane.append(cell.getCellComponent());
-		comToCellMap.put(cell.getCellComponent(), cell);
+		comToCellMap.set(cell.getCellComponent().getAwmlIndex(), cell);
 		addHandlersToCell(cell.getCellComponent());
 	}
 	
 	private function removeCellFromeContainer(cell:ListCell):Void{
 		cell.getCellComponent().removeFromContainer();
-		comToCellMap.remove(cell.getCellComponent());
+		comToCellMap.remove(cell.getCellComponent().getAwmlIndex());
 		removeHandlersFromCell(cell.getCellComponent());
 	}
 	
@@ -1094,7 +1096,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			var removeIndex:Int= needNum;
 			var removed:Array<Dynamic>= cells.removeRange(removeIndex, cells.getSize()-1);
 			for(i in 0...removed.length){
-				cell = flash.Lib.as(removed[i],ListCell);
+				cell = AsWingUtils.as(removed[i],ListCell);
 				removeCellFromeContainer(cell);
 			}
 		}
@@ -1111,7 +1113,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		var mSize:Int= m.getSize();
 		var cSize:Int= cells.getSize();
 		
-		cellPrefferSizes.clear();
+		cellPrefferSizes=new   IntHash<IntDimension>();
 		
 		var n:Int=Std.int( Math.min(mSize, cSize));
 		var i:Int;
@@ -1119,10 +1121,10 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		var s:IntDimension;
 		//reuse created cells
 		for(i in 0...n){
-			cell = flash.Lib.as(cells.get(i),ListCell);
+			cell = AsWingUtils.as(cells.get(i),ListCell);
 			cell.setCellValue(m.getElementAt(i));
 			s = cell.getCellComponent().getPreferredSize();
-			cellPrefferSizes.put(cell.getCellComponent(), s);
+			cellPrefferSizes.set(cell.getCellComponent().getAwmlIndex(), s);
 			if(s.width > w){
 				w = s.width;
 				maxWidthCell = cell;
@@ -1140,7 +1142,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 				cell.setCellValue(m.getElementAt(i));
 				addCellToContainer(cell);
 				s = cell.getCellComponent().getPreferredSize();
-				cellPrefferSizes.put(cell.getCellComponent(), s);
+				cellPrefferSizes.set(cell.getCellComponent().getAwmlIndex(), s);
 				if(s.width > w){
 					w = s.width;
 					maxWidthCell = cell;
@@ -1152,9 +1154,9 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		}else if(mSize < cSize){ //remove unwanted cells
 			var removed:Array<Dynamic>= cells.removeRange(mSize, cSize-1);
 			for(i in 0...removed.length){
-				cell = flash.Lib.as(removed[i],ListCell);
+				cell = AsWingUtils.as(removed[i],ListCell);
 				removeCellFromeContainer(cell);
-				cellPrefferSizes.remove(cell.getCellComponent());
+				cellPrefferSizes.remove(cell.getCellComponent().getAwmlIndex());
 			}
 		}
 		
@@ -1259,9 +1261,13 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			fireStateChanged();
     	}
     }
-	
+	override private function setClipMaskRect(b:IntRectangle):Void{
+		super.setClipMaskRect(b);
+		 scrollRect = new Rectangle(0, 0, b.width, b.height);
+	}
     public function setViewportTestSize(s:IntDimension):Void{
-    	setSize(s);
+    	setSize(s); 
+		 
     }	
 		
 	public function getExtentSize() : IntDimension {	
@@ -1472,13 +1478,13 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		var cellCom:Component;
 		//invisible last viewed
 		for(i in Std.int(Math.max(0, firstVisibleIndex+firstVisibleIndexOffset))...startIndex){
-			cellCom = flash.Lib.as(cells.get(i),ListCell).getCellComponent();
+			cellCom = AsWingUtils.as(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
 		var rlvi:Int= Std.int(Math.min(lastVisibleIndex+lastVisibleIndexOffset, listSize-1));
 		for(i in endIndex+1...rlvi+1){
-			cellCom = flash.Lib.as(cells.get(i),ListCell).getCellComponent();
+			cellCom = AsWingUtils.as(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
@@ -1487,7 +1493,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		}
 		//visible current needed
 		for(i in startIndex...endIndex+1){
-			var cell:ListCell = flash.Lib.as(cells.get(i),ListCell);
+			var cell:ListCell = AsWingUtils.as(cells.get(i),ListCell);
 			cellCom = cell.getCellComponent();
 			cellCom.setVisible(true);
 			var s:IntDimension = getCachedCellPreferSize(cell);
@@ -1509,7 +1515,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
     }
     
     private function getCachedCellPreferSize(cell:ListCell):IntDimension{
-    	return flash.Lib.as(cellPrefferSizes.get(cell.getCellComponent()),IntDimension);
+    	return AsWingUtils.as(cellPrefferSizes.get(cell.getCellComponent().getAwmlIndex()),IntDimension);
     }
     
     private function layoutWhenNotShareCellsAndNotSameHeight():Void{
@@ -1531,7 +1537,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		var cell:ListCell;
 		
 		for(i in 0...cellsCount){
-			cell = flash.Lib.as(cells.get(i),ListCell);
+			cell = AsWingUtils.as(cells.get(i),ListCell);
 			s = getCachedCellPreferSize(cell);
 			if(s == null){
 				s = cell.getCellComponent().getPreferredSize();
@@ -1554,7 +1560,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		//visible current needed
 		var endIndex:Int= startIndex;
 		for(i in startIndex...cellsCount){
-			cell = flash.Lib.as(cells.get(i),ListCell);
+			cell = AsWingUtils.as(cells.get(i),ListCell);
 			cellCom = cell.getCellComponent();
 			s = getCachedCellPreferSize(cell);
 			if(s == null){
@@ -1578,13 +1584,13 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		
 		//invisible last viewed
 		for(i in Std.int(Math.max(0, firstVisibleIndex+firstVisibleIndexOffset))...startIndex){
-			cellCom = flash.Lib.as(cells.get(i),ListCell).getCellComponent();
+			cellCom = AsWingUtils.as(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
 		var rlvi:Int= Std.int(Math.min(lastVisibleIndex+lastVisibleIndexOffset, listSize-1));
 		for(i in endIndex+1...rlvi+1){
-			cellCom = flash.Lib.as(cells.get(i),ListCell).getCellComponent();
+			cellCom = AsWingUtils.as(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
@@ -1637,7 +1643,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 				addCellToContainer(cell);
 				var s:IntDimension = cell.getCellComponent().getPreferredSize();
 				cell.getCellComponent().setVisible(false);
-				cellPrefferSizes.put(cell.getCellComponent(), s);
+				cellPrefferSizes.set(cell.getCellComponent().getAwmlIndex(), s);
 				if(s.width > w){
 					w = s.width;
 					maxWidthCell = cell;
@@ -1691,7 +1697,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		}else{
 			var needRecountWidth:Bool= false;
 			for(i in i0...i1+1){
-				cell = flash.Lib.as(cells.get(i),ListCell);
+				cell = AsWingUtils.as(cells.get(i),ListCell);
 				if(cell == maxWidthCell){
 					needRecountWidth = true;
 				}
@@ -1704,7 +1710,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 					h -= s.height;
 				}
 				removeCellFromeContainer(cell);
-				cellPrefferSizes.remove(cell.getCellComponent());
+				cellPrefferSizes.remove(cell.getCellComponent().getAwmlIndex());
 			}
 			cells.removeRange(i0, i1);
 			if(sameHeight)	{
@@ -1713,7 +1719,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			if(needRecountWidth)	{
 				w = 0;
 				for(i in 0...cells.getSize() ){
-					cell = flash.Lib.as(cells.get(i),ListCell);
+					cell = AsWingUtils.as(cells.get(i),ListCell);
 					s = getCachedCellPreferSize(cell);
 					if(s == null){
 						s = cell.getCellComponent().getPreferredSize();
@@ -1766,7 +1772,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			var needRecountWidth:Bool= false;
 			for(i in i0...i1+1){
 				var newValue:Dynamic= m.getElementAt(i);
-				cell = flash.Lib.as(cells.get(i),ListCell);
+				cell = AsWingUtils.as(cells.get(i),ListCell);
 				s = getCachedCellPreferSize(cell);
 				if(s == null){
 					s = cell.getCellComponent().getPreferredSize();
@@ -1776,7 +1782,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 					h -= s.height;
 					cell.setCellValue(newValue);
 					ns = cell.getCellComponent().getPreferredSize();
-					cellPrefferSizes.put(cell.getCellComponent(), ns);
+					cellPrefferSizes.set(cell.getCellComponent().getAwmlIndex(), ns);
 					if(ns.width < s.width){
 						needRecountWidth = true;
 					}else{
@@ -1787,7 +1793,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 					h -= s.height;
 					cell.setCellValue(newValue);
 					ns = cell.getCellComponent().getPreferredSize();
-					cellPrefferSizes.put(cell.getCellComponent(), ns);
+					cellPrefferSizes.set(cell.getCellComponent().getAwmlIndex(), ns);
 					h += ns.height;
 					if(needRecountWidth!=true){
 						if(ns.width > w){
@@ -1831,12 +1837,12 @@ class JList extends Container , implements LayoutManager,implements Viewportable
     //-------------------------------Event Listener For All Items----------------
     
     private function addHandlersToCell(cellCom:Component):Void{
-    	cellCom.addEventListener(MouseEvent.CLICK, __onItemClick);
-    	cellCom.addEventListener(MouseEvent.DOUBLE_CLICK, __onItemDoubleClick);
-    	cellCom.addEventListener(MouseEvent.MOUSE_DOWN, __onItemMouseDown);
-    	cellCom.addEventListener(MouseEvent.ROLL_OVER, __onItemRollOver);
-    	cellCom.addEventListener(MouseEvent.ROLL_OUT, __onItemRollOut);
-    	cellCom.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onItemReleaseOutSide);
+    	cellCom.addEventListener(MouseEvent.CLICK, __onItemClick, false, 0, false); 
+    	cellCom.addEventListener(MouseEvent.DOUBLE_CLICK, __onItemDoubleClick , false, 0, false);
+    	cellCom.addEventListener(MouseEvent.MOUSE_DOWN, __onItemMouseDown, false, 0, false);
+    	cellCom.addEventListener(MouseEvent.ROLL_OVER, __onItemRollOver, false, 0, false);
+    	cellCom.addEventListener(MouseEvent.ROLL_OUT, __onItemRollOut, false, 0, false);
+    	cellCom.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onItemReleaseOutSide, false, 0, false);
     }
     
     private function removeHandlersFromCell(cellCom:Component):Void{
@@ -1848,30 +1854,47 @@ class JList extends Container , implements LayoutManager,implements Viewportable
     	cellCom.removeEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onItemReleaseOutSide);
     }
     	
-	private function createItemEventObj(cellCom:Dynamic, type:String, e:MouseEvent):ListItemEvent{
-		var cell:ListCell = getCellByCellComponent(flash.Lib.as(cellCom,Component));
-		var event:ListItemEvent = new ListItemEvent(type, cell.getCellValue(), cell, e);
+	private function createItemEventObj(cellCom:Dynamic, type:String, e:MouseEvent):ListItemEvent {
+	 
+		var cell:ListCell = getCellByCellComponent(AsWingUtils.as(cellCom, Component));
+		var cellValue:Dynamic = null;
+		if (cell != null) cellValue = cell.getCellValue();
+		var event:ListItemEvent  =new ListItemEvent(type,cellValue , cell, e);
 		return event;
 	}
 	
 	private function getItemIndexByCellComponent(item:Component):Int{
-		var cell:ListCell = comToCellMap.get(item);
+		var cell:ListCell = comToCellMap.get(item.getAwmlIndex());
+		trace(cell);
 		return getItemIndexByCell(cell);
 	}
 	
 	/**
 	 * Returns the index of the cell.
 	 */
-	public function getItemIndexByCell(cell:ListCell):Int{
-		if(getCellFactory().isShareCells()){
-			return firstVisibleIndex + cells.indexOf(cell);
-		}else{
-			return cells.indexOf(cell);
+	//why
+	private function  cellsIndexOf(cell:ListCell):Int
+	{ 
+		for(i in 0...cells.size()){
+			if(cells.get(i).getAwmlIndex() ==cell.getAwmlIndex()){
+				return i;
+			}
 		}
+		return -1;
+		
+	}
+	public function getItemIndexByCell(cell:ListCell):Int {
+		var itemIndex:Int; 
+		if(getCellFactory().isShareCells()){
+			itemIndex= firstVisibleIndex + cellsIndexOf(cell);
+		}else{
+			itemIndex= cellsIndexOf(cell);
+		} 
+		return itemIndex;
 	}
 	
 	private function getCellByCellComponent(item:Component):ListCell{
-		return comToCellMap.get(item);
+		return comToCellMap.get(item.getAwmlIndex());
 	}
 	
 	/**
@@ -1879,9 +1902,9 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 	 */
 	public function getCellByIndex(index:Int):ListCell{
 		if(getCellFactory().isShareCells()){
-			return flash.Lib.as(cells.get(index - firstVisibleIndex),ListCell);
+			return AsWingUtils.as(cells.get(index - firstVisibleIndex),ListCell);
 		}else{
-			return flash.Lib.as(cells.get(index),ListCell);
+			return AsWingUtils.as(cells.get(index),ListCell);
 		}
 	}
 	
@@ -1889,43 +1912,49 @@ class JList extends Container , implements LayoutManager,implements Viewportable
     /**
      * Event Listener For All Items
      */
-	private function __onItemMouseDown(e:MouseEvent):Void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_MOUSE_DOWN, e));
+	private function __onItemMouseDown(e:MouseEvent):Void {
+		 dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_MOUSE_DOWN, e));
 	}
 		
     /**
      * Event Listener For All Items
      */	
-	private function __onItemClick(e:MouseEvent):Void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_CLICK, e));
+	private function __onItemClick(e:MouseEvent):Void {
+	//why	 
+		 dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_CLICK, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
-	private function __onItemReleaseOutSide(e:ReleaseEvent):Void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_RELEASE_OUT_SIDE, e));
+	private function __onItemReleaseOutSide(e:ReleaseEvent):Void {
+	//why	
+ 
+		 dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_RELEASE_OUT_SIDE, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
-	private function __onItemRollOver(e:MouseEvent):Void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OVER, e));
+	private function __onItemRollOver(e:MouseEvent):Void {
+ //why 
+		 dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OVER, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
-	private function __onItemRollOut(e:MouseEvent):Void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OUT, e));
+	private function __onItemRollOut(e:MouseEvent):Void {
+	//why	
+		 dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_ROLL_OUT, e));
 	}
 	
     /**
      * Event Listener For All Items
      */	
-	private function __onItemDoubleClick(e:MouseEvent):Void{
-		dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_DOUBLE_CLICK, e));
+	private function __onItemDoubleClick(e:MouseEvent):Void {
+	//why	
+		 dispatchEvent(createItemEventObj(e.currentTarget, ListItemEvent.ITEM_DOUBLE_CLICK, e));
 	}
 	
 	//-------------------------------Drag and Drop---------------------------------

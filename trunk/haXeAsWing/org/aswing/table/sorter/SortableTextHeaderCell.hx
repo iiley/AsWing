@@ -31,7 +31,7 @@ class SortableTextHeaderCell extends DefaultTextHeaderCell{
 	
 	override public function setTableCellStatus(table:JTable, isSelected:Bool, row:Int, column:Int):Void{
 		super.setTableCellStatus(table, isSelected, row, column);
-		var modelColumn:Int= table.convertColumnIndexToModel(column);
+		var modelColumn:Int = table.convertColumnIndexToModel(column); 
 		setIcon(tableSorter.getHeaderRendererIcon(modelColumn, getFont().getSize()-2));
 	}
 }

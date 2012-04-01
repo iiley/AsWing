@@ -9,7 +9,7 @@ import flash.display.Shape;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 import org.aswing.event.ReleaseEvent;
 import org.aswing.JTable;
 	import org.aswing.Component;
@@ -45,7 +45,7 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 	}
 	
 	override public function installUI(c:Component):Void{
-		table = flash.Lib.as(c,JTable);
+		table = AsWingUtils.as(c,JTable);
 		installDefaults();
 		installListeners();
 	}
@@ -206,11 +206,11 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 		return table.getLogicLocationFromPixelLocation(p);
 	}
 	
-	private function getEditionKey():UInt{
-		return Keyboard.ENTER;
+	private function getEditionKey():Int{
+		return AWKeyboard.ENTER;
 	}
-	private function getSelectionKey():UInt{
-		return Keyboard.SPACE;
+	private function getSelectionKey():Int{
+		return AWKeyboard.SPACE;
 	}
 	
 	private function createGridGraphics():Graphics2D{
@@ -261,7 +261,8 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 		var maxCell:IntRectangle = table.getCellRect(rMax, cMax, true);
 		var damagedArea:IntRectangle = minCell.union(maxCell);
 		damagedArea.setLocation(damagedArea.getLocation().move(startX, startY));
-		
+		//why	
+		/*
 		var pen:Pen = new Pen(table.getGridColor(), 1);
 		if (table.getShowHorizontalLines()) {
 			var x1:Float= damagedArea.x + 0.5;
@@ -290,7 +291,8 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 					x += cm.getColumn(column).getWidth();
 				}
 			}
-		}		
+		}	
+		*/
 	}	
 	//******************************************************************
 	//						Focus and Keyboard control
@@ -301,14 +303,14 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 		}
 		var rDir:Float= 0;
 		var cDir:Float= 0;
-		var code:UInt= e.keyCode;
-		if(code == Keyboard.LEFT){
+		var code:Int= e.keyCode;
+		if(code == AWKeyboard.LEFT){
 			cDir = -1;
-		}else if(code == Keyboard.RIGHT){
+		}else if(code == AWKeyboard.RIGHT){
 			cDir = 1;
-		}else if(code == Keyboard.UP){
+		}else if(code == AWKeyboard.UP){
 			rDir = -1;
-		}else if(code == Keyboard.DOWN){
+		}else if(code == AWKeyboard.DOWN){
 			rDir = 1;
 		}
 		if(cDir != 0 || rDir != 0){

@@ -15,12 +15,12 @@ package org.aswing;
 class KeyStroke implements KeyType{
 
 	private var codeString:String;
-	private var code:UInt;
+	private var code:Int;
 	
 	/**
 	 * Create a KeyStroke with string and key code.
 	 */
-	public function new(description:String, code:UInt){
+	public function new(description:String, code:Int){
 		this.codeString = description;
 		this.code = code;
 	}
@@ -33,7 +33,7 @@ class KeyStroke implements KeyType{
 		return [code];
 	}
 	
-	public function getCode():UInt{
+	public function getCode():Int{
 		return code;
 	}
 	

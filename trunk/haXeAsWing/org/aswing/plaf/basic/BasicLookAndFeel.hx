@@ -4,9 +4,8 @@
 
 package org.aswing.plaf.basic;
 
-	
+import flash.filters.BitmapFilter;
 import flash.filters.DropShadowFilter;
-
 import org.aswing.LookAndFeel;
 	import org.aswing.ASColor;
 	import org.aswing.ASFont;
@@ -110,11 +109,11 @@ class BasicLookAndFeel extends LookAndFeel{
 		];
 		
 		for(i in 0...defaultSystemColors.length){
-			table.put(defaultSystemColors[i], new ASColorUIResource(defaultSystemColors[i+1]));
+			table.set(defaultSystemColors[i], new ASColorUIResource(defaultSystemColors[i+1]));
 		}
-		table.put("selectionBackground", new ASColorUIResource(0x93b858, 0.9));
-		table.put("focusInner", new ASColorUIResource(0x40FF40, 0.3));
-		table.put("focusOutter", new ASColorUIResource(0x40FF40, 0.4));
+		table.set("selectionBackground", new ASColorUIResource(0x93b858, 0.9));
+		table.set("focusInner", new ASColorUIResource(0x40FF40, 0.3));
+		table.set("focusOutter", new ASColorUIResource(0x40FF40, 0.4));
 	}
 	
 	private function initSystemFontDefaults(table:UIDefaults):Void{
@@ -152,6 +151,9 @@ class BasicLookAndFeel extends LookAndFeel{
 		var buttonBG:ASColorUIResource = new ASColorUIResource(0x3e9cd5);
 		var textBG:ASColorUIResource = new ASColorUIResource(0xfafafa);
 		// *** Button
+		var f :Array<BitmapFilter>;
+		f= new Array<BitmapFilter>();
+		f.push(new  DropShadowFilter(1, 45, 0, 0.3, 1, 1, 1, 1));
 		var comDefaults:Array<Dynamic>= [
 			"Button.background", buttonBG,
 			"Button.foreground", new ASColorUIResource(0xFFFFFE),
@@ -162,11 +164,13 @@ class BasicLookAndFeel extends LookAndFeel{
 			"Button.font", table.getFont("controlFont"),
 			"Button.bg", org.aswing.plaf.basic.background.ButtonBackground,
 			"Button.margin", new InsetsUIResource(2, 3, 5, 3), 
-			"Button.textShiftOffset", 0, 
-			"Button.textFilters",[new DropShadowFilter(1, 45, 0, 0.3, 1, 1, 1, 1)]
+			"Button.textShiftOffset", 0 
+			,"Button.textFilters", f
+			 
 		];
 		table.putDefaults(comDefaults);
-		
+		f= new Array<BitmapFilter>();
+		f.push(new  DropShadowFilter(1, 45, 0, 0.0, 1, 1, 1, 1));
 		// *** LabelButton
 		comDefaults = [
 			"LabelButton.background", buttonBG,
@@ -177,8 +181,8 @@ class BasicLookAndFeel extends LookAndFeel{
 			"LabelButton.focusable", true,  
 			"LabelButton.font", table.getFont("controlFont"),
 			"LabelButton.margin", new InsetsUIResource(0, 0, 0, 0), 
-			"LabelButton.textShiftOffset", 0 
-			//"LabelButton.textFilters", new ArrayUIResource([new DropShadowFilter(1, 45, 0, 0.0, 1, 1, 1, 1)])
+			"LabelButton.textShiftOffset", 0 ,
+		    "LabelButton.textFilters", f
 		];
 		table.putDefaults(comDefaults);
 		
@@ -194,7 +198,8 @@ class BasicLookAndFeel extends LookAndFeel{
 			"Panel.font", table.getFont("windowFont")
 		];
 		table.putDefaults(comDefaults);
-		
+		f= new Array<BitmapFilter>();
+		f.push(new  DropShadowFilter(1, 45, 0, 0.3, 1, 1, 1, 1));
 		// *** ToggleButton
 		comDefaults = [
 			"ToggleButton.background", buttonBG,
@@ -206,8 +211,9 @@ class BasicLookAndFeel extends LookAndFeel{
 			"ToggleButton.font", table.getFont("controlFont"),
 			"ToggleButton.bg", org.aswing.plaf.basic.background.ToggleButtonBackground,
 			"ToggleButton.margin", new InsetsUIResource(2, 3, 5, 3), 
-			"ToggleButton.textShiftOffset", 1, 
-			"ToggleButton.textFilters", [new DropShadowFilter(1, 45, 0, 0.3, 1, 1, 1, 1)]
+			"ToggleButton.textShiftOffset", 1 
+			,"ToggleButton.textFilters", f
+			 
 		];
 		table.putDefaults(comDefaults);
 		
@@ -226,7 +232,19 @@ class BasicLookAndFeel extends LookAndFeel{
 			"RadioButton.textFilters", []
 		];
 		table.putDefaults(comDefaults);
-		
+		// *** TextField
+		comDefaults = [
+			"TextField.background", textBG,
+			"TextField.foreground", table.get("controlText"), 
+			"TextField.mideground", new ASColorUIResource(0x89bb00), 
+			"TextField.colorAdjust", new UIStyleTune(0.0, -0.30, 0.0, 0.30, 3), 
+			"TextField.opaque", true, 
+			"TextField.focusable", true, 
+			"TextField.font", table.getFont("controlFont"),
+			"TextField.bg", org.aswing.plaf.basic.background.TextComponentBackBround,
+			"TextField.border", new EmptyBorderResource(null, new Insets(1, 3, 2, 3))
+		];
+		table.putDefaults(comDefaults);
 		// *** CheckBox
 		comDefaults = [
 			"CheckBox.background", new ASColorUIResource(0xe1e5e5), ////0xd0f8fb
@@ -323,25 +341,13 @@ class BasicLookAndFeel extends LookAndFeel{
 		];
 		table.putDefaults(comDefaults);
 		
-	   // *** TextField
-		comDefaults = [
-			"TextField.background", textBG,
-			"TextField.foreground", table.get("controlText"), 
-			"TextField.mideground", new ASColorUIResource(0x89bb00), 
-			"TextField.colorAdjust", new UIStyleTune(0.0, -0.30, 0.0, 0.30, 3), 
-			"TextField.opaque", true, 
-			"TextField.focusable", true, 
-			"TextField.font", table.getFont("controlFont"),
-			"TextField.bg", org.aswing.plaf.basic.background.TextComponentBackBround,
-			"TextField.border", new EmptyBorderResource(null, new Insets(1, 3, 2, 3))
-		];
-		table.putDefaults(comDefaults);
+	   
 		
 	   // *** TextArea
 		comDefaults = [
 			"TextArea.background", textBG,
 			"TextArea.foreground", table.get("controlText"), 
-			"TextArea.mideground", new ASColorUIResource(0x89bb00), 
+			"TextArea.mideground",  new ASColorUIResource(0x89bb00), 
 			"TextArea.colorAdjust", new UIStyleTune(0.0, -0.30, 0.0, 0.30, 3), 
 			"TextArea.opaque", true, 
 			"TextArea.focusable", true, 
@@ -397,7 +403,8 @@ class BasicLookAndFeel extends LookAndFeel{
 			"FrameTitleBar.closeIcon", org.aswing.plaf.basic.icon.FrameCloseIcon
 		];
 		table.putDefaults(comDefaults);
-		
+		f= new Array<BitmapFilter>();
+		f.push(new  DropShadowFilter(4.0, 45, 0, 0.3, 2.0, 2.0, 0.5));
 		// *** ToolTip
 		comDefaults = [
 			"ToolTip.background", new ASColorUIResource(0xecfcfc), 
@@ -407,7 +414,7 @@ class BasicLookAndFeel extends LookAndFeel{
 			"ToolTip.opaque", true, 
 			"ToolTip.focusable", false, 
 			"ToolTip.font", table.getFont("controlFont"), 
-			//"ToolTip.filters", [new DropShadowFilter(4.0, 45, 0, 0.3, 2.0, 2.0, 0.5)],
+			"ToolTip.filters",f,
 			"ToolTip.bg", org.aswing.plaf.basic.background.ToolTipBackground, 
 			"ToolTip.border", new EmptyBorderResource(null, new Insets(1, 3, 1, 3))
 		];
@@ -496,7 +503,7 @@ class BasicLookAndFeel extends LookAndFeel{
 			"Adjuster.border", new EmptyBorderResource(null, new Insets(1, 3, 2, 3))
 		];
 		table.putDefaults(comDefaults);
-		
+	
 		// *** Stepper
 		comDefaults = [
 			"Stepper.font", table.getFont("controlFont"),

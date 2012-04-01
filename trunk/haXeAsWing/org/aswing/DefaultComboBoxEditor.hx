@@ -9,7 +9,7 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.event.AWEvent;
 
@@ -26,8 +26,10 @@ class DefaultComboBoxEditor extends EventDispatcher , implements ComboBoxEditor{
 	}
 	
 	public function selectAll():Void{
-		if(getTextField().isEditable() && !lostingFocus){
+		if (getTextField().isEditable() && !lostingFocus) {
+		#if (flash9)	
 			getTextField().selectAll();
+			#end
 		}
 		//getTextField().makeFocus();
 	}
@@ -65,9 +67,8 @@ class DefaultComboBoxEditor extends EventDispatcher , implements ComboBoxEditor{
 	
 	public function isEditable():Bool{
 		return getTextField().isEditable();
-	}
-
-    override public function toString():String{
+	} 
+	override public function toString():String{
         return "DefaultComboBoxEditor[]";
     }	
     
@@ -112,7 +113,7 @@ class DefaultComboBoxEditor extends EventDispatcher , implements ComboBoxEditor{
     }
 
     private function __textKeyDown(e:KeyboardEvent):Void{
-    	if(getTextField().isEditable() && e.keyCode == Keyboard.ENTER){
+    	if(getTextField().isEditable() && Std.int(e.keyCode) == AWKeyboard.ENTER){
 	        grapValueFormText();
 	        dispatchEvent(new AWEvent(AWEvent.ACT));
      	}

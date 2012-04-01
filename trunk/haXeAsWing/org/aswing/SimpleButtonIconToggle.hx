@@ -2,10 +2,9 @@ package org.aswing;
 
 
 import flash.display.DisplayObject;
-import org.aswing.graphics.Graphics2D;
-import flash.display.SimpleButton;
-import flash.filters.ColorMatrixFilter;
-
+import flash.display.DisplayObjectContainer;
+import org.aswing.graphics.Graphics2D;  
+import flash.filters.BitmapFilter;
 class SimpleButtonIconToggle implements Icon{
 	
 	private var asset:SimpleButton;
@@ -15,8 +14,9 @@ class SimpleButtonIconToggle implements Icon{
 	private var width:Int;
 	private var height:Int;
 	
-	private static var disabledFilters:Array<Dynamic>;
-	private static var eabledFilters:Array<Dynamic>= [];
+	private static var disabledFilters:Array<BitmapFilter>;
+	private static var eabledFilters:Array<BitmapFilter> = [];
+	
 	
 	public function new(asset:SimpleButton){
 		this.asset = asset;
@@ -29,7 +29,10 @@ class SimpleButtonIconToggle implements Icon{
 		
 		if(disabledFilters == null){
 			var cmatrix:Array<Dynamic>= [0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0, 0, 0, 1, 0];
-			disabledFilters = [new ColorMatrixFilter(cmatrix)];			
+			 
+			#if(flash9)
+			    disabledFilters = [AsWingUtils.as(new flash.filters.ColorMatrixFilter(cmatrix),BitmapFilter)];		
+			#end
 		}
 	}
 	
@@ -48,7 +51,7 @@ class SimpleButtonIconToggle implements Icon{
 	public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
 		asset.x = x;
 		asset.y = y;
-		var b:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+		var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
 		var state:DisplayObject = null;
 		if(b!=null)	{
 			var model:ButtonModel = b.getModel();
@@ -58,10 +61,12 @@ class SimpleButtonIconToggle implements Icon{
 				state = overState;
 			}else{
 				state = upState;
-			}
+			} 
 			asset.upState = state;
+			 
 			asset.filters = model.isEnabled() ? eabledFilters : disabledFilters;
 		}
 	}
+ 
 	
 }

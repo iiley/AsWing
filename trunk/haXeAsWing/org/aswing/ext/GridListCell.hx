@@ -16,4 +16,6 @@ interface GridListCell implements Cell{
 	 * @param index the index of this cell
 	 */
 	function setGridListCellStatus(gridList:GridList, selected:Bool, index:Int):Void;
+	
+	function getAwmlIndex():Int;
 }

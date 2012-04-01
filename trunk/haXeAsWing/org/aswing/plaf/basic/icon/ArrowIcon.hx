@@ -6,21 +6,21 @@ package org.aswing.plaf.basic.icon;
 
 	
 import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.filters.DropShadowFilter;
+import flash.display.Shape; 
 import flash.geom.Matrix;
 import flash.geom.Point;
-
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
 import org.aswing.Icon;
-	import org.aswing.Component;
-	import org.aswing.ASColor;
-	import org.aswing.StyleResult;
-	import org.aswing.StyleTune;
-	import org.aswing.AbstractButton;
-	import org.aswing.ButtonModel;
-	import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.GradientBrush;
-	import org.aswing.plaf.UIResource;
+import org.aswing.Component;
+import org.aswing.ASColor;
+import org.aswing.StyleResult;
+import org.aswing.StyleTune;
+import org.aswing.AbstractButton;
+import org.aswing.ButtonModel;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.GradientBrush;
+import org.aswing.plaf.UIResource;
 
 /**
  * @private
@@ -54,7 +54,7 @@ class ArrowIcon implements Icon,implements UIResource{
 		var style:StyleResult;
 		var adjuster:StyleTune = c.getStyleTune().mide;
 		if(Std.is(c,AbstractButton)){
-			var b:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+			var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
 			var model:ButtonModel = b.getModel();
 	    	var isPressing:Bool= model.isArmed() || model.isSelected();
     		var hue:Float= cl.getHue();
@@ -90,7 +90,10 @@ class ArrowIcon implements Icon,implements UIResource{
 			matrix
 		);		
 		g.fillPolygon(brush, ps1);
-		shape.filters = [new DropShadowFilter(1, 45, 0x0, style.shadow, 0, 0, 1, 1)];
+		var f :Array<BitmapFilter>= new Array<BitmapFilter>();
+        f.push(new  DropShadowFilter(1, 45, 0x0, style.shadow, 0, 0, 1, 1));
+		shape.filters = f;
+		 
 	}
 	
 	private function nextPoint(p:Point, dir:Float, dis:Float):Point{
@@ -108,5 +111,5 @@ class ArrowIcon implements Icon,implements UIResource{
 	public function getDisplay(c:Component):DisplayObject{
 		return shape;
 	}
-	
+ 
 }

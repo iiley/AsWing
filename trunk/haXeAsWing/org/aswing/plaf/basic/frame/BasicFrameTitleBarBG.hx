@@ -32,8 +32,8 @@ class BasicFrameTitleBarBG implements GroundDecorator,implements UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		 
-		var bar:FrameTitleBar = flash.Lib.as(c,FrameTitleBar);
-		var frameUI:FrameUI = flash.Lib.as(bar.getFrame().getUI() , FrameUI);
+		var bar:FrameTitleBar = AsWingUtils.as(c,FrameTitleBar);
+		var frameUI:FrameUI = AsWingUtils.as(bar.getFrame().getUI() , FrameUI);
 		if(activeColor == null){
 			var activeColor:ASColor;
 			var inactiveColor:ASColor;
@@ -52,7 +52,7 @@ class BasicFrameTitleBarBG implements GroundDecorator,implements UIResource{
 		var w:Float= b.width;
 		var h:Float= b.height;
 		
-		var colors:Array<UInt>;
+		var colors:Array<Int>;
 		if(frameUI == null || frameUI.isPaintActivedFrame()){
 	    	colors = [activeColor.darker(0.9).getRGB(), activeColor.getRGB()];
 		}else{
@@ -75,9 +75,12 @@ class BasicFrameTitleBarBG implements GroundDecorator,implements UIResource{
 		ratios = [0, 100];
         brush = new GradientBrush(GradientBrush.LINEAR, colors, alphas, ratios, matrix);
 		
-        g.fillRoundRect(brush, x, y, w, h-h/4, 4, 4, 0, 0);
+        g.fillRoundRect(brush, x, y, w, h - h / 4, 4, 4, 0, 0);
+		//why	
+		/*
         var penTool:Pen = new Pen(activeBorderColor);
-        g.drawLine(penTool, x, y+h-1, x+w, y+h-1);		
+        g.drawLine(penTool, x, y+h-1, x+w, y+h-1);	
+		*/
 	}
 	
 }

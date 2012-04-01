@@ -6,7 +6,7 @@ package org.aswing;
 
 	
 import flash.display.StageScaleMode;
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.Event;
 import flash.events.MouseEvent;
 
@@ -148,7 +148,7 @@ class JFrame extends JWindow{
 	 */	
 	public function new(owner:Dynamic=null, title:String="", modal:Bool=false) {
 		super(owner, modal);
-		
+		setClipMasked(true);
 		this.title = title;
 		
 		state = NORMAL;
@@ -161,9 +161,10 @@ class JFrame extends JWindow{
 		setName("JFrame");
 		addEventListener(Event.ADDED_TO_STAGE, __frameAddedToStage);
 		addEventListener(Event.REMOVED_FROM_STAGE, __frameRemovedFromStage);
-		addEventListener(MovedEvent.MOVED, __frameMoved);
+		addEventListener(MovedEvent.MOVED, __frameMoved,false,0,false);
 		updateUI();
 		setTitleBar(new JFrameTitleBar());
+		
 	}
 	
 	override public function updateUI():Void{
@@ -219,7 +220,7 @@ class JFrame extends JWindow{
      * @return the frame ui.
      */
     public function getFrameUI():FrameUI{
-    	return flash.Lib.as(getUI() , FrameUI);
+    	return AsWingUtils.as(getUI() , FrameUI);
     }
     
 	override public function getUIClassID():String{
@@ -488,15 +489,16 @@ class JFrame extends JWindow{
 	}
 	
 	private function __frameAddedToStage(e:Event):Void{
-		stage.addEventListener(Event.RESIZE, __frameStageResized, false, 0, true);
+		AsWingManager.getStage().addEventListener(Event.RESIZE, __frameStageResized, false, 0, false);
 	}
 	
 	private function __frameRemovedFromStage(e:Event):Void{
-		stage.removeEventListener(Event.RESIZE, __frameStageResized);
+		//why
+		if(AsWingManager.getStage() != null)	AsWingManager.getStage().removeEventListener(Event.RESIZE, __frameStageResized);
 	}
 	
 	private function __frameStageResized(e:Event=null):Void{
-		if(stage == null || stage.scaleMode != StageScaleMode.NO_SCALE){
+		if(stage == null || AsWingManager.getStage().scaleMode != StageScaleMode.NO_SCALE){
 			return;
 		}
 		if(isMaximized()){
@@ -655,9 +657,10 @@ class JFrame extends JWindow{
 			hide();
 		}else if(defaultCloseOperation == DISPOSE_ON_CLOSE){
 			dispose();
+			 
 		}		
 	}
-	
+	 
 	private function fireStateChanged(programmatic:Bool=true):Void{
 		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
 	}

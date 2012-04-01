@@ -5,7 +5,7 @@
 package org.aswing.plaf.basic;
 
 
-import flash.events.TimerEvent;
+
 import org.aswing.plaf.UIResource;
 	import org.aswing.JMenu;
 	import org.aswing.MenuSelectionManager;
@@ -14,7 +14,7 @@ import org.aswing.plaf.UIResource;
 	import org.aswing.JMenuBar;
 	import org.aswing.event.InteractiveEvent;
 	import org.aswing.event.AWEvent;
-	import flash.utils.Timer;
+	import org.aswing.util.Timer;
 import flash.events.MouseEvent;
 	import flash.events.Event;
 	/**
@@ -55,7 +55,7 @@ class BasicMenuUI extends BasicMenuItemUI{
 	}		
 	
 	private function getMenu():JMenu{
-		return flash.Lib.as(menuItem,JMenu);
+		return AsWingUtils.as(menuItem,JMenu);
 	}
 	
 	/*
@@ -99,7 +99,7 @@ class BasicMenuUI extends BasicMenuItemUI{
 	
 	//---------------------
 	
-	override public function processKeyEvent(code : UInt) : Void{
+	override public function processKeyEvent(code : Int) : Void{
 		var manager:MenuSelectionManager = MenuSelectionManager.defaultManager();
 		if(manager.isNextPageKey(code)){
 			var path:Array<Dynamic>= manager.getSelectedPath();
@@ -169,9 +169,8 @@ class BasicMenuUI extends BasicMenuItemUI{
 	private function setupPostTimer(menu:JMenu):Void{
 		if(postTimer == null){
 			postTimer = new Timer(menu.getDelay(), 1);
-			postTimer.addEventListener(TimerEvent.TIMER, __postTimerAct);
+			postTimer.addEventListener(AWEvent.ACT, __postTimerAct);
 		} 
-		postTimer.reset();
-		postTimer.start();
+		postTimer.restart();
 	}	
 }

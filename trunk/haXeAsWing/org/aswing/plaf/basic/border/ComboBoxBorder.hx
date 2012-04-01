@@ -35,7 +35,7 @@ class ComboBoxBorder extends BevelBorder , implements UIResource{
 			setShadowInnerColor(c.getUI().getColor("ComboBox.shadow"));
 		}
         
-    	var box:EditableComponent = flash.Lib.as(c,EditableComponent)	;
+    	var box:EditableComponent = AsWingUtils.as(c,EditableComponent)	;
     	if(box != null){
 	    	if(box.isEditable()){
 	    		setBevelType(BevelBorder.LOWERED);

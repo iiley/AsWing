@@ -20,7 +20,7 @@ class JCheckBoxMenuItem extends JMenuItem{
 	public function new(text:String="", icon:Icon=null){
 		super(text, icon);
 		setName("JCheckBoxMenuItem");
-		setModel(new ToggleButtonModel());
+		setModel(new ToggleButtonModel()); 
 	}
 
 	override public function getUIClassID():String{

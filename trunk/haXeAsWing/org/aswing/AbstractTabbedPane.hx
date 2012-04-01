@@ -5,7 +5,7 @@
 package org.aswing;
 
 	
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.Event; 
 import org.aswing.event.InteractiveEvent;
 	import org.aswing.plaf.InsetsUIResource;
@@ -79,6 +79,8 @@ class AbstractTabbedPane extends Container{
 	public function new() {
 		
 		//default
+		super();
+		setClipMasked(true);
     	verticalAlignment = CENTER;
     	horizontalAlignment = CENTER;
     	verticalTextPosition = CENTER;
@@ -91,7 +93,8 @@ class AbstractTabbedPane extends Container{
 		enables = new Array<Dynamic>();
 		visibles = new Array<Dynamic>();
 		setModel(new DefaultSingleSelectionModel());
-		super();
+		
+		
 	}
 	
     /**
@@ -181,9 +184,9 @@ class AbstractTabbedPane extends Container{
 		if(constraints == null){
 			title = com.getName();
 		}else if(Std.is(constraints , String)){
-			title = flash.Lib.as(constraints , String);
+			title = AsWingUtils.as(constraints , String);
 		}else if(Std.is(constraints,Icon)){
-			icon =flash.Lib.as(constraints, Icon);
+			icon =AsWingUtils.as(constraints, Icon);
 		}else{
 			title = constraints.toString();
 		}
@@ -397,7 +400,7 @@ class AbstractTabbedPane extends Container{
 	 * @return the tab icon
 	 */	
 	public function getIconAt(i:Int):Icon{
-		return flash.Lib.as(icons[i],Icon);
+		return AsWingUtils.as(icons[i],Icon);
 	}
 	
 	/**
@@ -476,7 +479,8 @@ class AbstractTabbedPane extends Container{
 	 * @param title the title for the tab 
 	 * @return the first tab index which matches icon, or -1 if no tab has this icon
 	 */	
-	public function indexOfIcon(icon:Icon):Int{
+	public function indexOfIcon(icon:Icon):Int {
+	 	
 		return ArrayUtils.indexInArray(icons, icon);
 	}
 	

@@ -52,7 +52,7 @@ class BaseComponentUI implements ComponentUI
 		if(defaults == null){
 			defaults = new UIDefaults();
 		}
-		defaults.put(key, value);
+		defaults.set(key, value);
 	}
 	
 	public function getDefault(key:String):Dynamic{
@@ -67,11 +67,14 @@ class BaseComponentUI implements ComponentUI
 		paintBackGround(c, g, b);
 	}
 	
-	public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):Void{
-		if (g != null){
+	public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):Void {
+	//why	
+		/*
+		 if (g != null){
     		g.drawRectangle(new Pen(getDefaultFocusColorInner(), 1), b.x+0.5, b.y+0.5, b.width-1, b.height-1);
     		g.drawRectangle(new Pen(getDefaultFocusColorOutter(), 1), b.x+1.5, b.y+1.5, b.width-3, b.height-3);
 		}
+		*/
 	}
 	
     private function getDefaultFocusColorInner():ASColor{
@@ -124,7 +127,7 @@ class BaseComponentUI implements ComponentUI
 	//-----------------------------------------------------------
 
 	public function containsDefaultsKey(key:String):Bool{
-		return defaults != null && defaults.containsKey(key);
+		return defaults != null && defaults.exists(key);
 	}
 	
 	public function containsKey(key:String):Bool{
@@ -152,7 +155,7 @@ class BaseComponentUI implements ComponentUI
 		return UIManager.getInt(key);
 	}
 	
-	public function getUint(key:String):UInt{
+	public function getUint(key:String):Int{
 		if(containsDefaultsKey(key)){
 			return defaults.getUint(key);
 		}

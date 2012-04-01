@@ -30,14 +30,14 @@ class BasicScrollPaneUI extends BaseComponentUI{
 	}
     	
     override public function installUI(c:Component):Void{
-		scrollPane = flash.Lib.as(c,JScrollPane);
+		scrollPane = AsWingUtils.as(c,JScrollPane);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		scrollPane =  flash.Lib.as(c,JScrollPane);
+		scrollPane =  AsWingUtils.as(c,JScrollPane);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

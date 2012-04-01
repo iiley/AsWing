@@ -7,7 +7,7 @@ package org.aswing.plaf.basic;
 	
 import flash.text.TextField;
 	import flash.text.TextFormat;
-	import flash.ui.Keyboard;
+	import org.aswing.AWKeyboard;
 
 import org.aswing.AbstractButton;
 	import org.aswing.Component;
@@ -24,6 +24,8 @@ import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.BaseComponentUI;
 	import org.aswing.plaf.UIResource;
+	import flash.filters.DropShadowFilter;
+import flash.filters.BitmapFilter;
 	/**
  * Basic Button implementation.
  * @author paling
@@ -43,14 +45,14 @@ class BasicButtonUI extends BaseComponentUI{
     }
     
 	override public function installUI(c:Component):Void{
-		button = flash.Lib.as(c,AbstractButton);
+		button = AsWingUtils.as(c,AbstractButton);
 		installDefaults(button);
 		installComponents(button);
 		installListeners(button);
 	}
     
 	override public function uninstallUI(c:Component):Void{
-		button = flash.Lib.as(c,AbstractButton);
+		button = AsWingUtils.as(c,AbstractButton);
 		uninstallDefaults(button);
 		uninstallComponents(button);
 		uninstallListeners(button);
@@ -125,7 +127,7 @@ class BasicButtonUI extends BaseComponentUI{
 			return;
 		}
 		var model:ButtonModel = button.getModel();
-		if(e.keyCode == Keyboard.SPACE && !(model.isRollOver() && model.isPressed())){
+		if(Std.int(e.keyCode) == AWKeyboard.SPACE && !(model.isRollOver() && model.isPressed())){
 	    	setTraversingTrue();
 			model.setRollOver(true);
 			model.setArmed(true);
@@ -137,7 +139,7 @@ class BasicButtonUI extends BaseComponentUI{
 		if(!(button.isShowing() && button.isEnabled())){
 			return;
 		}
-		if(e.keyCode == Keyboard.SPACE){
+		if(Std.int(e.keyCode) == AWKeyboard.SPACE){
 			var model:ButtonModel = button.getModel();
 	    	setTraversingTrue();
 			model.setPressed(false);
@@ -167,7 +169,7 @@ class BasicButtonUI extends BaseComponentUI{
 
     override public function paint(c:Component, g:Graphics2D, r:IntRectangle):Void{
     	super.paint(c, g, r);
-    	var b:AbstractButton = flash.Lib.as(c,AbstractButton);
+    	var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
     	
     	var insets:Insets = b.getMargin();
     	if(insets != null){
@@ -185,7 +187,7 @@ class BasicButtonUI extends BaseComponentUI{
             b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
             viewRect, iconRect, textRect, 
 	    	b.getDisplayText() == null ? 0 : b.getIconTextGap());
-	 
+		
     	paintIcon(b, g, iconRect);
     	
         if (text != null && text != ""){
@@ -234,8 +236,10 @@ class BasicButtonUI extends BaseComponentUI{
 			textField.setTextFormat(
 				new TextFormat(null, null, null, null, null, true), 
 				b.getMnemonicIndex());
-		}
+		} 
+
     	textField.filters = b.getTextFilters();
+		 
     }
     
     private function getTextPaintColor(b:AbstractButton):ASColor{
@@ -371,12 +375,12 @@ class BasicButtonUI extends BaseComponentUI{
     }    
     
     override public function getPreferredSize(c:Component):IntDimension{
-    	var b:AbstractButton = flash.Lib.as(c,AbstractButton);
+    	var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
     	return getButtonPreferredSize(b, getIconToLayout(), b.getDisplayText());
     }
 
     override public function getMinimumSize(c:Component):IntDimension{
-    	var b:AbstractButton = flash.Lib.as(c,AbstractButton);
+    	var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
     	return getButtonMinimumSize(b, getIconToLayout(), b.getDisplayText());
     }
 

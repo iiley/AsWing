@@ -17,7 +17,7 @@ class GeneralGridListCellFactory implements GridListCellFactory{
 	}
 
 	public function createNewGridListCell():GridListCell{
-		return flash.Lib.as(Type.createInstance( cellClass,[]) , GridListCell);
+		return AsWingUtils.as(Type.createInstance( cellClass,[]) , GridListCell);
 	}
 	
 }

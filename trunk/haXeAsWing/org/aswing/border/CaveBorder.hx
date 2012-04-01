@@ -21,10 +21,10 @@ import flash.display.DisplayObject;
  */
 class CaveBorder extends DecorateBorder{
 	
-	public static function get_DEFAULT_LINE_COLOR():ASColor{
+	public  function get_DEFAULT_LINE_COLOR():ASColor{
 		return ASColor.GRAY;
 	}
-	public static function get_DEFAULT_LINE_LIGHT_COLOR():ASColor{
+	public  function get_DEFAULT_LINE_LIGHT_COLOR():ASColor{
 		return ASColor.WHITE;
 	}
 	inline public static var DEFAULT_LINE_THICKNESS:Int= 1;
@@ -196,7 +196,7 @@ class CaveBorder extends DecorateBorder{
 		this.lineThickness = lineThickness;
 	}
 
-	public static var DEFAULT_LINE_LIGHT_COLOR(get_DEFAULT_LINE_LIGHT_COLOR,null):ASColor;
+	public  var DEFAULT_LINE_LIGHT_COLOR(get_DEFAULT_LINE_LIGHT_COLOR,null):ASColor;
 
-	public static  var DEFAULT_LINE_COLOR(get_DEFAULT_LINE_COLOR,null):ASColor;
+	public   var DEFAULT_LINE_COLOR(get_DEFAULT_LINE_COLOR,null):ASColor;
 }

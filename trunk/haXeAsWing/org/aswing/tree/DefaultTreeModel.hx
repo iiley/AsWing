@@ -5,7 +5,7 @@
 package org.aswing.tree;
  
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.event.TreeModelEvent;
 import org.aswing.event.TreeModelListener;
 import org.aswing.tree.MutableTreeNode;
@@ -100,7 +100,7 @@ class DefaultTreeModel implements TreeModel {
      *
      * @return  the root of the tree
      */
-    public function getRoot():Dynamic{
+    public function getRoot():TreeNode{
         return root;
     }
 
@@ -112,10 +112,10 @@ class DefaultTreeModel implements TreeModel {
      * @return the index of the child in the parent, or -1
      *    if either the parent or the child is <code>null</code>
      */
-    public function getIndexOfChild(parent:Dynamic, child:Dynamic):Int{
+    public function getIndexOfChild(parent:TreeNode, child:Dynamic):Int{
         if(parent == null || child == null)
             return -1;
-        return (flash.Lib.as(parent,TreeNode)).getIndex(flash.Lib.as(child,TreeNode));
+        return (AsWingUtils.as(parent,TreeNode)).getIndex(AsWingUtils.as(child,TreeNode));
     }
 
     /**
@@ -128,8 +128,8 @@ class DefaultTreeModel implements TreeModel {
      * @param   parent  a node in the tree, obtained from this data source
      * @return  the child of <I>parent</I> at index <I>index</I>
      */
-    public function getChild(parent:Dynamic, index:Int):Dynamic{
-        return (flash.Lib.as(parent,TreeNode)).getChildAt(index);
+    public function getChild(parent:TreeNode, index:Int):Dynamic{
+        return (AsWingUtils.as(parent,TreeNode)).getChildAt(index);
     }
 
     /**
@@ -140,8 +140,8 @@ class DefaultTreeModel implements TreeModel {
      * @param   parent  a node in the tree, obtained from this data source
      * @return  the number of children of the node <I>parent</I>
      */
-    public function getChildCount(parent:Dynamic):Int{
-        return (flash.Lib.as(parent,TreeNode)).getChildCount();
+    public function getChildCount(parent:TreeNode):Int{
+        return (AsWingUtils.as(parent,TreeNode)).getChildCount();
     }
 
     /** 
@@ -155,11 +155,11 @@ class DefaultTreeModel implements TreeModel {
      * @see #asksAllowsChildren
      * @see TreeModel#isLeaf
      */
-    public function isLeaf(node:Dynamic):Bool{
+    public function isLeaf(node:TreeNode):Bool{
         if(asksAllowsChildren()){
-            return !(flash.Lib.as(node,TreeNode)).getAllowsChildren();
+            return !(AsWingUtils.as(node,TreeNode)).getAllowsChildren();
         }
-        return (flash.Lib.as(node,TreeNode)).isLeaf();
+        return (AsWingUtils.as(node,TreeNode)).isLeaf();
     }
 
     /**
@@ -169,7 +169,7 @@ class DefaultTreeModel implements TreeModel {
       * set the user object of the changed node to something meaningful.
       */
     public function valueForPathChanged(path:TreePath, newValue:Dynamic):Void{
-		var aNode:MutableTreeNode =flash.Lib.as(path.getLastPathComponent(), MutableTreeNode);
+		var aNode:MutableTreeNode =AsWingUtils.as(path.getLastPathComponent(), MutableTreeNode);
 
         aNode.setUserObject(newValue);
         nodeChanged(aNode);
@@ -195,7 +195,7 @@ class DefaultTreeModel implements TreeModel {
      * for you.
      */
     public function removeNodeFromParent(node:MutableTreeNode):Void{
-        var parent:MutableTreeNode = flash.Lib.as(node.getParent(), MutableTreeNode);
+        var parent:MutableTreeNode = AsWingUtils.as(node.getParent(), MutableTreeNode);
 
         if(parent == null){
         	trace("Error : node does not have a parent.");
@@ -312,8 +312,8 @@ class DefaultTreeModel implements TreeModel {
      * @return an array of TreeNodes giving the path from the root to the
      *         specified node 
      */
-    private function getPathToRoot(aNode:TreeNode, depth:Int=0):Array<Dynamic>{
-		var retNodes:Array<Dynamic>;
+    private function getPathToRoot(aNode:TreeNode, depth:Int=0):Array<TreeNode>{
+		var retNodes:Array<TreeNode>;
 		// This method recurses, traversing towards the root in order
 		// size the array. On the way back, it fills in the nodes,
 		// starting from the root and working back to the original node.
@@ -324,12 +324,12 @@ class DefaultTreeModel implements TreeModel {
             if(depth == 0){
                 return null;
             }else{
-                retNodes = new Array<Dynamic>();
+                retNodes = new Array<TreeNode>();
             }
         } else {
             depth++;
             if(aNode == root){
-                retNodes = new Array<Dynamic>();
+                retNodes = new Array<TreeNode>();
             }else{
                 retNodes = getPathToRoot(aNode.getParent(), depth);
             }
@@ -374,7 +374,7 @@ class DefaultTreeModel implements TreeModel {
      * @param children the changed elements
      * @see EventListenerList
      */
-    private function fireTreeNodesChanged(source:Dynamic, path:Array<Dynamic>, 
+    private function fireTreeNodesChanged(source:Dynamic, path:Array<TreeNode>, 
                                         childIndices:Array<Dynamic>, 
                                         children:Array<Dynamic>):Void{
         var listeners:Array<Dynamic>= listenerList;
@@ -386,7 +386,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, new TreePath(path), childIndices, children);
             }
-            var lis:TreeModelListener = flash.Lib.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
             lis.treeNodesChanged(e);   
         }
     }
@@ -403,7 +403,7 @@ class DefaultTreeModel implements TreeModel {
      * @param children the new elements
      * @see EventListenerList
      */
-    private function fireTreeNodesInserted(source:Dynamic, path:Array<Dynamic>, 
+    private function fireTreeNodesInserted(source:Dynamic, path:Array<TreeNode>, 
                                         childIndices:Array<Dynamic>, 
                                         children:Array<Dynamic>):Void{
         var listeners:Array<Dynamic>= listenerList;
@@ -415,7 +415,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, new TreePath(path), childIndices, children);
             }
-            var lis:TreeModelListener = flash.Lib.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
             lis.treeNodesInserted(e);
         }
     }
@@ -432,7 +432,7 @@ class DefaultTreeModel implements TreeModel {
      * @param children the removed elements
      * @see EventListenerList
      */
-    private function fireTreeNodesRemoved(source:Dynamic, path:Array<Dynamic>, 
+    private function fireTreeNodesRemoved(source:Dynamic, path:Array<TreeNode>, 
                                         childIndices:Array<Dynamic>, 
                                         children:Array<Dynamic>):Void{
         var listeners:Array<Dynamic>= listenerList;
@@ -444,7 +444,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, new TreePath(path), childIndices, children);
             }
-            var lis:TreeModelListener = flash.Lib.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
             lis.treeNodesRemoved(e);
         }
     }
@@ -461,7 +461,7 @@ class DefaultTreeModel implements TreeModel {
      * @param children the affected elements
      * @see EventListenerList
      */
-    private function fireTreeStructureChanged(source:Dynamic, path:Array<Dynamic>, 
+    private function fireTreeStructureChanged(source:Dynamic, path:Array<TreeNode>, 
                                         childIndices:Array<Dynamic>, 
                                         children:Array<Dynamic>):Void{
         var listeners:Array<Dynamic>= listenerList;
@@ -473,7 +473,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, new TreePath(path), childIndices, children);
             }
-            var lis:TreeModelListener = flash.Lib.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
             lis.treeStructureChanged(e);
         }
     }
@@ -498,7 +498,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, path);
             }
-            var lis:TreeModelListener = flash.Lib.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
             lis.treeStructureChanged(e);
         }
     }

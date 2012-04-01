@@ -38,12 +38,12 @@ interface MutableTreeNode implements TreeNode{
     /**
      * Resets the user object of the receiver to <code>object</code>.
      */
-    function setUserObject(object:Dynamic):Void;
+    function setUserObject(object:TreeNode):Void;
 	
 	/**
 	 * Returns the user object.
 	 */
-	function getUserObject():Dynamic;
+	function getUserObject():TreeNode;
 	
     /**
      * Removes the receiver from its parent.

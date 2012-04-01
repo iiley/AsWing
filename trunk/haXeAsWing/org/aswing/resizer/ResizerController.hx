@@ -5,12 +5,11 @@
 package org.aswing.resizer;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.Component;
 
 import org.aswing.resizer.DefaultResizer;
-import org.aswing.resizer.Resizer;
-import org.aswing.util.HashMap;
+import org.aswing.resizer.Resizer; 
 
 /**
  * ResizerController make manage resizer feature easily.

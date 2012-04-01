@@ -17,22 +17,30 @@ import flash.display.DisplayObject;
 	import org.aswing.geom.IntRectangle;
 	import org.aswing.graphics.Graphics2D;
 	import org.aswing.graphics.Pen;
+	import org.aswing.UIManager;
 	/**
  * TitledBorder, a border with a line rectangle and a title text.
  * @author paling
  */	
 class TitledBorder extends DecorateBorder{
-		
-	public static function get_DEFAULT_FONT():ASFont{
-		return UIManager.getFont("systemFont");
+	public var DEFAULT_LINE_LIGHT_COLOR(get_DEFAULT_LINE_LIGHT_COLOR,null):ASColor;
+
+	public var DEFAULT_LINE_COLOR(get_DEFAULT_LINE_COLOR,null):ASColor;
+
+	public var DEFAULT_COLOR(get_DEFAULT_COLOR,null):ASColor;
+
+	public var DEFAULT_FONT(get_DEFAULT_FONT, null):ASFont;	
+	
+	public   function get_DEFAULT_FONT():ASFont{
+		return   UIManager.getFont("systemFont");
 	}
-	public static function get_DEFAULT_COLOR():ASColor{
-		return UIManager.getColor("controlText");
+	public   function get_DEFAULT_COLOR():ASColor{
+		return   UIManager.getColor("controlText");
 	}
-	public static function get_DEFAULT_LINE_COLOR():ASColor{
+	public   function get_DEFAULT_LINE_COLOR():ASColor{
 		return ASColor.GRAY;
 	}
-	public static function get_DEFAULT_LINE_LIGHT_COLOR():ASColor{
+	public   function get_DEFAULT_LINE_LIGHT_COLOR():ASColor{
 		return ASColor.WHITE;
 	}
 	inline public static var DEFAULT_LINE_THICKNESS:Int= 1;
@@ -98,7 +106,9 @@ class TitledBorder extends DecorateBorder{
     	if(textField == null){
 	    	textField = new TextField();
 	    	textField.selectable = false;
+			#if(flash9)
 	    	textField.autoSize = TextFieldAutoSize.CENTER;  
+			#end
     	}
     	return textField;
 	}
@@ -428,11 +438,5 @@ class TitledBorder extends DecorateBorder{
     	return textFieldSize;
 	}
 
-	static public var DEFAULT_LINE_LIGHT_COLOR(get_DEFAULT_LINE_LIGHT_COLOR,null):ASColor;
 
-	static 	public var DEFAULT_LINE_COLOR(get_DEFAULT_LINE_COLOR,null):ASColor;
-
-	static 	public var DEFAULT_COLOR(get_DEFAULT_COLOR,null):ASColor;
-
-	static 	public var DEFAULT_FONT(get_DEFAULT_FONT,null):ASFont;
 }

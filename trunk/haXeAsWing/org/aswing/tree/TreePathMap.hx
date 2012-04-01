@@ -4,8 +4,7 @@
 
 package org.aswing.tree;
 
-
-import org.aswing.util.HashMap;
+ 
 	
 /**
  * A hash map that accept TreePath key.
@@ -13,62 +12,77 @@ import org.aswing.util.HashMap;
  */	
 class TreePathMap{
 	
-	private var map:HashMap;
-	private var keyMap:HashMap;
-	
-	public function new(){
-		map = new HashMap();
-		keyMap = new HashMap();
+	private var map:IntHash<Dynamic>; 
+	private var keyMap:IntHash<TreePath>; 
+	public function new() {
+		keyMap=	new IntHash<TreePath>(); 
+		map = new IntHash<Dynamic>(); 
 	}
 	
- 	public function size():Int{
-  		return map.size();
+ 	public function size():Int {
+		var len:Int = 0;
+		for (i  in map.keys())
+		{
+			len++;
+		}
+  		return len;
  	}
  	
- 	public function isEmpty():Bool{
-  		return map.isEmpty();
+ 	public function isEmpty():Bool {
+		var len:Int = 0;
+		for (i  in map.keys())
+		{
+			len++;
+		}	
+  		return len==0;
  	}
 
- 	public function keys():Array<Dynamic>{
-  		return keyMap.values();
+ 	public function keys():Iterator<TreePath>{
+  		return keyMap.iterator();
  	}
  	
  	/**
   	 * Returns an Array of the values in this HashMap.
   	 */
- 	public function values():Array<Dynamic>{
-  		return map.values();
+ 	public function values():Iterator<Dynamic>{
+  		return map.iterator();
  	}
  	
- 	public function containsValue(value:Dynamic):Bool{
- 		return map.containsValue(value);
+ 	public function containsValue(value:Dynamic):Bool {
+		for (i  in map.keys())
+		{
+			if(map.get(i)==value)return true;
+		}	
+		
+ 		return false;
  	}
 
- 	public function containsKey(key:TreePath):Bool{
- 		return map.containsKey(key.getLastPathComponent());
+ 	public function containsKey(key:TreePath):Bool { 
+		
+ 		return keyMap.get(key.getLastPathComponent().getAwmlIndex())!=null;
  	}
 
  	public function get(key:TreePath):Dynamic {
-  		return map.getValue(key.getLastPathComponent());
+  		return map.get(key.getLastPathComponent().getAwmlIndex());
  	}
  	
  	public function getValue(key:TreePath):Dynamic{
-  		return map.getValue(key.getLastPathComponent());
+  		return map.get(key.getLastPathComponent().getAwmlIndex());
  	}
 
- 	public function put(key:TreePath, value:Dynamic):Dynamic{
- 		keyMap.put(key.getLastPathComponent(), key);
-  		return map.put(key.getLastPathComponent(), value);
+ 	public function put(key:TreePath, value:Dynamic):Dynamic { 
+		keyMap.set(key.getLastPathComponent().getAwmlIndex(), key);
+  		return map.set(key.getLastPathComponent().getAwmlIndex(), value);
  	}
 
  	public function remove(key:TreePath):Dynamic{
- 		keyMap.remove(key.getLastPathComponent());
- 		return map.remove(key.getLastPathComponent());
+ 		 keyMap.remove(key.getLastPathComponent().getAwmlIndex());
+ 		return map.remove(key.getLastPathComponent().getAwmlIndex());
  	}
 
- 	public function clear():Void{
- 		keyMap.clear();
-  		map.clear();
+ 	public function clear():Void { 
+		keyMap = new IntHash<TreePath>();
+  		map= new IntHash<Dynamic>(); 
  	}
 
  	/**
@@ -76,8 +90,13 @@ class TreePathMap{
  	 */
  	public function clone():TreePathMap{
   		var temp:TreePathMap = new TreePathMap();
-  		temp.map = map.clone();
-  		temp.keyMap = keyMap.clone();
+  		temp.map = new IntHash<Dynamic>(); 
+		temp.keyMap = new IntHash<TreePath>();
+		for (key  in keys())
+		{
+			temp.keyMap.set(key.getLastPathComponent().getAwmlIndex(), key);
+  		    temp.map.set(key.getLastPathComponent().getAwmlIndex(), map.get(key.getLastPathComponent().getAwmlIndex()));
+		}
   		return temp;
  	}
 

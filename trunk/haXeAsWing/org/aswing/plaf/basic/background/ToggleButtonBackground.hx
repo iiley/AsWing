@@ -3,22 +3,22 @@ package org.aswing.plaf.basic.background;
 	
 import flash.display.DisplayObject;
 import flash.display.GradientType;
-import flash.display.Shape;
-import flash.filters.DropShadowFilter;
+import flash.display.Shape; 
 import flash.geom.Matrix;
-
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
 import org.aswing.GroundDecorator;
-	import org.aswing.Component;
-	import org.aswing.AbstractButton;
-	import org.aswing.ASColor;
-	import org.aswing.StyleResult;
-	import org.aswing.StyleTune;
-	import org.aswing.ButtonModel;
-	import org.aswing.geom.IntRectangle;
+import org.aswing.Component;
+import org.aswing.AbstractButton;
+import org.aswing.ASColor;
+import org.aswing.StyleResult;
+import org.aswing.StyleTune;
+import org.aswing.ButtonModel;
+import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.GradientBrush;
-	import org.aswing.plaf.UIResource;
-	import org.aswing.plaf.basic.BasicGraphicsUtils;
+import org.aswing.graphics.GradientBrush;
+import org.aswing.plaf.UIResource;
+import org.aswing.plaf.basic.BasicGraphicsUtils;
 
 /**
  * @private
@@ -32,7 +32,7 @@ class ToggleButtonBackground implements GroundDecorator,implements UIResource{
 	} 
 		
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):Void{
-		var b:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+		var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
 		if(b == null){
 			return;
 		}
@@ -106,8 +106,10 @@ class ToggleButtonBackground implements GroundDecorator,implements UIResource{
 				BasicGraphicsUtils.drawRoundRectLine(g, bo.x, bo.y, bo.width, bo.height, style.round-1, 1);
 				g.endFill();
 			//}
-			
-    		shape.filters = [new DropShadowFilter(isPressing ? 2 : 1, 45, 0x0, style.shadow*shadowScale, 2, 2, 1, 1, isPressing)];
+		    var f :Array<BitmapFilter>= new Array<BitmapFilter>();
+            f.push(new DropShadowFilter(isPressing ? 2 : 1, 45, 0x0, style.shadow*shadowScale, 2, 2, 1, 1, isPressing));
+
+    		shape.filters = f;
 		}
 	}
 	

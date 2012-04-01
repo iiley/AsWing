@@ -66,14 +66,14 @@ class BasicColorMixerUI extends BaseComponentUI {
     }
 	
     override public function installUI(c:Component):Void{
-		colorMixer = flash.Lib.as(c,JColorMixer);
+		colorMixer = AsWingUtils.as(c,JColorMixer);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		colorMixer = flash.Lib.as(c,JColorMixer);
+		colorMixer = AsWingUtils.as(c,JColorMixer);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -662,7 +662,9 @@ class BasicColorMixerUI extends BaseComponentUI {
 		var S:Int= hsSize.height;
 		
 		var w:Int= Std.int(H+thickness*2);
-		var h:Int=  Std.int(S+thickness*2);
+		var h:Int =  Std.int(S + thickness * 2);
+		//why	
+		/*
 		g.drawLine(new Pen(ASColor.GRAY, thickness), 
 					offset+thickness/2, offset+thickness/2, 
 					offset+w-thickness, 
@@ -671,10 +673,10 @@ class BasicColorMixerUI extends BaseComponentUI {
 					offset+thickness/2, offset+thickness/2, 
 					offset+thickness/2, 
 					offset+h-thickness);
-		
+		*/
 		offset += thickness;
 
-		var colors:Array<UInt>= [0, 0x808080];
+		var colors:Array<Int>= [0, 0x808080];
 		var alphas:Array<Dynamic>= [1, 1];
 		var ratios:Array<Dynamic>= [0, 255];
 		var matrix:Matrix = new Matrix();
@@ -691,10 +693,13 @@ class BasicColorMixerUI extends BaseComponentUI {
 	private function paintHSPosMC():Void{
 		HSPosMC.graphics.clear();
 		var g:Graphics2D = new Graphics2D(HSPosMC.graphics);
+		//why	
+		/*
 		g.drawLine(new Pen(ASColor.BLACK, 2), -6, 0, -3, 0);
 		g.drawLine(new Pen(ASColor.BLACK, 2), 6, 0, 3, 0);
 		g.drawLine(new Pen(ASColor.BLACK, 2), 0, -6, 0, -3);
 		g.drawLine(new Pen(ASColor.BLACK, 2), 0, 6, 0, 3);
+		*/
 	}
 	private function paintLMCWithHS(hh:Float, ss:Float):Void{
 		LMC.graphics.clear();
@@ -720,7 +725,7 @@ class BasicColorMixerUI extends BaseComponentUI {
 		w = getLStripWidth();
 		h = lSize.height;
 
-		var colors:Array<UInt>= [0xFFFFFF, HLSA2ASColor(hh, 0.5, ss, 100).getRGB(), 0];
+		var colors:Array<Int>= [0xFFFFFF, HLSA2ASColor(hh, 0.5, ss, 100).getRGB(), 0];
 		var alphas:Array<Dynamic>= [1, 1, 1];
 		var ratios:Array<Dynamic>= [0, 127.5, 255];
 		var matrix:Matrix = new Matrix();

@@ -246,13 +246,12 @@ class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelecti
 	
 		    if(validCount == 0) {
 				newSelection = null;
-		    } else if (validCount != newCount) {
-				var keys:Array<Dynamic>= lastPaths.keys();
+		    } else if (validCount != newCount) { 
 		
 				newSelection = new Array<Dynamic>();
 				validCount = 0;
-				for(i in 0...keys.length){
-					newSelection[validCount++] = keys[i];
+				for(key in lastPaths.keys()){
+					newSelection[validCount++] = key ;
 				}
 		    }else {
 				newSelection = paths.copy();
@@ -375,8 +374,10 @@ class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelecti
 			    if(validCount != paths.length) {
 					/* Some of the paths in paths are already in
 					   the selection. */
-					var newPaths:Array<Dynamic>= lastPaths.keys();
-					newSelection = newSelection.concat(newPaths);
+					for ( newPaths in lastPaths.keys())
+					{
+						newSelection.push(newPaths);
+					}
 			    } else {
 			    	newSelection = newSelection.concat(paths);
 			    }
@@ -447,13 +448,12 @@ class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelecti
 		
 				    if(removeCount == selection.length) {
 						selection = null;
-				    }else {
-						var pEnum:Array<Dynamic>= uniquePaths.keys();
+				    }else { 
 						var validCount:Int= 0;
 			
 						selection = new Array<Dynamic>();
-						for(i in 0...pEnum.length){
-							selection[validCount++] = pEnum[i];
+						for(pEnum in uniquePaths.keys()){
+							selection[validCount++] = pEnum ;
 						}
 				    }
 				    if (leadPath != null && uniquePaths.get(leadPath) == null) {
@@ -944,7 +944,7 @@ class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelecti
 		var placeholder:PathPlaceHolder;
 		
 		for(counter in 0...cPathCount){
-		    placeholder = flash.Lib.as(changedPaths.get(counter),PathPlaceHolder);
+		    placeholder = AsWingUtils.as(changedPaths.get(counter),PathPlaceHolder);
 		    newness[counter] = placeholder.isNew;
 		    paths[counter] = placeholder.path;
 		}
@@ -992,8 +992,9 @@ class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelecti
      * object's properties.
      *
      * @return a String representation of this object
-     */
-    override public function toString():String{
+     */ 
+    override  public function toString():String{
 		return "DefaultTreeSelectionModel[" + getSelectionPaths() + "]";
     }
+
 }

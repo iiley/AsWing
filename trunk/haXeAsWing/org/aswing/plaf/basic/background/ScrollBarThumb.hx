@@ -52,7 +52,7 @@ class ScrollBarThumb implements GroundDecorator,implements UIResource{
 		thumb.x = bounds.x;
 		thumb.y = bounds.y;
 		size = bounds.getSize();
-		bar = flash.Lib.as(c,JScrollBar);
+		bar = AsWingUtils.as(c,JScrollBar);
 		
 		verticle = (bar.getOrientation() == JScrollBar.VERTICAL);
 		paint();
@@ -99,7 +99,9 @@ class ScrollBarThumb implements GroundDecorator,implements UIResource{
 		BasicGraphicsUtils.drawGradientRoundRectLine(g, b, 1, innerStyle, direction);
 		
 		var snotchX:Int= 0;
-		var snotchY:Int= 0;
+		var snotchY:Int = 0;
+		//why	
+		/*
 		var lightPen:Pen = new Pen(innerStyle.blight, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE);
 		var darkPen:Pen = new Pen(style.blight, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE);
 		
@@ -133,6 +135,7 @@ class ScrollBarThumb implements GroundDecorator,implements UIResource{
 			g.drawLine(darkPen, snotchX, snotchY, snotchX, snotchY + notchSize);
     	}
 		thumb.alpha = bar.getMideground().getAlpha();
+		*/
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{

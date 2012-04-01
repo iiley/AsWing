@@ -5,20 +5,21 @@
 package org.aswing.plaf.basic.icon;
 
 
+ 
 import flash.display.Sprite;
-	import flash.display.SimpleButton;
-	import flash.display.Shape;
-	import flash.display.DisplayObject;
-	import flash.geom.Matrix;
-
+import flash.display.DisplayObjectContainer;
+import flash.display.Shape;
+import flash.display.DisplayObject;
+import flash.geom.Matrix;
+import org.aswing.SimpleButton;
 import org.aswing.ASColor;
 import org.aswing.Component;
 import org.aswing.Icon;
 import org.aswing.StyleResult;
 import org.aswing.StyleTune;
 import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.GradientBrush;
-	import org.aswing.plaf.UIResource;
+import org.aswing.graphics.GradientBrush;
+import org.aswing.plaf.UIResource;
 	/**
  * @private
  */
@@ -27,7 +28,7 @@ class SliderThumbIcon implements Icon,implements UIResource{
 	private var thumb:Sprite;
 	private var enabledButton:SimpleButton;
 	private var disabledButton:SimpleButton;
-	private var overButton:SimpleButton;
+	private var overButton:DisplayObjectContainer;
 		
 	public function new(){
 		thumb = new Sprite();
@@ -38,33 +39,40 @@ class SliderThumbIcon implements Icon,implements UIResource{
 	}	
 	
 	private function initThumb(c:Component):Void{
-		//enabled
-		enabledButton = new SimpleButton();
+		//enabled 
 		var upState:Shape = new Shape();
 		var g:Graphics2D = new Graphics2D(upState.graphics);
     	paintThumb(g, c, true, false);
 		var overState:Shape = new Shape();
 		g = new Graphics2D(overState.graphics);
     	paintThumb(g, c, true, true);    	
-    	
+    	 
+		enabledButton = new  SimpleButton();
     	enabledButton.upState = upState; 
 		enabledButton.overState = overState;
 		enabledButton.downState = overState;
 		enabledButton.hitTestState = upState;
 		enabledButton.useHandCursor = false;
+		enabledButton.show();
+		
+		
 		thumb.addChild(enabledButton);
 		
 		//disabled
-		disabledButton = new SimpleButton();
+		
 		upState = new Shape();
 		g = new Graphics2D(upState.graphics);
     	
     	paintThumb(g, c, false, false);
+		 
+	 
+		disabledButton = new  SimpleButton();
     	disabledButton.upState = upState; 
 		disabledButton.overState = upState;
 		disabledButton.downState = upState;
 		disabledButton.hitTestState = upState;
 		disabledButton.useHandCursor = false;
+		disabledButton.show();
 		thumb.addChild(disabledButton);
 		disabledButton.visible = false;
 	}
@@ -119,5 +127,5 @@ class SliderThumbIcon implements Icon,implements UIResource{
 	public function getDisplay(c:Component):DisplayObject{
 		return thumb;
 	}
-	
+ 
 }

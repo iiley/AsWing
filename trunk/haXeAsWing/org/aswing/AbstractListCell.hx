@@ -14,8 +14,16 @@ import org.aswing.error.ImpMissError;
 class AbstractListCell implements ListCell{
 	
 	private var value:Dynamic;
-	
+	private static var AWML_INDEX:Int= 0;
+	 
+	private var awmlIndex:Int;
 	public function new(){
+		AWML_INDEX++;
+		awmlIndex = AWML_INDEX;
+ 
+    }
+  	public function getAwmlIndex():Int{
+		return awmlIndex;	
 	}
 	
 	public function setListCellStatus(list : JList, isSelected : Bool, index:Int) : Void{

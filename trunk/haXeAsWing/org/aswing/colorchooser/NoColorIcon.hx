@@ -47,6 +47,8 @@ class NoColorIcon implements Icon {
 	public function updateIcon(com:Component, g:Graphics2D, x:Int, y:Int):Void{
 		shape.graphics.clear();
 		g = new Graphics2D(shape.graphics);
+		//why	
+		/*
 		g.beginDraw(new Pen(ASColor.BLACK, 1));
 		g.beginFill(new SolidBrush(ASColor.WHITE));
 		var w:Float= width/2 + 1;
@@ -57,9 +59,11 @@ class NoColorIcon implements Icon {
 		g.endFill();
 		g.endDraw();
 		g.drawLine(new Pen(ASColor.RED, 2), x+1, y+h-1, x+w-1, y+1);
+		*/
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{
 		return shape;
 	}	
+ 
 }

@@ -10,7 +10,7 @@ import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Matrix;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.LayoutManager;
 	import org.aswing.JTabbedPane;
@@ -92,7 +92,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 	}
 
 	override public function installUI(c:Component):Void{
-		tabbedPane = flash.Lib.as(c,JTabbedPane);
+		tabbedPane = AsWingUtils.as(c,JTabbedPane);
 		tabbedPane.setLayout(this);
 		installDefaults();
 		installComponents();
@@ -100,7 +100,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 	}
 	
 	override public function uninstallUI(c:Component):Void{
-		tabbedPane = flash.Lib.as(c,JTabbedPane);
+		tabbedPane = AsWingUtils.as(c,JTabbedPane);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -169,7 +169,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 		removeUIAssets();
 	}
 	
-	private function installListeners():Void{
+	private function installListeners():Void { 
 		tabbedPane.addStateListener(__onSelectionChanged);
 		tabbedPane.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onNavKeyDown);
 		tabbedPane.addEventListener(MouseEvent.MOUSE_DOWN, __onTabPanePressed);
@@ -203,7 +203,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 		tabbedPane.repaint();
 	}
 	
-	private function __onTabPanePressed(e:Event):Void{
+	private function __onTabPanePressed(e:Event):Void { 
 		if((prevButton.hitTestMouse() || nextButton.hitTestMouse())
 			&& (prevButton.isShowing() && nextButton.isShowing())){
 			return;
@@ -221,9 +221,9 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 		var n:Int= tabbedPane.getComponentCount();
 		if(n > 0){
 			var index:Int= tabbedPane.getSelectedIndex();
-			var code:UInt= e.keyCode;
+			var code:Int= e.keyCode;
 			var count:Int= 1;
-			if(code == Keyboard.DOWN || code == Keyboard.RIGHT){
+			if(code == AWKeyboard.DOWN || code == AWKeyboard.RIGHT){
 				setTraversingTrue();
 				index++;
 				while((!tabbedPane.isEnabledAt(index) || !tabbedPane.isVisibleAt(index)) && index<n){
@@ -239,7 +239,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 				if(lastIndex < n-1){
 					firstIndex = Std.int(Math.min(firstIndex + count, n-1));
 				}
-			}else if(code == Keyboard.UP || code == Keyboard.LEFT){
+			}else if(code == AWKeyboard.UP || code == AWKeyboard.LEFT){
 				setTraversingTrue();
 				index--;
 				while((!tabbedPane.isEnabledAt(index) || !tabbedPane.isVisibleAt(index)) && index>=0){
@@ -438,7 +438,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 	}
 	
 	private function getTab(i:Int):Tab { 
-    	return flash.Lib.as(tabs[i],Tab);
+    	return AsWingUtils.as(tabs[i],Tab);
 	}
 	
     private function getSelectedTab():Tab{
@@ -472,7 +472,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
      * Just override this method if you want other LAF headers.
      */
     private function createNewTab():Tab{
-    	var tab:Tab = flash.Lib.as(getInstance(getPropertyPrefix() + "tab") , Tab);
+    	var tab:Tab = AsWingUtils.as(getInstance(getPropertyPrefix() + "tab") , Tab);
     	if(tab == null){
     		tab = new BasicTabbedPaneTab();
     	}
@@ -505,7 +505,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 			//for(i = tabs.length-comCount; i>0; i--){
 				var it:Int=tabs.length-comCount;
     			while(it>0 ){
-    				header = flash.Lib.as(tabs.shift(),Tab);
+    				header = AsWingUtils.as(tabs.shift(),Tab);
     				tabBarMC.removeChild(header.getTabComponent());
 					it--;
     			}
@@ -609,10 +609,10 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 		//count not viewed front tabs's width and invisible them
 		var offsetPoint:IntPoint = new IntPoint();
 		for(i in 0...firstIndex){
-			if(horizontalPlacing)   {
-					offsetPoint.x -= Std.int(tba[i].width);
+			if(horizontalPlacing)	{
+				offsetPoint.x -= Std.int(tba[i].width);
 			}else{
-					offsetPoint.y -= Std.int(tba[i].height);
+				offsetPoint.y -= Std.int(tba[i].height);
 			}
 			getTab(i).getTabComponent().setVisible(false);
 		}

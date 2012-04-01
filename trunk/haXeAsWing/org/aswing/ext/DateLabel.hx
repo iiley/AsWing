@@ -25,9 +25,12 @@ class DateLabel extends JLabel{
 	private   var selected:Bool;
 	
 	public function new(date:Int){
+		
+		super( Std.string(date));
 		dateEnabled=true;
-			selected=false;
-			super(date+"");
+		selected = false;
+		this.date = 0;
+		
 		this.date = date;
 		selectionForeground = UIManager.getColor("selectionForeground");
 		selectionBackground = UIManager.getColor("selectionBackground");
@@ -38,26 +41,15 @@ class DateLabel extends JLabel{
 		setForeground(enabledColor);
 		mouseChildren = false;
 		
-		addEventListener(MouseEvent.ROLL_OVER, __over);
-		addEventListener(MouseEvent.ROLL_OUT, __out);
-		addEventListener(MouseEvent.MOUSE_DOWN, __down);
+		this.addEventListener(MouseEvent.ROLL_OVER, onMouseOver);
+		this.addEventListener(MouseEvent.ROLL_OUT, onMouseOut);
+		this.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 	}
 	
 	public function getDate():Int{
 		return date;
 	}
-	
-	private function __over(e:MouseEvent):Void{
-		onMouseOver(e);
-	}
-	
-	private function __out(e:MouseEvent):Void{
-		onMouseOut(e);
-	}
-	
-	private function __down(e:MouseEvent):Void{
-		onMouseDown(e);
-	}
+	 
 	
 	private function onMouseOver(e:MouseEvent):Void{
 		updateView(true, false);

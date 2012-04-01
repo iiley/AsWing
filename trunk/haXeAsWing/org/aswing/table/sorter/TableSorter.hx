@@ -18,7 +18,7 @@ import org.aswing.table.TableCellFactory;
 import org.aswing.table.TableColumnModel;
 import org.aswing.table.TableModel;
 import org.aswing.util.ArrayUtils;
-import org.aswing.util.HashMap;
+ 
 
 /**
  * A class that make your JTable sortable. Usage:
@@ -48,7 +48,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
 
     private var tableHeader:JTableHeader;
     private var tableModelListener:TableModelListener;
-    private var columnComparators:HashMap;
+    private var columnComparators:Hash<Dynamic ->Dynamic-> Int>;
     private var sortingColumns:Array<Dynamic>;
 	
 	/**
@@ -59,7 +59,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
     public function new(tableModel:TableModel, tableHeader:JTableHeader=null) {
         super();
         initStatics();
-        columnComparators  = new HashMap();
+        columnComparators  = new Hash<Dynamic ->Dynamic-> Int>();
         sortingColumns     = new Array<Dynamic>();
         columnSortables    = new Array<Dynamic>();
         tableModelListener = this;
@@ -127,15 +127,15 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
             this.tableHeader.removeEventListener(ReleaseEvent.RELEASE, __mouseRelease);
             var defaultRenderer:TableCellFactory = this.tableHeader.getDefaultRenderer();
             if (Std.is(defaultRenderer,SortableHeaderRenderer)) {
-                this.tableHeader.setDefaultRenderer((flash.Lib.as(defaultRenderer,SortableHeaderRenderer)).getTableCellFactory());
+                this.tableHeader.setDefaultRenderer((AsWingUtils.as(defaultRenderer,SortableHeaderRenderer)).getTableCellFactory());
             }
         }
         this.tableHeader = tableHeader;
         if (this.tableHeader != null) {
             this.tableHeader.addEventListener(MouseEvent.MOUSE_DOWN, __mousePress);
             this.tableHeader.addEventListener(ReleaseEvent.RELEASE, __mouseRelease);
-            this.tableHeader.setDefaultRenderer(
-                    new SortableHeaderRenderer(this.tableHeader.getDefaultRenderer(), this));
+			new SortableHeaderRenderer(this.tableHeader.getDefaultRenderer(), this);
+            this.tableHeader.setDefaultRenderer(  new SortableHeaderRenderer(this.tableHeader.getDefaultRenderer(), this));
         }
     }
 
@@ -171,7 +171,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
     
     private function getDirective(column:Int):Directive {
         for (i in 0...sortingColumns.length){
-            var directive:Directive = flash.Lib.as(sortingColumns[i],Directive);
+            var directive:Directive = AsWingUtils.as(sortingColumns[i],Directive);
             if (directive.column == column) {
                 return directive;
             }
@@ -238,11 +238,11 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
 	 * 			function(o1, o2):int, it should return -1 or 0 or 1.
 	 * @see org.aswing.table.TableModel#getColumnClass()
 	 */
-    public function setColumnComparator(columnClass:String, comparator:Dynamic -> Void):Void{
+    public function setColumnComparator(columnClass:String, comparator:Dynamic ->Dynamic-> Int):Void{
         if (comparator == null) {
             columnComparators.remove(columnClass);
         } else {
-            columnComparators.put(columnClass, comparator);
+            columnComparators.set(columnClass, comparator);
         }
     }
 	
@@ -387,7 +387,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
     
     private var pressedPoint:IntPoint;
     private function __mousePress(e:MouseEvent):Void{
-    	var header:JTableHeader = flash.Lib.as(e.currentTarget,JTableHeader)	;
+    	var header:JTableHeader = AsWingUtils.as(e.currentTarget,JTableHeader)	;
     	pressedPoint = header.getMousePosition();
     }
 
@@ -395,7 +395,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
     	if(e.isReleasedOutSide()){
     		return;
     	}
-        var h:JTableHeader = flash.Lib.as(e.currentTarget,JTableHeader)	;
+        var h:JTableHeader = AsWingUtils.as(e.currentTarget,JTableHeader)	;
         var point:IntPoint = h.getMousePosition();
         //if user are dragging the header, not sort
         if(!point.equals(pressedPoint)){

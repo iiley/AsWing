@@ -65,7 +65,7 @@ class ScrollBarArrowIcon implements Icon,implements UIResource{
     	var w:Float= width;
     	var h:Float= height;
     	shape.graphics.clear();
-    	var bar:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+    	var bar:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
     	var g:Graphics2D = new Graphics2D(shape.graphics);
     	var b:IntRectangle = new IntRectangle(x, y, Std.int(w), Std.int(h));
 		var gradientDir:Float= 0;
@@ -119,5 +119,6 @@ class ScrollBarArrowIcon implements Icon,implements UIResource{
 				BasicGraphicsUtils.getArrowPath(arrowW, direction, cx, cy));
     	}		
 	}
+ 
 	
 }

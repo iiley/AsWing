@@ -128,7 +128,7 @@ class IntPoint{
      * @return equals or not.
      */
 	public function equals(o:Dynamic):Bool{
-		var toCompare:IntPoint = flash.Lib.as(o,IntPoint)	;
+		var toCompare:IntPoint = AsWingUtils.as(o,IntPoint)	;
 		if(toCompare == null) return false;
 		return x==toCompare.x && y==toCompare.y;
 	}

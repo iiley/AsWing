@@ -214,7 +214,7 @@ interface ComponentUI
 	
 	function getInt(key:String):Int;
 	
-	function getUint(key:String):UInt;
+	function getUint(key:String):Int;
 	
 	function getString(key:String):String;
 	

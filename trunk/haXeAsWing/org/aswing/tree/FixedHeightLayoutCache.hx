@@ -5,7 +5,7 @@
 package org.aswing.tree;
  
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.event.TreeModelEvent;
 import org.aswing.geom.IntRectangle;
 import org.aswing.tree.AbstractLayoutCache;
@@ -328,7 +328,7 @@ class FixedHeightLayoutCache extends AbstractLayoutCache{
 			return false;
 		}
 		while(info.parent != null) {
-			var newParent:FHTreeStateNode = flash.Lib.as(info.parent.getParent(),FHTreeStateNode);
+			var newParent:FHTreeStateNode = AsWingUtils.as(info.parent.getParent(),FHTreeStateNode);
 	
 			if(newParent != null) {
 				info.nextIndex = info.parent.getChildIndex();
@@ -537,7 +537,7 @@ class FixedHeightLayoutCache extends AbstractLayoutCache{
 					rebuild(true);
 				}else if(changedNode != null) {
 					var wasExpanded:Bool, wasVisible:Bool;
-					var parent:FHTreeStateNode = flash.Lib.as(changedNode.getParent(),FHTreeStateNode);
+					var parent:FHTreeStateNode = AsWingUtils.as(changedNode.getParent(),FHTreeStateNode);
 	
 					wasExpanded = changedNode.isExpanded();
 					wasVisible = changedNode.isVisible();
@@ -636,7 +636,7 @@ class FixedHeightLayoutCache extends AbstractLayoutCache{
 	 * return null, if you to create a node use getNodeForPath.
 	 */
 	private function getMapping(path:TreePath):FHTreeStateNode {
-		return flash.Lib.as(treePathMapping.get(path),FHTreeStateNode);
+		return AsWingUtils.as(treePathMapping.get(path),FHTreeStateNode);
 	}
 
 	/**
@@ -742,7 +742,7 @@ class FixedHeightLayoutCache extends AbstractLayoutCache{
 				paths = new Stack();
 			}
 			else {
-				paths = flash.Lib.as(tempStacks.pop(),Stack);
+				paths = AsWingUtils.as(tempStacks.pop(),Stack);
 			}
 	
 			try {
@@ -755,7 +755,7 @@ class FixedHeightLayoutCache extends AbstractLayoutCache{
 						// Found a match, create entries for all paths in
 						// paths.
 						while(node != null && paths.size() > 0) {
-							path = flash.Lib.as(paths.pop(),TreePath);
+							path = AsWingUtils.as(paths.pop(),TreePath);
 							node = node.createChildFor(path.getLastPathComponent());
 						}
 						return node;

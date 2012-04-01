@@ -10,8 +10,9 @@ package org.aswing.util;
 
 	private var  __gt: Date;
 	public function new(year : Int, month : Int, day : Int, hour : Int, min : Int, sec : Int) 
-	{
-		__gt=new Date(year , month , day , hour , min , sec );
+	{ 
+		__gt = new Date(year , month , day , hour , min , sec );
+		 
 	}
 	static public function fromTime( t : Float ) : DateAs
 	{
@@ -99,10 +100,7 @@ package org.aswing.util;
 	public function getDate() : Int{ 
 		  return __gt.getDate();
 	 }
-
-	/**
-		Returns the week day of the date (0-6 range).
-	**/
+ 
 	public function getDay() : Int{ 
 		  return __gt.getDay();
 	 }

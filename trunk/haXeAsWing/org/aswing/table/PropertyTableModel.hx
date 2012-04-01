@@ -1,11 +1,11 @@
 package org.aswing.table;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.ListModel;
 import org.aswing.event.ListDataEvent;
 import org.aswing.event.ListDataListener;
-
+import org.aswing.AsWingUtils;
 /**
  * The table model return the properties of a row to be column data.
  * <p>
@@ -56,7 +56,7 @@ class PropertyTableModel extends AbstractTableModel , implements ListDataListene
 	
 	private var list:ListModel;
 	private var names:Array<Dynamic>;
-	private var properties:Array<Dynamic>;
+	private var properties:Array<String>;
 	private var translators:Array<Dynamic>;
 	private var columnsEditable:Array<Dynamic>;
 	
@@ -68,7 +68,7 @@ class PropertyTableModel extends AbstractTableModel , implements ListDataListene
 	 * @param translators the translators for each column, a null translator for a columns means return the property 
 	 * of that name directly. translator can be a PropertyTranslator instance or a Function(info:*, key:String):*
 	 */
-	public function new(listModel:ListModel, names:Array<Dynamic>, properties:Array<Dynamic>, translators:Array<Dynamic>){
+	public function new(listModel:ListModel, names:Array<Dynamic>, properties:Array<String>, translators:Array<Dynamic>){
 		super();
 		this.setList(listModel);
 		this.names = names.copy();
@@ -126,13 +126,13 @@ class PropertyTableModel extends AbstractTableModel , implements ListDataListene
 	 */
 	override public function getValueAt(rowIndex:Int, columnIndex:Int):Dynamic{
 		var translator:Dynamic= translators[columnIndex];
-		var info:Dynamic= list.getElementAt(rowIndex);
+		var info:Dynamic =  list.getElementAt(rowIndex) ;
 		var key:String= properties[columnIndex];
 		if(translator != null){
-			if(Std.is(translator,PropertyTranslator)){
-				return flash.Lib.as(translator,PropertyTranslator).translate(info, key);
-			}else if(Reflect.isFunction(translator)){
+			 if(Reflect.isFunction(translator)){
 				return translator(info, key);
+			}else if(Std.is(translator,PropertyTranslator)){
+				return AsWingUtils.as(translator,PropertyTranslator).translate(info, key);
 			}else{
 				throw new Error("Translator must be a PropertyTranslator or a Function : " + translator);
 			}
@@ -140,7 +140,8 @@ class PropertyTableModel extends AbstractTableModel , implements ListDataListene
 			if(key == "."){
 				return info;
 			}
-			return untyped info[key];
+			//	Reflect.setField(info,key,aValue);
+			return   Reflect.field(info,key);
 		}
 	}
 	
@@ -202,9 +203,9 @@ class PropertyTableModel extends AbstractTableModel , implements ListDataListene
 	}
 	
 	override public function setValueAt(aValue:Dynamic, rowIndex:Int, columnIndex:Int):Void{
-		var info:Dynamic= list.getElementAt(rowIndex);
-		var key:String= properties[columnIndex];
-		untyped info[key] = aValue;
+		var info: Dynamic =  list.getElementAt(rowIndex) ;
+		var key:String = properties[columnIndex];
+		Reflect.setField(info,key,aValue);
 		fireTableCellUpdated(rowIndex, columnIndex);
 	}
 	

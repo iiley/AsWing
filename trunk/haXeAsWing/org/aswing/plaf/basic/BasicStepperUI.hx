@@ -8,7 +8,7 @@ package org.aswing.plaf.basic;
 import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.Component;
 	import org.aswing.JTextField;
@@ -45,14 +45,14 @@ class BasicStepperUI extends BaseComponentUI{
 	}
 	
     override public function installUI(c:Component):Void{
-    	stepper = flash.Lib.as(c,JStepper);
+    	stepper = AsWingUtils.as(c,JStepper);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-    	stepper = flash.Lib.as(c,JStepper);
+    	stepper = AsWingUtils.as(c,JStepper);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -145,8 +145,10 @@ class BasicStepperUI extends BaseComponentUI{
 		downButton.setEnabled(stepper.isEnabled());
 		inputText.setFont(stepper.getFont());
 		inputText.setForeground(stepper.getForeground());
+		#if (flash9)
 		inputText.setMaxChars(stepper.getMaxChars());
 		inputText.setRestrict(stepper.getRestrict());
+		#end
 		inputText.setEditable(stepper.isEditable());
 		inputText.setEnabled(stepper.isEnabled());
 		fillInputTextWithCurrentValue();
@@ -244,27 +246,29 @@ class BasicStepperUI extends BaseComponentUI{
 	}
 	
 	private function __onInputTextKeyDown(e:FocusKeyEvent):Void{
-    	var code:UInt= e.keyCode;
+     
+		var code:Int = e.keyCode;
+	 
     	var unit:Int= stepper.getUnitIncrement();
     	var delta:Int= 0;
-    	if(code == Keyboard.ENTER){
+    	if(code == AWKeyboard.ENTER){
     		__inputTextAction(false);
     		return;
     	}
-    	if(code == Keyboard.HOME){
+    	if(code == AWKeyboard.HOME){
     		stepper.setValue(stepper.getMinimum(), false);
     		return;
-    	}else if(code == Keyboard.END){
+    	}else if(code == AWKeyboard.END){
     		stepper.setValue(stepper.getMaximum() - stepper.getExtent(), false);
     		return;
     	}
-    	if(code == Keyboard.UP){
+    	if(code == AWKeyboard.UP){
     		delta = unit;
-    	}else if(code == Keyboard.DOWN){
+    	}else if(code == AWKeyboard.DOWN){
     		delta = -unit;
-    	}else if(code == Keyboard.PAGE_UP){
+    	}else if(code == AWKeyboard.PAGE_UP){
     		delta = unit;
-    	}else if(code == Keyboard.PAGE_DOWN){
+    	}else if(code == AWKeyboard.PAGE_DOWN){
     		delta = -unit;
     	}
     	makeStepper(delta);

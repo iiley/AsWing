@@ -33,5 +33,5 @@ class MenuCheckIcon implements Icon,implements UIResource{
 	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}
-	
+ 
 }

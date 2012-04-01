@@ -16,7 +16,7 @@ import org.aswing.AssetPane;
 import org.aswing.AsWingConstants;
 import org.aswing.AsWingManager;
 import org.aswing.AsWingUtils;
-import org.aswing.AttachIcon;
+ 
 import org.aswing.AWSprite;
 import org.aswing.AWTextField;
 
@@ -171,7 +171,7 @@ import org.aswing.Icon;
 import org.aswing.Insets;
 import org.aswing.JAccordion;
 import org.aswing.JAdjuster;
-import org.aswing.JAttachPane;
+ 
 import org.aswing.JButton;
 import org.aswing.JCheckBox;
 import org.aswing.JCheckBoxMenuItem;
@@ -473,7 +473,18 @@ import org.aswing.WindowOrderFocusTraversalPolicy;
 class Main 
 {
 
-    static function main():Void
+	static public function main()
+   {
+      #if flash
+            new Main();
+      #else 
+            Lib.create(function(){new Main();},800,600,60,0xccccff,(1*Lib.HARDWARE) | Lib.RESIZABLE, "AsWing_Paling_UI");
+ 
+      #end
+
+   }
+   
+    public  function new():Void
     {  
     	AsWingManager.initAsStandard( Lib.current);
 	 

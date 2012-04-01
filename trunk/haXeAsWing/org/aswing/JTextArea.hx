@@ -4,7 +4,7 @@
 
 package org.aswing;
 
-
+import flash.geom.Rectangle;
 import flash.events.Event;
 import flash.text.TextField;
 	import org.aswing.event.InteractiveEvent;
@@ -70,7 +70,9 @@ class JTextArea extends JTextComponent , implements Viewportable{
 		setName("JTextField");
 		getTextField().multiline = true;
 		getTextField().text = text;
+			#if (flash9)
 		setMaxChars(defaultMaxChars);
+		#end
 		this.rows = rows;
 		this.columns = columns;
 		viewPos = new IntPoint();
@@ -405,7 +407,10 @@ class JTextArea extends JTextComponent , implements Viewportable{
 			fireStateChanged(programmatic);
 		}
 	}
-	
+	override private function setClipMaskRect(b:IntRectangle):Void{
+		super.setClipMaskRect(b);
+		 scrollRect = new Rectangle(0, 0, b.width, b.height);
+	}
 	public function setViewportTestSize(s:IntDimension):Void{
     	viewportSizeTesting = true;
     	setSize(s);

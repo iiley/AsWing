@@ -35,7 +35,7 @@ class AWEvent extends Event{
      *  @eventType act
 	 */
 	inline public static var ACT:String= "act";
-		
+	inline public static var ACT_COMPLETE:String= "act_complete";
 	/**
      *  The <code>AWEvent.SHOWN</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>shown</code> event.

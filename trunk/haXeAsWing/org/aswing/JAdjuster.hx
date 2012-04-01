@@ -85,9 +85,11 @@ class JAdjuster extends Component , implements Orientable,implements EditableCom
 		
 		setModel(new DefaultBoundedRangeModel(50, 0, 0, 100));
 		updateUI();
+		#if(flash9)
 		if(getInputText()!=null){
 			getInputText().setRestrict("0123456789");
 		}
+		#end
 	}
 	
 	/**
@@ -111,7 +113,7 @@ class JAdjuster extends Component , implements Orientable,implements EditableCom
      * @return the combobox ui.
      */
     public function getAdjusterUI():AdjusterUI{
-    	return flash.Lib.as(getUI() , AdjusterUI);
+    	return AsWingUtils.as(getUI() , AdjusterUI);
     }
 
 	override public function updateUI():Void{

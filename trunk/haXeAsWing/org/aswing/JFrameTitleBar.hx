@@ -33,15 +33,18 @@ class JFrameTitleBar extends Container , implements FrameTitleBar,implements UIR
 	
 	public function new(){
 		super();
+		setClipMasked(true);
 		titleEnabled = true;
 		minimizeHeight = 22;
 		setLayout(new FrameTitleBarLayout());
-		
+			
 		buttonPane = new Container();
 		buttonPane.setCachePreferSizes(false);
 		buttonPaneLayout = new SoftBoxLayout(SoftBoxLayout.X_AXIS, 0);
 		buttonPane.setLayout(buttonPaneLayout);
+		
 		var labelPane:Container = new Container();
+		 
 		labelPane.setBorder(new EmptyBorder(null, new Insets(-3)));//make label y offset -3
 		labelPane.setLayout(new BorderLayout());
 		titleLabel = new JLabel();
@@ -52,8 +55,9 @@ class JFrameTitleBar extends Container , implements FrameTitleBar,implements UIR
 		labelPane.append(titleLabel, BorderLayout.CENTER);
 		labelPane.mouseEnabled = false;
 		labelPane.mouseChildren = false;
-		
+		 
 		append(labelPane, BorderLayout.CENTER);
+		 
 		var btnpP:Container = new Container();
 		btnpP.setLayout(new BorderLayout());
 		btnpP.append(buttonPane, BorderLayout.NORTH);
@@ -66,7 +70,7 @@ class JFrameTitleBar extends Container , implements FrameTitleBar,implements UIR
 		setMaximizeButtonVisible(false);
 		buttonPane.appendAll([iconifiedButton, restoreButton, maximizeButton, closeButton]);
 		buttonPane.setUIElement(true);
-		
+	
 		updateUI();
 	}
 	
@@ -122,12 +126,12 @@ class JFrameTitleBar extends Container , implements FrameTitleBar,implements UIR
 			owner.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		}
 		owner = f;
-		frame = flash.Lib.as(f,JFrame)	;
+		frame = AsWingUtils.as(f,JFrame)	;
 		if(owner!=null)	{
-			owner.addEventListener(FrameEvent.FRAME_ABILITY_CHANGED, __frameAbilityChanged, false, 0, true);
-			owner.addEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged, false, 0, true);
-			owner.addEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange, false, 0, true);
-			owner.addEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange, false, 0, true);
+			owner.addEventListener(FrameEvent.FRAME_ABILITY_CHANGED, __frameAbilityChanged, false, 0, false);
+			owner.addEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged, false, 0, false);
+			owner.addEventListener(WindowEvent.WINDOW_ACTIVATED, __activeChange, false, 0, false);
+			owner.addEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange, false, 0, false);
 		}
 		__stateChanged(null);
 		repaint();
@@ -365,4 +369,5 @@ class JFrameTitleBar extends Container , implements FrameTitleBar,implements UIR
 		}
 		revalidateIfNecessary();
 	}
+	 
 }

@@ -27,7 +27,7 @@ class BasicFrameTitleBarUI extends BaseComponentUI{
 	}
 
 	override public function installUI(c:Component):Void{
-		bar = flash.Lib.as(c,FrameTitleBar)	;
+		bar = AsWingUtils.as(c,FrameTitleBar)	;
 		installDefaults();
 		installComponent();
 	}

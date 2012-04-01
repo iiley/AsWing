@@ -33,7 +33,7 @@ class DefaultListTextCellFactory implements ListCellFactory{
 	}
 	
 	public function createNewCell() : ListCell {
-		return flash.Lib.as( Type.createInstance( listCellClass,[]),ListCell);
+		return AsWingUtils.as( Type.createInstance( listCellClass,[]),ListCell);
 	}
 	
 	/**

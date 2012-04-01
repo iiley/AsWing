@@ -7,10 +7,11 @@ package org.aswing.dnd;
 
 import org.aswing.Component;
 import flash.display.Sprite;
-import flash.utils.Timer;
-import flash.events.TimerEvent;
+import org.aswing.util.Timer;
+import org.aswing.event.AWEvent;
 import flash.geom.Point;
 import org.aswing.geom.IntPoint;
+import org.aswing.AsWingUtils;
 
 /**
  * The motion of the drop target does not accept the dropped initiator. 
@@ -24,7 +25,7 @@ class RejectedMotion implements DropMotion{
 	
 	public function new(){
 		timer = new Timer(40);
-		timer.addEventListener(TimerEvent.TIMER, __enterFrame);
+		timer.addEventListener(AWEvent.ACT, __enterFrame);
 	}
 	
 	private function startNewMotion(dragInitiator:Component, dragObject : Sprite):Void{
@@ -45,7 +46,7 @@ class RejectedMotion implements DropMotion{
 	}
 	
 	private function finishMotion():Void{
-		if(timer.running)	{
+		if(timer.isRunning())	{
 			timer.stop();
 			dragObject.alpha = 1;
 			if(dragObject.parent != null){
@@ -54,12 +55,12 @@ class RejectedMotion implements DropMotion{
 		}
 	}
 	
-	private function __enterFrame(e:TimerEvent):Void{
+	private function __enterFrame(e:AWEvent):Void{
 		//check first
 		var speed:Float= 0.25;
 		
 		var p:Point = new Point(dragObject.x, dragObject.y);
-		p = dragObject.parent.localToGlobal(p);
+		p =  dragObject.parent.localToGlobal(p);
 		p.x += (initiatorPos.x - p.x) * speed;
 		p.y += (initiatorPos.y - p.y) * speed;
 		if(Point.distance(p, initiatorPos.toPoint()) < 2){

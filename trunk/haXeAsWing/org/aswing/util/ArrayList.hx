@@ -12,7 +12,7 @@ package org.aswing.util;
  * @author firdosh
  * @author paling
  */
-class ArrayList implements List{
+class ArrayList  implements List  {
 	
 	private var _elements:Array<Dynamic>;
 	inline public static var CASEINSENSITIVE:Int=1;
@@ -124,12 +124,12 @@ class ArrayList implements List{
 			var obj:Dynamic= _elements[index];
 			_elements.splice(index, 1);		
 			return obj;
-		}
+		} 
 	}
-	public function remove(obj:Dynamic):Dynamic{
-		var i:Int= indexOf(obj);
-		if(i>=0){
-			return removeAt(i);
+	public function remove(obj:Dynamic):Dynamic {
+	 
+		if(_elements.remove(obj)){
+			return obj;
 		}else{
 			return null;
 		}
@@ -152,7 +152,8 @@ class ArrayList implements List{
 		}
 	}
 	
-	public function indexOf(obj:Dynamic):Int{
+	public function indexOf(obj:Dynamic):Int {
+  
 		for(i in 0..._elements.length){
 			if(_elements[i] == obj){
 				return i;

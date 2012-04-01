@@ -6,11 +6,11 @@ package org.aswing;
 
 	
 import flash.display.DisplayObjectContainer;
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.KeyboardEvent;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.util.ArrayList;
 	/**
@@ -37,7 +37,7 @@ import org.aswing.util.ArrayList;
  */
 class KeyboardManager extends EventDispatcher{
 	
-	private static var defaultMnemonicModifier:Array<Dynamic>= [Keyboard.CONTROL, Keyboard.SHIFT];
+	private static var defaultMnemonicModifier:Array<Dynamic>= [AWKeyboard.CONTROL, AWKeyboard.SHIFT];
 	
 	private var keySequence:ArrayList;
 	private var keymap:KeyMap;
@@ -109,7 +109,7 @@ class KeyboardManager extends EventDispatcher{
 	 * @param the key code
 	 * @return true if the specified key is down, false if not.
 	 */
-	public function isKeyDown(keyCode:UInt):Bool{
+	public function isKeyDown(keyCode:Int):Bool{
 		return keySequence.contains(keyCode);
 	}
 	
@@ -184,7 +184,7 @@ class KeyboardManager extends EventDispatcher{
 			return;
 		}
 		dispatchEvent(e);
-		var code:UInt= e.keyCode;
+		var code:Int= e.keyCode;
 		if(!keySequence.contains(code)){
 			keySequence.append(code);
 		}
@@ -199,14 +199,14 @@ class KeyboardManager extends EventDispatcher{
 			return;
 		}
 		dispatchEvent(e);
-		var code:UInt= e.keyCode;
+		var code:Int= e.keyCode;
 		keySequence.remove(code);
 		//avoid IME bug that can't trigger keyup event when active IME and key up
 		if(e.ctrlKey!=true){
-			keySequence.remove(Keyboard.CONTROL);
+			keySequence.remove(AWKeyboard.CONTROL);
 		}
 		if(e.shiftKey!=true){
-			keySequence.remove(Keyboard.SHIFT);
+			keySequence.remove(AWKeyboard.SHIFT);
 		}
 	}
 	

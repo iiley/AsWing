@@ -3,7 +3,7 @@
 */
 
 package org.aswing.error;
-import flash.errors.Error;
+import org.aswing.error.Error;
 /**
  * This error indicates that an abstract class's abstract method missing overriden error.
  */

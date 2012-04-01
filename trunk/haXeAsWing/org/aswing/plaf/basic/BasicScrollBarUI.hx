@@ -8,7 +8,7 @@ package org.aswing.plaf.basic;
 import flash.display.Sprite;
 import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.ui.Keyboard;
+	import org.aswing.AWKeyboard;
 
 import org.aswing.ASColor;
 	import org.aswing.JScrollBar;
@@ -75,14 +75,14 @@ class BasicScrollBarUI extends BaseComponentUI{
     }    	
     	
     override public function installUI(c:Component):Void{
-		scrollbar = flash.Lib.as(c,JScrollBar);
+		scrollbar = AsWingUtils.as(c,JScrollBar);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		scrollbar =  flash.Lib.as(c,JScrollBar);
+		scrollbar =  AsWingUtils.as(c,JScrollBar);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -200,7 +200,7 @@ class BasicScrollBarUI extends BaseComponentUI{
     private function __destroy(e:Event):Void{
     	scrollTimer.stop();
     	if(isDragging)	{
-    		scrollbar.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
+    		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
     	}
     }
     
@@ -215,18 +215,18 @@ class BasicScrollBarUI extends BaseComponentUI{
 		if(!(scrollbar.isEnabled() && scrollbar.isShowing())){
 			return;
 		}
-    	var code:UInt= e.keyCode;
-    	if(code == Keyboard.UP || code == Keyboard.LEFT){
+    	var code:Int= e.keyCode;
+    	if(code == AWKeyboard.UP || code == AWKeyboard.LEFT){
     		scrollByIncrement(-scrollbar.getUnitIncrement());
-    	}else if(code == Keyboard.DOWN || code == Keyboard.RIGHT){
+    	}else if(code == AWKeyboard.DOWN || code == AWKeyboard.RIGHT){
     		scrollByIncrement(scrollbar.getUnitIncrement());
-    	}else if(code == Keyboard.PAGE_UP){
+    	}else if(code == AWKeyboard.PAGE_UP){
     		scrollByIncrement(-scrollbar.getBlockIncrement());
-    	}else if(code == Keyboard.PAGE_DOWN){
+    	}else if(code == AWKeyboard.PAGE_DOWN){
     		scrollByIncrement(scrollbar.getBlockIncrement());
-    	}else if(code == Keyboard.HOME){
+    	}else if(code == AWKeyboard.HOME){
     		scrollbar.setValue(scrollbar.getMinimum());
-    	}else if(code == Keyboard.END){
+    	}else if(code == AWKeyboard.END){
     		scrollbar.setValue(scrollbar.getMaximum() - scrollbar.getVisibleAmount());
     	}
     }
@@ -353,10 +353,10 @@ class BasicScrollBarUI extends BaseComponentUI{
     }
     
     private function __startHandleDrag():Void{
-    	scrollbar.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb, false, 0, true);
+    	AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb, false, 0, false);
     }
     private function __stopHandleDrag():Void{
-    	scrollbar.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
+    	AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
     }
     
     private function __onMoveThumb(e:MouseEvent):Void{

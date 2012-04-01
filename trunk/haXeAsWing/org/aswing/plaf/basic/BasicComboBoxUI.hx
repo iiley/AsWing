@@ -8,7 +8,7 @@ package org.aswing.plaf.basic;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.Component;
 	import org.aswing.JComboBox;
@@ -28,6 +28,7 @@ import org.aswing.geom.IntRectangle;
 	import org.aswing.plaf.BaseComponentUI;
 	import org.aswing.plaf.ComboBoxUI;
 	import org.aswing.plaf.basic.icon.ArrowIcon;
+	import org.aswing.AsWingManager;
 import org.aswing.util.Timer;
 
 /**
@@ -50,14 +51,14 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
 	}
 	
     override public function installUI(c:Component):Void{
-    	box = flash.Lib.as(c,JComboBox);
+    	box = AsWingUtils.as(c,JComboBox);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-    	box = flash.Lib.as(c,JComboBox);
+    	box = AsWingUtils.as(c,JComboBox);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -96,7 +97,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
 		box.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onFocusKeyDown);
 		box.addEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
 		box.addEventListener(Event.REMOVED_FROM_STAGE, __onBoxRemovedFromStage);
-		getPopupList().addEventListener(ListItemEvent.ITEM_CLICK, __onListItemReleased);
+		getPopupList().addEventListener(ListItemEvent.ITEM_CLICK, __onListItemReleased,  false, 0, false);
 		popupTimer = new Timer(40);
 		popupTimer.addActionListener(__movePopup);
 	}
@@ -154,7 +155,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     
     private function getPopup():JPopup{
     	if(popup == null){
-    		popup = new JPopup(box.root, false);
+    		popup = new JPopup(AsWingManager.getRoot(), false);
     		popup.setLayout(new BorderLayout());
     		popup.append(getScollPane(), BorderLayout.CENTER);
     		popup.setClipMasked(false); 
@@ -195,13 +196,13 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     
     private function __addMouseDownListenerToStage():Void{
     	if(getPopup().isVisible() && box.stage!=null){
-			box.stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped, false, 0, true);
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped, false, 0, false);
     	}
     }
     
     private function hidePopup():Void{
-    	if(box.stage!=null)	{
-    		box.stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped);
+    	if(AsWingManager.getStage()!=null)	{
+    		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped);
     	}
 		popupTimer.stop();
     	if(getPopup().isVisible()){
@@ -236,7 +237,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     }
     
     private function setComboBoxValueFromListSelection():Void{
-		var selectedValue:Dynamic= getPopupList().getSelectedValue();
+		var selectedValue:Dynamic = getPopupList().getSelectedValue(); 
 		box.setSelectedItem(selectedValue, false);
     }
     
@@ -253,9 +254,9 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     	}else if(popupPaneHeight > speed*maxTime){
     		speed = Math.ceil(popupPaneHeight/maxTime);
     	}
-    	if(popupPane.height - scrollRect.height <= speed){
+    	if(popupPane.getHeight() - scrollRect.height <= speed){
     		//motion ending
-    		speed =Std.int( popupPane.height - scrollRect.height);
+    		speed =Std.int( popupPane.getHeight() - scrollRect.height);
 			popupTimer.stop();
 			
 			getPopupList().ensureIndexIsVisible(getPopupList().getSelectedIndex());
@@ -271,37 +272,37 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     }
     
     private function __onFocusKeyDown(e:FocusKeyEvent):Void{
-    	var code:UInt= e.keyCode;
-    	if(code == Keyboard.DOWN){
+    	var code:Int= Std.int(e.keyCode);
+    	if(code == AWKeyboard.DOWN){
     		if(!isPopupVisible(box)){
     			setPopupVisible(box, true);
     			return;
     		}
     	}
-    	if(code == Keyboard.ESCAPE){
+    	if(code == AWKeyboard.ESCAPE){
     		if(isPopupVisible(box)){
     			setPopupVisible(box, false);
     			return;
     		}
     	}
-    	if(code == Keyboard.ENTER && isPopupVisible(box)){
+    	if(code == AWKeyboard.ENTER && isPopupVisible(box)){
 	    	hidePopup();
 	    	setComboBoxValueFromListSelection();
 	    	return;
     	}
     	var list:JList = getPopupList();
     	var index:Int= list.getSelectedIndex();
-    	if(code == Keyboard.DOWN){
+    	if(code == AWKeyboard.DOWN){
     		index += 1;
-    	}else if(code == Keyboard.UP){
+    	}else if(code == AWKeyboard.UP){
     		index -= 1;
-    	}else if(code == Keyboard.PAGE_DOWN){
+    	}else if(code == AWKeyboard.PAGE_DOWN){
     		index += box.getMaximumRowCount();
-    	}else if(code == Keyboard.PAGE_UP){
+    	}else if(code == AWKeyboard.PAGE_UP){
     		index -= box.getMaximumRowCount();
-    	}else if(code == Keyboard.HOME){
+    	}else if(code == AWKeyboard.HOME){
     		index = 0;
-    	}else if(code == Keyboard.END){
+    	}else if(code == AWKeyboard.END){
     		index = list.getModel().getSize()-1;
     	}else{
     		return;

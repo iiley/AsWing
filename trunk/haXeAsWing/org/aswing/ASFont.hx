@@ -18,7 +18,7 @@ import org.aswing.geom.IntDimension;
 class ASFont{
 	
  	private var name:String;
- 	private var size:UInt;
+ 	private var size:Int;
  	private var bold:Bool;
  	private var italic:Bool;
  	private var underline:Bool;
@@ -40,7 +40,7 @@ class ASFont{
 		this.italic = italic;
 		this.underline = underline;
 		if(Std.is(embedFontsOrAdvancedPros,ASFontAdvProperties)){
-			advancedProperties = flash.Lib.as(embedFontsOrAdvancedPros, ASFontAdvProperties)	;
+			advancedProperties = AsWingUtils.as(embedFontsOrAdvancedPros, ASFontAdvProperties)	;
 		
 		}else{
 			advancedProperties = new ASFontAdvProperties(embedFontsOrAdvancedPros==true);
@@ -56,7 +56,7 @@ class ASFont{
 		return new ASFont(name, size, bold, italic, underline, advancedProperties);
 	}
 	
-	public function getSize():UInt{
+	public function getSize():Int{
 		return size;
 	}
 	
@@ -103,9 +103,11 @@ class ASFont{
 	 * @param endIndex The zero-based index position specifying the last character of the desired range of text. 
 	 */
 	public function apply(textField:TextField, beginIndex:Int=-1, endIndex:Int=-1):Void{
+		//why
 		advancedProperties.apply(textField);
-		textField.setTextFormat(textFormat, beginIndex, endIndex);
-		textField.defaultTextFormat = textFormat;
+		 
+		 //textField.setTextFormat(textFormat, beginIndex, endIndex);
+		 //textField.defaultTextFormat = textFormat;
 	
 	}
 	
@@ -127,7 +129,8 @@ class ASFont{
 	 * @return the computed size of the text
 	 * @see org.aswing.AsWingUtils#computeStringSizeWithFont
 	 */
-	public function computeTextSize(text:String, includeGutters:Bool=true):IntDimension{
+	public function computeTextSize(text:String, includeGutters:Bool = true):IntDimension {
+	 
 		return AsWingUtils.computeStringSizeWithFont(this, text, includeGutters);
 	}
 	

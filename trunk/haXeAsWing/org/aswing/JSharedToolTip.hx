@@ -4,10 +4,8 @@
 
 package org.aswing;
 
-
-import flash.display.InteractiveObject;
-import flash.errors.Error;
-import flash.utils.Dictionary;	
+ 
+import org.aswing.error.Error; 
 	
 /**
  * Shared instance Tooltip to saving instances.
@@ -17,13 +15,13 @@ class JSharedToolTip extends JToolTip{
 	
 	private static var sharedInstance:JSharedToolTip;
 	
-	private var targetedComponent:InteractiveObject;
-	private var textMap:Dictionary;
+	private var targetedComponent:Component;
+	private var targetedQueue:IntHash<Component>;
 	
 	public function new() {
 		super();
 		setName("JSharedToolTip");
-		textMap = new Dictionary(true);
+		targetedQueue = new IntHash<Component>();
 	}
 	
 	/**
@@ -62,15 +60,18 @@ class JSharedToolTip extends JToolTip{
     /**
      * Registers a component for tooltip management.
      *
-     * @param c  a <code>InteractiveObject</code> object to add.
+     * @param c  a <code>Component</code> object to add.
      * @param (optional)tipText the text to show when tool tip display. If the c 
      * 		is a <code>Component</code> this param is useless, if the c is only a 
-     * 		<code>InteractiveObject</code> this param is required.
+     * 		<code>Component</code> this param is required.
      */
-	public function registerComponent(c:InteractiveObject, tipText:String=null):Void{
+	public function registerComponent(c:Component, tipText:String=null):Void{
 		//TODO chech whether the week works
-		listenOwner(c, true);
-		untyped textMap[c] = tipText;
+		if (!targetedQueue.exists(c.getAwmlIndex()))
+		{
+			targetedQueue.set( c.getAwmlIndex(), c);
+			listenOwner(c, true); 
+		}
 		if(getTargetComponent() == c){
 			setTipText(getTargetToolTipText(c));
 		}
@@ -80,11 +81,16 @@ class JSharedToolTip extends JToolTip{
     /**
      * Removes a component from tooltip control.
      *
-     * @param component  a <code>InteractiveObject</code> object to remove
+     * @param component  a <code>Component</code> object to remove
      */
-	public function unregisterComponent(c:InteractiveObject):Void{
-		unlistenOwner(c);
-		// delete textMap[c];
+	public function unregisterComponent(c:Component):Void {
+		if (targetedQueue.exists(c.getAwmlIndex()))
+		{ 
+			targetedQueue.remove(c.getAwmlIndex());
+			//why
+			//unlistenOwner(c); 
+		} 
+		
 		if(getTargetComponent() == c){
 			disposeToolTip();
 			targetedComponent = null;
@@ -96,10 +102,10 @@ class JSharedToolTip extends JToolTip{
 	 * The component c may be null and will have no effect. 
 	 * <p>
 	 * This method is overrided just to call registerComponent of this class.
-	 * @param the InteractiveObject being described
+	 * @param the Component being described
 	 * @see #registerComponent()
 	 */
-	override public function setTargetComponent(c:InteractiveObject):Void{
+	override public function setTargetComponent(c:Component):Void{
 		registerComponent(c);
 	}
 	
@@ -107,21 +113,19 @@ class JSharedToolTip extends JToolTip{
 	 * Returns the lastest targeted component. 
 	 * @return the lastest targeted component. 
 	 */
-	override public function getTargetComponent():InteractiveObject{
+	override public function getTargetComponent():Component{
 		return targetedComponent;
 	}
 	
-	private function getTargetToolTipText(c:InteractiveObject):String{
-		if(Std.is(c,Component)){
-			var co:Component = flash.Lib.as(c,Component)	;
+	private function getTargetToolTipText(c:Component):String{
+	 
+			var co:Component = AsWingUtils.as(c,Component)	;
 			return co.getToolTipText();
-		}else{
-			return untyped textMap[c];
-		}
+	 
 	}
 	
 	//-------------
-	override private function __compRollOver(source:InteractiveObject):Void{
+	override private function __compRollOver(source:Component):Void{
 		var tipText:String= getTargetToolTipText(source);
 		if(tipText != null && isWaitThenPopupEnabled()){
 			targetedComponent = source;
@@ -130,7 +134,7 @@ class JSharedToolTip extends JToolTip{
 		}
 	}
 	
-	override private function __compRollOut(source:InteractiveObject):Void{
+	override private function __compRollOut(source:Component):Void{
 		if(source == targetedComponent && isWaitThenPopupEnabled()){
 			disposeToolTip();
 			targetedComponent = null;

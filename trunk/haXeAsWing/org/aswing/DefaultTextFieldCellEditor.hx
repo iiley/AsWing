@@ -27,7 +27,9 @@ class DefaultTextFieldCellEditor extends AbstractCellEditor{
 		if(textField == null){
 			textField = new JTextField();
 			//textField.setBorder(null);
+			#if (flash9)
 			textField.setRestrict(getRestrict());
+			#end
 		}
 		return textField;
 	}
@@ -59,8 +61,10 @@ class DefaultTextFieldCellEditor extends AbstractCellEditor{
     * @param value the new value of this cell
     */
 	override private function setCellEditorValue(value:Dynamic):Void{
-		getTextField().setText(value+"");
+		getTextField().setText(value + "");
+		#if (flash9)
 		getTextField().selectAll();
+		#end
 	}
 	
 	public function toString():String{

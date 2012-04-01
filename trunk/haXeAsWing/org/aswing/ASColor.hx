@@ -44,7 +44,7 @@ class ASColor{
 	inline public static var HALO_BLUE:ASColor = new ASColor(0x2BF5F5);
 	
 	
-	private var rgb:UInt;
+	private var rgb:Int;
 	private var alpha:Float;
 	
 	private var hue:Float;
@@ -55,7 +55,7 @@ class ASColor{
 	/**
 	 * Create a ASColor
 	 */
-	public function new(rgb:UInt=0x000000, ?alpha:Float=1){
+	public function new(rgb:Int=0x000000, ?alpha:Float=1){
 		this.rgb = rgb;
 		this.alpha = Math.min(1, Math.max(0, alpha));
 		hlsCounted = false;
@@ -71,15 +71,15 @@ class ASColor{
 	/**
 	 * Returns the RGB value representing the color.
 	 */
-	public function getRGB():UInt{
+	public function getRGB():Int{
 		return rgb;	
 	}
 	
 	/**
 	 * Returns the ARGB value representing the color.
 	 */	
-	public function getARGB():UInt{
-		var a:UInt= Std.int(alpha*255);
+	public function getARGB():Int{
+		var a:Int= Std.int(alpha*255);
 		return rgb | (a << 24);
 	}
 	
@@ -87,7 +87,7 @@ class ASColor{
      * Returns the red component in the range 0-255.
      * @return the red component.
      */
-	public function getRed():UInt{
+	public function getRed():Int{
 		return (rgb & 0x00FF0000) >> 16;
 	}
 	
@@ -95,7 +95,7 @@ class ASColor{
      * Returns the green component in the range 0-255.
      * @return the green component.
      */	
-	public function getGreen():UInt{
+	public function getGreen():Int{
 		return (rgb & 0x0000FF00) >> 8;
 	}
 	
@@ -103,7 +103,7 @@ class ASColor{
      * Returns the blue component in the range 0-255.
      * @return the blue component.
      */	
-	public function getBlue():UInt{
+	public function getBlue():Int{
 		return (rgb & 0x000000FF);
 	}
 	
@@ -266,9 +266,9 @@ class ASColor{
      * @see        #brighter()
      */		
 	public function darker(factor:Float=0.7):ASColor{
-        var r:UInt= getRed();
-        var g:UInt= getGreen();
-        var b:UInt= getBlue();
+        var r:Int= getRed();
+        var g:Int= getGreen();
+        var b:Int= getBlue();
 		return getASColor(Std.int(r*factor),Std.int( g*factor), Std.int(b*factor), alpha);
 	}
 	
@@ -309,7 +309,7 @@ class ASColor{
 	 * @param b blue channel
 	 * @param a alpha channel
 	 */
-	public static function getASColor(r:UInt, g:UInt, b:UInt, a:Float=1):ASColor{
+	public static function getASColor(r:Int, g:Int, b:Int, a:Float=1):ASColor{
 		return new ASColor(getRGBWith(r, g, b), a);
 	}
 	
@@ -318,8 +318,8 @@ class ASColor{
 	 * @param argb ARGB value representing the color
 	 * @return the ASColor
 	 */
-	public static function getWithARGB(argb:UInt):ASColor{
-		var rgb:UInt= argb & 0x00FFFFFF;
+	public static function getWithARGB(argb:Int):ASColor{
+		var rgb:Int= argb & 0x00FFFFFF;
 		var alpha:Float= (argb >>> 24)/255;
 		return new ASColor(rgb, alpha);
 	}
@@ -365,7 +365,7 @@ class ASColor{
 		g *= 255;
 		b *= 255;
 		var color_n:Float= (Std.int(r)<<16) + (Std.int(g)<<8) +b;
-		var color_rgb:UInt= Std.int(Math.max(0, Math.min(0xFFFFFF, Math.round(color_n))));
+		var color_rgb:Int= Std.int(Math.max(0, Math.min(0xFFFFFF, Math.round(color_n))));
 		c.rgb = color_rgb;
 		return c;
 	}
@@ -385,10 +385,10 @@ class ASColor{
 	 * @param gg green channel
 	 * @param bb blue channel
 	 */
-	public static function getRGBWith(rr:UInt, gg:UInt, bb:UInt):UInt{
-		var r:UInt= rr;
-		var g:UInt= gg;
-		var b:UInt= bb;
+	public static function getRGBWith(rr:Int, gg:Int, bb:Int):Int{
+		var r:Int= rr;
+		var g:Int= gg;
+		var b:Int= bb;
 		if(r > 255){
 			r = 255;
 		}
@@ -398,7 +398,7 @@ class ASColor{
 		if(b > 255){
 			b = 255;
 		}
-		var color_n:UInt= (r<<16) + (g<<8) +b;
+		var color_n:Int= (r<<16) + (g<<8) +b;
 		return color_n;
 	}
 	
@@ -413,7 +413,7 @@ class ASColor{
 	 * @return  a Boolean value that indicates if the compareTo object's value is the same as this one
 	 */	
 	public function equals(o:Dynamic):Bool{
-		var c:ASColor = flash.Lib.as(o,ASColor)	;
+		var c:ASColor = AsWingUtils.as(o,ASColor)	;
 		if(c != null){
 			return c.alpha == alpha && c.rgb == rgb;
 		}else{

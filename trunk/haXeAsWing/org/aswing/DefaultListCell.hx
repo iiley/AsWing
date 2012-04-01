@@ -21,7 +21,7 @@ class DefaultListCell extends AbstractListCell{
 	public function new(){
 		super();
 		if(sharedToolTip == null){
-			sharedToolTip = new JSharedToolTip();
+			sharedToolTip = JSharedToolTip.getSharedInstance();
 			sharedToolTip.setOffsetsRelatedToMouse(false);
 			sharedToolTip.setOffsets(new IntPoint(0, 0));
 		}
@@ -63,7 +63,7 @@ class DefaultListCell extends AbstractListCell{
 	private function __resized(e:ResizedEvent):Void { 
 		if(getJLabel().getWidth() < getJLabel().getPreferredWidth()){
 			getJLabel().setToolTipText(value.toString());
-			JSharedToolTip.getSharedInstance().unregisterComponent(getJLabel());
+		 
 			sharedToolTip.registerComponent(getJLabel());
 		}else{
 			getJLabel().setToolTipText(null);
