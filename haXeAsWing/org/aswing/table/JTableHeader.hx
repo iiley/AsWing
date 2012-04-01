@@ -5,7 +5,7 @@
 package org.aswing.table;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.Container;
 import org.aswing.geom.IntPoint;
 	import org.aswing.geom.IntRectangle;

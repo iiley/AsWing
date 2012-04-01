@@ -8,10 +8,9 @@ package org.aswing.plaf.basic;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.events.TimerEvent;
-import flash.ui.Keyboard;
-import flash.utils.Timer;
-
+import org.aswing.AWKeyboard;
+import org.aswing.event.AWEvent;
+import org.aswing.util.Timer;
 import org.aswing.LayoutManager;
 	import org.aswing.JAccordion;
 	import org.aswing.Component;
@@ -55,14 +54,14 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     override public function installUI(c:Component):Void{
     	headers = new Array<Dynamic>();
     	destSize = new IntDimension();
-    	accordion = flash.Lib.as(c,JAccordion);
+    	accordion = AsWingUtils.as(c,JAccordion);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-    	accordion = flash.Lib.as(c,JAccordion);
+    	accordion = AsWingUtils.as(c,JAccordion);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -98,7 +97,9 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     
 	private function installComponents():Void{
 		headerContainer = new Sprite();
+		#if(flash9)
 		headerContainer.tabEnabled = false;
+		#end
 		accordion.addChild(headerContainer);
 		synTabs();
 		synHeaderProperties();
@@ -118,7 +119,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
 		accordion.addStateListener(__onSelectionChanged);
 		accordion.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
 		motionTimer = new Timer(40);
-		motionTimer.addEventListener(TimerEvent.TIMER, __onMotion);
+		motionTimer.addEventListener(AWEvent.ACT, __onMotion);
 	}
     
     private function uninstallListeners():Void{
@@ -145,7 +146,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
      * Just override this method if you want other LAF headers.
      */
     private function createNewHeader():Tab{
-    	var header:Tab = flash.Lib.as(getInstance(getPropertyPrefix() + "header"), Tab);
+    	var header:Tab = AsWingUtils.as(getInstance(getPropertyPrefix() + "header"), Tab);
     	if(header == null){
     		header = new BasicAccordionHeader();
     	}
@@ -155,7 +156,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     }
         
     private function getHeader(i:Int):Tab{
-    	return flash.Lib.as(headers[i], Tab);
+    	return AsWingUtils.as(headers[i], Tab);
     }
 
     private function synTabs():Void{
@@ -175,7 +176,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     			}
     		}else{
     			for(i  in 0... headers.length-comCount){
-    				header = flash.Lib.as(headers.pop(),Tab);
+    				header = AsWingUtils.as(headers.pop(),Tab);
     				header.getTabComponent().removeEventListener(MouseEvent.CLICK, __tabClick);
     				headerContainer.removeChild(header.getTabComponent());
     			}
@@ -230,7 +231,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     //------------------------------Handlers--------------------------------
     
     private function __tabClick(e:Event):Void{
-    	accordion.setSelectedIndex(indexOfHeaderComponent(flash.Lib.as(e.currentTarget,Component)	));
+    	accordion.setSelectedIndex(indexOfHeaderComponent(AsWingUtils.as(e.currentTarget,Component)	));
     }
     
     private function __onSelectionChanged(e:Event):Void{
@@ -241,9 +242,9 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     private function __onKeyDown(e:FocusKeyEvent):Void{
     	if(headers.length > 0){
     		var n:Int= accordion.getComponentCount();
-    		var code:UInt= e.keyCode;
+    		var code:Int= e.keyCode;
     		var index:Int;
-	    	if(code == Keyboard.DOWN){
+	    	if(code == AWKeyboard.DOWN){
 	    		setTraversingTrue();
 		    	index = accordion.getSelectedIndex();
 		    	index++;
@@ -254,7 +255,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
 		    		return;
 		    	}
 		    	accordion.setSelectedIndex(index);
-	    	}else if(code == Keyboard.UP){
+	    	}else if(code == AWKeyboard.UP){
 	    		setTraversingTrue();
 		    	index = accordion.getSelectedIndex();
 		    	index--;
@@ -276,7 +277,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     	}
     }
     
-    private function __onMotion(e:TimerEvent):Void{
+    private function __onMotion(e:AWEvent):Void{
     	var isFinished:Bool= true;
     	var n:Int= headerDestinations.length;
     	var selected:Int= accordion.getSelectedIndex();
@@ -323,8 +324,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     		child = accordion.getComponent(i);
     		child.validate();
     	}
-    	if(e != null)
-    		e.updateAfterEvent();
+    	//if(e != null) e.updateAfterEvent();
     }
     
     private function adjustClipSizes():Void{

@@ -6,10 +6,10 @@ package org.aswing;
 
 
 import flash.display.Stage;
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.Event;
-import flash.events.TimerEvent;
-import flash.utils.Timer;
+import org.aswing.event.AWEvent;
+import org.aswing.util.Timer;
  
 
 import org.aswing.util.HashSet;
@@ -30,11 +30,11 @@ class RepaintManager{
 	 * Although it's a set in fact, but it work more like a queue
 	 * The component will not be added twice into the repaintQueue (one time a component do not need more than one painting)
 	 */
-	private var repaintQueue:HashSet;
+	private var repaintQueue:Array<Component>;
 	/**
 	 * similar to repaintQueue
 	 */
-	private var validateQueue:HashSet;
+	private var validateQueue:Array<Component>;
 	
 	private var timer:Timer;
 	private var renderring:Bool;
@@ -49,12 +49,12 @@ class RepaintManager{
 			throw new Error("Singleton can't be create more than once!");
 		}
 	  
-		repaintQueue = new HashSet();
-		validateQueue = new HashSet();
+		repaintQueue = new Array<Component>();
+		validateQueue = new Array<Component>();
 		renderring = false;
-		alwaysUseTimer = false;
-		timer = new Timer(19, 1);
-		timer.addEventListener(TimerEvent.TIMER_COMPLETE, __timerRender);
+		alwaysUseTimer = true;
+		timer = new Timer(20, 0);
+		timer.addEventListener(AWEvent.ACT, __timerRender);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ class RepaintManager{
 	 */
 	public function setAlwaysUseTimer(b:Bool, delay:Int=19):Void{
 		alwaysUseTimer = b;
-		timer.delay = delay;
+		timer.setDelay(delay);
 	}
 		
 	/**
@@ -93,7 +93,7 @@ class RepaintManager{
 	 * @see org.aswing.Component#repaint()
 	 */
 	public function addRepaintComponent(com:Component):Void{
-		repaintQueue.add(com);
+		repaintQueue.push(com);
 		renderLater(com);
 	}
 	
@@ -106,7 +106,7 @@ class RepaintManager{
 	public function addInvalidComponent(com:Component):Void{
 		var validateRoot:Component = getValidateRootComponent(com);
 		if(validateRoot != null){
-			validateQueue.add(validateRoot);
+			validateQueue.push(validateRoot);
 			renderLater(com);
 		}
 	}
@@ -116,17 +116,20 @@ class RepaintManager{
 	 * @see org.aswing.Component#validate()
 	 */	
 	public function addInvalidRootComponent(com:Component):Void{
-		validateQueue.add(com);
+		validateQueue.push(com);
 		renderLater(com);
 	}
 		
 	private function renderLater(c:Component):Void{
-		var st:Stage = c.stage;
-		if(alwaysUseTimer || st == null || renderring){
-			if(timer.running!=true){
-				timer.reset();
-				timer.start();
+		var st:Stage = AsWingManager.getStage();
+		//why
+	    
+		if (alwaysUseTimer || st == null || renderring) {
+	
+			if(timer.isRunning()!=true){
+				timer.restart(); 
 			}
+			
 		}else{
 			st.addEventListener(Event.RENDER, __render, false, 0, true);
 			st.invalidate();
@@ -163,9 +166,9 @@ class RepaintManager{
 		return validateRoot;
 	}
 	
-	private function __timerRender(e:TimerEvent):Void{
+	private function __timerRender(e:AWEvent):Void{
 		__render();
-		e.updateAfterEvent();
+		//e.updateAfterEvent();
 	}
 	
 	/**
@@ -173,8 +176,12 @@ class RepaintManager{
 	 */
 	private function __render(e:Event=null):Void{
 		if(e!=null)	{
-			var st:Stage = flash.Lib.as(e.currentTarget,Stage)	;
-			st.removeEventListener(Event.RENDER, __render);
+			var st:Stage = AsWingManager.getStage()	;
+			 
+				 st.removeEventListener(Event.RENDER, __render);
+				
+			 
+			 
 		}
 		var i:Int;
 		var n:Int;
@@ -184,9 +191,9 @@ class RepaintManager{
 		renderring = true;
 		
 //		var time:Number = getTimer();
-		var processValidates:Array<Dynamic>= validateQueue.toArray();
+		var processValidates:Array<Component>= validateQueue.copy();
 		//must clear here, because there maybe addRepaintComponent at below operation
-		validateQueue.clear();
+		validateQueue=new Array<Component>();
 		n = processValidates.length;
 		i = -1;
 		if(n > 0){
@@ -203,10 +210,10 @@ class RepaintManager{
 //		time = getTimer();
 		
 		
-		var processRepaints:Array<Dynamic>= repaintQueue.toArray();
+		var processRepaints:Array<Component>= repaintQueue.copy();
 		//must clear here, because there maybe addInvalidComponent at below operation
-		repaintQueue.clear();
-		
+	 
+		repaintQueue=new Array<Component>();
 		n = processRepaints.length;
 		i = -1;
 		while((++i) < n){

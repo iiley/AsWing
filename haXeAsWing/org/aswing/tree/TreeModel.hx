@@ -41,7 +41,7 @@ interface TreeModel {
      *
      * @return  the root of the tree
      */
-    function getRoot():Dynamic;
+    function getRoot():TreeNode;
 
 
     /**
@@ -56,7 +56,7 @@ interface TreeModel {
      * @param   parent  a node in the tree, obtained from this data source
      * @return  the child of <code>parent</code> at index <code>index</code>
      */
-    function getChild(parent:Dynamic, index:Int):Dynamic;
+    function getChild(parent:TreeNode, index:Int):Dynamic;
 
 
     /**
@@ -68,7 +68,7 @@ interface TreeModel {
      * @param   parent  a node in the tree, obtained from this data source
      * @return  the number of children of the node <code>parent</code>
      */
-    function getChildCount(parent:Dynamic):Int;
+    function getChildCount(parent:TreeNode):Int;
 
 
     /**
@@ -82,7 +82,7 @@ interface TreeModel {
      * @param   node  a node in the tree, obtained from this data source
      * @return  true if <code>node</code> is a leaf
      */
-    function isLeaf(node:Dynamic):Bool;
+    function isLeaf(node:TreeNode):Bool;
 
     /**
       * Messaged when the user has altered the value for the item identified
@@ -107,7 +107,7 @@ interface TreeModel {
      *    <code>child</code> or <code>parent</code> are <code>null</code>
      *    or don't belong to this tree model
      */
-    function getIndexOfChild(parent:Dynamic, child:Dynamic):Int;
+    function getIndexOfChild(parent:TreeNode, child:Dynamic):Int;
 
 //
 //  Change Events

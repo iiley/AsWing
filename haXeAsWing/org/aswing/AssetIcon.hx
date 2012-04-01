@@ -98,5 +98,5 @@ class AssetIcon implements Icon{
 			return asset;
 		}
 	}
-	
+ 
 }

@@ -6,20 +6,21 @@ package org.aswing.table.sorter;
 
 
 import flash.display.Shape;
-	import flash.display.DisplayObject;
-	import flash.filters.DropShadowFilter;
+import flash.display.DisplayObject; 
 import flash.geom.Matrix;
 import flash.geom.Point;
-
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
 import org.aswing.Icon;
-	import org.aswing.Component;
-	import org.aswing.ASColor;
-	import org.aswing.StyleResult;
-	import org.aswing.StyleTune;
-	import org.aswing.AbstractButton;
-	import org.aswing.ButtonModel;
-	import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.GradientBrush;
+import org.aswing.Component;
+import org.aswing.ASColor;
+import org.aswing.StyleResult;
+import org.aswing.StyleTune;
+import org.aswing.AbstractButton;
+import org.aswing.ButtonModel;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.GradientBrush;
+ 
 	/**
  * @author paling
  */
@@ -72,7 +73,7 @@ class Arrow implements Icon{
 		var style:StyleResult;
 		var adjuster:StyleTune = c.getStyleTune().mide;
 		if(Std.is(c,AbstractButton)){
-			var b:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+			var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
 			var model:ButtonModel = b.getModel();
 	    	var isPressing:Bool= model.isArmed() || model.isSelected();
     		var hue:Float= cl.getHue();
@@ -108,7 +109,10 @@ class Arrow implements Icon{
 			matrix
 		);		
 		g.fillPolygon(brush, ps1);
-		shape.filters = [new DropShadowFilter(1, 45, 0x0, style.shadow, 0, 0, 1, 1)];		
+		var f :Array<BitmapFilter> = new Array<BitmapFilter>();
+		f.push(new  DropShadowFilter(1, 45, 0x0, style.shadow, 0, 0, 1, 1));
+		shape.filters = f;	
+		 
 	}
 	
 	private function nextPoint(p:Point, dir:Float, dis:Float):Point{
@@ -118,4 +122,5 @@ class Arrow implements Icon{
 	public function getDisplay(c:Component):DisplayObject{
 		return shape;
 	}
+ 
 }

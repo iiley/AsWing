@@ -5,7 +5,7 @@
 package org.aswing;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.geom.IntRectangle;
 	import org.aswing.event.ScrollPaneEvent;
 	import org.aswing.event.InteractiveEvent;
@@ -154,12 +154,17 @@ class JScrollPane extends Container{
 	 * @see Viewportable
 	 * @throw TypeError when viewOrViewport is not component or viewportable.
 	 */
-	public function setView(viewOrViewport:Dynamic):Void{
-		if(Std.is(viewOrViewport,Viewportable)){
-			setViewport(flash.Lib.as(viewOrViewport,Viewportable));
+	public function setView(viewOrViewport:Dynamic):Void {
+		if (//Std.is(viewOrViewport, Viewportable)
+		Std.is(viewOrViewport, JList)||
+		Std.is(viewOrViewport, JTree)||
+		Std.is(viewOrViewport, JTextArea)||
+		Std.is(viewOrViewport, JTable) 
+		) { 
+			setViewport(AsWingUtils.as(viewOrViewport,Viewportable));
 		}else if(Std.is(viewOrViewport,Component)){
-			setViewportView(flash.Lib.as(viewOrViewport,Component));
-		}else{
+			setViewportView(AsWingUtils.as(viewOrViewport,Component));
+		}else  {
 			throw new  Error("Only accept Component or Viewportable instance here!");
 		}
 	}
@@ -181,7 +186,7 @@ class JScrollPane extends Container{
      * @see org.aswing.JViewport#setView()
      */
 	public function setViewportView(view:Component):Void{
-		var jviewport:JViewport = flash.Lib.as(getViewport() , JViewport);
+		var jviewport:JViewport = AsWingUtils.as(getViewport() , JViewport);
 		if(jviewport != null){
 			jviewport.setView(view);
 		}else{
@@ -194,7 +199,7 @@ class JScrollPane extends Container{
 	 * is a JViewport instance, otherwise, null will be returned.
 	 */
 	public function getViewportView():Component{
-		var jviewport:JViewport = flash.Lib.as(getViewport() , JViewport);
+		var jviewport:JViewport = AsWingUtils.as(getViewport() , JViewport);
 		if(jviewport != null){
 			return jviewport.getView();
 		}else{
@@ -273,7 +278,7 @@ class JScrollPane extends Container{
 	 */
 	private function __onBarScroll(e:InteractiveEvent):Void{
 		dispatchEvent(new ScrollPaneEvent(ScrollPaneEvent.SCROLLBAR_STATE_CHANGED, 
-		e.isProgrammatic(), flash.Lib.as(e.target,JScrollBar), false));
+		e.isProgrammatic(), AsWingUtils.as(e.target,JScrollBar), false));
 	}
 		
 	/**

@@ -22,7 +22,7 @@ class GradientBackground implements GroundDecorator{
 	private var direction:Float;
 	private var shape:Shape;
 	
-	public function new(fillType:GradientType, colors:Array<UInt>, alphas:Array<Dynamic>, ratios:Array<Dynamic>, direction:Float=0, 
+	public function new(fillType:GradientType, colors:Array<Int>, alphas:Array<Dynamic>, ratios:Array<Dynamic>, direction:Float=0, 
 					?spreadMethod:SpreadMethod, ?interpolationMethod:InterpolationMethod, ?focalPointRatio:Float= 0){
 		this.brush = new GradientBrush(fillType, colors, alphas, ratios, new Matrix(), 
 			spreadMethod, interpolationMethod, focalPointRatio);

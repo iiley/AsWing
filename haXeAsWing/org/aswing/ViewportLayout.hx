@@ -30,7 +30,7 @@ class ViewportLayout extends EmptyLayout{
      * @see #minimumLayoutSize
      */
     override public function preferredLayoutSize(parent:Container):IntDimension {
-		var vp:JViewport = flash.Lib.as(parent,JViewport);
+		var vp:JViewport = AsWingUtils.as(parent,JViewport);
 		var viewPreferSize:IntDimension = null;
 		if(vp.getView() != null){
 			viewPreferSize = vp.getView().getPreferredSize();
@@ -46,7 +46,7 @@ class ViewportLayout extends EmptyLayout{
      * @param parent  the container to lay out
      */
 	override public function layoutContainer(parent:Container):Void{
-		var vp:JViewport = flash.Lib.as(parent,JViewport)	;
+		var vp:JViewport = AsWingUtils.as(parent,JViewport)	;
 		if(vp == null){
 			return;
 		}

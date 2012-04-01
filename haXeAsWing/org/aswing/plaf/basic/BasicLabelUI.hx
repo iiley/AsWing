@@ -12,10 +12,10 @@ import org.aswing.geom.IntDimension;
 import org.aswing.Component;
 import org.aswing.plaf.BaseComponentUI;
 	import org.aswing.event.AWEvent;
-import flash.text.TextField;
-	import flash.filters.BlurFilter;
- 
-import flash.filters.BevelFilter;
+import flash.text.TextField; 
+import flash.filters.DropShadowFilter;
+import flash.filters.BitmapFilter;
+import flash.filters.BlurFilter;
 
 /**
  * Label UI basic imp.
@@ -36,14 +36,14 @@ class BasicLabelUI extends BaseComponentUI{
     }
     
 	override public function installUI(c:Component):Void{
-		label = flash.Lib.as(c,JLabel);
+		label = AsWingUtils.as(c,JLabel);
 		installDefaults(label);
 		installComponents(label);
 		installListeners(label);
 	}
     
 	override public function uninstallUI(c:Component):Void{
-		label = flash.Lib.as(c,JLabel);
+		label = AsWingUtils.as(c,JLabel);
 		uninstallDefaults(label);
 		uninstallComponents(label);
 		uninstallListeners(label);
@@ -67,7 +67,10 @@ class BasicLabelUI extends BaseComponentUI{
 		 
  		textField.selectable = false;
  		textField.mouseEnabled = false;
+		#if(flash)
+
  		textField.mouseWheelEnabled = false;
+		#end
  		b.addChild(textField);
  		b.setFontValidated(false);
  	}
@@ -95,33 +98,36 @@ class BasicLabelUI extends BaseComponentUI{
 
     override public function paint(c:Component, g:Graphics2D, r:IntRectangle):Void{
     	super.paint(c, g, r);
-    	var b:JLabel = flash.Lib.as(c,JLabel);
+    	var b:JLabel = AsWingUtils.as(c,JLabel);
     	
     	viewRect.setRect(r);
     	
     	textRect.x = textRect.y = textRect.width = textRect.height = 0;
         iconRect.x = iconRect.y = iconRect.width = iconRect.height = 0;
         // layout the text and icon
+	 
         var text:String= AsWingUtils.layoutCompoundLabel(c, 
             c.getFont(), b.getText(), getIconToLayout(), 
            Std.int(b.getVerticalAlignment()), Std.int(b.getHorizontalAlignment()),
             Std.int(b.getVerticalTextPosition()), Std.int(b.getHorizontalTextPosition()),
             viewRect, iconRect, textRect, 
 	    	Std.int(b.getText() == null ? 0 : b.getIconTextGap()));
-	   	
+	 
     	
     	paintIcon(b, g, iconRect);
     	
         if (text != null && text != ""){
-        	textField.visible = true;
-			paintText(b, textRect, text);
+        	textField.visible = true; 
+			paintText(b, textRect, text); 
         }else{
         	textField.text = "";
         	textField.visible = false;
+		 
         }
         
         textField.selectable = b.isSelectable();
         textField.mouseEnabled = b.isSelectable();
+		
     }
     
     private function getIconToLayout():Icon{
@@ -137,20 +143,27 @@ class BasicLabelUI extends BaseComponentUI{
 		if(textField.text != text){
 			textField.text = text;
 		}
-		if(!b.isFontValidated()){
-			AsWingUtils.applyTextFont(textField, font);
-			b.setFontValidated(true);
+		if (!b.isFontValidated()) {
+			//why
+			 AsWingUtils.applyTextFont(textField, font);
+			 b.setFontValidated(true);
 		}
-	
+		 
     	AsWingUtils.applyTextColor(textField, b.getForeground());
-		textField.x = textRect.x;
-		textField.y = textRect.y;
-    	if(!b.isEnabled()){
-    		b.filters = [new BlurFilter(2, 2, 2)];
+		 textField.x = textRect.x;
+		 textField.y = textRect.y;
+		 
+
+    	if (!b.isEnabled()) {
+		 var f :Array<BitmapFilter> = new Array<BitmapFilter>();	
+			f.push(new  BlurFilter(2, 2, 2));
+    		b.filters = f;
     	}else{
-    		b.filters = null;
+    		b.filters = [];
     	}
+	
     	textField.filters = label.getTextFilters();
+	 
 		
     }
     
@@ -229,13 +242,12 @@ class BasicLabelUI extends BaseComponentUI{
         	size = r.getSize();
         }
         size = b.getInsets().getOutsideSize(size);
-	 
-	
+		
         return size;
     }    
     
     override public function getPreferredSize(c:Component):IntDimension{
-    	var b:JLabel = flash.Lib.as(c,JLabel);
+    	var b:JLabel = AsWingUtils.as(c,JLabel);
     	return getLabelPreferredSize(b, getIconToLayout(), b.getText());
     }
 

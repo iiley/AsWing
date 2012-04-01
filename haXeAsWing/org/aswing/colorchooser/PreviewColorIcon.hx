@@ -79,7 +79,8 @@ class PreviewColorIcon implements Icon{
 		var w:Int= Std.int(width);
 		var h:Int= Std.int(height);
 		g.fillRectangle(new SolidBrush(ASColor.WHITE), x, y, w, h);
-
+//why	
+		/*
 		var t:Float= 5;
 		for(c in 0...w){
 			g.drawLine(new Pen(ASColor.GRAY, 1), x+c, y, x+c, y+h);
@@ -87,7 +88,7 @@ class PreviewColorIcon implements Icon{
 		for(r in 0...h){
 			g.drawLine(new Pen(ASColor.GRAY, 1), x, y+r, x+w, y+r);
 		}
-			
+			*/
 		if(previousColor == null && currentColor == null){
 			paintNoColor(g, x, y, w, h);
 			return;
@@ -132,5 +133,5 @@ class PreviewColorIcon implements Icon{
 	public function getDisplay(c:Component):DisplayObject{
 		return null;
 	}
-
+ 
 }

@@ -27,11 +27,13 @@ class BasicLabelButtonUI extends BasicButtonUI{
 	
 	override private function installDefaults(bb:AbstractButton):Void{
 		super.installDefaults(bb);
+		#if(flash9)
     	bb.buttonMode = true;
+		#end
 	}
 	
     override private function getTextPaintColor(bb:AbstractButton):ASColor{
-    	var b:JLabelButton = flash.Lib.as(bb,JLabelButton)	;
+    	var b:JLabelButton = AsWingUtils.as(bb,JLabelButton)	;
 		var pp:String= getPropertyPrefix();
 		var cl:ASColor = bb.getForeground();
 		var colors:StyleResult = new StyleResult(cl, bb.getStyleTune());

@@ -10,7 +10,7 @@ import org.aswing.JViewport;
 	import org.aswing.event.FocusKeyEvent;
 	import org.aswing.plaf.BaseComponentUI;
 import org.aswing.geom.IntPoint;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 import flash.events.MouseEvent;
 
 /**
@@ -25,13 +25,13 @@ class BasicViewportUI extends BaseComponentUI{
 	}
 	
 	override public function installUI(c:Component):Void{
-		viewport = flash.Lib.as(c,JViewport);
+		viewport = AsWingUtils.as(c,JViewport);
 		installDefaults();
 		installListeners();
 	}
 
 	override public function uninstallUI(c:Component):Void{
-		viewport = flash.Lib.as(c,JViewport);
+		viewport = AsWingUtils.as(c,JViewport);
 		uninstallDefaults();
 		uninstallListeners();
 	}
@@ -78,39 +78,39 @@ class BasicViewportUI extends BaseComponentUI{
 		if(!(viewport.isEnabled() && viewport.isShowing())){
 			return;
 		}
-    	var code:UInt= e.keyCode;
+    	var code:Int= e.keyCode;
     	var viewpos:IntPoint = viewport.getViewPosition();
     	switch(code){
-    		case Keyboard.UP:
+    		case AWKeyboard.UP:
     			viewpos.move(0, -viewport.getVerticalUnitIncrement());
     			
-    		case Keyboard.DOWN:
+    		case AWKeyboard.DOWN:
     			viewpos.move(0, viewport.getVerticalUnitIncrement());
     			
-    		case Keyboard.LEFT:
+    		case AWKeyboard.LEFT:
     			viewpos.move(-viewport.getHorizontalUnitIncrement(), 0);
     			
-    		case Keyboard.RIGHT:
+    		case AWKeyboard.RIGHT:
     			viewpos.move(viewport.getHorizontalUnitIncrement(), 0);
     			
-    		case Keyboard.PAGE_UP:
+    		case AWKeyboard.PAGE_UP:
     			if(e.shiftKey)	{
     				viewpos.move(-viewport.getHorizontalBlockIncrement(), 0);
     			}else{
     				viewpos.move(0, -viewport.getVerticalBlockIncrement());
     			}
     			
-    		case Keyboard.PAGE_DOWN:
+    		case AWKeyboard.PAGE_DOWN:
     			if(e.shiftKey)	{
     				viewpos.move(viewport.getHorizontalBlockIncrement(), 0);
     			}else{
     				viewpos.move(0, viewport.getVerticalBlockIncrement());
     			}
     		
-    		case Keyboard.HOME:
+    		case AWKeyboard.HOME:
     			viewpos.setLocationXY(0, 0);
     			
-    		case Keyboard.END:
+    		case AWKeyboard.END:
     			viewpos.setLocationXY(AsWingConstants.MAX_VALUE, AsWingConstants.MAX_VALUE);
     			
     	}

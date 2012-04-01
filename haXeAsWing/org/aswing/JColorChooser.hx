@@ -90,7 +90,7 @@ class JColorChooser extends AbstractColorChooserPanel {
 	 * @see #addChooserPanel()
 	 */
 	public function removeChooserPanel(panel:AbstractColorChooserPanel):AbstractColorChooserPanel{
-		return flash.Lib.as(getTabbedPane().remove(panel),AbstractColorChooserPanel);
+		return AsWingUtils.as(getTabbedPane().remove(panel),AbstractColorChooserPanel);
 	}
 	
 	/**
@@ -100,7 +100,7 @@ class JColorChooser extends AbstractColorChooserPanel {
 	 * @see #addChooserPanel()
 	 */
 	public function removeChooserPanelAt(index:Float):AbstractColorChooserPanel{
-		return flash.Lib.as(getTabbedPane().removeAt(Std.int(index)),AbstractColorChooserPanel);
+		return AsWingUtils.as(getTabbedPane().removeAt(Std.int(index)),AbstractColorChooserPanel);
 	}
 	
 	/**
@@ -117,7 +117,7 @@ class JColorChooser extends AbstractColorChooserPanel {
 	 * @see #addChooserPanel()
 	 */
 	public function getChooserPanelAt(index:Float):AbstractColorChooserPanel{
-		return flash.Lib.as(getTabbedPane().getComponent(Std.int(index)),AbstractColorChooserPanel);
+		return AsWingUtils.as(getTabbedPane().getComponent(Std.int(index)),AbstractColorChooserPanel);
 	}
 	
 	/**

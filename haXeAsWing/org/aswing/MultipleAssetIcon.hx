@@ -27,28 +27,28 @@ class MultipleAssetIcon implements Icon{
 	/**
 	 * Align asset to horizontal or vertical center position.
 	 */
-	inline public static var CENTER:UInt= 0;
+	inline public static var CENTER:Int= 0;
 	
 	/**
 	 * Align asset to top position.
 	 */
-	inline public static var TOP:UInt= 1;
+	inline public static var TOP:Int= 1;
 	
 	/**
 	 * Align asset to bottom position.
 	 */
-	inline public static var BOTTOM:UInt= 2;
+	inline public static var BOTTOM:Int= 2;
 
 	/**
 	 * Align asset to left position.
 	 */
-	inline public static var LEFT:UInt= 3;
+	inline public static var LEFT:Int= 3;
 
 	/**
 	 * Align asset to right position.
 	 */
 	 
-	inline public static var RIGHT:UInt= 4;
+	inline public static var RIGHT:Int= 4;
 	
 	/**
 	 * Contains AssetItem objects in order that need to be shown.
@@ -151,7 +151,7 @@ class MultipleAssetIcon implements Icon{
 	 * 
 	 * @return
 	 */
-	private function getAssetsCount():UInt{
+	private function getAssetsCount():Int{
 		return assets.size();
 	}
 	
@@ -160,7 +160,7 @@ class MultipleAssetIcon implements Icon{
 	 * 
 	 * @return
 	 */
-	private function getAssetItemAt(index:UInt):AssetItem{
+	private function getAssetItemAt(index:Int):AssetItem{
 		return assets.elementAt(index);
 	}
 	
@@ -200,7 +200,7 @@ class MultipleAssetIcon implements Icon{
 			var asset:DisplayObject = assetItem.getAsset();
 
 			// draw mask
-			var maskShape:Shape = flash.Lib.as(asset.mask,Shape);
+			var maskShape:Shape = AsWingUtils.as(asset.mask,Shape);
 			maskShape.graphics.clear();
 			maskShape.graphics.beginFill(0xFF0000);
 			maskShape.graphics.drawRect(0, 0, w, h);
@@ -259,7 +259,7 @@ class MultipleAssetIcon implements Icon{
 	public function getDisplay(c:Component):DisplayObject{
 		return assetContainer;
 	}
-	 
+ 
 }
 
 
@@ -395,7 +395,7 @@ import flash.display.DisplayObject;
 	 
 	 public function clone():AssetItem{
 	 	var clazz:Class<Dynamic>= Type.getClass(asset);
-	 	var clonedAsset:DisplayObject =flash.Lib.as(Type.createInstance( clazz,[]) , DisplayObject);
+	 	var clonedAsset:DisplayObject =AsWingUtils.as(Type.createInstance( clazz,[]) , DisplayObject);
 	 	var clone:AssetItem = new AssetItem(clonedAsset, width, height, scale, hPosition,  vPosition);
 	 	return clone;
 	 }

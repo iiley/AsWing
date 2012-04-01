@@ -11,8 +11,7 @@ import flash.display.Loader;
 import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
-import flash.display.Sprite;
-import flash.system.LoaderContext;
+import flash.display.Sprite; 
 
 /**
  * LoadIcon allow you load extenal image/animation to be the icon content.
@@ -22,8 +21,7 @@ class LoadIcon extends AssetIcon{
 	
 	private var loader:Loader;
 	private var owner:Component;
-	private var urlRequest:URLRequest;
-	private var context:LoaderContext;
+	private var urlRequest:URLRequest; 
 	private var needCountSize:Bool;
 	
 	/**
@@ -34,17 +32,16 @@ class LoadIcon extends AssetIcon{
 	 * @param scale (optional)whether scale the extenal image/anim to fit the size 
 	 * 		specified by front two params, default is false
 	 */
-	public function new(url:Dynamic, width:Float=-1, height:Float=-1, scale:Bool=false, context:LoaderContext=null){
+	public function new(url:Dynamic, width:Float=-1, height:Float=-1, scale:Bool=false){
 		super(getLoader(),Std.int(width), Std.int(height), false);
 		this.scale = scale;
 		if(Std.is(url,URLRequest)){
 			urlRequest = url;
 		}else{
 			urlRequest = new URLRequest(url);
-		}
-		this.context = context;
+		} 
 		needCountSize = (width == -1 || height == -1);
-		getLoader().load(urlRequest, context);
+		getLoader().load(urlRequest);
 	}
 	
 	/**
@@ -104,6 +101,6 @@ class LoadIcon extends AssetIcon{
 	}
 	
 	public function clone():LoadIcon{
-		return new LoadIcon(urlRequest, needCountSize ? -1 : width, needCountSize ? -1 : height, scale, context);
+		return new LoadIcon(urlRequest, needCountSize ? -1 : width, needCountSize ? -1 : height, scale);
 	}
 }

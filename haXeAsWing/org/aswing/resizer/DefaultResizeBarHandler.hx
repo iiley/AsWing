@@ -47,16 +47,16 @@ class DefaultResizeBarHandler{
 		if(!resizer.isResizing() && (e ==null || !e.buttonDown)){
 			resizer.startArrowCursor();
 			__rotateArrow();
-			if(mc.stage!=null)	{
-				mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow, false, 0, true);
+			if(AsWingManager.getStage()!=null)	{
+				AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow, false, 0, true);
 			}
 		}
 	}
 	
 	private function __onRollOut(e:MouseEvent):Void{
 		if(!resizer.isResizing() && !e.buttonDown){
-			if(mc.stage!=null)	{
-				mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+			if(AsWingManager.getStage()!=null)	{
+				AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
 			}
 			resizer.stopArrowCursor();
 		}
@@ -65,9 +65,9 @@ class DefaultResizeBarHandler{
 	private function __onPress(e:MouseEvent):Void{
 		resizer.setResizing(true);
 		startResize(e);
-		if(mc.stage!=null)	{
-			mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
-			mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, resizing, false, 0, true);
+		if(AsWingManager.getStage()!=null)	{
+			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, resizing, false, 0, true);
 		}
 	}
 	
@@ -78,8 +78,8 @@ class DefaultResizeBarHandler{
 	private function __onRelease(e:Event):Void{
 		resizer.setResizing(false);
 		resizer.stopArrowCursor();
-		if(mc.stage!=null)	{
-			mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
+		if(AsWingManager.getStage()!=null)	{
+			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
 		}
 		finishResize();
 	}
@@ -88,9 +88,12 @@ class DefaultResizeBarHandler{
 		__onRelease(e);
 	}
 	
-	private function __onDestroy(e:Event):Void{
-		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
-		mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+	private function __onDestroy(e:Event):Void {
+		//why
+		if(AsWingManager.getStage()!=null)	{	
+			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, resizing);
+			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __rotateArrow);
+		}
 	}
 	
 	private function __rotateArrow(e:Event=null):Void{

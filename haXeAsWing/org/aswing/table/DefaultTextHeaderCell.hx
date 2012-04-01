@@ -4,12 +4,12 @@
 
 package org.aswing.table;
 
-
-import flash.filters.DropShadowFilter;
+ 
 import org.aswing.JLabel;
 import org.aswing.JTable;
 import org.aswing.UIManager;
-
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
 /**
  * Default table header cell to render text
  * @author paling
@@ -18,19 +18,23 @@ class DefaultTextHeaderCell extends DefaultTextCell{
 	
 	public function new() {
 		super();
-		setHorizontalAlignment(JLabel.CENTER);
-		setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-		setBackgroundDecorator(UIManager.getGroundDecorator("TableHeader.cellBackground"));
-		setOpaque(false);
-		setTextFilters([new DropShadowFilter(1, 45, 0xFFFFFF, 0.2, 1, 1, 1, 1)]);
+		super.setHorizontalAlignment(JLabel.CENTER);
+		super.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+		super.setBackgroundDecorator(UIManager.getGroundDecorator("TableHeader.cellBackground"));
+		super.setOpaque(false);
+		 
+		var f :Array<BitmapFilter> = new Array<BitmapFilter>();
+		f.push(new  DropShadowFilter(1, 45, 0xFFFFFF, 0.2, 1, 1, 1, 1));
+		super.setTextFilters(f);
+		 
 	}
 	
 	override public function setTableCellStatus(table:JTable, isSelected:Bool, row:Int, column:Int):Void{
 		var header:JTableHeader = table.getTableHeader();
 		if(header != null){
-			setBackground(header.getBackground());
-			setForeground(header.getForeground());
-			setFont(header.getFont());
+			super.setBackground(header.getBackground());
+			super.setForeground(header.getForeground());
+			super.setFont(header.getFont());
 		}
 	}
 }

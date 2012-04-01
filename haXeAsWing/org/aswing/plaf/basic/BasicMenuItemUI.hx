@@ -29,6 +29,7 @@ import org.aswing.geom.IntRectangle;
 	import org.aswing.plaf.BaseComponentUI;
 	import org.aswing.plaf.MenuElementUI;
 	import org.aswing.plaf.UIResource;
+	import org.aswing.AsWingUtils;
 	/**
  * @private
  * @author paling
@@ -61,10 +62,108 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 	public function new() {
 		super();
 	}
-	
+	/** 
+	 * Compute and return the location of the icons origin, the 
+	 * location of origin of the text baseline, and a possibly clipped
+	 * version of the compound labels string.  Locations are computed
+	 * relative to the viewRect rectangle. 
+	 */
+	//why
+
+	private function layoutMenuItem( font:ASFont, 
+		text:String, 
+		accelFont:ASFont, 
+		acceleratorText:String , 
+		icon:Icon, 
+		checkIcon:Icon, 
+		arrowIcon:Icon, 
+		verticalAlignment:Int, 
+		horizontalAlignment:Int, 
+		verticalTextPosition:Int, 
+		horizontalTextPosition:Int, 
+		arg:Array<Dynamic>/*
+		?viewRect:IntRectangle, 
+		iconRect:IntRectangle, 
+		textRect:IntRectangle, 
+		acceleratorRect:IntRectangle, 
+		checkIconRect:IntRectangle, 
+		arrowIconRect:IntRectangle, 
+		textIconGap:Int, menuItemGap:Int*/):String{
+        var viewRect:IntRectangle = arg[0];
+		var iconRect:IntRectangle = arg[1];
+		var textRect:IntRectangle = arg[2]; 
+		var acceleratorRect:IntRectangle = arg[3]; 
+		var checkIconRect:IntRectangle = arg[4]; 
+		var arrowIconRect:IntRectangle = arg[5];
+		var textIconGap:Int = arg[6];
+		var menuItemGap:Int = arg[7];
+		AsWingUtils.layoutCompoundLabel(menuItem, font, text, icon, verticalAlignment, 
+							horizontalAlignment, verticalTextPosition, 
+							horizontalTextPosition, viewRect, iconRect, textRect, 
+							textIconGap);
+										
+		//Initialize the acceelratorText bounds rectangle textRect.  If a null 
+		//or and empty String was specified we substitute "" here 
+		 //and use 0,0,0,0 for acceleratorTextRect.
+		
+		if(acceleratorText == null || acceleratorText == "") {
+			acceleratorRect.width = acceleratorRect.height = 0;
+			acceleratorText = "";
+		}else {
+			var td:IntDimension = accelFont.computeTextSize(acceleratorText);
+			acceleratorRect.width = td.width;
+			acceleratorRect.height = td.height;
+		}
+
+		// Initialize the checkIcon bounds rectangle's width & height.
+		 
+		if( useCheckAndArrow()) {
+			if (checkIcon != null) {
+				checkIconRect.width = checkIcon.getIconWidth(menuItem);
+				checkIconRect.height = checkIcon.getIconHeight(menuItem);
+			} else {
+				checkIconRect.width = checkIconRect.height = 0;
+			}
+			// Initialize the arrowIcon bounds rectangle width & height.
+		 
+			if (arrowIcon != null) {
+				arrowIconRect.width = arrowIcon.getIconWidth(menuItem);
+				arrowIconRect.height = arrowIcon.getIconHeight(menuItem);
+			} else {
+				arrowIconRect.width = arrowIconRect.height = 0;
+			}
+		}
+
+		var labelRect:IntRectangle = iconRect.union(textRect);
+		textRect.x += menuItemGap;
+		iconRect.x += menuItemGap;
+
+		// Position the Accelerator text rect
+		 
+		acceleratorRect.x = viewRect.x + viewRect.width - arrowIconRect.width - menuItemGap*2 - acceleratorRect.width;
+		
+		// Position the Check and Arrow Icons 
+		if (useCheckAndArrow()) {
+			checkIconRect.x = viewRect.x + menuItemGap;
+			textRect.x += menuItemGap + checkIconRect.width;
+			iconRect.x += menuItemGap + checkIconRect.width;
+			arrowIconRect.x = viewRect.x + viewRect.width - menuItemGap - arrowIconRect.width;
+		}
+
+		// Align the accelertor text and the check and arrow icons vertically
+		// with the center of the label rect.  
+		acceleratorRect.y = labelRect.y + Math.floor(labelRect.height/2) - Math.floor(acceleratorRect.height/2);
+		if( useCheckAndArrow() ) {
+			arrowIconRect.y = labelRect.y + Math.floor(labelRect.height/2) - Math.floor(arrowIconRect.height/2);
+			checkIconRect.y = labelRect.y + Math.floor(labelRect.height/2) - Math.floor(checkIconRect.height/2);
+		}
+		  
+		return text;
+	}	
+	 
 	override public function installUI(c:Component):Void {
 	 
-		menuItem = flash.Lib.as(c,JMenuItem);
+		menuItem = AsWingUtils.as(c,JMenuItem);
 		installDefaults();
 		installComponents();
 		installListeners();
@@ -72,7 +171,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 
 	override public function uninstallUI(c:Component):Void {
  
-		menuItem = flash.Lib.as(c,JMenuItem);
+		menuItem = AsWingUtils.as(c,JMenuItem);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -117,6 +216,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 	private function uninstallIcon(icon:Icon):Void{
 		if(icon!=null && icon.getDisplay(menuItem)!=null ){
 			menuItem.removeChild(icon.getDisplay(menuItem));
+ 
 		}
 	}
 	
@@ -153,7 +253,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 	
 	//---------------
 	
-	public function processKeyEvent(code:UInt) : Void{
+	public function processKeyEvent(code:Int) : Void{
 		var manager:MenuSelectionManager = MenuSelectionManager.defaultManager();
 		var path:Array<Dynamic>= manager.getSelectedPath();
 		if(path[path.length-1] != menuItem){
@@ -167,13 +267,13 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 			if(manager.isPageNavKey(code)){
 				path.pop();
 				manager.setSelectedPath(menuItem.stage, path, false);
-				flash.Lib.as(path[path.length-1],MenuElement).processKeyEvent(code);
+				AsWingUtils.as(path[path.length-1],MenuElement).processKeyEvent(code);
 			}else if(manager.isItemNavKey(code)){
 				path.pop();
 				if(manager.isPrevItemKey(code)){
-					path.push(manager.prevSubElement(flash.Lib.as(path[path.length-1],MenuElement), menuItem));
+					path.push(manager.prevSubElement(AsWingUtils.as(path[path.length-1],MenuElement), menuItem));
 				}else{
-					path.push(manager.nextSubElement(flash.Lib.as(path[path.length-1],MenuElement), menuItem));
+					path.push(manager.nextSubElement(AsWingUtils.as(path[path.length-1],MenuElement), menuItem));
 				}
 				manager.setSelectedPath(menuItem.stage, path, false);
 			}
@@ -247,7 +347,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
         }
         var parent:Component = menuItem.getParent();
 		var me:MenuElement = null;
-		me = flash.Lib.as(oldPath[i - 1], MenuElement);
+		me = AsWingUtils.as(oldPath[i - 1], MenuElement);
         if (me.getMenuComponent() == parent) {
             // The parent popup menu is the last so far
             newPath = oldPath.copy();
@@ -261,7 +361,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
             // then copy up to that and add yourself...
             var j:Int=0;
             for (j  in 0...oldPath.length  ) { 
-				me = flash.Lib.as(oldPath[j], MenuElement);
+				me = AsWingUtils.as(oldPath[j], MenuElement);
 				
                 if (me.getMenuComponent() == parent){
                     break;
@@ -275,7 +375,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
     
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		
-		var mi:JMenuItem = flash.Lib.as(c,JMenuItem);
+		var mi:JMenuItem = AsWingUtils.as(c,JMenuItem);
 		paintMenuItem(mi, g, b, checkIcon, arrowIcon,
 					  selectionBackground, selectionForeground,
 					  menuItem.getIconTextGap());
@@ -293,17 +393,20 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 		var acceleratorText:String= getAcceleratorText(b);
 		
 		// layout the text and icon
-		var text:String= layoutMenuItem(
+		var text:String = "";
+		//why
+		 
+		text= layoutMenuItem(
 			font, b.getDisplayText(), acceleratorFont, acceleratorText, b.getIcon(),
 			checkIcon, arrowIcon,
 			b.getVerticalAlignment(), b.getHorizontalAlignment(),
 			b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
-			viewRect, iconRect, textRect, acceleratorRect, 
+			[viewRect, iconRect, textRect, acceleratorRect, 
 			checkIconRect, arrowIconRect,
 			b.getDisplayText() == null ? 0 : textIconGap,
-			textIconGap
+			textIconGap]
 		);
-		
+		 
 		// Paint background
 		paintMenuBackground(b, g, r, background);
 		
@@ -534,15 +637,17 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 		var font:ASFont = b.getFont();
 
 		resetRects();
-		
-		layoutMenuItem(
+		//why
+		 
+		 layoutMenuItem(
 				  font, text, acceleratorFont, acceleratorText, icon, checkIcon, arrowIcon,
 				  b.getVerticalAlignment(), b.getHorizontalAlignment(),
 				  b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
-				  viewRect, iconRect, textRect, acceleratorRect, checkIconRect, arrowIconRect,
+				[viewRect, iconRect, textRect, acceleratorRect, checkIconRect, arrowIconRect,
 				  text == null ? 0 : textIconGap,
-				  textIconGap
+				  textIconGap]
 				  );
+				  
 		// find the union of the icon and text rects
 		r = textRect.union(iconRect);
 		
@@ -618,102 +723,14 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 		}
 	}
 	
-	/** 
-	 * Compute and return the location of the icons origin, the 
-	 * location of origin of the text baseline, and a possibly clipped
-	 * version of the compound labels string.  Locations are computed
-	 * relative to the viewRect rectangle. 
-	 */
-	private function layoutMenuItem(
-		font:ASFont, 
-		text:String, 
-		accelFont:ASFont, 
-		acceleratorText:String, 
-		icon:Icon, 
-		checkIcon:Icon, 
-		arrowIcon:Icon, 
-		verticalAlignment:Int, 
-		horizontalAlignment:Int, 
-		verticalTextPosition:Int, 
-		horizontalTextPosition:Int, 
-		viewRect:IntRectangle, 
-		iconRect:IntRectangle, 
-		textRect:IntRectangle, 
-		acceleratorRect:IntRectangle, 
-		checkIconRect:IntRectangle, 
-		arrowIconRect:IntRectangle, 
-		textIconGap:Int, 
-		menuItemGap:Int):String{
-
-		AsWingUtils.layoutCompoundLabel(menuItem, font, text, icon, verticalAlignment, 
-							horizontalAlignment, verticalTextPosition, 
-							horizontalTextPosition, viewRect, iconRect, textRect, 
-							textIconGap);
-										
-		/* Initialize the acceelratorText bounds rectangle textRect.  If a null 
-		 * or and empty String was specified we substitute "" here 
-		 * and use 0,0,0,0 for acceleratorTextRect.
-		 */
-		if(acceleratorText == null || acceleratorText == "") {
-			acceleratorRect.width = acceleratorRect.height = 0;
-			acceleratorText = "";
-		}else {
-			var td:IntDimension = accelFont.computeTextSize(acceleratorText);
-			acceleratorRect.width = td.width;
-			acceleratorRect.height = td.height;
-		}
-
-		/* Initialize the checkIcon bounds rectangle's width & height.
-		 */
-		if( useCheckAndArrow()) {
-			if (checkIcon != null) {
-				checkIconRect.width = checkIcon.getIconWidth(menuItem);
-				checkIconRect.height = checkIcon.getIconHeight(menuItem);
-			} else {
-				checkIconRect.width = checkIconRect.height = 0;
-			}
-			/* Initialize the arrowIcon bounds rectangle width & height.
-			 */
-			if (arrowIcon != null) {
-				arrowIconRect.width = arrowIcon.getIconWidth(menuItem);
-				arrowIconRect.height = arrowIcon.getIconHeight(menuItem);
-			} else {
-				arrowIconRect.width = arrowIconRect.height = 0;
-			}
-		}
-
-		var labelRect:IntRectangle = iconRect.union(textRect);
-		textRect.x += menuItemGap;
-		iconRect.x += menuItemGap;
-
-		// Position the Accelerator text rect
-		acceleratorRect.x = viewRect.x + viewRect.width - arrowIconRect.width - menuItemGap*2 - acceleratorRect.width;
-		
-		// Position the Check and Arrow Icons 
-		if (useCheckAndArrow()) {
-			checkIconRect.x = viewRect.x + menuItemGap;
-			textRect.x += menuItemGap + checkIconRect.width;
-			iconRect.x += menuItemGap + checkIconRect.width;
-			arrowIconRect.x = viewRect.x + viewRect.width - menuItemGap - arrowIconRect.width;
-		}
-
-		// Align the accelertor text and the check and arrow icons vertically
-		// with the center of the label rect.  
-		acceleratorRect.y = labelRect.y + Math.floor(labelRect.height/2) - Math.floor(acceleratorRect.height/2);
-		if( useCheckAndArrow() ) {
-			arrowIconRect.y = labelRect.y + Math.floor(labelRect.height/2) - Math.floor(arrowIconRect.height/2);
-			checkIconRect.y = labelRect.y + Math.floor(labelRect.height/2) - Math.floor(checkIconRect.height/2);
-		}
-
-		return text;
-	}	
+	
 	
 	private function useCheckAndArrow():Bool{
 		return !isTopMenu();
 	}
 	
 	override public function getPreferredSize(c:Component):IntDimension{
-		var b:JMenuItem = flash.Lib.as(c,JMenuItem);
+		var b:JMenuItem = AsWingUtils.as(c,JMenuItem);
 		return getPreferredMenuItemSize(b, checkIcon, arrowIcon, menuItem.getIconTextGap());
 	}
 

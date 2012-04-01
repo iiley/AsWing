@@ -3,7 +3,7 @@
 */
 
 package org.aswing.tree;
-import flash.errors.Error;
+import org.aswing.error.Error;
  
 
 /**
@@ -17,7 +17,7 @@ class TreePath{
       */
     private var parentPath:TreePath;
     /** Last path component. */
-    private var lastPathComponent:Dynamic;
+    private var lastPathComponent:TreeNode;
     
     /**
      * Constructs a path from an array of Objects, uniquely identifying 
@@ -31,15 +31,20 @@ class TreePath{
      * </p>
      * @param path  an array of Objects representing the path to a node
      */
-    public function new(path:Array<Dynamic>) {
+
+ 
+			
+    public function new(path:Array<TreeNode>) {
+	
         if(path == null || path.length == 0){
         	trace("Error : path in TreePath must be non null and not empty.");
             throw new Error("path in TreePath must be non null and not empty.");
 			 
         }
+	
 		lastPathComponent = path[path.length - 1];
 		if(path.length > 1){
-			var pp:Array<Dynamic>= path.copy();
+			var pp:Array<TreeNode>= path.copy();
 			pp.pop();
 		    parentPath = new TreePath(pp);
 	    }
@@ -49,7 +54,7 @@ class TreePath{
      * Constructs a new TreePath, which is the path identified by
      * <code>parent</code> ending in <code>lastElement</code>.
      */
-    public static function createTreePath(parent:TreePath, lastElement:Dynamic):TreePath {
+    public static function createTreePath(parent:TreePath, lastElement:TreeNode):TreePath {
 		if(lastElement == null){
 			trace("path in TreePath must be non null.");
 			throw new Error("path in TreePath must be non null.");
@@ -67,9 +72,9 @@ class TreePath{
      * @return an array of Objects representing the TreePath
      * @see #TreePath(*[])
      */
-    public function getPath():Array<Dynamic>{
+    public function getPath():Array<TreeNode>{
 		var i:Int= getPathCount();
-        var result:Array<Dynamic>= new Array<Dynamic>();
+        var result:Array<TreeNode>= new Array<TreeNode>();
         i--;
 		//  for(var path:TreePath = this; path != null; path = path.parentPath) {
 		var path:TreePath = this;
@@ -88,7 +93,7 @@ class TreePath{
      * @return the Object at the end of the path
      * @see #TreePath(*[])
      */
-    public function getLastPathComponent():Dynamic{
+    public function getLastPathComponent():TreeNode{
 		return lastPathComponent;
     }
 
@@ -116,7 +121,7 @@ class TreePath{
      *         
      * @see #TreePath(Object[])
      */
-    public function getPathComponent(element:Int):Dynamic{
+    public function getPathComponent(element:Int):TreeNode{
         var pathLength:Int= getPathCount();
 
         if(element < 0 || element >= pathLength){
@@ -139,12 +144,12 @@ class TreePath{
      *
      * @param o the Object to compare
      */
-    public function equals(o:Dynamic):Bool{
+    public function equals(o:TreePath):Bool{
 		if(o == this){
 		    return true;
 		}
         if(Std.is(o,TreePath)) {
-            var oTreePath:TreePath = flash.Lib.as(o,TreePath);
+            var oTreePath:TreePath = AsWingUtils.as(o,TreePath);
 	    	if(getPathCount() != oTreePath.getPathCount()){
 				return false;
 	    	}
@@ -205,7 +210,7 @@ class TreePath{
      * This will throw a NullPointerException
      * if child is null.
      */
-    public function pathByAddingChild(child:Dynamic):TreePath {
+    public function pathByAddingChild(child:TreeNode):TreePath {
 		if(child == null){
 			trace("Null child not allowed");
 	    	throw new Error("Null child not allowed");

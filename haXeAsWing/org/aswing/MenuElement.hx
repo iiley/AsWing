@@ -31,7 +31,7 @@ interface MenuElement{
     /**
      * Precess the selection when key typed. 
      */
-    function processKeyEvent(code:UInt):Void;
+    function processKeyEvent(code:Int):Void;
     
     /**
      * Sets whether the menu element is in use.

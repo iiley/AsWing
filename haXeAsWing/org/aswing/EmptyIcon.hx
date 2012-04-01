@@ -31,6 +31,5 @@ class EmptyIcon implements Icon{
 	}
 	
 	public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
-	}
-	
+	} 
 }

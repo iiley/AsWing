@@ -5,7 +5,7 @@
 package org.aswing;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.plaf.EmptyLayoutUIResourse;
 	import org.aswing.plaf.ComponentUI;
 	import org.aswing.plaf.MenuElementUI;
@@ -64,7 +64,7 @@ class JMenuBar extends Container , implements MenuElement{
      * @return the menu element ui.
      */
     public function getMenuElementUI():MenuElementUI{
-    	return flash.Lib.as( getUI() , MenuElementUI);
+    	return AsWingUtils.as( getUI() , MenuElementUI);
     }
 	
 	override public function getUIClassID():String{
@@ -92,7 +92,7 @@ class JMenuBar extends Container , implements MenuElement{
 	public function getMenu(index:Int):JMenu{
 		var com:Component = getComponent(index);
 		if(Std.is(com,JMenu)){
-			return flash.Lib.as(com,JMenu);
+			return AsWingUtils.as(com,JMenu);
 		}else{
 			return null;
 		}
@@ -156,13 +156,13 @@ class JMenuBar extends Container , implements MenuElement{
 	
 	private function __menuBarChildAdd(e:ContainerEvent) : Void{
 		if(Std.is(e.getChild() , MenuElement)){
-			flash.Lib.as(e.getChild(),MenuElement).setInUse(isInUse());
+			AsWingUtils.as(e.getChild(),MenuElement).setInUse(isInUse());
 		}
 	}
 
 	private function __menuBarChildRemove(e:ContainerEvent) : Void{
 		if(Std.is(e.getChild() , MenuElement)){
-			flash.Lib.as(e.getChild(),MenuElement).setInUse(false);
+			AsWingUtils.as(e.getChild(),MenuElement).setInUse(false);
 		}
 	}
 	
@@ -181,7 +181,7 @@ class JMenuBar extends Container , implements MenuElement{
 		return this;
 	}
 	
-	public function processKeyEvent(code : UInt) : Void{
+	public function processKeyEvent(code : Int) : Void{
 		getMenuElementUI().processKeyEvent(code);
 	}
 	
@@ -190,7 +190,7 @@ class JMenuBar extends Container , implements MenuElement{
 	    	menuInUse = b;
 	    	var subs:Array<Dynamic>= getSubElements();
 	    	for(i in 0...subs.length){
-	    		var ele:MenuElement = flash.Lib.as(subs[i],MenuElement);
+	    		var ele:MenuElement = AsWingUtils.as(subs[i],MenuElement);
 	    		ele.setInUse(b);
 	    	}
     	}

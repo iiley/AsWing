@@ -22,7 +22,7 @@ class WindowOrderFocusTraversalPolicy extends ContainerOrderFocusTraversalPolicy
 	 */
 	override public function getDefaultComponent(container:Container):Component{
 		if(Std.is(container,JWindow)){
-			var window:JWindow = flash.Lib.as(container,JWindow)	;
+			var window:JWindow = AsWingUtils.as(container,JWindow)	;
 			var content:Container = window.getContentPane();
 			if(content.isShowing() && content.isVisible() && content.isFocusable()){
 				return content;

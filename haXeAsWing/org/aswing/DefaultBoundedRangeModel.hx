@@ -5,7 +5,7 @@
 package org.aswing;
 
 	
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import org.aswing.event.InteractiveEvent;
@@ -130,8 +130,7 @@ class DefaultBoundedRangeModel extends EventDispatcher , implements BoundedRange
 		
 	private function fireStateChanged(programmatic:Bool):Void{
 		dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
-	}
-	
+	} 
 	override public function toString():String{
 		var modelString:String= "value=" + getValue() + ", " + "extent=" + getExtent() + ", " + "min=" + getMinimum() + ", " + "max=" + getMaximum() + ", " + "adj=" + getValueIsAdjusting();
 		return "DefaultBoundedRangeModel" + "[" + modelString + "]";

@@ -5,7 +5,7 @@
 package org.aswing.ext;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.EmptyLayout;
 	import org.aswing.Container;
 	import org.aswing.Insets;
@@ -166,7 +166,7 @@ import org.aswing.EmptyLayout;
 			return ;
 		}
 		var bounds:IntRectangle = insets.getInsideBounds(target.getSize().getBounds());
-		var list:GridList = flash.Lib.as(target,GridCellHolder).getList();
+		var list:GridList = AsWingUtils.as(target,GridCellHolder).getList();
 		if(list.isTracksWidth() || list.isTracksHeight()){
 			if(list.isTracksHeight()){
 				nrows = Math.floor((bounds.height+vgap)/(tileHeight+vgap));

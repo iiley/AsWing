@@ -70,6 +70,7 @@ class BasicToggleButtonUI extends BasicButtonUI{
         if(icon != null){
 			setIconVisible(icon, true);
 			icon.updateIcon(b, g, iconRect.x, iconRect.y);
+
         }
     }
 }

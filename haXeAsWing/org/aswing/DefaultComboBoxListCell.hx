@@ -24,8 +24,8 @@ class DefaultComboBoxListCell extends DefaultListCell{
 	
 	override private function initJLabel(jlabel:JLabel):Void{
 		super.initJLabel(jlabel);
-		jlabel.addEventListener(MouseEvent.ROLL_OVER, __labelRollover, false, 0, true);
-		jlabel.addEventListener(MouseEvent.ROLL_OUT, __labelRollout, false, 0, true);
+		jlabel.addEventListener(MouseEvent.ROLL_OVER, __labelRollover, false, 0, false);
+		jlabel.addEventListener(MouseEvent.ROLL_OUT, __labelRollout, false, 0, false);
 	}
 	
 	override public function setListCellStatus(list:JList, isSelected:Bool, index:Int):Void{

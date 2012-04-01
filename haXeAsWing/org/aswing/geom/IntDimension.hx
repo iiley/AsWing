@@ -114,7 +114,7 @@ class IntDimension{
 	 * Returns whether or not the passing o is an same value IntDimension.
 	 */
 	public function equals(o:Dynamic):Bool{
-		var d:IntDimension = flash.Lib.as(o,IntDimension)	;
+		var d:IntDimension = AsWingUtils.as(o,IntDimension)	;
 		if(d == null) return false;
 		return width==d.width && height==d.height;
 	}

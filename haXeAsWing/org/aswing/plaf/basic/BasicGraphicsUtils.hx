@@ -276,7 +276,8 @@ class BasicGraphicsUtils{
 				 ?joints:JointStyle= null, 
 				 ?miterLimit:Float= 3) 
 				 */
-										 
+//why	
+		/*					 
         var pen:Pen = new Pen(lightHighlight, 1, false, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER);
         g.drawLine(pen, x, y, x, y+h-2);
         g.drawLine(pen, x+1, y, x+w-2, y);
@@ -292,6 +293,7 @@ class BasicGraphicsUtils{
 		pen.setColor(shadow);
         g.drawLine(pen, x+1, y+h-2, x+w-2, y+h-2);
         g.drawLine(pen, x+w-2, y+1, x+w-2, y+h-3);
+		*/
     }
     
 	/**
@@ -303,7 +305,10 @@ class BasicGraphicsUtils{
         var h:Float= r.height - 1;
         var w:Float= r.width - 1;
         var x:Float= r.x + 0.5;
-        var y:Float= r.y + 0.5;
+        var y:Float = r.y + 0.5;
+		
+		//why	
+		/*
 		var pen:Pen = new Pen(shadow, 1, false, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER);
         g.drawLine(pen, x, y, x, y+h-1);
         g.drawLine(pen, x+1, y, x+w-1, y);
@@ -319,6 +324,7 @@ class BasicGraphicsUtils{
         pen.setColor(highlight);
         g.drawLine(pen, x+2, y+h-2, x+w-2, y+h-2);
         g.drawLine(pen, x+w-2, y+2, x+w-2, y+h-3);
+		*/
     }
     
     public static function paintButtonBackGround(c:AbstractButton, g:Graphics2D, b:IntRectangle):Void{
@@ -338,7 +344,7 @@ class BasicGraphicsUtils{
 		var y:Float= b.y;
 		var w:Float= b.width;
 		var h:Float= b.height;
-        var colors:Array<UInt>= [0xFFFFFF, 0xFFFFFF];
+        var colors:Array<Int>= [0xFFFFFF, 0xFFFFFF];
 		var alphas:Array<Dynamic>= [0.75, 0];
 		var ratios:Array<Dynamic>= [0, 100];
 		var matrix:Matrix = new Matrix();
@@ -352,7 +358,7 @@ class BasicGraphicsUtils{
 		var y:Float= b.y;
 		var w:Float= b.width;
 		var h:Float= b.height;
-        var colors:Array<UInt>= [c1.getRGB(), c2.getRGB()];
+        var colors:Array<Int>= [c1.getRGB(), c2.getRGB()];
 		var alphas:Array<Dynamic>= [c1.getAlpha(), c2.getAlpha()];
 		if(ratios == null){
 			ratios = [0, 255];

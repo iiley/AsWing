@@ -3,7 +3,7 @@
 */
 
 package org.aswing;
-import flash.errors.Error;
+import org.aswing.error.Error;
 
 
 /**
@@ -29,11 +29,11 @@ class KeySequence implements KeyType{
 	 */
 	public function new(arguments: Array<Dynamic>){
 		if(Std.is(arguments[0] , KeyStroke)){
-			var key:KeyStroke = flash.Lib.as(arguments[0],KeyStroke);
+			var key:KeyStroke = AsWingUtils.as(arguments[0],KeyStroke);
 			codeSequence = [key.getCode()];
 			codeString = key.getDescription();
 			for(i in 1...arguments.length){
-				key = flash.Lib.as(arguments[i],KeyStroke);
+				key = AsWingUtils.as(arguments[i],KeyStroke);
 				codeString += (LIMITER+key.getDescription());
 				codeSequence.push(key.getCode());
 			}

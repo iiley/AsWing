@@ -1,8 +1,6 @@
 package org.aswing.ext;
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.util.DateAs;
-
-
 /**
  * The definition of a date range.
  * For a single day, you can set rangeStart and rangeEnd to be a same date, 
@@ -19,7 +17,7 @@ class DateRange{
 		this.rangeStart = rangeStart;
 		this.rangeEnd = rangeEnd;
 		resetInDay(this.rangeStart);
-		resetInDay(this.rangeEnd);
+		resetInDay(this.rangeEnd); 
 		if(rangeStart!=null && rangeEnd!=null){
 			if(rangeStart.getTime() > rangeEnd.getTime()){
 				throw new Error("rangeStart can not be later than rangeEnd.");  
@@ -36,7 +34,7 @@ class DateRange{
 	}
 	
 	public function getStartMonth():DateAs {
-	//(Std.int(date.getTime()), 0,0,0,0,0)	
+ 
 		return resetInMonth(  DateAs.fromTime( rangeStart.getTime()) );
 	}
 	

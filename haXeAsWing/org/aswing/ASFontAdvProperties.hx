@@ -5,8 +5,7 @@
 package org.aswing;
 
 
-import flash.text.AntiAliasType;
-import flash.text.GridFitType;
+ 
 import flash.text.TextField;
 	
 
@@ -20,36 +19,36 @@ import flash.text.TextField;
 class ASFontAdvProperties{
 	
 	
- 	private var antiAliasType:AntiAliasType;
- 	private var gridFitType:GridFitType;
+ 	private var antiAliasType:String;
+ 	private var gridFitType:String;
  	private var sharpness:Float;
  	private var thickness:Float;
  	private var embedFonts:Bool;
  	
 	public function new(
-		embedFonts:Bool=false, ?antiAliasType:AntiAliasType, 
-		?gridFitType:GridFitType, sharpness:Float=0, thickness:Float=0){
+		embedFonts:Bool=false, ?antiAliasType:String= "NORMAL", 
+		?gridFitType:String="PIXEL", sharpness:Float=0, thickness:Float=0){
 		this.embedFonts = embedFonts;
-		this.antiAliasType = antiAliasType!=null?antiAliasType: AntiAliasType.NORMAL;	
-		this.gridFitType = gridFitType!=null?gridFitType:  GridFitType.PIXEL;
+		this.antiAliasType = antiAliasType ;	
+		this.gridFitType = gridFitType ;
 		this.sharpness = sharpness;
 		this.thickness = thickness;
 	}
 	
-	public function getAntiAliasType():AntiAliasType{
-		return antiAliasType!=null?antiAliasType: AntiAliasType.NORMAL;
+	public function getAntiAliasType():String{
+		return antiAliasType!=null?antiAliasType: "NORMAL";
 	}
 	
-	public function changeAntiAliasType(newType:AntiAliasType):ASFontAdvProperties{
+	public function changeAntiAliasType(newType:String):ASFontAdvProperties{
 		
 		return new ASFontAdvProperties(embedFonts, newType, gridFitType, sharpness, thickness);
 	}
 	
-	public function getGridFitType():GridFitType{
-		return gridFitType!=null?gridFitType:  GridFitType.PIXEL;
+	public function getGridFitType():String{
+		return gridFitType!=null?gridFitType:  "PIXEL";
 	}
 	
-	public function changeGridFitType(newType:GridFitType):ASFontAdvProperties{
+	public function changeGridFitType(newType:String):ASFontAdvProperties{
 		return new ASFontAdvProperties(embedFonts, antiAliasType, newType, sharpness, thickness);
 	}
 	
@@ -82,12 +81,13 @@ class ASFontAdvProperties{
 	 * @param textField the text filed to be applied font.
 	 */
 	public function apply(textField:TextField):Void {
-
-		textField.embedFonts = isEmbedFonts();
-		textField.antiAliasType = getAntiAliasType();
-		textField.gridFitType = getGridFitType();
-		textField.sharpness = getSharpness();
-		textField.thickness = getThickness();
+		#if(flash9)
+			textField.embedFonts = isEmbedFonts();		
+			textField.antiAliasType = Type.createEnum(flash.text.AntiAliasType,getAntiAliasType());
+			textField.gridFitType = Type.createEnum(flash.text.GridFitType, getGridFitType());			
+			textField.sharpness = getSharpness();
+			textField.thickness = getThickness();
+		#end
 	}
 	
 	public function toString():String{

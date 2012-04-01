@@ -16,20 +16,22 @@ import org.aswing.event.AWEvent;
  * @author Igor Sadovskiy
  */
 class AbstractImpulser extends EventDispatcher , implements Impulser{
-	private var delay:UInt;
+	private var delay:Int;
 	private var initialDelay:Int;
-	private var repeats:Bool;
+	private var repeats:Int;
 	private var isInitalFire:Bool;
+	private var old_repeats:Int;
 		
 	/**
 	 * Constructs <code>AbstractImpulser</code>.
      * @throws Error when init delay <= 0 or delay == null
 	 */
-	public function new(delay:UInt, ?repeats:Bool=true){
+	public function new(delay:Int, ?repeats:Int=0){
 		this.delay = delay;
 		this.initialDelay = 0;
 		this.repeats = repeats;
 		this.isInitalFire = true;
+		old_repeats=repeats ;
 		super();
 	}
 	
@@ -63,7 +65,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
      * @see #setInitialDelay()
      * @throws Error when set delay <= 0 or delay == null
      */	
-	public function setDelay(delay:UInt):Void{
+	public function setDelay(delay:Int):Void{
 		this.delay = delay;
 	}
 	
@@ -73,7 +75,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
      * @see #setDelay()
      * @see #getInitialDelay()
      */	
-	public function getDelay():UInt{
+	public function getDelay():Int{
 		return delay;
 	}
 	
@@ -91,7 +93,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
      * @see #setDelay()
      * @throws Error when set initialDelay <= 0 or initialDelay == null
      */	
-	public function setInitialDelay(initialDelay:UInt):Void{
+	public function setInitialDelay(initialDelay:Int):Void{
 
 		this.initialDelay = initialDelay;
 	}
@@ -102,7 +104,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
      * @see #setInitialDelay()
      * @see #setDelay()
      */	
-	public function getInitialDelay():UInt{
+	public function getInitialDelay():Int{
 		if(initialDelay == 0){
 			return delay;
 		}else{
@@ -119,8 +121,9 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
      *             stop after sending its first action event.
      *             Default value is true.
 	 */
-	public function setRepeats(flag:Bool):Void{
+	public function setRepeats(flag:Int):Void{
 		repeats = flag;
+		old_repeats=repeats ;
 	}
 	
     /**
@@ -131,7 +134,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
      * @see #setRepeats()
      */	
 	public function isRepeats():Bool{
-		return repeats;
+		return repeats==0;
 	}
 	
 	public function isRunning():Bool{
@@ -142,5 +145,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
 	
 	public function start():Void{}
 	
-	public function restart():Void{}
+	public function restart():Void {
+	repeats=old_repeats ;
+		}
 }

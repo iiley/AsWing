@@ -8,21 +8,21 @@ package org.aswing;
 import flash.display.Stage;
 	import flash.display.Sprite;
 	import flash.display.InteractiveObject;
-	import flash.errors.Error;
+	import org.aswing.error.Error;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
 import flash.text.TextField;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 import org.aswing.event.MovedEvent;
 	import org.aswing.event.ResizedEvent;
 	import org.aswing.util.DepthManager;
 import org.aswing.util.ArrayList;
 import org.aswing.util.WeakMap;
-
+import org.aswing.AsWingUtils;
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
  * can.
@@ -68,7 +68,7 @@ class FocusManager{
 			return null;
 		}
 		var manager:FocusManager = managers.getValue(theStage);
-		if(manager == null){
+		if (manager == null) {  
 			manager = new FocusManager(theStage);
 			managers.put(theStage, manager);
 		}		
@@ -110,11 +110,11 @@ class FocusManager{
 		if(inited!=true){
 			stage = theStage;
 			inited = true;
-			stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange, false, 0, true);
-			stage.addEventListener(FocusEvent.MOUSE_FOCUS_CHANGE, __onMouseFocusChange, false, 0, true);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown, false, 0, true);
-			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp, false, 0, true);
-			stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown, false, 0, true);
+			stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange, false, 0, false);
+			stage.addEventListener(FocusEvent.MOUSE_FOCUS_CHANGE, __onMouseFocusChange, false, 0, false);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown, false, 0, false);
+			stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp, false, 0, false);
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown, false, 0, false);
 			focusRect = new Sprite();
 			focusRect.mouseEnabled = false;
 			focusRect.visible = false;
@@ -139,8 +139,8 @@ class FocusManager{
 			addListenerToFocusPaintedComponent();
 		}
 		
-		DepthManager.bringToTop(focusRect);
-		var p:Point = c.localToGlobal(new Point());
+		DepthManager.bringToTop(focusRect);		
+		var p:Point =  c.localToGlobal(new Point(0,0));
 		focusRect.x = p.x;
 		focusRect.y = p.y;
 		return focusRect;
@@ -179,12 +179,13 @@ class FocusManager{
 			focusPaintedComponent.paintFocusRect(true);
 		}
 	}
-	
+	 
 	/**
 	 * Un-init this focus manager.
 	 */
 	public function uninit():Void{
-		if(stage != null){
+		if (stage != null) {
+			 
 			stage.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, __onKeyFocusChange, false);
 			stage.removeEventListener(FocusEvent.MOUSE_FOCUS_CHANGE, __onMouseFocusChange, false);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown, false);
@@ -202,6 +203,7 @@ class FocusManager{
 			inited = false;
 			oldFocusOwner = null;
 			traversing = false;
+			
 		}
 	}
 	
@@ -212,18 +214,20 @@ class FocusManager{
 	private function __onMouseFocusChange(e:FocusEvent):Void{
 		//prevent default focus change if the related object is not tabEnabled
 		if(focusOwner != null){
-			var tar:InteractiveObject = flash.Lib.as(e.relatedObject, InteractiveObject)	;
+			var tar:InteractiveObject = AsWingUtils.as(e.relatedObject, InteractiveObject)	;
 			var is_tar:Bool=false;
 			if (Std.is(tar, Component))
 			{
-				var tc:Component = flash.Lib.as(tar, Component);
+				var tc:Component = AsWingUtils.as(tar, Component);
 				is_tar = !tc.isFocusable();
 			}
-			if(AsWingManager.isPreventNullFocus() 
-				&& (tar == null || !(Std.is(tar,TextField)|| tar.tabEnabled))
-				||is_tar){
-				e.preventDefault();
-			}
+			#if(flash9)	
+				if(AsWingManager.isPreventNullFocus() 
+					&& (tar == null || !(Std.is(tar,TextField)|| tar.tabEnabled))
+					||is_tar){
+					e.preventDefault();
+				}
+			#end
 		}
 	}
 	
@@ -231,10 +235,13 @@ class FocusManager{
 		if(!isTraversalEnabled()){
 			return;
 		}
-		if(focusOwner != null){
-			e.preventDefault();
+		if (focusOwner != null) {
+			#if (flash9)
+				e.preventDefault();
+			#end	
+			
 		}
-		if(e.keyCode != Keyboard.TAB){
+		if(Std.int(e.keyCode) != AWKeyboard.TAB){
 			return;
 		}
 		setTraversing(true);

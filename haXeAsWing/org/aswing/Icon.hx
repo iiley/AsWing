@@ -50,4 +50,5 @@ interface Icon  implements  Decorator
 	 * @param y the y coordinates of the icon should be.
 	 */
 	function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void;	
+	 
 }

@@ -7,7 +7,7 @@ package org.aswing.plaf.basic.icon;
 	
 import flash.display.Shape;
 	import flash.display.DisplayObject;
-	import flash.filters.BevelFilter;
+ 
 import flash.filters.BitmapFilterType;
 
 import org.aswing.Component;
@@ -29,7 +29,9 @@ class CheckBoxMenuItemCheckIcon extends MenuCheckIcon{
 	override public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
 		shape.graphics.clear();
 		g = new Graphics2D(shape.graphics);
-		var menu:AbstractButton = flash.Lib.as(c,AbstractButton);
+		var menu:AbstractButton = AsWingUtils.as(c, AbstractButton);
+		//why	
+		/*
 		if(menu.isSelected()){
 			g.beginDraw(new Pen(c.getMideground(), 2));
 			g.moveTo(x, y+4);
@@ -37,8 +39,11 @@ class CheckBoxMenuItemCheckIcon extends MenuCheckIcon{
 			g.lineTo(x+8, y+2);
 			g.endDraw();
 		}
+		*/
+		#if(flash9)
 		shape.filters =
-			[new BevelFilter(1, 90, 0x0, 0, 0xFFFFFF, 1, 1, 1, 1, 1, BitmapFilterType.OUTER)];
+			[new flash.filters.BevelFilter(1, 90, 0x0, 0, 0xFFFFFF, 1, 1, 1, 1, 1, BitmapFilterType.OUTER)];
+		#end
 	}
 	
 	override public function getDisplay(c:Component):DisplayObject{

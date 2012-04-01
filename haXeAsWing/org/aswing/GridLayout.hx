@@ -4,7 +4,7 @@
 package org.aswing;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.Component;
 import org.aswing.Container;
 import org.aswing.EmptyLayout;

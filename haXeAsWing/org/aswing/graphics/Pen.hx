@@ -136,7 +136,7 @@ class Pen implements IPen{
 	 */
 	public function setTo(target:Graphics):Void {
 	//
- //lineStyle(?thickness : Float, color : UInt = 0, alpha : Float = 1, pixelHinting : Bool = false, ?scaleMode : LineScaleMode, ?caps : CapsStyle, ?joints : JointStyle, miterLimit : Float = 3) : Void;
+ //lineStyle(?thickness : Float, color : Int = 0, alpha : Float = 1, pixelHinting : Bool = false, ?scaleMode : LineScaleMode, ?caps : CapsStyle, ?joints : JointStyle, miterLimit : Float = 3) : Void;
 		target.lineStyle(_thickness, _color.getRGB(), _color.getAlpha(), _pixelHinting,_scaleMode,_caps,_joints,_miterLimit);
 	}
 }

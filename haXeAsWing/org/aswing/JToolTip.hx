@@ -6,18 +6,19 @@ package org.aswing;
 
 
 import flash.display.DisplayObjectContainer;
-	import flash.display.InteractiveObject;
+	 
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point; 
 	import flash.Lib;
-
+	import org.aswing.AsWingManager;
 import org.aswing.event.ToolTipEvent;
 	import org.aswing.geom.IntPoint;
 	import org.aswing.geom.IntDimension;
 	import org.aswing.geom.IntRectangle;
 	import org.aswing.plaf.basic.BasicToolTipUI;
 import org.aswing.util.Timer;
+import org.aswing.AsWingUtils;
 
 /**
  * Dispatched when the tip text changed.
@@ -58,7 +59,7 @@ class JToolTip extends Container{
 	private var containerRoot:DisplayObjectContainer;
 	
 	private var tipText:String;
-	private var comp:InteractiveObject;
+	private var comp:Component;
 	private var offsets:IntPoint;
 	private var offsetsRelatedToMouse:Bool;
 	
@@ -72,7 +73,7 @@ class JToolTip extends Container{
 		offsetsRelatedToMouse = true;
 		waitThenPopupEnabled  = true;
 						
-		timer = new Timer(WAIT_TIME, false);
+		timer = new Timer(WAIT_TIME, 1);
 		timer.setInitialDelay(WAIT_TIME);
 		timer.addActionListener(__timeOnAction);
 		
@@ -116,7 +117,7 @@ class JToolTip extends Container{
 			var cr:DisplayObjectContainer=null;
 			if (getTargetComponent() != null) {
 			//cr = getTargetComponent().root as DisplayObjectContainer;	
-				cr = flash.Lib.as(getTargetComponent().root,DisplayObjectContainer)	;
+				cr = AsWingUtils.as(AsWingManager.getRoot(),DisplayObjectContainer)	;
 			}
 			if(cr == null){
 				cr = getDefaultToolTipContainerRoot();
@@ -179,13 +180,13 @@ class JToolTip extends Container{
 		return waitThenPopupEnabled;
 	}
 		
-	private function __compRollOver(source:InteractiveObject):Void{
+	private function __compRollOver(source:Component):Void{
 		if(source == comp && isWaitThenPopupEnabled()){
 			startWaitToPopup();
 		}
 	}
 	
-	private function __compRollOut(source:InteractiveObject):Void{
+	private function __compRollOut(source:Component):Void{
 		if(source == comp && isWaitThenPopupEnabled()){
 			disposeToolTip();
 		}
@@ -219,11 +220,12 @@ class JToolTip extends Container{
 		containerPane.addChild(this);
 		
 		var relatePoint:IntPoint = new IntPoint();
-		if(offsetsRelatedToMouse)	{
+		if (offsetsRelatedToMouse)	{
+	 
 			var gp:Point = containerPane.localToGlobal(new Point(containerPane.mouseX, containerPane.mouseY));
 			relatePoint.setWithPoint(gp);
 		}else{
-			relatePoint.setWithPoint(getTargetComponent().localToGlobal(new Point(0, 0)));
+			relatePoint.setWithPoint( getTargetComponent().localToGlobal(new Point(0, 0)));
 		}
 		moveLocationRelatedTo(relatePoint);
 	}
@@ -308,14 +310,15 @@ class JToolTip extends Container{
 	 * The component c may be null and will have no effect. 
 	 * @param the JComponent being described
 	 */
-	public function setTargetComponent(c:InteractiveObject):Void{
+	public function setTargetComponent(c:Component):Void{
 		if(c != comp){
-			if(comp != null){
-				unlistenOwner(comp);
+			if (comp != null) {
+			//why	
+				//unlistenOwner(comp);
 			}
 			comp = c;
 			if(comp != null){
-				listenOwner(comp);
+				listenOwner(comp,true);
 			}
 		}
 	}
@@ -325,7 +328,7 @@ class JToolTip extends Container{
 	 * The returned value may be null. 
 	 * @return the component that the tooltip describes
 	 */
-	public function getTargetComponent():InteractiveObject{
+	public function getTargetComponent():Component{
 		return comp;
 	}
 	
@@ -365,12 +368,13 @@ class JToolTip extends Container{
 		return offsetsRelatedToMouse;
 	}
 	
-	private function listenOwner(comp:InteractiveObject, useWeakReference:Bool= false):Void{
+	private function listenOwner(comp:Component, useWeakReference:Bool= false):Void{
 		comp.addEventListener(MouseEvent.ROLL_OVER, ____compRollOver, false, 0, useWeakReference);
 		comp.addEventListener(MouseEvent.ROLL_OUT, ____compRollOut, false, 0, useWeakReference);
 		comp.addEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut, false, 0, useWeakReference);
 	}
-	private function unlistenOwner(comp:InteractiveObject):Void{
+	private function unlistenOwner(comp:Component):Void {
+ 
 		comp.removeEventListener(MouseEvent.ROLL_OVER, ____compRollOver);
 		comp.removeEventListener(MouseEvent.ROLL_OUT, ____compRollOut);
 		comp.removeEventListener(MouseEvent.MOUSE_DOWN, ____compRollOut);
@@ -381,12 +385,12 @@ class JToolTip extends Container{
 	
 	//-----------can't override these------
 	private function ____compRollOver(e:Event):Void{
-		var source:InteractiveObject = flash.Lib.as(e.currentTarget,InteractiveObject)	;
+		var source:Component = AsWingUtils.as(e.currentTarget,Component)	;
 		__compRollOver(source);
 	}
 	
 	private function ____compRollOut(e:Event):Void{
-		var source:InteractiveObject = flash.Lib.as(e.currentTarget,InteractiveObject)	;
+		var source:Component = AsWingUtils.as(e.currentTarget,Component)	;
 		__compRollOut(source);
 	}
 }

@@ -6,8 +6,7 @@ package org.aswing.event;
 
 	
 import flash.events.KeyboardEvent;
-import flash.events.Event;
-import flash.ui.KeyLocation;
+import flash.events.Event; 
 
 class FocusKeyEvent extends KeyboardEvent{
 
@@ -22,7 +21,7 @@ class FocusKeyEvent extends KeyboardEvent{
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>charCode</code></td><td>The character code value of the key pressed or released.</td></tr>
      *     <tr><td><code>keyCode</code></td><td>The key code value of the key pressed or released.</td></tr>
-     *     <tr><td><code>keyLocation</code></td><td>The location of the key on the keyboard.</td></tr>
+     *     <tr><td><code>keyLocation</code></td><td>The location of the key on the AWKeyboard.</td></tr>
      *     <tr><td><code>ctrlKey</code></td><td>true if the Control key is active; false if it is inactive.</td></tr>
      *     <tr><td><code>altKey</code></td><td>false, reserved</td></tr>
      *     <tr><td><code>shiftKey</code></td><td>true if the Shift key is active; false if it is inactive.</td></tr>
@@ -51,7 +50,7 @@ class FocusKeyEvent extends KeyboardEvent{
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>charCode</code></td><td>The character code value of the key pressed or released.</td></tr>
      *     <tr><td><code>keyCode</code></td><td>The key code value of the key pressed or released.</td></tr>
-     *     <tr><td><code>keyLocation</code></td><td>The location of the key on the keyboard.</td></tr>
+     *     <tr><td><code>keyLocation</code></td><td>The location of the key on the AWKeyboard.</td></tr>
      *     <tr><td><code>ctrlKey</code></td><td>true if the Control key is active; false if it is inactive.</td></tr>
      *     <tr><td><code>altKey</code></td><td>false, reserved</td></tr>
      *     <tr><td><code>shiftKey</code></td><td>true if the Shift key is active; false if it is inactive.</td></tr>
@@ -69,7 +68,7 @@ class FocusKeyEvent extends KeyboardEvent{
 	 */	 	 
 	inline public static var FOCUS_KEY_UP:String= "focusKeyUp";		
  
-	public function new(type:String, ?charCode:UInt=0, ?keyCode:UInt=0, ?keyLocation:Dynamic, ?ctrlKey:Bool=false, ?altKey:Bool=false, ?shiftKey:Bool=false){
+	public function new(type:String, ?charCode:Int=0, ?keyCode:Int=0, ?keyLocation:Dynamic, ?ctrlKey:Bool=false, ?altKey:Bool=false, ?shiftKey:Bool=false){
 	
 		
 		

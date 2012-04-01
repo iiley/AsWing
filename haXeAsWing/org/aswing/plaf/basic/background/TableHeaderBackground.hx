@@ -6,8 +6,7 @@ package org.aswing.plaf.basic.background;
 
 
 import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.filters.BevelFilter;
+import flash.display.Shape; 
 import flash.filters.BitmapFilterType;
 import flash.geom.Matrix;
 
@@ -46,7 +45,8 @@ class TableHeaderBackground implements GroundDecorator,implements UIResource{
 			var style:StyleResult = new StyleResult(cl, turn);
 			var matrixB:IntRectangle = b.clone();
 			var graphicB:IntRectangle = b.clone();
-			graphicB.height += Std.int(style.round*2);
+			graphicB.height += Std.int(style.round * 2);
+
 			BasicGraphicsUtils.fillGradientRoundRect(g, graphicB, style, Math.PI/2, false, matrixB);
 
 			var matrix:Matrix = new Matrix();
@@ -58,9 +58,10 @@ class TableHeaderBackground implements GroundDecorator,implements UIResource{
 					[0, 255], 
 					matrix
 				), 
-				b.x, b.y, b.width, b.height/2-1, style.round, style.round, 0, 0);
-			shape.filters = [new BevelFilter(1, 90, 0xFFFFFF, style.shadow, 0x0, style.shadow, 1, 1, 1, 1, BitmapFilterType.INNER)];
-			
+				b.x, b.y, b.width, b.height / 2 - 1, style.round, style.round, 0, 0);
+			#if(flash9)
+			shape.filters = [new flash.filters.BevelFilter(1, 90, 0xFFFFFF, style.shadow, 0x0, style.shadow, 1, 1, 1, 1, BitmapFilterType.INNER)];
+			#end
 		}
 		shape.visible = c.isOpaque();
 	}

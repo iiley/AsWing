@@ -9,7 +9,7 @@ import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.display.DisplayObject;
-	import flash.errors.Error;
+	import org.aswing.error.Error;
 	import flash.events.MouseEvent;
 import flash.geom.Point;
 	import org.aswing.Component;
@@ -130,9 +130,9 @@ class DragManager{
 		//initial image
 		s_dragImage.switchToRejectImage();
 		__onMouseMoveOnStage(stage);
-		stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove, false, 0, true);
-		stage.addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown, false, 0, true);
-		stage.addEventListener(MouseEvent.MOUSE_UP, __onMouseUp, false, 0, true);
+		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove, false, 0, true);
+		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown, false, 0, true);
+		AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_UP, __onMouseUp, false, 0, true);
 	}
 		
 	/**
@@ -195,7 +195,7 @@ class DragManager{
 	 * @see #getDropTargetComponent()
 	 */
 	public static function getDropTargetComponent(pos:Point=null):Component{
-		return flash.Lib.as(getDropTarget(curStage, pos, Component) , Component);
+		return AsWingUtils.as(getDropTarget(curStage, pos, Component) , Component);
 	}
 	
 	/**
@@ -205,7 +205,7 @@ class DragManager{
 	 * @see #getDropTargetComponent()
 	 */
 	public static function getCurrentDropTargetComponent():Component{
-		return flash.Lib.as(getDropTarget(curStage, null, Component)  , Component);
+		return AsWingUtils.as(getDropTarget(curStage, null, Component)  , Component);
 	}
 	
 	/**
@@ -216,7 +216,7 @@ class DragManager{
 	 * @see #getDropTargetDropTriggerComponent()
 	 */
 	public static function getDropTragetDropTriggerComponent(pos:Point=null):Component{
-		return flash.Lib.as(getDropTarget(
+		return AsWingUtils.as(getDropTarget(
 			curStage, 
 			pos, 
 			Component, 
@@ -230,7 +230,7 @@ class DragManager{
 	 * @see #getDropTargetDropTriggerComponent()
 	 */
 	public static function getCurrentDropTargetDropTriggerComponent():Component{
-		return flash.Lib.as(getDropTarget(
+		return AsWingUtils.as(getDropTarget(
 			curStage, 
 			null, 
 			Component, 
@@ -265,7 +265,7 @@ class DragManager{
 			return null;
 		}
 		if(pos == null){
-			pos = new Point(stage.mouseX, stage.mouseY);
+			pos = new Point(AsWingManager.getStage().mouseX, AsWingManager.getStage().mouseY);
 		}
 		if(targetType == null){
 			targetType = DisplayObject;
@@ -273,7 +273,7 @@ class DragManager{
 		if(addtionCheck == null){
 			
 		}
-		var targets:Array<Dynamic>= stage.getObjectsUnderPoint(pos);
+		var targets:Array<Dynamic>= AsWingManager.getStage().getObjectsUnderPoint(pos);
 		var n:Int= targets.length;
 		for(i in 0...n ){
 			var tar:DisplayObject = targets[i];
@@ -291,7 +291,7 @@ class DragManager{
 	//---------------------------------------------------------------------------------
 	
 	private static function __onMouseMoveOnStage(stage:Stage):Void{
-		onMouseMove(stage.mouseX, stage.mouseY);
+		onMouseMove(AsWingManager.getStage().mouseX, AsWingManager.getStage().mouseY);
 	}
 	
 	private static function onMouseMove(mx:Float, my:Float):Void{
@@ -342,9 +342,9 @@ class DragManager{
 		dragProxyMC.stopDrag();
 		var globalPos:IntPoint = AsWingUtils.getStageMousePosition();
 		var stage:Stage = curStage;
-		stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
-		stage.removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
-		stage.removeEventListener(MouseEvent.MOUSE_UP, __onMouseUp);
+		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
+		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDown);
+		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_UP, __onMouseUp);
 		s_isDragging = false;
 		
 		if(enteredComponent != null){

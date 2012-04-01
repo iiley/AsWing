@@ -1,11 +1,11 @@
 package org.aswing.ext;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.Event;
 import flash.events.MouseEvent;
  
-
+import org.aswing.AsWingUtils;
 import org.aswing.ASColor;
 import org.aswing.BorderLayout;
 import org.aswing.BoxLayout;
@@ -77,12 +77,14 @@ class DateChooser extends JPanel{
 		var now:Date = Date.now() ;
 		var today:DateAs =   DateAs.fromTime(now.getTime());
 		disabledDays = new HashSet();
-		selectedDates = [];
+		selectedDates = []; 
 		selectableRange = new DateRange(
 			new DateAs(Std.int(today.getFullYear()-100), 1,1,0,0,0), 
-			new DateAs(Std.int(today.getFullYear()+50), 1,1,0,0,0));
+			new DateAs(Std.int(today.getFullYear()+20 ), 1, 1, 0, 0, 0));
+	 
 		createComponents();
 		setDisplayDate(today.getFullYear(), today.getMonth());
+			
 	}
 		
 	private function createComponents():Void{
@@ -176,7 +178,7 @@ class DateChooser extends JPanel{
 	}
 	
 	private function __dateLabelPress(e:MouseEvent):Void{
-		var label:DateLabel = flash.Lib.as(e.currentTarget,DateLabel)	;
+		var label:DateLabel = AsWingUtils.as(e.currentTarget,DateLabel)	;
 		var labelDate:DateAs = getDisplayLabelDate(label);
 		if(allowMultipleSelection)	{
 			if(!addSelection(labelDate, false)){
@@ -369,9 +371,9 @@ class DateChooser extends JPanel{
 	
 	private function getYearLabels():Array<Dynamic>{
 		var start:Int= selectableRange.getStart().getFullYear();
-		var end:Int= selectableRange.getEnd().getFullYear();
+		var end:Int = selectableRange.getEnd().getFullYear(); 
 		var labels:Array<Dynamic>= [];
-		var n:Int = end - start ;
+		var n:Int = end - start  ;
 	 
 		for(i in 0...n){
 			labels[i] = (start+i) + "";
@@ -430,7 +432,7 @@ class DateChooser extends JPanel{
 		displayMonthDays = days;
 		dateGridLayout.setMonth(indent, days);
 		
-		var displayMonthStart:DateAs = new DateAs(displayedYear, 0, 1, 0, 0, 0);
+		var displayMonthStart:DateAs = new DateAs(displayedYear, 1, 1, 0, 0, 0);
 		var displayMonthEnd:DateAs = new DateAs(displayedYear, 11, 1, 0, 0, 0);
 		var selMonthStart:DateAs = selectableRange.getStartMonth();
 		var selMonthEnd:DateAs = selectableRange.getEndMonth();
@@ -507,7 +509,7 @@ class DateChooser extends JPanel{
 	public function setSelectableRange(r:DateRange):Void{
 		if(r.getEnd() == null || r.getStart() == null){
 			throw new Error("Selectable range must have start and end date both.");  
-		}
+		} 
 		selectableRange = r;
 		yearCombo.setListData(getYearLabels());
 		if(!r.isInRange(displayDate)){
@@ -581,3 +583,4 @@ class DateChooser extends JPanel{
 	
 	
 }
+

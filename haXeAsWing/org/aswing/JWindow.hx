@@ -9,7 +9,7 @@ import flash.display.InteractiveObject;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.display.DisplayObjectContainer;
-	import flash.errors.Error;
+	import org.aswing.error.Error;
 	import flash.events.MouseEvent;
 
 import org.aswing.event.PopupEvent;
@@ -90,7 +90,7 @@ class JWindow extends JPopup{
 	 */
 	override public function setLayout(layout:LayoutManager):Void{
 		if(Std.is(layout,WindowLayout)){
-			var oldLayout:WindowLayout = flash.Lib.as(this.layout,WindowLayout)	;
+			var oldLayout:WindowLayout = AsWingUtils.as(this.layout,WindowLayout)	;
 			super.setLayout(layout);
 			if(oldLayout != null){
 				if(oldLayout.getTitleBar() != null){
@@ -163,7 +163,7 @@ class JWindow extends JPopup{
 	 * this window's owner is a JWindow, else return null;
 	 */
 	public function getWindowOwner():JWindow{
-		return flash.Lib.as(owner,JWindow)	;
+		return AsWingUtils.as(owner,JWindow)	;
 	}
 	
 	/**
@@ -344,7 +344,7 @@ class JWindow extends JPopup{
 		var oldLookActiveFrom:JWindow = lootActiveFrom;
 		lootActiveFrom = activeOwner;
 		if(lootActiveFrom != null){
-			lootActiveFrom.addEventListener(PopupEvent.POPUP_CLOSED, __lootActiveFromHide, false, 0, true);
+			lootActiveFrom.addEventListener(PopupEvent.POPUP_CLOSED, __lootActiveFromHide, false, 0, false);
 		}
 		if(activeOwner != null && activeOwner.getLootActiveFrom() == this){
 			activeOwner.setLootActiveFrom(oldLookActiveFrom);
@@ -365,7 +365,7 @@ class JWindow extends JPopup{
 		actived = true;
 		var vec:ArrayList = fm.getPopupsVector();
 		for(i in 0...vec.size()){
-			var w:JWindow =flash.Lib.as( vec.get(i) , JWindow);
+			var w:JWindow =AsWingUtils.as( vec.get(i) , JWindow);
 			if(w != null && w != this){
 				if(w.isActive()){
 					w.deactive(w.stage, programmatic);

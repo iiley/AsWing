@@ -6,7 +6,7 @@ package org.aswing;
 
 	
 import flash.display.DisplayObject; 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.event.ContainerEvent;
 	import org.aswing.geom.IntDimension;
 //--------------------------------------
@@ -198,7 +198,7 @@ class Container extends Component{
 	 */
 	public function appendAll(coms: Array<Dynamic>):Void{
 		for (i in 0...coms.length ){
-			var com:Component = flash.Lib.as(coms[i],Component)	;
+			var com:Component = AsWingUtils.as(coms[i],Component)	;
 			if(com != null){
 				append(com);
 			}
@@ -227,7 +227,7 @@ class Container extends Component{
 	 */
 	public function insertAll(index:Int, coms: Array<Dynamic>):Void{
 		for (i in coms ){
-			var com:Component = flash.Lib.as(i,Component)	;
+			var com:Component = AsWingUtils.as(i,Component)	;
 			if(com != null){
 				insert(index, com);
 				index++;
@@ -314,7 +314,7 @@ class Container extends Component{
 	
 	private function checkChildRemoval(child:DisplayObject):Void{
 		if(Std.is(child,Component)){
-			var c:Component = flash.Lib.as(child,Component)	;
+			var c:Component = AsWingUtils.as(child,Component)	;
 			if(c.getParent() != null){
 				throw new Error("You should call remove method to remove a component child!");
 			}
@@ -362,6 +362,7 @@ class Container extends Component{
 		}
 		return com;
 	}
+	
 	
 	/**
 	 * Remove all child components.
@@ -513,5 +514,6 @@ class Container extends Component{
 		}
 		return size;
 	}    
+	 
 	
 }

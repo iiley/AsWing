@@ -5,7 +5,7 @@
 package org.aswing.table;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.DefaultListSelectionModel;
 import org.aswing.ListSelectionModel;
 import org.aswing.util.ArrayUtils;
@@ -118,7 +118,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 			fireColumnMoved(new TableColumnModelEvent(this, columnIndex, newIndex));
 			return ;
 		}
-		aColumn =flash.Lib.as(tableColumns[columnIndex], TableColumn);
+		aColumn =AsWingUtils.as(tableColumns[columnIndex], TableColumn);
 		tableColumns.splice(columnIndex, 1);
 		var selected:Bool= selectionModel.isSelectedIndex(columnIndex);
 		selectionModel.removeIndexInterval(columnIndex, columnIndex);
@@ -190,7 +190,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 		var aColumn:TableColumn;
 		var index:Int= 0;
 		for(i in 0...enumeration.length){
-			aColumn = flash.Lib.as(enumeration[i],TableColumn);
+			aColumn = AsWingUtils.as(enumeration[i],TableColumn);
 			if (identifier == aColumn.getIdentifier()){
 				return index;
 			}
@@ -209,7 +209,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 	 *				at <code>columnIndex</code>
 	 */	
 	public function getColumn(columnIndex:Int):TableColumn{
-		return flash.Lib.as(tableColumns[columnIndex],TableColumn);
+		return AsWingUtils.as(tableColumns[columnIndex],TableColumn);
 	}
 	
 	/**
@@ -410,7 +410,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
 		for (i in 0...(listeners.length ) ){
-			var lis:TableColumnModelListener = flash.Lib.as(listeners[i],TableColumnModelListener);
+			var lis:TableColumnModelListener = AsWingUtils.as(listeners[i],TableColumnModelListener);
 			lis.columnAdded(e);
 		}
 	}
@@ -420,7 +420,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
 		for (i in 0...(listeners.length  ) ){
-			var lis:TableColumnModelListener = flash.Lib.as(listeners[i],TableColumnModelListener);
+			var lis:TableColumnModelListener = AsWingUtils.as(listeners[i],TableColumnModelListener);
 			lis.columnRemoved(e);
 		}
 	}
@@ -430,7 +430,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
 		for (i in 0...(listeners.length ) ){
-			var lis:TableColumnModelListener = flash.Lib.as(listeners[i],TableColumnModelListener);
+			var lis:TableColumnModelListener = AsWingUtils.as(listeners[i],TableColumnModelListener);
 			lis.columnMoved(e);
 		}
 	}
@@ -440,7 +440,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
 		for (i in 0...(listeners.length ) ){
-			var lis:TableColumnModelListener = flash.Lib.as(listeners[i],TableColumnModelListener);
+			var lis:TableColumnModelListener = AsWingUtils.as(listeners[i],TableColumnModelListener);
 			lis.columnSelectionChanged(this, firstIndex, lastIndex, programmatic);
 		}
 	}
@@ -450,7 +450,7 @@ class DefaultTableColumnModel implements TableColumnModel{
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
 		for (i in 0...(listeners.length  ) ){
-			var lis:TableColumnModelListener = flash.Lib.as(listeners[i],TableColumnModelListener);
+			var lis:TableColumnModelListener = AsWingUtils.as(listeners[i],TableColumnModelListener);
 			lis.columnMarginChanged(this);
 		}
 	}

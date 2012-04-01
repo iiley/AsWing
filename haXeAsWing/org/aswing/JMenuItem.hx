@@ -5,7 +5,7 @@
 package org.aswing;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.plaf.ComponentUI;
 	import org.aswing.plaf.MenuElementUI;
 	import org.aswing.plaf.basic.BasicMenuItemUI;
@@ -25,11 +25,13 @@ class JMenuItem extends AbstractButton , implements MenuElement{
 	
 	public function new(text:String="", icon:Icon=null){
 		super(text, icon);
+		setClipMasked(true);
 		setName("JMenuItem");
 		setModel(new DefaultButtonModel());
 		initFocusability();
 		menuInUse = false;
 		accelerator = null;
+		
 	}
 	
 	override public function updateUI():Void{
@@ -61,7 +63,7 @@ class JMenuItem extends AbstractButton , implements MenuElement{
      * @return the menu element ui.
      */
     public function getMenuElementUI():MenuElementUI{
-    	return flash.Lib.as(getUI() , MenuElementUI);
+    	return AsWingUtils.as(getUI() , MenuElementUI);
     }
 	
 	override public function getUIClassID():String{
@@ -115,10 +117,10 @@ class JMenuItem extends AbstractButton , implements MenuElement{
 		do{
 			pp = pp.getParent();
 			if(Std.is(pp,JPopupMenu)){
-				pp = flash.Lib.as(pp,JPopupMenu).getInvoker();
+				pp = AsWingUtils.as(pp,JPopupMenu).getInvoker();
 			}
 			if(Std.is(pp,JRootPane)){
-				return flash.Lib.as(pp,JRootPane);
+				return AsWingUtils.as(pp,JRootPane);
 			}
 		}while(pp != null);
 		return null;
@@ -173,7 +175,7 @@ class JMenuItem extends AbstractButton , implements MenuElement{
 		return this;
 	}
 	
-	public function processKeyEvent(code : UInt) : Void{
+	public function processKeyEvent(code : Int) : Void{
 		getMenuElementUI().processKeyEvent(code);
 	}	
 }

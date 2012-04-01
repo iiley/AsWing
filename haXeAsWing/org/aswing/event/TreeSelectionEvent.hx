@@ -5,7 +5,7 @@
 package org.aswing.event;
  
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.tree.TreePath;
 import flash.events.Event;
 

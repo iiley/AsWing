@@ -17,8 +17,7 @@ import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
-	import flash.Lib;
-	import flash.utils.TypedDictionary; 
+	import flash.Lib; 
 
 import org.aswing.dnd.SourceData;
 	import org.aswing.event.PropertyChangeEvent;
@@ -37,9 +36,9 @@ import org.aswing.dnd.SourceData;
 	import org.aswing.plaf.InsetsUIResource;
 	import org.aswing.plaf.UIResource;
 	import org.aswing.plaf.DefaultEmptyDecoraterResource;
-	import org.aswing.util.HashMap;
+ 
 	import org.aswing.util.Reflection;
-
+	
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -176,13 +175,13 @@ class Component extends AWSprite{
 	 * The max interval time to judge whether click was continuously.
 	 */
 	private static var MAX_CLICK_INTERVAL:Int= 400;
-	
+	private static var AWML_INDEX:Int= 0;
 	private var ui:ComponentUI;
 	public var container:Container;
-	private var clientProperty:HashMap;
+	private var clientProperty:Hash<Dynamic>;
 	
 	private var awmlID:String;
-	private var awmlIndex:Float;
+	private var awmlIndex:Int;
 	private var awmlNamespace:String;
 	
 	private var clipBounds:IntRectangle;
@@ -222,14 +221,16 @@ class Component extends AWSprite{
 	private var toolTipText:String;
 	private var dragEnabled:Bool;
 	private var dropTrigger:Bool;
-	private var dragAcceptableInitiator:TypedDictionary<Dynamic,Dynamic> ;
+	private var dragAcceptableInitiator:IntHash<Bool>;
 	private var dragAcceptableInitiatorAppraiser:Dynamic->Bool;
 	private var resizerMargin:Insets;
 	
 	public function new()
 	{
+		AWML_INDEX++;
+		awmlIndex = AWML_INDEX;
 		drawTransparentTrigger=true;
-			super(true);
+			super();
 		setName("Component");
 		ui = null;
 		clientProperty = null;
@@ -262,17 +263,16 @@ class Component extends AWSprite{
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDown);
 		addEventListener(MouseEvent.CLICK, __mouseClick);
 		addEventListener(Event.ADDED, __componentAdded);
-		
-		AsWingUtils.weakRegisterComponent(this);
+		 
 	}
 	
 	private function __componentAdded(e:Event):Void{
 		if(isUIElement()){
-			var dis:DisplayObject = flash.Lib.as(e.target,DisplayObject)	;
+			var dis:DisplayObject = AsWingUtils.as(e.target,DisplayObject)	;
 			if(dis != null){
 				if(dis != this){
 					if(AsWingUtils.getOwnerComponent(dis.parent) == this){
-						makeAllTobeUIElement(flash.Lib.as(e.target,DisplayObject)	);
+						makeAllTobeUIElement(AsWingUtils.as(e.target,DisplayObject)	);
 					}
 				}
 			}
@@ -284,11 +284,11 @@ class Component extends AWSprite{
 			return;
 		}
 		if(Std.is(dis,Component)){
-			var c:Component = flash.Lib.as(dis,Component)	;
+			var c:Component = AsWingUtils.as(dis,Component)	;
 			c.uiElement = true;
 		}
 		if(Std.is(dis,DisplayObjectContainer)){
-			var con:DisplayObjectContainer = flash.Lib.as(dis,DisplayObjectContainer)	;
+			var con:DisplayObjectContainer = AsWingUtils.as(dis,DisplayObjectContainer)	;
 			for(i in 0...con.numChildren ){
 				makeAllTobeUIElement(con.getChildAt(i));
 			}
@@ -340,7 +340,7 @@ class Component extends AWSprite{
 	 * 
 	 * @param index the position index of the component
 	 */
-	public function setAwmlIndex(index:Float):Void{
+	public function setAwmlIndex(index:Int):Void{
 		awmlIndex = index;	
 	}
 
@@ -349,7 +349,7 @@ class Component extends AWSprite{
 	 * 
 	 * @return the component index in the AWML
 	 */
-	public function getAwmlIndex():Float{
+	public function getAwmlIndex():Int{
 		return awmlIndex;	
 	}
 	    
@@ -496,7 +496,7 @@ class Component extends AWSprite{
 	 * Border's display object will always on top of background decorator but under other assets.
 	 * @param border the new border to set, or null.
 	 */
-	public function setBorder(b:Border):Void{
+	public function setBorder(b:Border):Void { 
 		if(b != border){
 			if(border != null && border.getDisplay(this) != null){
 				removeChild(border.getDisplay(this));
@@ -567,7 +567,7 @@ class Component extends AWSprite{
 	 */
 	public function setBackgroundDecorator(bg:GroundDecorator):Void{
 		if(bg != backgroundDecorator){
-			var old:Dynamic= backgroundDecorator;
+			var old:GroundDecorator= backgroundDecorator;
 			backgroundDecorator = bg;
 			if(bg != null){
 				setBackgroundChild(bg.getDisplay(this));
@@ -933,7 +933,7 @@ class Component extends AWSprite{
 		}else if(getParent() != null){
         	return getParent();
         }else if(Std.is(parent,Component)){
-        	return  flash.Lib.as(parent,Component);
+        	return  AsWingUtils.as(parent,Component);
         }else{
         	return null;
         }	
@@ -1064,16 +1064,7 @@ class Component extends AWSprite{
 		setSizeWH(w, h);
 	}
 	
-	/**
-	 * Same to DisplayObject.getBounds(), 
-	 * just add a explaination here that if you want to get the component bounds, 
-	 * see {@link #getComBounds()} method.
-	 * @see #getComBounds()
-	 * @see #setComBounds()
-	 */
-	override public function getBounds(targetCoordinateSpace:DisplayObject):Rectangle{
-		return super.getBounds(targetCoordinateSpace);
-	}
+	 
 	
 	/**
 	 * <p>Stores the bounds value of this component into "return value" rv and returns rv. 
@@ -1167,7 +1158,7 @@ class Component extends AWSprite{
 	 * @see MovieClip.globalToLocal()
 	 */
 	public function getGlobalLocation(rv:IntPoint=null):IntPoint{
-		var gp:Point = localToGlobal(new Point(0, 0));
+		var gp:Point =  this.localToGlobal(new Point(0, 0));
 		if(rv != null){
 			rv.setLocationXY(Std.int(gp.x), Std.int(gp.y));
 			return rv;
@@ -1184,7 +1175,8 @@ class Component extends AWSprite{
 	
 	public function componentToGlobal(p:IntPoint):IntPoint{
 		var np:Point = new Point(p.x, p.y);
-		np = localToGlobal(np);
+	 
+		np =   this.localToGlobal(np);
 		return new IntPoint(Std.int(np.x), Std.int(np.y));
 	}	
 	
@@ -1403,7 +1395,9 @@ class Component extends AWSprite{
      */	
 	public function setFocusable(b:Bool):Void{
 		focusable = b;
+		#if(flash9)
 		getInternalFocusObject().tabEnabled = b;
+		#end
 		setFocusableSet(true);
 	}
 	
@@ -1487,9 +1481,9 @@ class Component extends AWSprite{
 	 */
 	public function addDragAcceptableInitiator(com:Component):Void{
 		if(dragAcceptableInitiator == null){
-			dragAcceptableInitiator = new TypedDictionary<Dynamic,Dynamic>(true);
+			dragAcceptableInitiator = new IntHash<Bool>();
 		}
-		  dragAcceptableInitiator.set(com,true);
+		  dragAcceptableInitiator.set(com.getAwmlIndex(), true);
 	}
 	
 	/**
@@ -1501,8 +1495,7 @@ class Component extends AWSprite{
 		if(dragAcceptableInitiator != null){
 			//dragAcceptableInitiator[com] = undefined;
 			//delete dragAcceptableInitiator[com];
-			//Reflect.deleteField(dragAcceptableInitiator,   com.toString()); 
-			dragAcceptableInitiator.delete(com);
+			 dragAcceptableInitiator.remove(com.getAwmlIndex()); 
 		}
 	}
 	
@@ -1523,7 +1516,7 @@ class Component extends AWSprite{
 	 */
 	public function isDragAcceptableInitiator(com:Component):Bool{
 		if(dragAcceptableInitiator != null){
-			return untyped dragAcceptableInitiator[com] == true;
+			return   dragAcceptableInitiator.get(com.getAwmlIndex()) == true;
 		}else{
 			if(dragAcceptableInitiatorAppraiser != null){
 				return dragAcceptableInitiatorAppraiser(com);
@@ -1657,7 +1650,7 @@ class Component extends AWSprite{
 	/**
 	 * @see getWidth()
 	 */
-	@:getter(width)
+	 
 	 public function get_width():Float{
 		return getWidth();
 	}
@@ -1674,7 +1667,7 @@ class Component extends AWSprite{
 	/**
 	 * @see getHeight()
 	 */	
-	@:getter(height)
+	 
 	 public function get_height():Float{
 		return getHeight();
 	}
@@ -1735,12 +1728,12 @@ class Component extends AWSprite{
      * @return the value of this property or null
      * @see #putClientProperty()
      */
-    public function getClientProperty(key:Dynamic, ?defaultValue:Dynamic):Dynamic{
+    public function getClientProperty(key:String, ?defaultValue:Dynamic):Dynamic{
     	if(clientProperty == null){
     		return defaultValue;
     	}
-    	if(clientProperty.containsKey(key)){
-    		return clientProperty.getValue(key);
+    	if(clientProperty.exists(key)){
+    		return clientProperty.get(key);
     	}else{
     		return defaultValue;
     	}
@@ -1761,12 +1754,12 @@ class Component extends AWSprite{
      * @param value the new client property value
      * @see #getClientProperty()
      */    
-    public function putClientProperty(key:Dynamic, value:Dynamic):Void{
+    public function putClientProperty(key:String, value:Dynamic):Void{
     	//Lazy initialization
     	if(clientProperty == null){
-    		clientProperty = new HashMap();
+    		clientProperty = new Hash<Dynamic>();
     	}
-    	clientProperty.put(key, value);
+    	clientProperty.set(key, value);
     }
 	
 	/**
@@ -2251,10 +2244,10 @@ class Component extends AWSprite{
 		if(backgroundDecorator != null){
 			backgroundDecorator.updateDecorator(this, g, b.clone());
 		}
-		if(ui != null){
+		if (ui != null) { 
 			ui.paint(this, g, b.clone());
 		}
-		paintFocusRect();
+		//paintFocusRect();
 		//paint border at last to make it at the top depth
 		if(border != null){
 			// not that border is not painted in b, is painted in component's full size bounds
@@ -2281,14 +2274,14 @@ class Component extends AWSprite{
 			if(force || fm.isTraversing() && isFocusOwner()){
 				var fr:Sprite = fm.moveFocusRectUpperTo(this);
 				fr.graphics.clear();
-				ui.paintFocus(this, new Graphics2D(fr.graphics), new IntRectangle(0, 0, Std.int(width), Std.int(height)));
+				ui.paintFocus(this, new Graphics2D(fr.graphics), new IntRectangle(0, 0, Std.int(getWidth()), Std.int(getHeight())));
 			}
 		}
 	}
 	
 	private function layoutClipAndTrigger(paintBounds:IntRectangle):Void{
 		if(paintBounds == null){
-			var b:IntRectangle = new IntRectangle(0, 0, Std.int(width), Std.int(height));
+			var b:IntRectangle = new IntRectangle(0, 0, Std.int(getWidth()), Std.int(getHeight()));
 			var r:IntRectangle = getPaintBoundsInRoot();
 			var x1:Int= Std.int(Math.max(b.x, r.x));
 			var x2:Int= Std.int(Math.min(b.x + b.width, r.x + r.width));
@@ -2406,7 +2399,7 @@ class Component extends AWSprite{
 		var pa:DisplayObject = parent;
 		while(pa != null){
 			if(Std.is(pa,JRootPane)){
-				return flash.Lib.as(pa,JRootPane)	;
+				return AsWingUtils.as(pa,JRootPane)	;
 			}
 			pa = pa.parent;
 		}
@@ -2486,7 +2479,7 @@ class Component extends AWSprite{
     private function transferFocusWithDirection(dir:Float):Bool{
         var pa:Container = getParent();
         if(pa == null){
-        	pa = flash.Lib.as(this , Container);
+        	pa = AsWingUtils.as(this , Container);
         }
         if(pa != null){
         	var nextFocus:Component = null;
@@ -2552,9 +2545,11 @@ class Component extends AWSprite{
     		getFocusTransmit().requestFocus();
     	}else{
     		var ifo:InteractiveObject = getInternalFocusObject();
-    		if(ifo != stage.focus){
-    			stage.focus = ifo;
-    		}
+			#if(flash9)
+				if(ifo != stage.focus){
+					stage.focus = ifo;
+				}
+			#end
     	}
     }
     
@@ -2661,7 +2656,7 @@ class Component extends AWSprite{
 		if(isDragEnabled()){
 			addEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
 			addEventListener(MouseEvent.ROLL_OUT, __rollOut);
-			stage.addEventListener(MouseEvent.MOUSE_UP, __mouseUp, false, 0, true);
+			stage.addEventListener(MouseEvent.MOUSE_UP, __mouseUp, false, 0, false);
 			pressingPoint = getMousePosition();
 		}
 	}
@@ -2684,12 +2679,14 @@ class Component extends AWSprite{
 			return;
 		}
 		var focusOwner:Component = fm.getFocusOwner();
-		var target:DisplayObject = flash.Lib.as(e.target,DisplayObject)	;
+		var target:DisplayObject = AsWingUtils.as(e.target,DisplayObject)	;
 		if(focusOwner == null){
 			var focusObj:InteractiveObject = null;
+			#if (flash9)
 			if(stage != null){
-				focusObj = stage.focus;
+			 	focusObj = stage.focus;
 			}
+			#end
 			if(focusObj == null){
 				requestFocus();
 			}else if(!contains(focusObj)){
@@ -2713,7 +2710,7 @@ class Component extends AWSprite{
 	}
 	
 	private var pressingPoint:IntPoint;
-	private function __mouseUp(e:MouseEvent):Void{
+	private function __mouseUp(e:MouseEvent):Void { 
 		stopListernDragRec();
 	}
 	private function __mouseMove(e:MouseEvent):Void{
@@ -2727,9 +2724,9 @@ class Component extends AWSprite{
 		stopListernDragRec();
 	}
 	private function stopListernDragRec():Void{
-		removeEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
-		removeEventListener(MouseEvent.ROLL_OUT, __rollOut);
-		stage.removeEventListener(MouseEvent.MOUSE_UP, __mouseUp);
+		//removeEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
+		//removeEventListener(MouseEvent.ROLL_OUT, __rollOut);
+		//stage.removeEventListener(MouseEvent.MOUSE_UP, __mouseUp);
 	}
 	
 	private function __focusIn(e:FocusEvent):Void{
@@ -2748,9 +2745,9 @@ class Component extends AWSprite{
 	}
 	
 	private function __focusOut(e:FocusEvent):Void{
-		//if(e.relatedObject == null){
-		//	return;
-		//}
+		 if(e.relatedObject == null){
+		 	return;
+		 }
 		if(e.target == getInternalFocusObject() && isFocusable()){
 			var fm:FocusManager = FocusManager.getManager(stage);
 			if(fm == null){
@@ -2763,12 +2760,12 @@ class Component extends AWSprite{
    			}
 		}
 	}
-	
+	/*
 	override public function toString():String {
 	  	
 		return  Reflection.getClassName(this)+ "[asset:" +super.toString()  + "]";
 	}
-
+*/
 	public var d_y(get_d_y,set_d_y):Float;
 
 	public var d_x(get_d_x, set_d_x):Float;

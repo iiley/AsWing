@@ -4,16 +4,16 @@
 
 package org.aswing.plaf.basic.adjuster;
 
-
-import flash.filters.DropShadowFilter;
+ 
 import flash.filters.GlowFilter;
-
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
 import org.aswing.StyleTune;
-	import org.aswing.geom.IntRectangle;
-	import org.aswing.geom.IntDimension;
-	import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.SolidBrush;
-	import org.aswing.plaf.basic.BasicSliderUI;
+import org.aswing.geom.IntRectangle;
+import org.aswing.geom.IntDimension;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.SolidBrush;
+import org.aswing.plaf.basic.BasicSliderUI;
 
 /**
  * SliderUI for JAdjuster popup slider.
@@ -69,9 +69,11 @@ class PopupSliderUI extends BasicSliderUI{
 			radius = style.round;
 		}
 		g.fillRoundRect(new SolidBrush(slider.getBackground()), b.x, b.y, b.width, b.height, radius);
-		trackCanvas.filters = [
-			new GlowFilter(0x0, style.shadowAlpha, 5, 5, 1, 1, true), 
-			new DropShadowFilter(1, 45, 0xFFFFFF, 0.3, 1, 1, 1, 1)];		
+		var f :Array<BitmapFilter> = new Array<BitmapFilter>();
+		
+		f.push(new  GlowFilter(0x0, style.shadowAlpha, 5, 5, 1, 1, true));
+		f.push(new  DropShadowFilter(1, 45, 0xFFFFFF, 0.3, 1, 1, 1, 1));	
+		trackCanvas.filters = f;
 	}
 		
 		

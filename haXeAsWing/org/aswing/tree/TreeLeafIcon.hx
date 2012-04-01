@@ -48,7 +48,7 @@ class TreeLeafIcon implements Icon,implements UIResource{
 		points.push( new Point( b.width, 						b.height ) );
 		points.push( new Point( b.x, 								b.height ) );
 		
-    var colors:Array<UInt>= [0xE6E9EE, 0x8E94BD];
+    var colors:Array<Int>= [0xE6E9EE, 0x8E94BD];
 		var alphas:Array<Dynamic>= [100/255, 100/255];
 		var ratios:Array<Dynamic>= [0, 255];
 		var matrix:Matrix = new Matrix();
@@ -67,5 +67,9 @@ class TreeLeafIcon implements Icon,implements UIResource{
 
 	public function getDisplay(c:Component):DisplayObject{
 		return null;
+	}
+	public function destroy():Void
+	{
+		 
 	}
 }

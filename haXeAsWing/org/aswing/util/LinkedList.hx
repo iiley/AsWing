@@ -3,7 +3,7 @@
 */
 package org.aswing.util;
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.util.ListNode;
 /**
  * Linked list implementation of the List interface.

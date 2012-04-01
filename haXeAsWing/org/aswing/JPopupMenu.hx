@@ -5,7 +5,7 @@
 package org.aswing;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.Event;
 import flash.events.MouseEvent;
 
@@ -95,7 +95,7 @@ class JPopupMenu extends Container , implements MenuElement{
      * @return the menu element ui.
      */
     public function getMenuElementUI():MenuElementUI{
-    	return flash.Lib.as(getUI() , MenuElementUI);
+    	return AsWingUtils.as(getUI() , MenuElementUI);
     }
 	
 	override public function getUIClassID():String{
@@ -274,6 +274,7 @@ class JPopupMenu extends Container , implements MenuElement{
 		if(isPopupMenu()){
 			setInUse(false);
 		}
+		
 	}
 	
 	/**
@@ -290,7 +291,7 @@ class JPopupMenu extends Container , implements MenuElement{
 				(mp.getInvoker().getParent() != null) &&
 				(	Std.is(mp.getInvoker().getParent() ,JPopupMenu))
 			  ) {
-			mp = flash.Lib.as(mp.getInvoker().getParent(),JPopupMenu);
+			mp = AsWingUtils.as(mp.getInvoker().getParent(),JPopupMenu);
 		}
 		return mp;
 	}
@@ -307,7 +308,7 @@ class JPopupMenu extends Container , implements MenuElement{
 		for (i in 0 ...ncomponents ){
 			var comp:Component = getComponent(i);
 			if (Std.is(comp,JMenu)) {
-				var menu:JMenu = flash.Lib.as(comp,JMenu);
+				var menu:JMenu = AsWingUtils.as(comp,JMenu);
 				var subPopup:JPopupMenu = menu.getPopupMenu();
 				if (subPopup == popupMenu){
 					return true;
@@ -354,20 +355,20 @@ class JPopupMenu extends Container , implements MenuElement{
 	private function __popMenuChildAdd(e:ContainerEvent) : Void{
 		var child:Component = e.getChild();
 		if(Std.is(child,MenuElement)){
-			flash.Lib.as(child,MenuElement).setInUse(isInUse());
+			AsWingUtils.as(child,MenuElement).setInUse(isInUse());
 		}
 	}
 
 	private function __popMenuChildRemove(e:ContainerEvent) : Void{
 		var child:Component = e.getChild();
 		if(Std.is(child,MenuElement)){
-			flash.Lib.as(child,MenuElement).setInUse(false);
+			AsWingUtils.as(child,MenuElement).setInUse(false);
 		}
 	}
 	
 	public function menuSelectionChanged(isIncluded : Bool) : Void{
 		if(Std.is(invoker,JMenu)) {
-			var m:JMenu = flash.Lib.as(invoker,JMenu);
+			var m:JMenu = AsWingUtils.as(invoker,JMenu);
 			if(isIncluded)	{
 				m.setPopupMenuVisible(true);
 			}else{
@@ -394,7 +395,7 @@ class JPopupMenu extends Container , implements MenuElement{
 		return this;
 	}
 	
-	public function processKeyEvent(code : UInt) : Void{
+	public function processKeyEvent(code : Int) : Void{
 		getMenuElementUI().processKeyEvent(code);
 	}
 
@@ -403,8 +404,9 @@ class JPopupMenu extends Container , implements MenuElement{
 	    	menuInUse = b;
 	    	var subs:Array<Dynamic>= getSubElements();
 	    	for(i in 0...subs.length){
-	    		var ele:MenuElement = flash.Lib.as(subs[i],MenuElement);
-	    		ele.setInUse(b);
+	    		var ele:MenuElement = AsWingUtils.as(subs[i],MenuElement);
+	    		//why
+				if(ele!=null)ele.setInUse(b);
 	    	}
     	}
     }
@@ -421,7 +423,7 @@ class JPopupMenu extends Container , implements MenuElement{
 		var hasPopupWindowShown:Bool= ps.length > 0;
 		
 		for(i in 0...ps.length){
-			var pp:JPopup = flash.Lib.as(ps[i],JPopup);
+			var pp:JPopup = AsWingUtils.as(ps[i],JPopup);
 			if(pp.hitTestMouse()){
 				hittedPopupMenu = true;
 				break;
@@ -441,7 +443,7 @@ class JPopupMenu extends Container , implements MenuElement{
 	
 	private function __addMouseDownListenerToStage(?e:Event=null):Void{
 		if(showingMenuPopups.size()>0 && !popupMenuMouseDownListening && stage != null){
-			stage.addEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown, false, 0, true);
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown, false, 0, true);
 			popupMenuMouseDownListening = true;
 		}
 	}
@@ -450,7 +452,7 @@ class JPopupMenu extends Container , implements MenuElement{
 		var source:Dynamic= e.target;
 		showingMenuPopups.remove(source);
 		if(showingMenuPopups.size() == 0 && popupMenuMouseDownListening && stage != null){
-			stage.removeEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown);
+			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown);
 			popupMenuMouseDownListening = false;
 		}
 	}

@@ -5,7 +5,6 @@
 package org.aswing.util;
 
 	
-import flash.utils.TypedDictionary;
 	
 /**
  * A collection that contains no duplicate elements. More formally, 
@@ -14,14 +13,24 @@ import flash.utils.TypedDictionary;
  */
 class HashSet
 {
-	
-	private var container:TypedDictionary<Dynamic,Dynamic>;
-	private var length:Int;
-	
-	public function new(){
-		container = new TypedDictionary<Dynamic,Dynamic>();
-		length = 0;
-	}
+	 
+	private var length:Int; 
+    private var container:Array<Dynamic>;
+		
+ 	public function new(){
+        length = 0;
+	 
+        container = new Array<Dynamic>();
+ 	}
+	public function getKeyIndex(key:Dynamic ):Int {
+		 
+  		for(i in 0...container.length){
+   			if(container[i] == key){
+    			return i;
+   			}
+  		}
+  		return -1;
+ 	}
 	
 	public function size():Int{
 		return length;
@@ -31,11 +40,11 @@ class HashSet
 		if(!contains(o)){
 			length++;
 		}
-		  container.set(o,o);
+		  container.push(o);
 	}
 	
 	public function contains(o:Dynamic):Bool{
-		return   container.get(o) !=null;
+		return getKeyIndex(o)>-1;
 	}
 	
 	public function isEmpty():Bool{
@@ -45,7 +54,7 @@ class HashSet
 	public function remove(o:Dynamic):Bool{
 		if(contains(o)){
 			// delete container[o];
-			container.delete(o);
+			container.splice(getKeyIndex(o),1);
 			length--;
 			return true;
 		}else{
@@ -54,7 +63,7 @@ class HashSet
 	}
 	
 	public function clear():Void{
-		container = new TypedDictionary<Dynamic,Dynamic>();
+		container = new Array<Dynamic>();
 		length = 0;
 	}
 	
@@ -80,20 +89,14 @@ class HashSet
 	}
 	
 	public function each(func:Dynamic -> Void):Void{
-		var itr:Array<Dynamic> = container.keys();	
+		var itr:Iterator<Dynamic> =  container.iterator();	
   		for(i in itr){	
 			func(i);
 		}
 	}
 	
 	public function toArray():Array<Dynamic>{
-		var arr:Array<Dynamic>= new Array<Dynamic>();
-		var index:Int= 0;
-		var itr:Array<Dynamic>  =  container.keys();	
-  		for(i in itr){	
-			arr[index] = i;
-			index ++;
-		}
-		return arr;
+		 
+		return  container.copy();
 	}
 }

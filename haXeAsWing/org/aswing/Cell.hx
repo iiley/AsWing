@@ -27,4 +27,5 @@ interface Cell{
 	 * @return the cell component.
 	 */
 	function getCellComponent():Component;
+	
 }

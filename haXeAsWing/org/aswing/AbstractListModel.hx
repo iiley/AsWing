@@ -32,7 +32,7 @@ class AbstractListModel{
 		var e:ListDataEvent = new ListDataEvent(target, index0, index1, removedItems);
 	
 		for (i in 0...listeners.length  ){
-			var lis:ListDataListener = flash.Lib.as(listeners[i],ListDataListener);
+			var lis:ListDataListener = AsWingUtils.as(listeners[i],ListDataListener);
 			lis.contentsChanged(e);
 		}
     }
@@ -41,7 +41,7 @@ class AbstractListModel{
 		var e:ListDataEvent = new ListDataEvent(target, index0, index1, []);
 	
 		for (i in 0...listeners.length  ){
-			var lis:ListDataListener =flash.Lib.as(listeners[i],ListDataListener);
+			var lis:ListDataListener =AsWingUtils.as(listeners[i],ListDataListener);
 			lis.intervalAdded(e);     
 		}
     }
@@ -50,7 +50,7 @@ class AbstractListModel{
 		var e:ListDataEvent = new ListDataEvent(target, index0, index1, removedItems);
 	
 		for (i in 0...listeners.length ){
-			var lis:ListDataListener = flash.Lib.as(listeners[i],ListDataListener);
+			var lis:ListDataListener = AsWingUtils.as(listeners[i],ListDataListener);
 			lis.intervalRemoved(e);
 		}		
     }

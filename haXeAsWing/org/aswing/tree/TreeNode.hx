@@ -15,7 +15,7 @@ package org.aswing.tree;
  * @see org.aswing.JTree
  */
 interface TreeNode {
-	
+	function getAwmlIndex():Int;
     /**
      * Returns the child <code>TreeNode</code> at index 
      * <code>childIndex</code>.

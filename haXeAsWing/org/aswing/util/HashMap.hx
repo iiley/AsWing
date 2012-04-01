@@ -5,8 +5,7 @@
 package org.aswing.util;
 
 
-import flash.errors.Error;
-import flash.utils.TypedDictionary; 
+import org.aswing.error.Error;
 /**
  * To successfully store and retrieve (key->value) mapping from a HashMap.
  * HashMap accept any type of object to be the key: number, string, Object etc... 
@@ -45,13 +44,23 @@ class HashMap
 {
 
     private var length:Int;
-    private var content:TypedDictionary<Dynamic,Dynamic>;
+	private var index:Array<Dynamic>;
+    private var content:Array<Dynamic>;
 		
  	public function new(){
         length = 0;
-        content = new TypedDictionary<Dynamic,Dynamic>();
+		index = new Array<Dynamic>();
+        content = new Array<Dynamic>();
  	}
-
+	public function getKeyIndex(key:Dynamic ):Int {
+		 
+  		for(i in 0...index.length){
+   			if(index[i] == key){
+    			return i;
+   			}
+  		}
+  		return -1;
+ 	}
  	//-------------------public methods--------------------
 
  	/**
@@ -72,8 +81,8 @@ class HashMap
   	 * Returns an Array of the keys in this HashMap.
   	 */
  	public function keys():Array<Dynamic>{
-  	 
-  		return content.keys();
+  		 
+  		return index.copy();
  	}
  	
  	/**
@@ -81,7 +90,7 @@ class HashMap
  	 * @param func the function to call
  	 */
  	public function eachKey(func:Dynamic -> Void):Void {
-		var itr:Array<Dynamic> = content.keys();	
+		var itr:Iterator<Dynamic> = index.iterator();	
   		for(i in itr){
   			func(i);
   		}
@@ -94,7 +103,7 @@ class HashMap
  	public function eachValue(func:Dynamic -> Void):Void{
   		var itr:Iterator<Dynamic> = content.iterator();	
   		for(i in itr){
-  			func( content.get(i) );
+  			func(i);
   		}
  	}
  	
@@ -102,17 +111,12 @@ class HashMap
   	 * Returns an Array of the values in this HashMap.
   	 */
  	public function values():Array<Dynamic>{
-  		var temp:Array<Dynamic>= new Array<Dynamic>();
-  		var index:Int= 0;
-  		var itr:Iterator<Dynamic> =  content.iterator();	
-  		for (i in itr) {
-		 	
-   			temp[index] = content.get(i);
-   			index ++;
-  		}
-  		return temp;
+  	 
+  		return content.copy();
  	}
- 	
+ 	public function iterator():Iterator<Dynamic> {
+  		return content.iterator();
+ 	}
  	/**
   	 * Tests if some key maps into the specified value in this HashMap. 
   	 * This operation is more expensive than the containsKey method.
@@ -134,13 +138,15 @@ class HashMap
      * @return <tt>true</tt> if this map contains a mapping for the specified
   	 */
  	public function containsKey(key:Dynamic ):Bool {
-	//untyped dict[key] = n;	
- 		if(  content.get(key) != null){
- 			return true;
- 		}
+		var itr:Iterator<Dynamic> = index.iterator();	
+  		for(i in itr){
+   			if(i == key){
+    			return true;
+   			}
+  		}
   		return false;
  	}
-
+	
  	/**
  	 * Returns the value to which the specified key is mapped in this HashMap.
  	 * Return null if the key is not mapped to any value in this HashMap.
@@ -151,10 +157,11 @@ class HashMap
      *           or it is null value originally.
  	 */
  	public function get(key:Dynamic):Dynamic{
- 		var value:Dynamic=content.get(key);
+ 		var value:Dynamic=  content[getKeyIndex(key)];
  		if(value !=null){
  			return value;
  		}
+
   		return null;
  	}
  	
@@ -192,8 +199,9 @@ class HashMap
  			if(exist!=true){
    				length++;
  			}
- 			var oldValue:Dynamic= this.get(key);
-   			content.set(key,value);
+ 			var oldValue:Dynamic = this.remove(key);			
+			index.push(key);
+   			content.push(value);
    			return oldValue;
   		}
  	}
@@ -208,13 +216,16 @@ class HashMap
      *	       with the specified key.
   	 */
  	public function remove(key:Dynamic):Dynamic{
- 		var exist:Bool= containsKey(key);
- 		if(exist!=true){
- 			return null;
- 		}
-  		var temp:Dynamic=  content.get(key);
+ 	 
+		var _index:Int = getKeyIndex(key);
+		if (_index == -1) {
+			return null;
+ 		 
+		}
+  		var temp:Dynamic=  content[_index];
    		// delete content[key];
-		content.delete(key); 
+		 content.splice(_index, 1);
+		 index.splice(_index, 1);
    		length--;
   		return temp;
  	}
@@ -224,7 +235,8 @@ class HashMap
  	 */
  	public function clear():Void{
   		length = 0;
-  		content = new TypedDictionary<Dynamic,Dynamic>();
+  		content   =   new Array<Dynamic>();
+		index  =  new Array<Dynamic>();
  	}
 
  	/**
@@ -232,9 +244,8 @@ class HashMap
  	 */
  	public function clone():HashMap{
   		var temp:HashMap = new HashMap();
-  		var itr:Iterator<Dynamic> =  content.iterator();	
-  		for(i in itr){
-   			temp.put( content.get(i),  content.get(i));
+  		for(i in 0...index.length){
+   			temp.put(index[i],  content[i]);
   		}
   		return temp;
  	}

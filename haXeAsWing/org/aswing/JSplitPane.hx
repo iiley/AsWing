@@ -396,7 +396,7 @@ class JSplitPane extends Container , implements Orientable{
      * the divider location.
      */
     public function resetToPreferredSizes():Void{
-        var ui:SplitPaneUI = flash.Lib.as(getUI() , SplitPaneUI);
+        var ui:SplitPaneUI = AsWingUtils.as(getUI() , SplitPaneUI);
         if (ui != null) {
             ui.resetToPreferredSizes(this);
         }

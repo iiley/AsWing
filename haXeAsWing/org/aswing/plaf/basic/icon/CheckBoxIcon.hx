@@ -7,45 +7,45 @@ package org.aswing.plaf.basic.icon;
 	
 import flash.display.DisplayObject;
 import flash.display.Shape;
-import flash.display.Sprite;
-import flash.filters.BevelFilter;
-import flash.filters.BitmapFilterType;
-import flash.filters.DropShadowFilter;
+import flash.display.Sprite; 
+import flash.filters.BitmapFilterType; 
 import flash.geom.Matrix;
-
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
+import org.aswing.graphics.Pen;
 import org.aswing.Icon;
-	import org.aswing.Component;
-	import org.aswing.AbstractButton;
-	import org.aswing.ButtonModel;
-	import org.aswing.ASColor;
-	import org.aswing.StyleResult;
-	import org.aswing.StyleTune;
-	import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.SolidBrush;
-	import org.aswing.plaf.UIResource;
+import org.aswing.Component;
+import org.aswing.AbstractButton;
+import org.aswing.ButtonModel;
+import org.aswing.ASColor;
+import org.aswing.StyleResult;
+import org.aswing.StyleTune;
+import org.aswing.graphics.Graphics2D;
+import org.aswing.graphics.SolidBrush;
+import org.aswing.plaf.UIResource;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
-
+import org.aswing.graphics.GradientBrush;
 /**
  * @private
  */
 class CheckBoxIcon implements Icon,implements UIResource{    
 	
 	private var sprite:Sprite;
-	private var box:Shape;
-	private var dot:Shape;
+	private var box:Sprite;
+	private var dot:Sprite;
 	
 	public function new(){
 		sprite = new Sprite();
 		sprite.mouseChildren = false;
 		sprite.mouseEnabled = false;
-		box = new Shape();
-		dot = new Shape();
+		box = new Sprite();
+		dot = new Sprite();
 		sprite.addChild(box);
 		sprite.addChild(dot);
 	}
 		
 	public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
-		var b:AbstractButton = flash.Lib.as(c,AbstractButton);
+		var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
 		var model:ButtonModel = b.getModel();
 		var drawDot:Bool= model.isSelected();
 		
@@ -103,6 +103,7 @@ class CheckBoxIcon implements Icon,implements UIResource{
 		g.endFill();
 		
 		dot.graphics.clear();
+	
 		if(drawDot )	{
 			g = new Graphics2D(dot.graphics);
 			cl = c.getMideground();
@@ -118,24 +119,43 @@ class CheckBoxIcon implements Icon,implements UIResource{
 			}else{
 				
 			}
+			
 			var mcls:StyleResult = new StyleResult(cl, adjuster);
 			var matrix:Matrix = new Matrix();
-			matrix.createGradientBox(w/2-3, h*3/4-5, Math.PI*3/4, x+3, y+5);
-			dot.graphics.lineStyle(1.5, cl.getRGB());
+			matrix.createGradientBox(w / 2 - 3, h * 3 / 4 - 5, Math.PI * 3 / 4, x + 3, y + 5);
+			//why
+		 /*
+			g.beginDraw(new Pen(cl, 1.5));
 			g.moveTo(x+4, y+5);
 			g.lineTo(x+w/2+1, y+h*3/4-1);
 			matrix.createGradientBox(w/2, h*3/4-2, Math.PI/4, x+w/2, y+2);
 			g.lineTo(x+w+2.5, y);
 			g.endDraw();
-			dot.filters = 
-				[new DropShadowFilter(0, 45, mcls.bdark.getRGB(), mcls.shadow, 2, 2, 4, 1, false)];
+		*/	
+			var brush:GradientBrush = new GradientBrush(
+				GradientBrush.LINEAR, 
+				[mcls.clight.getRGB(), mcls.cdark.getRGB()], 
+				[mcls.clight.getAlpha(), mcls.cdark.getAlpha()], 
+				[0, 255], 
+				matrix
+			);		
+			g.fillRectangle(brush, x+3, y+3, w-6, h-6 );
+			var f :Array<BitmapFilter>= new Array<BitmapFilter>();
+			f.push(new  DropShadowFilter(0, 45, mcls.bdark.getRGB(), mcls.shadow, 2, 2, 4, 1, false));
+			dot.filters = f;
+			 
 		}
 		dot.visible = drawDot;
 		box.alpha = alpha;
-		box.filters = [
-			new DropShadowFilter(innerDis, 45, 0x0, style.shadow*shadowScale, 5, 5, 1, 1, true), 
-			new BevelFilter(1, 45, 0x0, style.shadow, 0xFFFFFF, style.shadow, 3, 3, 1, 1, BitmapFilterType.FULL)
-		];
+		 
+		var box_f :Array<BitmapFilter> = new Array<BitmapFilter>();
+		box_f.push(new DropShadowFilter(innerDis, 45, 0x0, style.shadow * shadowScale, 5, 5, 1, 1, true));
+		box.filters = box_f;
+ 
+			//new flash.filters.BevelFilter(1, 45, 0x0, style.shadow, 0xFFFFFF, style.shadow, 3, 3, 1, 1, BitmapFilterType.FULL)
+			
+		 
+		 
 	}
 	
 	public function getIconHeight(c:Component):Int{
@@ -149,5 +169,6 @@ class CheckBoxIcon implements Icon,implements UIResource{
 	public function getDisplay(c:Component):DisplayObject{
 		return sprite;
 	}
+ 
 	
 }

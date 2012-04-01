@@ -5,7 +5,7 @@
 package org.aswing;
 
 
-import flash.display.SimpleButton;
+import flash.display.DisplayObjectContainer;
 
 import org.aswing.plaf.basic.BasicButtonUI;
 
@@ -17,7 +17,9 @@ class JButton extends AbstractButton
 {
 	public function new(text:String="", icon:Icon=null){
 		super(text, icon);
-		setName("JButton");
+		setClipMasked(true);
+		setName("JButton" + text);
+		
     	setModel(new DefaultButtonModel());
 	}
 	

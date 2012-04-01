@@ -11,8 +11,8 @@ import flash.display.Stage;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
-import flash.events.TimerEvent;
-import flash.utils.Timer;
+import org.aswing.event.AWEvent;
+import org.aswing.util.Timer;
 
 import org.aswing.error.AsWingManagerNotInited;
 import org.aswing.geom.IntDimension;
@@ -29,7 +29,7 @@ import org.aswing.geom.IntDimension;
 class AsWingManager{
 	
 	private static var stage:Stage=null;
-    private static var ROOT:DisplayObjectContainer=null;
+    private static var ROOT:JRootPane;
     private static var INITIAL_STAGE_WIDTH:Int;
     private static var INITIAL_STAGE_HEIGHT:Int;
     private static var timer:Timer;
@@ -45,8 +45,8 @@ class AsWingManager{
      * Default is <code>AsWingManager.getStage()</code>.
      * @param root the root container for AsWing popups.
      */
-    public static function setRoot(root:DisplayObjectContainer):Void{
-        ROOT = root;
+    public static function setRoot(root:JRootPane):Void{
+ 
         if(root != null && stage == null && root.stage != null){
         	initStage(root.stage);
         }
@@ -74,8 +74,13 @@ class AsWingManager{
     public static function initAsStandard(
     				root:DisplayObjectContainer, 
     				_preventNullFocus:Bool=true, 
-    				workWithFlex:Bool=false):Void{
-		setRoot(root);
+    				workWithFlex:Bool = false):Void {
+						
+		if (ROOT == null) {
+			ROOT=new JRootPane();
+		}
+		root.addChild(ROOT);				
+		setRoot(ROOT);
 		if(stage!=null)	{
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -143,10 +148,8 @@ class AsWingManager{
      * @see #setRoot()
      * @see #getStage()
      */ 
-    public static function getRoot(checkError:Bool=true):DisplayObjectContainer{
-        if(ROOT == null){
-            return getStage(checkError);
-        }
+    public static function getRoot(checkError:Bool=true):JRootPane{
+      
         return ROOT;
     }	
 	
@@ -158,8 +161,8 @@ class AsWingManager{
 	public static function initStage(theStage:Stage):Void{
 		if(stage == null){
 			stage = theStage;
-	        INITIAL_STAGE_WIDTH = stage.stageWidth;
-	        INITIAL_STAGE_HEIGHT = stage.stageHeight;
+	        INITIAL_STAGE_WIDTH = Std.int(stage.stageWidth);
+	        INITIAL_STAGE_HEIGHT = Std.int(stage.stageHeight);
 		}
 	}
 	
@@ -196,12 +199,11 @@ class AsWingManager{
 	 */
 	public static function updateAfterMilliseconds(delay:Int= 20):Void{
 		if(timer == null){
-			timer = new Timer(delay, 1);
-			timer.addEventListener(TimerEvent.TIMER, __update);
+			timer = new Timer(delay, 0);
+			timer.addEventListener(AWEvent.ACT, __update);
 		}
-		if(timer.running!=true){
-			timer.reset();
-			timer.start();
+		if(timer.isRunning()!=true){
+			timer.restart();
 		}
 	}
 	
@@ -219,15 +221,15 @@ class AsWingManager{
 	}
 	
 	public static function callLater(func:Void -> Void, time:Int=40):Void{
-		var timer:Timer = new Timer(time, 1);
-		timer.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):Void{
+		var timer:Timer = new Timer(time, 0);
+		timer.addEventListener(AWEvent.ACT, function(e:AWEvent):Void{
 			func();
 		});
 		timer.start();
 	}
 	
-	private static function __update(e:TimerEvent):Void{
-		e.updateAfterEvent();
+	private static function __update(e:AWEvent):Void{
+		//e.updateAfterEvent();
 	}
 	
 	private static function __enterFrame(e:Event):Void{

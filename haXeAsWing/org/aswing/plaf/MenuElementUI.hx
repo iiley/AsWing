@@ -15,5 +15,5 @@ interface MenuElementUI implements ComponentUI{
 	/**
 	 * Subclass override this to process key event.
 	 */
-	function processKeyEvent(code:UInt):Void;
+	function processKeyEvent(code:Int):Void;
 }

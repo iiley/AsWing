@@ -4,8 +4,8 @@
 
 package org.aswing;
  
-
-import flash.errors.Error;
+import flash.geom.Rectangle;
+import org.aswing.error.Error;
 import org.aswing.event.CellEditorListener;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.event.PropertyChangeEvent;
@@ -418,7 +418,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
      * @return the <code>TreeUI</code> object that renders this component
      */
     public function getTreeUI():TreeUI {
-        return flash.Lib.as(ui,TreeUI)	;
+        return AsWingUtils.as(ui,TreeUI)	;
     }
 
     /**
@@ -1261,17 +1261,19 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 		    return null;
 		}
 	
-		var toggledPaths:Array<Dynamic>= expandedState.keys();
+		var toggledPaths = expandedState.keys();
 		var elements:ArrayList = null;
 		var path:TreePath;
 		var value:Bool=false;
 	
 		if(toggledPaths != null) {
-			for (i in 0...toggledPaths.length) {
-				value = false;	
-				path = flash.Lib.as(toggledPaths[i],TreePath);
+			for (path in toggledPaths ) {
+				value = false;	 
 				//why
-				if(path!=null)value = expandedState.get(path);
+				//if (path != null)
+				{
+					value = expandedState.get(path);
+				}
 				// Add the path if it is expanded, a descendant of parent,
 				// and it is visible (all parents expanded). This is rather
 				// expensive!
@@ -2181,7 +2183,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 		    if (expandedStack.size() == 0) {
 				stack = new Stack();
 		    }else {
-				stack = flash.Lib.as(expandedStack.pop(),Stack);
+				stack = AsWingUtils.as(expandedStack.pop(),Stack);
 		    }
 	
 		    try {
@@ -2196,7 +2198,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 				//for(var counter:int = stack.size() - 1; counter >= 0; counter--) {
 				var counter:Int = stack.size() - 1;
 				while(counter >= 0){
-				    parentPath =  flash.Lib.as(stack.pop(),TreePath);
+				    parentPath =  AsWingUtils.as(stack.pop(),TreePath);
 				    if(!isExpanded(parentPath)) {
 						try {
 						    fireTreeWillExpand(parentPath);
@@ -2255,16 +2257,16 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
      * that have been expanded that
      * are descendants of <code>parent</code>.
      */
-    private function getDescendantToggledPaths(parent:TreePath):Array<Dynamic>{
+    private function getDescendantToggledPaths(parent:TreePath):Array<TreePath>{
 		if(parent == null)
 		    return null;
 	
-		var descendants:Array<Dynamic>= new Array<Dynamic>();
-		var nodes:Array<Dynamic>= expandedState.keys();
+		var descendants:Array<TreePath>= new Array<TreePath>();
+		var nodes = expandedState.keys();
 		var path:TreePath;
 	
-		for(i in 0...nodes.length){
-		    path = flash.Lib.as(nodes[i],TreePath);
+		for(path in  nodes){
+		     
 		    if(parent.isDescendant(path)){
 				descendants.push(path);
 		    }
@@ -2280,7 +2282,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 	private function removeDescendantToggledPaths(toRemove:Array<Dynamic>):Void{
 		if(toRemove != null) {
 			for(i in 0...toRemove.length){
-				var descendants:Array<Dynamic>= getDescendantToggledPaths(flash.Lib.as(toRemove[i],TreePath));
+				var descendants:Array<Dynamic>= getDescendantToggledPaths(AsWingUtils.as(toRemove[i],TreePath));
 				
 				if(descendants != null) {
 					for(j in 0...descendants.length){
@@ -2558,7 +2560,10 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 			fireStateChanged();
     	}
     }	
-
+    override private function setClipMaskRect(b:IntRectangle):Void{
+		super.setClipMaskRect(b);
+		 scrollRect = new Rectangle(0, 0, b.width, b.height);
+	}
 	public function setViewportTestSize(s : IntDimension) : Void{
 		setSize(s);
 	}

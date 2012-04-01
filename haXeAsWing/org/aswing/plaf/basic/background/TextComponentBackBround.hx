@@ -6,9 +6,9 @@ package org.aswing.plaf.basic.background;
 
 
 import flash.display.DisplayObject;
-import flash.display.Shape;
+import flash.display.Shape; 
+import flash.filters.BitmapFilter;
 import flash.filters.DropShadowFilter;
-
 import org.aswing.ASColor;
 import org.aswing.AsWingManager;
 import org.aswing.Component;
@@ -18,8 +18,8 @@ import org.aswing.StyleResult;
 import org.aswing.StyleTune;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
-	import org.aswing.graphics.SolidBrush;
-	import org.aswing.plaf.UIResource;
+import org.aswing.graphics.SolidBrush;
+import org.aswing.plaf.UIResource;
 
 /**
  * @private
@@ -33,7 +33,8 @@ class TextComponentBackBround implements GroundDecorator,implements UIResource{
 	}
 	
 	public function updateDecorator(c:Component, g:Graphics2D, r:IntRectangle):Void{
-    	shape.visible = c.isOpaque();
+   
+		shape.visible = c.isOpaque();
     	if(c.isOpaque()){
     		shape.graphics.clear();
     		g = new Graphics2D(shape.graphics);
@@ -41,17 +42,18 @@ class TextComponentBackBround implements GroundDecorator,implements UIResource{
 			var tune:StyleTune = c.getStyleTune();
 			var result:StyleResult = new StyleResult(cl, tune);
 			var ml:ASColor = result.bdark;
-			var ed:EditableComponent = flash.Lib.as(c,EditableComponent)	;
+			var ed:EditableComponent = AsWingUtils.as(c,EditableComponent)	;
 			var editable:Bool= true;
 			if(ed != null){
 				editable = ed.isEditable();
 			}
+		 
 			if(!c.isEnabled() || !editable){
 				ml = ml.changeAlpha(ml.getAlpha()*getChangeSharpen(c.isEnabled(), editable));
 				cl = cl.changeAlpha(cl.getAlpha()*getChangeAlpha(c.isEnabled(), editable));
 			}
 			
-			r = new IntRectangle(0, 0, Std.int(c.width-1), Std.int(c.height-1));
+			r = new IntRectangle(0, 0, Std.int(c.getWidth()-1), Std.int(c.getHeight()-1));
 			var round:Float= tune.round;
 			if(round >= 1){
 				g.fillRoundRect(new SolidBrush(cl), r.x, r.y, r.width, r.height, round);
@@ -60,9 +62,12 @@ class TextComponentBackBround implements GroundDecorator,implements UIResource{
 				g.fillRectangle(new SolidBrush(cl), r.x, r.y, r.width, r.height);
 				g.fillRectangleRingWithThickness(new SolidBrush(ml), r.x, r.y, r.width, r.height, 1);
 			}
-			
-			shape.filters = [new DropShadowFilter(1, 45, cl.getRGB(), tune.shadowAlpha*cl.getAlpha(), 0, 0, 1, 1)];
-    	}
+			var f :Array<BitmapFilter>= new Array<BitmapFilter>();
+			f.push(new  DropShadowFilter(1, 45, cl.getRGB(), tune.shadowAlpha*cl.getAlpha(), 0, 0, 1, 1));
+			shape.filters = f;
+		 
+			 
+		}
 	}
 	
 	private function getChangeSharpen(enabled:Bool, editable:Bool):Float{

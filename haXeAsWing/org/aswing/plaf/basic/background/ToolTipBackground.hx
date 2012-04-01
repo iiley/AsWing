@@ -43,7 +43,7 @@ class ToolTipBackground implements GroundDecorator,implements UIResource{
 			var tune:StyleTune = c.getStyleTune();
 			g.beginFill(new SolidBrush(bc));
 			var r:Float= tune.round;
-			b = new IntRectangle(0, 0, Std.int(c.width), Std.int(c.height));
+			b = new IntRectangle(0, 0,  c.getWidth(), c.getHeight());
 			if(r < 1){
 				g.rectangle(b.x, b.y, b.width, b.height);
 			}else{

@@ -5,7 +5,7 @@
 package org.aswing.ext;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.JPanel;
 import org.aswing.LayoutManager;
 import org.aswing.util.ArrayList;
@@ -96,7 +96,7 @@ class FormRow extends JPanel , implements LayoutManager{
 	
 	private function appendChildren(arr:Array<Dynamic>):Void{
 		for(i in 0...arr.length){
-			var com:Component = flash.Lib.as(arr[i], Component);
+			var com:Component = AsWingUtils.as(arr[i], Component);
 			if(com != null){
 				append(com);
 			}

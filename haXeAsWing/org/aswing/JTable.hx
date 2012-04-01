@@ -4,8 +4,8 @@
 	
 package org.aswing;
 
-
-import flash.errors.Error;
+import flash.geom.Rectangle;
+import org.aswing.error.Error;
 import org.aswing.event.TableModelListener;
 	import org.aswing.event.CellEditorListener;
 	import org.aswing.event.TableCellEditEvent;
@@ -36,7 +36,7 @@ import org.aswing.table.TableColumnModelListener;
 	import org.aswing.table.DefaultTableColumnModel;
 	import org.aswing.table.GeneralTableCellFactoryUIResource;
 	import org.aswing.table.PoorTextCell;
-	import org.aswing.util.HashMap;
+ 
 	/**
  * Dispatched when the row selection changed.
  * @eventType org.aswing.event.SelectionEvent.ROW_SELECTION_CHANGED
@@ -173,7 +173,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	private var headerPane:Container;
 	private var tableHeader:JTableHeader;
 	private var footer:Component;
-	private var rowCells:Array<Dynamic>;
+	private var rowCells:Array<Array<Dynamic>>;
 	private var rowHeight:Int;
 	private var rowMargin:Int;
 	private var gridColor:ASColor;
@@ -187,8 +187,8 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	private var cellEditor:TableCellEditor;
 	private var editingColumn:Int;
 	private var editingRow:Int;
-	private var defaultRenderersByColumnClass:HashMap;
-	private var defaultEditorsByColumnClass:HashMap;
+	private var defaultRenderersByColumnClass:Hash<TableCellFactory>; 
+	private var defaultEditorsByColumnClass:Hash<TableCellEditor>;
 	private var selectionForeground:ASColor;
 	private var selectionBackground:ASColor;
 	//private var surrendersFocusOnKeystroke:Boolean;
@@ -254,7 +254,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		headerPane.setEnabled(false);
 		append(headerPane);
 		
-		rowCells = new Array<Dynamic>();
+		rowCells = new Array<Array<Dynamic>>();
 		viewPosition = new IntPoint();
 		
 		if (cm == null){
@@ -297,7 +297,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	}
 	
 	public function getTableUI():TableUI{
-		return flash.Lib.as(getUI() , TableUI);
+		return AsWingUtils.as(getUI() , TableUI);
 	}
 
 	private function updateSubComponentUI(componentShell:Dynamic):Void{
@@ -306,10 +306,10 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		}
 		var component:Component = null;
 		if (Std.is(componentShell,Component)) {
-			component = flash.Lib.as(componentShell,Component)	;
+			component = AsWingUtils.as(componentShell,Component)	;
 			component.updateUI();
 		}else if (Std.is(componentShell,CellEditor)){
-			var ed:CellEditor = flash.Lib.as(componentShell,CellEditor)	;
+			var ed:CellEditor = AsWingUtils.as(componentShell,CellEditor)	;
 			ed.updateUI();
 		}
 	}
@@ -338,9 +338,9 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		}
 
 		// Update the UIs of all the default editors.
-		var defaultEditors:Array<Dynamic>= defaultEditorsByColumnClass.values();
-		for(i in 0...defaultEditors.length){
-			updateSubComponentUI(defaultEditors[i]);
+		 
+		for( key in defaultEditorsByColumnClass.keys()){
+			updateSubComponentUI(defaultEditorsByColumnClass.get(key));
 		}
 
 		// Update the UI of the table header
@@ -775,7 +775,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	 */	
 	public function setDefaultCellFactory(columnClass:String, renderer:TableCellFactory):Void{
 		if (renderer != null){
-			defaultRenderersByColumnClass.put(columnClass, renderer);
+			defaultRenderersByColumnClass.set(columnClass, renderer);
 		}else{
 			defaultRenderersByColumnClass.remove(columnClass);
 		}
@@ -804,7 +804,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 			var renderer:Dynamic= defaultRenderersByColumnClass.get(columnClass);
 			//trace("defaultRenderersByColumnClass " + renderer);
 			if (renderer != null){
-				return flash.Lib.as(renderer,TableCellFactory);
+				return AsWingUtils.as(renderer,TableCellFactory);
 			}else{
 				return getDefaultCellFactory("Object");
 			}
@@ -826,9 +826,9 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	 * @see     #getDefaultEditor()
 	 * @see     #setDefaultRenderer()
 	 */	
-	public function setDefaultEditor(columnClass:String, editor:TableCellEditor):Void{
+	public function setDefaultEditor(columnClass:String, editor:TableCellEditor ):Void{
 		if (editor != null){
-			defaultEditorsByColumnClass.put(columnClass, editor);
+			defaultEditorsByColumnClass.set(columnClass, editor);
 		}else{
 			defaultEditorsByColumnClass.remove(columnClass);
 		}
@@ -854,7 +854,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		}else{
 			var editor:Dynamic= defaultEditorsByColumnClass.get(columnClass);
 			if (editor != null){
-				return flash.Lib.as(editor,TableCellEditor);
+				return AsWingUtils.as(editor,TableCellEditor);
 			}else{
 				return getDefaultEditor("Object");
 			}
@@ -2432,14 +2432,14 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		return new JTableHeader(columnModel);
 	}
 	public function createDefaultCellFactories():Void{
-		defaultRenderersByColumnClass = new HashMap();
-		defaultRenderersByColumnClass.put("Object", new GeneralTableCellFactoryUIResource(PoorTextCell));
+		defaultRenderersByColumnClass = new Hash<TableCellFactory>();
+		defaultRenderersByColumnClass.set("Object", new GeneralTableCellFactoryUIResource(PoorTextCell));
 	}
 	public function createDefaultEditors():Void{
-		defaultEditorsByColumnClass = new HashMap();
-		defaultEditorsByColumnClass.put("Number", new DefaultNumberTextFieldCellEditor());
-		defaultEditorsByColumnClass.put("Boolean", new DefaultCheckBoxCellEditor());
-		defaultEditorsByColumnClass.put("Object", new DefaultTextFieldCellEditor());
+		defaultEditorsByColumnClass = new Hash<TableCellEditor>();
+		defaultEditorsByColumnClass.set("Number", new DefaultNumberTextFieldCellEditor());
+		defaultEditorsByColumnClass.set("Boolean", new DefaultCheckBoxCellEditor());
+		defaultEditorsByColumnClass.set("Object", new DefaultTextFieldCellEditor());
 	}
 	
 	public function resizeAndRepaint():Void{
@@ -2883,7 +2883,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	private function clearCells():Void{
 		//trace("Clear cells!!!!!!!!!!!!");
 		removeCells(rowCells);
-		rowCells = new Array<Dynamic>();
+		rowCells = new Array<Array<Dynamic>>();
 	}
 	
 	private function synCreateCellInstances():Void{
@@ -2909,7 +2909,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 			for(i in 0...addNum){
 				var columnCells:Array<Dynamic>= new Array<Dynamic>();
 				for(c in 0...columnCount){
-					var cell:TableCell = flash.Lib.as(lastColumnCellFactories[c],TableCellFactory).createNewCell(false);
+					var cell:TableCell = AsWingUtils.as(lastColumnCellFactories[c],TableCellFactory).createNewCell(false);
 					columnCells.push(cell);
 					addCellToContainer(cell);
 				}
@@ -2926,7 +2926,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		for(i in 0...removed.length){
 			var columnCells:Array<Dynamic>= removed[i];
 			for(c in 0...columnCells.length){
-				var cell:TableCell = flash.Lib.as(columnCells[c],TableCell);
+				var cell:TableCell = AsWingUtils.as(columnCells[c],TableCell);
 				removeCellFromeContainer(cell);
 			}
 		}
@@ -2941,7 +2941,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	private static function setCellComponentProperties(com:Component):Void{
 		com.setFocusable(false);
 		if(Std.is(com,Container)){
-			var con:Container = flash.Lib.as(com,Container);
+			var con:Container = AsWingUtils.as(com,Container);
 			for(i in 0...con.getComponentCount()){
 				setCellComponentProperties(con.getComponent(i));
 			}
@@ -3030,7 +3030,10 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 			fireStateChanged();
     	}
     }	
-    
+    override private function setClipMaskRect(b:IntRectangle):Void{
+		super.setClipMaskRect(b);
+		 scrollRect = new Rectangle(0, 0, b.width, b.height);
+	}
     private var testingSize:Bool;
     public function setViewportTestSize(s:IntDimension):Void{
     	testingSize = true;

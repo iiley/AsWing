@@ -46,7 +46,7 @@ class DefaultCheckBoxCellEditor extends AbstractCellEditor{
 			selected = true;
 		}
 		if(Std.is(value , String)){
-			var va:String= flash.Lib.as(value , String);
+			var va:String= AsWingUtils.as(value , String);
 			if(va.toLowerCase() == "true"){
 				selected = true;
 			}

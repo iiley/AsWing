@@ -571,15 +571,15 @@ class Graphics2D {
 	 */
 	public function ellipse(x:Float, y:Float, width:Float, height:Float):Void{
 		
-		target.drawEllipse(x,y,width,height);
-		/* var pi:Number = Math.PI;
-        var xradius:Number = width/2;
-        var yradius:Number = height/ 2;
-        var cx:Number = x + xradius;
-        var cy:Number = y + yradius;
-        var tanpi8:Number = Math.tan(pi / 8);
-        var cospi4:Number = Math.cos(pi / 4);
-        var sinpi4:Number = Math.sin(pi / 4);
+		//target.drawEllipse(x,y,width,height);
+		 var pi:Float = Math.PI;
+        var xradius:Float = width/2;
+        var yradius:Float = height/ 2;
+        var cx:Float = x + xradius;
+        var cy:Float = y + yradius;
+        var tanpi8:Float = Math.tan(pi / 8);
+        var cospi4:Float = Math.cos(pi / 4);
+        var sinpi4:Float = Math.sin(pi / 4);
         target.moveTo(xradius + cx, 0 + cy);
         target.curveTo(xradius + cx, (yradius * tanpi8) + cy, (xradius * cospi4) + cx, (yradius * sinpi4) + cy);
         target.curveTo((xradius * tanpi8) + cx, yradius + cy, 0 + cx, yradius + cy);
@@ -589,7 +589,7 @@ class Graphics2D {
         target.curveTo(((-xradius) * tanpi8) + cx, (-yradius) + cy, 0 + cx, (-yradius) + cy);
         target.curveTo((xradius * tanpi8) + cx, (-yradius) + cy, (xradius * cospi4) + cx, ((-yradius) * sinpi4) + cy);
         target.curveTo(xradius + cx, ((-yradius) * tanpi8) + cy, xradius + cx, 0 + cy);		
- */	}
+  	}
 	
 	/**
 	 * Paths a circle
@@ -624,15 +624,17 @@ class Graphics2D {
 	 * @see #drawRoundRect()
 	 * @see #fillRoundRect()
 	 */
-	public function roundRect(x:Float,y:Float,width:Float,height:Float, radius:Float, ?topRightRadius:Float=-1, ?bottomLeftRadius:Float=-1, ?bottomRightRadius:Float=-1):Void{
-		//var tlR:Number = radius;
-		if(topRightRadius == -1) topRightRadius = radius;
-		if(bottomLeftRadius == -1) bottomLeftRadius = radius;
-		if(bottomRightRadius == -1) bottomRightRadius = radius;
-		
-		target.drawRoundRectComplex(x,y,width,height,radius,topRightRadius,bottomLeftRadius,bottomRightRadius);
-		
-		/* 
+	public function roundRect(x:Float,y:Float,width:Float,height:Float, radius:Float, ?trR:Float=-1, ?blR:Float=-1, ?brR:Float=-1):Void{
+		var tlR:Float = radius;
+		if(trR == -1) trR = radius;
+		if(blR == -1) blR  = radius;
+		if(brR == -1) brR = radius;
+		#if(flash9)
+		 target.drawRoundRectComplex(x,y,width,height,tlR,trR,blR,brR);
+		 return;
+		#end
+		  
+	 
 		//Bottom right
 		target.moveTo(x+blR, y+height);
 		target.lineTo(x+width-brR, y+height);
@@ -645,7 +647,7 @@ class Graphics2D {
 		target.curveTo(x, y, x, y+tlR);
 		//Bottom left
 		target.lineTo (x, y+height-blR );
-		target.curveTo(x, y+height, x+blR, y+height); */
+		target.curveTo(x, y+height, x+blR, y+height);  
 	}
 	
 	/**

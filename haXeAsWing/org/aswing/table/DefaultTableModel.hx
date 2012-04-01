@@ -16,7 +16,7 @@ class DefaultTableModel extends AbstractTableModel{
 	/**
 	 * The <code>Array</code> of <code>Arrays</code> of values.
 	 */
-	private var dataArray:Array<Dynamic>;
+	private var dataArray:Array<Array<Dynamic>>;
 
 	/** The <code>Array</code> of column names. */
 	private var columnNames:Array<Dynamic>;
@@ -68,7 +68,7 @@ class DefaultTableModel extends AbstractTableModel{
 	 * @see #setValueAt()
 	 */
 	public function initWithNamesRowcount(columnNames:Array<Dynamic>, rowCount:Int):DefaultTableModel {
-		setDataNames(new Array<Dynamic>(), columnNames);
+		setDataNames(new Array<Array<Dynamic>>(), columnNames);
 		return this;
 	}
 
@@ -83,7 +83,7 @@ class DefaultTableModel extends AbstractTableModel{
 	 * @param columnNames	   the names of the columns
 	 * @see #setDataArray()
 	 */
-	public function initWithDataNames(data:Array<Dynamic>, columnNames:Array<Dynamic>):DefaultTableModel {
+	public function initWithDataNames(data:Array<Array<Dynamic>>, columnNames:Array<Dynamic>):DefaultTableModel {
 		setDataNames(data, columnNames);
 		return this;
 	}
@@ -120,7 +120,7 @@ class DefaultTableModel extends AbstractTableModel{
 	 * @see #getData()
 	 */
 
-	public function setData(dataArray:Array<Dynamic>):Void{
+	public function setData(dataArray:Array<Array<Dynamic>>):Void{
 		setDataNames(dataArray, columnNames);
 	}
 
@@ -150,8 +150,8 @@ class DefaultTableModel extends AbstractTableModel{
 	 * @param   columnNames	 the names of the columns
 	 * @see #getData()
 	 */
-	public function setDataNames(dataArray:Array<Dynamic>, columnNames:Array<Dynamic>):Void{
-		this.dataArray = nonNullArray(dataArray);
+	public function setDataNames(dataArray:Array<Array<Dynamic>>, columnNames:Array<Dynamic>):Void{
+		this.dataArray = (dataArray != null) ? dataArray : new Array<Array<Dynamic>>();
 		this.columnNames = nonNullArray(columnNames);
 		justifyRows(0, getRowCount()); 
 		fireTableStructureChanged();

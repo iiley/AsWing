@@ -30,14 +30,14 @@ class BasicToolBarUI extends BaseComponentUI{
     }
     
 	override public function installUI(c:Component):Void{
-		bar = flash.Lib.as(c,Container);
+		bar = AsWingUtils.as(c,Container);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
     
 	override public function uninstallUI(c:Component):Void{
-		bar = flash.Lib.as(c,Container);
+		bar = AsWingUtils.as(c,Container);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -78,7 +78,7 @@ class BasicToolBarUI extends BaseComponentUI{
  	}
  	
  	private function adaptChild(c:Component):Void{
-    	var btn:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+    	var btn:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
     	if(btn != null){
     		var bg:GroundDecorator = btn.getBackgroundDecorator();
     		if(bg != null){
@@ -90,10 +90,10 @@ class BasicToolBarUI extends BaseComponentUI{
  	}
  	
  	private function unadaptChild(c:Component):Void{
-    	var btn:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+    	var btn:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
     	if(btn != null){
     		btn.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, __propertyChanged);
-    		var bg:ToolBarButtonBgAdapter = flash.Lib.as(btn.getBackgroundDecorator() , ToolBarButtonBgAdapter);
+    		var bg:ToolBarButtonBgAdapter = AsWingUtils.as(btn.getBackgroundDecorator() , ToolBarButtonBgAdapter);
     		if(bg != null){
     			btn.setBackgroundDecorator(bg.getOriginalBg());
     		}
@@ -104,7 +104,7 @@ class BasicToolBarUI extends BaseComponentUI{
  	
  	private function __propertyChanged(e:PropertyChangeEvent):Void{
  		if(e.getPropertyName() == "backgroundDecorator"){
- 			var btn:AbstractButton = flash.Lib.as(e.target,AbstractButton)	;
+ 			var btn:AbstractButton = AsWingUtils.as(e.target,AbstractButton)	;
  			//var oldG:GroundDecorator = e.getOldValue();
  			var newG:GroundDecorator = e.getNewValue();
  			if(!(Std.is(newG,ToolBarButtonBgAdapter))){
@@ -157,12 +157,13 @@ class ToolBarButtonBgAdapter implements GroundDecorator,implements UIResource{
 		if(originalBg == null){
 			return;
 		}
-		var btn:AbstractButton = flash.Lib.as(c,AbstractButton)	;
+		var btn:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
 		var needPaint:Bool= false;
 		if(btn == null || btn.getModel().isArmed() || btn.isSelected() 
 			|| (btn.getModel().isRollOver() && !btn.getModel().isPressed())){
 			needPaint = true;
 		}
+		
 		var dis:DisplayObject = getDisplay(c);
 		if(dis != null) dis.visible = needPaint;
 		if(needPaint)	{

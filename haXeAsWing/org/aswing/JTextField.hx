@@ -7,7 +7,7 @@ package org.aswing;
 
 import org.aswing.geom.IntDimension;
 	import org.aswing.event.FocusKeyEvent;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 import org.aswing.event.AWEvent;
 import org.aswing.plaf.basic.BasicTextFieldUI;
 
@@ -29,17 +29,20 @@ class JTextField extends JTextComponent{
 	private var columns:Int;
 	
 	public function new(text:String="", columns:Int=0){
-		super();
+		super(); 
 		setName("JTextField");
 		getTextField().multiline = false;
 		getTextField().text = text;
+			#if (flash9)
 		setMaxChars(defaultMaxChars);
+		#end
 		this.columns = columns;
-		addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onFocusKeyDown);
+		//addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onFocusKeyDown);
 		updateUI();
 	}
 	
-	override public function updateUI():Void{
+	override public function updateUI():Void {
+ 
 		setUI(UIManager.getUI(this));
 	}
 	
@@ -98,7 +101,7 @@ class JTextField extends JTextComponent{
 	 * @see org.aswing.event.AWEvent#ACT
      */
     public function addActionListener(listener:Dynamic -> Void, priority:Int=0, useWeakReference:Bool=false):Void{
-    	addEventListener(AWEvent.ACT, listener, false, priority, useWeakReference);
+    	 addEventListener(AWEvent.ACT, listener, false, priority, useWeakReference);
     }
     
 	/**
@@ -117,11 +120,15 @@ class JTextField extends JTextComponent{
 	/**
 	 * JTextComponent need count preferred size itself.
 	 */
+	
 	override private function countPreferredSize():IntDimension{
 		if(columns > 0){
-			var columnWidth:Int= getColumnWidth();
-			var width:Int= columnWidth * columns + getWidthMargin();
-			var height:Int= getRowHeight() + getHeightMargin();
+			var columnWidth:Int = getColumnWidth();
+			//why
+			//var width:Int = Std.int( getTextField().textWidth+30);
+			var width:Int = columnWidth * columns + getWidthMargin();
+			//var height:Int=Std.int( getTextField().textHeight);
+			var height:Int = getRowHeight() + getHeightMargin();
 			var size:IntDimension = new IntDimension(width, height);
 			return getInsets().getOutsideSize(size);
 		}else{
@@ -132,7 +139,7 @@ class JTextField extends JTextComponent{
 	//-------------------------------------------------------------------------
 	
 	private function __onFocusKeyDown(e:FocusKeyEvent):Void{
-		if(e.keyCode == Keyboard.ENTER){
+		if(Std.int(e.keyCode) == AWKeyboard.ENTER){
 			dispatchEvent(new AWEvent(AWEvent.ACT));
 		}
 	}

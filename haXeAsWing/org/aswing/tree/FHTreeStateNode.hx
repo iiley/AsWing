@@ -69,7 +69,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	override public function setParent(parent:MutableTreeNode):Void{
 	    super.setParent(parent);
 	    if(parent != null) {
-			path = (flash.Lib.as(parent,FHTreeStateNode)).getTreePath().pathByAddingChild(getUserObject());
+			path = (AsWingUtils.as(parent,FHTreeStateNode)).getTreePath().pathByAddingChild(getUserObject());
 			layoutCache.addMapping(this);
 	    }
 	}
@@ -79,7 +79,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	 * <code>removedFromMapping</code> to remove all the children.
 	 */
 	override public function removeAt(childIndex:Int):Void{
-	    var node:FHTreeStateNode = flash.Lib.as(getChildAt(childIndex),FHTreeStateNode);
+	    var node:FHTreeStateNode = AsWingUtils.as(getChildAt(childIndex),FHTreeStateNode);
 
 	    node.removeFromMapping();
 	    super.removeAt(childIndex);
@@ -88,10 +88,10 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	/**
 	 * Messaged to set the user object. This resets the path.
 	 */
-	override public function setUserObject(o:Dynamic):Void{
+	override public function setUserObject(o:TreeNode):Void{
 	    super.setUserObject(o);
 	    if(path != null) {
-			var parent:FHTreeStateNode = flash.Lib.as(getParent(),FHTreeStateNode);
+			var parent:FHTreeStateNode = AsWingUtils.as(getParent(),FHTreeStateNode);
 	
 			if(parent != null)
 			    resetChildrenPaths(parent.getTreePath());
@@ -125,8 +125,8 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	public function getChildAtModelIndex(index:Int):FHTreeStateNode {
 	    // PENDING: Make this a binary search!
 	    for(counter in  0...getChildCount() ){
-			if((flash.Lib.as(getChildAt(counter),FHTreeStateNode)).childIndex == index)
-			    return flash.Lib.as(getChildAt(counter),FHTreeStateNode);
+			if((AsWingUtils.as(getChildAt(counter),FHTreeStateNode)).childIndex == index)
+			    return AsWingUtils.as(getChildAt(counter),FHTreeStateNode);
 	    }
 	    return null;
 	}
@@ -136,7 +136,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	 * asking all the parents if they are expanded.
 	 */
 	public function isVisible():Bool{
-	    var parent:FHTreeStateNode = flash.Lib.as(getParent(),FHTreeStateNode);
+	    var parent:FHTreeStateNode = AsWingUtils.as(getParent(),FHTreeStateNode);
 
 	    if(parent == null){
 			return true;
@@ -163,7 +163,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	    var maxCounter:Int = getChildCount();
 		// for(; counter < maxCounter; counter++) {
 	    for(counter  in  0...maxCounter) {
-			child =  flash.Lib.as( getChildAt(counter), FHTreeStateNode);
+			child =  AsWingUtils.as( getChildAt(counter), FHTreeStateNode);
 			if(child.childIndex >= index) {
 			    if(child.childIndex == index)
 					return child.row;
@@ -182,20 +182,20 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	 */
 	public function getTotalChildCount():Int{
 	    if(isExpanded()) {
-			var parent:FHTreeStateNode = flash.Lib.as(getParent(),FHTreeStateNode);
+			var parent:FHTreeStateNode = AsWingUtils.as(getParent(),FHTreeStateNode);
 			var pIndex:Int;
 	
 			if(parent != null && (pIndex = parent.getIndex(this)) + 1 < parent.getChildCount()) {
 			    // This node has a created sibling, to calc total
 			    // child count directly from that!
-			    var nextSibling:FHTreeStateNode = flash.Lib.as(parent.getChildAt(pIndex + 1),FHTreeStateNode);
+			    var nextSibling:FHTreeStateNode = AsWingUtils.as(parent.getChildAt(pIndex + 1),FHTreeStateNode);
 	
 			    return Std.int(nextSibling.row - row - (nextSibling.childIndex - childIndex));
 			}else{
 	 		    var retCount:Int= childCount;
 	
 			    for(counter in 0...getChildCount() ){
-					retCount += (flash.Lib.as(getChildAt(counter),FHTreeStateNode)).getTotalChildCount();
+					retCount += (AsWingUtils.as(getChildAt(counter),FHTreeStateNode)).getTotalChildCount();
 			    }
 			    return retCount;
 			}
@@ -232,7 +232,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 			path = parentPath.pathByAddingChild(getUserObject());
 	    layoutCache.addMapping(this);
 	    for(counter in 0...getChildCount() ){
-			(flash.Lib.as(getChildAt(counter),FHTreeStateNode)).resetChildrenPaths(path);
+			(AsWingUtils.as(getChildAt(counter),FHTreeStateNode)).resetChildrenPaths(path);
 	    }
 	}
 
@@ -244,7 +244,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	    if(path != null) {
 			layoutCache.removeMapping(this);
 			for(counter in 0...getChildCount() ){
-			    (flash.Lib.as(getChildAt(counter),FHTreeStateNode)).removeFromMapping();
+			    (AsWingUtils.as(getChildAt(counter),FHTreeStateNode)).removeFromMapping();
 			}
 	    }
 	}
@@ -273,7 +273,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	    var counter:Int= 0;
 	    var maxCounter:Int= getChildCount();
 	    for(counter  in  0...maxCounter) {
-			aNode = flash.Lib.as( getChildAt(counter), FHTreeStateNode);
+			aNode = AsWingUtils.as( getChildAt(counter), FHTreeStateNode);
 			
 			if(aNode.childIndex > newChildIndex) {
 			    insert(child, counter);
@@ -302,17 +302,17 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 		    row += amount;
 		    if(expanded)	{
 				for(counter  in 0...getChildCount()){
-				    (flash.Lib.as(getChildAt(counter),FHTreeStateNode)).adjustRowBy(amount);
+				    (AsWingUtils.as(getChildAt(counter),FHTreeStateNode)).adjustRowBy(amount);
 				}
 		    }
 		}else{
 		    // Could check isVisible, but probably isn't worth it.
 		    if(expanded)	{
 				// children following startIndex.
-				for(counter  in   startIndex...getChildCount())(flash.Lib.as(getChildAt(counter),FHTreeStateNode)).adjustRowBy(amount);
+				for(counter  in   startIndex...getChildCount())(AsWingUtils.as(getChildAt(counter),FHTreeStateNode)).adjustRowBy(amount);
 		    }
 		    // Parent
-		    var parent:FHTreeStateNode = flash.Lib.as(getParent(),FHTreeStateNode);
+		    var parent:FHTreeStateNode = AsWingUtils.as(getParent(),FHTreeStateNode);
 	
 		    if(parent != null) {
 				parent.adjustRowBy(amount, parent.getIndex(this) + 1);
@@ -326,7 +326,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	 */
 	private function didExpand():Void{
 	    var nextRow:Int= setRowAndChildren(row);
-	    var parent:FHTreeStateNode = flash.Lib.as(getParent(),FHTreeStateNode);
+	    var parent:FHTreeStateNode = AsWingUtils.as(getParent(),FHTreeStateNode);
 	    var childRowCount:Int= nextRow - row - 1;
 
 	    if(parent != null) {
@@ -352,7 +352,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	    var maxCounter:Int= getChildCount();
 
 	    for(counter in 0...maxCounter){
-			child = flash.Lib.as(getChildAt(counter),FHTreeStateNode);
+			child = AsWingUtils.as(getChildAt(counter),FHTreeStateNode);
 			lastRow += (child.childIndex - lastModelIndex);
 			lastModelIndex = child.childIndex + 1;
 			if(child.expanded)	{
@@ -384,7 +384,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	    var maxCounter:Int= getChildCount();
 
 	    for(counter in childIndex...maxCounter){
-			node = flash.Lib.as(getChildAt(counter),FHTreeStateNode);
+			node = AsWingUtils.as(getChildAt(counter),FHTreeStateNode);
 			lastRow += (node.childIndex - lastModelIndex);
 			lastModelIndex = node.childIndex + 1;
 			if(!node.expanded)	{
@@ -395,7 +395,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 			}
 	    }
 	    lastRow += childCount - lastModelIndex;
-	    node = flash.Lib.as(getParent(),FHTreeStateNode);
+	    node = AsWingUtils.as(getParent(),FHTreeStateNode);
 	    if(node != null) {
 			node.resetChildrenRowsFrom(lastRow, node.getIndex(this) + 1, this.childIndex + 1);
 	    }else { // This is the root, reset total ROWCOUNT!
@@ -408,7 +408,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	 * <code>expandParentAndReceiver</code> on the superclass.
 	 */
 	public function makeVisible():Void{
-	    var parent:FHTreeStateNode = flash.Lib.as(getParent(),FHTreeStateNode);
+	    var parent:FHTreeStateNode = AsWingUtils.as(getParent(),FHTreeStateNode);
 
 	    if(parent != null)
 			parent.expandParentAndReceiver();
@@ -419,7 +419,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	 * and expands the receiver.
 	 */
 	private function expandParentAndReceiver():Void{
-	    var parent:FHTreeStateNode = flash.Lib.as(getParent(),FHTreeStateNode);
+	    var parent:FHTreeStateNode = AsWingUtils.as(getParent(),FHTreeStateNode);
 
 	    if(parent != null)
 			parent.expandParentAndReceiver();
@@ -527,7 +527,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 			var counter :Int= 0;
 			while (counter<maxCounter) {
 		 
-			    aChild = flash.Lib.as( getChildAt(counter), FHTreeStateNode);	
+			    aChild = AsWingUtils.as( getChildAt(counter), FHTreeStateNode);	
 			      if(aChild.childIndex >= modelIndex) {
 					if(isChildVisible) {
 					    adjustRowBy(-1, counter);
@@ -538,7 +538,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 					// above.
 					while ( counter < maxCounter)
 					{
-					    (flash.Lib.as( getChildAt(counter), FHTreeStateNode)).childIndex--;
+					    (AsWingUtils.as( getChildAt(counter), FHTreeStateNode)).childIndex--;
 						counter++;
 					}
 					childCount--;
@@ -564,7 +564,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 		var maxCounter:Int = getChildCount();
 		//    for(var counter:int = 0; counter < maxCounter; counter++) {
 	    for(counter in 0...maxCounter){
-			(flash.Lib.as(getChildAt(counter),FHTreeStateNode)).childIndex += amount;
+			(AsWingUtils.as(getChildAt(counter),FHTreeStateNode)).childIndex += amount;
 				}
 	}
 
@@ -578,7 +578,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 	    var maxCounter:Int= getChildCount();
 
 	    for(counter in 0...maxCounter){
-			aChild = flash.Lib.as(getChildAt(counter),FHTreeStateNode);
+			aChild = AsWingUtils.as(getChildAt(counter),FHTreeStateNode);
 		if(aChild.childIndex >= index) {
 			    if(isExpandedAndVisible) {
 					adjustRowBy(1, counter);
@@ -588,7 +588,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 			       index, no need to continue testing with the above. */
 			   while ( counter < maxCounter)
 				{
-					(flash.Lib.as( getChildAt(counter), FHTreeStateNode)).childIndex--;
+					(AsWingUtils.as( getChildAt(counter), FHTreeStateNode)).childIndex--;
 					
 				}
 				childCount++;
@@ -626,7 +626,7 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 		var maxCounter:Int= getChildCount();
 		var lastChildEndRow:Int;
 	    for( counter in 0... maxCounter) {
-			child = (flash.Lib.as( getChildAt(counter), FHTreeStateNode));
+			child = (AsWingUtils.as( getChildAt(counter), FHTreeStateNode));
 			if(child.row > row) {
 			    if(counter == 0) {
 					// No node exists for it, and is first.
@@ -690,14 +690,14 @@ class FHTreeStateNode extends DefaultMutableTreeNode {
 		var maxCounter:Int = getChildCount();
 		  counter = 0;
 	    while ( counter <maxCounter) {
-			aChild = flash.Lib.as( getChildAt(counter), FHTreeStateNode);
+			aChild = AsWingUtils.as( getChildAt(counter), FHTreeStateNode);
 			if(aChild.childIndex >= stopIndex)			
 				counter = maxCounter;
 			else
 			    retCount += aChild.getTotalChildCount();
 	    }
 	    if (parent != null) { 	
-			return retCount + (flash.Lib.as( getParent(), FHTreeStateNode)).getCountTo(childIndex);
+			return retCount + (AsWingUtils.as( getParent(), FHTreeStateNode)).getCountTo(childIndex);
 	    }
 	    if(!layoutCache.isRootVisible()){
 			return (retCount - 1);

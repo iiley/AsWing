@@ -6,16 +6,16 @@ package org.aswing.util;
 
 	 
 import flash.Lib;
-import flash.system.ApplicationDomain;
+//import flash.system.ApplicationDomain;
 import flash.display.DisplayObject;
 
 class Reflection{
 	
-	public static function createDisplayObjectInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):DisplayObject{
-		return flash.Lib.as(createInstance(fullClassName, applicationDomain) ,DisplayObject);
+	public static function createDisplayObjectInstance(fullClassName:String, applicationDomain:Dynamic=null):DisplayObject{
+		return AsWingUtils.as(createInstance(fullClassName, applicationDomain) ,DisplayObject);
 	}
 	
-	public static function createInstance(fullClassName:String, applicationDomain:ApplicationDomain=null):Dynamic{
+	public static function createInstance(fullClassName:String, applicationDomain:Dynamic=null):Dynamic{
 		var assetClass: Class<Dynamic> = Type.resolveClass(fullClassName);
 		if(assetClass != null){
 			return Type.createInstance(assetClass,[]);
@@ -23,11 +23,12 @@ class Reflection{
 		return null;		
 	}
 	
-	public static function getClass(fullClassName:String, applicationDomain:ApplicationDomain=null):Class<Dynamic>{
+	public static function getClass(fullClassName:String, applicationDomain:Dynamic=null):Class<Dynamic>{
 		if(applicationDomain == null){
-			applicationDomain = ApplicationDomain.currentDomain;
+			//applicationDomain = ApplicationDomain.currentDomain;
 		}
-		var assetClass:Class<Dynamic>=  flash.Lib.as(applicationDomain.getDefinition(fullClassName),Class) ;
+		var assetClass:Class<Dynamic> = null;
+		//assetClass=AsWingUtils.as(applicationDomain.getDefinition(fullClassName), Class) ;
 		return assetClass;		
 	}
 	

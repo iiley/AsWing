@@ -55,7 +55,7 @@ class ScrollPaneLayout extends EmptyLayout{
 	
     override public function minimumLayoutSize(target:Container):IntDimension{
     	if(Std.is(target,JScrollPane)){
-    		var scrollPane:JScrollPane = flash.Lib.as(target,JScrollPane);
+    		var scrollPane:JScrollPane = AsWingUtils.as(target,JScrollPane);
     		var size:IntDimension = getScrollBarsSize(scrollPane);
     		var i:Insets = scrollPane.getInsets();
     		size = size.increaseSize(i.getOutsideSize());
@@ -89,7 +89,7 @@ class ScrollPaneLayout extends EmptyLayout{
 	 */
     override public function preferredLayoutSize(target:Container):IntDimension{
     	if(Std.is(target,JScrollPane)){
-	    	var scrollPane:JScrollPane = flash.Lib.as(target,JScrollPane);
+	    	var scrollPane:JScrollPane = AsWingUtils.as(target,JScrollPane);
 	    	var i:Insets = scrollPane.getInsets();
 	    	var size:IntDimension = i.getOutsideSize();
 	    	size.increaseSize(getScrollBarsSize(scrollPane));
@@ -105,7 +105,7 @@ class ScrollPaneLayout extends EmptyLayout{
 	
     override public function layoutContainer(target:Container):Void{
     	if(Std.is(target,JScrollPane)){
-    		var scrollPane:JScrollPane = flash.Lib.as(target,JScrollPane);
+    		var scrollPane:JScrollPane = AsWingUtils.as(target,JScrollPane);
     		var viewport:Viewportable = scrollPane.getViewport();
     		var vScrollBar:JScrollBar = scrollPane.getVerticalScrollBar();
     		var hScrollBar:JScrollBar = scrollPane.getHorizontalScrollBar();

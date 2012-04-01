@@ -5,7 +5,7 @@
 package org.aswing;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.event.AWEvent;
 	import org.aswing.event.InteractiveEvent;
 	import org.aswing.plaf.ComponentUI;
@@ -13,7 +13,7 @@ import org.aswing.event.AWEvent;
 	import flash.events.Event;
 import flash.display.InteractiveObject;
 import org.aswing.plaf.basic.BasicComboBoxUI;
-
+import org.aswing.util.Reflection;
 /**
  * Dispatched when the combobox act, when value set or selection changed.
  * @eventType org.aswing.event.AWEvent.ACT
@@ -66,12 +66,15 @@ class JComboBox extends Component , implements EditableComponent{
 		editable = false;
 		setEditor(new DefaultComboBoxEditor());
 		if(listData != null){
-			if(Std.is(listData,ListModel)){
-				setModel(flash.Lib.as(listData,ListModel));
-			}else if(Std.is(listData,Array)){
-				setListData(flash.Lib.as(listData,Array) );
+		 if(Std.is(listData,Array)){
+				setListData(AsWingUtils.as(listData,Array) );
+			}else if (Std.is(listData, ListModel)) {
+	
+	
+				setModel( AsWingUtils.as(listData, ListModel));
+	 	
 			}else{
-				setListData(null); //create new
+				setListData([]); //create new
 			}
 		}
 		
@@ -115,7 +118,7 @@ class JComboBox extends Component , implements EditableComponent{
      * @return the combobox ui.
      */
     public function getComboBoxUI():ComboBoxUI{
-    	return flash.Lib.as(getUI() , ComboBoxUI);
+    	return AsWingUtils.as(getUI() , ComboBoxUI);
     }
     
 	/**
@@ -301,10 +304,12 @@ class JComboBox extends Component , implements EditableComponent{
 			editable = b;
 			getEditor().setEditable(b);
 			//editable changed, internal focus object will change too, so change the focus
-			if(isFocusable() && isFocusOwner() && stage != null){
+			if (isFocusable() && isFocusOwner() && stage != null) {
+			#if(flash9)	
 				if(stage.focus != getInternalFocusObject()){
 					stage.focus = getInternalFocusObject();
 				}
+			#end
 			}
 		}
 	}
@@ -351,8 +356,11 @@ class JComboBox extends Component , implements EditableComponent{
 	 * Set the list mode to provide the data to JList.
 	 * @see org.aswing.ListModel
 	 */
-	public function setModel(m:ListModel):Void{
-		getPopupList().setModel(m);
+	public function setModel(?m:ListModel):Void {
+		 
+		//why
+		trace(m);
+		if (m != null)   getPopupList().setModel(m);
 	}
 	
 	/**
@@ -367,6 +375,7 @@ class JComboBox extends Component , implements EditableComponent{
      */
 	public function showPopup():Void{
 		setPopupVisible(true);
+		
 	}
 	/** 
      * Causes the combo box to close its popup window.

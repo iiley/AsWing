@@ -6,12 +6,12 @@ package org.aswing.plaf.basic;
 
 
 import flash.display.Shape;
-import flash.errors.Error;
+import org.aswing.error.Error;
 import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.filters.GlowFilter;
-import flash.ui.Keyboard;
-
+import flash.filters.GlowFilter;
+import flash.events.MouseEvent; 
+import org.aswing.AWKeyboard;
+import flash.filters.BitmapFilter;
 import org.aswing.JSlider;
 	import org.aswing.Icon;
 	import org.aswing.ASColor;
@@ -73,14 +73,14 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 	}
 		
 	override public function installUI(c:Component):Void{
-		slider = flash.Lib.as(c,JSlider);
+		slider = AsWingUtils.as(c,JSlider);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
 	
 	override public function uninstallUI(c:Component):Void{
-		slider = flash.Lib.as(c,JSlider);
+		slider = AsWingUtils.as(c,JSlider);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -397,7 +397,10 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 			radius = style.round;
 		}
 		g.fillRoundRect(new SolidBrush(slider.getBackground()), b.x, b.y, b.width, b.height, radius);
-		trackCanvas.filters = [new GlowFilter(0x0, style.shadowAlpha, 5, 5, 1, 1, true)];		
+	    var trackCanvas_f :Array<BitmapFilter>= new Array<BitmapFilter>();
+		
+		trackCanvas_f.push(new flash.filters.GlowFilter(0x0, style.shadowAlpha, 5, 5, 1, 1, true));
+		trackCanvas.filters = trackCanvas_f; 
 	}
 	
 	private function paintTrackProgress(g:Graphics2D, trackDrawRect:IntRectangle):Void{
@@ -453,7 +456,8 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 		var majT:Int= slider.getMajorTickSpacing();
 		var minT:Int= slider.getMinorTickSpacing();
 		var max:Int= slider.getMaximum();
-		
+		//why	
+		/*
 		g.beginDraw(new Pen(slider.getForeground(), 0));
 			
 		var yPos:Int= 0;
@@ -504,7 +508,8 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 				}
 			}
 		}
-		g.endDraw();		
+		g.endDraw();
+		*/
 	}
 
 	private function paintMinorTickForHorizSlider( g:Graphics2D, tickBounds:IntRectangle, x:Int, y:Int):Void{
@@ -538,7 +543,7 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 		if(!slider.isEnabled()){
 			return;
 		}
-		var code:UInt= e.keyCode;
+		var code:Int= e.keyCode;
 		var unit:Int= getUnitIncrement();
 		var block:Int= slider.getMajorTickSpacing() > 0 ? slider.getMajorTickSpacing() : unit*5;
 		if(isVertical()){
@@ -549,17 +554,17 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 			unit = -unit;
 			block = -block;
 		}
-		if(code == Keyboard.UP || code == Keyboard.LEFT){
+		if(code == AWKeyboard.UP || code == AWKeyboard.LEFT){
 			scrollByIncrement(-unit);
-		}else if(code == Keyboard.DOWN || code == Keyboard.RIGHT){
+		}else if(code == AWKeyboard.DOWN || code == AWKeyboard.RIGHT){
 			scrollByIncrement(unit);
-		}else if(code == Keyboard.PAGE_UP){
+		}else if(code == AWKeyboard.PAGE_UP){
 			scrollByIncrement(-block);
-		}else if(code == Keyboard.PAGE_DOWN){
+		}else if(code == AWKeyboard.PAGE_DOWN){
 			scrollByIncrement(block);
-		}else if(code == Keyboard.HOME){
+		}else if(code == AWKeyboard.HOME){
 			slider.setValue(slider.getMinimum());
-		}else if(code == Keyboard.END){
+		}else if(code == AWKeyboard.END){
 			slider.setValue(slider.getMaximum() - slider.getExtent());
 		}
 	}
@@ -592,7 +597,8 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 			__scrollTimerPerformed(null);//run one time immediately first
 		}
 	}
-	private function __onSliderReleased(e:Event):Void{
+	private function __onSliderReleased(e:Event):Void {
+ 
 		if(isDragging)	{
 			__stopDragThumb();
 		}
@@ -678,14 +684,14 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 	}
 	
 	private function __startHandleDrag():Void{
-		if(slider.stage!=null)	{
-			slider.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb, false, 0, true);
-			slider.addEventListener(Event.REMOVED_FROM_STAGE, __onMoveThumbRFS, false, 0, true);
+		if(AsWingManager.getStage()!=null)	{
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb, false, 0, false);
+			slider.addEventListener(Event.REMOVED_FROM_STAGE, __onMoveThumbRFS, false, 0, false);
 			showValueTip();
 		}
 	}
 	private function __onMoveThumbRFS(e:Event):Void{
-		slider.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
+		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
 		slider.removeEventListener(Event.REMOVED_FROM_STAGE, __onMoveThumbRFS);
 	}
 	private function __stopHandleDrag():Void{

@@ -100,4 +100,5 @@ class DefaultEmptyDecoraterResource implements Icon,implements Border,implements
 	 */
 	public function updateDecorator(com:Component, g:Graphics2D, bounds:IntRectangle):Void{
 	}
+	 
 }

@@ -9,7 +9,9 @@ import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
-import flash.ui.Keyboard;
+import org.aswing.AsWingManager;
+import org.aswing.AsWingUtils;
+import org.aswing.AWKeyboard;
 
 import org.aswing.JAdjuster;
 	import org.aswing.Component;
@@ -66,14 +68,14 @@ class BasicAdjusterUI extends BaseComponentUI , implements AdjusterUI{
 	}
 	
     override public function installUI(c:Component):Void{
-    	adjuster = flash.Lib.as(c,JAdjuster);
+    	adjuster =      AsWingUtils.as(c,JAdjuster);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-    	adjuster = flash.Lib.as(c,JAdjuster);
+    	adjuster = AsWingUtils.as(c,JAdjuster);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -310,26 +312,26 @@ class BasicAdjusterUI extends BaseComponentUI , implements AdjusterUI{
 	}
 	
 	private function __onInputTextKeyDown(e:FocusKeyEvent):Void{
-    	var code:UInt= e.keyCode;
+    	var code:Int= e.keyCode;
     	var unit:Int= getUnitIncrement();
     	var block:Int= popupSlider.getMajorTickSpacing() > 0 ? popupSlider.getMajorTickSpacing() : unit*10;
     	var delta:Int= 0;
-    	if(code == Keyboard.ENTER){
+    	if(code == AWKeyboard.ENTER){
     		__inputTextAction(false);
     		return;
     	}
-    	if(code == Keyboard.UP){
+    	if(code == AWKeyboard.UP){
     		delta = unit;
-    	}else if(code == Keyboard.DOWN){
+    	}else if(code == AWKeyboard.DOWN){
     		delta = -unit;
-    	}else if(code == Keyboard.PAGE_UP){
+    	}else if(code == AWKeyboard.PAGE_UP){
     		delta = block;
-    	}else if(code == Keyboard.PAGE_DOWN){
+    	}else if(code == AWKeyboard.PAGE_DOWN){
     		delta = -block;
-    	}else if(code == Keyboard.HOME){
+    	}else if(code == AWKeyboard.HOME){
     		adjuster.setValue(adjuster.getMinimum());
     		return;
-    	}else if(code == Keyboard.END){
+    	}else if(code == AWKeyboard.END){
     		adjuster.setValue(adjuster.getMaximum() - adjuster.getExtent());
     		return;
     	}
@@ -374,14 +376,14 @@ class BasicAdjusterUI extends BaseComponentUI , implements AdjusterUI{
 		
 		startMousePoint = adjuster.getMousePosition();
 		startValue = adjuster.getValue();
-		if(adjuster.stage!=null)	{
-			adjuster.stage.addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider, false, 0, true);
-			adjuster.addEventListener(Event.REMOVED_FROM_STAGE, __onMouseMoveOnSliderRemovedFromStage, false, 0, true);
+		if(AsWingManager.getStage()!=null)	{
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider, false, 0, false);
+			adjuster.addEventListener(Event.REMOVED_FROM_STAGE, __onMouseMoveOnSliderRemovedFromStage, false, 0, false);
 		}
 	}
 	
 	private function __onMouseMoveOnSliderRemovedFromStage(e:Event):Void{
-		adjuster.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider);
+		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider);
 		adjuster.removeEventListener(Event.REMOVED_FROM_STAGE, __onMouseMoveOnSliderRemovedFromStage);
 	}
 	

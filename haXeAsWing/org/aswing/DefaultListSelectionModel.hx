@@ -338,8 +338,7 @@ class DefaultListSelectionModel extends EventDispatcher , implements ListSelecti
 	
 	private function fireListSelectionEvent(firstIndex:Int, lastIndex:Int, programmatic:Bool):Void{
 		dispatchEvent(new SelectionEvent(SelectionEvent.LIST_SELECTION_CHANGED, firstIndex, lastIndex, programmatic));
-	}
-	
+	} 
 	override public function toString():String{
 		return "DefaultListSelectionModel[]";
 	}

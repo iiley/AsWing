@@ -12,8 +12,9 @@ import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.MouseEvent;
+#if(flash9)
 import flash.ui.Mouse;
-import flash.utils.TypedDictionary;
+#end 
 
 import org.aswing.util.DepthManager;
 import org.aswing.util.WeakMap;
@@ -39,7 +40,7 @@ class CursorManager{
 			cursorHolder=null;
 			currentCursor=null;
 			setCursorContainerRoot(cursorRoot);
-			tiggerCursorMap=new TypedDictionary<Dynamic,Dynamic>(true);
+			tiggerCursorMap=new IntHash<DisplayObject>();
 	}
 	
 	private static var managers:WeakMap = new WeakMap();
@@ -100,12 +101,14 @@ class CursorManager{
 	 * @param cursor the display object to be add to the cursor container to be the cursor
 	 * @param hideSystemCursor whether or not hide the system cursor when custom cursor shows.
 	 */
-	public function showCustomCursor(cursor:DisplayObject, hideSystemCursor:Bool=true):Void{
+	public function showCustomCursor(cursor:DisplayObject, hideSystemCursor:Bool = true):Void {
+		#if(flash9)	
 		if(hideSystemCursor)	{
 			Mouse.hide();
 		}else{
 			Mouse.show();
 		}
+		#end
 		if(cursor == currentCursor){
 			return;
 		}
@@ -115,7 +118,9 @@ class CursorManager{
 			if(ro != null){
 				cursorHolder = new Sprite();
 				cursorHolder.mouseEnabled = false;
+				#if(flash9)
 				cursorHolder.tabEnabled = false;
+				#end
 				cursorHolder.mouseChildren = false;
 				ro.addChild(cursorHolder);
 			}
@@ -129,7 +134,7 @@ class CursorManager{
 				cursorHolder.addChild(currentCursor);
 			}
 			DepthManager.bringToTop(cursorHolder);
-			ro.stage.addEventListener(MouseEvent.MOUSE_MOVE, __mouseMove, false, 0, true);
+			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __mouseMove, false, 0, false);
 			__mouseMove(null);
 		}
 	}
@@ -155,22 +160,23 @@ class CursorManager{
 			}
 		}
 		currentCursor = null;
+		#if(flash9)
 		Mouse.show();
+		#end
 		var ro:DisplayObjectContainer = getCursorContainerRoot();
-		if(ro != null){
-			ro.stage.removeEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
-		}
+		AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __mouseMove);
+		 
 	}
 	
-	private var tiggerCursorMap:TypedDictionary<Dynamic,Dynamic>;
+	private var tiggerCursorMap:IntHash<DisplayObject>;
 	
 	/**
 	 * Sets the cursor when mouse on the specified trigger. null to remove cursor for that trigger.
 	 * @param trigger where the cursor will shown when the mouse on the trigger
 	 * @param cursor the cursor object, if cursor is null, the trigger's current cursor will be removed
 	 */
-	public function setCursor(trigger:InteractiveObject, cursor:DisplayObject):Void{
-		  tiggerCursorMap.set(trigger, cursor);
+	public function setCursor(trigger:Component, cursor:DisplayObject):Void{
+		tiggerCursorMap.set(trigger.getAwmlIndex(), cursor);
 		if(cursor != null){
 			trigger.addEventListener(MouseEvent.ROLL_OVER, __triggerOver, false, 0, true);
 			trigger.addEventListener(MouseEvent.ROLL_OUT, __triggerOut, false, 0, true);
@@ -179,14 +185,13 @@ class CursorManager{
 			trigger.removeEventListener(MouseEvent.ROLL_OVER, __triggerOver, false);
 			trigger.removeEventListener(MouseEvent.ROLL_OUT, __triggerOut, false);
 			trigger.removeEventListener(MouseEvent.MOUSE_UP, __triggerUp, false);
-			// delete 
-			tiggerCursorMap.delete(trigger);
+			tiggerCursorMap.remove(trigger.getAwmlIndex());
 		}
 	}
 		
 	private function __triggerOver(e:MouseEvent):Void{
-		var trigger:Dynamic= e.currentTarget;
-		var cursor:DisplayObject = flash.Lib.as( tiggerCursorMap.get(trigger) , DisplayObject);
+		var trigger:Component=AsWingUtils.as(  e.currentTarget , Component);
+		var cursor:DisplayObject = AsWingUtils.as(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
  
 		if(cursor != null && !e.buttonDown){
 			showCustomCursor(cursor);
@@ -194,16 +199,17 @@ class CursorManager{
 	}
 	
 	private function __triggerOut(e:MouseEvent):Void{
-		var trigger:Dynamic= e.currentTarget;
-		var cursor:DisplayObject = flash.Lib.as(tiggerCursorMap.get(trigger) , DisplayObject);
-		if(cursor!=null)	{
+		var trigger:Component=AsWingUtils.as(  e.currentTarget , Component);
+		var cursor:DisplayObject = AsWingUtils.as(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
+ 		if(cursor!=null)	{
 			hideCustomCursor(cursor);
 		}
 	}
 	
 	private function __triggerUp(e:MouseEvent):Void{
-		var trigger:InteractiveObject = flash.Lib.as(e.currentTarget,InteractiveObject)	;
-		var cursor:DisplayObject = flash.Lib.as(tiggerCursorMap.get(trigger) , DisplayObject);
+		var trigger:Component=AsWingUtils.as(  e.currentTarget , Component);
+		var cursor:DisplayObject = AsWingUtils.as(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
+ 
 		if(cursor  != null&& trigger.hitTestPoint(e.stageX, e.stageY, true)){
 			showCustomCursor(cursor);
 		}

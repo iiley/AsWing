@@ -26,14 +26,14 @@ class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 			return null;
 		}
 		if((Std.is(c,Container)) && deepIn){
-			var fc:Component = getFirstComponent(flash.Lib.as(c,Container)	);
+			var fc:Component = getFirstComponent(AsWingUtils.as(c,Container)	);
 			if(fc != null){
 				return fc;
 			}
 		}
 		var container:Container = c.getParent();
 		if(container == null){
-			return getFirstComponent(flash.Lib.as(c,Container)	);
+			return getFirstComponent(AsWingUtils.as(c,Container)	);
 		}
 		var index:Int= container.getIndex(c);
 		var n:Int= container.getComponentCount();
@@ -60,7 +60,7 @@ class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 		}
 		var container:Container = c.getParent();
 		if(container == null){
-			return getLastComponent(flash.Lib.as(c,Container)	);
+			return getLastComponent(AsWingUtils.as(c,Container)	);
 		}
 		var index:Int= container.getIndex(c);
 		while((--index) >= 0){
@@ -109,7 +109,7 @@ class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 	 * deep into it to find the last.
 	 */
 	private function getLastComponent(c:Component):Component{
-		var container:Container = flash.Lib.as(c,Container)	;
+		var container:Container = AsWingUtils.as(c,Container)	;
 		if(container == null){
 			if(accept(c)){
 				return c;
@@ -125,7 +125,7 @@ class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 					return theC;
 				}
 			}
-			var nc:Component = getLastComponent(flash.Lib.as(theC,Container)	);
+			var nc:Component = getLastComponent(AsWingUtils.as(theC,Container)	);
 			if(nc != null){
 				return nc;
 			}
@@ -139,7 +139,7 @@ class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 	
 	private function isLeaf(c:Component):Bool{
 		if(Std.is(c,Container)){
-			var con:Container = flash.Lib.as(c,Container)	;
+			var con:Container = AsWingUtils.as(c,Container)	;
 			return con.getComponentCount() == 0;
 		}
 		return true;
@@ -154,7 +154,7 @@ class ContainerOrderFocusTraversalPolicy implements FocusTraversalPolicy{
 			if(c.isFocusable()){
 				return c;
 			}else if(Std.is(c,Container)){//down circle
-				var con:Container = flash.Lib.as(c,Container)	;
+				var con:Container = AsWingUtils.as(c,Container)	;
 				var conDefault:Component = con.getFocusTraversalPolicy().getDefaultComponent(con);
 				if(conDefault != null){
 					return conDefault;

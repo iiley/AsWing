@@ -20,7 +20,8 @@ class ToggleButtonModel extends DefaultButtonModel{
      * @param b true selects the toggle button,
      *          false deselects the toggle button.
      */
-    override public function setSelected(b:Bool):Void{
+    override public function setSelected(b:Bool):Void {
+ 
         var group:ButtonGroup = getGroup();
         if (group != null) {
             // use the group model instead
@@ -33,11 +34,12 @@ class ToggleButtonModel extends DefaultButtonModel{
     /**
      * Sets the button to released or unreleased.
      */
-	override public function setPressed(b:Bool):Void{
+	override public function setPressed(b:Bool):Void {
+ 
         if(isPressed()==b || !isEnabled()) {
             return;
         }
-        
+       
         if (b==false && isArmed()) {
             setSelected(!isSelected());
         }

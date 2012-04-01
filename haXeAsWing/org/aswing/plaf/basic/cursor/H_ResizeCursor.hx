@@ -37,9 +37,12 @@ class H_ResizeCursor extends Shape{
 						 {x:r, y:r}, {x:r, y:w}, {x:-r, y:w},
 						 {x:-r, y:r}];
 		var gdi:Graphics2D = new Graphics2D(graphics);
-		gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(0.4), 4), arrowPoints);
+		
+		//why	
+		 
+		//gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(0.4), 4), arrowPoints);
 		gdi.fillPolygon(new SolidBrush(resizeArrowLightColor), arrowPoints);
-		gdi.drawPolygon(new Pen(resizeArrowDarkColor, 1), arrowPoints);			
+		//gdi.drawPolygon(new Pen(resizeArrowDarkColor, 1), arrowPoints);			
 	}
 	
 }

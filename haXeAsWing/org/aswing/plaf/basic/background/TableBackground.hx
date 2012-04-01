@@ -6,11 +6,10 @@ package org.aswing.plaf.basic.background;
 
 
 import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.filters.BevelFilter;
+import flash.display.Shape; 
 import flash.filters.BitmapFilterType;
 import flash.filters.GlowFilter;
-
+import flash.filters.BitmapFilter;
 import org.aswing.ASColor;
 import org.aswing.AsWingManager;
 import org.aswing.Component;
@@ -49,11 +48,14 @@ class TableBackground implements GroundDecorator,implements UIResource{
 			style.clight = style.clight.changeAlpha(1);
 			BasicGraphicsUtils.fillGradientRoundRect(g, b, style, -Math.PI/2);
 			var bd:ASColor = style.bdark;
-			shape.filters = [
-				new BevelFilter(1, 45, 0xFFFFFF, 0.4, 0x0, 0.4, 1, 1, 1, 1, BitmapFilterType.INNER),
-				new GlowFilter(0xFFFFFF, 0.5, 2, 2, 20, 1, true),  
-				new GlowFilter(bd.getRGB(), 1, 2, 2, 20, 1)
-			];
+			var f :Array<BitmapFilter> = new Array<BitmapFilter>();
+			f.push(new  GlowFilter(0xFFFFFF, 0.5, 2, 2, 20, 1, true));
+			f.push(new GlowFilter(bd.getRGB(), 1, 2, 2, 20, 1));
+			shape.filters = f;
+			
+				//new flash.filters.BevelFilter(1, 45, 0xFFFFFF, 0.4, 0x0, 0.4, 1, 1, 1, 1, BitmapFilterType.INNER),
+			
+				 
 			shape.alpha = cl.getAlpha();
 		}
 		shape.visible = c.isOpaque();

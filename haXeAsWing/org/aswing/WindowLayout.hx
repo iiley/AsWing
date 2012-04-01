@@ -5,7 +5,7 @@
 package org.aswing;
 
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 import org.aswing.geom.IntDimension;
 	import org.aswing.geom.IntRectangle;
 	/**

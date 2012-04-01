@@ -3,10 +3,9 @@
 */
 
 package org.aswing;
-
-
-import flash.display.DisplayObject;
-import flash.display.SimpleButton;
+import flash.filters.BitmapFilter;
+import flash.display.DisplayObjectContainer;
+import flash.display.DisplayObject; 
 import flash.events.Event;
 import flash.events.MouseEvent;
 import org.aswing.util.StringUtils;
@@ -130,22 +129,23 @@ class AbstractButton extends Component{
     private var shiftOffset:Int;
     private var shiftOffsetSet:Bool;
     
-    private var        textFilters:Array<Dynamic>;
+    private var        textFilters:Array<BitmapFilter>;
 	
 	public function new(text:String="", icon:Icon=null){
 		this.shiftOffset=0;
 		this.shiftOffsetSet=false;
 			super();
+	 	
 		setName("AbstractButton");
-		
+	
     	rolloverEnabled = true;
     	
     	verticalAlignment = CENTER;
     	horizontalAlignment = CENTER;
     	verticalTextPosition = CENTER;
     	horizontalTextPosition = RIGHT;
-    	
-    	textFilters = new Array<Dynamic>();
+    		
+    	textFilters = new Array<BitmapFilter>();
     	
     	iconTextGap = 2;
     	mnemonicEnabled = true;
@@ -155,7 +155,8 @@ class AbstractButton extends Component{
     	//setText(text);
     	//setIcon(icon);
     	initSelfHandlers();
-    	updateUI();
+    	
+    	updateUI(); 
     	installIcon(defaultIcon);
 	}
 
@@ -218,7 +219,7 @@ class AbstractButton extends Component{
     	dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 0, 0));
     	if(isOnStage()){
     		dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP, true, false, 0, 0));
-    	}else{
+    	}else { 
     		dispatchEvent(new ReleaseEvent(ReleaseEvent.RELEASE, this, false, new MouseEvent(MouseEvent.MOUSE_UP)));
     	}
     	dispatchEvent(new MouseEvent(MouseEvent.CLICK, true, false, 0, 0));
@@ -402,12 +403,12 @@ class AbstractButton extends Component{
 		}
 	}
 	
-	public function setTextFilters(fs:Array<Dynamic>):Void{
+	public function setTextFilters(fs:Array<BitmapFilter>):Void{
 		textFilters = fs;
 		repaint();
 	}
 	
-	public function getTextFilters():Array<Dynamic>{
+	public function getTextFilters():Array<BitmapFilter>{
 		return textFilters;
 	}
 	
@@ -542,8 +543,8 @@ class AbstractButton extends Component{
 	private function uninstallIcon(icon:Icon):Void{
 		var iconDis:DisplayObject = (icon == null ? null : icon.getDisplay(this));
 		if(iconDis != null && isChild(iconDis)){
-			removeChild(icon.getDisplay(this));
-		}
+			removeChild(icon.getDisplay(this)); 
+		 }
 	}
 	
 	/**
@@ -961,11 +962,12 @@ class AbstractButton extends Component{
     //			internal handlers
     //--------------------------------------------------------------
 	
-	private function initSelfHandlers():Void{
+	private function initSelfHandlers():Void {
+	 
 		addEventListener(MouseEvent.ROLL_OUT, __rollOutListener);
 		addEventListener(MouseEvent.ROLL_OVER, __rollOverListener);
 		addEventListener(MouseEvent.MOUSE_DOWN, __mouseDownListener);
-		//addEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
+		addEventListener(MouseEvent.MOUSE_UP, __mouseUpListener);
 		addEventListener(ReleaseEvent.RELEASE, __mouseReleaseListener);
 		addEventListener(Event.ADDED_TO_STAGE, __addedToStage);
 		addEventListener(Event.REMOVED_FROM_STAGE, __removedFromStage);
@@ -1005,16 +1007,19 @@ class AbstractButton extends Component{
 		}
 		m.setArmed(false);
 	}
-	private function __mouseDownListener(e:Event):Void{
+	private function __mouseDownListener(e:Event):Void {
+	 
 		getModel().setArmed(true);
 		getModel().setPressed(true);
+		
 	}
-	/*private function __mouseUpListener(e:Event):void{
+	private function __mouseUpListener(e:Event):Void{
 		if(isRollOverEnabled()) {
 			getModel().setRollOver(true);
 		}
-	}*/
-	private function __mouseReleaseListener(e:Event):Void{
+	} 
+	private function __mouseReleaseListener(e:Event):Void {
+ 
 		getModel().setPressed(false);
 		getModel().setArmed(false);
 		if(isRollOverEnabled() && !hitTestMouse()){

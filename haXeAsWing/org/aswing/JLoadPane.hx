@@ -6,15 +6,13 @@ package org.aswing;
 
 	
 import flash.display.Loader;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.DisplayObject;
-	import flash.display.LoaderInfo;
-	import flash.events.Event;
-	import flash.events.ProgressEvent;
-	import flash.events.IOErrorEvent;
-	import flash.events.HTTPStatusEvent;
-	import flash.net.URLRequest;
-	import flash.system.LoaderContext;
+import flash.display.DisplayObjectContainer;
+import flash.display.DisplayObject;
+import flash.display.LoaderInfo;
+import flash.events.Event;
+ 
+import flash.events.IOErrorEvent; 
+import flash.net.URLRequest; 
 	/**
  * Dispatched when data has loaded successfully. The complete event is always dispatched after the init event. 
  * @eventType flash.events.Event.COMPLETE
@@ -67,8 +65,7 @@ class JLoadPane extends AssetPane{
 	
 	private var loader:Loader;
 	private var loadedError:Bool;
-	private var urlRequest:URLRequest;
-	private var context:LoaderContext;
+	private var urlRequest:URLRequest;  
 	private var regularAssetContainer:DisplayObjectContainer;
 	
 	/**
@@ -85,18 +82,18 @@ class JLoadPane extends AssetPane{
 	 * @param context the loader context.
 	 * @see #setPath()
 	 */
-	public function new(url:Dynamic=null, prefferSizeStrategy:Int=1, context:LoaderContext = null) {
+	public function new(url:Dynamic=null, prefferSizeStrategy:Int=1 ) {
 		super(null, prefferSizeStrategy);
 		setName("JLoadPane");
 		loadedError = false;
 		if(url == null){
 			urlRequest = null;
 		}else if(Std.is(url,URLRequest)){
-			urlRequest = flash.Lib.as(url,URLRequest)	;
+			urlRequest = AsWingUtils.as(url,URLRequest)	;
 		}else{
-			urlRequest = new URLRequest(flash.Lib.as(url , String));
+			urlRequest = new URLRequest(AsWingUtils.as(url , String));
 		}
-		this.context = context;
+		 
 		regularAssetContainer = assetContainer;
 		loader = createLoader();
 		loadAsset();
@@ -147,9 +144,9 @@ class JLoadPane extends AssetPane{
 	 * @param context (default = null) â€?A LoaderContext object.
 	 * @see flash.display.Loader#load()
 	 */
-	public function load(request:URLRequest, context:LoaderContext = null):Void{
+	public function load(request:URLRequest ):Void{
 		this.urlRequest = request;
-		this.context = context;
+	 
 		loadAsset();
 	}
 	
@@ -158,9 +155,8 @@ class JLoadPane extends AssetPane{
 	 */ 
 	override public function unloadAsset():Void{
 		this.urlRequest = null;
-		this.context = null;
-		if(assetContainer == loader){
-			loader.unload();
+		 
+		if(assetContainer == loader){ 
 			this.asset = null;
 			setLoaded(false);
 			resetAsset();
@@ -196,7 +192,7 @@ class JLoadPane extends AssetPane{
 		if(urlRequest != null){
 			loadedError = false;
 			setLoaded(false);
-			loader.load(urlRequest, context);
+			loader.load(urlRequest);
 		}
 	}
 	
@@ -206,9 +202,9 @@ class JLoadPane extends AssetPane{
 		loader.contentLoaderInfo.addEventListener(Event.INIT, __onLoadInit);
 		loader.contentLoaderInfo.addEventListener(Event.OPEN, __onLoadStart);
 		loader.contentLoaderInfo.addEventListener(Event.UNLOAD, __onUnload);
-		loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
+		//loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, __onLoadHttpStatus);
 		loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, __onLoadError);	
-		loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, __onLoadProgress);
+		//loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, __onLoadProgress);
 		return loader;
 	}
 	
@@ -216,12 +212,14 @@ class JLoadPane extends AssetPane{
 	 * Returns a object contains <code>bytesLoaded</code> and <code>bytesTotal</code> 
 	 * properties that indicate the current loading status.
 	 */
+	
+	/*
 	public function getProgress():ProgressEvent{
 		return new ProgressEvent(ProgressEvent.PROGRESS, false, false, 
 			loader.contentLoaderInfo.bytesLoaded, 
 			loader.contentLoaderInfo.bytesTotal);
 	}
-	
+	*/
 	public function getAssetLoaderInfo():LoaderInfo{
 		return loader.contentLoaderInfo;
 	}
@@ -246,11 +244,11 @@ class JLoadPane extends AssetPane{
 	private function __onLoadInit(e:Event):Void{
 		dispatchEvent(new Event(Event.INIT));
 	}
-	
+	/*
 	private function __onLoadProgress(e:ProgressEvent):Void{
 		dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS, false, false, e.bytesLoaded, e.bytesTotal));
 	}
-	
+	*/ 
 	private function __onLoadStart(e:Event):Void{
 		dispatchEvent(new Event(Event.OPEN));
 	}
@@ -258,8 +256,9 @@ class JLoadPane extends AssetPane{
 	private function __onUnload(e:Event):Void{
 		dispatchEvent(new Event(Event.UNLOAD));
 	}
-	
+	/*
 	private function __onLoadHttpStatus(e:HTTPStatusEvent):Void{
 		dispatchEvent(new HTTPStatusEvent(HTTPStatusEvent.HTTP_STATUS,false,false,e.status));		
 	}
+	*/ 
 }

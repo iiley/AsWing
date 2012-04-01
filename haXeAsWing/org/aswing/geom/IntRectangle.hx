@@ -188,7 +188,7 @@ class IntRectangle
 	 *
 	 */
 	public function equals(o:Dynamic):Bool{
-		var r:IntRectangle = flash.Lib.as(o,IntRectangle)	;
+		var r:IntRectangle = AsWingUtils.as(o,IntRectangle)	;
 		if(r == null) return false;
 		return x==r.x && y==r.y && width==r.width && height==r.height;
 	}

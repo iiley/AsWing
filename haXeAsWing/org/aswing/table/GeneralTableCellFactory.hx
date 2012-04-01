@@ -26,7 +26,7 @@ class GeneralTableCellFactory implements TableCellFactory{
 	 * @return the table cell
 	 */
 	public function createNewCell(isHeader:Bool):TableCell{
-		return flash.Lib.as(Type.createInstance( cellClass,[]) , TableCell);
+		return AsWingUtils.as(Type.createInstance( cellClass,[]) , TableCell);
 	}
 	
 	public function toString():String{

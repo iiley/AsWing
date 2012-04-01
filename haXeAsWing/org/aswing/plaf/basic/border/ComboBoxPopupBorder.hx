@@ -6,10 +6,10 @@ package org.aswing.plaf.basic.border;
 
 
 import flash.display.DisplayObject;
-import flash.display.Shape;
-import flash.filters.DropShadowFilter;
+import flash.display.Shape; 
 import flash.geom.Matrix;
-
+import flash.filters.BitmapFilter;
+import flash.filters.DropShadowFilter;
 import org.aswing.ASColor;
 import org.aswing.Border;
 import org.aswing.Component;
@@ -61,9 +61,10 @@ class ComboBoxPopupBorder implements Border,implements UIResource{
 				[clTop.getRGB(), cl.getRGB()], 
 				[1, 1], [0, 100], matrix), 
 			b.x, b.y, b.width, b.height, round);
-		shape.filters = [
-			new DropShadowFilter(1, 45, 0x0, 0.3, 4, 4)
-		];
+		var f :Array<BitmapFilter> = new Array<BitmapFilter>();
+		f.push(new  DropShadowFilter(1, 45, 0x0, 0.3, 4, 4));
+
+		shape.filters = f;
 	}
 	
 	public function getBorderInsets(c:Component, b:IntRectangle):Insets{

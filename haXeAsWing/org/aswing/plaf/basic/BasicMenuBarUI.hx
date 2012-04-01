@@ -31,13 +31,13 @@ class BasicMenuBarUI extends BaseComponentUI , implements MenuElementUI{
 	}
 
 	override public function installUI(c:Component):Void{
-		menuBar =  flash.Lib.as(c,JMenuBar);
+		menuBar =  AsWingUtils.as(c,JMenuBar);
 		installDefaults();
 		installListeners();
 	}
 
 	override public function uninstallUI(c:Component):Void{
-		menuBar =flash.Lib.as(c,JMenuBar);
+		menuBar =AsWingUtils.as(c,JMenuBar);
 		uninstallDefaults();
 		uninstallListeners();
 	}
@@ -94,7 +94,7 @@ class BasicMenuBarUI extends BaseComponentUI , implements MenuElementUI{
 	/**
 	 * Subclass override this to process key event.
 	 */
-	public function processKeyEvent(code : UInt) : Void{
+	public function processKeyEvent(code : Int) : Void{
 		var manager:MenuSelectionManager = MenuSelectionManager.defaultManager();
 		if(manager.isNavigatingKey(code)){
 			var subs:Array<Dynamic>= menuBar.getSubElements();
@@ -105,7 +105,7 @@ class BasicMenuBarUI extends BaseComponentUI , implements MenuElementUI{
 				}else{//left
 					path.push(subs[subs.length-1]);
 				}
-				var smu:MenuElement = flash.Lib.as(path[1],MenuElement);
+				var smu:MenuElement = AsWingUtils.as(path[1],MenuElement);
 				if(smu.getSubElements().length > 0){
 					path.push(smu.getSubElements()[0]);
 				}
@@ -136,13 +136,13 @@ class BasicMenuBarUI extends BaseComponentUI , implements MenuElementUI{
 	
 	private function __childAdded(e:ContainerEvent):Void{
 		if (Std.is(e.getChild() , JMenu)) {
-			flash.Lib.as(e.getChild(),JMenu).addSelectionListener(__menuSelectionChanged);
+			AsWingUtils.as(e.getChild(),JMenu).addSelectionListener(__menuSelectionChanged);
 		}
 	}
 	
 	private function __childRemoved(e:ContainerEvent):Void{
 		if(Std.is(e.getChild() , JMenu)){
-			flash.Lib.as(e.getChild(),JMenu).removeSelectionListener(__menuSelectionChanged);
+			AsWingUtils.as(e.getChild(),JMenu).removeSelectionListener(__menuSelectionChanged);
 		}
 	}
 }

@@ -50,7 +50,7 @@ class Cursor{
 	 * @return a cursor, or null if there is not such cursor of this type.
 	 */
 	public static function createCursor(type:String):DisplayObject{
-		var cursor:DisplayObject =flash.Lib.as( UIManager.getInstance(type) , DisplayObject);
+		var cursor:DisplayObject =AsWingUtils.as( UIManager.getInstance(type) , DisplayObject);
 		if(cursor == null){
 			return null;
 		}else if(Std.is(cursor,Bitmap)){

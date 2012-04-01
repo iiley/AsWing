@@ -4,7 +4,7 @@
 
 package org.aswing.error;
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 /**
  * The error indicated that the operation you are doing shuold be after 
  * <code>AsWingManager.setRoot(a root)</code>.

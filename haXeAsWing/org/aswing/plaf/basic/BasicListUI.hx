@@ -21,7 +21,7 @@ import org.aswing.graphics.Graphics2D;
 	import org.aswing.geom.IntRectangle;
 	import org.aswing.geom.IntPoint;
 	import flash.display.Graphics;
-import flash.ui.Keyboard;
+import org.aswing.AWKeyboard;
 
 /**
  * List UI basic imp.
@@ -37,7 +37,7 @@ class BasicListUI extends BaseComponentUI{
 	}
 	
     override public function installUI(c:Component):Void{
-        list = flash.Lib.as(c,JList);
+        list = AsWingUtils.as(c,JList);
         installDefaults();
         installListeners();
     }
@@ -65,12 +65,12 @@ class BasicListUI extends BaseComponentUI{
     }
     
     private function installListeners():Void{
-    	list.addEventListener(ListItemEvent.ITEM_CLICK, __onItemClick);
-    	list.addEventListener(ListItemEvent.ITEM_MOUSE_DOWN, __onItemMouseDown);
-    	list.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown);
-    	list.addEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
-    	list.addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __onSelectionChanged);
-    	list.addEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel);
+    	list.addEventListener(ListItemEvent.ITEM_CLICK, __onItemClick, false, 0, false);
+    	list.addEventListener(ListItemEvent.ITEM_MOUSE_DOWN, __onItemMouseDown, false, 0, false);
+    	list.addEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onKeyDown, false, 0, false);
+    	list.addEventListener(AWEvent.FOCUS_LOST, __onFocusLost, false, 0, false);
+    	list.addEventListener(SelectionEvent.LIST_SELECTION_CHANGED, __onSelectionChanged, false, 0, false);
+    	list.addEventListener(MouseEvent.MOUSE_WHEEL, __onMouseWheel, false, 0, false);
     }
 	
 	override public function uninstallUI(c:Component):Void{
@@ -154,15 +154,17 @@ class BasicListUI extends BaseComponentUI{
 		if(!list.isEnabled()){
 			return;
 		}
-    	var code:UInt= e.keyCode;
+    	 
+			var code:Int = e.keyCode;
+			 
     	var dir:Float= 0;
-    	if(code == Keyboard.UP || code == Keyboard.DOWN || code == Keyboard.SPACE){
+    	if(code == AWKeyboard.UP || code == AWKeyboard.DOWN || code == AWKeyboard.SPACE){
     		var fm:FocusManager = FocusManager.getManager(list.stage);
 	    	if(fm!=null)	fm.setTraversing(true);
     	}
-    	if(code == Keyboard.UP){
+    	if(code == AWKeyboard.UP){
     		dir = -1;
-    	}else if(code == Keyboard.DOWN){
+    	}else if(code == AWKeyboard.DOWN){
     		dir = 1;
     	}
     	
@@ -175,15 +177,15 @@ class BasicListUI extends BaseComponentUI{
     		paintFocusedIndex = list.getModel().getSize();
     	}
     	var index:Int= Std.int(paintFocusedIndex + dir);    	
-    	if(code == Keyboard.HOME){
+    	if(code == AWKeyboard.HOME){
     		index = 0;
-    	}else if(code == Keyboard.END){
+    	}else if(code == AWKeyboard.END){
     		index = list.getModel().getSize() - 1;
     	}
     	if(index < 0 || index >= list.getModel().getSize()){
     		return;
     	}
-    	if(dir != 0 || (code == Keyboard.HOME || code == Keyboard.END)){
+    	if(dir != 0 || (code == AWKeyboard.HOME || code == AWKeyboard.END)){
 		    list.ensureIndexIsVisible(index);
 		    list.validate();
     		if(e.shiftKey)	{
@@ -199,7 +201,7 @@ class BasicListUI extends BaseComponentUI{
     		//this make sure paintFocusedCell rememberd
     		paintCellFocusWithIndex(index);
     	}else{
-    		if(code == Keyboard.SPACE){
+    		if(code == AWKeyboard.SPACE){
 		    	list.addSelectionInterval(index, index, false);
     			//this make sure paintFocusedCell rememberd
     			paintCellFocusWithIndex(index);
@@ -226,7 +228,7 @@ class BasicListUI extends BaseComponentUI{
     private var pressedShift:Bool;
     private var doSelectionWhenRelease:Bool;    
     
-    private function __onItemMouseDown(e:ListItemEvent):Void{
+    private function __onItemMouseDown(e:ListItemEvent):Void { 
 		var index:Int= list.getItemIndexByCell(e.getCell());
 		pressedIndex = index;
 		pressedCtrl = e.ctrlKey;
@@ -239,7 +241,7 @@ class BasicListUI extends BaseComponentUI{
 			}else{
 				doSelection();
 			}
-		}else{
+		}else { 
 			list.setSelectionInterval(index, index, false);
 		}
     }

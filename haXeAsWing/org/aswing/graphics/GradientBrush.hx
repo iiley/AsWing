@@ -23,7 +23,7 @@ class GradientBrush implements IBrush{
 	inline public static var RADIAL:GradientType= GradientType.RADIAL;
  
 	private var fillType:GradientType;
-	private var colors:Array<UInt>;
+	private var colors:Array<Int>;
 	private var alphas:Array<Dynamic>;
 	private var ratios:Array<Dynamic>;
 	private var matrix:Matrix;
@@ -39,7 +39,7 @@ class GradientBrush implements IBrush{
 	 * @see http://livedocs.macromedia.com/flex/2/langref/flash/display/Graphics.html#beginGradientFill()
 	 * @see http://livedocs.macromedia.com/flex/2/langref/flash/geom/Matrix.html#createGradientBox()
 	 */
-	public function new(fillType:GradientType, colors:Array<UInt>, alphas:Array<Dynamic>, ratios:Array<Dynamic>, matrix:Matrix, 
+	public function new(fillType:GradientType, colors:Array<Int>, alphas:Array<Dynamic>, ratios:Array<Dynamic>, matrix:Matrix, 
 					?spreadMethod:SpreadMethod, ?interpolationMethod:InterpolationMethod, ?focalPointRatio:Float= 0){
 		this.fillType = fillType;
 		this.colors = colors;
@@ -62,14 +62,14 @@ class GradientBrush implements IBrush{
 		fillType = t;
 	}
 		
-	public function getColors():Array<UInt>{
+	public function getColors():Array<Int>{
 		return colors;
 	}
 	
 	/**
 	 * 
 	 */
-	public function setColors(cs:Array<UInt>):Void{
+	public function setColors(cs:Array<Int>):Void{
 		colors = cs;
 	}
 	

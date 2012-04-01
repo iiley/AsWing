@@ -4,7 +4,7 @@
 
 package org.aswing.error;
 
-import flash.errors.Error;
+import org.aswing.error.Error;
 
 /**
  * This error indicates that a function/operation is not supported.

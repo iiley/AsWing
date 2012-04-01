@@ -23,7 +23,7 @@ class GradientPen implements IPen{
 	
 	private var pen:Pen;
 	private var fillType:GradientType;
-	private var colors:Array<UInt>;
+	private var colors:Array<Int>;
 	private var alphas:Array<Dynamic>;
 	private var ratios:Array<Dynamic>;
 	private var matrix:Matrix;
@@ -31,7 +31,7 @@ class GradientPen implements IPen{
 	private var interpolationMethod:InterpolationMethod;
 	private var focalPointRatio:Float;
 
-	public function new(pen:Pen,fillType:GradientType, colors:Array<UInt>, alphas:Array<Dynamic>, ratios:Array<Dynamic>, ?matrix:Matrix = null, ?spreadMethod:SpreadMethod, ?interpolationMethod:InterpolationMethod, ?focalPointRatio:Float= 0){
+	public function new(pen:Pen,fillType:GradientType, colors:Array<Int>, alphas:Array<Dynamic>, ratios:Array<Dynamic>, ?matrix:Matrix = null, ?spreadMethod:SpreadMethod, ?interpolationMethod:InterpolationMethod, ?focalPointRatio:Float= 0){
 		this.pen = pen;
 		this.fillType = fillType;
 		this.colors = colors;
@@ -87,14 +87,14 @@ class GradientPen implements IPen{
 		fillType = t;
 	}
 		
-	public function getColors():Array<UInt>{
+	public function getColors():Array<Int>{
 		return colors;
 	}
 	
 	/**
 	 * 
 	 */
-	public function setColors(cs:Array<UInt>):Void{
+	public function setColors(cs:Array<Int>):Void{
 		colors = cs;
 	}
 	
@@ -136,6 +136,6 @@ class GradientPen implements IPen{
 	 */
 	public function setTo(target:Graphics):Void{
 		pen.setTo(target);
-		target.lineGradientStyle(fillType,colors,alphas,ratios,matrix,spreadMethod,interpolationMethod,focalPointRatio);
+		//target.lineGradientStyle(fillType,colors,alphas,ratios,matrix,spreadMethod,interpolationMethod,focalPointRatio);
 	}
 }

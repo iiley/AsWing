@@ -6,10 +6,9 @@ package org.aswing.plaf.basic;
 
 import flash.display.MovieClip;
 import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.events.TextEvent;
+import flash.events.MouseEvent; 
 import flash.text.TextField;
-import flash.ui.Mouse;
+ 
 
 import org.aswing.JLabel;
 	import org.aswing.JTextField;
@@ -63,14 +62,14 @@ class BasicColorSwatchesUI extends BaseComponentUI , implements ColorSwatchesUI{
     }
 
     override public function installUI(c:Component):Void{
-		colorSwatches = flash.Lib.as(c,JColorSwatches);
+		colorSwatches = AsWingUtils.as(c,JColorSwatches);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		colorSwatches = flash.Lib.as(c,JColorSwatches);
+		colorSwatches = AsWingUtils.as(c,JColorSwatches);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -373,7 +372,10 @@ class BasicColorSwatchesUI extends BaseComponentUI , implements ColorSwatchesUI{
 	}
 	private function paintSelectionRect():Void{
 		var g:Graphics2D = new Graphics2D(selectionRectMC.graphics);
+		//why	
+		/*
 		g.drawRectangle(new Pen(ASColor.WHITE, 0), 0, 0, getTileL(), getTileL());
+		*/
 	}
 	
 	private function fillRect(g:Graphics2D, x:Float, y:Float, c:ASColor):Void{

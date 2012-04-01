@@ -13,7 +13,7 @@ import org.aswing.ASColor;
  */
 class ASColorUIResource extends ASColor , implements UIResource
 {
-	public function new(color:UInt=0x000000, alpha:Float=1)
+	public function new(color:Int=0x000000, alpha:Float=1)
 	{
 		super(color, alpha);
 	}

@@ -43,14 +43,14 @@ class BasicColorChooserUI extends BaseComponentUI {
     }
 
     override public function installUI(c:Component):Void{
-		chooser = flash.Lib.as(c,JColorChooser);
+		chooser = AsWingUtils.as(c,JColorChooser);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		chooser = flash.Lib.as(c,JColorChooser);
+		chooser = AsWingUtils.as(c,JColorChooser);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

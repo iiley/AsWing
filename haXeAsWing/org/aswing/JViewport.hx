@@ -4,8 +4,8 @@
 
 package org.aswing;
 
-
-import flash.errors.Error;
+import flash.geom.Rectangle;
+import org.aswing.error.Error;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntPoint;
@@ -375,11 +375,15 @@ class JViewport extends Container , implements Viewportable{
     		return getExtentSize().width - 1;
     	}
     }
-    
+    override private function setClipMaskRect(b:IntRectangle):Void{
+		super.setClipMaskRect(b);
+		 scrollRect = new Rectangle(0, 0, b.width, b.height);
+	}
     public function setViewportTestSize(s:IntDimension):Void{
-    	setSize(s);
+    	setSize(s); 
+		 
     }
-
+	 
 	public function getExtentSize() : IntDimension {
 		return getInsets().getInsideSize(getSize());
 	}
