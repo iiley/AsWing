@@ -29,7 +29,7 @@ import org.aswing.geom.IntDimension;
 class AsWingManager{
 	
 	private static var stage:Stage=null;
-    private static var ROOT:JRootPane;
+    private static var ROOT:DisplayObjectContainer;
     private static var INITIAL_STAGE_WIDTH:Int;
     private static var INITIAL_STAGE_HEIGHT:Int;
     private static var timer:Timer;
@@ -45,7 +45,7 @@ class AsWingManager{
      * Default is <code>AsWingManager.getStage()</code>.
      * @param root the root container for AsWing popups.
      */
-    public static function setRoot(root:JRootPane):Void{
+    public static function setRoot(root:DisplayObjectContainer):Void{
  
         if(root != null && stage == null && root.stage != null){
         	initStage(root.stage);
@@ -76,11 +76,8 @@ class AsWingManager{
     				_preventNullFocus:Bool=true, 
     				workWithFlex:Bool = false):Void {
 						
-		if (ROOT == null) {
-			ROOT=new JRootPane();
-		}
-		root.addChild(ROOT);				
-		setRoot(ROOT);
+		 setRoot(root); 			
+		
 		if(stage!=null)	{
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -148,7 +145,7 @@ class AsWingManager{
      * @see #setRoot()
      * @see #getStage()
      */ 
-    public static function getRoot(checkError:Bool=true):JRootPane{
+    public static function getRoot(checkError:Bool=true):DisplayObjectContainer{
       
         return ROOT;
     }	
