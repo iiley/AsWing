@@ -24,6 +24,8 @@ import org.aswing.border.SideLineBorder;
 	import org.aswing.event.InteractiveEvent;
 	import org.aswing.SolidBackground;
 	import org.aswing.graphics.GradientBrush;
+	import org.aswing.AsWingUtils;
+	import flash.display.Bitmap;
 class Decorators extends JPanel{
 	
 	private var thePane:JPanel;
@@ -115,7 +117,7 @@ class Decorators extends JPanel{
 	 
 	
 	private function __selectionChanged(e:InteractiveEvent):Void{
-		var target:JRadioButton = flash.Lib.as(e.target,JRadioButton)	;
+		var target:JRadioButton = AsWingUtils.as(e.target,JRadioButton)	;
 		if(!target.isSelected()){
 			return;
 		}
@@ -135,7 +137,7 @@ class Decorators extends JPanel{
 			thePane.setBackgroundDecorator(new SolidBackground(ASColor.GREEN));
 			thePane.repaint();
 		}else if(target == gradientBg){
-	        var colors:Array<UInt>= [0xFFFFFF, 0xEE8844];
+	        var colors:Array<Int>= [0xFFFFFF, 0xEE8844];
 			var alphas:Array<Dynamic>= [1, 1];
 			var ratios:Array<Dynamic>= [0, 255];
 			thePane.setBackgroundDecorator(new GradientBackground(
@@ -145,8 +147,9 @@ class Decorators extends JPanel{
 				ratios,
 				Math.PI/2));
 			thePane.repaint();
-		}else if(target == pictureBg){
-			thePane.setBackgroundDecorator(new AssetBackground(imgClass));
+		}else if (target == pictureBg) {
+			var bmp:Bitmap  = untyped imgClass.content;	
+			thePane.setBackgroundDecorator(new AssetBackground(bmp));
 			thePane.repaint();
 		}else{
 			thePane.setBackgroundDecorator(null);

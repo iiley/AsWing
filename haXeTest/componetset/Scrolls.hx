@@ -9,6 +9,7 @@ package componetset;
 	import org.aswing.geom.IntDimension;
 	import flash.events.Event;
 	import org.aswing.AssetPane;
+	import flash.display.Bitmap;
 class Scrolls extends JPanel{
 	//[Embed(source="princess.jpg")]
 	private var imgClass:Loader;
@@ -17,15 +18,19 @@ class Scrolls extends JPanel{
 		super();
 		name = "Scrolls";
 		imgClass = new Loader();
-		imgClass.load(new URLRequest("2.jpg"));
 		imgClass.contentLoaderInfo.addEventListener(  Event.COMPLETE, __COMPLETE);
+		imgClass.load(new URLRequest("2.jpg"));
+		
 	}
 	private function __COMPLETE(e:Event):Void
 	{
-		var scrollPane:JScrollPane = new JScrollPane(new AssetPane(imgClass));// new AssetPane(new imgClass() as DisplayObject));
-		scrollPane.setPreferredSize(new IntDimension(300, 300));
+	 	var bmp:Bitmap  = untyped imgClass.content;	
+		var asset = new AssetPane(bmp);
+		//asset.setPreferredSize(new IntDimension(500, 458));
+		 var scrollPane:JScrollPane = new JScrollPane(asset);// new AssetPane(new imgClass() as DisplayObject));
+		 scrollPane.setPreferredSize(new IntDimension(300, 300));
 		
-		append(scrollPane);
+		 append(scrollPane);
 		
 		var slider:JSlider = new JSlider();
 		append(slider);
@@ -34,9 +39,9 @@ class Scrolls extends JPanel{
 		slider.setPaintTicks(true);
 		slider.setShowValueTip(true);
 		
-		var progress:JProgressBar = new JProgressBar();
-		progress.setIndeterminate(true);
-		append(progress);
+		//var progress:JProgressBar = new JProgressBar();
+		//progress.setIndeterminate(true);
+		//append(progress);
 	}
 	
 }

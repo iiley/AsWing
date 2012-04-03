@@ -19,30 +19,39 @@ class Windows extends JPanel{
 	
 	public function new(){
 		super();
+	
 		name = "Windows, Keys";
-		append(new JLabel("Ctrl+Shift+MnemonicKey to act the button"));
+			append(new JLabel("Ctrl+Shift+MnemonicKey to act the button"));
+		
 		var popButton:JButton = new JButton("Show a simple &Popup");
 		var frameButton:JButton = new JButton("Show a &Frame");
-		
-		append(popButton);
+			
+		super.append(popButton);
+		 
 		append(frameButton);
 		
-		popButton.addActionListener(__showPopup);
+		
+			 
 		//TODO modify ComSetSkin yo ComSet when you are deploy ComSet
 		popup = new JPopup(this, true);
 		var closeButton:JButton = new JButton("Close");
 		var cancelbutton:JButton = new JButton("Do nothing");
+	
 		popup.setLayout(new FlowLayout());
 		popup.setBorder(new TitledBorder(null, "Popup, just a simple popup"));
 		popup.append(closeButton);
 		popup.append(cancelbutton);
-		closeButton.addActionListener(__closePopup);
+	
 		popup.setSizeWH(400, 200);
 		popup.setLocationXY(100, 100);
-		
+			
+			closeButton.addActionListener(__closePopup);
+		popButton.addActionListener(__showPopup);
 		frameButton.addActionListener(__showFrame);
+		 
 		//TODO modify ComSetSkin yo ComSet when you are deploy ComSet
 		frame = new JFrame(AsWingUtils.getPopupAncestor(this), "A Frame");
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		var pane:JPanel = new JPanel();
 		pane.append(new JLabel("Default button is close button(Press Enter to act)"));
 		var closeButton2:JButton = new JButton("Close");
@@ -58,6 +67,7 @@ class Windows extends JPanel{
 		frame.getKeyboardManager().registerKeyAction(
 			new KeySequence([KeyStroke.VK_SHIFT, KeyStroke.VK_P]), 
 			__popupChild);
+			
 	}
 	
 	private function __showFrame(e:Event):Void{
@@ -66,7 +76,7 @@ class Windows extends JPanel{
 	}
 	
 	private function __closeFrame(e:Event):Void{
-		frame.dispose();
+		frame.tryToClose();
 	}
 	
 	private function __popupChild(e:Event=null):Void{

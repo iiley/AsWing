@@ -7,6 +7,7 @@ package cases;
 	import org.aswing.graphics.SolidBrush;
 	import flash.display.Sprite;
 	import flash.display.DisplayObject;
+	import org.aswing.AsWingUtils;
 	class ColorDotIcon implements Icon
 	{
 		
@@ -39,5 +40,5 @@ package cases;
 		{
 			return shape;
 		}
-		
+		 
 	}

@@ -15,12 +15,12 @@ import org.aswing.util.DateAs;
  * @author iiley (Burstyx Studio)
  */
 class DateChooserCase extends Sprite{
-	
+	private var chooser:DateChooser;
 	public function new(){
 		super();
 		
 		var frame:JFrame = new JFrame(this, "Date Chooser");
-		var chooser:DateChooser = new DateChooser();
+		chooser = new DateChooser();
 		chooser.setDisabledDays([0, 6]);
 		chooser.setAllowMultipleSelection(true);
 		chooser.setBorder(new EmptyBorder(null, new Insets(4)));
@@ -35,7 +35,7 @@ class DateChooserCase extends Sprite{
 	}
 	
 	private function __selection(e:InteractiveEvent):Void{
-		var chooser:DateChooser = flash.Lib.as(e.currentTarget,DateChooser)	;
+		
 		var str:String= "";
 		if(e.isProgrammatic()){
 			str += "---Programmatic";

@@ -16,6 +16,7 @@ package componetset;
 	import flash.events.Event;
 	import org.aswing.JMenuBar;
 	import org.aswing.KeyStroke;
+	import org.aswing.AsWingUtils;
 class Menus extends JPanel{
 	
 	private var textArea:JTextArea; 
@@ -90,13 +91,13 @@ class Menus extends JPanel{
 
 	private function __menuItemAct(e:Event):Void { 	
  
-		var source:JMenuItem = flash.Lib.as(e.target,JMenuItem)	;
+		var source:JMenuItem = AsWingUtils.as(e.target,JMenuItem)	;
 		textArea.appendText("Menu " + source.getText() + " acted!\n");
 	}
 	
 	private function __menuSelection(e:Event):Void {
  
-		var source:JMenuItem = flash.Lib.as(e.target,JMenuItem)	;
+		var source:JMenuItem = AsWingUtils.as(e.target,JMenuItem)	;
 		textArea.appendText(
 			"Menu " + source.getText() 
 			+ " selected ? " 
@@ -105,7 +106,7 @@ class Menus extends JPanel{
 	
 	private function __aboutMenuItemAct(e:Event):Void {
  
-		var source:JMenuItem = flash.Lib.as(e.target,JMenuItem)	;
+		var source:JMenuItem = AsWingUtils.as(e.target,JMenuItem)	;
 		JOptionPane.showMessageDialog("About", "This is just a menu test demo!");
 	}
 	
