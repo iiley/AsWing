@@ -51,7 +51,8 @@ class Accordion extends Sprite
 		
 		var labelPane:JPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		statusLabel = new JLabel("First tab selected");
-		statusLabel.useHandCursor = true;
+		//why
+		//statusLabel.useHandCursor = true;
 		statusLabel.addEventListener(MouseEvent.CLICK, __visibleTab);
 		labelPane.append(statusLabel);
 		frame.getContentPane().append(labelPane, BorderLayout.EAST);

@@ -7,7 +7,7 @@ package cases;
 	import org.aswing.ASColor;
 	import org.aswing.graphics.SolidBrush;
 	import flash.display.Shape;
-
+	import org.aswing.AsWingUtils;
 	class ColorIcon implements Icon
 	{
 		private var color:ASColor;
@@ -40,5 +40,5 @@ package cases;
 		{
 			return shape;
 		}
-		
+		 
 	}

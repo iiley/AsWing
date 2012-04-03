@@ -3,6 +3,9 @@ import org.aswing.border.LineBorder;
 	import org.aswing.Box;
 	import org.aswing.border.EmptyBorder;
 	import componetset.SexIconCell;
+	import org.aswing.DefaultListCell;
+	import org.aswing.DefaultListCellFactory;
+	import org.aswing.DefaultListTextCellFactory;
 	import org.aswing.table.DefaultTableModel;
 	import org.aswing.ASColor;
 	import org.aswing.Component;
@@ -32,7 +35,6 @@ class HeavyComs extends JPanel{
 		
 		var tree:JTree = new JTree();
 		
-		var table:Component = createTable();
 		
 		var top:Box = Box.createHorizontalBox(2);
 		top.append(list);
@@ -42,9 +44,11 @@ class HeavyComs extends JPanel{
 		
 		append(top, BorderLayout.NORTH);
 		
+		var table:Component = createTable();
+ 
 		table.setBorder(new TitledBorder(null, "Table(DataGrid)"));
 		
-		append(table, BorderLayout.CENTER);
+		 append(table, BorderLayout.CENTER);
 	}
 	
 	private function createList():Component{
@@ -55,15 +59,16 @@ class HeavyComs extends JPanel{
             var length:Int= Std.int( Math.floor(Math.random()*(str.length - startI)));
             arr.push(i + " " + str.substr(startI, length));
         }
-        var listData:VectorListModel = new VectorListModel(arr);
-        var list:JList = new JList(listData, new GeneralListCellFactory(IconListCell, false, false));
+        var listData:VectorListModel = new VectorListModel(arr); 
+		// var list:JList = new JList(listData ,new DefaultListCellFactory(false)  ); 
+        var list:JList = new JList(listData  , new GeneralListCellFactory(IconListCell, false, false));
         list.setBorder(new LineBorder(null, ASColor.RED, 3));
         return new JScrollPane(list);
 	}
 	
 	private function createTable():Component{
 		
-		var data:Array<Dynamic>= [["iiley", 100, true, 23, 33, "the last"], 
+		var data:Array<Array<Dynamic>>= [["iiley", 100, true, 23, 33, "the last"], 
 		  ["I dont know who", -12, false, 13, 33, "the last"],
 		  ["A little cute girl", 98765, false, 0, 33, "the last2"], 
 		  ["Therion1", 99, true, 23, 33, "the last3"],
@@ -81,11 +86,14 @@ class HeavyComs extends JPanel{
 		
 		var sorter:TableSorter = new TableSorter(model);
 		var table:JTable = new JTable(sorter);
+		
 		table.setRowHeight(22);
+ 
 		sorter.setTableHeader(table.getTableHeader());
+ 
 		sorter.setColumnSortable(4, false);
 		sorter.setSortingStatus(3, TableSorter.ASCENDING);
-		
+	
 		
 		var combEditor:DefaultComboBoxCellEditor = new DefaultComboBoxCellEditor();
 		combEditor.getComboBox().setListData(["Therion1", "Therion2", "Therion3", "Therion4"]);
@@ -94,8 +102,10 @@ class HeavyComs extends JPanel{
 		table.setDefaultCellFactory("Object", new GeneralTableCellFactory(PoorTextCell));
 		table.setBorder(new EmptyBorder(new LineBorder(null, ASColor.RED, 2), new Insets(5, 5, 5, 5)));
 		table.setRowSelectionInterval(10, 13);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+		
 		var scrollPane:JScrollPane = new JScrollPane(table); 
+
 		return scrollPane;
 	}
 }

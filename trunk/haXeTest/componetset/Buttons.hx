@@ -38,6 +38,18 @@ class Buttons extends JPanel{
 		jbuttons.append(jbtn2);
 		jbuttons.append(jbtn3);
 		top.append(jbuttons);
+			
+		var tfs:JPanel = new JPanel();
+		var tf1:JTextField = new JTextField("Input Text", 10);
+		var tf2:JTextField = new JTextField("Not-Editable", 12);
+		tf2.setEditable(false);
+		var tf3:JTextField = new JTextField("Disabled%");
+		tf3.setEnabled(false);
+		tfs.append(tf1);
+		tfs.append(tf2);
+		tfs.append(tf3);
+		top.append(tfs);
+		 
 		
 		var toggles:JPanel = new JPanel();
 		var tog1:JToggleButton = new JToggleButton("JToggleButton");
@@ -48,7 +60,7 @@ class Buttons extends JPanel{
 		toggles.append(tog2);
 		toggles.append(tog3);
 		top.append(toggles);
-		
+	
 		var checks:JPanel = new JPanel();
 		var che1:JCheckBox = new JCheckBox("JCheckBox");
 		var che2:JCheckBox = new JCheckBox("Disabled");
@@ -68,6 +80,8 @@ class Buttons extends JPanel{
 		var rad3:JRadioButton = new JRadioButton("Selected Disabled");
 		rad3.setSelected(true);
 		rad3.setEnabled(false);
+		
+			
 		var rad4:JRadioButton = new JRadioButton("In fact they are in a Group");
 		var group:ButtonGroup = new ButtonGroup();
 		group.append(rad1);
@@ -78,9 +92,7 @@ class Buttons extends JPanel{
 		radios.append(rad2);
 		radios.append(rad3);
 		radios.append(rad4);
-		top.append(radios);
-		
-		
+		top.append(radios); 
 		var combos:JPanel = new JPanel();
 		var combo1:JComboBox = new JComboBox(["JComboBox", "is", "enabled", "and", "editable!", "!!", "!!!!"]);
 		combo1.setSelectedIndex(0);
@@ -99,16 +111,6 @@ class Buttons extends JPanel{
 		combos.append(combo3);
 		top.append(combos);
 		
-		var tfs:JPanel = new JPanel();
-		var tf1:JTextField = new JTextField("Input Text", 10);
-		var tf2:JTextField = new JTextField("Not-Editable", 12);
-		tf2.setEditable(false);
-		var tf3:JTextField = new JTextField("Disabled");
-		tf3.setEnabled(false);
-		tfs.append(tf1);
-		tfs.append(tf2);
-		tfs.append(tf3);
-		top.append(tfs);
 		
 		var ads:JPanel = new JPanel();
 		var ad1:JAdjuster = new JAdjuster(3);

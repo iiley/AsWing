@@ -6,6 +6,8 @@ package cases;
 	import org.aswing.Component;
 	import flash.display.DisplayObject;
 	import org.aswing.graphics.Graphics2D;
+	import org.aswing.AsWingUtils;
+	import flash.display.DisplayObjectContainer;
 	class CircleIcon implements Icon
 	{
 		private var shape:Sprite;
@@ -38,4 +40,5 @@ package cases;
 		{
 			return shape;
 		}
+ 
 	}
