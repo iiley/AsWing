@@ -4,8 +4,9 @@
 
 package org.aswing;
 
- 
-import org.aswing.error.Error; 
+
+import flash.display.InteractiveObject;
+import flash.errors.Error; 
 	
 /**
  * Shared instance Tooltip to saving instances.
@@ -16,12 +17,12 @@ class JSharedToolTip extends JToolTip{
 	private static var sharedInstance:JSharedToolTip;
 	
 	private var targetedComponent:Component;
-	private var targetedQueue:IntHash<Component>;
+	private var textMap:IntHash<String>;
 	
 	public function new() {
 		super();
 		setName("JSharedToolTip");
-		targetedQueue = new IntHash<Component>();
+		textMap = new  IntHash<String>();
 	}
 	
 	/**
@@ -60,18 +61,15 @@ class JSharedToolTip extends JToolTip{
     /**
      * Registers a component for tooltip management.
      *
-     * @param c  a <code>Component</code> object to add.
+     * @param c  a <code>InteractiveObject</code> object to add.
      * @param (optional)tipText the text to show when tool tip display. If the c 
      * 		is a <code>Component</code> this param is useless, if the c is only a 
-     * 		<code>Component</code> this param is required.
+     * 		<code>InteractiveObject</code> this param is required.
      */
 	public function registerComponent(c:Component, tipText:String=null):Void{
 		//TODO chech whether the week works
-		if (!targetedQueue.exists(c.getAwmlIndex()))
-		{
-			targetedQueue.set( c.getAwmlIndex(), c);
-			listenOwner(c, true); 
-		}
+		listenOwner(c, true);
+		  textMap.set(c.getAwmlIndex(),tipText);
 		if(getTargetComponent() == c){
 			setTipText(getTargetToolTipText(c));
 		}
@@ -81,16 +79,11 @@ class JSharedToolTip extends JToolTip{
     /**
      * Removes a component from tooltip control.
      *
-     * @param component  a <code>Component</code> object to remove
+     * @param component  a <code>InteractiveObject</code> object to remove
      */
-	public function unregisterComponent(c:Component):Void {
-		if (targetedQueue.exists(c.getAwmlIndex()))
-		{ 
-			targetedQueue.remove(c.getAwmlIndex());
-			//why
-			//unlistenOwner(c); 
-		} 
-		
+	public function unregisterComponent(c:Component):Void{
+		unlistenOwner(c);
+		 textMap.remove(c.getAwmlIndex());
 		if(getTargetComponent() == c){
 			disposeToolTip();
 			targetedComponent = null;
@@ -102,7 +95,7 @@ class JSharedToolTip extends JToolTip{
 	 * The component c may be null and will have no effect. 
 	 * <p>
 	 * This method is overrided just to call registerComponent of this class.
-	 * @param the Component being described
+	 * @param the InteractiveObject being described
 	 * @see #registerComponent()
 	 */
 	override public function setTargetComponent(c:Component):Void{
@@ -118,10 +111,12 @@ class JSharedToolTip extends JToolTip{
 	}
 	
 	private function getTargetToolTipText(c:Component):String{
-	 
+		if(Std.is(c,Component)){
 			var co:Component = AsWingUtils.as(c,Component)	;
 			return co.getToolTipText();
-	 
+		}else{
+			return   textMap.get(c.getAwmlIndex());
+		}
 	}
 	
 	//-------------
