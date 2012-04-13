@@ -372,7 +372,9 @@ class Container extends Component{
 			removeAt(children.length - 1);
 		}
 	}
-		
+	public function  getComponents():Array<Dynamic> {
+		return children ;
+	}	
     /** 
      * Gets the nth(index) component in this container.
      * @param  n   the index of the component to get.
