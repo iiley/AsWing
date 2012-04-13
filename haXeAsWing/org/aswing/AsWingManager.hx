@@ -46,7 +46,7 @@ class AsWingManager{
      * @param root the root container for AsWing popups.
      */
     public static function setRoot(root:DisplayObjectContainer):Void{
- 
+		ROOT = root;
         if(root != null && stage == null && root.stage != null){
         	initStage(root.stage);
         }
