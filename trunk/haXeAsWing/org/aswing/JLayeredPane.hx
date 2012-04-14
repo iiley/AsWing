@@ -159,7 +159,7 @@ package org.aswing;
       * @param layer  an int specifying the layer to move it to
       * @see #setLayer
       */
-    public static  function putLayerInt(  c:Component,   layer:Int):Void {
+    public static  function putLayerProperty(  c:Component,   layer:Int):Void {
         /// MAKE SURE THIS AND setLayer(Component c, int layer, int position)  are SYNCED
         var layerObj:Int;
 
@@ -174,7 +174,7 @@ package org.aswing;
       * @param c  the JComponent to check
       * @return   an int specifying the component's layer
       */
-    public static function getLayerInt(  c:Component) :Int{
+    public static function getLayerProperty(  c:Component) :Int{
         var i :Int;
         if((i = cast( c.getClientProperty(LAYER_PROPERTY),Int) )!= 0)
             return i ;
