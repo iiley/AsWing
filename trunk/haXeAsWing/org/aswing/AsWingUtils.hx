@@ -339,7 +339,7 @@ class AsWingUtils{
      * 
      */
     public static function applyTextFont(text:TextField, font:ASFont):Void{
-    	//font.apply(text);
+    	 font.apply(text);
     }
     
     /**
