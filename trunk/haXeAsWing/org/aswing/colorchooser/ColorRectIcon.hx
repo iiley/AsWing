@@ -53,7 +53,7 @@ class ColorRectIcon implements Icon {
 		var h:Int= Std.int(height);
 		g.fillRectangle(new SolidBrush(ASColor.WHITE), x, y, w, h);
 		//why	
-		/*
+	 
 		if(color != null){
 			var t:Float= 5;
 			for(c in 0...w){
@@ -66,7 +66,7 @@ class ColorRectIcon implements Icon {
 		}else{
 			g.drawLine(new Pen(ASColor.RED, 2), x+1, y+h-1, x+w-1, y+1);
 		}
-		*/
+		 
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{

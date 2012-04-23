@@ -366,11 +366,11 @@ class BasicFrameUI extends BaseComponentUI , implements FrameUI{
 		var g:Graphics2D = new Graphics2D(boundsMC.graphics);
 		boundsMC.graphics.clear();
 		//why	
-		/*
+		 
 		g.drawRectangle(new Pen(resizeArrowLightColor, 1), x-1,y-1,w+2,h+2);
 		g.drawRectangle(new Pen(resizeArrowColor, 1), x,y,w,h);
 		g.drawRectangle(new Pen(resizeArrowDarkColor, 1), x+1,y+1,w-2,h-2);
-		*/
+		 
 		return bounds.leftTop();
     }
     private function __onMouseMove(e:MouseEvent):Void{

@@ -21,7 +21,7 @@ class DividerIcon implements Icon{
     	var cw:Float= w/2;
     	var divider:Divider = AsWingUtils.as(com, Divider);
 		//why	
-		/*
+		 
     	var p:Pen = new Pen(divider.getOwner().getForeground(), 0);
     	if(divider.getOwner().getOrientation() == JSplitPane.VERTICAL_SPLIT){
 	    	var hl:Float= Math.min(5, w-1);
@@ -42,7 +42,7 @@ class DividerIcon implements Icon{
 	    		g.drawLine(p, cw-2, ch-h2, cw-2, ch+h2);
 	    	}
     	}	
-		*/
+		 
 	}
 	
 	public function getIconHeight(c:Component):Int{

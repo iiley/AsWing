@@ -101,7 +101,7 @@ class ScrollBarThumb implements GroundDecorator,implements UIResource{
 		var snotchX:Int= 0;
 		var snotchY:Int = 0;
 		//why	
-		/*
+	 
 		var lightPen:Pen = new Pen(innerStyle.blight, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE);
 		var darkPen:Pen = new Pen(style.blight, 1, true, LineScaleMode.NORMAL, CapsStyle.SQUARE);
 		
@@ -135,7 +135,7 @@ class ScrollBarThumb implements GroundDecorator,implements UIResource{
 			g.drawLine(darkPen, snotchX, snotchY, snotchX, snotchY + notchSize);
     	}
 		thumb.alpha = bar.getMideground().getAlpha();
-		*/
+	 
 	}
 	
 	public function getDisplay(c:Component):DisplayObject{

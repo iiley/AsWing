@@ -77,10 +77,10 @@ class BasicFrameTitleBarBG implements GroundDecorator,implements UIResource{
 		
         g.fillRoundRect(brush, x, y, w, h - h / 4, 4, 4, 0, 0);
 		//why	
-		/*
+		 
         var penTool:Pen = new Pen(activeBorderColor);
         g.drawLine(penTool, x, y+h-1, x+w, y+h-1);	
-		*/
+		 
 	}
 	
 }

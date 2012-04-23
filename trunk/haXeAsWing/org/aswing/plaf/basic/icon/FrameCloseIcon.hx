@@ -32,10 +32,10 @@ class FrameCloseIcon extends FrameIcon{
 		var y1:Int= y+gap;
 		var cl:ASColor = c.bdark;
 		//why	
-		/*
+	 
 		var lightPane:Pen = new Pen(cl, 2, true, LineScaleMode.NORMAL, CapsStyle.ROUND); 
 		g.drawLine(lightPane, x1, y1, x1+w, y1+h);
 		g.drawLine(lightPane, x1+w, y1, x1, y1+h);
-		*/
+		 
 	}
 }

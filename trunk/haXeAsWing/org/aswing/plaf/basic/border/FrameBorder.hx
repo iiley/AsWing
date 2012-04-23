@@ -42,7 +42,7 @@ class FrameBorder implements Border,implements UIResource{
 		
 		//draw the shadow
 		//why	
-		/*
+		 
 		g.beginDraw(new Pen(new ASColor(0, 0.3), 4));
 		g.moveTo(b.x + b.width - 3, b.y + 14);
 		g.lineTo(b.x + b.width - 2, b.y+16);
@@ -72,7 +72,7 @@ class FrameBorder implements Border,implements UIResource{
 			new Pen(color, 1), 
 			b.x+2.5+GLASS, b.y+2.5+GLASS, b.width-5-GLASS*2, b.height-5-GLASS*2, 
 			GLASS, GLASS, 0, 0);
-			*/
+			 
 	}
 	
 	public function getBorderInsets(com:Component, bounds:IntRectangle):Insets

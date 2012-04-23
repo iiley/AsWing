@@ -215,14 +215,14 @@ class DefaultResizer implements Resizer,implements UIResource{
 			var w:Float= db.width;
 			var h:Float = db.height;
 				//why	
-		/*
+	 
 			var g:Graphics2D = new Graphics2D(boundsShape.graphics);
 			boundsShape.graphics.clear();
 		
 			g.drawRectangle(new Pen(resizeArrowLightColor), x-1,y-1,w+2,h+2);
 			g.drawRectangle(new Pen(resizeArrowColor), x,y,w,h);
 			g.drawRectangle(new Pen(resizeArrowDarkColor), x+1,y+1,w-2,h-2);
-			*/
+		 
 			lastRepresentedBounds = bounds;
 		}
 	}

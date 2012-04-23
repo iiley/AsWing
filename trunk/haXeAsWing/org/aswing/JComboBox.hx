@@ -358,8 +358,7 @@ class JComboBox extends Component , implements EditableComponent{
 	 */
 	public function setModel(?m:ListModel):Void {
 		 
-		//why
-		trace(m);
+		//why 
 		if (m != null)   getPopupList().setModel(m);
 	}
 	

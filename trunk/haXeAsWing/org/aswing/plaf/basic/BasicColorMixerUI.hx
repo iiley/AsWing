@@ -664,7 +664,7 @@ class BasicColorMixerUI extends BaseComponentUI {
 		var w:Int= Std.int(H+thickness*2);
 		var h:Int =  Std.int(S + thickness * 2);
 		//why	
-		/*
+		 
 		g.drawLine(new Pen(ASColor.GRAY, thickness), 
 					offset+thickness/2, offset+thickness/2, 
 					offset+w-thickness, 
@@ -673,7 +673,7 @@ class BasicColorMixerUI extends BaseComponentUI {
 					offset+thickness/2, offset+thickness/2, 
 					offset+thickness/2, 
 					offset+h-thickness);
-		*/
+		 
 		offset += thickness;
 
 		var colors:Array<Int>= [0, 0x808080];

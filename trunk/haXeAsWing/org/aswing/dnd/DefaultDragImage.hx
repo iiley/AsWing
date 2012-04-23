@@ -41,11 +41,11 @@ class DefaultDragImage implements DraggingImage{
 		var h:Float= height;
 		var g:Graphics2D = new Graphics2D(image.graphics);
 		//why	
-		/*
+		 
 		g.drawLine(new Pen(ASColor.RED, 2), x+1, y+1, x+1+r, y+1+r);
 		g.drawLine(new Pen(ASColor.RED, 2), x+1+r, y+1, x+1, y+1+r);
 		g.drawRectangle(new Pen(ASColor.GRAY), x, y, w, h);
-		*/
+		 
 	}
 	
 	public function switchToAcceptImage():Void{

@@ -40,9 +40,9 @@ class H_ResizeCursor extends Shape{
 		
 		//why	
 		 
-		//gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(0.4), 4), arrowPoints);
+		gdi.drawPolygon(new Pen(resizeArrowColor.changeAlpha(0.4), 4), arrowPoints);
 		gdi.fillPolygon(new SolidBrush(resizeArrowLightColor), arrowPoints);
-		//gdi.drawPolygon(new Pen(resizeArrowDarkColor, 1), arrowPoints);			
+		gdi.drawPolygon(new Pen(resizeArrowDarkColor, 1), arrowPoints);			
 	}
 	
 }

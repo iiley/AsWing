@@ -262,7 +262,7 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 		var damagedArea:IntRectangle = minCell.union(maxCell);
 		damagedArea.setLocation(damagedArea.getLocation().move(startX, startY));
 		//why	
-		/*
+		 
 		var pen:Pen = new Pen(table.getGridColor(), 1);
 		if (table.getShowHorizontalLines()) {
 			var x1:Float= damagedArea.x + 0.5;
@@ -292,7 +292,7 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 				}
 			}
 		}	
-		*/
+	 
 	}	
 	//******************************************************************
 	//						Focus and Keyboard control
