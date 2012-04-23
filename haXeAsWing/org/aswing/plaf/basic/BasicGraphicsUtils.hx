@@ -277,7 +277,7 @@ class BasicGraphicsUtils{
 				 ?miterLimit:Float= 3) 
 				 */
 //why	
-		/*					 
+	 				 
         var pen:Pen = new Pen(lightHighlight, 1, false, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER);
         g.drawLine(pen, x, y, x, y+h-2);
         g.drawLine(pen, x+1, y, x+w-2, y);
@@ -293,7 +293,7 @@ class BasicGraphicsUtils{
 		pen.setColor(shadow);
         g.drawLine(pen, x+1, y+h-2, x+w-2, y+h-2);
         g.drawLine(pen, x+w-2, y+1, x+w-2, y+h-3);
-		*/
+	 
     }
     
 	/**
@@ -308,7 +308,7 @@ class BasicGraphicsUtils{
         var y:Float = r.y + 0.5;
 		
 		//why	
-		/*
+	 
 		var pen:Pen = new Pen(shadow, 1, false, LineScaleMode.NORMAL, CapsStyle.SQUARE, JointStyle.MITER);
         g.drawLine(pen, x, y, x, y+h-1);
         g.drawLine(pen, x+1, y, x+w-1, y);
@@ -324,7 +324,7 @@ class BasicGraphicsUtils{
         pen.setColor(highlight);
         g.drawLine(pen, x+2, y+h-2, x+w-2, y+h-2);
         g.drawLine(pen, x+w-2, y+2, x+w-2, y+h-3);
-		*/
+	 
     }
     
     public static function paintButtonBackGround(c:AbstractButton, g:Graphics2D, b:IntRectangle):Void{

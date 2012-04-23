@@ -53,12 +53,12 @@ class TextComponentBorder implements Border,implements UIResource{
 		var h:Float= r.height;
 		var textCom:EditableComponent = AsWingUtils.as(c, EditableComponent);
 		//why	
-		/*
+		 
 		if(textCom.isEditable() && c.isEnabled()){
 			g.drawRectangle(new Pen(shadow, 1), x1+0.5, y1+0.5, w-1, h-1);
 		}
 		g.drawRectangle(new Pen(light, 1), x1+1.5, y1+1.5, w-3, h-3);	
-		*/
+		 
 	}
 	
 	public function getBorderInsets(com:Component, bounds:IntRectangle):Insets

@@ -40,7 +40,7 @@ class CloseIcon implements Icon,implements UIResource{
 		}
 		var w:Float = width / 2;
 		//why	
-		/*
+	 
 		g.drawLine(
 			new Pen(getColor(), w/3), 
 			x+(width-w)/2, y+(width-w)/2,
@@ -49,7 +49,7 @@ class CloseIcon implements Icon,implements UIResource{
 			new Pen(getColor(), w/3), 
 			x+(width-w)/2, y+(width+w)/2,
 			x+(width+w)/2, y+(width-w)/2);		
-			*/
+		 
 	}
 		
 	public function getIconHeight(c:Component):Int{

@@ -61,7 +61,7 @@ class TitleIcon implements Icon,implements UIResource{
 		points.push(new Point(x+w2, y+h23));
 		
 		//why	
-		//g.drawPolygon(new Pen(outterRect, 2), points);
+		g.drawPolygon(new Pen(outterRect, 2), points);
 		g.fillPolygon(new SolidBrush(innerRect), points);		
 	}
 	

@@ -373,9 +373,9 @@ class BasicColorSwatchesUI extends BaseComponentUI , implements ColorSwatchesUI{
 	private function paintSelectionRect():Void{
 		var g:Graphics2D = new Graphics2D(selectionRectMC.graphics);
 		//why	
-		/*
+		 
 		g.drawRectangle(new Pen(ASColor.WHITE, 0), 0, 0, getTileL(), getTileL());
-		*/
+		 
 	}
 	
 	private function fillRect(g:Graphics2D, x:Float, y:Float, c:ASColor):Void{

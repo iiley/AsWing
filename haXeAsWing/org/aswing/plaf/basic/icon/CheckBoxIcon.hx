@@ -124,14 +124,14 @@ class CheckBoxIcon implements Icon,implements UIResource{
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox(w / 2 - 3, h * 3 / 4 - 5, Math.PI * 3 / 4, x + 3, y + 5);
 			//why
-		 /*
+		 
 			g.beginDraw(new Pen(cl, 1.5));
 			g.moveTo(x+4, y+5);
 			g.lineTo(x+w/2+1, y+h*3/4-1);
 			matrix.createGradientBox(w/2, h*3/4-2, Math.PI/4, x+w/2, y+2);
 			g.lineTo(x+w+2.5, y);
 			g.endDraw();
-		*/	
+		 	
 			var brush:GradientBrush = new GradientBrush(
 				GradientBrush.LINEAR, 
 				[mcls.clight.getRGB(), mcls.cdark.getRGB()], 
@@ -139,7 +139,7 @@ class CheckBoxIcon implements Icon,implements UIResource{
 				[0, 255], 
 				matrix
 			);		
-			g.fillRectangle(brush, x+3, y+3, w-6, h-6 );
+			//g.fillRectangle(brush, x+3, y+3, w-6, h-6 );
 			var f :Array<BitmapFilter>= new Array<BitmapFilter>();
 			f.push(new  DropShadowFilter(0, 45, mcls.bdark.getRGB(), mcls.shadow, 2, 2, 4, 1, false));
 			dot.filters = f;

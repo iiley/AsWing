@@ -457,7 +457,7 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 		var minT:Int= slider.getMinorTickSpacing();
 		var max:Int= slider.getMaximum();
 		//why	
-		/*
+	 
 		g.beginDraw(new Pen(slider.getForeground(), 0));
 			
 		var yPos:Int= 0;
@@ -509,7 +509,7 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 			}
 		}
 		g.endDraw();
-		*/
+	 
 	}
 
 	private function paintMinorTickForHorizSlider( g:Graphics2D, tickBounds:IntRectangle, x:Int, y:Int):Void{

@@ -69,12 +69,12 @@ class BaseComponentUI implements ComponentUI
 	
 	public function paintFocus(c:Component, g:Graphics2D, b:IntRectangle):Void {
 	//why	
-		/*
+		 
 		 if (g != null){
     		g.drawRectangle(new Pen(getDefaultFocusColorInner(), 1), b.x+0.5, b.y+0.5, b.width-1, b.height-1);
     		g.drawRectangle(new Pen(getDefaultFocusColorOutter(), 1), b.x+1.5, b.y+1.5, b.width-3, b.height-3);
 		}
-		*/
+		 
 	}
 	
     private function getDefaultFocusColorInner():ASColor{
