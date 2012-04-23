@@ -81,7 +81,11 @@ class JSharedToolTip extends JToolTip{
      *
      * @param component  a <code>InteractiveObject</code> object to remove
      */
-	public function unregisterComponent(c:Component):Void{
+	public function unregisterComponent(c:Component):Void {
+		if (!textMap.exists(c.getAwmlIndex()))
+		{
+			return;
+		}
 		unlistenOwner(c);
 		 textMap.remove(c.getAwmlIndex());
 		if(getTargetComponent() == c){
