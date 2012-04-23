@@ -149,7 +149,7 @@ class JToolTip extends Container{
 		}
 		timer.restart();
 		if(getTargetComponent()!=null){
-			getTargetComponent().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved, false, 0, true);
+			getTargetComponent().addEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoved, false, 0, false);
 		}
 	}
 	
@@ -223,7 +223,10 @@ class JToolTip extends Container{
 			var gp:Point = containerPane.localToGlobal(new Point(containerPane.mouseX, containerPane.mouseY));
 			relatePoint.setWithPoint(gp);
 		}else{
-			relatePoint.setWithPoint(getTargetComponent().localToGlobal(new Point(0, 0)));
+			if (getTargetComponent() != null)
+			{
+				relatePoint.setWithPoint(getTargetComponent().localToGlobal(new Point(0, 0)));
+			}
 		}
 		moveLocationRelatedTo(relatePoint);
 	}

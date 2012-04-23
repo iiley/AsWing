@@ -20,7 +20,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
 	private var initialDelay:Int;
 	private var repeats:Int;
 	private var isInitalFire:Bool;
-	private var old_repeats:Int;
+	private var repeatCount:Int;
 		
 	/**
 	 * Constructs <code>AbstractImpulser</code>.
@@ -31,7 +31,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
 		this.initialDelay = 0;
 		this.repeats = repeats;
 		this.isInitalFire = true;
-		old_repeats=repeats ;
+		repeatCount=repeats ;
 		super();
 	}
 	
@@ -123,7 +123,7 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
 	 */
 	public function setRepeats(flag:Int):Void{
 		repeats = flag;
-		old_repeats=repeats ;
+		repeatCount=repeats ;
 	}
 	
     /**
@@ -145,7 +145,6 @@ class AbstractImpulser extends EventDispatcher , implements Impulser{
 	
 	public function start():Void{}
 	
-	public function restart():Void {
-	repeats=old_repeats ;
+	public function restart():Void { 
 		}
 }

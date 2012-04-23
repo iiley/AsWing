@@ -48,7 +48,7 @@ class Timer extends AbstractImpulser , implements Impulser{
 	 */
 	public function new(delay:Int, repeats:Int=0){
 		super(delay, repeats);
-		old_repeats = repeats;
+		repeatCount = repeats;
 		this.intervalID = null;
 		
 	}
@@ -117,28 +117,29 @@ class Timer extends AbstractImpulser , implements Impulser{
 		
     	if(isInitalFire)	{
     		isInitalFire = false;
-			
+			dispatchEvent(new AWEvent(AWEvent.ACT));
 			if(isRepeats())	{
-    			clearInterval(intervalID);
-    			intervalID = setInterval(fireActionPerformed, getDelay());			 
+    			start();
+				
     		}else {
-				repeats  = repeats - 1;
-				if (repeats == 0)
-				{ 
-					repeats = -1;
-				}  
+				repeats  = repeats - 1; 
 				if (repeats > 0)
 				{  
 					start();
 				}else
 				{
 					stop(); 
+					
 					dispatchEvent(new AWEvent(AWEvent.ACT_COMPLETE));
-				} 
-				
+				}  
+				trace("AWEvent.ACT_COMPLETE",repeats);
+			
 			} 
+				
     	}
-		dispatchEvent(new AWEvent(AWEvent.ACT));
+		
+		
+	
  
     	
     }
