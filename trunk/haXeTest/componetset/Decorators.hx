@@ -26,6 +26,7 @@ import org.aswing.border.SideLineBorder;
 	import org.aswing.graphics.GradientBrush;
 	import org.aswing.AsWingUtils;
 	import flash.display.Bitmap;
+	import flash.events.Event;
 class Decorators extends JPanel{
 	
 	private var thePane:JPanel;
@@ -45,7 +46,11 @@ class Decorators extends JPanel{
 	public function new(){
 		super(new BorderLayout(5, 5));
 		name = "Decorators";
-		
+		this.addEventListener( Event.ADDED_TO_STAGE, __init);
+	}
+	private function __init(e:Event):Void
+	{
+		this.removeEventListener( Event.ADDED_TO_STAGE, __init);
 		thePane = new JPanel();
 		thePane.setOpaque(true);
 		thePane.setLayout(new CenterLayout());
