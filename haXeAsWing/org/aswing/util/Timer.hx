@@ -126,12 +126,8 @@ class Timer extends AbstractImpulser , implements Impulser{
 	
 	private function fireActionPerformed ():Void
 	{
-		currentCount ++;
-		if (repeatCount == 0)
-		{
-			dispatchEvent(new AWEvent(AWEvent.ACT));
-		}
-		else if (repeatCount > 0 && currentCount >= repeatCount)
+		currentCount ++; 
+		if (repeatCount > 0 && currentCount >= repeatCount)
 		{
 			stop ();
 			dispatchEvent(new AWEvent(AWEvent.ACT));
