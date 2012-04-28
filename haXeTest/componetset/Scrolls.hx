@@ -17,6 +17,11 @@ class Scrolls extends JPanel{
 	public function new(){
 		super();
 		name = "Scrolls";
+		this.addEventListener( Event.ADDED_TO_STAGE, __init);
+	}
+	private function __init(e:Event):Void
+	{
+		this.removeEventListener( Event.ADDED_TO_STAGE, __init);
 		imgClass = new Loader();
 		imgClass.contentLoaderInfo.addEventListener(  Event.COMPLETE, __COMPLETE);
 		imgClass.load(new URLRequest("2.jpg"));
@@ -39,9 +44,9 @@ class Scrolls extends JPanel{
 		slider.setPaintTicks(true);
 		slider.setShowValueTip(true);
 		
-		//var progress:JProgressBar = new JProgressBar();
-		//progress.setIndeterminate(true);
-		//append(progress);
+		var progress:JProgressBar = new JProgressBar();
+		progress.setIndeterminate(true);
+		append(progress);
 	}
 	
 }
