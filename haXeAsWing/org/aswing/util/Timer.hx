@@ -4,7 +4,7 @@
 package org.aswing.util;
 
 import haxe.Timer;	 
- 
+import org.aswing.error.Error;
 import org.aswing.event.AWEvent;
 /**
  * Fires one or more action events after a specified delay.  
@@ -39,109 +39,106 @@ import org.aswing.event.AWEvent;
  * @author paling
  */
 class Timer extends AbstractImpulser , implements Impulser{
-	private var intervalID:haxe.Timer;
+ 
+	 
 	
-	/**
-	 * Construct Timer.
-	 * @see #setDelay()
-     * @throws Error when init delay <= 0 or delay == null
-	 */
-	public function new(delay:Int, repeats:Int=0){
-		super(delay, repeats);
-		repeatCount = repeats;
-		this.intervalID = null;
-		
-	}
-	private function setInterval(f : Void -> Void, time_ms : Int ):haxe.Timer
+	public var currentCount:Int; 
+	public var running:Bool;
+	 
+    private var timer:haxe.Timer;
+	
+	
+	public function new(delay:Int, repeatCount:Int = 0)
 	{
-		var lID:haxe.Timer = new haxe.Timer(time_ms);
-		lID.run=f;
-		return lID;
-	}
-	private function clearInterval(lID:haxe.Timer):Void
-	{
-		if (lID != null)
+		if (Math.isNaN (delay) || delay < 0)
 		{
-			lID.stop();
-			lID = null;
+			throw new Error ("The delay specified is negative or not a finite number");
+		}
+		
+		super (delay,repeatCount);
+		 
+		currentCount = 0;
+	}
+	
+	
+	public function reset()
+	{
+		if (running)
+		{
+			stop ();
+		}
+		currentCount = 0;
+	}
+	
+	
+	override public function start()
+	{
+		if (!running)
+		{
+			running = true;
+			timer = new haxe.Timer (delay);
+			timer.run = fireActionPerformed;
 		}
 	}
-    /**
-     * Starts the <code>Timer</code>,
-     * causing it to start sending action events
-     * to its listeners.
-     *
-     * @see #stop()
-     */
-    override public function start():Void{
-    	isInitalFire = true;
-    	clearInterval(intervalID);
-		intervalID = setInterval(fireActionPerformed,getDelay());
-   
-    }
-    
-    /**
-     * Returns <code>true</code> if the <code>Timer</code> is running.
-     *
-     * @see #start()
-     */
-    override public function isRunning():Bool{
-    	return intervalID != null;
-    }
-    
-    /**
-     * Stops the <code>Timer</code>,
-     * causing it to stop sending action events
-     * to its listeners.
-     *
-     * @see #start()
-     */
-    override public function stop():Void{
-    	clearInterval(intervalID);
-     
-    }
-    
-    /**
-     * Restarts the <code>Timer</code>,
-     * canceling any pending firings and causing
-     * it to fire with its initial delay.
-     */
-    override public function restart():Void {
-		super.restart();
-        stop();
+	
+	override public function restart():Void { 
+		stop();
+			start();
+	}
+	override public function stop()
+	{
+		running = false;
 		
-        start();
-    }
-   
-    private function fireActionPerformed():Void {
+		if (timer != null)
+		{
+			timer.stop();
+			timer = null;
+		}
+	}
+	
+	
+	
+	override public function setDelay(delay:Int):Void{
+		this.delay = delay;
+		if (running)
+		{
+			stop();
+			start();
+		}
 		
-    	if(isInitalFire)	{
-    		isInitalFire = false;
+	}
+	
+    /**
+     * Returns the delay between firings of events.
+     *
+     * @see #setDelay()
+     * @see #getInitialDelay()
+     */	
+	override public function getDelay():Int{
+		return delay;
+	}
+	
+	 
+	
+	
+	
+	private function fireActionPerformed ():Void
+	{
+		currentCount ++;
+		if (repeatCount == 0)
+		{
 			dispatchEvent(new AWEvent(AWEvent.ACT));
-			if(isRepeats())	{
-    			start();
-				
-    		}else {
-				repeats  = repeats - 1; 
-				if (repeats > 0)
-				{  
-					start();
-				}else
-				{
-					stop(); 
-					
-					dispatchEvent(new AWEvent(AWEvent.ACT_COMPLETE));
-				}   
-			} 
-				
-    	}
-		
-		
+		}
+		else if (repeatCount > 0 && currentCount >= repeatCount)
+		{
+			stop ();
+			dispatchEvent(new AWEvent(AWEvent.ACT));
+			dispatchEvent(new AWEvent(AWEvent.ACT_COMPLETE));
+		}
+		else
+		{
+			dispatchEvent(new AWEvent(AWEvent.ACT));
+		}
+	}
 	
- 
-    	
-    }
-    
-
-	
-}
+} 
