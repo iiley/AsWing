@@ -79,14 +79,16 @@ class AsWingUtils{
      * @return the sprite
      */ 
 	 
-	public   static function as<T>( v : Dynamic, c : Class<T>  ) : Null<T> {
+	inline public   static function as<T>( v : Dynamic, c : Class<T>  ) : Null<T> {
 	 
-		if (Std.is(v, c)) {	
-			
+		if (Std.is(v, c)) 
+		{
 			return  v ;
-			}
-	
-		return null;
+		 }else
+		 {
+			 return null;
+		 }
+		
 	} 
 	public static function initAsStandard():Void {
  
