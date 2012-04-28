@@ -1261,10 +1261,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			fireStateChanged();
     	}
     }
-	override private function setClipMaskRect(b:IntRectangle):Void{
-		super.setClipMaskRect(b);
-		 scrollRect = new Rectangle(0, 0, b.width, b.height);
-	}
+ 
     public function setViewportTestSize(s:IntDimension):Void{
     	setSize(s); 
 		 

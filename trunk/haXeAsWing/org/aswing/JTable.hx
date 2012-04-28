@@ -3030,10 +3030,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 			fireStateChanged();
     	}
     }	
-    override private function setClipMaskRect(b:IntRectangle):Void{
-		super.setClipMaskRect(b);
-		 scrollRect = new Rectangle(0, 0, b.width, b.height);
-	}
+ 
     private var testingSize:Bool;
     public function setViewportTestSize(s:IntDimension):Void{
     	testingSize = true;

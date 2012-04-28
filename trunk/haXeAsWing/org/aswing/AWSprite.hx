@@ -315,7 +315,7 @@ class AWSprite extends Sprite
 		}
 	}
 	
-	private function setClipMaskRect(b:IntRectangle):Void{
+	public function setClipMaskRect(b:IntRectangle):Void{
 		 if (maskShape != null)	{
 			 
 			/*

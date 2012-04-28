@@ -167,10 +167,12 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     	return box.getPopupList();
     }
     
-    private function viewPopup():Void{
+    private function viewPopup():Void {
+ 
     	if(!box.isOnStage()){
     		return;
     	}
+		
 		var width:Int= box.getWidth();
 		var cellHeight:Int;
 		if(box.getListCellFactory().isAllCellHasSameHeight()){
@@ -188,7 +190,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
 		height += i.top + i.bottom;
 		width += (i.right - i.left);
 		getPopup().changeOwner(AsWingUtils.getOwnerAncestor(box)); 
-		getPopup().setSizeWH(width, height); 
+		getPopup().setSizeWH(width, height);  
 		getPopup().show();
 		startMoveToView();
 		AsWingManager.callLater(__addMouseDownListenerToStage);
@@ -210,7 +212,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     	}
     }
     
-    private var scrollRect:Rectangle;
+    private var scrollRect:IntRectangle;
     //return the destination pos
     private function startMoveToView():Void{
     	var popupPane:JPopup = getPopup();
@@ -225,14 +227,13 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     	if(distToBottom > 0 || (distToBottom < 0 && distToTop < 0 && distToBottom > distToTop)){
     		moveDir = 1;
     		gp.y += box.getHeight();
-			scrollRect = new Rectangle(0, height, popupPane.getWidth(), 0);
+			scrollRect = new IntRectangle(0, height, popupPane.getWidth(), 0);
     	}else{
     		moveDir = -1;
-			scrollRect = new Rectangle(0, 0, popupPane.getWidth(), 0);
+			scrollRect = new IntRectangle(0, 0, popupPane.getWidth(), 0);
     	}
     	popupPane.setGlobalLocation(gp);
-    	popupPane.scrollRect = scrollRect;
-    	
+    	popupPane.setClipMaskRect(scrollRect); 
 		popupTimer.restart();
     }
     
@@ -243,7 +244,8 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     
     //-----------------------------
     
-    private function __movePopup(e:Event):Void{
+    private function __movePopup(e:Event):Void {
+			
     	var popupPane:JPopup = getPopup();
     	var popupPaneHeight:Int= popupPane.getHeight();
     	var maxTime:Int= 10;
@@ -255,7 +257,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     		speed = Math.ceil(popupPaneHeight/maxTime);
     	}
     	if(popupPane.getHeight() - scrollRect.height <= speed){
-    		//motion ending
+    		//motion ending 
     		speed =Std.int( popupPane.getHeight() - scrollRect.height);
 			popupTimer.stop();
 			
@@ -267,8 +269,8 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
 		}else{
 			popupPane.y -= speed;
 			scrollRect.height += speed;
-		}
-    	popupPane.scrollRect = scrollRect;
+		} 
+    	popupPane.setClipMaskRect(scrollRect);
     }
     
     private function __onFocusKeyDown(e:FocusKeyEvent):Void{
@@ -348,7 +350,8 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
 	/**
      * Set the visiblity of the popup
      */
-	public function setPopupVisible(c:JComboBox, v:Bool):Void{
+	public function setPopupVisible(c:JComboBox, v:Bool):Void {
+	
 		if(v)	{
 			viewPopup();
 		}else{

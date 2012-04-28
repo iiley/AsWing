@@ -52,7 +52,7 @@ class RepaintManager{
 		repaintQueue = new Array<Component>();
 		validateQueue = new Array<Component>();
 		renderring = false;
-		alwaysUseTimer = true;
+		alwaysUseTimer = false;
 		timer = new Timer(20, 0);
 		timer.addEventListener(AWEvent.ACT, __timerRender);
 	}
