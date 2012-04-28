@@ -375,10 +375,7 @@ class JViewport extends Container , implements Viewportable{
     		return getExtentSize().width - 1;
     	}
     }
-    override private function setClipMaskRect(b:IntRectangle):Void{
-		super.setClipMaskRect(b);
-		 scrollRect = new Rectangle(0, 0, b.width, b.height);
-	}
+  
     public function setViewportTestSize(s:IntDimension):Void{
     	setSize(s); 
 		 
