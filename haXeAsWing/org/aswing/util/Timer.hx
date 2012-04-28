@@ -82,8 +82,10 @@ class Timer extends AbstractImpulser , implements Impulser{
 	}
 	
 	override public function restart():Void { 
-		stop();
-			start();
+	
+		
+		reset();
+		start();
 	}
 	override public function stop()
 	{
