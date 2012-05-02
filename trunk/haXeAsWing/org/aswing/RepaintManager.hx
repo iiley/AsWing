@@ -10,9 +10,7 @@ import org.aswing.error.Error;
 import flash.events.Event;
 import org.aswing.event.AWEvent;
 import org.aswing.util.Timer;
- 
-
-import org.aswing.util.HashSet;
+  
 /**
  * RepaintManager use to manager the component's painting.
  * 
