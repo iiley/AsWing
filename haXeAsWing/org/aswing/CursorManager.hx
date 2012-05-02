@@ -43,7 +43,7 @@ class CursorManager{
 			tiggerCursorMap=new IntHash<DisplayObject>();
 	}
 	
-	private static var managers:WeakMap = new WeakMap();
+	private static var managers:WeakMap<CursorManager> = new WeakMap<CursorManager>();
 	
 	/**
 	 * Returns the default cursor manager for specified stage.
