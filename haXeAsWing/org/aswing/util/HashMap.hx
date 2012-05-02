@@ -5,81 +5,42 @@
 package org.aswing.util;
 
   
-import org.aswing.error.Error;
-/**
- * To successfully store and retrieve (key->value) mapping from a HashMap.
- * HashMap accept any type of object to be the key: number, string, Object etc... 
- * But it is only get fast accessing with string type keys. Others are slow.
- * <p>
- * ----------------------------------------------------------
- * This example creates a HashMap of friends. It uses the number of the friends as keys:
- * <listing>
- *     function person(name,age,sex){
- *         this.name=name;
- *         this.age=age;
- *         this.sex=sex;
- *     }
- *     var friends = new HashMap();
- *     friends.put("one", new person("paling",21,"M"));
- *     friends.put("two", new person("gothic man",22,"M"));
- *     friends.put("three", new person("rock girl",19,"F"));
- * </listing>
- * </p>
- * <p>To retrieve a friends, use the following code:
- *
- * <listing>
- *     var thisperson = friends.get("two");
- *     if (thisperson != null) {
- *         trace("two name is "+thisperson.name);
- *         trace("two age is "+thisperson.age);
- *         trace("two sex is "+thisperson.sex);
- *     }else{
- *         trace("two is not in friends!");
- *     }
- * </listing>
- *</p>
- * @author paling
- */	
- 
- 
-
 #if flash
 import flash.utils.TypedDictionary;
 #end
 
 
-class HashMap <T> {
+class  HashMap <K, T> {
 	
-	private var length:Int;
+	
 	#if flash
-	
-	/** @private */ private var dictionary:TypedDictionary <Dynamic, T>;
-	
+	/** @private */ private var dictionary:TypedDictionary <K, T>;
 	#else
-	
-	/** @private */ private var hash:IntHash <T>;
-	
+	/** @private */ private var hashKeys:IntHash <K>;
+	/** @private */ private var hashValues:IntHash <T>;
 	#end
 	
 	/** @private */ private static var nextObjectID:Int = 0;
 	
-	
+	private var length:Int;
 	public function new () {
 		
 		#if flash
 		
-		dictionary = new TypedDictionary <Dynamic, T> ();
+		dictionary = new TypedDictionary <K, T> ();
 		
 		#else
 		
-		hash = new IntHash <T> ();
+		hashKeys = new IntHash <K> ();
+		hashValues = new IntHash <T> ();
 		
 		#end
 		length = 0;
+		
 	}
 	
 	
-	public inline function exists (key:Dynamic):Bool {
+	public inline function exists (key:K):Bool {
 		
 		#if flash
 		
@@ -87,14 +48,14 @@ class HashMap <T> {
 		
 		#else
 		
-		return hash.exists (getID (key));
+		return hashValues.exists (getID (key));
 		
 		#end
 		
 	}
 	
 	
-	public inline function get (key:Dynamic):T {
+	public inline function get (key:K):T {
 		
 		#if flash
 		
@@ -102,20 +63,20 @@ class HashMap <T> {
 		
 		#else
 		
-		return hash.get (getID (key));
+		return hashValues.get (getID (key));
 		
 		#end
 		
 	}
 	
 	
-	/** @private */ private inline function getID (key:Dynamic):Int {
+	/** @private */ private inline function getID (key:K):Int {
 		
 		#if cpp
 		
 		return untyped __global__.__hxcpp_obj_id (key);
 		
-		#else
+		#elseif !flash
 		
 		if (key.___id___ == null) {
 			
@@ -156,14 +117,14 @@ class HashMap <T> {
 		
 		#else
 		
-		return hash.iterator ();
+		return hashValues.iterator ();
 		
 		#end
 		
 	}
 	
 	
-	public inline function keys ():Iterator <Dynamic> {
+	public inline function keys ():Iterator <K> {
 		
 		#if flash
 		
@@ -171,14 +132,14 @@ class HashMap <T> {
 		
 		#else
 		
-		return hash.keys ();
+		return hashKeys.iterator ();
 		
 		#end
 		
 	}
 	
 	
-	public inline function remove (key:Dynamic):Void {
+	public inline function remove (key:K):Void {
 		
 		#if flash
 		
@@ -186,14 +147,17 @@ class HashMap <T> {
 		
 		#else
 		
-		hash.remove (getID (key));
+		var id = getID (key);
+		
+		hashKeys.remove (id);
+		hashValues.remove (id);
 		
 		#end
-		length--;
+		
 	}
 	
 	
-	public inline function set (key:Dynamic, value:T):Void {
+	public inline function set (key:K, value:T):Void {
 		
 		#if flash
 		
@@ -201,7 +165,10 @@ class HashMap <T> {
 		
 		#else
 		
-		hash.set (getID (key), value);
+		var id = getID (key);
+		
+		hashKeys.set (id, key);
+		hashValues.set (id, value);
 		
 		#end
 		
@@ -298,7 +265,7 @@ class HashMap <T> {
      *	       also indicate that the HashMap previously associated
      *	       <tt>null</tt> with the specified key.
   	 */
- 	public function put(key:Dynamic, value:T):T {
+ 	public function put(key:K, value:T):T {
 		if (!exists(key)) length++;
 		set(key, value);
 		return value;
@@ -308,18 +275,18 @@ class HashMap <T> {
  	 * Clears this HashMap so that it contains no keys no values.
  	 */
  	public function clear():Void{
-		var itr:Iterator<T> =  iterator();	
+		var itr:Iterator<K> =  keys();	
   		for(i in itr){
-   			remove(itr);
+   			remove(i);
   		}
  	}
 
  	/**
  	 * Return a same copy of HashMap object
  	 */
- 	public function clone():HashMap<T>{
-  		var temp:HashMap<T> = new HashMap<T>();
-  		var itr:Iterator<Dynamic> =  keys();	
+ 	public function clone():HashMap<K,T>{
+  		var temp:HashMap<K,T> = new HashMap<K,T>();
+  		var itr:Iterator<K> =  keys();	
   		for(i in itr){
    			 temp.put(i , get(i));
   		}

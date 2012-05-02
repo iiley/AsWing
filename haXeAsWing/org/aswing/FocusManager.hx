@@ -31,7 +31,7 @@ import org.aswing.AsWingUtils;
  */
 class FocusManager{
 	
-	private static var managers:WeakMap<FocusManager> = new WeakMap<FocusManager>();
+	private static var managers:WeakMap<Stage,FocusManager> = new WeakMap<Stage,FocusManager>();
 	private static var defaultTraversalEnabled:Bool= true;
 	
 	private var oldFocusOwner:Component;
