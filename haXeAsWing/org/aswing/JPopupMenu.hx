@@ -32,8 +32,8 @@ import org.aswing.util.HashSet;
 class JPopupMenu extends Container , implements MenuElement{
 		
 	private static var popupMenuMouseDownListening:Bool= false;
-	private static var showingMenuPopups:HashSet = new HashSet();
-	
+	private static var showingMenuPopups:Array<JPopup> = new Array<JPopup>();
+	//why
 	private var selectionModel:SingleSelectionModel;
 	
 	private var invoker:Component;
@@ -419,7 +419,7 @@ class JPopupMenu extends Container , implements MenuElement{
 	
 	private static function __popupMenuMouseDown(e:Event):Void{
 		var hittedPopupMenu:Bool= false;
-		var ps:Array<Dynamic>= showingMenuPopups.toArray();
+		var ps:Array<JPopup>= showingMenuPopups ;
 		var hasPopupWindowShown:Bool= ps.length > 0;
 		
 		for(i in 0...ps.length){
@@ -435,14 +435,14 @@ class JPopupMenu extends Container , implements MenuElement{
 	}
 
 	private function __popupShown(e:PopupEvent) : Void{
-		var source:Dynamic= e.target;
-		showingMenuPopups.add(source);
+		var source:JPopup=AsWingUtils.as( e.target,JPopup);
+		showingMenuPopups.push(source);
 		//to delay to next frame to add the listener to avoid listening in a mouse down event
 		AsWingManager.callNextFrame(__addMouseDownListenerToStage);
 	}
 	
 	private function __addMouseDownListenerToStage(?e:Event=null):Void{
-		if(showingMenuPopups.size()>0 && !popupMenuMouseDownListening && stage != null){
+		if(showingMenuPopups.length>0 && !popupMenuMouseDownListening && stage != null){
 			AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown, false, 0, true);
 			popupMenuMouseDownListening = true;
 		}
@@ -451,7 +451,7 @@ class JPopupMenu extends Container , implements MenuElement{
 	private function __popupClosed(e:PopupEvent) : Void{
 		var source:Dynamic= e.target;
 		showingMenuPopups.remove(source);
-		if(showingMenuPopups.size() == 0 && popupMenuMouseDownListening && stage != null){
+		if(showingMenuPopups.length == 0 && popupMenuMouseDownListening && stage != null){
 			AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __popupMenuMouseDown);
 			popupMenuMouseDownListening = false;
 		}
