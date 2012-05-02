@@ -259,8 +259,7 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
     	if(popupPane.getHeight() - scrollRect.height <= speed){
     		//motion ending 
     		speed =Std.int( popupPane.getHeight() - scrollRect.height);
-			popupTimer.stop();
-			
+			popupTimer.stop(); 
 			getPopupList().ensureIndexIsVisible(getPopupList().getSelectedIndex());
     	}
 		if(moveDir > 0){

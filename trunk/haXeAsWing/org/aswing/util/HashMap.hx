@@ -4,7 +4,7 @@
 
 package org.aswing.util;
 
-
+  
 import org.aswing.error.Error;
 /**
  * To successfully store and retrieve (key->value) mapping from a HashMap.
@@ -40,27 +40,175 @@ import org.aswing.error.Error;
  *</p>
  * @author paling
  */	
-class HashMap
-{
+ 
+ 
 
-    private var length:Int;
-	private var index:Array<Dynamic>;
-    private var content:Array<Dynamic>;
+#if flash
+import flash.utils.TypedDictionary;
+#end
+
+
+class HashMap <T> {
+	
+	private var length:Int;
+	#if flash
+	
+	/** @private */ private var dictionary:TypedDictionary <Dynamic, T>;
+	
+	#else
+	
+	/** @private */ private var hash:IntHash <T>;
+	
+	#end
+	
+	/** @private */ private static var nextObjectID:Int = 0;
+	
+	
+	public function new () {
 		
- 	public function new(){
-        length = 0;
-		index = new Array<Dynamic>();
-        content = new Array<Dynamic>();
- 	}
-	public function getKeyIndex(key:Dynamic ):Int {
-		 
-  		for(i in 0...index.length){
-   			if(index[i] == key){
-    			return i;
-   			}
-  		}
-  		return -1;
- 	}
+		#if flash
+		
+		dictionary = new TypedDictionary <Dynamic, T> ();
+		
+		#else
+		
+		hash = new IntHash <T> ();
+		
+		#end
+		length = 0;
+	}
+	
+	
+	public inline function exists (key:Dynamic):Bool {
+		
+		#if flash
+		
+		return dictionary.exists (key);
+		
+		#else
+		
+		return hash.exists (getID (key));
+		
+		#end
+		
+	}
+	
+	
+	public inline function get (key:Dynamic):T {
+		
+		#if flash
+		
+		return dictionary.get (key);
+		
+		#else
+		
+		return hash.get (getID (key));
+		
+		#end
+		
+	}
+	
+	
+	/** @private */ private inline function getID (key:Dynamic):Int {
+		
+		#if cpp
+		
+		return untyped __global__.__hxcpp_obj_id (key);
+		
+		#else
+		
+		if (key.___id___ == null) {
+			
+			key.___id___ = nextObjectID ++;
+			
+			if (nextObjectID == #if neko 0x3fffffff #else 0x7fffffff #end) {
+				
+				nextObjectID = 0;
+				
+			}
+			
+		}
+		
+		return key.___id___;
+		
+		#else
+		
+		return 0;
+		
+		#end
+		
+	}
+	
+	
+	public inline function iterator ():Iterator <T> {
+		
+		#if flash
+		
+		var values:Array <T> = new Array <T> ();
+		
+		for (key in dictionary.iterator ()) {
+			
+			values.push (dictionary.get (key));
+			
+		}
+		
+		return values.iterator ();
+		
+		#else
+		
+		return hash.iterator ();
+		
+		#end
+		
+	}
+	
+	
+	public inline function keys ():Iterator <Dynamic> {
+		
+		#if flash
+		
+		return dictionary.iterator ();
+		
+		#else
+		
+		return hash.keys ();
+		
+		#end
+		
+	}
+	
+	
+	public inline function remove (key:Dynamic):Void {
+		
+		#if flash
+		
+		dictionary.delete (key);
+		
+		#else
+		
+		hash.remove (getID (key));
+		
+		#end
+		length--;
+	}
+	
+	
+	public inline function set (key:Dynamic, value:T):Void {
+		
+		#if flash
+		
+		dictionary.set (key, value);
+		
+		#else
+		
+		hash.set (getID (key), value);
+		
+		#end
+		
+	}
+	
+	
+	 
  	//-------------------public methods--------------------
 
  	/**
@@ -77,21 +225,15 @@ class HashMap
   		return (length==0);
  	}
 
- 	/**
-  	 * Returns an Array of the keys in this HashMap.
-  	 */
- 	public function keys():Array<Dynamic>{
-  		 
-  		return index.copy();
- 	}
+ 
  	
  	/**
  	 * Call func(key) for each key.
  	 * @param func the function to call
  	 */
  	public function eachKey(func:Dynamic -> Void):Void {
-		var itr:Iterator<Dynamic> = index.iterator();	
-  		for(i in itr){
+	 
+  		for(i in keys()){
   			func(i);
   		}
  	}
@@ -100,29 +242,18 @@ class HashMap
  	 * Call func(value) for each value.
  	 * @param func the function to call
  	 */ 	
- 	public function eachValue(func:Dynamic -> Void):Void{
-  		var itr:Iterator<Dynamic> = content.iterator();	
-  		for(i in itr){
+ 	public function eachValue(func:Dynamic -> Void):Void{ 
+  		for(i in iterator()){
   			func(i);
   		}
  	}
- 	
- 	/**
-  	 * Returns an Array of the values in this HashMap.
-  	 */
- 	public function values():Array<Dynamic>{
-  	 
-  		return content.copy();
- 	}
- 	public function iterator():Iterator<Dynamic> {
-  		return content.iterator();
- 	}
+  
  	/**
   	 * Tests if some key maps into the specified value in this HashMap. 
   	 * This operation is more expensive than the containsKey method.
   	 */
- 	public function containsValue(value:Dynamic):Bool{
-  		var itr:Iterator<Dynamic> = content.iterator();	
+ 	public function containsValue(value:T):Bool{
+  		var itr:Iterator<T> =  iterator();	
   		for(i in itr){
    			if(i == value){
     			return true;
@@ -138,32 +269,11 @@ class HashMap
      * @return <tt>true</tt> if this map contains a mapping for the specified
   	 */
  	public function containsKey(key:Dynamic ):Bool {
-		var itr:Iterator<Dynamic> = index.iterator();	
-  		for(i in itr){
-   			if(i == key){
-    			return true;
-   			}
-  		}
-  		return false;
+ 
+  		return exists(key);
  	}
 	
- 	/**
- 	 * Returns the value to which the specified key is mapped in this HashMap.
- 	 * Return null if the key is not mapped to any value in this HashMap.
-  	 * This operation is very fast if the key is a string.
-     * @param   key the key whose associated value is to be returned.
-     * @return  the value to which this map maps the specified key, or
-     *          <tt>null</tt> if the map contains no mapping for this key
-     *           or it is null value originally.
- 	 */
- 	public function get(key:Dynamic):Dynamic{
- 		var value:Dynamic=  content[getKeyIndex(key)];
- 		if(value !=null){
- 			return value;
- 		}
-
-  		return null;
- 	}
+ 	 
  	
  	/**
  	 * Same functionity method with different name to <code>get</code>.
@@ -188,75 +298,32 @@ class HashMap
      *	       also indicate that the HashMap previously associated
      *	       <tt>null</tt> with the specified key.
   	 */
- 	public function put(key:Dynamic, value:Dynamic):Dynamic{
-  		if(key == null){
-   			throw new  Error("cannot put a value with undefined or null key!");
-   			return null;
-  		}else if(value == null){
-  			return remove(key);
-  		}else{
-  			var exist:Bool= containsKey(key);
- 			if(exist!=true){
-   				length++;
- 			}
- 			var oldValue:Dynamic = this.remove(key);			
-			index.push(key);
-   			content.push(value);
-   			return oldValue;
-  		}
+ 	public function put(key:Dynamic, value:T):T {
+		if (!exists(key)) length++;
+		set(key, value);
+		return value;
  	}
-
- 	/**
-     * Removes the mapping for this key from this map if present.
-     *
-     * @param  key key whose mapping is to be removed from the map.
-     * @return previous value associated with specified key, or <tt>null</tt>
-     *	       if there was no mapping for key.  A <tt>null</tt> return can
-     *	       also indicate that the map previously associated <tt>null</tt>
-     *	       with the specified key.
-  	 */
- 	public function remove(key:Dynamic):Dynamic{
- 	 
-		var _index:Int = getKeyIndex(key);
-		if (_index == -1) {
-			return null;
- 		 
-		}
-  		var temp:Dynamic=  content[_index];
-   		// delete content[key];
-		 content.splice(_index, 1);
-		 index.splice(_index, 1);
-   		length--;
-  		return temp;
- 	}
- 	
+ 
  	/**
  	 * Clears this HashMap so that it contains no keys no values.
  	 */
  	public function clear():Void{
-  		length = 0;
-  		content   =   new Array<Dynamic>();
-		index  =  new Array<Dynamic>();
+		var itr:Iterator<T> =  iterator();	
+  		for(i in itr){
+   			remove(itr);
+  		}
  	}
 
  	/**
  	 * Return a same copy of HashMap object
  	 */
- 	public function clone():HashMap{
-  		var temp:HashMap = new HashMap();
-  		for(i in 0...index.length){
-   			temp.put(index[i],  content[i]);
+ 	public function clone():HashMap<T>{
+  		var temp:HashMap<T> = new HashMap<T>();
+  		var itr:Iterator<Dynamic> =  keys();	
+  		for(i in itr){
+   			 temp.put(i , get(i));
   		}
   		return temp;
  	}
-
- 	public function toString():String{
-  		var ks:Array<Dynamic>= keys();
-  		var vs:Array<Dynamic>= values();
-  		var temp:String= "HashMap Content:\n";
-  		for(i in 0...ks.length){
-   			temp += ks[i]+" -> "+vs[i] + "\n";
-  		}
-  		return temp;
- 	}		
+ 	
 }
