@@ -50,7 +50,7 @@ class JPopup extends JRootPane{
 	private var owner:Dynamic;
 	private var modal:Bool;
 	
-	private var ownedEquipedPopups:ArrayList;
+	private var ownedEquipedPopups:Array<JPopup>;
 	private var lastLAF:Dynamic;	
 	
 	/**
@@ -93,7 +93,7 @@ class JPopup extends JRootPane{
 		
 		
 		
-		ownedEquipedPopups = new ArrayList();
+		ownedEquipedPopups = new Array<JPopup>();
 		  addEventListener(Event.ADDED_TO_STAGE, __popupOpennedAddToList);
 		   addEventListener(Event.REMOVED_FROM_STAGE, __popupOfffromDisplayList);
 		 
@@ -419,8 +419,8 @@ class JPopup extends JRootPane{
 	 * <code>setVisible(true)</code>) and not disposed(<code>dispose()</code>).
 	 * </p>
 	 */	
-	public function getOwnedEquipedPopups():Array<Dynamic>{
-		return ownedEquipedPopups.toArray();
+	public function getOwnedEquipedPopups():Array<JPopup>{
+		return ownedEquipedPopups ;
 	}
 		
 	/**
@@ -499,7 +499,7 @@ class JPopup extends JRootPane{
 	}	
 	
 	private function addOwnedEquipedPopup(pop:JPopup):Void{
-		ownedEquipedPopups.append(pop);
+		ownedEquipedPopups.push(pop);
 	}
 	
 	private function removeOwnedEquipedPopup(pop:JPopup):Void{
