@@ -105,10 +105,10 @@ class ASFont{
 	public function apply(textField:TextField, beginIndex:Int=-1, endIndex:Int=-1):Void{
 		//why
 		advancedProperties.apply(textField);
-		 
-		 //textField.setTextFormat(textFormat, beginIndex, endIndex);
-		 //textField.defaultTextFormat = textFormat;
-	
+		 	#if(flash9)
+		 textField.setTextFormat(textFormat, beginIndex, endIndex);
+		  textField.defaultTextFormat = textFormat;
+	#end
 	}
 	
 	/**

@@ -603,7 +603,7 @@ class AsWingUtils{
     	TEXT_FIELD_EXT.text = str;
     	font.apply(TEXT_FIELD_EXT);
     	if(includeGutters)	{
-    		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
+    		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.width), Math.ceil(TEXT_FIELD_EXT.height));
     	}else{
     		return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
     	}
