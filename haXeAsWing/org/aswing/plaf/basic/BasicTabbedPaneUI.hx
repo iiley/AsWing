@@ -520,7 +520,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
     	}
     }
     
-    private function setTabProperties(header:Tab, i:Int):Void{
+    private function setTabProperties(header:Tab, i:Int):Void { 
 		header.setTextAndIcon(tabbedPane.getTitleAt(i), tabbedPane.getIconAt(i));
 		header.getTabComponent().setUIElement(true);
 		header.getTabComponent().setEnabled(tabbedPane.isEnabledAt(i));
