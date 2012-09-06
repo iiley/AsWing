@@ -1865,7 +1865,8 @@ class Component extends AWSprite{
 	/**
 	 * @see #setPreferredSize()
 	 */	
-	public function getPreferredSize():IntDimension{
+	public function getPreferredSize():IntDimension {
+		
 		if(isDirectReturnSize(preferredSize)){
 			return preferredSize.clone();
 		}else if(isCachePreferSizes() && cachedPreferredSize != null){
