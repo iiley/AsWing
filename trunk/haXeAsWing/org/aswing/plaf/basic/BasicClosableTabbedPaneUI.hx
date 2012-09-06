@@ -34,9 +34,7 @@ class BasicClosableTabbedPaneUI extends BasicTabbedPaneUI{
 	
     override private function setTabProperties(header:Tab, i:Int):Void{
     	super.setTabProperties(header, i);
-    	AsWingUtils.as(header,ClosableTab).getCloseButton().setEnabled(
-    		(AsWingUtils.as(tabbedPane,JClosableTabbedPane)).isCloseEnabledAt(i)
-    		&& tabbedPane.isEnabledAt(i));
+    	AsWingUtils.as(header,ClosableTab).getCloseButton().setEnabled( (AsWingUtils.as(tabbedPane,JClosableTabbedPane)).isCloseEnabledAt(i) && tabbedPane.isEnabledAt(i));
     }
 	
 	override private function installListeners():Void{
