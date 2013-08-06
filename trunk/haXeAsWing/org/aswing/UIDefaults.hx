@@ -15,7 +15,7 @@ import org.aswing.resizer.ResizerController;
  * @see UIManager
  * @author paling
  */
-class UIDefaults  extends  StringMap <Dynamic>
+class UIDefaults  extends  HashMap <String,Dynamic>
 {
 	public function new()   
 	{
@@ -47,10 +47,16 @@ class UIDefaults  extends  StringMap <Dynamic>
 	 * @return target's UI object, or null if there is not his UI object
 	 */
 	public function getUI(target:Component):ComponentUI{
-		var ui:ComponentUI = cast(getInstance(target.getUIClassID()) , ComponentUI);
-		if(ui == null){
-			ui = cast(getCreateInstance(target.getDefaultBasicUIClass()) , ComponentUI);
+		var ui:ComponentUI = null;
+		if(Std.is(getInstance(target.getUIClassID()) , ComponentUI))
+		{
+			ui=cast(getInstance(target.getUIClassID()) , ComponentUI);
 		}
+		if (Std.is(getCreateInstance(target.getDefaultBasicUIClass()) , ComponentUI))
+		{
+			 ui = cast(getCreateInstance(target.getDefaultBasicUIClass()) , ComponentUI);
+		}
+	 
 		return ui;
 	}
 	
@@ -75,58 +81,58 @@ class UIDefaults  extends  StringMap <Dynamic>
 	}
 	
 	public function getBorder(key:String):Border{
-		var border:Border = cast(getInstance(key) , Border);
-		if(border == null){
-			border = EmptyUIResources.BORDER; //make it to be an ui resource then can override by next LAF
+		var border:Border =EmptyUIResources.BORDER;
+		if( Std.is(getInstance(key) , Border)){
+			border =  cast(getInstance(key) , Border); //make it to be an ui resource then can override by next LAF
 		
 		}
 		return border;
 	}
 	
 	public function getIcon(key:String):Icon{
-		var icon:Icon = cast(getInstance(key) , Icon);
-		if(icon == null){
-			icon = EmptyUIResources.ICON; //make it to be ui resource property then can override by next LAF
+		var icon:Icon = EmptyUIResources.ICON;
+		if(Std.is(getInstance(key) , Icon)){
+			icon = cast(getInstance(key) , Icon); //make it to be ui resource property then can override by next LAF
 		}
 		return icon;
 	}
 	
 	public function getGroundDecorator(key:String):GroundDecorator{
-		var dec:GroundDecorator = cast(getInstance(key) , GroundDecorator);
-		if(dec == null){
-			dec = EmptyUIResources.DECORATOR; //make it to be ui resource property then can override by next LAF
+		var dec:GroundDecorator =EmptyUIResources.DECORATOR;
+		if(Std.is(getInstance(key) , GroundDecorator)){
+			dec = cast(getInstance(key) , GroundDecorator); //make it to be ui resource property then can override by next LAF
 		}
 		return dec;
 	}
 	
 	public function getColor(key:String):ASColor{
-		var color:ASColor = cast(getInstance(key) , ASColor);
-		if(color == null){
-			color = EmptyUIResources.COLOR; //make it to be an ui resource then can override by next LAF
+		var color:ASColor = EmptyUIResources.COLOR;
+		if(Std.is(getInstance(key) , ASColor)){
+			color = cast(getInstance(key) , ASColor); //make it to be an ui resource then can override by next LAF
 		}
 		return color;
 	}
 	
 	public function getFont(key:String):ASFont{
-		var font:ASFont = cast(getInstance(key) , ASFont);
-		if(font == null){
-			font = EmptyUIResources.FONT; //make it to be an ui resource then can override by next LAF
+		var font:ASFont = EmptyUIResources.FONT;
+		if(Std.is(getInstance(key) , ASFont)){
+			font = cast(getInstance(key) , ASFont); //make it to be an ui resource then can override by next LAF
 		}
 		return font;
 	}
 	
 	public function getInsets(key:String):Insets{
-		var i:Insets = cast(getInstance(key) , Insets);
-		if(i == null){
-			i = EmptyUIResources.INSETS; //make it to be an ui resource then can override by next LAF
+		var i:Insets = EmptyUIResources.INSETS;
+		if(Std.is(getInstance(key) , Insets)){
+			i = cast(getInstance(key) , Insets); //make it to be an ui resource then can override by next LAF
 		}
 		return i;
 	}
 	
 	public function getStyleTune(key:String):StyleTune{
-		var i:StyleTune = cast(getInstance(key) , StyleTune);
-		if(i == null){
-			i = EmptyUIResources.STYLE_TUNE; //make it to be an ui resource then can override by next LAF
+		var i:StyleTune =EmptyUIResources.STYLE_TUNE;
+		if(Std.is(getInstance(key) , StyleTune)){
+			i =  cast(getInstance(key) , StyleTune); //make it to be an ui resource then can override by next LAF
 		}
 		return i;
 	}
