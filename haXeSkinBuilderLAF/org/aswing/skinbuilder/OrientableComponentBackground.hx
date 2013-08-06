@@ -15,7 +15,7 @@ import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.DefaultsDecoratorBase;
 import org.aswing.plaf.UIResource;
 
-class OrientableComponentBackground extends DefaultsDecoratorBase , implements GroundDecorator , implements UIResource {
+class OrientableComponentBackground extends DefaultsDecoratorBase  implements GroundDecorator  implements UIResource {
 
 	private var verticalImage:DisplayObject;
 	private var horizotalImage:DisplayObject;

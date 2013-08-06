@@ -20,7 +20,7 @@ import flash.display.DisplayObject;
 import org.aswing.skinbuilder.SkinTabbedPaneTab;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.UIResource;
-class SkinTabbedPaneUI extends BasicTabbedPaneUI , implements GroundDecorator , implements UIResource {
+class SkinTabbedPaneUI extends BasicTabbedPaneUI   implements GroundDecorator   implements UIResource {
 	
 	private var contentRoundImageContainer:Sprite;
 	private var top_contentRoundImage:DisplayObject;

@@ -15,7 +15,7 @@ import org.aswing.plaf.UIResource;
 import org.aswing.plaf.basic.tree.ExpandControl;
 import org.aswing.tree.TreePath;
 
-class SkinTreeExpandControl extends DefaultsDecoratorBase , implements ExpandControl , implements UIResource {
+class SkinTreeExpandControl extends DefaultsDecoratorBase   implements ExpandControl   implements UIResource {
 	
 	private var leafControlImage:DisplayObject;
 	private var folderExpandedControlImage:DisplayObject;

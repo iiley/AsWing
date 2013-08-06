@@ -16,7 +16,7 @@ package org.aswing.skinbuilder;
 	import org.aswing.graphics.Graphics2D;
 	import flash.display.DisplayObject;
  
-class SkinButtonBackground extends DefaultsDecoratorBase , implements GroundDecorator , implements UIResource {
+class SkinButtonBackground extends DefaultsDecoratorBase   implements GroundDecorator   implements UIResource {
 	
     private var stateAsset:ButtonStateObject;
     private var setuped:Bool;

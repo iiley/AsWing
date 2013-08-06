@@ -12,7 +12,7 @@ package org.aswing.skinbuilder;
 	import org.aswing.GroundDecorator;
 	import org.aswing.graphics.Graphics2D; 
 	import flash.display.DisplayObject;
-class SinglePicBackground extends DefaultsDecoratorBase , implements GroundDecorator , implements UIResource {
+class SinglePicBackground extends DefaultsDecoratorBase  implements GroundDecorator  implements UIResource {
 	private var image:DisplayObject;
 	private var loaded:Bool;
 	private var avoidBorderMargin:Bool;

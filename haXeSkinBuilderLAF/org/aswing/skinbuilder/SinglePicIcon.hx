@@ -14,7 +14,7 @@ import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.DefaultsDecoratorBase;
 import org.aswing.plaf.UIResource;
 
-class SinglePicIcon extends DefaultsDecoratorBase , implements Icon , implements UIResource {
+class SinglePicIcon extends DefaultsDecoratorBase   implements Icon   implements UIResource {
 	
 	private var image:DisplayObject;
 	private var loaded:Bool;

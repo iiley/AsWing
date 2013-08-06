@@ -20,7 +20,7 @@ import flash.display.DisplayObject;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.UIResource;
 import org.aswing.event.ReleaseEvent;
-class OrientableThumb extends DefaultsDecoratorBase , implements GroundDecorator , implements Icon ,implements UIResource{
+class OrientableThumb extends DefaultsDecoratorBase  implements GroundDecorator  implements Icon  implements UIResource{
 	
     private var thumb:AWSprite;
     private var verticalContainer:ButtonStateObject;

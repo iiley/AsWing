@@ -12,7 +12,7 @@ package org.aswing.skinbuilder;
 	import org.aswing.skinbuilder.SkinButtonIcon; 
 	import org.aswing.JSplitPane;
 
-class SkinSplitPaneDivider extends Divider , implements Orientable{
+class SkinSplitPaneDivider extends Divider  implements Orientable{
 	
 	private var leftIco:SkinButtonIcon;
 	private var rightIco:SkinButtonIcon;
