@@ -16,7 +16,7 @@ import org.aswing.graphics.Pen;
 import org.aswing.plaf.FrameUI;
 import org.aswing.plaf.UIResource;
 
-class BasicFrameTitleBarBG implements GroundDecorator,implements UIResource{
+class BasicFrameTitleBarBG implements GroundDecorator  implements UIResource{
 		
 	private var activeColor:ASColor;
 	private var inactiveColor:ASColor;
@@ -32,8 +32,8 @@ class BasicFrameTitleBarBG implements GroundDecorator,implements UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		 
-		var bar:FrameTitleBar = AsWingUtils.as(c,FrameTitleBar);
-		var frameUI:FrameUI = AsWingUtils.as(bar.getFrame().getUI() , FrameUI);
+		var bar:FrameTitleBar = cast(c,FrameTitleBar);
+		var frameUI:FrameUI = cast(bar.getFrame().getUI() , FrameUI);
 		if(activeColor == null){
 			var activeColor:ASColor;
 			var inactiveColor:ASColor;

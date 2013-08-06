@@ -22,7 +22,7 @@ import org.aswing.graphics.Graphics2D;
 import org.aswing.graphics.SolidBrush;
 import org.aswing.plaf.UIResource;
 
-class ComboBoxPopupBorder implements Border,implements UIResource{
+class ComboBoxPopupBorder implements Border  implements UIResource{
 	
 	private var shape:Shape;
 	

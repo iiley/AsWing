@@ -11,7 +11,7 @@ import org.aswing.JTree;
 /**
  * @author paling
  */
-interface TreeCell implements Cell {
+interface TreeCell extends Cell {
 	/**
 	 * Sets the table cell status, include the owner-JTable isSelected, row position, column position.
 	 * @param the cell's owner, a JTable

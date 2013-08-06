@@ -220,7 +220,7 @@ class JFrame extends JWindow{
      * @return the frame ui.
      */
     public function getFrameUI():FrameUI{
-    	return AsWingUtils.as(getUI() , FrameUI);
+    	return cast(getUI() , FrameUI);
     }
     
 	override public function getUIClassID():String{

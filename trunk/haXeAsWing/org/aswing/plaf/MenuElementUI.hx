@@ -10,7 +10,7 @@ package org.aswing.plaf;
  * @see org.aswing.JMenuItem
  * @author paling
  */
-interface MenuElementUI implements ComponentUI{
+interface MenuElementUI extends ComponentUI{
 	
 	/**
 	 * Subclass override this to process key event.

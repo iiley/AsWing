@@ -13,13 +13,13 @@ package org.aswing;
  */
 class KeyMap{
 	
-	private var map:Hash<KeyAction>;
+	private var map:Map<String,KeyAction>;
 	
 	/**
 	 * Creates a key map.
 	 */
 	public function new(){
-		map = new Hash<KeyAction>();
+		map = new Map<String,KeyAction>();
 	}
 	
 	/**
@@ -101,7 +101,7 @@ class KeyMap{
 
 
 
-import org.aswing.KeyType;
+ 
 
 class KeyAction{
 	public var key:KeyType;

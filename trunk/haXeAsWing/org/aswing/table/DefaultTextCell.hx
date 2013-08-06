@@ -14,7 +14,7 @@ import org.aswing.JTable;
  * Default table cell to render text
  * @author paling
  */
-class DefaultTextCell extends JLabel , implements TableCell{
+class DefaultTextCell extends JLabel  implements TableCell{
 	
 	private var value:Dynamic;
 	

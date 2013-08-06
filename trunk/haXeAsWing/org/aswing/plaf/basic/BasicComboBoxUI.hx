@@ -36,7 +36,7 @@ import org.aswing.util.Timer;
  * @author paling
  * @private
  */
-class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
+class BasicComboBoxUI extends BaseComponentUI  implements ComboBoxUI{
 		
 	private var dropDownButton:Component;
 	private var box:JComboBox;
@@ -51,14 +51,14 @@ class BasicComboBoxUI extends BaseComponentUI , implements ComboBoxUI{
 	}
 	
     override public function installUI(c:Component):Void{
-    	box = AsWingUtils.as(c,JComboBox);
+    	box = cast(c,JComboBox);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-    	box = AsWingUtils.as(c,JComboBox);
+    	box = cast(c,JComboBox);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

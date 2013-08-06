@@ -29,7 +29,7 @@ class RadioButtonMenuItemCheckIcon extends MenuCheckIcon{
 	override public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
 		shape.graphics.clear();
 		g = new Graphics2D(shape.graphics);
-		var menu:AbstractButton = AsWingUtils.as(c,AbstractButton);
+		var menu:AbstractButton = cast(c,AbstractButton);
 		if(menu.isSelected()){
 			g.fillCircle(new SolidBrush(c.getMideground()), x+4, y+5, 3);
 		}

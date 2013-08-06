@@ -40,14 +40,14 @@ class BasicTextComponentUI extends BaseComponentUI{
 	}
     
 	override public function installUI(c:Component):Void{
-		textComponent = AsWingUtils.as(c,JTextComponent);
+		textComponent = cast(c,JTextComponent);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
     
 	override public function uninstallUI(c:Component):Void{
-		textComponent = AsWingUtils.as(c,JTextComponent);
+		textComponent = cast(c,JTextComponent);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

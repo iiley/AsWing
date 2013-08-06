@@ -15,7 +15,7 @@ import org.aswing.plaf.BaseComponentUI;
  * @private
  * @author paling
  */
-class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
+class BasicPopupMenuUI extends BaseComponentUI  implements MenuElementUI{
 
 	private var popupMenu:JPopupMenu;
 	
@@ -24,13 +24,13 @@ class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
 	}
 	
 	override public function installUI(c:Component):Void{
-		popupMenu = AsWingUtils.as(c,JPopupMenu);
+		popupMenu = cast(c,JPopupMenu);
 		installDefaults();
 		installListeners();
 	}
 
 	override public function uninstallUI(c:Component):Void{
-		popupMenu = AsWingUtils.as(c,JPopupMenu);
+		popupMenu = cast(c,JPopupMenu);
 		uninstallDefaults();
 		uninstallListeners();
 	}
@@ -83,12 +83,12 @@ class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
 				path.pop();
 			}
 			if(path.length == 2 && !(	Std.is(path[0] , JPopupMenu))){ //generally means jmenubar here
-				root = AsWingUtils.as(path[0],MenuElement);
-				prev = manager.prevSubElement(root, AsWingUtils.as(path[1],MenuElement));
+				root = cast(path[0],MenuElement);
+				prev = manager.prevSubElement(root, cast(path[1],MenuElement));
 				path.pop();
 				path.push(prev);
 				if(prev.getSubElements().length > 0){
-					var prevPop:MenuElement = AsWingUtils.as(prev.getSubElements()[0],MenuElement);
+					var prevPop:MenuElement = cast(prev.getSubElements()[0],MenuElement);
 					path.push(prevPop);
 					if(prevPop.getSubElements().length > 0){
 						path.push(prevPop.getSubElements()[0]);
@@ -102,13 +102,13 @@ class BasicPopupMenuUI extends BaseComponentUI , implements MenuElementUI{
 			}
 			manager.setSelectedPath(popupMenu.stage, path, false);
 		}else if(manager.isNextPageKey(code)){
-			root = AsWingUtils.as(path[0],MenuElement);
+			root = cast(path[0],MenuElement);
 			if(root.getSubElements().length > 1 && !(Std.is(root,JPopupMenu))){
-				var next:MenuElement = manager.nextSubElement(root, AsWingUtils.as(path[1],MenuElement));
+				var next:MenuElement = manager.nextSubElement(root, cast(path[1],MenuElement));
 				path = [root];
 				path.push(next);
 				if(next.getSubElements().length > 0){
-					var nextPop:MenuElement = AsWingUtils.as(next.getSubElements()[0],MenuElement);
+					var nextPop:MenuElement = cast(next.getSubElements()[0],MenuElement);
 					path.push(nextPop);
 					if(nextPop.getSubElements().length > 0){
 						path.push(nextPop.getSubElements()[0]);

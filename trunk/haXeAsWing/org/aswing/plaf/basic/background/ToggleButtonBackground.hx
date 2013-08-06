@@ -23,7 +23,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
 /**
  * @private
  */
-class ToggleButtonBackground implements GroundDecorator,implements UIResource{
+class ToggleButtonBackground implements GroundDecorator  implements UIResource{
 	
     private var shape:Shape;
     
@@ -32,7 +32,7 @@ class ToggleButtonBackground implements GroundDecorator,implements UIResource{
 	} 
 		
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):Void{
-		var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+		var b:AbstractButton = cast(c,AbstractButton)	;
 		if(b == null){
 			return;
 		}

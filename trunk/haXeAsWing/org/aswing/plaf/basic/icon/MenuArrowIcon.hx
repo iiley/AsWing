@@ -13,7 +13,7 @@ import org.aswing.plaf.UIResource;
 /**
  * @private
  */
-class MenuArrowIcon extends SolidArrowIcon , implements UIResource{
+class MenuArrowIcon extends SolidArrowIcon   implements UIResource{
 	
 	public function new(){
 		super(0, 8, ASColor.BLACK);

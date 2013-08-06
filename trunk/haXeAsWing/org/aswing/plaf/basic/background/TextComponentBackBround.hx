@@ -24,7 +24,7 @@ import org.aswing.plaf.UIResource;
 /**
  * @private
  */
-class TextComponentBackBround implements GroundDecorator,implements UIResource{
+class TextComponentBackBround implements GroundDecorator  implements UIResource{
 	
 	private var shape:Shape;
 	
@@ -42,7 +42,7 @@ class TextComponentBackBround implements GroundDecorator,implements UIResource{
 			var tune:StyleTune = c.getStyleTune();
 			var result:StyleResult = new StyleResult(cl, tune);
 			var ml:ASColor = result.bdark;
-			var ed:EditableComponent = AsWingUtils.as(c,EditableComponent)	;
+			var ed:EditableComponent = cast(c,EditableComponent)	;
 			var editable:Bool= true;
 			if(ed != null){
 				editable = ed.isEditable();

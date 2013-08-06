@@ -41,5 +41,5 @@ class WeakReference{
 		weakDic = null;
 	}
 
-		public var value(get_value,set_value):Dynamic;
+		public var value (get, set):Dynamic;
 }

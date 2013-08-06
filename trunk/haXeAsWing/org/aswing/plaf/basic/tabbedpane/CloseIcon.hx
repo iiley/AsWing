@@ -13,7 +13,7 @@ import org.aswing.Icon;
 import org.aswing.ASColor;
 import org.aswing.graphics.Pen;
 
-class CloseIcon implements Icon, implements UIResource {
+class CloseIcon implements Icon  implements UIResource {
 
 	var width : Int;
 	var height : Int;

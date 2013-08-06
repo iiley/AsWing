@@ -89,9 +89,9 @@ class JLoadPane extends AssetPane{
 		if(url == null){
 			urlRequest = null;
 		}else if(Std.is(url,URLRequest)){
-			urlRequest = AsWingUtils.as(url,URLRequest)	;
+			urlRequest = cast(url,URLRequest)	;
 		}else{
-			urlRequest = new URLRequest(AsWingUtils.as(url , String));
+			urlRequest = new URLRequest(cast(url , String));
 		}
 		 
 		regularAssetContainer = assetContainer;

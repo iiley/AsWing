@@ -29,7 +29,7 @@ class CheckBoxMenuItemCheckIcon extends MenuCheckIcon{
 	override public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
 		shape.graphics.clear();
 		g = new Graphics2D(shape.graphics);
-		var menu:AbstractButton = AsWingUtils.as(c, AbstractButton);
+		var menu:AbstractButton = cast(c, AbstractButton);
 		//why	
 	 
 		if(menu.isSelected()){

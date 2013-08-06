@@ -28,7 +28,7 @@ import org.aswing.plaf.basic.BasicScrollBarUI;
  * </p>
  * @author paling
  */	
-class JScrollBar extends Component , implements Orientable{
+class JScrollBar extends Component  implements Orientable{
 	
     /** 
      * Horizontal orientation.

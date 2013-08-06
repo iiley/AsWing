@@ -16,7 +16,7 @@ import org.aswing.geom.IntRectangle;
 /**
  * @private
  */
-class BasicExpandControl implements ExpandControl,implements UIResource{
+class BasicExpandControl implements ExpandControl  implements UIResource{
 	
 	public function paintExpandControl(c:Component, g:Graphics2D, bounds:IntRectangle, 
 		totalChildIndent:Int, path:TreePath, row:Int, expanded:Bool, leaf:Bool):Void{

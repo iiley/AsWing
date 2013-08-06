@@ -3,71 +3,23 @@
 */
 
 package org.aswing.util;
+import haxe.ds.IntMap;
 
   
-#if flash
-import flash.utils.TypedDictionary;
-#end
+ 
 
 
-class  HashMap <K, T> {
-	
-	
-	#if flash
-	/** @private */ private var dictionary:TypedDictionary <K, T>;
-	#else
-	/** @private */ private var hashKeys:IntHash <K>;
-	/** @private */ private var hashValues:IntHash <T>;
-	#end
-	
-	/** @private */ private static var nextObjectID:Int = 0;
-	
+class HashMap < K , V >  {
+	private var _keys:IntMap<K>;
+	private var _values:IntMap<V>;
 	private var length:Int;
-	public function new () {
-		
-		#if flash
-		
-		dictionary = new TypedDictionary <K, T> ();
-		
-		#else
-		
-		hashKeys = new IntHash <K> ();
-		hashValues = new IntHash <T> ();
-		
-		#end
+		/** @private */ private static var nextObjectID:Int = 0;
+	public function new() { 
+		this._keys = new IntMap();
+		this._values= new IntMap() ;
 		length = 0;
-		
 	}
 	
-	
-	public inline function exists (key:K):Bool {
-		
-		#if flash
-		
-		return dictionary.exists (key);
-		
-		#else
-		
-		return hashValues.exists (getID (key));
-		
-		#end
-		
-	}
-	
-	
-	public inline function get (key:K):T {
-		
-		#if flash
-		
-		return dictionary.get (key);
-		
-		#else
-		
-		return hashValues.get (getID (key));
-		
-		#end
-		
-	}
 	
 	
 	/** @private */ private inline function getID (key:K):Int {
@@ -99,80 +51,34 @@ class  HashMap <K, T> {
 		#end
 		
 	}
-	
-	
-	public inline function iterator ():Iterator <T> {
-		
-		#if flash
-		
-		var values:Array <T> = new Array <T> ();
-		
-		for (key in dictionary.iterator ()) {
-			
-			values.push (dictionary.get (key));
-			
-		}
-		
-		return values.iterator ();
-		
-		#else
-		
-		return hashValues.iterator ();
-		
-		#end
-		
+	public inline function set(k:K, v:V) {
+		this._keys.set(getID(k), k);
+		this._values.set(getID(k), v);
 	}
-	
-	
-	public inline function keys ():Iterator <K> {
-		
-		#if flash
-		
-		return dictionary.iterator ();
-		
-		#else
-		
-		return hashKeys.iterator ();
-		
-		#end
-		
+	public inline function get(k:K) {
+		return this._values.get(getID(k));
 	}
-	
-	
-	public inline function remove (key:K):Void {
-		
-		#if flash
-		
-		dictionary.delete (key);
-		
-		#else
-		
-		var id = getID (key);
-		
-		hashKeys.remove (id);
-		hashValues.remove (id);
-		
-		#end
-		
+	public inline function exists(k:K) {
+		return this._values.exists(getID(k));
 	}
-	
-	
-	public inline function set (key:K, value:T):Void {
-		
-		#if flash
-		
-		dictionary.set (key, value);
-		
-		#else
-		
-		var id = getID (key);
-		
-		hashKeys.set (id, key);
-		hashValues.set (id, value);
-		
-		#end
-		
+	public inline function remove(k:K) {
+		this._values.remove(getID(k ));
+		return this._keys.remove(getID(k ));
 	}
+	public inline function keys() {
+		return this._keys.iterator();
+	}
+	public inline function values() {
+		return this._values.iterator();
+	}
+	public inline function iterator() {
+		return this._values.iterator();
+	}
+ 
+ 
+	
+
+	
 	
 	
 	 
@@ -219,8 +125,8 @@ class  HashMap <K, T> {
   	 * Tests if some key maps into the specified value in this HashMap. 
   	 * This operation is more expensive than the containsKey method.
   	 */
- 	public function containsValue(value:T):Bool{
-  		var itr:Iterator<T> =  iterator();	
+ 	public function containsValue(value:V):Bool{
+  		var itr:Iterator<V> =  values();	
   		for(i in itr){
    			if(i == value){
     			return true;
@@ -235,7 +141,7 @@ class  HashMap <K, T> {
      * @param   key   The key whose presence in this map is to be tested
      * @return <tt>true</tt> if this map contains a mapping for the specified
   	 */
- 	public function containsKey(key:Dynamic ):Bool {
+ 	public function containsKey(key:K ):Bool {
  
   		return exists(key);
  	}
@@ -250,7 +156,7 @@ class  HashMap <K, T> {
      *          <tt>null</tt> if the map contains no mapping for this key
      *           or it is null value originally.
  	 */
- 	public function getValue(key:Dynamic):Dynamic{
+ 	public function getValue(key:K):Dynamic{
  		return get(key);
  	}
 
@@ -265,7 +171,7 @@ class  HashMap <K, T> {
      *	       also indicate that the HashMap previously associated
      *	       <tt>null</tt> with the specified key.
   	 */
- 	public function put(key:K, value:T):T {
+ 	public function put(key:K, value:V):V {
 		if (!exists(key)) length++;
 		set(key, value);
 		return value;
@@ -279,13 +185,14 @@ class  HashMap <K, T> {
   		for(i in itr){
    			remove(i);
   		}
+		length = 0;
  	}
 
  	/**
  	 * Return a same copy of HashMap object
  	 */
- 	public function clone():HashMap<K,T>{
-  		var temp:HashMap<K,T> = new HashMap<K,T>();
+ 	public function clone():HashMap<K,V>{
+  		var temp:HashMap<K,V> = new HashMap<K,V>();
   		var itr:Iterator<K> =  keys();	
   		for(i in itr){
    			 temp.put(i , get(i));

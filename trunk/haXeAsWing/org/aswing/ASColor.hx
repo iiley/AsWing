@@ -11,37 +11,37 @@ package org.aswing;
  */
 class ASColor{
 			
-	inline public static var WHITE:ASColor = new ASColor(0xffffff);
+	 public static var WHITE:ASColor = new ASColor(0xffffff);
 	
-	inline public static var LIGHT_GRAY:ASColor = new ASColor(0xc0c0c0);
+	 public static var LIGHT_GRAY:ASColor = new ASColor(0xc0c0c0);
 	
-	inline public static var GRAY:ASColor = new ASColor(0x808080);
+	 public static var GRAY:ASColor = new ASColor(0x808080);
 	
-	inline public static var DARK_GRAY:ASColor = new ASColor(0x404040);
+	 public static var DARK_GRAY:ASColor = new ASColor(0x404040);
 	
-	inline public static var BLACK:ASColor = new ASColor(0x000000);
+	 public static var BLACK:ASColor = new ASColor(0x000000);
 	
-	inline public static var RED:ASColor = new ASColor(0xff0000);
+	 public static var RED:ASColor = new ASColor(0xff0000);
 	
-	inline public static var PINK:ASColor = new ASColor(0xffafaf);
+	 public static var PINK:ASColor = new ASColor(0xffafaf);
 	
-	inline public static var ORANGE:ASColor = new ASColor(0xffc800);
+	 public static var ORANGE:ASColor = new ASColor(0xffc800);
 	
-	inline public static var HALO_ORANGE:ASColor = new ASColor(0xFFC200);
+	 public static var HALO_ORANGE:ASColor = new ASColor(0xFFC200);
 	
-	inline public static var YELLOW:ASColor = new ASColor(0xffff00);
+	 public static var YELLOW:ASColor = new ASColor(0xffff00);
 	
-	inline public static var GREEN:ASColor = new ASColor(0x00ff00);
+	 public static var GREEN:ASColor = new ASColor(0x00ff00);
 	
-	inline public static var HALO_GREEN:ASColor = new ASColor(0x80FF4D);
+	 public static var HALO_GREEN:ASColor = new ASColor(0x80FF4D);
 	
-	inline public static var MAGENTA:ASColor = new ASColor(0xff00ff);
+	 public static var MAGENTA:ASColor = new ASColor(0xff00ff);
 	
-	inline public static var CYAN:ASColor = new ASColor(0x00ffff);
+	 public static var CYAN:ASColor = new ASColor(0x00ffff);
 	
-	inline public static var BLUE:ASColor = new ASColor(0x0000ff);
+	 public static var BLUE:ASColor = new ASColor(0x0000ff);
 	
-	inline public static var HALO_BLUE:ASColor = new ASColor(0x2BF5F5);
+	 public static var HALO_BLUE:ASColor = new ASColor(0x2BF5F5);
 	
 	
 	private var rgb:Int;
@@ -413,7 +413,7 @@ class ASColor{
 	 * @return  a Boolean value that indicates if the compareTo object's value is the same as this one
 	 */	
 	public function equals(o:Dynamic):Bool{
-		var c:ASColor = AsWingUtils.as(o,ASColor)	;
+		var c:ASColor = cast(o,ASColor)	;
 		if(c != null){
 			return c.alpha == alpha && c.rgb == rgb;
 		}else{

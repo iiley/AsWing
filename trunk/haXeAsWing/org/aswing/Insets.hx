@@ -99,7 +99,7 @@ class Insets{
 	}
 	
 	public function equals(o:Dynamic):Bool{
-		var i:Insets = AsWingUtils.as(o,Insets)	;
+		var i:Insets = cast(o,Insets)	;
 		if(i == null){
 			return false;
 		}else{

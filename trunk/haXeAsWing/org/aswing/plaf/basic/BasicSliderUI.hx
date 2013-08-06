@@ -35,7 +35,7 @@ import org.aswing.JSlider;
  * @author paling
  * @private
  */
-class BasicSliderUI extends BaseComponentUI , implements SliderUI{
+class BasicSliderUI extends BaseComponentUI  implements SliderUI{
 	
 	private var slider:JSlider;
 	private var thumbIcon:Icon;
@@ -73,14 +73,14 @@ class BasicSliderUI extends BaseComponentUI , implements SliderUI{
 	}
 		
 	override public function installUI(c:Component):Void{
-		slider = AsWingUtils.as(c,JSlider);
+		slider = cast(c,JSlider);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
 	
 	override public function uninstallUI(c:Component):Void{
-		slider = AsWingUtils.as(c,JSlider);
+		slider = cast(c,JSlider);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

@@ -20,7 +20,7 @@ import org.aswing.event.ContainerEvent;
  * user to select one of the <code>JMenuItems</code> on it.
  * @author paling
  */
-class JMenuBar extends Container , implements MenuElement{
+class JMenuBar extends Container  implements MenuElement{
 	
 	private var selectionModel:SingleSelectionModel;
 	private var menuInUse:Bool;
@@ -64,7 +64,7 @@ class JMenuBar extends Container , implements MenuElement{
      * @return the menu element ui.
      */
     public function getMenuElementUI():MenuElementUI{
-    	return AsWingUtils.as( getUI() , MenuElementUI);
+    	return cast( getUI() , MenuElementUI);
     }
 	
 	override public function getUIClassID():String{
@@ -92,7 +92,7 @@ class JMenuBar extends Container , implements MenuElement{
 	public function getMenu(index:Int):JMenu{
 		var com:Component = getComponent(index);
 		if(Std.is(com,JMenu)){
-			return AsWingUtils.as(com,JMenu);
+			return cast(com,JMenu);
 		}else{
 			return null;
 		}
@@ -156,13 +156,13 @@ class JMenuBar extends Container , implements MenuElement{
 	
 	private function __menuBarChildAdd(e:ContainerEvent) : Void{
 		if(Std.is(e.getChild() , MenuElement)){
-			AsWingUtils.as(e.getChild(),MenuElement).setInUse(isInUse());
+			cast(e.getChild(),MenuElement).setInUse(isInUse());
 		}
 	}
 
 	private function __menuBarChildRemove(e:ContainerEvent) : Void{
 		if(Std.is(e.getChild() , MenuElement)){
-			AsWingUtils.as(e.getChild(),MenuElement).setInUse(false);
+			cast(e.getChild(),MenuElement).setInUse(false);
 		}
 	}
 	
@@ -190,7 +190,7 @@ class JMenuBar extends Container , implements MenuElement{
 	    	menuInUse = b;
 	    	var subs:Array<Dynamic>= getSubElements();
 	    	for(i in 0...subs.length){
-	    		var ele:MenuElement = AsWingUtils.as(subs[i],MenuElement);
+	    		var ele:MenuElement = cast(subs[i],MenuElement);
 	    		ele.setInUse(b);
 	    	}
     	}

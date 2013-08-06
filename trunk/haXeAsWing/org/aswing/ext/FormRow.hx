@@ -50,7 +50,7 @@ import org.aswing.event.ContainerEvent;
  * 
  * @author paling
  */
-class FormRow extends JPanel , implements LayoutManager{
+class FormRow extends JPanel  implements LayoutManager{
 	
 	/**
 	 * A fast access to AsWingConstants Constant
@@ -96,7 +96,7 @@ class FormRow extends JPanel , implements LayoutManager{
 	
 	private function appendChildren(arr:Array<Dynamic>):Void{
 		for(i in 0...arr.length){
-			var com:Component = AsWingUtils.as(arr[i], Component);
+			var com:Component = cast(arr[i], Component);
 			if(com != null){
 				append(com);
 			}

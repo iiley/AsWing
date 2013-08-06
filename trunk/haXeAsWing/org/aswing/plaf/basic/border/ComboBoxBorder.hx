@@ -18,7 +18,7 @@ import org.aswing.geom.IntRectangle;
  * Discard in aswing 2.0(Background raped his job)
  * @private
  */
-class ComboBoxBorder extends BevelBorder , implements UIResource{
+class ComboBoxBorder extends BevelBorder   implements UIResource{
 	
 	private var colorInited:Bool;
 	
@@ -35,7 +35,7 @@ class ComboBoxBorder extends BevelBorder , implements UIResource{
 			setShadowInnerColor(c.getUI().getColor("ComboBox.shadow"));
 		}
         
-    	var box:EditableComponent = AsWingUtils.as(c,EditableComponent)	;
+    	var box:EditableComponent = cast(c,EditableComponent)	;
     	if(box != null){
 	    	if(box.isEditable()){
 	    		setBevelType(BevelBorder.LOWERED);

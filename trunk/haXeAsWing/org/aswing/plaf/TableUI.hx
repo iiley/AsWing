@@ -13,7 +13,7 @@ import org.aswing.geom.IntDimension;
  * @see org.aswing.JTable
  * @author paling
  */
-interface TableUI implements ComponentUI{
+interface TableUI extends ComponentUI{
 	
     /**
      * Returns the view size.

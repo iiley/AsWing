@@ -43,13 +43,13 @@ import org.aswing.util.DateAs;
  */
 class DateChooser extends JPanel{
 	
-	inline public static var defaultDayNames:Array<Dynamic>= [" Su ", " Mo ", " Tu ", " We ", " Th ", " Fr ", " Sa "];
-	inline public static var defaultMonthNames:Array<Dynamic>= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	  public static var defaultDayNames:Array<Dynamic>= [" Su ", " Mo ", " Tu ", " We ", " Th ", " Fr ", " Sa "];
+	  public static var defaultMonthNames:Array<Dynamic>= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	
 	private  var allowMultipleSelection:Bool;
 	private var dayNames:Array<Dynamic>;
 	private var monthNames:Array<Dynamic>;
-	private var disabledDays:HashSet;
+	private var disabledDays:MapSet;
 	private var disabledRanges:Array<Dynamic>;
 	private var displayedMonth:Int;
 	private var displayedYear:Int;
@@ -76,7 +76,7 @@ class DateChooser extends JPanel{
 		monthNames = defaultMonthNames.copy();
 		var now:Date = Date.now() ;
 		var today:DateAs =   DateAs.fromTime(now.getTime());
-		disabledDays = new HashSet();
+		disabledDays = new MapSet();
 		selectedDates = []; 
 		selectableRange = new DateRange(
 			new DateAs(Std.int(today.getFullYear()-100), 1,1,0,0,0), 
@@ -178,7 +178,7 @@ class DateChooser extends JPanel{
 	}
 	
 	private function __dateLabelPress(e:MouseEvent):Void{
-		var label:DateLabel = AsWingUtils.as(e.currentTarget,DateLabel)	;
+		var label:DateLabel = cast(e.currentTarget,DateLabel)	;
 		var labelDate:DateAs = getDisplayLabelDate(label);
 		if(allowMultipleSelection)	{
 			if(!addSelection(labelDate, false)){

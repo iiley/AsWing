@@ -52,7 +52,7 @@ import org.aswing.AsWingUtils;
  * 
  * @author paling
  */
-class PropertyTableModel extends AbstractTableModel , implements ListDataListener{
+class PropertyTableModel extends AbstractTableModel  implements ListDataListener{
 	
 	private var list:ListModel;
 	private var names:Array<Dynamic>;
@@ -132,7 +132,7 @@ class PropertyTableModel extends AbstractTableModel , implements ListDataListene
 			 if(Reflect.isFunction(translator)){
 				return translator(info, key);
 			}else if(Std.is(translator,PropertyTranslator)){
-				return AsWingUtils.as(translator,PropertyTranslator).translate(info, key);
+				return cast(translator,PropertyTranslator).translate(info, key);
 			}else{
 				throw new Error("Translator must be a PropertyTranslator or a Function : " + translator);
 			}

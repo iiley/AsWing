@@ -31,7 +31,7 @@ class SimpleButtonIconToggle implements Icon{
 			var cmatrix:Array<Dynamic>= [0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0, 0, 0, 1, 0];
 			 
 			#if(flash9)
-			    disabledFilters = [AsWingUtils.as(new flash.filters.ColorMatrixFilter(cmatrix),BitmapFilter)];		
+			    disabledFilters = [cast(new flash.filters.ColorMatrixFilter(cmatrix),BitmapFilter)];		
 			#end
 		}
 	}
@@ -51,7 +51,7 @@ class SimpleButtonIconToggle implements Icon{
 	public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
 		asset.x = x;
 		asset.y = y;
-		var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+		var b:AbstractButton = cast(c,AbstractButton)	;
 		var state:DisplayObject = null;
 		if(b!=null)	{
 			var model:ButtonModel = b.getModel();

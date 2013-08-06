@@ -29,7 +29,7 @@ import org.aswing.util.ArrayUtils;
  * </pre>
  * @author paling
  */
-class TableSorter extends AbstractTableModel , implements TableModelListener{
+class TableSorter extends AbstractTableModel  implements TableModelListener{
 	
     inline public static var DESCENDING:Int= -1;
     inline public static var NOT_SORTED:Int= 0;
@@ -48,7 +48,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
 
     private var tableHeader:JTableHeader;
     private var tableModelListener:TableModelListener;
-    private var columnComparators:Hash<Dynamic ->Dynamic-> Int>;
+    private var columnComparators:Map<String,Dynamic ->Dynamic-> Int>;
     private var sortingColumns:Array<Dynamic>;
 	
 	/**
@@ -59,7 +59,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
     public function new(tableModel:TableModel, tableHeader:JTableHeader=null) {
         super();
         initStatics();
-        columnComparators  = new Hash<Dynamic ->Dynamic-> Int>();
+        columnComparators  = new Map<String,Dynamic ->Dynamic-> Int>();
         sortingColumns     = new Array<Dynamic>();
         columnSortables    = new Array<Dynamic>();
         tableModelListener = this;
@@ -127,7 +127,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
             this.tableHeader.removeEventListener(ReleaseEvent.RELEASE, __mouseRelease);
             var defaultRenderer:TableCellFactory = this.tableHeader.getDefaultRenderer();
             if (Std.is(defaultRenderer,SortableHeaderRenderer)) {
-                this.tableHeader.setDefaultRenderer((AsWingUtils.as(defaultRenderer,SortableHeaderRenderer)).getTableCellFactory());
+                this.tableHeader.setDefaultRenderer((cast(defaultRenderer,SortableHeaderRenderer)).getTableCellFactory());
             }
         }
         this.tableHeader = tableHeader;
@@ -171,7 +171,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
     
     private function getDirective(column:Int):Directive {
         for (i in 0...sortingColumns.length){
-            var directive:Directive = AsWingUtils.as(sortingColumns[i],Directive);
+            var directive:Directive = cast(sortingColumns[i],Directive);
             if (directive.column == column) {
                 return directive;
             }
@@ -387,7 +387,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
     
     private var pressedPoint:IntPoint;
     private function __mousePress(e:MouseEvent):Void{
-    	var header:JTableHeader = AsWingUtils.as(e.currentTarget,JTableHeader)	;
+    	var header:JTableHeader = cast(e.currentTarget,JTableHeader)	;
     	pressedPoint = header.getMousePosition();
     }
 
@@ -395,7 +395,7 @@ class TableSorter extends AbstractTableModel , implements TableModelListener{
     	if(e.isReleasedOutSide()){
     		return;
     	}
-        var h:JTableHeader = AsWingUtils.as(e.currentTarget,JTableHeader)	;
+        var h:JTableHeader = cast(e.currentTarget,JTableHeader)	;
         var point:IntPoint = h.getMousePosition();
         //if user are dragging the header, not sort
         if(!point.equals(pressedPoint)){

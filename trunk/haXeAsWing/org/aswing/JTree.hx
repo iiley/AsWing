@@ -163,7 +163,7 @@ import org.aswing.util.ArrayList;
  * @see TreeModel
  * @author paling
  */
-class JTree extends Container , implements Viewportable,implements TreeModelListener,implements CellEditorListener{
+class JTree extends Container  implements Viewportable implements TreeModelListener implements CellEditorListener{
 	
     /** Selection can only contain one path at a time. */
     inline public static var SINGLE_TREE_SELECTION:Int= DefaultTreeSelectionModel.SINGLE_TREE_SELECTION;
@@ -418,7 +418,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
      * @return the <code>TreeUI</code> object that renders this component
      */
     public function getTreeUI():TreeUI {
-        return AsWingUtils.as(ui,TreeUI)	;
+        return cast(ui,TreeUI)	;
     }
 
     /**
@@ -2183,7 +2183,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 		    if (expandedStack.size() == 0) {
 				stack = new Stack();
 		    }else {
-				stack = AsWingUtils.as(expandedStack.pop(),Stack);
+				stack = cast(expandedStack.pop(),Stack);
 		    }
 	
 		    try {
@@ -2198,7 +2198,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 				//for(var counter:int = stack.size() - 1; counter >= 0; counter--) {
 				var counter:Int = stack.size() - 1;
 				while(counter >= 0){
-				    parentPath =  AsWingUtils.as(stack.pop(),TreePath);
+				    parentPath =  cast(stack.pop(),TreePath);
 				    if(!isExpanded(parentPath)) {
 						try {
 						    fireTreeWillExpand(parentPath);
@@ -2282,7 +2282,7 @@ class JTree extends Container , implements Viewportable,implements TreeModelList
 	private function removeDescendantToggledPaths(toRemove:Array<Dynamic>):Void{
 		if(toRemove != null) {
 			for(i in 0...toRemove.length){
-				var descendants:Array<Dynamic>= getDescendantToggledPaths(AsWingUtils.as(toRemove[i],TreePath));
+				var descendants:Array<Dynamic>= getDescendantToggledPaths(cast(toRemove[i],TreePath));
 				
 				if(descendants != null) {
 					for(j in 0...descendants.length){

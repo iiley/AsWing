@@ -30,14 +30,14 @@ class BasicScrollPaneUI extends BaseComponentUI{
 	}
     	
     override public function installUI(c:Component):Void{
-		scrollPane = AsWingUtils.as(c,JScrollPane);
+		scrollPane = cast(c,JScrollPane);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		scrollPane =  AsWingUtils.as(c,JScrollPane);
+		scrollPane =  cast(c,JScrollPane);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

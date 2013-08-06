@@ -22,7 +22,7 @@ import org.aswing.plaf.UIResource;
  * Discard in aswing 2.0(Background raped his job)
  * @private
  */
-class TextComponentBorder implements Border,implements UIResource{
+class TextComponentBorder implements Border  implements UIResource{
 
     private var light:ASColor;
     private var shadow:ASColor;
@@ -51,7 +51,7 @@ class TextComponentBorder implements Border,implements UIResource{
 		var y1:Float= r.y;
 		var w:Float= r.width;
 		var h:Float= r.height;
-		var textCom:EditableComponent = AsWingUtils.as(c, EditableComponent);
+		var textCom:EditableComponent = cast(c, EditableComponent);
 		//why	
 		 
 		if(textCom.isEditable() && c.isEnabled()){

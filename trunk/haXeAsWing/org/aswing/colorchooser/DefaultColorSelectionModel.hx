@@ -12,7 +12,7 @@ import org.aswing.event.InteractiveEvent;
  * A generic implementation of <code>ColorSelectionModel</code>.
  * @author paling
  */
-class DefaultColorSelectionModel extends EventDispatcher , implements ColorSelectionModel{
+class DefaultColorSelectionModel extends EventDispatcher  implements ColorSelectionModel{
 		
 	private var selectedColor:ASColor;
 	

@@ -39,7 +39,7 @@ import org.aswing.geom.IntDimension;
  * @see JTextField
  * @see JTextArea
  */
-class JTextComponent extends Component , implements EditableComponent{
+class JTextComponent extends Component  implements EditableComponent{
 	
 	private var textField:TextField;
 	private var editable:Bool;

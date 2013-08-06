@@ -11,7 +11,7 @@ import org.aswing.event.AWEvent;
 	/**
  * The default implementation of a <code>Button</code> component's data model.
  */
-class DefaultButtonModel extends EventDispatcher , implements ButtonModel{
+class DefaultButtonModel extends EventDispatcher  implements ButtonModel{
 	
 	private var group:ButtonGroup;
 	private var enabled:Bool;

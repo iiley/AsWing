@@ -29,7 +29,7 @@ import org.aswing.plaf.InsetsUIResource;
  * 
  * @author paling
  */
-class JToolBar extends Container , implements Orientable{
+class JToolBar extends Container  implements Orientable{
 	
 	inline public static var HORIZONTAL:Int= AsWingConstants.HORIZONTAL;
 	inline public static var VERTICAL:Int= AsWingConstants.VERTICAL;

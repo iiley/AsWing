@@ -12,7 +12,7 @@ import flash.display.DisplayObject;
 class Reflection{
 	
 	public static function createDisplayObjectInstance(fullClassName:String, applicationDomain:Dynamic=null):DisplayObject{
-		return AsWingUtils.as(createInstance(fullClassName, applicationDomain) ,DisplayObject);
+		return cast(createInstance(fullClassName, applicationDomain) ,DisplayObject);
 	}
 	
 	public static function createInstance(fullClassName:String, applicationDomain:Dynamic=null):Dynamic{
@@ -28,7 +28,7 @@ class Reflection{
 			//applicationDomain = ApplicationDomain.currentDomain;
 		}
 		var assetClass:Class<Dynamic> = null;
-		//assetClass=AsWingUtils.as(applicationDomain.getDefinition(fullClassName), Class) ;
+		//assetClass=cast(applicationDomain.getDefinition(fullClassName), Class) ;
 		return assetClass;		
 	}
 	

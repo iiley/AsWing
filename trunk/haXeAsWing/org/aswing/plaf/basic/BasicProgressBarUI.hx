@@ -38,14 +38,14 @@ class BasicProgressBarUI extends BaseComponentUI{
     }    	
 
 	override public function installUI(c:Component):Void{
-		progressBar = AsWingUtils.as(c,JProgressBar);
+		progressBar = cast(c,JProgressBar);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
 	
 	override public function uninstallUI(c:Component):Void{
-		progressBar = AsWingUtils.as(c,JProgressBar);	
+		progressBar = cast(c,JProgressBar);	
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -103,7 +103,7 @@ class BasicProgressBarUI extends BaseComponentUI{
 	
     override public function paint(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		super.paint(c, g, b);
-		var sp:JProgressBar = AsWingUtils.as(c,JProgressBar);
+		var sp:JProgressBar = cast(c,JProgressBar);
 		if(sp.getString() != null && sp.getString().length>0){
 			stringText.text = sp.getString();
 	    	AsWingUtils.applyTextFontAndColor(stringText, sp.getFont(), sp.getForeground());
@@ -131,7 +131,7 @@ class BasicProgressBarUI extends BaseComponentUI{
     //--------------------------Dimensions----------------------------
     
 	override public function getPreferredSize(c:Component):IntDimension{
-		var sp:JProgressBar = AsWingUtils.as(c,JProgressBar);
+		var sp:JProgressBar = cast(c,JProgressBar);
 		var size:IntDimension;
 		if (sp.getOrientation() == JProgressBar.VERTICAL){
 			size = getPreferredInnerVertical();

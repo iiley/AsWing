@@ -15,7 +15,7 @@ import flash.display.DisplayObject;
  * in <code>updateBorder</code> method use the component g(Graphics).
  * </p>
  */
-interface Border   implements  Decorator
+interface Border   extends  Decorator
 {
 	 
 	/**

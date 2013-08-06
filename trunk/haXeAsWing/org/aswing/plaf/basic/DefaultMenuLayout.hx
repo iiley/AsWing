@@ -12,7 +12,7 @@ import org.aswing.AsWingConstants;
 /**
  * @private
  */
-class DefaultMenuLayout extends SoftBoxLayout , implements UIResource{
+class DefaultMenuLayout extends SoftBoxLayout   implements UIResource{
 	/**
      * Specifies that components should be laid out left to right.
      */

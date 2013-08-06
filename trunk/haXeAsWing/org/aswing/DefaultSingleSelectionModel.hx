@@ -12,7 +12,7 @@ import org.aswing.event.InteractiveEvent;
  * A generic implementation of SingleSelectionModel.
  * @author paling
  */
-class DefaultSingleSelectionModel extends EventDispatcher , implements SingleSelectionModel{
+class DefaultSingleSelectionModel extends EventDispatcher  implements SingleSelectionModel{
 	
 	private var index:Int;
 	

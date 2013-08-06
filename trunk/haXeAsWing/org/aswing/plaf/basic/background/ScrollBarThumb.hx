@@ -31,7 +31,7 @@ import org.aswing.graphics.Graphics2D;
  * @author paling
  * @private
  */
-class ScrollBarThumb implements GroundDecorator,implements UIResource{
+class ScrollBarThumb implements GroundDecorator  implements UIResource{
 	
 	private var bar:JScrollBar;
     private var thumb:AWSprite;
@@ -52,7 +52,7 @@ class ScrollBarThumb implements GroundDecorator,implements UIResource{
 		thumb.x = bounds.x;
 		thumb.y = bounds.y;
 		size = bounds.getSize();
-		bar = AsWingUtils.as(c,JScrollBar);
+		bar = cast(c,JScrollBar);
 		
 		verticle = (bar.getOrientation() == JScrollBar.VERTICAL);
 		paint();

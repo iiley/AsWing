@@ -13,7 +13,7 @@ import org.aswing.AWKeyboard;
 
 import org.aswing.event.AWEvent;
 
-class DefaultComboBoxEditor extends EventDispatcher , implements ComboBoxEditor{
+class DefaultComboBoxEditor extends EventDispatcher  implements ComboBoxEditor{
 
     private var textField:JTextField;
     private var lostingFocus:Bool;

@@ -12,7 +12,7 @@ import org.aswing.JComboBox;
  * @see org.aswing.JComboBox
  * @author paling
  */
-interface ComboBoxUI implements ComponentUI{
+interface ComboBoxUI extends ComponentUI{
 
 	/**
      * Set the visiblity of the popup

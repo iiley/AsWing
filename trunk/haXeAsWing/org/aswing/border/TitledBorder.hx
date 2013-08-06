@@ -23,13 +23,13 @@ import flash.display.DisplayObject;
  * @author paling
  */	
 class TitledBorder extends DecorateBorder{
-	public var DEFAULT_LINE_LIGHT_COLOR(get_DEFAULT_LINE_LIGHT_COLOR,null):ASColor;
+	public var DEFAULT_LINE_LIGHT_COLOR (get, null):ASColor;
 
-	public var DEFAULT_LINE_COLOR(get_DEFAULT_LINE_COLOR,null):ASColor;
+	public var DEFAULT_LINE_COLOR (get, null):ASColor;
 
-	public var DEFAULT_COLOR(get_DEFAULT_COLOR,null):ASColor;
+	public var DEFAULT_COLOR (get, null):ASColor;
 
-	public var DEFAULT_FONT(get_DEFAULT_FONT, null):ASFont;	
+	public var DEFAULT_FONT (get, null):ASFont;	
 	
 	public   function get_DEFAULT_FONT():ASFont{
 		return   UIManager.getFont("systemFont");

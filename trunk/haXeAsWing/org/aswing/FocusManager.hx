@@ -21,7 +21,7 @@ import org.aswing.event.MovedEvent;
 	import org.aswing.event.ResizedEvent;
 	import org.aswing.util.DepthManager;
 import org.aswing.util.ArrayList;
-import org.aswing.util.WeakMap;
+import org.aswing.util.HashMap;
 import org.aswing.AsWingUtils;
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
@@ -31,7 +31,7 @@ import org.aswing.AsWingUtils;
  */
 class FocusManager{
 	
-	private static var managers:WeakMap<Stage,FocusManager> = new WeakMap<Stage,FocusManager>();
+	private static var managers:HashMap<Stage,FocusManager> = new HashMap<Stage,FocusManager>();
 	private static var defaultTraversalEnabled:Bool= true;
 	
 	private var oldFocusOwner:Component;
@@ -214,11 +214,11 @@ class FocusManager{
 	private function __onMouseFocusChange(e:FocusEvent):Void{
 		//prevent default focus change if the related object is not tabEnabled
 		if(focusOwner != null){
-			var tar:InteractiveObject = AsWingUtils.as(e.relatedObject, InteractiveObject)	;
+			var tar:InteractiveObject = cast(e.relatedObject, InteractiveObject)	;
 			var is_tar:Bool=false;
 			if (Std.is(tar, Component))
 			{
-				var tc:Component = AsWingUtils.as(tar, Component);
+				var tc:Component = cast(tar, Component);
 				is_tar = !tc.isFocusable();
 			}
 			#if(flash9)	

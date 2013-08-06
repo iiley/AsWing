@@ -26,7 +26,7 @@ import org.aswing.geom.IntPoint;
  * </p>
  * @author paling
  */
-class JMenu extends JMenuItem , implements MenuElement{
+class JMenu extends JMenuItem  implements MenuElement{
 	
 	/*
 	 * The popup menu portion of the menu.
@@ -99,7 +99,7 @@ class JMenu extends JMenuItem , implements MenuElement{
             }
             // Recursive call for the Menu case
             if (Std.is(comp,JMenu)) {
-                var subMenu:JMenu = AsWingUtils.as(comp,JMenu);
+                var subMenu:JMenu = cast(comp,JMenu);
                 if (subMenu.isMenuComponent(c)){
                     return true;
                 }
@@ -320,7 +320,7 @@ class JMenu extends JMenuItem , implements MenuElement{
 	    	}
 	    	var subs:Array<Dynamic>= getSubElements();
 	    	for(i in 0...subs.length){
-	    		var ele:MenuElement = AsWingUtils.as(subs[i],MenuElement);
+	    		var ele:MenuElement = cast(subs[i],MenuElement);
 	    		ele.setInUse(b);
 	    	}
 	    	inUseChanged();

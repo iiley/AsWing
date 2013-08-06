@@ -198,7 +198,7 @@ class Container extends Component{
 	 */
 	public function appendAll(coms: Array<Dynamic>):Void{
 		for (i in 0...coms.length ){
-			var com:Component = AsWingUtils.as(coms[i],Component)	;
+			var com:Component = cast(coms[i],Component)	;
 			if(com != null){
 				append(com);
 			}
@@ -227,7 +227,7 @@ class Container extends Component{
 	 */
 	public function insertAll(index:Int, coms: Array<Dynamic>):Void{
 		for (i in coms ){
-			var com:Component = AsWingUtils.as(i,Component)	;
+			var com:Component = cast(i,Component)	;
 			if(com != null){
 				insert(index, com);
 				index++;
@@ -314,7 +314,7 @@ class Container extends Component{
 	
 	private function checkChildRemoval(child:DisplayObject):Void{
 		if(Std.is(child,Component)){
-			var c:Component = AsWingUtils.as(child,Component)	;
+			var c:Component = cast(child,Component)	;
 			if(c.getParent() != null){
 				throw new Error("You should call remove method to remove a component child!");
 			}

@@ -370,7 +370,7 @@ class AWSprite extends Sprite
 	
 	private var pressedTarget:DisplayObject;
 	private function __awSpriteMouseDownListener(e:MouseEvent):Void{
-		pressedTarget = AsWingUtils.as(e.target, DisplayObject)	;
+		pressedTarget = cast(e.target, DisplayObject)	;
 	 
 		stage.addEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener, false, 0, false);
 			
@@ -387,7 +387,7 @@ class AWSprite extends Sprite
 		if(stage!=null)stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
 		 
 		var isOutSide:Bool= false;
-		var target:DisplayObject = AsWingUtils.as(e.target,DisplayObject)	;
+		var target:DisplayObject = cast(e.target,DisplayObject)	;
 		if(!(this == target || AsWingUtils.isAncestorDisplayObject(this, target))){
 			isOutSide = true;
 		}
@@ -412,5 +412,5 @@ class AWSprite extends Sprite
 	
 	 
  
-		public var d_numChildren(get_d_numChildren,null):Int;
+		public var d_numChildren (get, null):Int;
 }

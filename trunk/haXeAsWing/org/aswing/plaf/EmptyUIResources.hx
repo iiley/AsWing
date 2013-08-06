@@ -24,35 +24,35 @@ class EmptyUIResources
 	/**
 	 * The default empty value for border.
 	 */
-	inline public static var BORDER:Border = DefaultEmptyDecoraterResource.INSTANCE;
+	 public static var BORDER:Border = DefaultEmptyDecoraterResource.INSTANCE;
 	
 	/**
 	 * The default empty value for icon.
 	 */
-	inline public static var ICON:Icon = DefaultEmptyDecoraterResource.INSTANCE;
+	 public static var ICON:Icon = DefaultEmptyDecoraterResource.INSTANCE;
 	
 	/**
 	 * The default empty value for ground decorator.
 	 */
-	inline public static var DECORATOR:GroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
+	 public static var DECORATOR:GroundDecorator = DefaultEmptyDecoraterResource.INSTANCE;
 	
 	/**
 	 * The default empty value for insets.
 	 */
-	inline public static var INSETS:InsetsUIResource = new InsetsUIResource();
+	 public static var INSETS:InsetsUIResource = new InsetsUIResource();
 	
 	/**
 	 * The default empty value for font.
 	 */
-	inline public static var FONT:ASFontUIResource = new ASFontUIResource();
+	 public static var FONT:ASFontUIResource = new ASFontUIResource();
 	
 	/**
 	 * The default empty value for color.
 	 */
-	inline public static var COLOR:ASColorUIResource = new ASColorUIResource();
+	 public static var COLOR:ASColorUIResource = new ASColorUIResource();
 	
 	/**
 	 * The default empty value for style tune.
 	 */
-	inline public static var STYLE_TUNE:UIStyleTune = new UIStyleTune();
+	 public static var STYLE_TUNE:UIStyleTune = new UIStyleTune();
 }

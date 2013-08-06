@@ -39,7 +39,7 @@ import org.aswing.colorchooser.JColorSwatches;
 	/**
  * @private
  */
-class BasicColorSwatchesUI extends BaseComponentUI , implements ColorSwatchesUI{
+class BasicColorSwatchesUI extends BaseComponentUI  implements ColorSwatchesUI{
 	
 	private var colorSwatches:JColorSwatches;
 	private var selectedColorLabel:JLabel;
@@ -62,14 +62,14 @@ class BasicColorSwatchesUI extends BaseComponentUI , implements ColorSwatchesUI{
     }
 
     override public function installUI(c:Component):Void{
-		colorSwatches = AsWingUtils.as(c,JColorSwatches);
+		colorSwatches = cast(c,JColorSwatches);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		colorSwatches = AsWingUtils.as(c,JColorSwatches);
+		colorSwatches = cast(c,JColorSwatches);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

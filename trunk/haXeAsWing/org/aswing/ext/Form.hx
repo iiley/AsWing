@@ -26,7 +26,7 @@ import org.aswing.geom.IntDimension;
  * @author paling
  * @see FormRow
  */
-class Form extends JPanel , implements LayoutManager{
+class Form extends JPanel  implements LayoutManager{
 	
 	private var hGap:Int;
 	private var vGap:Int;
@@ -317,7 +317,7 @@ class Form extends JPanel , implements LayoutManager{
     	for(i in 0...n){
     		var c:Component = getComponent(i);
     		if(c.isVisible()){
-	    		var row:FormRow = AsWingUtils.as(c,FormRow)	;
+	    		var row:FormRow = cast(c,FormRow)	;
 	    		var ph:Int= c.getPreferredHeight();
 	    		if(row!=null)	{
 	    			row.setColumnWidthes(columnWids);

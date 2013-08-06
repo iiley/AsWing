@@ -98,7 +98,7 @@ class MenuSelectionManager extends EventDispatcher{
 		//       for(i=currentSelectionCount-1 ; i>=firstDifference; i--) {
 		i=currentSelectionCount-1 ;
         while( i >=firstDifference ){
-            var me:MenuElement = AsWingUtils.as(selection.get(i),MenuElement);
+            var me:MenuElement = cast(selection.get(i),MenuElement);
             selection.removeAt(i);
             me.menuSelectionChanged(false);
 			i--;
@@ -108,7 +108,7 @@ class MenuSelectionManager extends EventDispatcher{
 		// for(i = firstDifference, c = path.length ; i < c ; i++) {
         for (i  in firstDifference...path.length ) {
 			
-        	var tm:MenuElement = AsWingUtils.as(path[i],MenuElement);
+        	var tm:MenuElement = cast(path[i],MenuElement);
 		    if (tm != null) {
 				selection.append(tm); 
 				tm.menuSelectionChanged(true);
@@ -182,7 +182,7 @@ class MenuSelectionManager extends EventDispatcher{
      */
     public function isComponentPartOfCurrentMenu(c:Component):Bool{
         if(selection.size() > 0) {
-            var me:MenuElement = AsWingUtils.as(selection.get(0),MenuElement);
+            var me:MenuElement = cast(selection.get(0),MenuElement);
             return isComponentPartOfMenu(me, c);
         }else{
             return false;
@@ -240,7 +240,7 @@ class MenuSelectionManager extends EventDispatcher{
     	}else if(index < 0){
     		index = subs.length - 1;
     	}
-    	return AsWingUtils.as(subs[index],MenuElement);
+    	return cast(subs[index],MenuElement);
     }
 
     private function isComponentPartOfMenu(root:MenuElement, c:Component):Bool{
@@ -258,7 +258,7 @@ class MenuSelectionManager extends EventDispatcher{
             children = root.getSubElements();
 			//  for(i=0,d=children.length; i<d; i++) {
             for(i in 0...children.length){
-            	var me:MenuElement = AsWingUtils.as(children[i],MenuElement);
+            	var me:MenuElement = cast(children[i],MenuElement);
                 if(me != null && isComponentPartOfMenu(me, c)){
                     return true;
                 }
@@ -280,7 +280,7 @@ class MenuSelectionManager extends EventDispatcher{
 			setSelectedPath(null, null, true);
 			return;
 		} 
-		var element:MenuElement = AsWingUtils.as(selection.last(),MenuElement);
+		var element:MenuElement = cast(selection.last(),MenuElement);
 		element.processKeyEvent(code);
 	}
 	

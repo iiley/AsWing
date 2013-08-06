@@ -15,7 +15,7 @@ import org.aswing.ASColor;
  * Discard in aswing 2.0(Background raped his job)
  * @private
  */
-class ProgressBarBorder extends LineBorder , implements UIResource
+class ProgressBarBorder extends LineBorder   implements UIResource
 {
  
 	public function new() {

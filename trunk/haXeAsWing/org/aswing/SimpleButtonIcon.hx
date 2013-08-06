@@ -23,7 +23,7 @@ class SimpleButtonIcon implements Icon{
 		if(disabledFilters == null){
 			var cmatrix:Array<Dynamic>= [0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0, 0, 0, 1, 0];
 			#if(flash9)
-			    disabledFilters = [AsWingUtils.as(new flash.filters.ColorMatrixFilter(cmatrix),BitmapFilter)];		
+			    disabledFilters = [cast(new flash.filters.ColorMatrixFilter(cmatrix),BitmapFilter)];		
 			#end
 		}
 	 

@@ -31,7 +31,7 @@ import org.aswing.event.InteractiveEvent;
  * 
  * @author paling
  */
-class JAdjuster extends Component , implements Orientable,implements EditableComponent{
+class JAdjuster extends Component  implements Orientable implements EditableComponent{
 
 	/** 
 	 * Horizontal orientation.
@@ -45,14 +45,14 @@ class JAdjuster extends Component , implements Orientable,implements EditableCom
 	/**
 	 * The default translator translate a int value to a integer string representation.
 	 */  	
-	inline public static var DEFAULT_VALUE_TRANSLATOR:Int -> String= function(value:Int):String{
+	  public static var DEFAULT_VALUE_TRANSLATOR:Int -> String= function(value:Int):String{
 		return value + "";
 	};
 		
 	/**
 	 * The default parser parse a int value from the string, if NaN, 0 will be returned.
 	 */
-	inline public static var DEFAULT_VALUE_PARSER:String -> Int= function(text:String):Int{
+	  public static var DEFAULT_VALUE_PARSER:String -> Int= function(text:String):Int{
 		var value:Int= Std.parseInt(text);
 		if( (value==0)){
 			value = 0;
@@ -113,7 +113,7 @@ class JAdjuster extends Component , implements Orientable,implements EditableCom
      * @return the combobox ui.
      */
     public function getAdjusterUI():AdjusterUI{
-    	return AsWingUtils.as(getUI() , AdjusterUI);
+    	return cast(getUI() , AdjusterUI);
     }
 
 	override public function updateUI():Void{

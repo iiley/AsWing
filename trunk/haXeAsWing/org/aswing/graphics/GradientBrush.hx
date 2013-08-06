@@ -19,8 +19,8 @@ import flash.display.GradientType;
  */
 class GradientBrush implements IBrush{
 	
-	inline public static var LINEAR:GradientType= GradientType.LINEAR;
-	inline public static var RADIAL:GradientType= GradientType.RADIAL;
+	 public static var LINEAR:GradientType= GradientType.LINEAR;
+	 public static var RADIAL:GradientType= GradientType.RADIAL;
  
 	private var fillType:GradientType;
 	private var colors:Array<Int>;
@@ -110,8 +110,14 @@ class GradientBrush implements IBrush{
 	 * @inheritDoc 
 	 */
 	public function beginFill(target:Graphics):Void {
-		target.beginGradientFill(fillType, colors, alphas, ratios, matrix, 
-			spreadMethod, interpolationMethod, focalPointRatio);
+		
+		var ucolor:Array<UInt> = new Array<UInt>();
+		for ( i in 0...colors.length) {
+				ucolor.push(colors[i]);
+		}
+		
+	
+		target.beginGradientFill(fillType, ucolor, alphas, ratios, matrix,  spreadMethod, interpolationMethod, focalPointRatio);
 	}
 	
 	/**

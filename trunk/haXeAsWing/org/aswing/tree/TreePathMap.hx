@@ -12,11 +12,11 @@ package org.aswing.tree;
  */	
 class TreePathMap{
 	
-	private var map:IntHash<Dynamic>; 
-	private var keyMap:IntHash<TreePath>; 
+	private var map:Map<Int,Dynamic>; 
+	private var keyMap:Map<Int,TreePath>; 
 	public function new() {
-		keyMap=	new IntHash<TreePath>(); 
-		map = new IntHash<Dynamic>(); 
+		keyMap=	new Map<Int,TreePath>(); 
+		map = new Map<Int,Dynamic>(); 
 	}
 	
  	public function size():Int {
@@ -72,7 +72,9 @@ class TreePathMap{
 
  	public function put(key:TreePath, value:Dynamic):Dynamic { 
 		keyMap.set(key.getLastPathComponent().getAwmlIndex(), key);
-  		return map.set(key.getLastPathComponent().getAwmlIndex(), value);
+  		 map.set(key.getLastPathComponent().getAwmlIndex(), value);
+		 
+		 return value;
  	}
 
  	public function remove(key:TreePath):Dynamic{
@@ -81,8 +83,8 @@ class TreePathMap{
  	}
 
  	public function clear():Void { 
-		keyMap = new IntHash<TreePath>();
-  		map= new IntHash<Dynamic>(); 
+		keyMap = new Map<Int,TreePath>();
+  		map= new Map<Int,Dynamic>(); 
  	}
 
  	/**
@@ -90,8 +92,8 @@ class TreePathMap{
  	 */
  	public function clone():TreePathMap{
   		var temp:TreePathMap = new TreePathMap();
-  		temp.map = new IntHash<Dynamic>(); 
-		temp.keyMap = new IntHash<TreePath>();
+  		temp.map = new Map<Int,Dynamic>(); 
+		temp.keyMap = new Map<Int,TreePath>();
 		for (key  in keys())
 		{
 			temp.keyMap.set(key.getLastPathComponent().getAwmlIndex(), key);

@@ -7,7 +7,7 @@ package org.aswing.ext;
 
 import org.aswing.Cell;
 
-interface GridListCell implements Cell{
+interface GridListCell extends Cell{
 	
 	/**
 	 * Sets the table cell status

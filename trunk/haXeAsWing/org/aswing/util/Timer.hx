@@ -38,7 +38,7 @@ import org.aswing.event.AWEvent;
  * <p>
  * @author paling
  */
-class Timer extends AbstractImpulser , implements Impulser{
+class Timer extends AbstractImpulser  implements Impulser{
  
 	 
 	

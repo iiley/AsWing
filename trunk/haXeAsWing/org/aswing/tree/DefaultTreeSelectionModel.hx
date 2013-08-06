@@ -29,7 +29,7 @@ import org.aswing.event.PropertyChangeEvent;
  * 
  * @author paling
  */
-class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelectionModel{
+class DefaultTreeSelectionModel extends EventDispatcher  implements TreeSelectionModel{
 	
     /** Selection can only contain one path at a time. */
     inline public static var SINGLE_TREE_SELECTION:Int= 1;
@@ -944,7 +944,7 @@ class DefaultTreeSelectionModel extends EventDispatcher , implements TreeSelecti
 		var placeholder:PathPlaceHolder;
 		
 		for(counter in 0...cPathCount){
-		    placeholder = AsWingUtils.as(changedPaths.get(counter),PathPlaceHolder);
+		    placeholder = cast(changedPaths.get(counter),PathPlaceHolder);
 		    newness[counter] = placeholder.isNew;
 		    paths[counter] = placeholder.path;
 		}

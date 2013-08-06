@@ -11,7 +11,7 @@ import org.aswing.util.List;
  * The mutable list model vector implementation.
  * @author paling
  */
-class VectorListModel extends AbstractListModel , implements MutableListModel,implements List{
+class VectorListModel extends AbstractListModel  implements MutableListModel implements List{
 
 	private var _elements:Array<Dynamic>;
 	inline public static var CASEINSENSITIVE:Int=1;

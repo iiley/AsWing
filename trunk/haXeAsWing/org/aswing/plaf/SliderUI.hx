@@ -12,7 +12,7 @@ import org.aswing.Insets;
  * @see org.aswing.JSlider
  * @author paling
  */
-interface SliderUI implements ComponentUI{
+interface SliderUI extends ComponentUI{
 	
 	function getTrackMargin():Insets;
 	

@@ -126,7 +126,7 @@ import org.aswing.table.TableColumnModelListener;
  * To listen other Table events see {@link org.aswing.table.TableModel#addTableModelListener}
  * @author paling
  */
-class JTable extends Container , implements Viewportable,implements TableModelListener,implements TableColumnModelListener,implements CellEditorListener,implements LayoutManager{
+class JTable extends Container  implements Viewportable implements TableModelListener implements TableColumnModelListener implements CellEditorListener implements LayoutManager{
 		
  	/**
  	 * The default unit/block increment, it means auto count a value.
@@ -187,8 +187,8 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	private var cellEditor:TableCellEditor;
 	private var editingColumn:Int;
 	private var editingRow:Int;
-	private var defaultRenderersByColumnClass:Hash<TableCellFactory>; 
-	private var defaultEditorsByColumnClass:Hash<TableCellEditor>;
+	private var defaultRenderersByColumnClass:Map<String,TableCellFactory>; 
+	private var defaultEditorsByColumnClass:Map<String,TableCellEditor>;
 	private var selectionForeground:ASColor;
 	private var selectionBackground:ASColor;
 	//private var surrendersFocusOnKeystroke:Boolean;
@@ -297,7 +297,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	}
 	
 	public function getTableUI():TableUI{
-		return AsWingUtils.as(getUI() , TableUI);
+		return cast(getUI() , TableUI);
 	}
 
 	private function updateSubComponentUI(componentShell:Dynamic):Void{
@@ -306,10 +306,10 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		}
 		var component:Component = null;
 		if (Std.is(componentShell,Component)) {
-			component = AsWingUtils.as(componentShell,Component)	;
+			component = cast(componentShell,Component)	;
 			component.updateUI();
 		}else if (Std.is(componentShell,CellEditor)){
-			var ed:CellEditor = AsWingUtils.as(componentShell,CellEditor)	;
+			var ed:CellEditor = cast(componentShell,CellEditor)	;
 			ed.updateUI();
 		}
 	}
@@ -784,7 +784,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	/**
 	 * Returns the cell factory to be used when no factory has been set in
 	 * a <code>TableColumn</code>. During the rendering of cells the factory is fetched from
-	 * a <code>Hashtable</code> of entries according to the class of the cells in the column. If
+	 * a <code>Maptable</code> of entries according to the class of the cells in the column. If
 	 * there is no entry for this <code>columnClass</code> the method returns
 	 * the entry for the most specific superclass. The <code>JTable</code> installs entries
 	 * for <code>"Object"</code>, <code>"Number"</code>, and <code>"Boolean"</code>, all of which can be modified
@@ -804,7 +804,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 			var renderer:Dynamic= defaultRenderersByColumnClass.get(columnClass);
 			//trace("defaultRenderersByColumnClass " + renderer);
 			if (renderer != null){
-				return AsWingUtils.as(renderer,TableCellFactory);
+				return cast(renderer,TableCellFactory);
 			}else{
 				return getDefaultCellFactory("Object");
 			}
@@ -837,7 +837,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	/**
 	 * Returns the editor to be used when no editor has been set in
 	 * a <code>TableColumn</code>. During the editing of cells the editor is fetched from
-	 * a <code>Hashtable</code> of entries according to the class of the cells in the column. If
+	 * a <code>Maptable</code> of entries according to the class of the cells in the column. If
 	 * there is no entry for this <code>columnClass</code> the method returns
 	 * the entry for the most specific superclass. The <code>JTable</code> installs entries
 	 * for <code>"Object"</code>, <code>"Number"</code>, and <code>"Boolean"</code>, all of which can be modified
@@ -854,7 +854,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		}else{
 			var editor:Dynamic= defaultEditorsByColumnClass.get(columnClass);
 			if (editor != null){
-				return AsWingUtils.as(editor,TableCellEditor);
+				return cast(editor,TableCellEditor);
 			}else{
 				return getDefaultEditor("Object");
 			}
@@ -2432,11 +2432,11 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		return new JTableHeader(columnModel);
 	}
 	public function createDefaultCellFactories():Void{
-		defaultRenderersByColumnClass = new Hash<TableCellFactory>();
+		defaultRenderersByColumnClass = new Map<String,TableCellFactory>();
 		defaultRenderersByColumnClass.set("Object", new GeneralTableCellFactoryUIResource(PoorTextCell));
 	}
 	public function createDefaultEditors():Void{
-		defaultEditorsByColumnClass = new Hash<TableCellEditor>();
+		defaultEditorsByColumnClass = new Map<String,TableCellEditor>();
 		defaultEditorsByColumnClass.set("Number", new DefaultNumberTextFieldCellEditor());
 		defaultEditorsByColumnClass.set("Boolean", new DefaultCheckBoxCellEditor());
 		defaultEditorsByColumnClass.set("Object", new DefaultTextFieldCellEditor());
@@ -2909,7 +2909,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 			for(i in 0...addNum){
 				var columnCells:Array<Dynamic>= new Array<Dynamic>();
 				for(c in 0...columnCount){
-					var cell:TableCell = AsWingUtils.as(lastColumnCellFactories[c],TableCellFactory).createNewCell(false);
+					var cell:TableCell = cast(lastColumnCellFactories[c],TableCellFactory).createNewCell(false);
 					columnCells.push(cell);
 					addCellToContainer(cell);
 				}
@@ -2926,7 +2926,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 		for(i in 0...removed.length){
 			var columnCells:Array<Dynamic>= removed[i];
 			for(c in 0...columnCells.length){
-				var cell:TableCell = AsWingUtils.as(columnCells[c],TableCell);
+				var cell:TableCell = cast(columnCells[c],TableCell);
 				removeCellFromeContainer(cell);
 			}
 		}
@@ -2941,7 +2941,7 @@ class JTable extends Container , implements Viewportable,implements TableModelLi
 	private static function setCellComponentProperties(com:Component):Void{
 		com.setFocusable(false);
 		if(Std.is(com,Container)){
-			var con:Container = AsWingUtils.as(com,Container);
+			var con:Container = cast(com,Container);
 			for(i in 0...con.getComponentCount()){
 				setCellComponentProperties(con.getComponent(i));
 			}

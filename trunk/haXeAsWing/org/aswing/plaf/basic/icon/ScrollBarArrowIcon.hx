@@ -26,7 +26,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
  * @author paling
  * @private
  */
-class ScrollBarArrowIcon implements Icon,implements UIResource{
+class ScrollBarArrowIcon implements Icon  implements UIResource{
 	
 	private var direction:Float;
 	private var width:Float;
@@ -65,7 +65,7 @@ class ScrollBarArrowIcon implements Icon,implements UIResource{
     	var w:Float= width;
     	var h:Float= height;
     	shape.graphics.clear();
-    	var bar:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+    	var bar:AbstractButton = cast(c,AbstractButton)	;
     	var g:Graphics2D = new Graphics2D(shape.graphics);
     	var b:IntRectangle = new IntRectangle(x, y, Std.int(w), Std.int(h));
 		var gradientDir:Float= 0;

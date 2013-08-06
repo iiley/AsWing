@@ -10,6 +10,6 @@ import org.aswing.CellEditor;
 /**
  * @author paling
  */
-interface TableCellEditor implements CellEditor{
+interface TableCellEditor extends CellEditor{
 	
 }

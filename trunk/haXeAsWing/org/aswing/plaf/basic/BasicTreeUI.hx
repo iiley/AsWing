@@ -47,7 +47,7 @@ import org.aswing.tree.NodeDimensions;
  * @author paling
  * @private
  */
-class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDimensions,implements TreeModelListener{
+class BasicTreeUI extends BaseComponentUI  implements TreeUI implements NodeDimensions implements TreeModelListener{
 	
 	private static var EMPTY_INSETS:Insets;
 
@@ -103,7 +103,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 	}
 	
 	override public function installUI(c:Component):Void{
-		tree = AsWingUtils.as(c,JTree);
+		tree = cast(c,JTree);
 		installDefaults();
 		installComponents();
 		installListeners();
@@ -147,7 +147,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 		editor = tree.getCellEditor();
 		setRootVisible(tree.isRootVisible());
 		
-		expandControl =AsWingUtils.as( getInstance(pp+"expandControl") , ExpandControl);
+		expandControl =cast( getInstance(pp+"expandControl") , ExpandControl);
 	}
 	
 	private function uninstallDefaults():Void{
@@ -274,7 +274,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 	
 	private function cellFactoryChanged():Void{
 		for(i in 0...cells.size() ){
-			var cell:TreeCell = AsWingUtils.as(cells.get(i),TreeCell);
+			var cell:TreeCell = cast(cells.get(i),TreeCell);
 			cell.getCellComponent().removeFromContainer();
 		}
 		cells.clear();
@@ -627,24 +627,24 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 		if (changeName == JTree.LEAD_SELECTION_PATH_PROPERTY) {
 			if(ignoreLAChange!=true) {
 				updateLeadRow();
-				repaintPath(AsWingUtils.as(ov,TreePath));
-				repaintPath(AsWingUtils.as(nv,TreePath));
+				repaintPath(cast(ov,TreePath));
+				repaintPath(cast(nv,TreePath));
 			}
 		}else if (changeName == JTree.ANCHOR_SELECTION_PATH_PROPERTY) {
 			if(ignoreLAChange!=true) {
-				repaintPath(AsWingUtils.as(ov,TreePath));
-				repaintPath(AsWingUtils.as(nv,TreePath));
+				repaintPath(cast(ov,TreePath));
+				repaintPath(cast(nv,TreePath));
 			}
 		}else if(changeName == JTree.CELL_FACTORY_PROPERTY) {
 			cellFactoryChanged();
 		}else if(changeName == JTree.TREE_MODEL_PROPERTY) {
-			setModel(AsWingUtils.as(nv,TreeModel));
+			setModel(cast(nv,TreeModel));
 		}else if(changeName == JTree.ROOT_VISIBLE_PROPERTY) {
 			setRootVisible(nv == true);
 		}else if(changeName == JTree.ROW_HEIGHT_PROPERTY) {
 			setRowHeight(nv);
 		}else if(changeName == JTree.CELL_EDITOR_PROPERTY) {
-			setCellEditor(AsWingUtils.as(nv,TreeCellEditor));
+			setCellEditor(cast(nv,TreeCellEditor));
 		}else if(changeName == JTree.EDITABLE_PROPERTY) {
 			setEditable(nv == true);
 		}else if(changeName == JTree.SELECTION_MODEL_PROPERTY) {
@@ -838,7 +838,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 			var removeIndex:Int= needNum;
 			var removed:Array<Dynamic>= cells.removeRange(removeIndex, cells.getSize()-1);
 			for(i in 0...removed.length){
-				cell = AsWingUtils.as(removed[i],TreeCell);
+				cell = cast(removed[i],TreeCell);
 				rendererPane.remove(cell.getCellComponent());
 			}
 		}
@@ -878,7 +878,7 @@ class BasicTreeUI extends BaseComponentUI , implements TreeUI,implements NodeDim
 	
 			if(descendants != null) {
 				for(i in 0...descendants.length){
-					treeState.setExpandedState(AsWingUtils.as(descendants[i],TreePath), true);
+					treeState.setExpandedState(cast(descendants[i],TreePath), true);
 				}
 			}
 			updateLeadRow();

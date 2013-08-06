@@ -32,7 +32,7 @@ import org.aswing.geom.IntDimension;
  * @author paling
  * @private
  */
-class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
+class BasicAccordionUI extends BaseComponentUI  implements LayoutManager{
 	
 	private static var MOTION_SPEED:Int= 50;
 	
@@ -54,14 +54,14 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     override public function installUI(c:Component):Void{
     	headers = new Array<Dynamic>();
     	destSize = new IntDimension();
-    	accordion = AsWingUtils.as(c,JAccordion);
+    	accordion = cast(c,JAccordion);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-    	accordion = AsWingUtils.as(c,JAccordion);
+    	accordion = cast(c,JAccordion);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -146,7 +146,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
      * Just override this method if you want other LAF headers.
      */
     private function createNewHeader():Tab{
-    	var header:Tab = AsWingUtils.as(getInstance(getPropertyPrefix() + "header"), Tab);
+    	var header:Tab = cast(getInstance(getPropertyPrefix() + "header"), Tab);
     	if(header == null){
     		header = new BasicAccordionHeader();
     	}
@@ -156,7 +156,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     }
         
     private function getHeader(i:Int):Tab{
-    	return AsWingUtils.as(headers[i], Tab);
+    	return cast(headers[i], Tab);
     }
 
     private function synTabs():Void{
@@ -176,7 +176,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     			}
     		}else{
     			for(i  in 0... headers.length-comCount){
-    				header = AsWingUtils.as(headers.pop(),Tab);
+    				header = cast(headers.pop(),Tab);
     				header.getTabComponent().removeEventListener(MouseEvent.CLICK, __tabClick);
     				headerContainer.removeChild(header.getTabComponent());
     			}
@@ -231,7 +231,7 @@ class BasicAccordionUI extends BaseComponentUI , implements LayoutManager{
     //------------------------------Handlers--------------------------------
     
     private function __tabClick(e:Event):Void{
-    	accordion.setSelectedIndex(indexOfHeaderComponent(AsWingUtils.as(e.currentTarget,Component)	));
+    	accordion.setSelectedIndex(indexOfHeaderComponent(cast(e.currentTarget,Component)	));
     }
     
     private function __onSelectionChanged(e:Event):Void{

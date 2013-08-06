@@ -29,7 +29,7 @@ import org.aswing.util.HashSet;
  * 
  * @author paling
  */
-class JPopupMenu extends Container , implements MenuElement{
+class JPopupMenu extends Container  implements MenuElement{
 		
 	private static var popupMenuMouseDownListening:Bool= false;
 	private static var showingMenuPopups:Array<JPopup> = new Array<JPopup>();
@@ -95,7 +95,7 @@ class JPopupMenu extends Container , implements MenuElement{
      * @return the menu element ui.
      */
     public function getMenuElementUI():MenuElementUI{
-    	return AsWingUtils.as(getUI() , MenuElementUI);
+    	return cast(getUI() , MenuElementUI);
     }
 	
 	override public function getUIClassID():String{
@@ -291,7 +291,7 @@ class JPopupMenu extends Container , implements MenuElement{
 				(mp.getInvoker().getParent() != null) &&
 				(	Std.is(mp.getInvoker().getParent() ,JPopupMenu))
 			  ) {
-			mp = AsWingUtils.as(mp.getInvoker().getParent(),JPopupMenu);
+			mp = cast(mp.getInvoker().getParent(),JPopupMenu);
 		}
 		return mp;
 	}
@@ -308,7 +308,7 @@ class JPopupMenu extends Container , implements MenuElement{
 		for (i in 0 ...ncomponents ){
 			var comp:Component = getComponent(i);
 			if (Std.is(comp,JMenu)) {
-				var menu:JMenu = AsWingUtils.as(comp,JMenu);
+				var menu:JMenu = cast(comp,JMenu);
 				var subPopup:JPopupMenu = menu.getPopupMenu();
 				if (subPopup == popupMenu){
 					return true;
@@ -355,20 +355,20 @@ class JPopupMenu extends Container , implements MenuElement{
 	private function __popMenuChildAdd(e:ContainerEvent) : Void{
 		var child:Component = e.getChild();
 		if(Std.is(child,MenuElement)){
-			AsWingUtils.as(child,MenuElement).setInUse(isInUse());
+			cast(child,MenuElement).setInUse(isInUse());
 		}
 	}
 
 	private function __popMenuChildRemove(e:ContainerEvent) : Void{
 		var child:Component = e.getChild();
 		if(Std.is(child,MenuElement)){
-			AsWingUtils.as(child,MenuElement).setInUse(false);
+			cast(child,MenuElement).setInUse(false);
 		}
 	}
 	
 	public function menuSelectionChanged(isIncluded : Bool) : Void{
 		if(Std.is(invoker,JMenu)) {
-			var m:JMenu = AsWingUtils.as(invoker,JMenu);
+			var m:JMenu = cast(invoker,JMenu);
 			if(isIncluded)	{
 				m.setPopupMenuVisible(true);
 			}else{
@@ -404,7 +404,7 @@ class JPopupMenu extends Container , implements MenuElement{
 	    	menuInUse = b;
 	    	var subs:Array<Dynamic>= getSubElements();
 	    	for(i in 0...subs.length){
-	    		var ele:MenuElement = AsWingUtils.as(subs[i],MenuElement);
+	    		var ele:MenuElement = cast(subs[i],MenuElement);
 	    		//why
 				if(ele!=null)ele.setInUse(b);
 	    	}
@@ -423,7 +423,7 @@ class JPopupMenu extends Container , implements MenuElement{
 		var hasPopupWindowShown:Bool= ps.length > 0;
 		
 		for(i in 0...ps.length){
-			var pp:JPopup = AsWingUtils.as(ps[i],JPopup);
+			var pp:JPopup = cast(ps[i],JPopup);
 			if(pp.hitTestMouse()){
 				hittedPopupMenu = true;
 				break;
@@ -435,7 +435,7 @@ class JPopupMenu extends Container , implements MenuElement{
 	}
 
 	private function __popupShown(e:PopupEvent) : Void{
-		var source:JPopup=AsWingUtils.as( e.target,JPopup);
+		var source:JPopup=cast( e.target,JPopup);
 		showingMenuPopups.push(source);
 		//to delay to next frame to add the listener to avoid listening in a mouse down event
 		AsWingManager.callNextFrame(__addMouseDownListenerToStage);

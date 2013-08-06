@@ -34,7 +34,7 @@ import org.aswing.geom.IntRectangle;
  * @private
  * @author paling
  */
-class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
+class BasicMenuItemUI extends BaseComponentUI  implements MenuElementUI{
 		
 	/* Client Property keys for text and accelerator text widths */
 	inline public static var MAX_TEXT_WIDTH:String=  "maxTextWidth";
@@ -163,7 +163,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 	 
 	override public function installUI(c:Component):Void {
 	 
-		menuItem = AsWingUtils.as(c,JMenuItem);
+		menuItem = cast(c,JMenuItem);
 		installDefaults();
 		installComponents();
 		installListeners();
@@ -171,7 +171,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 
 	override public function uninstallUI(c:Component):Void {
  
-		menuItem = AsWingUtils.as(c,JMenuItem);
+		menuItem = cast(c,JMenuItem);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -267,13 +267,13 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 			if(manager.isPageNavKey(code)){
 				path.pop();
 				manager.setSelectedPath(menuItem.stage, path, false);
-				AsWingUtils.as(path[path.length-1],MenuElement).processKeyEvent(code);
+				cast(path[path.length-1],MenuElement).processKeyEvent(code);
 			}else if(manager.isItemNavKey(code)){
 				path.pop();
 				if(manager.isPrevItemKey(code)){
-					path.push(manager.prevSubElement(AsWingUtils.as(path[path.length-1],MenuElement), menuItem));
+					path.push(manager.prevSubElement(cast(path[path.length-1],MenuElement), menuItem));
 				}else{
-					path.push(manager.nextSubElement(AsWingUtils.as(path[path.length-1],MenuElement), menuItem));
+					path.push(manager.nextSubElement(cast(path[path.length-1],MenuElement), menuItem));
 				}
 				manager.setSelectedPath(menuItem.stage, path, false);
 			}
@@ -347,7 +347,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
         }
         var parent:Component = menuItem.getParent();
 		var me:MenuElement = null;
-		me = AsWingUtils.as(oldPath[i - 1], MenuElement);
+		me = cast(oldPath[i - 1], MenuElement);
         if (me.getMenuComponent() == parent) {
             // The parent popup menu is the last so far
             newPath = oldPath.copy();
@@ -361,7 +361,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
             // then copy up to that and add yourself...
             var j:Int=0;
             for (j  in 0...oldPath.length  ) { 
-				me = AsWingUtils.as(oldPath[j], MenuElement);
+				me = cast(oldPath[j], MenuElement);
 				
                 if (me.getMenuComponent() == parent){
                     break;
@@ -375,7 +375,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
     
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		
-		var mi:JMenuItem = AsWingUtils.as(c,JMenuItem);
+		var mi:JMenuItem = cast(c,JMenuItem);
 		paintMenuItem(mi, g, b, checkIcon, arrowIcon,
 					  selectionBackground, selectionForeground,
 					  menuItem.getIconTextGap());
@@ -730,7 +730,7 @@ class BasicMenuItemUI extends BaseComponentUI , implements MenuElementUI{
 	}
 	
 	override public function getPreferredSize(c:Component):IntDimension{
-		var b:JMenuItem = AsWingUtils.as(c,JMenuItem);
+		var b:JMenuItem = cast(c,JMenuItem);
 		return getPreferredMenuItemSize(b, checkIcon, arrowIcon, menuItem.getIconTextGap());
 	}
 

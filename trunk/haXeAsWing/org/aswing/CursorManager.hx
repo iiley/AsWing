@@ -17,7 +17,7 @@ import flash.ui.Mouse;
 #end 
 
 import org.aswing.util.DepthManager;
-import org.aswing.util.WeakMap;
+import org.aswing.util.HashMap;
 	
 /**
  * The CursorManager, manage the cursor, hide system mouse cursor, show custom cursor, 
@@ -40,10 +40,10 @@ class CursorManager{
 			cursorHolder=null;
 			currentCursor=null;
 			setCursorContainerRoot(cursorRoot);
-			tiggerCursorMap=new IntHash<DisplayObject>();
+			tiggerCursorMap=new Map<Int,DisplayObject>();
 	}
 	
-	private static var managers:WeakMap<Stage,CursorManager> = new WeakMap<Stage,CursorManager>();
+	private static var managers:HashMap<Stage,CursorManager> = new HashMap<Stage,CursorManager>();
 	
 	/**
 	 * Returns the default cursor manager for specified stage.
@@ -168,7 +168,7 @@ class CursorManager{
 		 
 	}
 	
-	private var tiggerCursorMap:IntHash<DisplayObject>;
+	private var tiggerCursorMap:Map<Int,DisplayObject>;
 	
 	/**
 	 * Sets the cursor when mouse on the specified trigger. null to remove cursor for that trigger.
@@ -190,8 +190,8 @@ class CursorManager{
 	}
 		
 	private function __triggerOver(e:MouseEvent):Void{
-		var trigger:Component=AsWingUtils.as(  e.currentTarget , Component);
-		var cursor:DisplayObject = AsWingUtils.as(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
+		var trigger:Component=cast(  e.currentTarget , Component);
+		var cursor:DisplayObject = cast(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
  
 		if(cursor != null && !e.buttonDown){
 			showCustomCursor(cursor);
@@ -199,16 +199,16 @@ class CursorManager{
 	}
 	
 	private function __triggerOut(e:MouseEvent):Void{
-		var trigger:Component=AsWingUtils.as(  e.currentTarget , Component);
-		var cursor:DisplayObject = AsWingUtils.as(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
+		var trigger:Component=cast(  e.currentTarget , Component);
+		var cursor:DisplayObject = cast(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
  		if(cursor!=null)	{
 			hideCustomCursor(cursor);
 		}
 	}
 	
 	private function __triggerUp(e:MouseEvent):Void{
-		var trigger:Component=AsWingUtils.as(  e.currentTarget , Component);
-		var cursor:DisplayObject = AsWingUtils.as(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
+		var trigger:Component=cast(  e.currentTarget , Component);
+		var cursor:DisplayObject = cast(  tiggerCursorMap.get(trigger.getAwmlIndex()) , DisplayObject);
  
 		if(cursor  != null&& trigger.hitTestPoint(e.stageX, e.stageY, true)){
 			showCustomCursor(cursor);

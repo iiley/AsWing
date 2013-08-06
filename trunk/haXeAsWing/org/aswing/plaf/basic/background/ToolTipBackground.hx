@@ -21,7 +21,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
 /**
  * @private
  */
-class ToolTipBackground implements GroundDecorator,implements UIResource{
+class ToolTipBackground implements GroundDecorator  implements UIResource{
 	
 	private var shape:Shape;
 	

@@ -15,7 +15,7 @@ import org.aswing.geom.IntRectangle;
  * The default cell for tree.
  * @author paling
  */
-class DefaultTreeCell extends JLabel , implements TreeCell {
+class DefaultTreeCell extends JLabel  implements TreeCell {
 	
 	private var expanded_folder_icon:Icon;
 	private var collapsed_folder_icon:Icon;

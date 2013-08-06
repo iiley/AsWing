@@ -134,7 +134,7 @@ class ButtonGroup
     
     public function getSelectedIndex():Int{
         for (i  in 0...buttons.length) {
-				var ab	:AbstractButton = AsWingUtils.as(buttons[i], AbstractButton);
+				var ab	:AbstractButton = cast(buttons[i], AbstractButton);
 				if(ab.isSelected()) return i;
         }
         return -1;

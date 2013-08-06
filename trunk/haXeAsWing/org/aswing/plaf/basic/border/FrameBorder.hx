@@ -22,7 +22,7 @@ import org.aswing.plaf.UIResource;
  * @author paling
  * @private
  */
-class FrameBorder implements Border,implements UIResource{
+class FrameBorder implements Border  implements UIResource{
 	
 	private static var GLASS:Int= 4;
 	
@@ -37,7 +37,7 @@ class FrameBorder implements Border,implements UIResource{
 			activeColor   = c.getUI().getColor("Frame.activeCaptionBorder");
 			inactiveColor = c.getUI().getColor("Frame.inactiveCaptionBorder");   
 		}
-		var frame:JFrame = AsWingUtils.as(c,JFrame);
+		var frame:JFrame = cast(c,JFrame);
 		var color:ASColor = frame.getFrameUI().isPaintActivedFrame() ? activeColor : inactiveColor;
 		
 		//draw the shadow

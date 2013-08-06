@@ -22,7 +22,7 @@ import flash.geom.Matrix;
  * TODO draw a nicer icon
  * @author paling
  */
-class TreeFolderIcon implements Icon,implements UIResource{
+class TreeFolderIcon implements Icon implements UIResource{
 	
 	public function new(){
 	}

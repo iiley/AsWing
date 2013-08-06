@@ -24,7 +24,7 @@ import org.aswing.plaf.basic.BasicProgressBarUI;
  * display of this percentage.
  * @author paling
  */
-class JProgressBar extends Component , implements Orientable{
+class JProgressBar extends Component  implements Orientable{
 
     /** 
      * Horizontal orientation.

@@ -22,7 +22,7 @@ import org.aswing.ASColor;
  * TODO draw a nicer icon
  * @author paling
  */
-class TreeLeafIcon implements Icon,implements UIResource{
+class TreeLeafIcon implements Icon implements UIResource{
 	
 	public function new(){
 	}

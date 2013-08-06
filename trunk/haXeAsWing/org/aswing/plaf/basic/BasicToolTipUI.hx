@@ -27,7 +27,7 @@ class BasicToolTipUI extends BaseComponentUI{
 	}
 	
     override public function installUI(c:Component):Void{
-    	tooltip = AsWingUtils.as(c,JToolTip);
+    	tooltip = cast(c,JToolTip);
         installDefaults();
         initallComponents();
         installListeners();

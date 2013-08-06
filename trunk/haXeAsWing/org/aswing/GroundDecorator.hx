@@ -18,7 +18,7 @@ import flash.display.DisplayObject;
  * (Maybe it is not good to paint on the component graphics for foreground decorator since component graphics 
  * is not on top of component children)
  */
-interface GroundDecorator  implements  Decorator
+interface GroundDecorator  extends  Decorator
 {
 	 
 	/**

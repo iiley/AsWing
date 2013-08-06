@@ -115,7 +115,7 @@ class DefaultTreeModel implements TreeModel {
     public function getIndexOfChild(parent:TreeNode, child:Dynamic):Int{
         if(parent == null || child == null)
             return -1;
-        return (AsWingUtils.as(parent,TreeNode)).getIndex(AsWingUtils.as(child,TreeNode));
+        return (cast(parent,TreeNode)).getIndex(cast(child,TreeNode));
     }
 
     /**
@@ -129,7 +129,7 @@ class DefaultTreeModel implements TreeModel {
      * @return  the child of <I>parent</I> at index <I>index</I>
      */
     public function getChild(parent:TreeNode, index:Int):Dynamic{
-        return (AsWingUtils.as(parent,TreeNode)).getChildAt(index);
+        return (cast(parent,TreeNode)).getChildAt(index);
     }
 
     /**
@@ -141,7 +141,7 @@ class DefaultTreeModel implements TreeModel {
      * @return  the number of children of the node <I>parent</I>
      */
     public function getChildCount(parent:TreeNode):Int{
-        return (AsWingUtils.as(parent,TreeNode)).getChildCount();
+        return (cast(parent,TreeNode)).getChildCount();
     }
 
     /** 
@@ -157,9 +157,9 @@ class DefaultTreeModel implements TreeModel {
      */
     public function isLeaf(node:TreeNode):Bool{
         if(asksAllowsChildren()){
-            return !(AsWingUtils.as(node,TreeNode)).getAllowsChildren();
+            return !(cast(node,TreeNode)).getAllowsChildren();
         }
-        return (AsWingUtils.as(node,TreeNode)).isLeaf();
+        return (cast(node,TreeNode)).isLeaf();
     }
 
     /**
@@ -169,7 +169,7 @@ class DefaultTreeModel implements TreeModel {
       * set the user object of the changed node to something meaningful.
       */
     public function valueForPathChanged(path:TreePath, newValue:Dynamic):Void{
-		var aNode:MutableTreeNode =AsWingUtils.as(path.getLastPathComponent(), MutableTreeNode);
+		var aNode:MutableTreeNode =cast(path.getLastPathComponent(), MutableTreeNode);
 
         aNode.setUserObject(newValue);
         nodeChanged(aNode);
@@ -195,7 +195,7 @@ class DefaultTreeModel implements TreeModel {
      * for you.
      */
     public function removeNodeFromParent(node:MutableTreeNode):Void{
-        var parent:MutableTreeNode = AsWingUtils.as(node.getParent(), MutableTreeNode);
+        var parent:MutableTreeNode = cast(node.getParent(), MutableTreeNode);
 
         if(parent == null){
         	trace("Error : node does not have a parent.");
@@ -386,7 +386,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, new TreePath(path), childIndices, children);
             }
-            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = cast(listeners[i],TreeModelListener);
             lis.treeNodesChanged(e);   
         }
     }
@@ -415,7 +415,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, new TreePath(path), childIndices, children);
             }
-            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = cast(listeners[i],TreeModelListener);
             lis.treeNodesInserted(e);
         }
     }
@@ -444,7 +444,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, new TreePath(path), childIndices, children);
             }
-            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = cast(listeners[i],TreeModelListener);
             lis.treeNodesRemoved(e);
         }
     }
@@ -473,7 +473,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, new TreePath(path), childIndices, children);
             }
-            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = cast(listeners[i],TreeModelListener);
             lis.treeStructureChanged(e);
         }
     }
@@ -498,7 +498,7 @@ class DefaultTreeModel implements TreeModel {
             if (e == null){
                 e = new TreeModelEvent(source, path);
             }
-            var lis:TreeModelListener = AsWingUtils.as(listeners[i],TreeModelListener);
+            var lis:TreeModelListener = cast(listeners[i],TreeModelListener);
             lis.treeStructureChanged(e);
         }
     }

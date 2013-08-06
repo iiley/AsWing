@@ -36,7 +36,7 @@ class GeneralListCellFactory implements ListCellFactory{
 	
 	public function createNewCell() : ListCell {
 		
-		return AsWingUtils.as(Type.createInstance( listCellClass,[]) , ListCell);
+		return cast(Type.createInstance( listCellClass,[]) , ListCell);
 	}
 	
 	/**

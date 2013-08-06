@@ -45,14 +45,14 @@ class BasicStepperUI extends BaseComponentUI{
 	}
 	
     override public function installUI(c:Component):Void{
-    	stepper = AsWingUtils.as(c,JStepper);
+    	stepper = cast(c,JStepper);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-    	stepper = AsWingUtils.as(c,JStepper);
+    	stepper = cast(c,JStepper);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

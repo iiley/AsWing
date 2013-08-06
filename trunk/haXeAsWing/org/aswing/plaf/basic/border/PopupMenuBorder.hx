@@ -21,7 +21,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
 /**
  * @private
  */
-class PopupMenuBorder implements Border,implements UIResource{
+class PopupMenuBorder implements Border  implements UIResource{
 	
 	private var shape:Shape;
 	

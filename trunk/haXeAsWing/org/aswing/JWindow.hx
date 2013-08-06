@@ -90,7 +90,7 @@ class JWindow extends JPopup{
 	 */
 	override public function setLayout(layout:LayoutManager):Void{
 		if(Std.is(layout,WindowLayout)){
-			var oldLayout:WindowLayout = AsWingUtils.as(this.layout,WindowLayout)	;
+			var oldLayout:WindowLayout = cast(this.layout,WindowLayout)	;
 			super.setLayout(layout);
 			if(oldLayout != null){
 				if(oldLayout.getTitleBar() != null){
@@ -163,7 +163,9 @@ class JWindow extends JPopup{
 	 * this window's owner is a JWindow, else return null;
 	 */
 	public function getWindowOwner():JWindow{
-		return AsWingUtils.as(owner,JWindow)	;
+		if (Std.is(owner, JWindow)) return cast(owner, JWindow)	;
+		
+		return null;
 	}
 	
 	/**
@@ -365,7 +367,7 @@ class JWindow extends JPopup{
 		actived = true;
 		var vec:ArrayList = fm.getPopupsVector();
 		for(i in 0...vec.size()){
-			var w:JWindow =AsWingUtils.as( vec.get(i) , JWindow);
+			var w:JWindow =cast( vec.get(i) , JWindow);
 			if(w != null && w != this){
 				if(w.isActive()){
 					w.deactive(w.stage, programmatic);

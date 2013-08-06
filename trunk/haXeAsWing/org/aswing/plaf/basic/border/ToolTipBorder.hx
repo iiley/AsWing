@@ -15,7 +15,7 @@ import org.aswing.geom.IntRectangle;
 /**
  * @private
  */
-class ToolTipBorder extends LineBorder , implements UIResource
+class ToolTipBorder extends LineBorder   implements UIResource
 {
 	 
 	

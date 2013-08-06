@@ -48,7 +48,7 @@ import org.aswing.util.Reflection;
  * @see DefaultComboBoxEditor
  * @author paling
  */
-class JComboBox extends Component , implements EditableComponent{
+class JComboBox extends Component  implements EditableComponent{
 	
 	private var editable:Bool;
 	private var maximumRowCount:Int;
@@ -67,11 +67,11 @@ class JComboBox extends Component , implements EditableComponent{
 		setEditor(new DefaultComboBoxEditor());
 		if(listData != null){
 		 if(Std.is(listData,Array)){
-				setListData(AsWingUtils.as(listData,Array) );
+				setListData( listData  );
 			}else if (Std.is(listData, ListModel)) {
 	
 	
-				setModel( AsWingUtils.as(listData, ListModel));
+				setModel( cast(listData, ListModel));
 	 	
 			}else{
 				setListData([]); //create new
@@ -118,7 +118,7 @@ class JComboBox extends Component , implements EditableComponent{
      * @return the combobox ui.
      */
     public function getComboBoxUI():ComboBoxUI{
-    	return AsWingUtils.as(getUI() , ComboBoxUI);
+    	return cast(getUI() , ComboBoxUI);
     }
     
 	/**

@@ -204,8 +204,8 @@ package org.aswing;
 	
 	
 	
-    // Hashtable to store layer values for non-JComponent components
-    private var componentToLayer:IntHash < Int > ;//<Component,Int >
+    // Maptable to store layer values for non-JComponent components
+    private var componentToLayer:Map < Int > ;//<Component,Int >
     private var optimizedDrawingPossible:Bool;
 
 
@@ -216,7 +216,7 @@ package org.aswing;
     public  function new() {
 		super();
 		optimizedDrawingPossible = true;
-		componentToLayer = new IntHash <Int>();
+		componentToLayer = new Map <Int>();
         setLayout(new EmptyLayout());
     }
 
@@ -288,7 +288,7 @@ package org.aswing;
      */
     override public function removeAll():Void {
      
-        componentToLayer = new IntHash <Int>();
+        componentToLayer = new Map <Int>();
         super.removeAll();
     }
 
@@ -541,11 +541,11 @@ package org.aswing;
     /**
      * Returns the hashtable that maps components to layers.
      *
-     * @return the Hashtable used to map components to their layers
+     * @return the Maptable used to map components to their layers
      */
-    private  function getComponentToLayer():IntHash<Int> {
+    private  function getComponentToLayer():Map<Int,Int> {
         if(componentToLayer == null)
-            componentToLayer = new IntHash<Int>();
+            componentToLayer = new Map<Int,Int>();
         return componentToLayer;
     }
 

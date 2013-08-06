@@ -26,7 +26,7 @@ import org.aswing.error.ImpMissError;
 class JRootPane extends Container{
 	
 	private var defaultButton:JButton;
-	private var mnemonics:IntHash<AbstractButton>;
+	private var mnemonics:Map<Int,AbstractButton>;
 	private var mnemonicJustActed:Bool;
 	private var keyManager:KeyboardManager;
 	
@@ -40,7 +40,7 @@ class JRootPane extends Container{
 		setName("JRootPane");
 		mnemonicJustActed = false;
 		layout = new BorderLayout();
-		mnemonics = new IntHash<AbstractButton>();
+		mnemonics = new Map<Int,AbstractButton>();
 		keyManager = new KeyboardManager();
 		keyManager.init(this);
 		triggerProxy = this;//just make below call works

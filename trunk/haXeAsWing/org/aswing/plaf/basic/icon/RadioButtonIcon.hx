@@ -26,7 +26,7 @@ import org.aswing.plaf.UIResource;
 /**
  * @private
  */
-class RadioButtonIcon implements Icon,implements UIResource{
+class RadioButtonIcon implements Icon  implements UIResource{
 	
 	private var shape:Shape;
 	
@@ -35,7 +35,7 @@ class RadioButtonIcon implements Icon,implements UIResource{
 	}
 		
 	public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
-		var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
+		var b:AbstractButton = cast(c,AbstractButton);
 		var model:ButtonModel = b.getModel();
 		var drawDot:Bool= model.isSelected();
 		

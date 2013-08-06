@@ -75,7 +75,7 @@ import flash.events.Event;
  * 
  * @author paling
  */
-class GridList extends JViewport , implements ListDataListener{
+class GridList extends JViewport  implements ListDataListener{
 		 	
 	/**
 	 * Only can select one most item at a time.
@@ -695,7 +695,7 @@ class GridList extends JViewport , implements ListDataListener{
 		var cell:GridListCell;
 		
 		for(i in i0...i1){
-			cell = AsWingUtils.as(cells.get(i),GridListCell);
+			cell = cast(cells.get(i),GridListCell);
 			removeCellFromeContainer(cell);
 		}
 		cells.removeRange(i0, i1);

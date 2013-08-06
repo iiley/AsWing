@@ -36,7 +36,7 @@ import org.aswing.JFrame;
  * @author paling
  * @private
  */
-class BasicFrameUI extends BaseComponentUI , implements FrameUI{
+class BasicFrameUI extends BaseComponentUI  implements FrameUI{
 	
 	private var frame:JFrame;
 	private var titleBar:FrameTitleBar;
@@ -54,7 +54,7 @@ class BasicFrameUI extends BaseComponentUI , implements FrameUI{
 	}
 
     override public function installUI(c:Component):Void{
-        frame = AsWingUtils.as(c,JFrame);
+        frame = cast(c,JFrame);
         installDefaults();
 		installComponents();
 		installListeners();
@@ -84,7 +84,7 @@ class BasicFrameUI extends BaseComponentUI , implements FrameUI{
     
     private function installComponents():Void{
     	if(frame.getResizer() == null || Std.is(frame.getResizer() , UIResource)){
-	    	var resizer:Resizer = AsWingUtils.as(getInstance(getPropertyPrefix()+"resizer") , Resizer);
+	    	var resizer:Resizer = cast(getInstance(getPropertyPrefix()+"resizer") , Resizer);
 	    	frame.setResizer(resizer);
     	}
     	if(!frame.isDragDirectlySet()){
@@ -268,7 +268,7 @@ class BasicFrameUI extends BaseComponentUI , implements FrameUI{
     
     private function __onTitleBarRelease(e:ReleaseEvent):Void {
 		
-    	if(AsWingUtils.as(e.getPressTarget(),FrameTitleBar) != titleBar && e.getPressTarget() != titleBar.getLabel()){
+    	if(Std.is(e.getPressTarget(),FrameTitleBar) &&cast(e.getPressTarget(),FrameTitleBar) != titleBar && e.getPressTarget() != titleBar.getLabel()){
     		return;
     	}
     	if(!titleBar.isTitleEnabled()){

@@ -35,11 +35,11 @@ class BasicSeparatorUI extends BaseComponentUI
     }
 	
 	override public function installUI(c:Component):Void{
-		installDefaults(AsWingUtils.as(c,JSeparator));
+		installDefaults(cast(c,JSeparator));
 	}
 	
 	override public function uninstallUI(c:Component):Void{
-		uninstallDefaults(AsWingUtils.as(c,JSeparator));
+		uninstallDefaults(cast(c,JSeparator));
 	}
 	
 	public function installDefaults(s:JSeparator):Void{
@@ -58,7 +58,7 @@ class BasicSeparatorUI extends BaseComponentUI
 
 	override public function paint(c:Component, g:Graphics2D, b:IntRectangle):Void{
     	super.paint(c, g, b);
-		var sp:JSeparator = AsWingUtils.as(c,JSeparator);
+		var sp:JSeparator = cast(c,JSeparator);
 		var dark:ASColor = c.getBackground();
 		var matrix:Matrix = new Matrix();
 		var brush:GradientBrush;
@@ -94,7 +94,7 @@ class BasicSeparatorUI extends BaseComponentUI
 	}
 	
 	override public function getPreferredSize(c:Component):IntDimension{
-		var sp:JSeparator = AsWingUtils.as(c,JSeparator);
+		var sp:JSeparator = cast(c,JSeparator);
 		var insets:Insets = sp.getInsets();
 		if (sp.getOrientation() == JSeparator.VERTICAL){
 			return insets.getOutsideSize(new IntDimension(1, 0));
@@ -103,7 +103,7 @@ class BasicSeparatorUI extends BaseComponentUI
 		}
 	}
     override public function getMaximumSize(c:Component):IntDimension{
-		var sp:JSeparator = AsWingUtils.as(c,JSeparator);
+		var sp:JSeparator = cast(c,JSeparator);
 		var insets:Insets = sp.getInsets();
 		var size:IntDimension = insets.getOutsideSize();
 		if (sp.getOrientation() == JSeparator.VERTICAL){

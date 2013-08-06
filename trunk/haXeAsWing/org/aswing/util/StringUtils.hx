@@ -15,7 +15,7 @@ class StringUtils
  	}
  	
  	public static function castString(str:Dynamic):String{
- 		return AsWingUtils.as(str , String);
+ 		return cast(str , String);
  	}
  	
  	/**

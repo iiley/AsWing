@@ -26,7 +26,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
 /**
  * @private
  */
-class FrameBackground implements GroundDecorator,implements UIResource{
+class FrameBackground implements GroundDecorator  implements UIResource{
 	
 	private var shape:Sprite;
 	private var bar:Shape;
@@ -62,7 +62,7 @@ class FrameBackground implements GroundDecorator,implements UIResource{
 			g = new Graphics2D(bar.graphics);
 			var barHeight:Int= 24;
 			if (Std.is(c, JFrame)) {
-				var cf:	JFrame = AsWingUtils.as(c, JFrame);
+				var cf:	JFrame = cast(c, JFrame);
 				barHeight = cf.getTitleBar().getSelf().getHeight();
 			}
 			style = new StyleResult(cl, adjuster);
@@ -76,7 +76,7 @@ class FrameBackground implements GroundDecorator,implements UIResource{
 			];
 			#end  
 			g = new Graphics2D(shape.graphics);
-			var ui:FrameUI = AsWingUtils.as( c.getUI(), FrameUI);
+			var ui:FrameUI = cast( c.getUI(), FrameUI);
 			if(ui!=null)	{
 				if(!ui.isPaintActivedFrame()){
 					shadowScale = 0.5;

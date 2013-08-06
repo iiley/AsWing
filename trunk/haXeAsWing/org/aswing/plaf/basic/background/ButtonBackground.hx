@@ -28,7 +28,7 @@ import org.aswing.graphics.Graphics2D;
 /**
  * @private
  */
-class ButtonBackground implements GroundDecorator,implements UIResource{
+class ButtonBackground implements GroundDecorator  implements UIResource{
 	
     private var shape:Shape;
     
@@ -37,7 +37,7 @@ class ButtonBackground implements GroundDecorator,implements UIResource{
 	} 
 		
 	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):Void{
-		var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+		var b:AbstractButton = cast(c,AbstractButton)	;
 		if(b == null){
 			return;
 		}
@@ -76,7 +76,7 @@ class ButtonBackground implements GroundDecorator,implements UIResource{
 			 
 	    		if (Std.is(b, JButton))
 				{
-					var _b:JButton = AsWingUtils.as(b, JButton);
+					var _b:JButton = cast(b, JButton);
 					if(_b.isDefaultButton()){//default button
 						paintDefault = true;
 					}

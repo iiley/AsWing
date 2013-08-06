@@ -43,7 +43,7 @@ import org.aswing.plaf.basic.BasicTextAreaUI;
  * @author paling
  * @see org.aswing.JScrollPane
  */
-class JTextArea extends JTextComponent , implements Viewportable{
+class JTextArea extends JTextComponent  implements Viewportable{
 	 	
  	/**
  	 * The default unit/block increment, it means auto count a value.
