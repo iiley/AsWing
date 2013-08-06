@@ -122,7 +122,7 @@ class Decorators extends JPanel{
 	 
 	
 	private function __selectionChanged(e:InteractiveEvent):Void{
-		var target:JRadioButton = AsWingUtils.as(e.target,JRadioButton)	;
+		var target:JRadioButton = cast(e.target,JRadioButton)	;
 		if(!target.isSelected()){
 			return;
 		}

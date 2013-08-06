@@ -91,13 +91,13 @@ class Menus extends JPanel{
 
 	private function __menuItemAct(e:Event):Void { 	
  
-		var source:JMenuItem = AsWingUtils.as(e.target,JMenuItem)	;
+		var source:JMenuItem = cast(e.target,JMenuItem)	;
 		textArea.appendText("Menu " + source.getText() + " acted!\n");
 	}
 	
 	private function __menuSelection(e:Event):Void {
  
-		var source:JMenuItem = AsWingUtils.as(e.target,JMenuItem)	;
+		var source:JMenuItem = cast(e.target,JMenuItem)	;
 		textArea.appendText(
 			"Menu " + source.getText() 
 			+ " selected ? " 
@@ -106,7 +106,7 @@ class Menus extends JPanel{
 	
 	private function __aboutMenuItemAct(e:Event):Void {
  
-		var source:JMenuItem = AsWingUtils.as(e.target,JMenuItem)	;
+		var source:JMenuItem = cast(e.target,JMenuItem)	;
 		JOptionPane.showMessageDialog("About", "This is just a menu test demo!");
 	}
 	
