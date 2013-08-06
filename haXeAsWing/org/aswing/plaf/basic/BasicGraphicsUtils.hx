@@ -25,7 +25,7 @@ import org.aswing.StyleResult;
  */
 class BasicGraphicsUtils{
 	
-	inline public static var gradientRatio:Array<Dynamic>= [0, 255];
+	  public static var gradientRatio:Array<Int>=   [0, 255];
 	inline public static var roundRectBtmFix:Float= 0.5;
 	
 	/**

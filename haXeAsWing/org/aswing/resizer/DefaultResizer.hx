@@ -29,7 +29,7 @@ import org.aswing.util.DepthManager;
  * component's edge.
  * @author paling
  */
-class DefaultResizer implements Resizer,implements UIResource{
+class DefaultResizer implements Resizer  implements UIResource{
 	
 	private static var RESIZE_MC_WIDTH:Float= 4;
 		

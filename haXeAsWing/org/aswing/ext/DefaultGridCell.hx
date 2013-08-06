@@ -13,7 +13,7 @@ import org.aswing.JLabel;
  * The default grid list cell render value.toString() as texts.
  * 
  */
-class DefaultGridCell extends JLabel , implements GridListCell{
+class DefaultGridCell extends JLabel  implements GridListCell{
 	
 	private var value:Dynamic;
 	

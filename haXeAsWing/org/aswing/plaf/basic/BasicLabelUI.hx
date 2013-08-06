@@ -36,14 +36,14 @@ class BasicLabelUI extends BaseComponentUI{
     }
     
 	override public function installUI(c:Component):Void{
-		label = AsWingUtils.as(c,JLabel);
+		label = cast(c,JLabel);
 		installDefaults(label);
 		installComponents(label);
 		installListeners(label);
 	}
     
 	override public function uninstallUI(c:Component):Void{
-		label = AsWingUtils.as(c,JLabel);
+		label = cast(c,JLabel);
 		uninstallDefaults(label);
 		uninstallComponents(label);
 		uninstallListeners(label);
@@ -98,7 +98,7 @@ class BasicLabelUI extends BaseComponentUI{
 
     override public function paint(c:Component, g:Graphics2D, r:IntRectangle):Void{
     	super.paint(c, g, r);
-    	var b:JLabel = AsWingUtils.as(c,JLabel);
+    	var b:JLabel = cast(c,JLabel);
     	
     	viewRect.setRect(r);
     	
@@ -247,7 +247,7 @@ class BasicLabelUI extends BaseComponentUI{
     }    
     
     override public function getPreferredSize(c:Component):IntDimension{
-    	var b:JLabel = AsWingUtils.as(c,JLabel);
+    	var b:JLabel = cast(c,JLabel);
     	return getLabelPreferredSize(b, getIconToLayout(), b.getText());
     }
 

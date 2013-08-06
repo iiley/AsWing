@@ -110,7 +110,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		    throw new Error("new child is an ancestor");
 		}
 
-	    var oldParent:MutableTreeNode = AsWingUtils.as(newChild.getParent(),MutableTreeNode);
+	    var oldParent:MutableTreeNode = cast(newChild.getParent(),MutableTreeNode);
 
 	    if (oldParent != null) {
 			oldParent.remove(newChild);
@@ -132,7 +132,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      *				<code>childIndex</code> is out of bounds
      */
     public function removeAt(childIndex:Int):Void{
-		var child:MutableTreeNode = AsWingUtils.as(getChildAt(childIndex),MutableTreeNode);
+		var child:MutableTreeNode = cast(getChildAt(childIndex),MutableTreeNode);
 		if(child != null){
 			_children.removeAt(childIndex);
 			child.setParent(null);
@@ -174,7 +174,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 			trace("Error : node has no children");
 		    throw new Error("node has no children");
 		}
-		return AsWingUtils.as(_children.get(index),TreeNode);
+		return cast(_children.get(index),TreeNode);
     }
 
     /**
@@ -294,7 +294,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      * tree.
      */
     public function removeFromParent():Void{
-		var parent:MutableTreeNode = AsWingUtils.as(getParent(),MutableTreeNode);
+		var parent:MutableTreeNode = cast(getParent(),MutableTreeNode);
 		if (parent != null) {
 		    parent.remove(this);
 		}
@@ -493,7 +493,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		    throw new Error ("nodes should be null");
 		}
 		
-		return (AsWingUtils.as(last,DefaultMutableTreeNode)).getLevel() - getLevel();
+		return (cast(last,DefaultMutableTreeNode)).getLevel() - getLevel();
     }
 
 
@@ -570,7 +570,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var retPath:Array<Dynamic>= new Array<Dynamic>();
 	
 		for(counter in 0...realPath.length){
-		    retPath[counter] = (AsWingUtils.as(realPath[counter],DefaultMutableTreeNode)).getUserObject();
+		    retPath[counter] = (cast(realPath[counter],DefaultMutableTreeNode)).getUserObject();
 		}
 		return retPath;
     }
@@ -623,7 +623,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		    var nextSibling:DefaultMutableTreeNode = getNextSibling();
 	
 		    if (nextSibling == null) {
-				var aNode:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
+				var aNode:DefaultMutableTreeNode = cast(getParent(),DefaultMutableTreeNode);
 				do {
 				    if (aNode == null) {
 						return null;
@@ -632,14 +632,14 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 				    if (nextSibling != null) {
 						return nextSibling;
 				    }
-				    aNode = AsWingUtils.as(aNode.getParent(),DefaultMutableTreeNode);
+				    aNode = cast(aNode.getParent(),DefaultMutableTreeNode);
 				} while(true);
 				return null;//just tell ide i'll return a value
 		    } else {
 				return nextSibling;
 		    }
 		} else {
-		    return AsWingUtils.as(getChildAt(0),DefaultMutableTreeNode);
+		    return cast(getChildAt(0),DefaultMutableTreeNode);
 		}
     }
 
@@ -657,7 +657,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      */
     public function getPreviousNode():DefaultMutableTreeNode {
 		var previousSibling:DefaultMutableTreeNode;
-		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = cast(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null) {
 		    return null;
@@ -748,7 +748,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var queue:Array<Dynamic>= new Array<Dynamic>();
 		queue.push(this);
 		while(queue.length > 0){
-			var node:TreeNode = AsWingUtils.as(queue.shift(),TreeNode);
+			var node:TreeNode = cast(queue.shift(),TreeNode);
 			arr.push(node);
 	    	var cd:Array<Dynamic>= node.children();
 	    	if(cd != null && cd.length > 0){
@@ -967,7 +967,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		    var  myParent:TreeNode = getParent();
 		    retval = (myParent != null && myParent == anotherNode.getParent());
 			
-			var mp:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
+			var mp:DefaultMutableTreeNode = cast(getParent(),DefaultMutableTreeNode);
 		    if (retval && !(mp.isNodeChild(anotherNode))) {
 		    	trace("Error : sibling has different parent");
 				throw new Error("sibling has different parent");
@@ -1009,12 +1009,12 @@ class DefaultMutableTreeNode implements MutableTreeNode{
     public function getNextSibling():DefaultMutableTreeNode {
 		var retval:DefaultMutableTreeNode;
 	
-		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = cast(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null) {
 		    retval = null;
 		} else {
-		    retval = AsWingUtils.as(myParent.getChildAfter(this),DefaultMutableTreeNode);	// linear search
+		    retval = cast(myParent.getChildAfter(this),DefaultMutableTreeNode);	// linear search
 		}
 	
 		if (retval != null && !isNodeSibling(retval)) {
@@ -1037,12 +1037,12 @@ class DefaultMutableTreeNode implements MutableTreeNode{
     public function getPreviousSibling():DefaultMutableTreeNode {
 		var retval:DefaultMutableTreeNode;
 	
-		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = cast(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null) {
 		    retval = null;
 		} else {
-		    retval = AsWingUtils.as(myParent.getChildBefore(this),DefaultMutableTreeNode);	// linear search
+		    retval = cast(myParent.getChildBefore(this),DefaultMutableTreeNode);	// linear search
 		}
 	
 		if (retval != null && !isNodeSibling(retval)) {
@@ -1086,7 +1086,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var node:DefaultMutableTreeNode = this;
 	
 		while (!node.isLeaf()) {
-		    node = AsWingUtils.as(node.getFirstChild(),DefaultMutableTreeNode);
+		    node = cast(node.getFirstChild(),DefaultMutableTreeNode);
 		}
 	
 		return node;
@@ -1106,7 +1106,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var node:DefaultMutableTreeNode = this;
 	
 		while (!node.isLeaf()) {
-		    node = AsWingUtils.as(node.getLastChild(),DefaultMutableTreeNode);
+		    node = cast(node.getLastChild(),DefaultMutableTreeNode);
 		}
 	
 		return node;
@@ -1134,7 +1134,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      */
     public function getNextLeaf():DefaultMutableTreeNode {
 		var nextSibling:DefaultMutableTreeNode;
-		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = cast(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null)
 		    return null;
@@ -1169,7 +1169,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
      */
     public function getPreviousLeaf():DefaultMutableTreeNode {
 		var previousSibling:DefaultMutableTreeNode;
-		var myParent:DefaultMutableTreeNode = AsWingUtils.as(getParent(),DefaultMutableTreeNode);
+		var myParent:DefaultMutableTreeNode = cast(getParent(),DefaultMutableTreeNode);
 	
 		if (myParent == null)
 		    return null;
@@ -1198,7 +1198,7 @@ class DefaultMutableTreeNode implements MutableTreeNode{
 		var enum_:Array<Dynamic>= breadthFirstEnumeration(); // order matters not
 	
 		for (i in 0...enum_.length){
-		    node = AsWingUtils.as(enum_[i],TreeNode);
+		    node = cast(enum_[i],TreeNode);
 		    if (node.isLeaf()) {
 				count++;
 		    }

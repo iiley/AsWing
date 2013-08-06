@@ -14,7 +14,7 @@ import org.aswing.event.InteractiveEvent;
  * The default implementation of BoundedRangeModel.
  * @author paling
  */
-class DefaultBoundedRangeModel extends EventDispatcher , implements BoundedRangeModel{
+class DefaultBoundedRangeModel extends EventDispatcher  implements BoundedRangeModel{
 	
 	private var value:Int;
 	private var extent:Int;

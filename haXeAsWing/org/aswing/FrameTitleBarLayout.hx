@@ -19,7 +19,7 @@ class FrameTitleBarLayout extends BorderLayout{
 	}
 	
 	private function countMinSize(target:Container):Void{
-		var bar:FrameTitleBar =AsWingUtils.as( target,FrameTitleBar );
+		var bar:FrameTitleBar =cast( target,FrameTitleBar );
 		minSize.height = bar.getMinimizeHeight();
 	}
 	
@@ -34,7 +34,7 @@ class FrameTitleBarLayout extends BorderLayout{
     override public function preferredLayoutSize(target:Container):IntDimension {
     	countMinSize(target);
     	var size:IntDimension = super.preferredLayoutSize(target);
-		var bar:FrameTitleBar = AsWingUtils.as( target,FrameTitleBar );
+		var bar:FrameTitleBar = cast( target,FrameTitleBar );
     	var label:JLabel = bar.getLabel();
     	if(label!=null && label.isVisible()){
     		size.width -= Std.int(Math.max(0, label.getPreferredWidth()-60));

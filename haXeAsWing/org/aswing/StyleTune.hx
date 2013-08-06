@@ -142,5 +142,5 @@ class StyleTune{
 	}
 
 
-		public var mide(get_mide,set_mide):StyleTune;
+		public var mide (get, set):StyleTune;
 }

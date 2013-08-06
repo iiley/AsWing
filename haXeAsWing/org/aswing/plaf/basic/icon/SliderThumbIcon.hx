@@ -23,7 +23,7 @@ import org.aswing.plaf.UIResource;
 	/**
  * @private
  */
-class SliderThumbIcon implements Icon,implements UIResource{
+class SliderThumbIcon implements Icon  implements UIResource{
 	
 	private var thumb:Sprite;
 	private var enabledButton:SimpleButton;

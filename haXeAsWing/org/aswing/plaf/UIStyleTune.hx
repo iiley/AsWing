@@ -6,7 +6,7 @@ import org.aswing.StyleTune;
 /**
  * StyleTune UIResource
  */
-class UIStyleTune extends StyleTune , implements UIResource{
+class UIStyleTune extends StyleTune   implements UIResource{
 	
 	/**
 	 * Create a StyleTune with specified params

@@ -18,7 +18,7 @@ import org.aswing.graphics.SolidBrush;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 
-class TabBackground implements GroundDecorator,implements UIResource{
+class TabBackground implements GroundDecorator implements UIResource{
 	
 	private var shape:Shape;
 	private var tab:Tab;
@@ -34,7 +34,7 @@ class TabBackground implements GroundDecorator,implements UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		shape.graphics.clear();
-		var btn:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+		var btn:AbstractButton = cast(c,AbstractButton)	;
 		if(btn!=null)	{
 			var model:ButtonModel = btn.getModel();
 			var isPressing:Bool= model.isPressed() || model.isSelected();

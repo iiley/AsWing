@@ -79,7 +79,7 @@ class AsWingUtils{
      * @return the sprite
      */ 
 	 
-	inline public   static function as<T>( v : Dynamic, c : Class<T>  ) : Null<T> {
+	inline public   static function as<T>( v : Dynamic, c :  T   ) : Null<T> {
 	 
 		if (Std.is(v, c)) 
 		{
@@ -765,7 +765,7 @@ class AsWingUtils{
     public static function getPopupAncestor(c:Component):JPopup{
         while(c != null){
             if(Std.is(c,JPopup)){
-                return AsWingUtils.as(c,JPopup);
+                return cast(c,JPopup);
             }
             c = c.getParent();
         }
@@ -796,7 +796,7 @@ class AsWingUtils{
     	while(dis != null && !(Std.is(dis,Component))){
     		dis = dis.parent;
     	}
-    	return AsWingUtils.as(dis,Component)	;
+    	return cast(dis,Component)	;
     }
     
      
@@ -856,7 +856,7 @@ class AsWingUtils{
      */
     public static function updateChildrenUI(dis:DisplayObject):Void{
     	if(dis == null) return;
-    	var c:Component = AsWingUtils.as(dis,Component)	;
+    	var c:Component = cast(dis,Component)	;
     	if(c!=null)	{
     		if(c.isUIElement()){
     			return;
@@ -865,7 +865,7 @@ class AsWingUtils{
      	}
         //trace("UI updated : " + c);
         if(Std.is(dis,DisplayObjectContainer)){
-            var con:DisplayObjectContainer = AsWingUtils.as(dis,DisplayObjectContainer);
+            var con:DisplayObjectContainer = cast(dis,DisplayObjectContainer);
             for(i in 0...con.numChildren ){
                 updateChildrenUI(con.getChildAt(i));
             }

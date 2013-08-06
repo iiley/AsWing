@@ -19,7 +19,7 @@ import org.aswing.graphics.SolidBrush;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 
-class BasicClosableTabbedPaneTab implements ClosableTab, implements GroundDecorator, implements UIResource {
+class BasicClosableTabbedPaneTab implements ClosableTab implements GroundDecorator   implements UIResource {
 
 	private var panel : Container;
 	private var label : JButton;

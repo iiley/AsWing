@@ -116,7 +116,7 @@ class JToolTip extends Container{
 			var cr:DisplayObjectContainer=null;
 			if (getTargetComponent() != null) {
 			//cr = getTargetComponent().root as DisplayObjectContainer;	
-				cr =  AsWingUtils.as(AsWingManager.getStage(),DisplayObjectContainer)	;
+				cr =  cast(AsWingManager.getStage(),DisplayObjectContainer)	;
 			}
 			if(cr == null){
 				cr = getDefaultToolTipContainerRoot();
@@ -384,12 +384,12 @@ class JToolTip extends Container{
 	
 	//-----------can't override these------
 	private function ____compRollOver(e:Event):Void{
-		var source:Component = AsWingUtils.as(e.currentTarget,Component)	;
+		var source:Component = cast(e.currentTarget,Component)	;
 		__compRollOver(source);
 	}
 	
 	private function ____compRollOut(e:Event):Void{
-		var source:Component = AsWingUtils.as(e.currentTarget,Component)	;
+		var source:Component = cast(e.currentTarget,Component)	;
 		__compRollOut(source);
 	}
 }

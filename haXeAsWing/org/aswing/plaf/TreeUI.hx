@@ -16,7 +16,7 @@ import org.aswing.tree.TreePath;
  * @author paling
  * @private
  */
-interface TreeUI implements ComponentUI {
+interface TreeUI extends ComponentUI {
 	
     /**
       * Returns the IntRectangle enclosing the label portion that the

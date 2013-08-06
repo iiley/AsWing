@@ -11,7 +11,7 @@ import org.aswing.Insets;
 /**
  * @private
  */
-class ColorChooserBorder extends EmptyBorder , implements UIResource{
+class ColorChooserBorder extends EmptyBorder   implements UIResource{
 
 	public function new(){
 		super(null, new Insets(6, 6, 6, 6));

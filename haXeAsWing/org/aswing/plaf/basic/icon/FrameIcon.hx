@@ -30,7 +30,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
  * @author paling
  * @private
  */
-class FrameIcon implements Icon,implements UIResource{
+class FrameIcon implements Icon  implements UIResource{
 			
 	private var width:Int;
 	private var height:Int;
@@ -63,7 +63,7 @@ class FrameIcon implements Icon,implements UIResource{
 		box.graphics.clear();
 		g = new Graphics2D(box.graphics);
 		
-		var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+		var b:AbstractButton = cast(c,AbstractButton)	;
 		if(b == null){
 			return;
 		}

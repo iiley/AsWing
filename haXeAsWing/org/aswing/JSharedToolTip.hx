@@ -17,12 +17,12 @@ class JSharedToolTip extends JToolTip{
 	private static var sharedInstance:JSharedToolTip;
 	
 	private var targetedComponent:Component;
-	private var textMap:IntHash<String>;
+	private var textMap:Map<Int,String>;
 	
 	public function new() {
 		super();
 		setName("JSharedToolTip");
-		textMap = new  IntHash<String>();
+		textMap = new  Map<Int,String>();
 	}
 	
 	/**
@@ -116,7 +116,7 @@ class JSharedToolTip extends JToolTip{
 	
 	private function getTargetToolTipText(c:Component):String{
 		if(Std.is(c,Component)){
-			var co:Component = AsWingUtils.as(c,Component)	;
+			var co:Component = cast(c,Component)	;
 			return co.getToolTipText();
 		}else{
 			return   textMap.get(c.getAwmlIndex());

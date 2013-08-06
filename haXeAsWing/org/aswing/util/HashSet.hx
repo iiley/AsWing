@@ -11,7 +11,7 @@ package org.aswing.util;
  * sets contain no pair of elements e1 and e2 such that e1 == e2.
  * @author paling
  */
-class HashSet
+class MapSet
 {
 	 
 	private var length:Int; 

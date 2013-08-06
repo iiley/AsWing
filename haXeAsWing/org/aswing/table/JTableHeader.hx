@@ -19,7 +19,7 @@ import org.aswing.plaf.basic.BasicTableHeaderUI;
  * <p>
  * @author paling
  */
-class JTableHeader extends Container , implements TableColumnModelListener{
+class JTableHeader extends Container  implements TableColumnModelListener{
 
 	private static var uiClassID:String= "TableHeaderUI";
 	private var table:JTable;

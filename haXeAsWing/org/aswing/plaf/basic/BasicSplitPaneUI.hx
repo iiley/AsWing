@@ -28,7 +28,7 @@ import org.aswing.LayoutManager;
 	/**
  * @private
  */
-class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
+class BasicSplitPaneUI extends SplitPaneUI  implements LayoutManager{
 	
 	private var sp:JSplitPane;
 	private var divider:Divider;
@@ -56,14 +56,14 @@ class BasicSplitPaneUI extends SplitPaneUI , implements LayoutManager{
     }
     
     override public function installUI(c:Component):Void{
-        sp = AsWingUtils.as(c,JSplitPane);
+        sp = cast(c,JSplitPane);
         installDefaults();
         installComponents();
         installListeners();
     }
 
     override public function uninstallUI(c:Component):Void{
-        sp = AsWingUtils.as(c,JSplitPane);
+        sp = cast(c,JSplitPane);
         uninstallDefaults();
         uninstallComponents();
         uninstallListeners();

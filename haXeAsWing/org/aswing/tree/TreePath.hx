@@ -149,7 +149,7 @@ class TreePath{
 		    return true;
 		}
         if(Std.is(o,TreePath)) {
-            var oTreePath:TreePath = AsWingUtils.as(o,TreePath);
+            var oTreePath:TreePath = cast(o,TreePath);
 	    	if(getPathCount() != oTreePath.getPathCount()){
 				return false;
 	    	}

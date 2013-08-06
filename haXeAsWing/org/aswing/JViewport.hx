@@ -39,7 +39,7 @@ import org.aswing.plaf.basic.BasicViewportUI;
  * the scroll content will always tracks the scroll pane width.
  * @author paling
  */
-class JViewport extends Container , implements Viewportable{
+class JViewport extends Container  implements Viewportable{
  	
  	/**
  	 * The default unit/block increment, it means auto count a value.

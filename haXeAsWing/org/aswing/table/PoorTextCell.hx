@@ -17,7 +17,7 @@ import org.aswing.graphics.Graphics2D;
  * A poor table cell to render text faster.
  * @author paling
  */
-class PoorTextCell extends Component , implements TableCell{
+class PoorTextCell extends Component  implements TableCell{
 	
 	private var textField:TextField;
 	private var text:String;

@@ -12,7 +12,7 @@ import org.aswing.Component;
  * 
  * @author paling
  */
-interface ColorSwatchesUI implements ComponentUI{
+interface ColorSwatchesUI extends ComponentUI{
 	
 	/**
 	 * Adds a component to this panel's sections bar.

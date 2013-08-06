@@ -13,7 +13,7 @@ import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.basic.BasicGraphicsUtils;
 
-class ListBackground implements GroundDecorator,implements UIResource{
+class ListBackground implements GroundDecorator  implements UIResource{
 	
 	public function new(){
 	}

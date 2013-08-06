@@ -195,7 +195,7 @@ class DragManager{
 	 * @see #getDropTargetComponent()
 	 */
 	public static function getDropTargetComponent(pos:Point=null):Component{
-		return AsWingUtils.as(getDropTarget(curStage, pos, Component) , Component);
+		return cast(getDropTarget(curStage, pos, Component) , Component);
 	}
 	
 	/**
@@ -205,7 +205,7 @@ class DragManager{
 	 * @see #getDropTargetComponent()
 	 */
 	public static function getCurrentDropTargetComponent():Component{
-		return AsWingUtils.as(getDropTarget(curStage, null, Component)  , Component);
+		return cast(getDropTarget(curStage, null, Component)  , Component);
 	}
 	
 	/**
@@ -216,7 +216,7 @@ class DragManager{
 	 * @see #getDropTargetDropTriggerComponent()
 	 */
 	public static function getDropTragetDropTriggerComponent(pos:Point=null):Component{
-		return AsWingUtils.as(getDropTarget(
+		return cast(getDropTarget(
 			curStage, 
 			pos, 
 			Component, 
@@ -230,7 +230,7 @@ class DragManager{
 	 * @see #getDropTargetDropTriggerComponent()
 	 */
 	public static function getCurrentDropTargetDropTriggerComponent():Component{
-		return AsWingUtils.as(getDropTarget(
+		return cast(getDropTarget(
 			curStage, 
 			null, 
 			Component, 

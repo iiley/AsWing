@@ -11,7 +11,7 @@ package org.aswing;
  * fire a event to all its ListDataListeners.
  * @author bill
  */
-interface MutableListModel implements ListModel{
+interface MutableListModel extends ListModel{
 
 	/**
 	 * Inserts a element at specified position.

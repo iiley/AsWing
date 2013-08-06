@@ -24,7 +24,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
 /**
  * @private
  */
-class TableHeaderBackground implements GroundDecorator,implements UIResource{
+class TableHeaderBackground implements GroundDecorator  implements UIResource{
 	
 	private var shape:Shape;
 	

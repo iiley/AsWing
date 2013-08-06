@@ -22,7 +22,7 @@ import org.aswing.Border;
 /**
  * @private
  */
-class TableHeaderCellBorder implements Border,implements UIResource{
+class TableHeaderCellBorder implements Border  implements UIResource{
 	
 	private var shape:Shape;
     

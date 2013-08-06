@@ -33,7 +33,7 @@ import org.aswing.JTable;
  * @author paling
  * @private
  */
-class BasicTableUI extends BaseComponentUI , implements TableUI{
+class BasicTableUI extends BaseComponentUI  implements TableUI{
 	
 	private var table:JTable;
 	private var gridShape:Shape;
@@ -45,7 +45,7 @@ class BasicTableUI extends BaseComponentUI , implements TableUI{
 	}
 	
 	override public function installUI(c:Component):Void{
-		table = AsWingUtils.as(c,JTable);
+		table = cast(c,JTable);
 		installDefaults();
 		installListeners();
 	}

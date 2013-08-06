@@ -164,7 +164,7 @@ import org.aswing.event.ListDataListener;
  * @see ListModel
  * @see VectorListModel
  */
-class JList extends Container , implements LayoutManager,implements Viewportable,implements ListDataListener{
+class JList extends Container  implements LayoutManager implements Viewportable implements ListDataListener{
 	
  	/**
  	 * The default unit/block increment, it means auto count a value.
@@ -199,8 +199,8 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 	private var viewHeight:Int;
 	private var viewWidth:Int;
 	private var maxWidthCell:ListCell;
-	private var cellPrefferSizes:IntHash<IntDimension>; //use for catche sizes when not all cells same height
-	private var comToCellMap:IntHash<ListCell>; 
+	private var cellPrefferSizes:Map<Int,IntDimension>; //use for catche sizes when not all cells same height
+	private var comToCellMap:Map<Int,ListCell>; 
 	private var visibleRowCount:Int;
 	private var visibleCellWidth:Int;
 	//--
@@ -263,8 +263,8 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		viewWidth = 0;
 		viewHeight = 0;
 		maxWidthCell = null;
-		cellPrefferSizes = new IntHash<IntDimension>();
-		comToCellMap = new IntHash<ListCell>();
+		cellPrefferSizes = new Map<Int,IntDimension>();
+		comToCellMap = new Map<Int,ListCell>();
 		cells = new ArrayList();
 		model = null;
 		autoDragAndDropType = DND_NONE;
@@ -280,10 +280,10 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		if(listData == null){
 			setModel(new VectorListModel());
 		}else if(Std.is(listData,Array)){
-			setListData(AsWingUtils.as(listData,Array) );
+			setListData(cast(listData,Array<Dynamic>) );
 		}
 		else if(Std.is(listData,ListModel)){
-			setModel(AsWingUtils.as(listData,ListModel)	);
+			setModel(cast(listData,ListModel)	);
 		}
 		updateUI();
 	}
@@ -291,7 +291,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
     override public function updateUI():Void{
     	//update cells ui
     	for(i in 0...cells.size() ){
-    		var cell:ListCell = AsWingUtils.as(cells.get(i),ListCell);
+    		var cell:ListCell = cast(cells.get(i),ListCell);
     		cell.getCellComponent().updateUI();
     	}
     	
@@ -812,7 +812,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			var num:Int=Std.int( Math.min(cells.getSize()-1, index));
 			var y:Int= 0;
 			for(i in 0...num){
-				var cell:ListCell = AsWingUtils.as(cells.get(i),ListCell);
+				var cell:ListCell = cast(cells.get(i),ListCell);
 				var s:IntDimension = getCachedCellPreferSize(cell);
 				if(s == null){
 					s = cell.getCellComponent().getPreferredSize();
@@ -846,7 +846,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			var num:Int= Std.int(Math.min(cells.getSize(), index+2));
 			var y:Int= 0;
 			for(i in 0...num){
-				var cell:ListCell = AsWingUtils.as(cells.get(i),ListCell);
+				var cell:ListCell = cast(cells.get(i),ListCell);
 				var s:IntDimension = getCachedCellPreferSize(cell);
 				if(s == null){
 					s = cell.getCellComponent().getPreferredSize();
@@ -1096,7 +1096,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			var removeIndex:Int= needNum;
 			var removed:Array<Dynamic>= cells.removeRange(removeIndex, cells.getSize()-1);
 			for(i in 0...removed.length){
-				cell = AsWingUtils.as(removed[i],ListCell);
+				cell = cast(removed[i],ListCell);
 				removeCellFromeContainer(cell);
 			}
 		}
@@ -1113,7 +1113,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		var mSize:Int= m.getSize();
 		var cSize:Int= cells.getSize();
 		
-		cellPrefferSizes=new   IntHash<IntDimension>();
+		cellPrefferSizes=new   Map<Int,IntDimension>();
 		
 		var n:Int=Std.int( Math.min(mSize, cSize));
 		var i:Int;
@@ -1121,7 +1121,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		var s:IntDimension;
 		//reuse created cells
 		for(i in 0...n){
-			cell = AsWingUtils.as(cells.get(i),ListCell);
+			cell = cast(cells.get(i),ListCell);
 			cell.setCellValue(m.getElementAt(i));
 			s = cell.getCellComponent().getPreferredSize();
 			cellPrefferSizes.set(cell.getCellComponent().getAwmlIndex(), s);
@@ -1154,7 +1154,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		}else if(mSize < cSize){ //remove unwanted cells
 			var removed:Array<Dynamic>= cells.removeRange(mSize, cSize-1);
 			for(i in 0...removed.length){
-				cell = AsWingUtils.as(removed[i],ListCell);
+				cell = cast(removed[i],ListCell);
 				removeCellFromeContainer(cell);
 				cellPrefferSizes.remove(cell.getCellComponent().getAwmlIndex());
 			}
@@ -1475,13 +1475,13 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		var cellCom:Component;
 		//invisible last viewed
 		for(i in Std.int(Math.max(0, firstVisibleIndex+firstVisibleIndexOffset))...startIndex){
-			cellCom = AsWingUtils.as(cells.get(i),ListCell).getCellComponent();
+			cellCom = cast(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
 		var rlvi:Int= Std.int(Math.min(lastVisibleIndex+lastVisibleIndexOffset, listSize-1));
 		for(i in endIndex+1...rlvi+1){
-			cellCom = AsWingUtils.as(cells.get(i),ListCell).getCellComponent();
+			cellCom = cast(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
@@ -1490,7 +1490,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		}
 		//visible current needed
 		for(i in startIndex...endIndex+1){
-			var cell:ListCell = AsWingUtils.as(cells.get(i),ListCell);
+			var cell:ListCell = cast(cells.get(i),ListCell);
 			cellCom = cell.getCellComponent();
 			cellCom.setVisible(true);
 			var s:IntDimension = getCachedCellPreferSize(cell);
@@ -1512,7 +1512,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
     }
     
     private function getCachedCellPreferSize(cell:ListCell):IntDimension{
-    	return AsWingUtils.as(cellPrefferSizes.get(cell.getCellComponent().getAwmlIndex()),IntDimension);
+    	return cast(cellPrefferSizes.get(cell.getCellComponent().getAwmlIndex()),IntDimension);
     }
     
     private function layoutWhenNotShareCellsAndNotSameHeight():Void{
@@ -1534,7 +1534,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		var cell:ListCell;
 		
 		for(i in 0...cellsCount){
-			cell = AsWingUtils.as(cells.get(i),ListCell);
+			cell = cast(cells.get(i),ListCell);
 			s = getCachedCellPreferSize(cell);
 			if(s == null){
 				s = cell.getCellComponent().getPreferredSize();
@@ -1557,7 +1557,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		//visible current needed
 		var endIndex:Int= startIndex;
 		for(i in startIndex...cellsCount){
-			cell = AsWingUtils.as(cells.get(i),ListCell);
+			cell = cast(cells.get(i),ListCell);
 			cellCom = cell.getCellComponent();
 			s = getCachedCellPreferSize(cell);
 			if(s == null){
@@ -1581,13 +1581,13 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		
 		//invisible last viewed
 		for(i in Std.int(Math.max(0, firstVisibleIndex+firstVisibleIndexOffset))...startIndex){
-			cellCom = AsWingUtils.as(cells.get(i),ListCell).getCellComponent();
+			cellCom = cast(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
 		var rlvi:Int= Std.int(Math.min(lastVisibleIndex+lastVisibleIndexOffset, listSize-1));
 		for(i in endIndex+1...rlvi+1){
-			cellCom = AsWingUtils.as(cells.get(i),ListCell).getCellComponent();
+			cellCom = cast(cells.get(i),ListCell).getCellComponent();
 			cellCom.setVisible(false);
 			cellCom.validate();
 		}
@@ -1694,7 +1694,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 		}else{
 			var needRecountWidth:Bool= false;
 			for(i in i0...i1+1){
-				cell = AsWingUtils.as(cells.get(i),ListCell);
+				cell = cast(cells.get(i),ListCell);
 				if(cell == maxWidthCell){
 					needRecountWidth = true;
 				}
@@ -1716,7 +1716,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			if(needRecountWidth)	{
 				w = 0;
 				for(i in 0...cells.getSize() ){
-					cell = AsWingUtils.as(cells.get(i),ListCell);
+					cell = cast(cells.get(i),ListCell);
 					s = getCachedCellPreferSize(cell);
 					if(s == null){
 						s = cell.getCellComponent().getPreferredSize();
@@ -1769,7 +1769,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 			var needRecountWidth:Bool= false;
 			for(i in i0...i1+1){
 				var newValue:Dynamic= m.getElementAt(i);
-				cell = AsWingUtils.as(cells.get(i),ListCell);
+				cell = cast(cells.get(i),ListCell);
 				s = getCachedCellPreferSize(cell);
 				if(s == null){
 					s = cell.getCellComponent().getPreferredSize();
@@ -1853,7 +1853,7 @@ class JList extends Container , implements LayoutManager,implements Viewportable
     	
 	private function createItemEventObj(cellCom:Dynamic, type:String, e:MouseEvent):ListItemEvent {
 	 
-		var cell:ListCell = getCellByCellComponent(AsWingUtils.as(cellCom, Component));
+		var cell:ListCell = getCellByCellComponent(cast(cellCom, Component));
 		var cellValue:Dynamic = null;
 		if (cell != null) cellValue = cell.getCellValue();
 		var event:ListItemEvent  =new ListItemEvent(type,cellValue , cell, e);
@@ -1899,9 +1899,9 @@ class JList extends Container , implements LayoutManager,implements Viewportable
 	 */
 	public function getCellByIndex(index:Int):ListCell{
 		if(getCellFactory().isShareCells()){
-			return AsWingUtils.as(cells.get(index - firstVisibleIndex),ListCell);
+			return cast(cells.get(index - firstVisibleIndex),ListCell);
 		}else{
-			return AsWingUtils.as(cells.get(index),ListCell);
+			return cast(cells.get(index),ListCell);
 		}
 	}
 	

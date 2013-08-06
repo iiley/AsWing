@@ -37,7 +37,7 @@ class BasicListUI extends BaseComponentUI{
 	}
 	
     override public function installUI(c:Component):Void{
-        list = AsWingUtils.as(c,JList);
+        list = cast(c,JList);
         installDefaults();
         installListeners();
     }

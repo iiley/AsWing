@@ -40,7 +40,7 @@ class ASFont{
 		this.italic = italic;
 		this.underline = underline;
 		if(Std.is(embedFontsOrAdvancedPros,ASFontAdvProperties)){
-			advancedProperties = AsWingUtils.as(embedFontsOrAdvancedPros, ASFontAdvProperties)	;
+			advancedProperties = cast(embedFontsOrAdvancedPros, ASFontAdvProperties)	;
 		
 		}else{
 			advancedProperties = new ASFontAdvProperties(embedFontsOrAdvancedPros==true);

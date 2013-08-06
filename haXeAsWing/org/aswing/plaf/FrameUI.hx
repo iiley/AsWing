@@ -10,7 +10,7 @@ package org.aswing.plaf;
  * @see org.aswing.JFrame
  * @author paling
  */
-interface FrameUI implements ComponentUI
+interface FrameUI extends ComponentUI
 {
 	/**
 	 * Flash the modal frame. (User clicked other where is not in the modal frame, 

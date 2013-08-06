@@ -200,7 +200,7 @@ class MultipleAssetIcon implements Icon{
 			var asset:DisplayObject = assetItem.getAsset();
 
 			// draw mask
-			var maskShape:Shape = AsWingUtils.as(asset.mask,Shape);
+			var maskShape:Shape = cast(asset.mask,Shape);
 			maskShape.graphics.clear();
 			maskShape.graphics.beginFill(0xFF0000);
 			maskShape.graphics.drawRect(0, 0, w, h);
@@ -264,7 +264,7 @@ class MultipleAssetIcon implements Icon{
 
 
 
-import flash.display.DisplayObject;
+ 
 
 /**
  * AssetItem is a holder for asset properties.
@@ -395,7 +395,7 @@ import flash.display.DisplayObject;
 	 
 	 public function clone():AssetItem{
 	 	var clazz:Class<Dynamic>= Type.getClass(asset);
-	 	var clonedAsset:DisplayObject =AsWingUtils.as(Type.createInstance( clazz,[]) , DisplayObject);
+	 	var clonedAsset:DisplayObject =cast(Type.createInstance( clazz,[]) , DisplayObject);
 	 	var clone:AssetItem = new AssetItem(clonedAsset, width, height, scale, hPosition,  vPosition);
 	 	return clone;
 	 }

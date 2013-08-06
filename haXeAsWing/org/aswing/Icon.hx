@@ -19,7 +19,7 @@ import flash.display.DisplayObject;
  * not eyeable, that is when the component has a background decorator with a display object, 
  * it will cover this graphics. If you return a display object here, it will be no problem of this case.
  */
-interface Icon  implements  Decorator
+interface Icon  extends  Decorator
 {	
 			 
 	/**

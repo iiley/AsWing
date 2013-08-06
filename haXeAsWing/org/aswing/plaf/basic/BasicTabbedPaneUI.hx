@@ -45,7 +45,7 @@ import org.aswing.plaf.basic.tabbedpane.Tab;
 	/**
  * @private
  */
-class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
+class BasicTabbedPaneUI extends BaseComponentUI  implements LayoutManager{
 	
 	private  var topBlankSpace:Int;
 		
@@ -92,7 +92,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 	}
 
 	override public function installUI(c:Component):Void{
-		tabbedPane = AsWingUtils.as(c,JTabbedPane);
+		tabbedPane = cast(c,JTabbedPane);
 		tabbedPane.setLayout(this);
 		installDefaults();
 		installComponents();
@@ -100,7 +100,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 	}
 	
 	override public function uninstallUI(c:Component):Void{
-		tabbedPane = AsWingUtils.as(c,JTabbedPane);
+		tabbedPane = cast(c,JTabbedPane);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -438,7 +438,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 	}
 	
 	private function getTab(i:Int):Tab { 
-    	return AsWingUtils.as(tabs[i],Tab);
+    	return cast(tabs[i],Tab);
 	}
 	
     private function getSelectedTab():Tab{
@@ -472,7 +472,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
      * Just override this method if you want other LAF headers.
      */
     private function createNewTab():Tab{
-    	var tab:Tab = AsWingUtils.as(getInstance(getPropertyPrefix() + "tab") , Tab);
+    	var tab:Tab = cast(getInstance(getPropertyPrefix() + "tab") , Tab);
     	if(tab == null){
     		tab = new BasicTabbedPaneTab();
     	}
@@ -505,7 +505,7 @@ class BasicTabbedPaneUI extends BaseComponentUI , implements LayoutManager{
 			//for(i = tabs.length-comCount; i>0; i--){
 				var it:Int=tabs.length-comCount;
     			while(it>0 ){
-    				header = AsWingUtils.as(tabs.shift(),Tab);
+    				header = cast(tabs.shift(),Tab);
     				tabBarMC.removeChild(header.getTabComponent());
 					it--;
     			}

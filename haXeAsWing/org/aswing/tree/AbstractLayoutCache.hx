@@ -193,7 +193,7 @@ class AbstractLayoutCache implements RowMapper{
 		    var paths:Array<Dynamic>= getVisiblePathsFrom(firstPath, AsWingConstants.MAX_VALUE);
 			var pn:Int= paths.length;
 		    if(paths != null && pn>0){
-				var pBounds:IntRectangle = getBounds(AsWingUtils.as(paths[0],TreePath), null);
+				var pBounds:IntRectangle = getBounds(cast(paths[0],TreePath), null);
 				var width:Int;
 		
 				if(pBounds != null) {
@@ -206,7 +206,7 @@ class AbstractLayoutCache implements RowMapper{
 				}
 				var i:Int= 1;
 				while (pBounds != null && i<pn) {
-				    pBounds = getBounds(AsWingUtils.as(paths[i],TreePath), pBounds);
+				    pBounds = getBounds(cast(paths[i],TreePath), pBounds);
 				    if (pBounds != null && pBounds.y < endY) {
 						width = Std.int(Math.max(width, pBounds.x + pBounds.width));
 				    } else {

@@ -15,7 +15,7 @@ import org.aswing.event.AWEvent;
  * @author paling
  * @author Igor Sadovskiy
  */
-class AbstractImpulser extends EventDispatcher , implements Impulser{
+class AbstractImpulser extends EventDispatcher  implements Impulser{
 	private var delay:Int;
 	private var initialDelay:Int;
 	private var repeats:Int;

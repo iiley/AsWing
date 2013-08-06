@@ -18,7 +18,7 @@ import org.aswing.plaf.ComponentUI;
  * 
  * @author paling
  */
-class JMenuItem extends AbstractButton , implements MenuElement{
+class JMenuItem extends AbstractButton  implements MenuElement{
 	
 	private var menuInUse:Bool;
 	private var accelerator:KeyType;
@@ -63,7 +63,7 @@ class JMenuItem extends AbstractButton , implements MenuElement{
      * @return the menu element ui.
      */
     public function getMenuElementUI():MenuElementUI{
-    	return AsWingUtils.as(getUI() , MenuElementUI);
+    	return cast(getUI() , MenuElementUI);
     }
 	
 	override public function getUIClassID():String{
@@ -117,10 +117,10 @@ class JMenuItem extends AbstractButton , implements MenuElement{
 		do{
 			pp = pp.getParent();
 			if(Std.is(pp,JPopupMenu)){
-				pp = AsWingUtils.as(pp,JPopupMenu).getInvoker();
+				pp = cast(pp,JPopupMenu).getInvoker();
 			}
 			if(Std.is(pp,JRootPane)){
-				return AsWingUtils.as(pp,JRootPane);
+				return cast(pp,JRootPane);
 			}
 		}while(pp != null);
 		return null;

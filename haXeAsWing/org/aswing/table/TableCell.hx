@@ -11,7 +11,7 @@ import org.aswing.JTable;
 /**
  * @author paling
  */
-interface TableCell implements Cell{
+interface TableCell extends Cell{
 	
 	/**
 	 * Sets the table cell status, include the owner-JTable isSelected, row position, column position.

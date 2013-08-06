@@ -25,13 +25,13 @@ class BasicViewportUI extends BaseComponentUI{
 	}
 	
 	override public function installUI(c:Component):Void{
-		viewport = AsWingUtils.as(c,JViewport);
+		viewport = cast(c,JViewport);
 		installDefaults();
 		installListeners();
 	}
 
 	override public function uninstallUI(c:Component):Void{
-		viewport = AsWingUtils.as(c,JViewport);
+		viewport = cast(c,JViewport);
 		uninstallDefaults();
 		uninstallListeners();
 	}

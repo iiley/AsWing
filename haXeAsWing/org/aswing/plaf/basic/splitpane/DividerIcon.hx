@@ -19,7 +19,7 @@ class DividerIcon implements Icon{
     	var h:Float= com.getHeight();
     	var ch:Float= h/2;
     	var cw:Float= w/2;
-    	var divider:Divider = AsWingUtils.as(com, Divider);
+    	var divider:Divider = cast(com, Divider);
 		//why	
 		 
     	var p:Pen = new Pen(divider.getOwner().getForeground(), 0);

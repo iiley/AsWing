@@ -20,7 +20,7 @@ import org.aswing.Icon;
  * @private
  * @author paling
  */
-class SolidArrowIcon implements Icon,implements UIResource{
+class SolidArrowIcon implements Icon  implements UIResource{
 	
 	private var shape:Shape;
 	private var width:Float;

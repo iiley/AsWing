@@ -13,7 +13,7 @@ import org.aswing.plaf.basic.BasicFrameTitleBarUI;
 /**
  * The default Imp of FrameTitleBar
  */
-class JFrameTitleBar extends Container , implements FrameTitleBar,implements UIResource{
+class JFrameTitleBar extends Container  implements FrameTitleBar  implements UIResource{
 	
 	private var iconifiedButton:AbstractButton;
 	private var maximizeButton:AbstractButton;
@@ -126,7 +126,7 @@ class JFrameTitleBar extends Container , implements FrameTitleBar,implements UIR
 			owner.removeEventListener(WindowEvent.WINDOW_DEACTIVATED, __activeChange);
 		}
 		owner = f;
-		frame = AsWingUtils.as(f,JFrame)	;
+		frame = cast(f,JFrame)	;
 		if(owner!=null)	{
 			owner.addEventListener(FrameEvent.FRAME_ABILITY_CHANGED, __frameAbilityChanged, false, 0, false);
 			owner.addEventListener(InteractiveEvent.STATE_CHANGED, __stateChanged, false, 0, false);

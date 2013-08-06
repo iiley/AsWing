@@ -196,7 +196,7 @@ class CaveBorder extends DecorateBorder{
 		this.lineThickness = lineThickness;
 	}
 
-	public  var DEFAULT_LINE_LIGHT_COLOR(get_DEFAULT_LINE_LIGHT_COLOR,null):ASColor;
+	public  var DEFAULT_LINE_LIGHT_COLOR (get, null):ASColor;
 
-	public   var DEFAULT_LINE_COLOR(get_DEFAULT_LINE_COLOR,null):ASColor;
+	public   var DEFAULT_LINE_COLOR (get, null):ASColor;
 }

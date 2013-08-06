@@ -22,7 +22,7 @@ import org.aswing.event.InteractiveEvent;
 /**
  * @private
  */
-class BasicMenuBarUI extends BaseComponentUI , implements MenuElementUI{
+class BasicMenuBarUI extends BaseComponentUI  implements MenuElementUI{
 	
 	private var menuBar:JMenuBar;
 	
@@ -31,13 +31,13 @@ class BasicMenuBarUI extends BaseComponentUI , implements MenuElementUI{
 	}
 
 	override public function installUI(c:Component):Void{
-		menuBar =  AsWingUtils.as(c,JMenuBar);
+		menuBar =  cast(c,JMenuBar);
 		installDefaults();
 		installListeners();
 	}
 
 	override public function uninstallUI(c:Component):Void{
-		menuBar =AsWingUtils.as(c,JMenuBar);
+		menuBar =cast(c,JMenuBar);
 		uninstallDefaults();
 		uninstallListeners();
 	}
@@ -105,7 +105,7 @@ class BasicMenuBarUI extends BaseComponentUI , implements MenuElementUI{
 				}else{//left
 					path.push(subs[subs.length-1]);
 				}
-				var smu:MenuElement = AsWingUtils.as(path[1],MenuElement);
+				var smu:MenuElement = cast(path[1],MenuElement);
 				if(smu.getSubElements().length > 0){
 					path.push(smu.getSubElements()[0]);
 				}
@@ -136,13 +136,13 @@ class BasicMenuBarUI extends BaseComponentUI , implements MenuElementUI{
 	
 	private function __childAdded(e:ContainerEvent):Void{
 		if (Std.is(e.getChild() , JMenu)) {
-			AsWingUtils.as(e.getChild(),JMenu).addSelectionListener(__menuSelectionChanged);
+			cast(e.getChild(),JMenu).addSelectionListener(__menuSelectionChanged);
 		}
 	}
 	
 	private function __childRemoved(e:ContainerEvent):Void{
 		if(Std.is(e.getChild() , JMenu)){
-			AsWingUtils.as(e.getChild(),JMenu).removeSelectionListener(__menuSelectionChanged);
+			cast(e.getChild(),JMenu).removeSelectionListener(__menuSelectionChanged);
 		}
 	}
 }

@@ -45,14 +45,14 @@ class BasicButtonUI extends BaseComponentUI{
     }
     
 	override public function installUI(c:Component):Void{
-		button = AsWingUtils.as(c,AbstractButton);
+		button = cast(c,AbstractButton);
 		installDefaults(button);
 		installComponents(button);
 		installListeners(button);
 	}
     
 	override public function uninstallUI(c:Component):Void{
-		button = AsWingUtils.as(c,AbstractButton);
+		button = cast(c,AbstractButton);
 		uninstallDefaults(button);
 		uninstallComponents(button);
 		uninstallListeners(button);
@@ -169,7 +169,7 @@ class BasicButtonUI extends BaseComponentUI{
 
     override public function paint(c:Component, g:Graphics2D, r:IntRectangle):Void{
     	super.paint(c, g, r);
-    	var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
+    	var b:AbstractButton = cast(c,AbstractButton);
     	
     	var insets:Insets = b.getMargin();
     	if(insets != null){
@@ -375,12 +375,12 @@ class BasicButtonUI extends BaseComponentUI{
     }    
     
     override public function getPreferredSize(c:Component):IntDimension{
-    	var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
+    	var b:AbstractButton = cast(c,AbstractButton);
     	return getButtonPreferredSize(b, getIconToLayout(), b.getDisplayText());
     }
 
     override public function getMinimumSize(c:Component):IntDimension{
-    	var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
+    	var b:AbstractButton = cast(c,AbstractButton);
     	return getButtonMinimumSize(b, getIconToLayout(), b.getDisplayText());
     }
 

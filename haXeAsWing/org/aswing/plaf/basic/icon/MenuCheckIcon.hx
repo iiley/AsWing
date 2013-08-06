@@ -14,7 +14,7 @@ import org.aswing.plaf.UIResource;
 /**
  * @private
  */
-class MenuCheckIcon implements Icon,implements UIResource{
+class MenuCheckIcon implements Icon  implements UIResource{
 	
 	public function new(){
 	}

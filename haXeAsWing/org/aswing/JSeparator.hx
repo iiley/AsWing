@@ -19,7 +19,7 @@ import org.aswing.plaf.basic.BasicSeparatorUI;
  * 
  * @author paling
  */	
-class JSeparator extends Component , implements Orientable{
+class JSeparator extends Component  implements Orientable{
 	
     /** 
      * Horizontal orientation.

@@ -14,7 +14,7 @@ import org.aswing.event.SelectionEvent;
  * Default data model for list selections.
  * @author paling
  */
-class DefaultListSelectionModel extends EventDispatcher , implements ListSelectionModel{
+class DefaultListSelectionModel extends EventDispatcher  implements ListSelectionModel{
 
 	/**
 	 * Only can select one most item at a time.

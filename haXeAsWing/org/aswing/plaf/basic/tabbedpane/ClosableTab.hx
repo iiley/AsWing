@@ -7,7 +7,7 @@ import org.aswing.Component;
  * The closable tab has a close button.
  * @author paling
  */
-interface ClosableTab implements Tab{
+interface ClosableTab extends Tab{
 	
 	function getCloseButton():Component;
 	

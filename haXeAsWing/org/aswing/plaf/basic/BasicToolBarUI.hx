@@ -5,6 +5,9 @@
 package org.aswing.plaf.basic;
 
 	
+import flash.display.DisplayObject;
+import org.aswing.geom.IntRectangle;
+import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.BaseComponentUI;
 import org.aswing.Container;
 	import org.aswing.Component;
@@ -30,14 +33,14 @@ class BasicToolBarUI extends BaseComponentUI{
     }
     
 	override public function installUI(c:Component):Void{
-		bar = AsWingUtils.as(c,Container);
+		bar = cast(c,Container);
 		installDefaults();
 		installComponents();
 		installListeners();
 	}
     
 	override public function uninstallUI(c:Component):Void{
-		bar = AsWingUtils.as(c,Container);
+		bar = cast(c,Container);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();
@@ -78,7 +81,7 @@ class BasicToolBarUI extends BaseComponentUI{
  	}
  	
  	private function adaptChild(c:Component):Void{
-    	var btn:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+    	var btn:AbstractButton = cast(c,AbstractButton)	;
     	if(btn != null){
     		var bg:GroundDecorator = btn.getBackgroundDecorator();
     		if(bg != null){
@@ -90,10 +93,10 @@ class BasicToolBarUI extends BaseComponentUI{
  	}
  	
  	private function unadaptChild(c:Component):Void{
-    	var btn:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+    	var btn:AbstractButton = cast(c,AbstractButton)	;
     	if(btn != null){
     		btn.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, __propertyChanged);
-    		var bg:ToolBarButtonBgAdapter = AsWingUtils.as(btn.getBackgroundDecorator() , ToolBarButtonBgAdapter);
+    		var bg:ToolBarButtonBgAdapter = cast(btn.getBackgroundDecorator() , ToolBarButtonBgAdapter);
     		if(bg != null){
     			btn.setBackgroundDecorator(bg.getOriginalBg());
     		}
@@ -104,7 +107,7 @@ class BasicToolBarUI extends BaseComponentUI{
  	
  	private function __propertyChanged(e:PropertyChangeEvent):Void{
  		if(e.getPropertyName() == "backgroundDecorator"){
- 			var btn:AbstractButton = AsWingUtils.as(e.target,AbstractButton)	;
+ 			var btn:AbstractButton = cast(e.target,AbstractButton)	;
  			//var oldG:GroundDecorator = e.getOldValue();
  			var newG:GroundDecorator = e.getNewValue();
  			if(!(Std.is(newG,ToolBarButtonBgAdapter))){
@@ -127,21 +130,15 @@ class BasicToolBarUI extends BaseComponentUI{
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                 BG Decorator Adapter
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-import org.aswing.graphics.Graphics2D;
-import org.aswing.GroundDecorator;
-import org.aswing.geom.IntRectangle;
-import org.aswing.Component;
-import flash.display.DisplayObject;
-import org.aswing.AbstractButton;
-import org.aswing.plaf.UIResource;
+  
+  
 
 /**
  * This background adapter will invisible the original background, and visible it 
  * only when button be rollover.
  * @author paling
  */
-class ToolBarButtonBgAdapter implements GroundDecorator,implements UIResource{
+class ToolBarButtonBgAdapter implements GroundDecorator  implements UIResource{
 	
 	private var originalBg:GroundDecorator;
 	
@@ -153,11 +150,11 @@ class ToolBarButtonBgAdapter implements GroundDecorator,implements UIResource{
 		return originalBg;
 	}
 	
-	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):Void{
+	public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):Void{   
 		if(originalBg == null){
 			return;
 		}
-		var btn:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+		var btn:AbstractButton = cast(c,AbstractButton)	;
 		var needPaint:Bool= false;
 		if(btn == null || btn.getModel().isArmed() || btn.isSelected() 
 			|| (btn.getModel().isRollOver() && !btn.getModel().isPressed())){
@@ -173,7 +170,7 @@ class ToolBarButtonBgAdapter implements GroundDecorator,implements UIResource{
 	
 	public function getDisplay(c:Component):DisplayObject{
 		if(originalBg == null){
-			return null;
+			return null; 
 		}
 		return originalBg.getDisplay(c);
 	}

@@ -23,7 +23,7 @@ import org.aswing.plaf.basic.BasicGraphicsUtils;
  * The barIcon decorator for ProgressBar.
  * @private
  */
-class ProgressBarIcon implements GroundDecorator,implements UIResource{
+class ProgressBarIcon implements GroundDecorator  implements UIResource{
 	
 	private var shape:Shape;
 	private var indeterminatePercent:Float;
@@ -39,7 +39,7 @@ class ProgressBarIcon implements GroundDecorator,implements UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		if(Std.is(c,JProgressBar)){
-			var bar:JProgressBar =AsWingUtils.as(c, JProgressBar);
+			var bar:JProgressBar =cast(c, JProgressBar);
 			
 			b = b.clone();
 			var percent:Float;

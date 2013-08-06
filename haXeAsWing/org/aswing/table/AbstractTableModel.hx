@@ -291,7 +291,7 @@ class AbstractTableModel implements TableModel{
 		// Process the listeners last to first, notifying
 		// those that are interested in this event
 		for (i in 0...listenerList.length ){
-			var lis:TableModelListener = AsWingUtils.as(listenerList[i],TableModelListener);
+			var lis:TableModelListener = cast(listenerList[i],TableModelListener);
 			lis.tableChanged(e);
 		}
 	}

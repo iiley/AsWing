@@ -66,14 +66,14 @@ class BasicColorMixerUI extends BaseComponentUI {
     }
 	
     override public function installUI(c:Component):Void{
-		colorMixer = AsWingUtils.as(c,JColorMixer);
+		colorMixer = cast(c,JColorMixer);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		colorMixer = AsWingUtils.as(c,JColorMixer);
+		colorMixer = cast(c,JColorMixer);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

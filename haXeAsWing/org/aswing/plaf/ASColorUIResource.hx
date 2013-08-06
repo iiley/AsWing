@@ -11,7 +11,7 @@ import org.aswing.ASColor;
  * Color UI Resource.
  * @author paling
  */
-class ASColorUIResource extends ASColor , implements UIResource
+class ASColorUIResource extends ASColor   implements UIResource
 {
 	public function new(color:Int=0x000000, alpha:Float=1)
 	{

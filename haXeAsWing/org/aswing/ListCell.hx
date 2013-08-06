@@ -10,7 +10,7 @@ package org.aswing;
  * @see JList
  * @author paling
  */
-interface ListCell implements Cell{
+interface ListCell extends Cell{
 	/**
 	 * Sets the table cell status, include the owner-JList, isSelected, the cell index.
 	 * @param the cell's owner, a JList

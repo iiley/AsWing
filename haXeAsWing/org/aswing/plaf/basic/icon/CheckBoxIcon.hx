@@ -28,7 +28,7 @@ import org.aswing.graphics.GradientBrush;
 /**
  * @private
  */
-class CheckBoxIcon implements Icon,implements UIResource{    
+class CheckBoxIcon implements Icon  implements UIResource{    
 	
 	private var sprite:Sprite;
 	private var box:Sprite;
@@ -45,7 +45,7 @@ class CheckBoxIcon implements Icon,implements UIResource{
 	}
 		
 	public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
-		var b:AbstractButton = AsWingUtils.as(c,AbstractButton);
+		var b:AbstractButton = cast(c,AbstractButton);
 		var model:ButtonModel = b.getModel();
 		var drawDot:Bool= model.isSelected();
 		

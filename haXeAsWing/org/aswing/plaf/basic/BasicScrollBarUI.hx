@@ -75,14 +75,14 @@ class BasicScrollBarUI extends BaseComponentUI{
     }    	
     	
     override public function installUI(c:Component):Void{
-		scrollbar = AsWingUtils.as(c,JScrollBar);
+		scrollbar = cast(c,JScrollBar);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-		scrollbar =  AsWingUtils.as(c,JScrollBar);
+		scrollbar =  cast(c,JScrollBar);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

@@ -23,7 +23,7 @@ import org.aswing.AWKeyboard;
 /**
  * @author paling
  */
-class AbstractCellEditor implements CellEditor,implements TableCellEditor,implements TreeCellEditor{
+class AbstractCellEditor implements CellEditor implements   TableCellEditor implements  TreeCellEditor{
 	
 	private var listeners:Array<Dynamic>;
 	private var clickCountToStart:Int;
@@ -105,7 +105,7 @@ class AbstractCellEditor implements CellEditor,implements TableCellEditor,implem
 		com.requestFocus();
 		//if com is a container and can't has focus, then focus its first sub child.
 		if(Std.is(com,Container)&& !com.isFocusOwner()){
-			var con:Container = AsWingUtils.as(com,Container);
+			var con:Container = cast(com,Container);
 			var sub:Component;
 			sub = con.getFocusTraversalPolicy().getDefaultComponent(con);
 			if(sub != null) sub.requestFocus();
@@ -165,13 +165,13 @@ class AbstractCellEditor implements CellEditor,implements TableCellEditor,implem
 	
 	private function fireEditingStopped():Void{
 		for(i in 0...listeners.length ){
-			var l:CellEditorListener = AsWingUtils.as(listeners[i],CellEditorListener);
+			var l:CellEditorListener = cast(listeners[i],CellEditorListener);
 			l.editingStopped(this);
 		}
 	}
 	private function fireEditingCanceled():Void{
 		for(i in 0...listeners.length ){
-			var l:CellEditorListener =  AsWingUtils.as(listeners[i],CellEditorListener);
+			var l:CellEditorListener =  cast(listeners[i],CellEditorListener);
 			l.editingCanceled(this);
 		}
 	}

@@ -10,7 +10,7 @@ import org.aswing.ASFont;
  * Font UI Resource.
  * @author paling
  */
-class ASFontUIResource extends ASFont , implements UIResource
+class ASFontUIResource extends ASFont   implements UIResource
 {
 	public function new(name:String="Tahoma", size:Float=11, bold:Bool=false, italic:Bool=false, underline:Bool=false, embedFontsOrAdvancedPros:Dynamic=null)
 	{

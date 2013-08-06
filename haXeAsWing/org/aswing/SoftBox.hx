@@ -33,7 +33,7 @@ class SoftBox extends JPanel {
 	 * @param axis the new axis
 	 */
 	public function setAxis(axis:Int):Void{
-		AsWingUtils.as(getLayout(),SoftBoxLayout).setAxis(axis);
+		cast(getLayout(),SoftBoxLayout).setAxis(axis);
 	}
 
 	/**
@@ -41,7 +41,7 @@ class SoftBox extends JPanel {
 	 * @return axis 
 	 */
 	public function getAxis():Int{
-		return AsWingUtils.as(getLayout(),SoftBoxLayout).getAxis();
+		return cast(getLayout(),SoftBoxLayout).getAxis();
 	}
 
 	/**
@@ -49,7 +49,7 @@ class SoftBox extends JPanel {
 	 * @param gap the new gap
 	 */
 	public function setGap(gap:Int):Void{
-		AsWingUtils.as(getLayout(),SoftBoxLayout).setGap(gap);
+		cast(getLayout(),SoftBoxLayout).setGap(gap);
 	}
 
 	/**
@@ -57,7 +57,7 @@ class SoftBox extends JPanel {
 	 * @return gap 
 	 */
 	public function getGap():Int{
-		return AsWingUtils.as(getLayout(),SoftBoxLayout).getGap();
+		return cast(getLayout(),SoftBoxLayout).getGap();
 	}
 	
 	/**
@@ -65,7 +65,7 @@ class SoftBox extends JPanel {
 	 * @param align the new align
 	 */
 	public function setAlign(align:Int):Void{
-		AsWingUtils.as(getLayout(),SoftBoxLayout).setAlign(align);
+		cast(getLayout(),SoftBoxLayout).setAlign(align);
 	}
 
 	/**
@@ -73,7 +73,7 @@ class SoftBox extends JPanel {
 	 * @return align 
 	 */
 	public function getAlign():Int{
-		return AsWingUtils.as(getLayout(),SoftBoxLayout).getAlign();
+		return cast(getLayout(),SoftBoxLayout).getAlign();
 	}	
 	
 	/**

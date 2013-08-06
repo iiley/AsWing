@@ -46,7 +46,7 @@ class BasicTableHeaderUI extends BaseComponentUI{
 	}
 	
 	override public function installUI(c:Component):Void{
-		header =AsWingUtils.as(c, JTableHeader);
+		header =cast(c, JTableHeader);
 		installDefaults();
 		installComponents();
 		installListeners();
@@ -278,7 +278,7 @@ class BasicTableHeaderUI extends BaseComponentUI{
 	private static function setCellComponentProperties(com:Component):Void{
 		com.setFocusable(false);
 		if(Std.is(com,Container)){
-			var con:Container = AsWingUtils.as(com,Container);
+			var con:Container = cast(com,Container);
 			for(i in 0...con.getComponentCount()){
 				setCellComponentProperties(con.getComponent(i));
 			}
@@ -287,7 +287,7 @@ class BasicTableHeaderUI extends BaseComponentUI{
 	
 	private function removeAllCells():Void{
 		for(i in 0...cells.length){
-			var cell:TableCell = AsWingUtils.as(cells[i],TableCell);
+			var cell:TableCell = cast(cells[i],TableCell);
 			cell.getCellComponent().removeFromContainer();
 		}
 		cells = new Array<Dynamic>();
@@ -323,7 +323,7 @@ class BasicTableHeaderUI extends BaseComponentUI{
 		var width:Int= 0;
 		var enumeration:Array<Dynamic>= header.getColumnModel().getColumns();
 		for(i in 0...enumeration.length){
-			var aColumn:TableColumn = AsWingUtils.as(enumeration[i],TableColumn);
+			var aColumn:TableColumn = cast(enumeration[i],TableColumn);
 			width = width + aColumn.getPreferredWidth();
 		}
 		return createHeaderSize(width);

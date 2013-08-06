@@ -184,9 +184,9 @@ class AbstractTabbedPane extends Container{
 		if(constraints == null){
 			title = com.getName();
 		}else if(Std.is(constraints , String)){
-			title = AsWingUtils.as(constraints , String);
+			title = cast(constraints , String);
 		}else if(Std.is(constraints,Icon)){
-			icon =AsWingUtils.as(constraints, Icon);
+			icon =cast(constraints, Icon);
 		}else{
 			title = constraints.toString();
 		}
@@ -400,7 +400,7 @@ class AbstractTabbedPane extends Container{
 	 * @return the tab icon
 	 */	
 	public function getIconAt(i:Int):Icon{
-		return AsWingUtils.as(icons[i],Icon);
+		return cast(icons[i],Icon);
 	}
 	
 	/**

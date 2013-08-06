@@ -178,7 +178,7 @@ class Component extends AWSprite{
 	private static var AWML_INDEX:Int= 0;
 	private var ui:ComponentUI;
 	public var container:Container;
-	private var clientProperty:Hash<Dynamic>;
+	private var clientProperty:Map<String,Dynamic>;
 	
 	private var awmlID:String;
 	private var awmlIndex:Int;
@@ -221,7 +221,7 @@ class Component extends AWSprite{
 	private var toolTipText:String;
 	private var dragEnabled:Bool;
 	private var dropTrigger:Bool;
-	private var dragAcceptableInitiator:IntHash<Bool>;
+	private var dragAcceptableInitiator:Map<Int,Bool>;
 	private var dragAcceptableInitiatorAppraiser:Dynamic->Bool;
 	private var resizerMargin:Insets;
 	
@@ -268,11 +268,11 @@ class Component extends AWSprite{
 	
 	private function __componentAdded(e:Event):Void{
 		if(isUIElement()){
-			var dis:DisplayObject = AsWingUtils.as(e.target,DisplayObject)	;
+			var dis:DisplayObject = cast(e.target,DisplayObject)	;
 			if(dis != null){
 				if(dis != this){
 					if(AsWingUtils.getOwnerComponent(dis.parent) == this){
-						makeAllTobeUIElement(AsWingUtils.as(e.target,DisplayObject)	);
+						makeAllTobeUIElement(cast(e.target,DisplayObject)	);
 					}
 				}
 			}
@@ -284,11 +284,11 @@ class Component extends AWSprite{
 			return;
 		}
 		if(Std.is(dis,Component)){
-			var c:Component = AsWingUtils.as(dis,Component)	;
+			var c:Component = cast(dis,Component)	;
 			c.uiElement = true;
 		}
 		if(Std.is(dis,DisplayObjectContainer)){
-			var con:DisplayObjectContainer = AsWingUtils.as(dis,DisplayObjectContainer)	;
+			var con:DisplayObjectContainer = cast(dis,DisplayObjectContainer)	;
 			for(i in 0...con.numChildren ){
 				makeAllTobeUIElement(con.getChildAt(i));
 			}
@@ -933,7 +933,7 @@ class Component extends AWSprite{
 		}else if(getParent() != null){
         	return getParent();
         }else if(Std.is(parent,Component)){
-        	return  AsWingUtils.as(parent,Component);
+        	return  cast(parent,Component);
         }else{
         	return null;
         }	
@@ -1481,7 +1481,7 @@ class Component extends AWSprite{
 	 */
 	public function addDragAcceptableInitiator(com:Component):Void{
 		if(dragAcceptableInitiator == null){
-			dragAcceptableInitiator = new IntHash<Bool>();
+			dragAcceptableInitiator = new Map<Int,Bool>();
 		}
 		  dragAcceptableInitiator.set(com.getAwmlIndex(), true);
 	}
@@ -1757,7 +1757,7 @@ class Component extends AWSprite{
     public function putClientProperty(key:String, value:Dynamic):Void{
     	//Lazy initialization
     	if(clientProperty == null){
-    		clientProperty = new Hash<Dynamic>();
+    		clientProperty = new Map<String,Dynamic>();
     	}
     	clientProperty.set(key, value);
     }
@@ -2400,7 +2400,7 @@ class Component extends AWSprite{
 		var pa:DisplayObject = parent;
 		while(pa != null){
 			if(Std.is(pa,JRootPane)){
-				return AsWingUtils.as(pa,JRootPane)	;
+				return cast(pa,JRootPane)	;
 			}
 			pa = pa.parent;
 		}
@@ -2480,7 +2480,7 @@ class Component extends AWSprite{
     private function transferFocusWithDirection(dir:Float):Bool{
         var pa:Container = getParent();
         if(pa == null){
-        	pa = AsWingUtils.as(this , Container);
+        	pa = cast(this , Container);
         }
         if(pa != null){
         	var nextFocus:Component = null;
@@ -2680,7 +2680,7 @@ class Component extends AWSprite{
 			return;
 		}
 		var focusOwner:Component = fm.getFocusOwner();
-		var target:DisplayObject = AsWingUtils.as(e.target,DisplayObject)	;
+		var target:DisplayObject = cast(e.target,DisplayObject)	;
 		if(focusOwner == null){
 			var focusObj:InteractiveObject = null;
 			#if (flash9)
@@ -2767,22 +2767,22 @@ class Component extends AWSprite{
 		return  Reflection.getClassName(this)+ "[asset:" +super.toString()  + "]";
 	}
 */
-	public var d_y(get_d_y,set_d_y):Float;
+	public var d_y (get, set):Float;
 
-	public var d_x(get_d_x, set_d_x):Float;
-	public var d_visible(get_d_visible, set_d_visible):Bool;
+	public var d_x (get, set):Float;
+	public var d_visible (get, set):Bool;
 	/*
 	 
-	public var height(get_height,set_height):Float;
+	public var height (get, set):Float;
 
-	public var width(get_width,set_width):Float;
+	public var width (get, set):Float;
 
-	public var y(get_y,set_y):Float;
+	public var y (get, set):Float;
 
-	public var x(get_x,set_x):Float;
+	public var x (get, set):Float;
 
 
 
-	public var visible(get_visible,set_visible):Bool;
+	public var visible (get, set):Bool;
 	 */
 }

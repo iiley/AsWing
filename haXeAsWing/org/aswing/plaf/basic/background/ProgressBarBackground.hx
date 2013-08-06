@@ -22,7 +22,7 @@ import org.aswing.plaf.UIResource;
 /**
  * @private
  */
-class ProgressBarBackground implements GroundDecorator,implements UIResource{
+class ProgressBarBackground implements GroundDecorator  implements UIResource{
 	
 	private var shape:Shape;
 	
@@ -36,7 +36,7 @@ class ProgressBarBackground implements GroundDecorator,implements UIResource{
 	
 	public function updateDecorator(c:Component, g:Graphics2D, b:IntRectangle):Void{
 		if(Std.is(c,Orientable)&& c.isOpaque()){
-			var bar:Orientable = AsWingUtils.as(c,Orientable)	;
+			var bar:Orientable = cast(c,Orientable)	;
 			var verticle:Bool= (bar.getOrientation() == AsWingConstants.VERTICAL);
 			shape.graphics.clear();
 			var style:StyleTune = c.getStyleTune();

@@ -166,7 +166,7 @@ import org.aswing.EmptyLayout;
 			return ;
 		}
 		var bounds:IntRectangle = insets.getInsideBounds(target.getSize().getBounds());
-		var list:GridList = AsWingUtils.as(target,GridCellHolder).getList();
+		var list:GridList = cast(target,GridCellHolder).getList();
 		if(list.isTracksWidth() || list.isTracksHeight()){
 			if(list.isTracksHeight()){
 				nrows = Math.floor((bounds.height+vgap)/(tileHeight+vgap));

@@ -55,7 +55,7 @@ class BasicMenuUI extends BasicMenuItemUI{
 	}		
 	
 	private function getMenu():JMenu{
-		return AsWingUtils.as(menuItem,JMenu);
+		return cast(menuItem,JMenu);
 	}
 	
 	/*

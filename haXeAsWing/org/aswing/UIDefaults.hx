@@ -3,8 +3,8 @@
 */
 
 package org.aswing;
-
-	
+import haxe.ds.StringMap;
+import org.aswing.util.HashMap;
 import org.aswing.plaf.ComponentUI; 
 import org.aswing.plaf.EmptyUIResources;
 import org.aswing.resizer.ResizerController;
@@ -15,9 +15,9 @@ import org.aswing.resizer.ResizerController;
  * @see UIManager
  * @author paling
  */
-class UIDefaults extends  Hash<Dynamic>
+class UIDefaults  extends  StringMap <Dynamic>
 {
-	public function new()
+	public function new()   
 	{
 		super();
 	}
@@ -28,14 +28,15 @@ class UIDefaults extends  Hash<Dynamic>
      * Puts all of the key/value pairs in the database.
      * @param keyValueList  an array of key/value pairs
      * @see #put()
-     * @see org.aswing.utils.Hashtable#put()
+     * @see org.aswing.utils.Maptable#put()
      */
 	public function putDefaults(keyValueList:Array<Dynamic>):Void {
 	 
 			var i:Int = 0; 
 	
-		while (i<keyValueList.length){
-             set(keyValueList[i],keyValueList[i + 1]);
+		while (i < keyValueList.length) {
+			var key:String = Std.string(keyValueList[i]);
+             set(key,keyValueList[i + 1]);
             
 			 i += 2;
         }
@@ -46,9 +47,9 @@ class UIDefaults extends  Hash<Dynamic>
 	 * @return target's UI object, or null if there is not his UI object
 	 */
 	public function getUI(target:Component):ComponentUI{
-		var ui:ComponentUI = AsWingUtils.as(getInstance(target.getUIClassID()) , ComponentUI);
+		var ui:ComponentUI = cast(getInstance(target.getUIClassID()) , ComponentUI);
 		if(ui == null){
-			ui = AsWingUtils.as(getCreateInstance(target.getDefaultBasicUIClass()) , ComponentUI);
+			ui = cast(getCreateInstance(target.getDefaultBasicUIClass()) , ComponentUI);
 		}
 		return ui;
 	}
@@ -58,23 +59,23 @@ class UIDefaults extends  Hash<Dynamic>
 	}
 	
 	public function getNumber(key:String):Float{
-		return AsWingUtils.as(this.get(key) , Float);
+		return cast(this.get(key) , Float);
 	}
 	
 	public function getInt(key:String):Int{
-		return AsWingUtils.as(this.get(key) , Int);
+		return cast(this.get(key) , Int);
 	}
 	
 	public function getUint(key:String):Int{
-		return AsWingUtils.as(this.get(key) , Int);
+		return cast(this.get(key) , Int);
 	}
 	
 	public function getString(key:String):String{
-		return AsWingUtils.as(this.get(key) , String);
+		return cast(this.get(key) , String);
 	}
 	
 	public function getBorder(key:String):Border{
-		var border:Border = AsWingUtils.as(getInstance(key) , Border);
+		var border:Border = cast(getInstance(key) , Border);
 		if(border == null){
 			border = EmptyUIResources.BORDER; //make it to be an ui resource then can override by next LAF
 		
@@ -83,7 +84,7 @@ class UIDefaults extends  Hash<Dynamic>
 	}
 	
 	public function getIcon(key:String):Icon{
-		var icon:Icon = AsWingUtils.as(getInstance(key) , Icon);
+		var icon:Icon = cast(getInstance(key) , Icon);
 		if(icon == null){
 			icon = EmptyUIResources.ICON; //make it to be ui resource property then can override by next LAF
 		}
@@ -91,7 +92,7 @@ class UIDefaults extends  Hash<Dynamic>
 	}
 	
 	public function getGroundDecorator(key:String):GroundDecorator{
-		var dec:GroundDecorator = AsWingUtils.as(getInstance(key) , GroundDecorator);
+		var dec:GroundDecorator = cast(getInstance(key) , GroundDecorator);
 		if(dec == null){
 			dec = EmptyUIResources.DECORATOR; //make it to be ui resource property then can override by next LAF
 		}
@@ -99,7 +100,7 @@ class UIDefaults extends  Hash<Dynamic>
 	}
 	
 	public function getColor(key:String):ASColor{
-		var color:ASColor = AsWingUtils.as(getInstance(key) , ASColor);
+		var color:ASColor = cast(getInstance(key) , ASColor);
 		if(color == null){
 			color = EmptyUIResources.COLOR; //make it to be an ui resource then can override by next LAF
 		}
@@ -107,7 +108,7 @@ class UIDefaults extends  Hash<Dynamic>
 	}
 	
 	public function getFont(key:String):ASFont{
-		var font:ASFont = AsWingUtils.as(getInstance(key) , ASFont);
+		var font:ASFont = cast(getInstance(key) , ASFont);
 		if(font == null){
 			font = EmptyUIResources.FONT; //make it to be an ui resource then can override by next LAF
 		}
@@ -115,7 +116,7 @@ class UIDefaults extends  Hash<Dynamic>
 	}
 	
 	public function getInsets(key:String):Insets{
-		var i:Insets = AsWingUtils.as(getInstance(key) , Insets);
+		var i:Insets = cast(getInstance(key) , Insets);
 		if(i == null){
 			i = EmptyUIResources.INSETS; //make it to be an ui resource then can override by next LAF
 		}
@@ -123,7 +124,7 @@ class UIDefaults extends  Hash<Dynamic>
 	}
 	
 	public function getStyleTune(key:String):StyleTune{
-		var i:StyleTune = AsWingUtils.as(getInstance(key) , StyleTune);
+		var i:StyleTune = cast(getInstance(key) , StyleTune);
 		if(i == null){
 			i = EmptyUIResources.STYLE_TUNE; //make it to be an ui resource then can override by next LAF
 		}
@@ -132,13 +133,13 @@ class UIDefaults extends  Hash<Dynamic>
 	
 	//-------------------------------------------------------------
 	public function getConstructor(key:String):Dynamic{
-		return AsWingUtils.as(this.get(key) , Class);
+		return this.get(key); 
 	}
 	
 	public function getInstance(key:String):Dynamic{
 		var value:Dynamic= this.get(key);
 		if(Std.is(value,Class)){
-			return getCreateInstance(AsWingUtils.as(value,Class)	);
+			return getCreateInstance( value 	);
 		}else{
 			return value;
 		}

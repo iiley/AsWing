@@ -14,7 +14,7 @@ import org.aswing.JTextField;
  * @see org.aswing.JAdjuster
  * @author paling
  */
-interface AdjusterUI implements ComponentUI{
+interface AdjusterUI extends ComponentUI{
 	
 	function getInputText():JTextField;
 	

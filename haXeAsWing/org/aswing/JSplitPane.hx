@@ -52,7 +52,7 @@ import org.aswing.event.InteractiveEvent;
  * 
  * @author paling
  */	
-class JSplitPane extends Container , implements Orientable{
+class JSplitPane extends Container  implements Orientable{
 	
     /**
      * Vertical split indicates the <code>Component</code>s are
@@ -396,7 +396,7 @@ class JSplitPane extends Container , implements Orientable{
      * the divider location.
      */
     public function resetToPreferredSizes():Void{
-        var ui:SplitPaneUI = AsWingUtils.as(getUI() , SplitPaneUI);
+        var ui:SplitPaneUI = cast(getUI() , SplitPaneUI);
         if (ui != null) {
             ui.resetToPreferredSizes(this);
         }

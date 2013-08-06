@@ -22,11 +22,11 @@ class Row{
 
     public function compareTo(o:Dynamic):Int{
         var row1:Int= modelIndex;
-        var row2:Int= (AsWingUtils.as(o,Row)).modelIndex;
+        var row2:Int= (cast(o,Row)).modelIndex;
 		var sortingColumns:Array<Dynamic>= tableSorter.getSortingColumns();
 		var tableModel:TableModel = tableSorter.getTableModel();
         for (i in 0...sortingColumns.length){
-            var directive:Directive = AsWingUtils.as(sortingColumns[i],Directive);
+            var directive:Directive = cast(sortingColumns[i],Directive);
             var column:Int= directive.column;
             var o1:Dynamic= tableModel.getValueAt(row1, column);
             var o2:Dynamic= tableModel.getValueAt(row2, column);

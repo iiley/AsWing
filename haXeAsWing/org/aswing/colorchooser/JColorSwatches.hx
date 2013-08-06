@@ -36,6 +36,6 @@ class JColorSwatches extends AbstractColorChooserPanel {
 	 * @param com the component to be added
 	 */
 	public function addComponentColorSectionBar(com:Component):Void{
-		AsWingUtils.as(getUI(),ColorSwatchesUI).addComponentColorSectionBar(com);
+		cast(getUI(),ColorSwatchesUI).addComponentColorSectionBar(com);
 	}
 }

@@ -11,7 +11,7 @@ import org.aswing.Insets;
  * Insets UI Resource.
  * @author paling
  */
-class InsetsUIResource extends Insets , implements UIResource
+class InsetsUIResource extends Insets   implements UIResource
 {
 	public function new(top:Int=0, left:Int=0, bottom:Int=0, right:Int=0)
 	{

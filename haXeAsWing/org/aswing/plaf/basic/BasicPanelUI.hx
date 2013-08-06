@@ -23,12 +23,12 @@ class BasicPanelUI extends BaseComponentUI
 	}
 	
 	override public function installUI(c:Component):Void{
-		var p:JPanel = AsWingUtils.as(c,JPanel);
+		var p:JPanel = cast(c,JPanel);
 		installDefaults(p);
 	}
 
 	override public function uninstallUI(c:Component):Void{
-		var p:JPanel = AsWingUtils.as(c,JPanel);
+		var p:JPanel = cast(c,JPanel);
 		uninstallDefaults(p);
 	}
 

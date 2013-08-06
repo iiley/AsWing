@@ -161,9 +161,9 @@ class JScrollPane extends Container{
 		Std.is(viewOrViewport, JTextArea)||
 		Std.is(viewOrViewport, JTable) 
 		) { 
-			setViewport(AsWingUtils.as(viewOrViewport,Viewportable));
+			setViewport(cast(viewOrViewport,Viewportable));
 		}else if(Std.is(viewOrViewport,Component)){
-			setViewportView(AsWingUtils.as(viewOrViewport,Component));
+			setViewportView(cast(viewOrViewport,Component));
 		}else  {
 			throw new  Error("Only accept Component or Viewportable instance here!");
 		}
@@ -186,7 +186,7 @@ class JScrollPane extends Container{
      * @see org.aswing.JViewport#setView()
      */
 	public function setViewportView(view:Component):Void{
-		var jviewport:JViewport = AsWingUtils.as(getViewport() , JViewport);
+		var jviewport:JViewport = cast(getViewport() , JViewport);
 		if(jviewport != null){
 			jviewport.setView(view);
 		}else{
@@ -199,7 +199,7 @@ class JScrollPane extends Container{
 	 * is a JViewport instance, otherwise, null will be returned.
 	 */
 	public function getViewportView():Component{
-		var jviewport:JViewport = AsWingUtils.as(getViewport() , JViewport);
+		var jviewport:JViewport = cast(getViewport() , JViewport);
 		if(jviewport != null){
 			return jviewport.getView();
 		}else{
@@ -278,7 +278,7 @@ class JScrollPane extends Container{
 	 */
 	private function __onBarScroll(e:InteractiveEvent):Void{
 		dispatchEvent(new ScrollPaneEvent(ScrollPaneEvent.SCROLLBAR_STATE_CHANGED, 
-		e.isProgrammatic(), AsWingUtils.as(e.target,JScrollBar), false));
+		e.isProgrammatic(), cast(e.target,JScrollBar), false));
 	}
 		
 	/**

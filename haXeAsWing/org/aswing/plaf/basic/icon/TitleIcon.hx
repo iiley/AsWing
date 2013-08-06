@@ -21,7 +21,7 @@ import flash.display.Shape;
  * @author paling
  * @private
  */
-class TitleIcon implements Icon,implements UIResource{
+class TitleIcon implements Icon implements UIResource{
 	
 	private static var WIDTH:Int= 16;
 	private static var HEIGHT:Int= 12;

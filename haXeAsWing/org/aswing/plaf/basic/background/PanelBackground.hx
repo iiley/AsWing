@@ -10,7 +10,7 @@ import org.aswing.graphics.Graphics2D;
 import org.aswing.graphics.SolidBrush;
 import org.aswing.plaf.UIResource;
 
-class PanelBackground implements GroundDecorator,implements UIResource{
+class PanelBackground implements GroundDecorator  implements UIResource{
 	
 	public function new(){
 	}

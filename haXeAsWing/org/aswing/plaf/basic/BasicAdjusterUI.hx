@@ -39,7 +39,7 @@ import org.aswing.plaf.basic.icon.ArrowIcon;
  * @author paling
  * @private
  */
-class BasicAdjusterUI extends BaseComponentUI , implements AdjusterUI{
+class BasicAdjusterUI extends BaseComponentUI  implements AdjusterUI{
 	
 	private var adjuster:JAdjuster;
 	private var arrowButton:Component;
@@ -68,14 +68,14 @@ class BasicAdjusterUI extends BaseComponentUI , implements AdjusterUI{
 	}
 	
     override public function installUI(c:Component):Void{
-    	adjuster =      AsWingUtils.as(c,JAdjuster);
+    	adjuster =      cast(c,JAdjuster);
 		installDefaults();
 		installComponents();
 		installListeners();
     }
     
 	override public function uninstallUI(c:Component):Void{
-    	adjuster = AsWingUtils.as(c,JAdjuster);
+    	adjuster = cast(c,JAdjuster);
 		uninstallDefaults();
 		uninstallComponents();
 		uninstallListeners();

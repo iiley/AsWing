@@ -73,7 +73,7 @@ class Arrow implements Icon{
 		var style:StyleResult;
 		var adjuster:StyleTune = c.getStyleTune().mide;
 		if(Std.is(c,AbstractButton)){
-			var b:AbstractButton = AsWingUtils.as(c,AbstractButton)	;
+			var b:AbstractButton = cast(c,AbstractButton)	;
 			var model:ButtonModel = b.getModel();
 	    	var isPressing:Bool= model.isArmed() || model.isSelected();
     		var hue:Float= cl.getHue();

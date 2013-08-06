@@ -23,33 +23,33 @@ import org.aswing.Icon;
  * 
  * @author paling
  */
-class DefaultEmptyDecoraterResource implements Icon,implements Border,implements GroundDecorator,implements UIResource
+class DefaultEmptyDecoraterResource implements Icon   implements Border implements GroundDecorator  implements UIResource
 {
 	/**
 	 * Shared instance.
 	 */
-	inline public static var INSTANCE:DefaultEmptyDecoraterResource = new DefaultEmptyDecoraterResource();
+	 public static var INSTANCE:DefaultEmptyDecoraterResource = new DefaultEmptyDecoraterResource();
 	
-	inline public static var DEFAULT_BACKGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0);
-	inline public static var DEFAULT_FOREGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0xFFFFFF);
-	inline public static var DEFAULT_MIDEGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0x1987FF);
-	inline public static var DEFAULT_FONT:ASFontUIResource = new ASFontUIResource();
-	inline public static var DEFAULT_STYLE_TUNE:UIStyleTune = new UIStyleTune();		
+	 public static var DEFAULT_BACKGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0);
+	 public static var DEFAULT_FOREGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0xFFFFFF);
+	 public static var DEFAULT_MIDEGROUND_COLOR:ASColorUIResource = new ASColorUIResource(0x1987FF);
+	 public static var DEFAULT_FONT:ASFontUIResource = new ASFontUIResource();
+	 public static var DEFAULT_STYLE_TUNE:UIStyleTune = new UIStyleTune();		
 	
 	/**
 	 * Used to be a null ui resource color. it is not a UIResource instance, so can't be replace by another LAF.
 	 */
-	inline public static var NULL_COLOR:ASColor = new ASColor(0);
+	 public static var NULL_COLOR:ASColor = new ASColor(0);
 	
 	/**
 	 * Used to be a null ui resource font. it is not a UIResource instance, so can't be replace by another LAF.
 	 */
-	inline public static var NULL_FONT:ASFont = new ASFont();
+	 public static var NULL_FONT:ASFont = new ASFont();
 	
 	/**
 	 * Used to be a null ui resource style tune. it is not a UIResource instance, so can't be replace by another LAF.
 	 */
-	inline public static var NULL_STYLE_TUNE:StyleTune = new StyleTune(0, 0, 0);
+	 public static var NULL_STYLE_TUNE:StyleTune = new StyleTune(0, 0, 0);
 	
 	public function new(){
 	}

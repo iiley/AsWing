@@ -150,7 +150,11 @@ class JPopup extends JRootPane{
 	 * @return the owner.
 	 */
 	public function getPopupOwner():JPopup{
-		return AsWingUtils.as(owner,JPopup)	;
+		if ( Std.is(owner, JPopup))
+		{
+			return cast(owner,JPopup)	;
+		}
+		return null;
 	}
 	
 	/**
@@ -158,7 +162,7 @@ class JPopup extends JRootPane{
 	 * @return the owner.
 	 */
 	public function getDisplayOwner():DisplayObjectContainer{
-		return AsWingUtils.as(owner,DisplayObjectContainer)	;
+		return cast(owner,DisplayObjectContainer)	;
 	}
 	
 	/**
@@ -437,7 +441,7 @@ class JPopup extends JRootPane{
 			var pv:ArrayList = fm.getPopupsVector();
 			var n:Int= pv.size();
 			for(i in 0...n){
-				var w:JPopup = AsWingUtils.as(pv.get(i),JPopup);
+				var w:JPopup = cast(pv.get(i),JPopup);
 				if(w.getOwner() == owner){
 					ws.push(w);
 				}
@@ -516,11 +520,11 @@ class JPopup extends JRootPane{
 	
 	private function equipPopupContents():Void{
 		if(Std.is(owner,JPopup)){
-			var jwo:JPopup = AsWingUtils.as(owner,JPopup);
+			var jwo:JPopup = cast(owner,JPopup);
 			jwo.ground_mc.addChild(ground_mc);
 			jwo.addOwnedEquipedPopup(this);
 		}else if(Std.is(owner,DisplayObjectContainer)){
-			var ownerMC:DisplayObjectContainer = AsWingUtils.as(owner,DisplayObjectContainer);
+			var ownerMC:DisplayObjectContainer = cast(owner,DisplayObjectContainer);
 			ownerMC.addChild(ground_mc);
 		}else{
 			throw new  Error(this + " JPopup's owner is not a mc or JPopup, owner is : " + owner);
