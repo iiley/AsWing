@@ -81,8 +81,9 @@ class BasicToolBarUI extends BaseComponentUI{
  	}
  	
  	private function adaptChild(c:Component):Void{
-    	var btn:AbstractButton = cast(c,AbstractButton)	;
-    	if(btn != null){
+    	
+    	if (Std.is(c,AbstractButton)	) {
+			var btn:AbstractButton = cast(c,AbstractButton)	;
     		var bg:GroundDecorator = btn.getBackgroundDecorator();
     		if(bg != null){
     			var bgAdapter:ToolBarButtonBgAdapter = new ToolBarButtonBgAdapter(bg);
@@ -93,8 +94,9 @@ class BasicToolBarUI extends BaseComponentUI{
  	}
  	
  	private function unadaptChild(c:Component):Void{
-    	var btn:AbstractButton = cast(c,AbstractButton)	;
-    	if(btn != null){
+    
+    	if (Std.is(c, AbstractButton)	) {
+				var btn:AbstractButton = cast(c,AbstractButton)	;
     		btn.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, __propertyChanged);
     		var bg:ToolBarButtonBgAdapter = cast(btn.getBackgroundDecorator() , ToolBarButtonBgAdapter);
     		if(bg != null){

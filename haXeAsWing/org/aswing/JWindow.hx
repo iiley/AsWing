@@ -366,16 +366,19 @@ class JWindow extends JPopup{
 		}
 		actived = true;
 		var vec:ArrayList = fm.getPopupsVector();
-		for(i in 0...vec.size()){
-			var w:JWindow =cast( vec.get(i) , JWindow);
-			if(w != null && w != this){
-				if(w.isActive()){
-					w.deactive(w.stage, programmatic);
-					if(w.isShowing()){
-						setLootActiveFrom(w);
-					}
+		for (i in 0...vec.size()) {
+				if (Std.is( vec.get(i) , JWindow)) {
+				var w:JWindow =cast( vec.get(i) , JWindow);
+					if(w != null && w != this){
+						if(w.isActive()){
+							w.deactive(w.stage, programmatic);
+							if(w.isShowing()){
+								setLootActiveFrom(w);
+							}
+						}
+					}	
 				}
-			}
+			
 		}
 		fm.setActiveWindow(this);
 		focusAtThisWindow();
