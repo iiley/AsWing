@@ -15,7 +15,7 @@ import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.DefaultsDecoratorBase;
 import org.aswing.plaf.UIResource;
 
-class SkinFrameBackground extends DefaultsDecoratorBase , implements GroundDecorator , implements UIResource {
+class SkinFrameBackground extends DefaultsDecoratorBase   implements GroundDecorator   implements UIResource {
 	
 	private var imageContainer:Sprite;
 	private var activeBG:DisplayObject;

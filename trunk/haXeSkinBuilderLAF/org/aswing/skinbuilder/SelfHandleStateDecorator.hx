@@ -18,7 +18,7 @@ import flash.events.Event;
 import flash.display.DisplayObject;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.plaf.UIResource;
-class SelfHandleStateDecorator extends DefaultsDecoratorBase , implements GroundDecorator , implements Icon ,implements UIResource{
+class SelfHandleStateDecorator extends DefaultsDecoratorBase   implements GroundDecorator   implements Icon  implements UIResource{
 	
     private var thumb:ButtonStateObject;
     

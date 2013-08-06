@@ -8,7 +8,7 @@ import org.aswing.geom.IntDimension;
 import org.aswing.event.ResizedEvent;
 import org.aswing.Component;	
 
-class SkinClosableTabbedPaneTab extends SkinTabbedPaneTab , implements ClosableTab{
+class SkinClosableTabbedPaneTab extends SkinTabbedPaneTab   implements ClosableTab{
 	
 	private var closeButton:JButton;
 	private var closeButtonSize:IntDimension;

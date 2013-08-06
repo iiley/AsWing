@@ -10,7 +10,7 @@ import org.aswing.Component;
 /**
  * blank bg.
  */
-class SkinFrameTitleBarBG implements GroundDecorator , implements UIResource {
+class SkinFrameTitleBarBG implements GroundDecorator   implements UIResource {
 	public function new()
 		{
 	 

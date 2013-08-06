@@ -21,7 +21,7 @@ import flash.display.DisplayObject;
  * if they are defined in the assets properties.
  * @author iiley
  */
-class SkinButtonIcon extends DefaultsDecoratorBase , implements Icon , implements UIResource {
+class SkinButtonIcon extends DefaultsDecoratorBase   implements Icon  implements UIResource {
 	
 	private var forceWidth:Int;
 	private var forceHeight:Int;

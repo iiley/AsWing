@@ -16,7 +16,7 @@ import org.aswing.Component;
 import org.aswing.GroundDecorator;
 import org.aswing.graphics.Graphics2D; 
 import flash.display.DisplayObject;
-class SkinProgressBarForeground extends DefaultsDecoratorBase , implements GroundDecorator , implements UIResource {
+class SkinProgressBarForeground extends DefaultsDecoratorBase   implements GroundDecorator   implements UIResource {
 
 	private var verticalImage:DisplayObject;
 	private var horizotalImage:DisplayObject;

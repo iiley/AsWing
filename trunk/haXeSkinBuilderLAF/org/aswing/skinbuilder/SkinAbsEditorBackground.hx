@@ -16,7 +16,7 @@ package org.aswing.skinbuilder;
 	import flash.display.DisplayObject;
 	import org.aswing.graphics.Graphics2D;
 	import org.aswing.plaf.UIResource;
-class SkinAbsEditorBackground extends DefaultsDecoratorBase , implements GroundDecorator , implements UIResource {
+class SkinAbsEditorBackground extends DefaultsDecoratorBase  implements GroundDecorator  implements UIResource {
 	
 	private var imageContainer:Sprite;
 	private var defaultImage:DisplayObject;
