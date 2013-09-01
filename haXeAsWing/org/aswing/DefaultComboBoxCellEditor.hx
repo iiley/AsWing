@@ -16,39 +16,40 @@ import org.aswing.event.AWEvent;
  * <p>
  * @author paling
  */
-class DefaultComboBoxCellEditor extends AbstractCellEditor{
-	
-	private var comboBox:JComboBox;
-	
-	public function new(){
-		super();
-		setClickCountToStart(1);
-	}
-	
-	public function getComboBox():JComboBox{
-		if(comboBox == null){
-			comboBox = new JComboBox();
-		}
-		return comboBox;
-	}
-	
- 	override public function getEditorComponent():Component{
- 		return getComboBox();
- 	}
-	
-	override public function getCellEditorValue():Dynamic{
-		return getComboBox().getSelectedItem();
-	}
-	
-    /**
-     * Sets the value of this cell. 
-     * @param value the new value of this cell
-     */
-	override private function setCellEditorValue(value:Dynamic):Void{
-		getComboBox().setSelectedItem(value);
-	}
-	
-	public function toString():String{
-		return "DefaultComboBoxCellEditor[]";
-	}
+class DefaultComboBoxCellEditor extends AbstractCellEditor {
+
+    private var comboBox:JComboBox;
+
+    public function new() {
+        super();
+        setClickCountToStart(1);
+    }
+
+    public function getComboBox():JComboBox {
+        if (comboBox == null) {
+            comboBox = new JComboBox();
+        }
+        return comboBox;
+    }
+
+    override public function getEditorComponent():Component {
+        return getComboBox();
+    }
+
+    override public function getCellEditorValue():Dynamic {
+        return getComboBox().getSelectedItem();
+    }
+
+/**
+ * Sets the value of this cell.
+ * @param value the new value of this cell
+ */
+
+    override private function setCellEditorValue(value:Dynamic):Void {
+        getComboBox().setSelectedItem(value);
+    }
+
+    public function toString():String {
+        return "DefaultComboBoxCellEditor[]";
+    }
 }
