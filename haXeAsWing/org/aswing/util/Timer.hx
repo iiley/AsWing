@@ -53,7 +53,7 @@ if (Math.isNaN (delay) || delay < 0)
 throw new Error ("The delay specified is negative or not a finite number");
 }
 
-super (delay, repeatNum);
+super (delay, repeatsNum);
 
 currentCount = 0;
 }
