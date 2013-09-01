@@ -28,7 +28,7 @@ private var repeatCount:Int;
 public function new(delay:Int, ?repeatsNum:Int = 0){
 this.delay = delay;
 this.initialDelay = 0;
-this.repeats = repeats;
+this.repeats = repeatsNum;
 this.isInitalFire = true;
 repeatCount = repeatsNum ;
 super();
@@ -43,7 +43,7 @@ super();
  * @param useWeakReference Determines whether the reference to the listener is strong or weak.
  * @see org.aswing.event.AWEvent#ACT
  */
-public function addActionListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void{
+public function addActionListener(listener:Dynamic -> Void, ?priority:Int = 0, ?useWeakReference:Bool = false):Void{
 addEventListener(AWEvent.ACT, listener, false, priority, useWeakReference);
 }
 
