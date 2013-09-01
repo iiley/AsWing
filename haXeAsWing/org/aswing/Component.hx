@@ -2928,6 +2928,9 @@ class Component extends AWSprite {
         if (stage != null) {
             stage.removeEventListener(MouseEvent.MOUSE_UP, __mouseUp, false);
         }
+        if (ui != null) {
+            ui.uninstallUI(this);
+        }
         super.dispose();
     }
 /*
