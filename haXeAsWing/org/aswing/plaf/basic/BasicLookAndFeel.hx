@@ -61,7 +61,8 @@ class BasicLookAndFeel extends LookAndFeel{
 				// Basic ui is referenced in component class
 				//if you created your ui, you must specified 
 				//it in your LAF class like below commented.
-			   /*"ButtonUI", org.aswing.plaf.basic.BasicButtonUI, 
+				/*
+			   "ButtonUI", org.aswing.plaf.basic.BasicButtonUI, 
 			   "PanelUI", org.aswing.plaf.basic.BasicPanelUI, 
 			   "ToggleButtonUI", org.aswing.plaf.basic.BasicToggleButtonUI,
 			   "RadioButtonUI", org.aswing.plaf.basic.BasicRadioButtonUI,
@@ -91,7 +92,8 @@ class BasicLookAndFeel extends LookAndFeel{
 			   "TableHeaderUI", org.aswing.plaf.basic.BasicTableHeaderUI, 
 			   "TreeUI", org.aswing.plaf.basic.BasicTreeUI, 
 			   "StepperUI", org.aswing.plaf.basic.BasicStepperUI, 
-			   "ToolBarUI", org.aswing.plaf.basic.BasicToolBarUI*/
+			   "ToolBarUI", org.aswing.plaf.basic.BasicToolBarUI
+			   */
 		   ];
 		table.putDefaults(uiDefaults);
 	}

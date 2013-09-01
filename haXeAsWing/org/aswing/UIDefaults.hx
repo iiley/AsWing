@@ -35,7 +35,7 @@ class UIDefaults  extends  HashMap <String,Dynamic>
 			var i:Int = 0; 
 	
 		while (i < keyValueList.length) {
-			var key:String = Std.string(keyValueList[i]);
+			var key:String =  (keyValueList[i]);
              set(key,keyValueList[i + 1]);
             
 			 i += 2;
