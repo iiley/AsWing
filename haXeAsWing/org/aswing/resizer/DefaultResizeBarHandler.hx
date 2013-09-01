@@ -41,6 +41,8 @@ class DefaultResizeBarHandler {
         mc.addEventListener(ReleaseEvent.RELEASE_OUT_SIDE, __onReleaseOutside);
         mc.addEventListener(Event.REMOVED_FROM_STAGE, __onDestroy);
 
+
+
     }
 
     private function __onRollOver(e:MouseEvent):Void {

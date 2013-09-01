@@ -120,10 +120,12 @@ class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI {
         arrowButton.removeEventListener(MouseEvent.MOUSE_DOWN, __onArrowButtonPressed);
         arrowButton.removeEventListener(ReleaseEvent.RELEASE, __onArrowButtonReleased);
 
-        adjuster.removeChild(arrowButton);
-        adjuster.removeChild(inputText);
+        //adjuster.removeChild(arrowButton);
+        //adjuster.removeChild(inputText);
+
         if (popup != null && popup.isVisible()) {
             popup.dispose();
+            popup = null;
         }
     }
 
@@ -139,6 +141,9 @@ class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI {
         adjuster.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onInputTextKeyDown);
         adjuster.removeEventListener(AWEvent.FOCUS_GAINED, __onFocusGained);
         adjuster.removeEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
+
+        AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMoveOnSlider);
+        adjuster.removeEventListener(Event.REMOVED_FROM_STAGE, __onMouseMoveOnSliderRemovedFromStage);
     }
 
     override public function paint(c:Component, g:Graphics2D, b:IntRectangle):Void {
@@ -344,7 +349,7 @@ class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI {
     private function __onArrowButtonPressed(e:Event):Void {
         var popupWindow:JPopup = getPopup();
         if (popupWindow.isOnStage()) {
-            popupWindow.dispose();
+            popupWindow.hide();
         }
         popupWindow.changeOwner(AsWingUtils.getOwnerAncestor(adjuster));
         popupWindow.pack();
@@ -394,7 +399,7 @@ class BasicAdjusterUI extends BaseComponentUI implements AdjusterUI {
         if (adjuster.stage != null) {
             __onMouseMoveOnSliderRemovedFromStage(null);
         }
-        popup.dispose();
+        popup.hide();
         fireActionEvent();
     }
 

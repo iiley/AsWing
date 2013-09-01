@@ -110,6 +110,10 @@ class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI {
         box.removeEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
         box.removeEventListener(Event.REMOVED_FROM_STAGE, __onBoxRemovedFromStage);
         getPopupList().removeEventListener(ListItemEvent.ITEM_CLICK, __onListItemReleased);
+        getPopup().dispose();
+        if (AsWingManager.getStage() != null) {
+            AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, __onMouseDownWhenPopuped);
+        }
     }
 
     override public function paint(c:Component, g:Graphics2D, b:IntRectangle):Void {
@@ -209,7 +213,8 @@ class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI {
         }
         popupTimer.stop();
         if (getPopup().isVisible()) {
-            getPopup().dispose();
+            getPopup().hide();
+
         }
     }
 

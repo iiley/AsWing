@@ -144,6 +144,7 @@ class BasicSliderUI extends BaseComponentUI implements SliderUI {
         slider.removeEventListener(FocusKeyEvent.FOCUS_KEY_DOWN, __onSliderKeyDown);
         scrollTimer.stop();
         scrollTimer = null;
+        AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
     }
 
     private function isVertical():Bool {
@@ -400,7 +401,7 @@ class BasicSliderUI extends BaseComponentUI implements SliderUI {
             radius = style.round;
         }
         g.fillRoundRect(new SolidBrush(slider.getBackground()), b.x, b.y, b.width, b.height, radius);
-        var trackCanvas_f:Array<BitmapFilter >= new Array<BitmapFilter>();
+        var trackCanvas_f:Array<BitmapFilter > = new Array<BitmapFilter>();
 
         trackCanvas_f.push(new flash.filters.GlowFilter(0x0, style.shadowAlpha, 5, 5, 1, 1, true));
         trackCanvas.filters = trackCanvas_f;

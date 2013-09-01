@@ -131,6 +131,9 @@ class BasicFrameUI extends BaseComponentUI implements FrameUI {
             flashTimer.stop();
             flashTimer = null;
         }
+        if (AsWingManager.getStage() != null) {
+            AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMouseMove);
+        }
     }
 
     private var flashing:Bool;
