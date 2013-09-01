@@ -271,7 +271,7 @@ class DragManager {
  */
 
     public static function getDropTarget(stage:Stage, pos:Point = null,
-                                         targetType:Class<Dynamic> =null,
+                                         targetType:Class<Dynamic> = null,
                                          addtionCheck:Dynamic -> Bool = null):DisplayObject {
         if (stage == null) {
             return null;

@@ -394,7 +394,7 @@ class Container extends Component {
             if (Std.is(removeObj, AWSprite)) {
                 cast(removeObj, AWSprite).dispose();
             }
-            removeChildAt(children.length - 1);
+            removeAt(children.length - 1);
         }
 
         super.dispose();

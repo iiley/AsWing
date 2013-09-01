@@ -375,6 +375,15 @@ class JList extends Container implements LayoutManager implements Viewportable i
         }
     }
 
+    override public function dispose():Void {
+        if (model != null) {
+            model.removeListDataListener(this);
+        }
+        if (selectionModel != null) {
+            selectionModel.removeListSelectionListener(__selectionListener);
+        }
+        super.dispose();
+    }
 /**
  * Returns the value of the current selection model. The selection
  * model handles the task of making single selections, multiple selections.

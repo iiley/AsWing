@@ -235,6 +235,16 @@ class GridList extends JViewport implements ListDataListener {
         }
     }
 
+    override public function dispose():Void {
+        if (model != null) {
+            model.removeListDataListener(this);
+        }
+        if (selectionModel != null) {
+            selectionModel.removeListSelectionListener(__selectionListener);
+        }
+        super.dispose();
+    }
+
     public function getSelectionModel():ListSelectionModel {
         return selectionModel;
     }
@@ -889,4 +899,5 @@ class GridList extends JViewport implements ListDataListener {
     private function __onItemDoubleClick(e:MouseEvent):Void {
         dispatchEvent(createItemEventObj(e.currentTarget, GridListItemEvent.ITEM_DOUBLE_CLICK, e));
     }
+
 }

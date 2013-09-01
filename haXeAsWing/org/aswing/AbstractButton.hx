@@ -1094,4 +1094,14 @@ class AbstractButton extends Component {
         dispatchEvent(new InteractiveEvent(InteractiveEvent.SELECTION_CHANGED));
     }
 
+    override public function dispose():Void {
+        var oldModel:ButtonModel = getModel();
+        if (oldModel != null) {
+            oldModel.removeActionListener(__modelActionListener);
+            oldModel.removeStateListener(__modelStateListener);
+            oldModel.removeSelectionListener(__modelSelectionListener);
+        }
+        super.dispose();
+    }
+
 }

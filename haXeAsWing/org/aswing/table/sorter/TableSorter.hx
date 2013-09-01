@@ -115,6 +115,7 @@ class TableSorter extends AbstractTableModel implements TableModelListener {
         fireTableStructureChanged();
     }
 
+
     public function getTableHeader():JTableHeader {
         return tableHeader;
     }
