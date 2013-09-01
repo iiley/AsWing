@@ -6,7 +6,6 @@ package org.aswing;
 
 
 import flash.events.Event;
-import flash.text.TextField;
 import org.aswing.event.FrameEvent;
 import org.aswing.border.EmptyBorder;
 import org.aswing.geom.IntPoint;

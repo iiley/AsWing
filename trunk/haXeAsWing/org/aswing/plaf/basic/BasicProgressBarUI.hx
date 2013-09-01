@@ -4,9 +4,8 @@
 
 package org.aswing.plaf.basic;
 
-
-import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
+import flash.text.TextField;
 import org.aswing.GroundDecorator;
 import org.aswing.JProgressBar;
 import org.aswing.Component;

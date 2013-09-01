@@ -7,7 +7,6 @@ package org.aswing;
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.InteractiveObject;
 import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;

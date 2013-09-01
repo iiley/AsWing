@@ -11,7 +11,6 @@ import org.aswing.util.Timer;
 import org.aswing.event.AWEvent;
 import flash.geom.Point;
 import org.aswing.geom.IntPoint;
-import org.aswing.AsWingUtils;
 
 /**
  * The motion of the drop target does not accept the dropped initiator. 

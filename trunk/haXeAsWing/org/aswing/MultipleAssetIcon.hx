@@ -412,7 +412,7 @@ class AssetItem {
  */
 
     public function clone():AssetItem {
-        var clazz:Class<Dynamic >= Type.getClass(asset);
+        var clazz:Class<Dynamic> = Type.getClass(asset);
         var clonedAsset:DisplayObject = cast(Type.createInstance(clazz, []), DisplayObject);
         var clone:AssetItem = new AssetItem(clonedAsset, width, height, scale, hPosition, vPosition);
         return clone;

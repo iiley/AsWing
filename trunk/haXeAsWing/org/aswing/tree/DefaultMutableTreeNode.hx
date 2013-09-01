@@ -506,7 +506,7 @@ class DefaultMutableTreeNode implements MutableTreeNode {
 
     public function getDepth():Int {
         var last:Dynamic = null;
-        var enum_:Array<Dynamic >= breadthFirstEnumeration();
+        var enum_:Array<Dynamic> = breadthFirstEnumeration();
 
         last = enum_[enum_.length - 1];
 
@@ -591,8 +591,8 @@ class DefaultMutableTreeNode implements MutableTreeNode {
   */
 
     public function getUserObjectPath():Array<Dynamic> {
-        var realPath:Array<Dynamic >= getPath();
-        var retPath:Array<Dynamic >= new Array<Dynamic>();
+        var realPath:Array<Dynamic> = getPath();
+        var retPath:Array<Dynamic> = new Array<Dynamic>();
 
         for (counter in 0...realPath.length) {
             retPath[counter] = (cast(realPath[counter], DefaultMutableTreeNode)).getUserObject();
@@ -717,14 +717,14 @@ class DefaultMutableTreeNode implements MutableTreeNode {
  */
 
     public function preorderEnumeration():Array<Dynamic> {
-        var arr:Array<Dynamic >= new Array<Dynamic>();
+        var arr:Array<Dynamic> = new Array<Dynamic>();
         fillPreorder(this, arr);
         return arr;
     }
 
     private function fillPreorder(node:TreeNode, arr:Array<Dynamic>):Void {
         arr.push(node);
-        var cd:Array<Dynamic >= node.children();
+        var cd:Array<Dynamic> = node.children();
         if (cd != null && cd.length > 0) {
             for (i in 0...cd.length) {
                 fillPreorder(cd[i], arr);
@@ -747,13 +747,13 @@ class DefaultMutableTreeNode implements MutableTreeNode {
  */
 
     public function postorderEnumeration():Array<Dynamic> {
-        var arr:Array<Dynamic >= new Array<Dynamic>();
+        var arr:Array<Dynamic> = new Array<Dynamic>();
         fillPostorder(this, arr);
         return arr;
     }
 
     private function fillPostorder(node:TreeNode, arr:Array<Dynamic>):Void {
-        var cd:Array<Dynamic >= node.children();
+        var cd:Array<Dynamic> = node.children();
         if (cd != null && cd.length > 0) {
             for (i in 0...cd.length) {
                 fillPostorder(cd[i], arr);
@@ -776,13 +776,13 @@ class DefaultMutableTreeNode implements MutableTreeNode {
  */
 
     public function breadthFirstEnumeration():Array<Dynamic> {
-        var arr:Array<Dynamic >= new Array<Dynamic>();
-        var queue:Array<Dynamic >= new Array<Dynamic>();
+        var arr:Array<Dynamic> = new Array<Dynamic>();
+        var queue:Array<Dynamic> = new Array<Dynamic>();
         queue.push(this);
         while (queue.length > 0) {
             var node:TreeNode = cast(queue.shift(), TreeNode);
             arr.push(node);
-            var cd:Array<Dynamic >= node.children();
+            var cd:Array<Dynamic> = node.children();
             if (cd != null && cd.length > 0) {
                 for (i in 0...cd.length) {
                     queue.push(cd[i]);
@@ -840,7 +840,7 @@ class DefaultMutableTreeNode implements MutableTreeNode {
 
         var current:TreeNode;
 
-        var stack:Array<Dynamic >= new Array<Dynamic>();
+        var stack:Array<Dynamic> = new Array<Dynamic>();
         stack.push(descendant);
 
         current = descendant;
@@ -1243,7 +1243,7 @@ class DefaultMutableTreeNode implements MutableTreeNode {
         var count:Int = 0;
 
         var node:TreeNode;
-        var enum_:Array<Dynamic >= breadthFirstEnumeration(); // order matters not
+        var enum_:Array<Dynamic> = breadthFirstEnumeration(); // order matters not
 
         for (i in 0...enum_.length) {
             node = cast(enum_[i], TreeNode);

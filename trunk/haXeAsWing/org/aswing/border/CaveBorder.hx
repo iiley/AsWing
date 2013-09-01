@@ -13,7 +13,6 @@ import org.aswing.Insets;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
 import org.aswing.graphics.Pen;
-import org.aswing.util.HashMap;
 
 /**
  * CaveBorder, a border with a cave line rectangle(or roundrect).

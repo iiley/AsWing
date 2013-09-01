@@ -102,7 +102,7 @@ class ArrayList implements List {
         } else if (index == 0) {
             _elements = arr.concat(_elements);
         } else {
-            var right:Array<Dynamic >= _elements.splice(index, _elements.length - index);
+            var right:Array<Dynamic> = _elements.splice(index, _elements.length - index);
             _elements = _elements.concat(arr);
             _elements = _elements.concat(right);
         }

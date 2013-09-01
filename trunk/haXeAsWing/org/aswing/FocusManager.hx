@@ -22,7 +22,6 @@ import org.aswing.event.ResizedEvent;
 import org.aswing.util.DepthManager;
 import org.aswing.util.ArrayList;
 import org.aswing.util.HashMap;
-import org.aswing.AsWingUtils;
 /**
  * FocusManager manages all the when a component should receive focus, i.e if it
  * can.

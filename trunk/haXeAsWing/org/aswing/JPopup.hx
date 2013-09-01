@@ -285,7 +285,7 @@ class JPopup extends JRootPane {
  * Remove all of this window's source movieclips.(also the components in this window will be removed too)
  */
 
-    public function dispose():Void {
+    override public function dispose():Void {
 
         if (isAddedToList()) {
             var st:Stage = AsWingManager.getStage();
@@ -304,7 +304,7 @@ class JPopup extends JRootPane {
             dispatchEvent(new PopupEvent(PopupEvent.POPUP_CLOSED));
 
         }
-
+        super.dispose();
     }
 
 /**
@@ -456,7 +456,7 @@ class JPopup extends JRootPane {
     public static function getOwnedPopupsWithOwner(owner:DisplayObjectContainer):Array<Dynamic> {
         var fm:FocusManager = FocusManager.getManager(AsWingManager.getStage());
         if (fm != null) {
-            var ws:Array<Dynamic >= new Array<Dynamic>();
+            var ws:Array<Dynamic> = new Array<Dynamic>();
             var pv:ArrayList = fm.getPopupsVector();
             var n:Int = pv.size();
             for (i in 0...n) {

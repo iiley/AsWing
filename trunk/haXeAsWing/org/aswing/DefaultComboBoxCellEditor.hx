@@ -7,9 +7,7 @@ package org.aswing;
 
 import org.aswing.AbstractCellEditor;
 import org.aswing.Component;
-import org.aswing.FocusManager;
 import org.aswing.JComboBox;
-import org.aswing.event.AWEvent;
 
 /**
  * The default editor for table and tree cells, use a combobox.

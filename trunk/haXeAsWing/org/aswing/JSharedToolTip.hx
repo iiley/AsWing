@@ -5,7 +5,6 @@
 package org.aswing;
 
 
-import flash.display.InteractiveObject;
 import flash.errors.Error;
 
 /**

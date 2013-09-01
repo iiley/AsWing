@@ -23,7 +23,7 @@ class Row {
     public function compareTo(o:Dynamic):Int {
         var row1:Int = modelIndex;
         var row2:Int = (cast(o, Row)).modelIndex;
-        var sortingColumns:Array<Dynamic >= tableSorter.getSortingColumns();
+        var sortingColumns:Array<Dynamic> = tableSorter.getSortingColumns();
         var tableModel:TableModel = tableSorter.getTableModel();
         for (i in 0...sortingColumns.length) {
             var directive:Directive = cast(sortingColumns[i], Directive);

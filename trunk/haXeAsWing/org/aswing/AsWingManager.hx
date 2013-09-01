@@ -33,7 +33,7 @@ class AsWingManager {
     private static var INITIAL_STAGE_WIDTH:Int;
     private static var INITIAL_STAGE_HEIGHT:Int;
     private static var timer:Timer;
-    private static var nextFrameCalls:Array<Dynamic>= new Array<Dynamic>();
+    private static var nextFrameCalls:Array<Dynamic> = new Array<Dynamic>();
     private static var preventNullFocus:Bool = true;
 
 /**
@@ -242,7 +242,7 @@ class AsWingManager {
     }
 
     private static function __enterFrame(e:Event):Void {
-        var calls:Array<Dynamic >= nextFrameCalls;
+        var calls:Array<Dynamic> = nextFrameCalls;
         nextFrameCalls = new Array<Dynamic>();
         for (i in 0...calls.length) {
             var func:Void -> Void = calls[i];

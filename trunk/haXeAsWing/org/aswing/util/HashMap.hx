@@ -46,6 +46,7 @@ class HashMap < K, V > {
     }
 
     public inline function set(k:K, v:V) {
+        if (!exists(k)) length++;
         pushID(k);
         this._values.set(getID(k), v);
     }
@@ -59,7 +60,9 @@ class HashMap < K, V > {
     }
 
     public inline function remove(k:K) {
+        if (!exists(k)) length--;
         this._values.remove(getID(k));
+
 
         return this._keys.remove(k);
     }
@@ -173,7 +176,7 @@ class HashMap < K, V > {
   */
 
     public function put(key:K, value:V):V {
-        if (!exists(key)) length++;
+
         set(key, value);
         return value;
     }

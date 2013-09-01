@@ -28,21 +28,21 @@ import org.aswing.plaf.basic.BasicScrollBarUI;
  * </p>
  * @author paling
  */
-class JScrollBar extends Component implements Orientable{
+class JScrollBar extends Component implements Orientable {
 
 /**
  * Horizontal orientation.
  */
-inline public static var HORIZONTAL:Int = AsWingConstants.HORIZONTAL;
+    inline public static var HORIZONTAL:Int = AsWingConstants.HORIZONTAL;
 /**
  * Vertical orientation.
  */
-inline public static var VERTICAL:Int = AsWingConstants.VERTICAL;
+    inline public static var VERTICAL:Int = AsWingConstants.VERTICAL;
 
-private var model:BoundedRangeModel;
-private var orientation:Float;
-private var unitIncrement:Float;
-private var blockIncrement:Float;
+    private var model:BoundedRangeModel;
+    private var orientation:Float;
+    private var unitIncrement:Float;
+    private var blockIncrement:Float;
 
 /**
  * JScrollBar(orientation:Number, value:Number, extent:Number, min:Number, max:Number)<br>
@@ -61,78 +61,84 @@ private var blockIncrement:Float;
  * @param min
  * @param max
  */
-public function new(orientation:Int = AsWingConstants.VERTICAL,
-value:Int = 0, extent:Int = 10, min:Int = 0, max:Int = 100){
-super();
-setName("JScrollBar");
-unitIncrement = 1;
-blockIncrement = (extent == 0 ? 10 : extent);
-setOrientation(orientation);
-setModel(new DefaultBoundedRangeModel(value, extent, min, max));
-updateUI();
-}
 
-override public function updateUI():Void{
-setUI(UIManager.getUI(this));
-}
+    public function new(orientation:Int = AsWingConstants.VERTICAL,
+                        value:Int = 0, extent:Int = 10, min:Int = 0, max:Int = 100) {
+        super();
+        setName("JScrollBar");
+        unitIncrement = 1;
+        blockIncrement = (extent == 0 ? 10 : extent);
+        setOrientation(orientation);
+        setModel(new DefaultBoundedRangeModel(value, extent, min, max));
+        updateUI();
+    }
 
-override public function getDefaultBasicUIClass():Class<Dynamic>{
-return org.aswing.plaf.basic.BasicScrollBarUI;
-}
+    override public function updateUI():Void {
+        setUI(UIManager.getUI(this));
+    }
 
-override public function getUIClassID():String{
-return "ScrollBarUI";
-}
+    override public function getDefaultBasicUIClass():Class<Dynamic> {
+        return org.aswing.plaf.basic.BasicScrollBarUI;
+    }
+
+    override public function getUIClassID():String {
+        return "ScrollBarUI";
+    }
 
 /**
  * @return the orientation.
  */
-public function getOrientation():Int{
-return Std.int(orientation);
-}
+
+    public function getOrientation():Int {
+        return Std.int(orientation);
+    }
 
 /**
  * Sets the orientation.
  */
-public function setOrientation(orientation:Int):Void{
-var oldValue:Int = Std.int(this.orientation);
-this.orientation = orientation;
-if (orientation != oldValue){
-revalidate();
-repaint();
-}
-}
+
+    public function setOrientation(orientation:Int):Void {
+        var oldValue:Int = Std.int(this.orientation);
+        this.orientation = orientation;
+        if (orientation != oldValue) {
+            revalidate();
+            repaint();
+        }
+    }
 
 /**
  * Returns data model that handles the scrollbar's four fundamental properties: minimum, maximum, value, extent.
  * @return the data model
  */
-public function getModel():BoundedRangeModel{
-return model;
-}
+
+    public function getModel():BoundedRangeModel {
+        return model;
+    }
 
 /**
  * Sets the model that handles the scrollbar's four fundamental properties: minimum, maximum, value, extent.
  * @param the data model
  */
-public function setModel(newModel:BoundedRangeModel):Void{
-if (model != null){
-model.removeStateListener(__modelStateListener);
-}
-model = newModel;
-if (model != null){
-model.addStateListener(__modelStateListener);
-}
-}
+
+    public function setModel(newModel:BoundedRangeModel):Void {
+        if (model != null) {
+            model.removeStateListener(__modelStateListener);
+        }
+        model = newModel;
+        if (model != null) {
+            model.addStateListener(__modelStateListener);
+        }
+    }
 
 /**
  * Sets the unit increment
  * @param unitIncrement the unit increment
  * @see #getUnitIncrement()
  */
-public function setUnitIncrement(unitIncrement:Int):Void{
-this.unitIncrement = unitIncrement;
-}
+
+    public function setUnitIncrement(unitIncrement:Int):Void {
+        this.unitIncrement = unitIncrement;
+    }
 
 /**
  * Returns the amount to change the scrollbar's value by, given a unit up/down request.
@@ -149,18 +155,20 @@ this.unitIncrement = unitIncrement;
  * @see org.aswing.JScrollPane
  * @see org.aswing.Viewportable
  */
-public function getUnitIncrement():Int{
-return Std.int(unitIncrement);
-}
+
+    public function getUnitIncrement():Int {
+        return Std.int(unitIncrement);
+    }
 
 /**
  * Sets the block increment.
  * @param blockIncrement the block increment.
  * @see #getBlockIncrement()
  */
-public function setBlockIncrement(blockIncrement:Int):Void{
-this.blockIncrement = blockIncrement;
-}
+
+    public function setBlockIncrement(blockIncrement:Int):Void {
+        this.blockIncrement = blockIncrement;
+    }
 
 /**
  * Returns the amount to change the scrollbar's value by, given a block (usually "page")
@@ -177,9 +185,10 @@ this.blockIncrement = blockIncrement;
  * @see JScrollPane
  * @see Viewportable
  */
-public function getBlockIncrement():Int{
-return Std.int(blockIncrement);
-}
+
+    public function getBlockIncrement():Int {
+        return Std.int(blockIncrement);
+    }
 
 /**
  * Returns the scrollbar's value.
@@ -187,9 +196,10 @@ return Std.int(blockIncrement);
  * @see #setValue()
  * @see BoundedRangeModel#getValue()
  */
-public function getValue():Int{
-return getModel().getValue();
-}
+
+    public function getValue():Int {
+        return getModel().getValue();
+    }
 
 /**
  * Sets the scrollbar's value. This method just forwards the value to the model.
@@ -198,10 +208,11 @@ return getModel().getValue();
  * @see #getValue()
  * @see BoundedRangeModel#setValue()
  */
-public function setValue(value:Int, programmatic:Bool = true):Void{
-var m:BoundedRangeModel = getModel();
-m.setValue(value, programmatic);
-}
+
+    public function setValue(value:Int, programmatic:Bool = true):Void {
+        var m:BoundedRangeModel = getModel();
+        m.setValue(value, programmatic);
+    }
 
 /**
  * Returns the scrollbar's extent. In many scrollbar look and feel
@@ -210,9 +221,10 @@ m.setValue(value, programmatic);
  * @see #setVisibleAmount()
  * @see BoundedRangeModel#getExtent()
  */
-public function getVisibleAmount():Int{
-return getModel().getExtent();
-}
+
+    public function getVisibleAmount():Int {
+        return getModel().getExtent();
+    }
 
 /**
  * Set the model's extent property.
@@ -220,9 +232,10 @@ return getModel().getExtent();
  * @see #getVisibleAmount()
  * @see BoundedRangeModel#setExtent()
  */
-public function setVisibleAmount(extent:Int):Void{
-getModel().setExtent(extent);
-}
+
+    public function setVisibleAmount(extent:Int):Void {
+        getModel().setExtent(extent);
+    }
 
 /**
  * Returns the minimum value supported by the scrollbar (usually zero).
@@ -230,9 +243,10 @@ getModel().setExtent(extent);
  * @see #setMinimum()
  * @see BoundedRangeModel#getMinimum()
  */
-public function getMinimum():Int{
-return getModel().getMinimum();
-}
+
+    public function getMinimum():Int {
+        return getModel().getMinimum();
+    }
 
 /**
  * Sets the model's minimum property.
@@ -240,9 +254,10 @@ return getModel().getMinimum();
  * @see #getMinimum()
  * @see BoundedRangeModel#setMinimum()
  */
-public function setMinimum(minimum:Int):Void{
-getModel().setMinimum(minimum);
-}
+
+    public function setMinimum(minimum:Int):Void {
+        getModel().setMinimum(minimum);
+    }
 
 /**
  * Returns the maximum value supported by the scrollbar.
@@ -250,9 +265,10 @@ getModel().setMinimum(minimum);
  * @see #setMaximum()
  * @see BoundedRangeModel#getMaximum()
  */
-public function getMaximum():Int{
-return getModel().getMaximum();
-}
+
+    public function getMaximum():Int {
+        return getModel().getMaximum();
+    }
 
 /**
  * Sets the model's maximum property.
@@ -260,17 +276,19 @@ return getModel().getMaximum();
  * @see #getMaximum()
  * @see BoundedRangeModel#setMaximum()
  */
-public function setMaximum(maximum:Int):Void{
-getModel().setMaximum(maximum);
-}
+
+    public function setMaximum(maximum:Int):Void {
+        getModel().setMaximum(maximum);
+    }
 
 /**
  * True if the scrollbar knob is being dragged.
  * @return the value of the model's valueIsAdjusting property
  */
-public function getValueIsAdjusting():Bool{
-return getModel().getValueIsAdjusting();
-}
+
+    public function getValueIsAdjusting():Bool {
+        return getModel().getValueIsAdjusting();
+    }
 
 /**
  * Sets the model's valueIsAdjusting property. Scrollbar look and feel
@@ -279,20 +297,22 @@ return getModel().getValueIsAdjusting();
  * ChangeEvents while valueIsAdjusting is true.
  * @see BoundedRangeModel#setValueIsAdjusting()
  */
-public function setValueIsAdjusting(b:Bool):Void{
-var m:BoundedRangeModel = getModel();
-m.setValueIsAdjusting(b);
-}
+
+    public function setValueIsAdjusting(b:Bool):Void {
+        var m:BoundedRangeModel = getModel();
+        m.setValueIsAdjusting(b);
+    }
 
 /**
  * Sets the four BoundedRangeModel properties after forcing the arguments to
  * obey the usual constraints: "minimum le value le value+extent le maximum"
  * ("le" means less or equals)
  */
-public function setValues(newValue:Int, newExtent:Int, newMin:Int, newMax:Int, programmatic:Bool = true):Void{
-var m:BoundedRangeModel = getModel();
-m.setRangeProperties(newValue, newExtent, newMin, newMax, m.getValueIsAdjusting(), programmatic);
-}
+
+    public function setValues(newValue:Int, newExtent:Int, newMin:Int, newMax:Int, programmatic:Bool = true):Void {
+        var m:BoundedRangeModel = getModel();
+        m.setRangeProperties(newValue, newExtent, newMin, newMax, m.getValueIsAdjusting(), programmatic);
+    }
 
 /**
  * Adds a listener to listen the scrollBar's state change event.
@@ -301,26 +321,28 @@ m.setRangeProperties(newValue, newExtent, newMin, newMax, m.getValueIsAdjusting(
  * @param useWeakReference Determines whether the reference to the listener is strong or weak.
  * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
  */
-public function addStateListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void{
-addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);
-}
+
+    public function addStateListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void {
+        addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);
+    }
 
 /**
  * Removes a state listener.
  * @param listener the listener to be removed.
  * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
  */
-public function removeStateListener(listener:Dynamic -> Void):Void{
-removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
-}
 
-private function __modelStateListener(event:InteractiveEvent):Void{
-dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, event.isProgrammatic()));
-}
+    public function removeStateListener(listener:Dynamic -> Void):Void {
+        removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
+    }
 
-override public function setEnabled(b:Bool):Void{
-super.setEnabled(b);
-mouseChildren = b;
-}
+    private function __modelStateListener(event:InteractiveEvent):Void {
+        dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, event.isProgrammatic()));
+    }
+
+    override public function setEnabled(b:Bool):Void {
+        super.setEnabled(b);
+        mouseChildren = b;
+    }
 
 }

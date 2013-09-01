@@ -236,7 +236,7 @@ class ResizerController {
             if (getDefaultResizerClass() == null) {
                 setDefaultResizerClass(DefaultResizer);
             }
-            var cl:Class<Dynamic >= getDefaultResizerClass();
+            var cl:Class<Dynamic> = getDefaultResizerClass();
             resizer = Type.createInstance(cl, []);
             if (resizer == null) {
                 throw new Error("The defaultResizerClass is set wrong!!");

@@ -35,7 +35,7 @@ class BasicGraphicsUtils {
  * @param border true means for border, false means for content
  */
 
-    public static function getGradientBrush(tune:StyleResult, matrix:Matrix, border:Bool = false, ratios:Array<Dynamic>=null):GradientBrush {
+    public static function getGradientBrush(tune:StyleResult, matrix:Matrix, border:Bool = false, ratios:Array<Dynamic> =null):GradientBrush {
         var light:ASColor;
         var dark:ASColor;
         if (border) {
@@ -67,7 +67,7 @@ class BasicGraphicsUtils {
  * Fill gradient round rectangle, if tune.round < roundRectBtmFix, it will fill rectangle with no round
  */
 
-    public static function fillGradientRoundRect(g:Graphics2D, b:IntRectangle, tune:StyleResult, direction:Float = 1.5707963267948966, border:Bool = false, matrixB:IntRectangle = null, ratios:Array<Dynamic>=null):Void {
+    public static function fillGradientRoundRect(g:Graphics2D, b:IntRectangle, tune:StyleResult, direction:Float = 1.5707963267948966, border:Bool = false, matrixB:IntRectangle = null, ratios:Array<Dynamic> =null):Void {
         if (matrixB == null) {
             matrixB = b;
         }
@@ -146,7 +146,7 @@ class BasicGraphicsUtils {
     public static function getArrowPath(width:Float, direction:Float, centerX:Float, centerY:Float, round:Bool = true):Array<Dynamic> {
         var center:Point = new Point(centerX, centerY);
         var w:Float = width;
-        var ps1:Array<Dynamic >= new Array<Dynamic>();
+        var ps1:Array<Dynamic> = new Array<Dynamic>();
         ps1.push(nextPoint(center, direction, w / 2 / 2, round));
         var back:Point = nextPoint(center, direction + Math.PI, w / 2 / 2);
         ps1.push(nextPoint(back, direction - Math.PI / 2, w / 2, round));
@@ -355,21 +355,21 @@ class BasicGraphicsUtils {
         var w:Float = b.width;
         var h:Float = b.height;
         var colors:Array<Int >= [0xFFFFFF, 0xFFFFFF];
-        var alphas:Array<Dynamic >= [0.75, 0];
-        var ratios:Array<Dynamic >= [0, 100];
+        var alphas:Array<Dynamic> = [0.75, 0];
+        var ratios:Array<Dynamic> = [0, 100];
         var matrix:Matrix = new Matrix();
         matrix.createGradientBox(w, h, direction, x, y);
         var brush:GradientBrush = new GradientBrush(GradientBrush.LINEAR, colors, alphas, ratios, matrix);
         g.fillRectangle(brush, x, y, w, h);
     }
 
-    public static function fillGradientRect(g:Graphics2D, b:IntRectangle, c1:ASColor, c2:ASColor, direction:Float, ratios:Array<Dynamic>=null):Void {
+    public static function fillGradientRect(g:Graphics2D, b:IntRectangle, c1:ASColor, c2:ASColor, direction:Float, ratios:Array<Dynamic> =null):Void {
         var x:Float = b.x;
         var y:Float = b.y;
         var w:Float = b.width;
         var h:Float = b.height;
         var colors:Array<Int >= [c1.getRGB(), c2.getRGB()];
-        var alphas:Array<Dynamic >= [c1.getAlpha(), c2.getAlpha()];
+        var alphas:Array<Dynamic> = [c1.getAlpha(), c2.getAlpha()];
         if (ratios == null) {
             ratios = [0, 255];
         }

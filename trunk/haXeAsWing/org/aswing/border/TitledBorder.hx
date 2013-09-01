@@ -4,10 +4,9 @@
 
 package org.aswing.border;
 
-
+import flash.text.TextFieldAutoSize;
 import flash.display.DisplayObject;
 import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
 import org.aswing.ASFont;
 import org.aswing.ASColor;
 import org.aswing.Border;

@@ -185,9 +185,9 @@ class DefaultTableModel extends AbstractTableModel {
 // is overridden.
         ArrayUtils.setSize(dataArray, getRowCount());
         for (i in from..._to) {
-            if (dataArray[i] == null) {
-                dataArray[i] = new Array<Dynamic>();
-            }
+        if (dataArray[i] == null) {
+        dataArray[i] = new Array<Dynamic>();
+        }
         }
     }
 
@@ -304,9 +304,9 @@ class DefaultTableModel extends AbstractTableModel {
 //	for(var from:int = (_to + r) % size; from != i; from = (_to + r) % size) {
             var from:Int = (_to + r) % size;
             while (from != i) {
-                v[a + _to] = v[a + from];
-                _to = from;
-                from = (_to + r) % size;
+            v[a + _to] = v[a + from];
+            _to = from;
+            from = (_to + r) % size;
             }
             v[a + _to] = tmp;
         }
@@ -449,7 +449,7 @@ class DefaultTableModel extends AbstractTableModel {
             justifyRows(0, getRowCount());
             var newColumn:Int = getColumnCount() - 1;
             for (i in 0...columnSize) {
-                var row:Array<Dynamic >= dataArray[i];
+                var row:Array<Dynamic> = dataArray[i];
                 row[newColumn] = columnData[i];
             }
         } else {

@@ -4,8 +4,6 @@
 
 package org.aswing.colorchooser;
 
-import flash.events.EventDispatcher;
-
 import org.aswing.ASColor;
 
 /**

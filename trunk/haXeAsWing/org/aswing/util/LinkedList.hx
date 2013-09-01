@@ -256,7 +256,7 @@ class LinkedList implements List {
         var preNode:ListNode = getNodeAt(fromIndex - 1);
         var nexNode:ListNode = getNodeAt(toIndex + 1);
         if (fromIndex == 0 && toIndex == size() - 1) {
-            var array:Array<Dynamic >= toArray();
+            var array:Array<Dynamic> = toArray();
             clear();
             return array;
         }
@@ -270,7 +270,7 @@ class LinkedList implements List {
             endNode = tail;
         }
         var al:Int = toIndex - fromIndex + 1;
-        var arr:Array<Dynamic >= new Array<Dynamic>();
+        var arr:Array<Dynamic> = new Array<Dynamic>();
         for (i in 0...al) {
             arr[i] = startNode;
             startNode = startNode.getNextNode();
@@ -335,7 +335,7 @@ class LinkedList implements List {
     }
 
     public function toArray():Array<Dynamic> {
-        var arr:Array<Dynamic >= new Array<Dynamic>();
+        var arr:Array<Dynamic> = new Array<Dynamic>();
         var index:Int = 0;
 //for(var node:ListNode = head; node!=null; node=node.getNextNode()){
         var node:ListNode = head;

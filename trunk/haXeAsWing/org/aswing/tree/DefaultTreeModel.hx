@@ -214,9 +214,9 @@ class DefaultTreeModel implements TreeModel {
             throw new Error("node does not have a parent.");
         }
 
-        var childIndex:Array<Dynamic >= [parent.getIndex(node)];
+        var childIndex:Array<Dynamic> = [parent.getIndex(node)];
         parent.removeAt(childIndex[0]);
-        var removedArray:Array<Dynamic >= [node];
+        var removedArray:Array<Dynamic> = [node];
         nodesWereRemoved(parent, childIndex, removedArray);
     }
 
@@ -262,7 +262,7 @@ class DefaultTreeModel implements TreeModel {
     public function nodesWereInserted(node:TreeNode, childIndices:Array<Dynamic>):Void {
         if (listenerList != null && node != null && childIndices != null && childIndices.length > 0) {
             var cCount:Int = childIndices.length;
-            var newChildren:Array<Dynamic >= new Array<Dynamic>();
+            var newChildren:Array<Dynamic> = new Array<Dynamic>();
 
             for (counter in 0...cCount) {
                 newChildren[counter] = node.getChildAt(childIndices[counter]);
@@ -294,7 +294,7 @@ class DefaultTreeModel implements TreeModel {
             if (childIndices != null) {
                 var cCount:Int = childIndices.length;
                 if (cCount > 0) {
-                    var cChildren:Array<Dynamic >= new Array<Dynamic>();
+                    var cChildren:Array<Dynamic> = new Array<Dynamic>();
                     for (counter in 0...cCount) {
                         cChildren[counter] = node.getChildAt(childIndices[counter]);
                     }
@@ -399,7 +399,7 @@ class DefaultTreeModel implements TreeModel {
     private function fireTreeNodesChanged(source:Dynamic, path:Array<TreeNode>,
                                           childIndices:Array<Dynamic>,
                                           children:Array<Dynamic>):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
         var e:TreeModelEvent = null;
 // Process the listeners last to first, notifying
 // those that are interested in this event
@@ -429,7 +429,7 @@ class DefaultTreeModel implements TreeModel {
     private function fireTreeNodesInserted(source:Dynamic, path:Array<TreeNode>,
                                            childIndices:Array<Dynamic>,
                                            children:Array<Dynamic>):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
         var e:TreeModelEvent = null;
 // Process the listeners last to first, notifying
 // those that are interested in this event
@@ -459,7 +459,7 @@ class DefaultTreeModel implements TreeModel {
     private function fireTreeNodesRemoved(source:Dynamic, path:Array<TreeNode>,
                                           childIndices:Array<Dynamic>,
                                           children:Array<Dynamic>):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
         var e:TreeModelEvent = null;
 // Process the listeners last to first, notifying
 // those that are interested in this event
@@ -489,7 +489,7 @@ class DefaultTreeModel implements TreeModel {
     private function fireTreeStructureChanged(source:Dynamic, path:Array<TreeNode>,
                                               childIndices:Array<Dynamic>,
                                               children:Array<Dynamic>):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
         var e:TreeModelEvent = null;
 // Process the listeners last to first, notifying
 // those that are interested in this event
@@ -515,7 +515,7 @@ class DefaultTreeModel implements TreeModel {
  */
 
     private function fireTreeStructureChanged2(source:Dynamic, path:TreePath):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
         var e:TreeModelEvent = null;
 // Process the listeners last to first, notifying
 // those that are interested in this event

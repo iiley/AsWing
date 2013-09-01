@@ -13,14 +13,14 @@ import org.aswing.plaf.UIResource;
 /**
  * @private
  */
-class MenuArrowIcon extends SolidArrowIcon implements UIResource{
+class MenuArrowIcon extends SolidArrowIcon implements UIResource {
 
-public function new(){
-super(0, 8, ASColor.BLACK);
-}
+    public function new() {
+        super(0, 8, ASColor.BLACK);
+    }
 
-override public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void{
-super.updateIcon(c, g, x, y);
-paintIconWithColor(c.getMideground());
-}
+    override public function updateIcon(c:Component, g:Graphics2D, x:Int, y:Int):Void {
+        super.updateIcon(c, g, x, y);
+        paintIconWithColor(c.getMideground());
+    }
 }

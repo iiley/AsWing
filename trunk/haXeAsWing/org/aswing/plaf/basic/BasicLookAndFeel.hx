@@ -58,7 +58,7 @@ class BasicLookAndFeel extends LookAndFeel {
     }
 
     private function initClassDefaults(table:UIDefaults):Void {
-        var uiDefaults:Array<Dynamic >= [
+        var uiDefaults:Array<Dynamic> = [
 // Basic ui is referenced in component class
 //if you created your ui, you must specified
 //it in your LAF class like below commented.
@@ -100,7 +100,7 @@ class BasicLookAndFeel extends LookAndFeel {
     }
 
     private function initSystemColorDefaults(table:UIDefaults):Void {
-        var defaultSystemColors:Array<Dynamic >= [
+        var defaultSystemColors:Array<Dynamic> = [
         "window", 0xe6e6e6, //window panel background color
         "windowText", 0xFFFFFE, /* ??? */
         "menu", 0xeaeaea, /* Background color for menus */
@@ -120,7 +120,7 @@ class BasicLookAndFeel extends LookAndFeel {
     }
 
     private function initSystemFontDefaults(table:UIDefaults):Void {
-        var defaultSystemFonts:Array<Dynamic >= [
+        var defaultSystemFonts:Array<Dynamic> = [
         "systemFont", new ASFontUIResource("Arial", 12),
         "menuFont", new ASFontUIResource("Arial", 12),
         "controlFont", new ASFontUIResource("Arial", 12, false),
@@ -132,14 +132,14 @@ class BasicLookAndFeel extends LookAndFeel {
     private function initCommonUtils(table:UIDefaults):Void {
         ResizerController.setDefaultResizerClass(DefaultResizer);
 
-        var arrowColors:Array<Dynamic >= [
+        var arrowColors:Array<Dynamic> = [
         "resizeArrow", new ASColorUIResource(0x4dc1d0),
         "resizeArrowLight", new ASColorUIResource(0xA2DFE6),
         "resizeArrowDark", new ASColorUIResource(0x2A95A1),
         ];
         table.putDefaults(arrowColors);
 
-        var cursors:Array<Dynamic >= [
+        var cursors:Array<Dynamic> = [
         "System.hResizeCursor", org.aswing.plaf.basic.cursor.H_ResizeCursor,
         "System.vResizeCursor", org.aswing.plaf.basic.cursor.V_ResizeCursor,
         "System.hvResizeCursor", org.aswing.plaf.basic.cursor.HV_ResizeCursor,
@@ -157,7 +157,7 @@ class BasicLookAndFeel extends LookAndFeel {
         var f:Array<BitmapFilter>;
         f = new Array<BitmapFilter>();
         f.push(new DropShadowFilter(1, 45, 0, 0.3, 1, 1, 1, 1));
-        var comDefaults:Array<Dynamic >= [
+        var comDefaults:Array<Dynamic> = [
         "Button.background", buttonBG,
         "Button.foreground", new ASColorUIResource(0xFFFFFE),
         "Button.mideground", table.get("controlMide"),

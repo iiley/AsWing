@@ -30,7 +30,7 @@ class BasicToggleButtonUI extends BasicButtonUI {
         var model:ButtonModel = b.getModel();
         var icon:Icon = null;
 
-        var icons:Array<Dynamic >= getIcons();
+        var icons:Array<Dynamic> = getIcons();
         for (i in 0...icons.length) {
             var ico:Icon = icons[i];
             setIconVisible(ico, false);

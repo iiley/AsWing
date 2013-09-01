@@ -7,7 +7,6 @@ package org.aswing.colorchooser;
 import org.aswing.ASColor;
 import org.aswing.colorchooser.ColorSelectionModel;
 import org.aswing.colorchooser.DefaultColorSelectionModel;
-import org.aswing.Component;
 import org.aswing.Container;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.event.ColorChooserEvent;

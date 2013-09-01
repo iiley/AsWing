@@ -14,7 +14,6 @@ import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.GradientBrush;
 import org.aswing.graphics.Graphics2D;
-import org.aswing.graphics.Pen;
 import org.aswing.plaf.BaseComponentUI;
 /**
  * A Basic L&F implementation of SeparatorUI.  This implementation 

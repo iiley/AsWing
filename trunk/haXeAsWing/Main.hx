@@ -489,16 +489,20 @@ class Main
     	AsWingManager.initAsStandard( Lib.current);
 		trace("2222222222");
 		
-		var sp:org.aswing.JLabel= new  org.aswing.JLabel("*****sdew");
+		var sp:org.aswing.JLabel= new  org.aswing.JLabel("JLabel");
 		 
 		sp.setSizeWH(100, 30);
 		sp.setLocationXY(10, 10);
 		Lib.current.addChild(sp);
-		var jb:JButton = new JButton("__ewwesew");
+		var jb:JButton = new JButton("showJFrame");
 		jb.setSizeWH(100, 20);
-		jb.setLocationXY(300, 300);
+		jb.setLocationXY(300, 50);
 		 
 		 Lib.current.addChild(jb);
+		 jb.addActionListener(showJFrame);
+		 showJFrame();
+	}
+	private function showJFrame(e:AWEvent=null):Void{
 			var tt : JFrame = new JFrame( Lib.current,"TestAswing");
 			
 			tt.setSizeWH(300,300);

@@ -14,25 +14,26 @@ import org.aswing.event.AWEvent;
  * @author paling
  * @author Igor Sadovskiy
  */
-class AbstractImpulser extends EventDispatcher implements Impulser{
-private var delay:Int;
-private var initialDelay:Int;
-private var repeats:Int;
-private var isInitalFire:Bool;
-private var repeatCount:Int;
+class AbstractImpulser extends EventDispatcher implements Impulser {
+    private var delay:Int;
+    private var initialDelay:Int;
+    private var repeats:Int;
+    private var isInitalFire:Bool;
+    private var repeatCount:Int;
 
 /**
  * Constructs <code>AbstractImpulser</code>.
  * @throws Error when init delay <= 0 or delay == null
  */
-public function new(delay:Int, ?repeatsNum:Int = 0){
-this.delay = delay;
-this.initialDelay = 0;
-this.repeats = repeatsNum;
-this.isInitalFire = true;
-repeatCount = repeatsNum ;
-super();
-}
+
+    public function new(delay:Int, ?repeatsNum:Int = 0) {
+        this.delay = delay;
+        this.initialDelay = 0;
+        this.repeats = repeatsNum;
+        this.isInitalFire = true;
+        repeatCount = repeatsNum ;
+        super();
+    }
 
 /**
  * Adds an action listener to the <code>AbstractImpulser</code>
@@ -43,18 +44,20 @@ super();
  * @param useWeakReference Determines whether the reference to the listener is strong or weak.
  * @see org.aswing.event.AWEvent#ACT
  */
-public function addActionListener(listener:Dynamic -> Void, ?priority:Int = 0, ?useWeakReference:Bool = false):Void{
-addEventListener(AWEvent.ACT, listener, false, priority, useWeakReference);
-}
+
+    public function addActionListener(listener:Dynamic -> Void, ?priority:Int = 0, ?useWeakReference:Bool = false):Void {
+        addEventListener(AWEvent.ACT, listener, false, priority, useWeakReference);
+    }
 
 /**
  * Removes a action listener.
  * @param listener the listener to be removed.
  * @see org.aswing.event.AWEvent#ACT
  */
-public function removeActionListener(listener:Dynamic -> Void):Void{
-this.removeEventListener(AWEvent.ACT, listener);
-}
+
+    public function removeActionListener(listener:Dynamic -> Void):Void {
+        this.removeEventListener(AWEvent.ACT, listener);
+    }
 
 /**
  * Sets the <code>AbstractImpulser</code>'s delay between
@@ -64,9 +67,10 @@ this.removeEventListener(AWEvent.ACT, listener);
  * @see #setInitialDelay()
  * @throws Error when set delay <= 0 or delay == null
  */
-public function setDelay(delay:Int):Void{
-this.delay = delay;
-}
+
+    public function setDelay(delay:Int):Void {
+        this.delay = delay;
+    }
 
 /**
  * Returns the delay between firings of events.
@@ -74,9 +78,10 @@ this.delay = delay;
  * @see #setDelay()
  * @see #getInitialDelay()
  */
-public function getDelay():Int{
-return delay;
-}
+
+    public function getDelay():Int {
+        return delay;
+    }
 
 /**
  * Sets the <code>AbstractImpulser</code>'s initial delay,
@@ -92,10 +97,11 @@ return delay;
  * @see #setDelay()
  * @throws Error when set initialDelay <= 0 or initialDelay == null
  */
-public function setInitialDelay(initialDelay:Int):Void{
 
-this.initialDelay = initialDelay;
-}
+    public function setInitialDelay(initialDelay:Int):Void {
+
+        this.initialDelay = initialDelay;
+    }
 
 /**
  * Returns the <code>AbstractImpulser</code>'s initial delay.
@@ -103,13 +109,14 @@ this.initialDelay = initialDelay;
  * @see #setInitialDelay()
  * @see #setDelay()
  */
-public function getInitialDelay():Int{
-if(initialDelay == 0){
-return delay;
-}else{
-return initialDelay;
-}
-}
+
+    public function getInitialDelay():Int {
+        if (initialDelay == 0) {
+            return delay;
+        } else {
+            return initialDelay;
+        }
+    }
 
 /**
  * If <code>flag</code> is <code>false</code>,
@@ -120,10 +127,11 @@ return initialDelay;
  *             stop after sending its first action event.
  *             Default value is true.
  */
-public function setRepeats(flag:Int):Void{
-repeats = flag;
-repeatCount = repeats ;
-}
+
+    public function setRepeats(flag:Int):Void {
+        repeats = flag;
+        repeatCount = repeats ;
+    }
 
 /**
  * Returns <code>true</code> (the default)
@@ -132,18 +140,19 @@ repeatCount = repeats ;
  *
  * @see #setRepeats()
  */
-public function isRepeats():Bool{
-return repeats==0;
-}
 
-public function isRunning():Bool{
-return false;
-}
+    public function isRepeats():Bool {
+        return repeats == 0;
+    }
 
-public function stop():Void{}
+    public function isRunning():Bool {
+        return false;
+    }
 
-public function start():Void{}
+    public function stop():Void {}
 
-public function restart():Void {
-}
+    public function start():Void {}
+
+    public function restart():Void {
+    }
 }

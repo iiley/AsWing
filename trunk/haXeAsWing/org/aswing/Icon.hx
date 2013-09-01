@@ -7,7 +7,6 @@ package org.aswing;
 
 import org.aswing.Component;
 import org.aswing.graphics.Graphics2D;
-import flash.display.DisplayObject;
 /**
  * A small fixed size picture, typically used to decorate components. 
  * <p>

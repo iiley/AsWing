@@ -14,7 +14,6 @@ import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.FocusEvent;
-import flash.geom.Rectangle;
 import flash.geom.Point;
 import flash.Lib;
 
@@ -35,8 +34,6 @@ import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.InsetsUIResource;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.DefaultEmptyDecoraterResource;
-
-import org.aswing.util.Reflection;
 
 //--------------------------------------
 //  Events
@@ -2925,6 +2922,13 @@ class Component extends AWSprite {
                 dispatchEvent(new AWEvent(AWEvent.FOCUS_LOST));
             }
         }
+    }
+
+    override public function dispose():Void {
+        if (stage != null) {
+            stage.removeEventListener(MouseEvent.MOUSE_UP, __mouseUp, false);
+        }
+        super.dispose();
     }
 /*
 override public function toString():String {

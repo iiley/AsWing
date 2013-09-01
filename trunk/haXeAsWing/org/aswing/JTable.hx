@@ -126,83 +126,83 @@ import org.aswing.table.PoorTextCell;
  * To listen other Table events see {@link org.aswing.table.TableModel#addTableModelListener}
  * @author paling
  */
-class JTable extends Container implements Viewportable implements TableModelListener implements TableColumnModelListener implements CellEditorListener implements LayoutManager{
+class JTable extends Container implements Viewportable implements TableModelListener implements TableColumnModelListener implements CellEditorListener implements LayoutManager {
 
 /**
  * The default unit/block increment, it means auto count a value.
  */
-inline public static var AUTO_INCREMENT:Int = - 2147483647;
+    inline public static var AUTO_INCREMENT:Int = -2147483647;
 
 /**
  * Do not adjust column widths automatically; use a scrollbar.
  */
-inline public static var AUTO_RESIZE_OFF:Int = 0;
+    inline public static var AUTO_RESIZE_OFF:Int = 0;
 /**
  * When a column is adjusted in the UI, adjust the next column the opposite way.
  */
-inline public static var AUTO_RESIZE_NEXT_COLUMN:Int = 1;
+    inline public static var AUTO_RESIZE_NEXT_COLUMN:Int = 1;
 /**
  * During UI adjustment, change subsequent columns to preserve the total width;
  * this is the default behavior.
  */
-inline public static var AUTO_RESIZE_SUBSEQUENT_COLUMNS:Int = 2;
+    inline public static var AUTO_RESIZE_SUBSEQUENT_COLUMNS:Int = 2;
 /**
  * During all resize operations, apply adjustments to the last column only.
  */
-inline public static var AUTO_RESIZE_LAST_COLUMN:Int = 3;
+    inline public static var AUTO_RESIZE_LAST_COLUMN:Int = 3;
 /**
  * During all resize operations, proportionately resize all columns.
  */
-inline public static var AUTO_RESIZE_ALL_COLUMNS:Int = 4;
+    inline public static var AUTO_RESIZE_ALL_COLUMNS:Int = 4;
 
 /**
  * Only can select one most item at a time.
  */
-inline public static var SINGLE_SELECTION:Int = 0;
+    inline public static var SINGLE_SELECTION:Int = 0;
 /**
  * Can select any item at a time.
  */
-inline public static var MULTIPLE_SELECTION:Int = 1;
+    inline public static var MULTIPLE_SELECTION:Int = 1;
 
-private var dataModel:TableModel;
+    private var dataModel:TableModel;
 
-private var columnModel:TableColumnModel;
-private var selectionModel:ListSelectionModel;
+    private var columnModel:TableColumnModel;
+    private var selectionModel:ListSelectionModel;
 
-private var cellPane:Container;
-private var headerPane:Container;
-private var tableHeader:JTableHeader;
-private var footer:Component;
-private var rowCells:Array<Array<Dynamic>>;
-private var rowHeight:Int;
-private var rowMargin:Int;
-private var gridColor:ASColor;
-private var showHorizontalLines:Bool;
-private var showVerticalLines:Bool;
-private var autoResizeMode:Int;
-private var autoCreateColumnsFromModel:Bool;
-private var preferredViewportSize:IntDimension;
-private var rowSelectionAllowed:Bool;
-private var cellSelectionEnabled:Bool;
-private var cellEditor:TableCellEditor;
-private var editingColumn:Int;
-private var editingRow:Int;
-private var defaultRenderersByColumnClass:Map<String, TableCellFactory>;
-private var defaultEditorsByColumnClass:Map<String, TableCellEditor>;
-private var selectionForeground:ASColor;
-private var selectionBackground:ASColor;
+    private var cellPane:Container;
+    private var headerPane:Container;
+    private var tableHeader:JTableHeader;
+    private var footer:Component;
+    private var rowCells:Array<Array<Dynamic>>;
+    private var rowHeight:Int;
+    private var rowMargin:Int;
+    private var gridColor:ASColor;
+    private var showHorizontalLines:Bool;
+    private var showVerticalLines:Bool;
+    private var autoResizeMode:Int;
+    private var autoCreateColumnsFromModel:Bool;
+    private var preferredViewportSize:IntDimension;
+    private var rowSelectionAllowed:Bool;
+    private var cellSelectionEnabled:Bool;
+    private var cellEditor:TableCellEditor;
+    private var editingColumn:Int;
+    private var editingRow:Int;
+    private var defaultRenderersByColumnClass:Map<String, TableCellFactory>;
+    private var defaultEditorsByColumnClass:Map<String, TableCellEditor>;
+    private var selectionForeground:ASColor;
+    private var selectionBackground:ASColor;
 //private var surrendersFocusOnKeystroke:Boolean;
-private var columnSelectionAdjusting:Bool;
-private var rowSelectionAdjusting:Bool;
+    private var columnSelectionAdjusting:Bool;
+    private var rowSelectionAdjusting:Bool;
 
 //viewport
-private var viewPosition:IntPoint;
-private var verticalUnitIncrement:Int;
-private var verticalBlockIncrement:Int;
-private var horizontalUnitIncrement:Int;
-private var horizontalBlockIncrement:Int;
+    private var viewPosition:IntPoint;
+    private var verticalUnitIncrement:Int;
+    private var verticalBlockIncrement:Int;
+    private var horizontalUnitIncrement:Int;
+    private var horizontalBlockIncrement:Int;
 /** Stored cell value before any edition. */
-private var _storedValue:Dynamic;
+    private var _storedValue:Dynamic;
 
 /**
  * Constructs a default <code>JTable</code>.
@@ -212,18 +212,19 @@ private var _storedValue:Dynamic;
  * @see #initWithRowColumn()
  * @see #initWithModels()
  */
-public function new(dm:TableModel =null){
-super();
-setName("JTable");
 
-verticalUnitIncrement = AUTO_INCREMENT;
-verticalBlockIncrement = AUTO_INCREMENT;
-horizontalUnitIncrement = AUTO_INCREMENT;
-horizontalBlockIncrement = AUTO_INCREMENT;
+    public function new(dm:TableModel = null) {
+        super();
+        setName("JTable");
 
-initWithModels(dm);
-lastTotalColumnWidth = - 1;
-}
+        verticalUnitIncrement = AUTO_INCREMENT;
+        verticalBlockIncrement = AUTO_INCREMENT;
+        horizontalUnitIncrement = AUTO_INCREMENT;
+        horizontalBlockIncrement = AUTO_INCREMENT;
+
+        initWithModels(dm);
+        lastTotalColumnWidth = -1;
+    }
 
 /**
  * Initializes the <code>JTable</code> with
@@ -243,39 +244,40 @@ lastTotalColumnWidth = - 1;
  * @see #createDefaultColumnModel()
  * @see #createDefaultSelectionModel()
  */
-private function initWithModels(dm:TableModel = null, cm:TableColumnModel = null, sm:ListSelectionModel = null):Void{
-setLayout(this);
 
-cellPane = new CellPane();
-cellPane.setEnabled(false);
-append(cellPane);
+    private function initWithModels(dm:TableModel = null, cm:TableColumnModel = null, sm:ListSelectionModel = null):Void {
+        setLayout(this);
 
-headerPane = new CellPane();
-headerPane.setEnabled(false);
-append(headerPane);
+        cellPane = new CellPane();
+        cellPane.setEnabled(false);
+        append(cellPane);
 
-rowCells = new Array<Array<Dynamic>>();
-viewPosition = new IntPoint();
+        headerPane = new CellPane();
+        headerPane.setEnabled(false);
+        append(headerPane);
 
-if (cm == null){
-cm = createDefaultColumnModel();
-autoCreateColumnsFromModel = true;
-}
+        rowCells = new Array<Array<Dynamic>>();
+        viewPosition = new IntPoint();
+
+        if (cm == null) {
+            cm = createDefaultColumnModel();
+            autoCreateColumnsFromModel = true;
+        }
 //trace("cm = " + cm);
-setColumnModel(cm);
-if (sm == null){
-sm = createDefaultSelectionModel();
-}
+        setColumnModel(cm);
+        if (sm == null) {
+            sm = createDefaultSelectionModel();
+        }
 //trace("sm = " + sm);
-setSelectionModel(sm);
-if (dm == null){
-dm = createDefaultDataModel();
-}
+        setSelectionModel(sm);
+        if (dm == null) {
+            dm = createDefaultDataModel();
+        }
 //trace("dm = " + dm);
-setModel(dm);
-initializeLocalVars();
-updateUI();
-}
+        setModel(dm);
+        initializeLocalVars();
+        updateUI();
+    }
 
 //****************************************
 //           Managing TableUI
@@ -287,32 +289,33 @@ updateUI();
  * @param ui  the TableUI L&F object
  * @throws ArgumentError when the newUI is not an <code>TableUI</code> instance.
  */
-override public function setUI(newUI:ComponentUI):Void{
-if (Std.is(newUI, TableUI)){
-super.setUI(newUI);
-repaint();
-}else{
-throw new Error("JTable ui should implemented TableUI interface!");
-}
-}
 
-public function getTableUI():TableUI{
-return cast(getUI(), TableUI);
-}
+    override public function setUI(newUI:ComponentUI):Void {
+        if (Std.is(newUI, TableUI)) {
+            super.setUI(newUI);
+            repaint();
+        } else {
+            throw new Error("JTable ui should implemented TableUI interface!");
+        }
+    }
 
-private function updateSubComponentUI(componentShell:Dynamic):Void{
-if (componentShell == null){
-return;
-}
-var component:Component = null;
-if (Std.is(componentShell, Component)) {
-component = cast(componentShell, Component) ;
-component.updateUI();
-} else if (Std.is(componentShell, CellEditor)){
-var ed:CellEditor = cast(componentShell, CellEditor) ;
-ed.updateUI();
-}
-}
+    public function getTableUI():TableUI {
+        return cast(getUI(), TableUI);
+    }
+
+    private function updateSubComponentUI(componentShell:Dynamic):Void {
+        if (componentShell == null) {
+            return;
+        }
+        var component:Component = null;
+        if (Std.is(componentShell, Component)) {
+            component = cast(componentShell, Component) ;
+            component.updateUI();
+        } else if (Std.is(componentShell, CellEditor)) {
+            var ed:CellEditor = cast(componentShell, CellEditor) ;
+            ed.updateUI();
+        }
+    }
 
 /**
  * Notification from the <code>UIManager</code> that the L&F has changed.
@@ -321,40 +324,41 @@ ed.updateUI();
  *
  * @see org.aswing.Component#updateUI
  */
-override public function updateUI():Void{
+
+    override public function updateUI():Void {
 // Update the UIs of the cell editors
-var cm:TableColumnModel = getColumnModel();
-for(column in 0...cm.getColumnCount()){
-var aColumn:TableColumn = cm.getColumn(column);
-updateSubComponentUI(aColumn.getCellEditor());
-}
+        var cm:TableColumnModel = getColumnModel();
+        for (column in 0...cm.getColumnCount()) {
+            var aColumn:TableColumn = cm.getColumn(column);
+            updateSubComponentUI(aColumn.getCellEditor());
+        }
 //Update the cells ui
-var i:Int;
-for(i in 0...rowCells.length){
-for(j in 0...rowCells[i].length){
-var cell:TableCell = rowCells[i][j];
-cell.getCellComponent().updateUI();
-}
-}
+        var i:Int;
+        for (i in 0...rowCells.length) {
+            for (j in 0...rowCells[i].length) {
+                var cell:TableCell = rowCells[i][j];
+                cell.getCellComponent().updateUI();
+            }
+        }
 
 // Update the UIs of all the default editors.
 
-for( key in defaultEditorsByColumnClass.keys()){
-updateSubComponentUI(defaultEditorsByColumnClass.get(key));
-}
+        for (key in defaultEditorsByColumnClass.keys()) {
+            updateSubComponentUI(defaultEditorsByColumnClass.get(key));
+        }
 
 // Update the UI of the table header
-if (tableHeader != null && tableHeader.getParent() == null){
-tableHeader.updateUI();
-}
+        if (tableHeader != null && tableHeader.getParent() == null) {
+            tableHeader.updateUI();
+        }
 
-setUI(UIManager.getUI(this));
+        setUI(UIManager.getUI(this));
 //resizeAndRepaint();
-}
+    }
 
-override public function getDefaultBasicUIClass():Class<Dynamic>{
-return org.aswing.plaf.basic.BasicTableUI;
-}
+    override public function getDefaultBasicUIClass():Class<Dynamic> {
+        return org.aswing.plaf.basic.BasicTableUI;
+    }
 
 /**
  * Returns the suffix used to construct the name of the L&F class used to
@@ -364,9 +368,10 @@ return org.aswing.plaf.basic.BasicTableUI;
  * @see JComponent#getUIClassID
  * @see UIDefaults#getUI
  */
-override public function getUIClassID():String{
-return "TableUI";
-}
+
+    override public function getUIClassID():String {
+        return "TableUI";
+    }
 
 
 //*****************************************************
@@ -380,21 +385,22 @@ return "TableUI";
  * @param   tableHeader  new tableHeader
  * @see	 #getTableHeader()
  */
-public function setTableHeader(tableHeader:JTableHeader):Void{
-if (this.tableHeader != tableHeader){
-var old:JTableHeader = this.tableHeader;
-if (old != null){
-old.setTable(null);
-old.removeFromContainer();
-}
-this.tableHeader = tableHeader;
-if (tableHeader != null){
-tableHeader.setTable(this);
-headerPane.append(tableHeader);
-}
+
+    public function setTableHeader(tableHeader:JTableHeader):Void {
+        if (this.tableHeader != tableHeader) {
+            var old:JTableHeader = this.tableHeader;
+            if (old != null) {
+                old.setTable(null);
+                old.removeFromContainer();
+            }
+            this.tableHeader = tableHeader;
+            if (tableHeader != null) {
+                tableHeader.setTable(this);
+                headerPane.append(tableHeader);
+            }
 //firePropertyChange("tableHeader", old, tableHeader);
-}
-}
+        }
+    }
 
 /**
  * Returns the <code>tableHeader</code> used by this <code>JTable</code>.
@@ -402,43 +408,47 @@ headerPane.append(tableHeader);
  * @return  the <code>tableHeader</code> used by this table
  * @see	 #setTableHeader()
  */
-public function getTableHeader():JTableHeader{
-return tableHeader;
-}
+
+    public function getTableHeader():JTableHeader {
+        return tableHeader;
+    }
 
 /**
  * Returns the footer component, it maybe null if there's no footer set.
  * @return the footer component, null if no footer set
  * @see #setFooter()
  */
-public function getFooter():Component{
-return footer;
-}
+
+    public function getFooter():Component {
+        return footer;
+    }
 
 /**
  * Sets a component to be locate at the bottome of the table
  * @param footer a component to be the footer of the table
  */
-public function setFooter(c:Component):Void{
-if(footer != c){
-if(footer!=null) {
-remove(footer);
-}
-footer = c;
-if(footer!=null) {
-append(footer);
-}
-revalidate();
-}
-}
+
+    public function setFooter(c:Component):Void {
+        if (footer != c) {
+            if (footer != null) {
+                remove(footer);
+            }
+            footer = c;
+            if (footer != null) {
+                append(footer);
+            }
+            revalidate();
+        }
+    }
 
 /**
  * Returns the container that holds the cells.
  * @return the container that holds the cells.
  */
-public function getCellPane():Container{
-return cellPane;
-}
+
+    public function getCellPane():Container {
+        return cellPane;
+    }
 
 /**
  * Sets the height, in pixels, of all cells to <code>rowHeight</code>,
@@ -450,15 +460,16 @@ return cellPane;
  * @throws  RangeError if <code>rowHeight</code> is less than 1
  * @see     #getAllRowHeight()
  */
-public function setRowHeight(rowHeight:Int):Void{
-if (rowHeight < 1){
-throw new Error("New row height less than 1");
-}
+
+    public function setRowHeight(rowHeight:Int):Void {
+        if (rowHeight < 1) {
+            throw new Error("New row height less than 1");
+        }
 //var old:int = this.rowHeight;
-this.rowHeight = rowHeight;
-resizeAndRepaint();
+        this.rowHeight = rowHeight;
+        resizeAndRepaint();
 //firePropertyChange("rowHeight", old, rowHeight);
-}
+    }
 
 /**
  * Returns the height of a table row, in pixels.
@@ -467,9 +478,10 @@ resizeAndRepaint();
  * @return  the height in pixels of a table row
  * @see #setAllRowHeight()
  */
-public function getRowHeight():Int{
-return rowHeight;
-}
+
+    public function getRowHeight():Int {
+        return rowHeight;
+    }
 
 /**
  * Sets the amount of empty space between cells in adjacent rows.
@@ -477,12 +489,13 @@ return rowHeight;
  * @param  rowMargin  the number of pixels between cells in a row
  * @see	 #getRowMargin()
  */
-public function setRowMargin(rowMargin:Int):Void{
+
+    public function setRowMargin(rowMargin:Int):Void {
 //var old:int = this.rowMargin;
-this.rowMargin = rowMargin;
-resizeAndRepaint();
+        this.rowMargin = rowMargin;
+        resizeAndRepaint();
 //firePropertyChange("rowMargin", old, rowMargin);
-}
+    }
 
 /**
  * Gets the amount of empty space, in pixels, between cells. Equivalent to:
@@ -491,9 +504,10 @@ resizeAndRepaint();
  *
  * @see	 #setRowMargin()
  */
-public function getRowMargin():Int{
-return rowMargin;
-}
+
+    public function getRowMargin():Int {
+        return rowMargin;
+    }
 
 /**
  * Sets the <code>rowMargin</code> and the <code>columnMargin</code> --
@@ -505,11 +519,12 @@ return rowMargin;
  *					and height between cells
  * @see	 #getIntercellSpacing()
  */
-public function setIntercellSpacing(intercellSpacing:IntDimension):Void{
-setRowMargin(intercellSpacing.height);
-getColumnModel().setColumnMargin(intercellSpacing.width);
-resizeAndRepaint();
-}
+
+    public function setIntercellSpacing(intercellSpacing:IntDimension):Void {
+        setRowMargin(intercellSpacing.height);
+        getColumnModel().setColumnMargin(intercellSpacing.width);
+        resizeAndRepaint();
+    }
 
 /**
  * Returns the horizontal and vertical space between cells.
@@ -518,9 +533,10 @@ resizeAndRepaint();
  * @return  the horizontal and vertical spacing between cells
  * @see	 #setIntercellSpacing()
  */
-public function getIntercellSpacing():IntDimension{
-return new IntDimension(getColumnModel().getColumnMargin(), rowMargin);
-}
+
+    public function getIntercellSpacing():IntDimension {
+        return new IntDimension(getColumnModel().getColumnMargin(), rowMargin);
+    }
 
 /**
  * Sets the color used to draw grid lines to <code>gridColor</code> and redisplays.
@@ -529,16 +545,17 @@ return new IntDimension(getColumnModel().getColumnMargin(), rowMargin);
  * @param  gridColor the new color of the grid lines
  * @see #getGridColor()
  */
-public function setGridColor(gridColor:ASColor):Void{
-if (gridColor == null){
-trace("New color is null, Ignored");
-return;
-}
+
+    public function setGridColor(gridColor:ASColor):Void {
+        if (gridColor == null) {
+            trace("New color is null, Ignored");
+            return;
+        }
 //var old:ASColor = this.gridColor;
-this.gridColor = gridColor;
+        this.gridColor = gridColor;
 //firePropertyChange("gridColor", old, gridColor);
-repaint();
-}
+        repaint();
+    }
 
 /**
  * Returns the color used to draw grid lines.
@@ -547,9 +564,10 @@ repaint();
  * @return  the color used to draw grid lines
  * @see	 #setGridColor()
  */
-public function getGridColor():ASColor{
-return gridColor;
-}
+
+    public function getGridColor():ASColor {
+        return gridColor;
+    }
 
 /**
  *  Sets whether the table draws grid lines around cells.
@@ -566,18 +584,19 @@ return gridColor;
  * @see #setShowHorizontalLines()
  * @see #setIntercellSpacing()
  */
-public function setShowGrid(showGrid:Bool, affectCellSpacing:Bool = true):Void{
-setShowHorizontalLines(showGrid);
-setShowVerticalLines(showGrid);
-if(affectCellSpacing) {
-if(showGrid) {
-setIntercellSpacing(new IntDimension(1, 1));
-} else{
-setIntercellSpacing(new IntDimension(0, 0));
-}
-}
-repaint();
-}
+
+    public function setShowGrid(showGrid:Bool, affectCellSpacing:Bool = true):Void {
+        setShowHorizontalLines(showGrid);
+        setShowVerticalLines(showGrid);
+        if (affectCellSpacing) {
+            if (showGrid) {
+                setIntercellSpacing(new IntDimension(1, 1));
+            } else {
+                setIntercellSpacing(new IntDimension(0, 0));
+            }
+        }
+        repaint();
+    }
 
 /**
  *  Sets whether the table draws horizontal lines between cells.
@@ -593,18 +612,19 @@ repaint();
  * @see	 #setShowVerticalLines()
  * @see  #setIntercellSpacing()
  */
-public function setShowHorizontalLines(showHorizontalLines:Bool, affectCellSpacing:Bool = true):Void{
-var old:Bool = this.showHorizontalLines;
-this.showHorizontalLines = showHorizontalLines;
-if(affectCellSpacing) {
-setIntercellSpacing(new IntDimension(
-getIntercellSpacing().width,
-showHorizontalLines ? 1 : 0));
-}
-if(old != showHorizontalLines){
-repaint();
-}
-}
+
+    public function setShowHorizontalLines(showHorizontalLines:Bool, affectCellSpacing:Bool = true):Void {
+        var old:Bool = this.showHorizontalLines;
+        this.showHorizontalLines = showHorizontalLines;
+        if (affectCellSpacing) {
+            setIntercellSpacing(new IntDimension(
+            getIntercellSpacing().width,
+            showHorizontalLines ? 1 : 0));
+        }
+        if (old != showHorizontalLines) {
+            repaint();
+        }
+    }
 
 /**
  * Sets whether the table draws vertical lines between cells.
@@ -620,18 +640,19 @@ repaint();
  * @see     #setShowHorizontalLines()
  * @see 	#setIntercellSpacing()
  */
-public function setShowVerticalLines(showVerticalLines:Bool, affectCellSpacing:Bool = true):Void{
-var old:Bool = this.showVerticalLines;
-this.showVerticalLines = showVerticalLines;
-if(affectCellSpacing) {
-setIntercellSpacing(new IntDimension(
-showVerticalLines ? 1 : 0,
-getIntercellSpacing().height));
-}
-if(old != showVerticalLines){
-repaint();
-}
-}
+
+    public function setShowVerticalLines(showVerticalLines:Bool, affectCellSpacing:Bool = true):Void {
+        var old:Bool = this.showVerticalLines;
+        this.showVerticalLines = showVerticalLines;
+        if (affectCellSpacing) {
+            setIntercellSpacing(new IntDimension(
+            showVerticalLines ? 1 : 0,
+            getIntercellSpacing().height));
+        }
+        if (old != showVerticalLines) {
+            repaint();
+        }
+    }
 
 /**
  * Returns true if the table draws horizontal lines between cells, false if it
@@ -641,9 +662,10 @@ repaint();
  *          doesn't
  * @see	 #setShowHorizontalLines()
  */
-public function getShowHorizontalLines():Bool{
-return showHorizontalLines;
-}
+
+    public function getShowHorizontalLines():Bool {
+        return showHorizontalLines;
+    }
 
 /**
  * Returns true if the table draws vertical lines between cells, false if it
@@ -653,9 +675,10 @@ return showHorizontalLines;
  *          doesn't
  * @see	 #setShowVerticalLines()
  */
-public function getShowVerticalLines():Bool{
-return showVerticalLines;
-}
+
+    public function getShowVerticalLines():Bool {
+        return showVerticalLines;
+    }
 
 /**
  * Sets the table's auto resize mode when the table is resized.
@@ -670,24 +693,24 @@ return showVerticalLines;
  * @see     #getAutoResizeMode()
  * @see     #doLayout()
  */
-public function setAutoResizeMode(mode:Int):Void{
-if (mode == AUTO_RESIZE_OFF
-|| mode == AUTO_RESIZE_NEXT_COLUMN
-|| mode == AUTO_RESIZE_SUBSEQUENT_COLUMNS
-|| mode == AUTO_RESIZE_LAST_COLUMN
-|| mode == AUTO_RESIZE_ALL_COLUMNS)
-{
-if(mode != autoResizeMode){
+
+    public function setAutoResizeMode(mode:Int):Void {
+        if (mode == AUTO_RESIZE_OFF
+        || mode == AUTO_RESIZE_NEXT_COLUMN
+        || mode == AUTO_RESIZE_SUBSEQUENT_COLUMNS
+        || mode == AUTO_RESIZE_LAST_COLUMN
+        || mode == AUTO_RESIZE_ALL_COLUMNS) {
+            if (mode != autoResizeMode) {
 //var old:int = autoResizeMode;
-autoResizeMode = mode;
-resizeAndRepaint();
-if (tableHeader != null){
-tableHeader.resizeAndRepaint();
-}
+                autoResizeMode = mode;
+                resizeAndRepaint();
+                if (tableHeader != null) {
+                    tableHeader.resizeAndRepaint();
+                }
 //firePropertyChange("autoResizeMode", old, autoResizeMode);
-}
-}
-}
+            }
+        }
+    }
 
 /**
  * Returns the auto resize mode of the table.  The default mode
@@ -698,9 +721,10 @@ tableHeader.resizeAndRepaint();
  * @see	 #setAutoResizeMode()
  * @see	 #doLayout()
  */
-public function getAutoResizeMode():Int{
-return autoResizeMode;
-}
+
+    public function getAutoResizeMode():Int {
+        return autoResizeMode;
+    }
 
 /**
  * Sets this table's <code>autoCreateColumnsFromModel</code> flag.
@@ -711,16 +735,17 @@ return autoResizeMode;
  * @see #getAutoCreateColumnsFromModel()
  * @see #createDefaultColumnsFromModel()
  */
-public function setAutoCreateColumnsFromModel(autoCreateColumnsFromModel:Bool):Void{
-if (this.autoCreateColumnsFromModel != autoCreateColumnsFromModel){
+
+    public function setAutoCreateColumnsFromModel(autoCreateColumnsFromModel:Bool):Void {
+        if (this.autoCreateColumnsFromModel != autoCreateColumnsFromModel) {
 //var old:Boolean = this.autoCreateColumnsFromModel;
-this.autoCreateColumnsFromModel = autoCreateColumnsFromModel;
-if(autoCreateColumnsFromModel) {
-createDefaultColumnsFromModel();
-}
+            this.autoCreateColumnsFromModel = autoCreateColumnsFromModel;
+            if (autoCreateColumnsFromModel) {
+                createDefaultColumnsFromModel();
+            }
 //firePropertyChange("autoCreateColumnsFromModel", old, autoCreateColumnsFromModel);
-}
-}
+        }
+    }
 
 /**
  * Determines whether the table will create default columns from the model.
@@ -734,9 +759,10 @@ createDefaultColumnsFromModel();
  * @see	 #setAutoCreateColumnsFromModel()
  * @see	 #createDefaultColumnsFromModel()
  */
-public function getAutoCreateColumnsFromModel():Bool{
-return autoCreateColumnsFromModel;
-}
+
+    public function getAutoCreateColumnsFromModel():Bool {
+        return autoCreateColumnsFromModel;
+    }
 
 /**
  * Creates default columns for the table from
@@ -748,19 +774,20 @@ return autoCreateColumnsFromModel;
  *
  * @see #getAutoCreateColumnsFromModel()
  */
-public function createDefaultColumnsFromModel():Void{
-var m:TableModel = getModel();
-if (m != null){
-var cm:TableColumnModel = getColumnModel();
-while(cm.getColumnCount() > 0){
-cm.removeColumn(cm.getColumn(0));
-}
-for (i in 0...m.getColumnCount()){
-var newColumn:TableColumn = new TableColumn(i);
-addColumn(newColumn);
-}
-}
-}
+
+    public function createDefaultColumnsFromModel():Void {
+        var m:TableModel = getModel();
+        if (m != null) {
+            var cm:TableColumnModel = getColumnModel();
+            while (cm.getColumnCount() > 0) {
+                cm.removeColumn(cm.getColumn(0));
+            }
+            for (i in 0...m.getColumnCount()) {
+                var newColumn:TableColumn = new TableColumn(i);
+                addColumn(newColumn);
+            }
+        }
+    }
 
 /**
  * Sets a default cell factory to be used if no renderer has been set in
@@ -773,13 +800,14 @@ addColumn(newColumn);
  * @see     #getDefaultRenderer()
  * @see     #setDefaultEditor()
  */
-public function setDefaultCellFactory(columnClass:String, renderer:TableCellFactory):Void{
-if (renderer != null){
-defaultRenderersByColumnClass.set(columnClass, renderer);
-} else{
-defaultRenderersByColumnClass.remove(columnClass);
-}
-}
+
+    public function setDefaultCellFactory(columnClass:String, renderer:TableCellFactory):Void {
+        if (renderer != null) {
+            defaultRenderersByColumnClass.set(columnClass, renderer);
+        } else {
+            defaultRenderersByColumnClass.remove(columnClass);
+        }
+    }
 
 /**
  * Returns the cell factory to be used when no factory has been set in
@@ -796,20 +824,21 @@ defaultRenderersByColumnClass.remove(columnClass);
  * @see     #setDefaultRenderer()
  * @see     #getColumnClass()
  */
-public function getDefaultCellFactory(columnClass:String):TableCellFactory{
+
+    public function getDefaultCellFactory(columnClass:String):TableCellFactory {
 //trace("getDefaultRenderer of " + columnClass);
-if (columnClass == null){
-return null;
-}else{
-var renderer:Dynamic = defaultRenderersByColumnClass.get(columnClass);
+        if (columnClass == null) {
+            return null;
+        } else {
+            var renderer:Dynamic = defaultRenderersByColumnClass.get(columnClass);
 //trace("defaultRenderersByColumnClass " + renderer);
-if (renderer != null){
-return cast(renderer, TableCellFactory);
-} else{
-return getDefaultCellFactory("Object");
-}
-}
-}
+            if (renderer != null) {
+                return cast(renderer, TableCellFactory);
+            } else {
+                return getDefaultCellFactory("Object");
+            }
+        }
+    }
 
 /**
  * Sets a default cell editor to be used if no editor has been set in
@@ -826,13 +855,14 @@ return getDefaultCellFactory("Object");
  * @see     #getDefaultEditor()
  * @see     #setDefaultRenderer()
  */
-public function setDefaultEditor(columnClass:String, editor:TableCellEditor ):Void{
-if (editor != null){
-defaultEditorsByColumnClass.set(columnClass, editor);
-} else{
-defaultEditorsByColumnClass.remove(columnClass);
-}
-}
+
+    public function setDefaultEditor(columnClass:String, editor:TableCellEditor):Void {
+        if (editor != null) {
+            defaultEditorsByColumnClass.set(columnClass, editor);
+        } else {
+            defaultEditorsByColumnClass.remove(columnClass);
+        }
+    }
 
 /**
  * Returns the editor to be used when no editor has been set in
@@ -848,18 +878,19 @@ defaultEditorsByColumnClass.remove(columnClass);
  * @see     #setDefaultEditor()
  * @see     #getColumnClass()
  */
-public function getDefaultEditor(columnClass:String):TableCellEditor{
-if (columnClass == null){
-return null;
-}else{
-var editor:Dynamic = defaultEditorsByColumnClass.get(columnClass);
-if (editor != null){
-return cast(editor, TableCellEditor);
-} else{
-return getDefaultEditor("Object");
-}
-}
-}
+
+    public function getDefaultEditor(columnClass:String):TableCellEditor {
+        if (columnClass == null) {
+            return null;
+        } else {
+            var editor:Dynamic = defaultEditorsByColumnClass.get(columnClass);
+            if (editor != null) {
+                return cast(editor, TableCellEditor);
+            } else {
+                return getDefaultEditor("Object");
+            }
+        }
+    }
 
 /**
  * Sets the table's selection mode to allow only single selections, a single
@@ -882,11 +913,12 @@ return getDefaultEditor("Object");
  *
  * @see JList#setSelectionMode()
  */
-public function setSelectionMode(selectionMode:Int):Void{
-clearSelection();
-getSelectionModel().setSelectionMode(selectionMode);
-getColumnModel().getSelectionModel().setSelectionMode(selectionMode);
-}
+
+    public function setSelectionMode(selectionMode:Int):Void {
+        clearSelection();
+        getSelectionModel().setSelectionMode(selectionMode);
+        getColumnModel().getSelectionModel().setSelectionMode(selectionMode);
+    }
 
 /**
  * Sets whether the rows in this model can be selected.
@@ -894,14 +926,15 @@ getColumnModel().getSelectionModel().setSelectionMode(selectionMode);
  * @param rowSelectionAllowed   true if this model will allow row selection
  * @see #getRowSelectionAllowed()
  */
-public function setRowSelectionAllowed(rowSelectionAllowed:Bool):Void{
-var old:Bool = this.rowSelectionAllowed;
-this.rowSelectionAllowed = rowSelectionAllowed;
-if (old != rowSelectionAllowed){
-repaint();
-}
+
+    public function setRowSelectionAllowed(rowSelectionAllowed:Bool):Void {
+        var old:Bool = this.rowSelectionAllowed;
+        this.rowSelectionAllowed = rowSelectionAllowed;
+        if (old != rowSelectionAllowed) {
+            repaint();
+        }
 //firePropertyChange("rowSelectionAllowed", old, rowSelectionAllowed);
-}
+    }
 
 /**
  * Returns true if rows can be selected.
@@ -909,9 +942,10 @@ repaint();
  * @return true if rows can be selected, otherwise false
  * @see #setRowSelectionAllowed()
  */
-public function getRowSelectionAllowed():Bool{
-return rowSelectionAllowed;
-}
+
+    public function getRowSelectionAllowed():Bool {
+        return rowSelectionAllowed;
+    }
 
 /**
  * Sets whether the columns in this model can be selected.
@@ -919,14 +953,15 @@ return rowSelectionAllowed;
  * @param columnSelectionAllowed   true if this model will allow column selection
  * @see #getColumnSelectionAllowed()
  */
-public function setColumnSelectionAllowed(columnSelectionAllowed:Bool):Void{
-var old:Bool = columnModel.getColumnSelectionAllowed();
-columnModel.setColumnSelectionAllowed(columnSelectionAllowed);
-if (old != columnSelectionAllowed){
-repaint();
-}
+
+    public function setColumnSelectionAllowed(columnSelectionAllowed:Bool):Void {
+        var old:Bool = columnModel.getColumnSelectionAllowed();
+        columnModel.setColumnSelectionAllowed(columnSelectionAllowed);
+        if (old != columnSelectionAllowed) {
+            repaint();
+        }
 //firePropertyChange("columnSelectionAllowed", old, columnSelectionAllowed);
-}
+    }
 
 /**
  * Returns true if columns can be selected.
@@ -934,9 +969,10 @@ repaint();
  * @return true if columns can be selected, otherwise false
  * @see #setColumnSelectionAllowed()
  */
-public function getColumnSelectionAllowed():Bool{
-return columnModel.getColumnSelectionAllowed();
-}
+
+    public function getColumnSelectionAllowed():Bool {
+        return columnModel.getColumnSelectionAllowed();
+    }
 
 /**
  * Sets whether this table allows both a column selection and a
@@ -953,13 +989,14 @@ return columnModel.getColumnSelectionAllowed();
  * @see #getCellSelectionEnabled()
  * @see #isCellSelected()
  */
-public function setCellSelectionEnabled(cellSelectionEnabled:Bool):Void{
-setRowSelectionAllowed(cellSelectionEnabled);
-setColumnSelectionAllowed(cellSelectionEnabled);
+
+    public function setCellSelectionEnabled(cellSelectionEnabled:Bool):Void {
+        setRowSelectionAllowed(cellSelectionEnabled);
+        setColumnSelectionAllowed(cellSelectionEnabled);
 //var old:Boolean = this.cellSelectionEnabled;
-this.cellSelectionEnabled = cellSelectionEnabled;
+        this.cellSelectionEnabled = cellSelectionEnabled;
 //firePropertyChange("cellSelectionEnabled", old, cellSelectionEnabled);
-}
+    }
 
 /**
  * Returns true if both row and column selection models are enabled.
@@ -970,62 +1007,65 @@ this.cellSelectionEnabled = cellSelectionEnabled;
  *
  * @see #setCellSelectionEnabled()
  */
-public function getCellSelectionEnabled():Bool{
-return (getRowSelectionAllowed() && getColumnSelectionAllowed());
-}
+
+    public function getCellSelectionEnabled():Bool {
+        return (getRowSelectionAllowed() && getColumnSelectionAllowed());
+    }
 
 /**
  *  Selects all rows, columns, and cells in the table.
  * @param programmatic indicate if this is a programmatic change
  */
-public function selectAll(programmatic:Bool = true):Void{
-if (isEditing()){
-removeEditor();
-}
-if ((getRowCount() > 0) && (getColumnCount() > 0)){
-var oldLead:Int;
-var oldAnchor:Int;
-var selModel:ListSelectionModel;
-selModel = selectionModel;
+
+    public function selectAll(programmatic:Bool = true):Void {
+        if (isEditing()) {
+            removeEditor();
+        }
+        if ((getRowCount() > 0) && (getColumnCount() > 0)) {
+            var oldLead:Int;
+            var oldAnchor:Int;
+            var selModel:ListSelectionModel;
+            selModel = selectionModel;
 //TODO adjusting needed?
 //selModel.setValueIsAdjusting(true);
-oldLead = selModel.getLeadSelectionIndex();
-oldAnchor = selModel.getAnchorSelectionIndex();
-setRowSelectionInterval(0, getRowCount() - 1, programmatic);
-selModel.addSelectionInterval(oldAnchor, oldLead, programmatic);
+            oldLead = selModel.getLeadSelectionIndex();
+            oldAnchor = selModel.getAnchorSelectionIndex();
+            setRowSelectionInterval(0, getRowCount() - 1, programmatic);
+            selModel.addSelectionInterval(oldAnchor, oldLead, programmatic);
 //selModel.setValueIsAdjusting(false);
-selModel = columnModel.getSelectionModel();
+            selModel = columnModel.getSelectionModel();
 //selModel.setValueIsAdjusting(true);
-oldLead = selModel.getLeadSelectionIndex();
-oldAnchor = selModel.getAnchorSelectionIndex();
-setColumnSelectionInterval(0, getColumnCount() - 1, programmatic);
-selModel.addSelectionInterval(oldAnchor, oldLead, programmatic);
+            oldLead = selModel.getLeadSelectionIndex();
+            oldAnchor = selModel.getAnchorSelectionIndex();
+            setColumnSelectionInterval(0, getColumnCount() - 1, programmatic);
+            selModel.addSelectionInterval(oldAnchor, oldLead, programmatic);
 //selModel.setValueIsAdjusting(false);
-}
-}
+        }
+    }
 
 /**
  * Deselects all selected columns and rows.
  * @param programmatic indicate if this is a programmatic change
  */
-public function clearSelection(programmatic:Bool = true):Void{
-selectionModel.clearSelection(programmatic);
-columnModel.getSelectionModel().clearSelection(programmatic);
-}
 
-private function boundRow(row:Int):Int{
-if ((row < 0) || (row >= getRowCount())){
-throw new Error("Row index out of range");
-}
-return row;
-}
+    public function clearSelection(programmatic:Bool = true):Void {
+        selectionModel.clearSelection(programmatic);
+        columnModel.getSelectionModel().clearSelection(programmatic);
+    }
 
-private function boundColumn(col:Int):Int{
-if ((col < 0) || (col >= getColumnCount())){
-throw new Error("Column index out of range");
-}
-return col;
-}
+    private function boundRow(row:Int):Int {
+        if ((row < 0) || (row >= getRowCount())) {
+            throw new Error("Row index out of range");
+        }
+        return row;
+    }
+
+    private function boundColumn(col:Int):Int {
+        if ((col < 0) || (col >= getColumnCount())) {
+            throw new Error("Column index out of range");
+        }
+        return col;
+    }
 
 /**
  * Selects the rows from <code>index0</code> to <code>index1</code>,
@@ -1038,9 +1078,10 @@ return col;
  * @param   index1 the other end of the interval
  * @param programmatic indicate if this is a programmatic change
  */
-public function setRowSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void{
-selectionModel.setSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
-}
+
+    public function setRowSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void {
+        selectionModel.setSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
+    }
 
 /**
  * Selects the columns from <code>index0</code> to <code>index1</code>,
@@ -1053,9 +1094,10 @@ selectionModel.setSelectionInterval(boundRow(index0), boundRow(index1), programm
  * @param   index1 the other end of the interval
  * @param programmatic indicate if this is a programmatic change
  */
-public function setColumnSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void{
-columnModel.getSelectionModel().setSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
-}
+
+    public function setColumnSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void {
+        columnModel.getSelectionModel().setSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
+    }
 
 /**
  * Adds the rows from <code>index0</code> to <code>index1</code>, inclusive, to
@@ -1067,9 +1109,10 @@ columnModel.getSelectionModel().setSelectionInterval(boundColumn(index0), boundC
  * @param   index1 the other end of the interval
  * @param programmatic indicate if this is a programmatic change
  */
-public function addRowSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void{
-selectionModel.addSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
-}
+
+    public function addRowSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void {
+        selectionModel.addSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
+    }
 
 /**
  * Adds the columns from <code>index0</code> to <code>index1</code>,
@@ -1082,9 +1125,10 @@ selectionModel.addSelectionInterval(boundRow(index0), boundRow(index1), programm
  * @param   index1 the other end of the interval
  * @param programmatic indicate if this is a programmatic change
  */
-public function addColumnSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void{
-columnModel.getSelectionModel().addSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
-}
+
+    public function addColumnSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void {
+        columnModel.getSelectionModel().addSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
+    }
 
 /**
  * Deselects the rows from <code>index0</code> to <code>index1</code>, inclusive.
@@ -1096,9 +1140,10 @@ columnModel.getSelectionModel().addSelectionInterval(boundColumn(index0), boundC
  * @param   index1 the other end of the interval
  * @param programmatic indicate if this is a programmatic change
  */
-public function removeRowSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void{
-selectionModel.removeSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
-}
+
+    public function removeRowSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void {
+        selectionModel.removeSelectionInterval(boundRow(index0), boundRow(index1), programmatic);
+    }
 
 /**
  * Deselects the columns from <code>index0</code> to <code>index1</code>, inclusive.
@@ -1110,26 +1155,29 @@ selectionModel.removeSelectionInterval(boundRow(index0), boundRow(index1), progr
  * @param   index1 the other end of the interval
  * @param programmatic indicate if this is a programmatic change
  */
-public function removeColumnSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void{
-columnModel.getSelectionModel().removeSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
-}
+
+    public function removeColumnSelectionInterval(index0:Int, index1:Int, programmatic:Bool = true):Void {
+        columnModel.getSelectionModel().removeSelectionInterval(boundColumn(index0), boundColumn(index1), programmatic);
+    }
 
 /**
  * Returns the index of the first selected row, -1 if no row is selected.
  * @return the index of the first selected row
  */
-public function getSelectedRow():Int{
-return selectionModel.getMinSelectionIndex();
-}
+
+    public function getSelectedRow():Int {
+        return selectionModel.getMinSelectionIndex();
+    }
 
 /**
  * Returns the index of the first selected column,
  * -1 if no column is selected.
  * @return the index of the first selected column
  */
-public function getSelectedColumn():Int{
-return columnModel.getSelectionModel().getMinSelectionIndex();
-}
+
+    public function getSelectedColumn():Int {
+        return columnModel.getSelectionModel().getMinSelectionIndex();
+    }
 
 /**
  * Returns the indices of all selected rows.
@@ -1138,21 +1186,22 @@ return columnModel.getSelectionModel().getMinSelectionIndex();
  *         or an empty array if no row is selected
  * @see #getSelectedRow
  */
-public function getSelectedRows():Array<Dynamic>{
-var iMin:Int = selectionModel.getMinSelectionIndex();
-var iMax:Int = selectionModel.getMaxSelectionIndex();
-if ((iMin == ( - 1)) || (iMax == ( - 1))){
-return new Array<Dynamic>();
-}
 
-var rvTmp:Array<Dynamic>= new Array<Dynamic>();
-for (i in iMin...iMax + 1){
-if (selectionModel.isSelectedIndex(i)){
-rvTmp.push(i);
-}
-}
-return rvTmp;
-}
+    public function getSelectedRows():Array<Dynamic> {
+        var iMin:Int = selectionModel.getMinSelectionIndex();
+        var iMax:Int = selectionModel.getMaxSelectionIndex();
+        if ((iMin == ( -1)) || (iMax == ( -1))) {
+            return new Array<Dynamic>();
+        }
+
+        var rvTmp:Array<Dynamic> = new Array<Dynamic>();
+        for (i in iMin...iMax + 1) {
+            if (selectionModel.isSelectedIndex(i)) {
+                rvTmp.push(i);
+            }
+        }
+        return rvTmp;
+    }
 
 /**
  * Returns the indices of all selected columns.
@@ -1161,35 +1210,38 @@ return rvTmp;
  *         or an empty array if no column is selected
  * @see #getSelectedColumn
  */
-public function getSelectedColumns():Array<Dynamic>{
-return columnModel.getSelectedColumns();
-}
+
+    public function getSelectedColumns():Array<Dynamic> {
+        return columnModel.getSelectedColumns();
+    }
 
 /**
  * Returns the number of selected rows.
  *
  * @return the number of selected rows, 0 if no rows are selected
  */
-public function getSelectedRowCount():Int{
-var iMin:Int = selectionModel.getMinSelectionIndex();
-var iMax:Int = selectionModel.getMaxSelectionIndex();
-var count:Int = 0;
-for (i in iMin...iMax + 1){
-if (selectionModel.isSelectedIndex(i)){
-count++;
-}
-}
-return count;
-}
+
+    public function getSelectedRowCount():Int {
+        var iMin:Int = selectionModel.getMinSelectionIndex();
+        var iMax:Int = selectionModel.getMaxSelectionIndex();
+        var count:Int = 0;
+        for (i in iMin...iMax + 1) {
+            if (selectionModel.isSelectedIndex(i)) {
+                count++;
+            }
+        }
+        return count;
+    }
 
 /**
  * Returns the number of selected columns.
  *
  * @return the number of selected columns, 0 if no columns are selected
  */
-public function getSelectedColumnCount():Int{
-return columnModel.getSelectedColumnCount();
-}
+
+    public function getSelectedColumnCount():Int {
+        return columnModel.getSelectedColumnCount();
+    }
 
 /**
  * Returns true if the specified index is in the valid range of rows,
@@ -1198,9 +1250,10 @@ return columnModel.getSelectedColumnCount();
  * @return true if <code>row</code> is a valid index and the row at
  *              that index is selected (where 0 is the first row)
  */
-public function isRowSelected(row:Int):Bool{
-return selectionModel.isSelectedIndex(row);
-}
+
+    public function isRowSelected(row:Int):Bool {
+        return selectionModel.isSelectedIndex(row);
+    }
 
 /**
  * Returns true if the specified index is in the valid range of columns,
@@ -1210,9 +1263,10 @@ return selectionModel.isSelectedIndex(row);
  * @return true if <code>column</code> is a valid index and the column at
  *              that index is selected (where 0 is the first column)
  */
-public function isColumnSelected(column:Int):Bool{
-return columnModel.getSelectionModel().isSelectedIndex(column);
-}
+
+    public function isColumnSelected(column:Int):Bool {
+        return columnModel.getSelectionModel().isSelectedIndex(column);
+    }
 
 /**
  * Returns true if the specified indices are in the valid range of rows
@@ -1224,65 +1278,67 @@ return columnModel.getSelectionModel().isSelectedIndex(column);
  *              and the cell at index <code>(row, column)</code> is selected,
  *              where the first row and first column are at index 0
  */
-public function isCellSelected(row:Int, column:Int):Bool{
-if ((! getRowSelectionAllowed()) && (! getColumnSelectionAllowed())){
-return false;
-}
-return ((!getRowSelectionAllowed()) || isRowSelected(row))
-&& ((!getColumnSelectionAllowed()) || isColumnSelected(column));
-}
+
+    public function isCellSelected(row:Int, column:Int):Bool {
+        if ((!getRowSelectionAllowed()) && (!getColumnSelectionAllowed())) {
+            return false;
+        }
+        return ((!getRowSelectionAllowed()) || isRowSelected(row))
+        && ((!getColumnSelectionAllowed()) || isColumnSelected(column));
+    }
 
 /**
  * Scrolls the JTable to make the specified cell completely visible.
  * @param row the row index
  * @param column the column index
  */
-public function ensureCellIsVisible(row:Int, column:Int):Void{
-var rect:IntRectangle = getCellRect(row, column, false);
-rect.setLocation(getPixelLocationFromLogicLocation(rect.getLocation()));
 
-var insets:Insets = getInsets();
-var insetsX:Int = insets.left;
-var insetsY:Int = insets.top;
-var startX:Int = insetsX;
-var startY:Int = insetsY + getHeaderHeight();
-var endX:Int = getWidth() - insets.right;
-var endY:Int = getHeight() - insets.bottom;
-var moveX:Int = 0;
-var moveY:Int = 0;
-if(rect.x < startX){
-moveX = rect.x - startX;
-}else if(rect.x + rect.width > endX){
-moveX = rect.x + rect.width - endX;
-}
-if(rect.y < startY){
-moveY = rect.y - startY;
-}else if(rect.y + rect.height > endY){
-moveY = rect.y + rect.height - endY;
-}
-setViewPosition(getViewPosition().move(moveX, moveY));
-}
+    public function ensureCellIsVisible(row:Int, column:Int):Void {
+        var rect:IntRectangle = getCellRect(row, column, false);
+        rect.setLocation(getPixelLocationFromLogicLocation(rect.getLocation()));
 
-private function changeSelectionModel(sm:ListSelectionModel, index:Int,
-toggle:Bool, extend:Bool, selected:Bool, programmatic:Bool = true):Void{
-if(extend) {
-if(toggle) {
-sm.setAnchorSelectionIndex(index);
-}else{
-sm.setSelectionInterval(sm.getAnchorSelectionIndex(), index, programmatic);
-}
-} else{
-if(toggle) {
-if(selected) {
-sm.removeSelectionInterval(index, index, programmatic);
-} else{
-sm.addSelectionInterval(index, index, programmatic);
-}
-} else{
-sm.setSelectionInterval(index, index, programmatic);
-}
-}
-}
+        var insets:Insets = getInsets();
+        var insetsX:Int = insets.left;
+        var insetsY:Int = insets.top;
+        var startX:Int = insetsX;
+        var startY:Int = insetsY + getHeaderHeight();
+        var endX:Int = getWidth() - insets.right;
+        var endY:Int = getHeight() - insets.bottom;
+        var moveX:Int = 0;
+        var moveY:Int = 0;
+        if (rect.x < startX) {
+            moveX = rect.x - startX;
+        } else if (rect.x + rect.width > endX) {
+            moveX = rect.x + rect.width - endX;
+        }
+        if (rect.y < startY) {
+            moveY = rect.y - startY;
+        } else if (rect.y + rect.height > endY) {
+            moveY = rect.y + rect.height - endY;
+        }
+        setViewPosition(getViewPosition().move(moveX, moveY));
+    }
+
+    private function changeSelectionModel(sm:ListSelectionModel, index:Int,
+                                          toggle:Bool, extend:Bool, selected:Bool, programmatic:Bool = true):Void {
+        if (extend) {
+            if (toggle) {
+                sm.setAnchorSelectionIndex(index);
+            } else {
+                sm.setSelectionInterval(sm.getAnchorSelectionIndex(), index, programmatic);
+            }
+        } else {
+            if (toggle) {
+                if (selected) {
+                    sm.removeSelectionInterval(index, index, programmatic);
+                } else {
+                    sm.addSelectionInterval(index, index, programmatic);
+                }
+            } else {
+                sm.setSelectionInterval(index, index, programmatic);
+            }
+        }
+    }
 
 /**
  * Updates the selection models of the table, depending on the state of the
@@ -1311,10 +1367,11 @@ sm.setSelectionInterval(index, index, programmatic);
  * @param  extend  if true, extend the current selection
  * @param programmatic indicate if this is a programmatic change
  */
-public function changeSelection(rowIndex:Int, columnIndex:Int, toggle:Bool,
-extend:Bool, programmatic:Bool = true):Void{
-var rsm:ListSelectionModel = getSelectionModel();
-var csm:ListSelectionModel = getColumnModel().getSelectionModel();
+
+    public function changeSelection(rowIndex:Int, columnIndex:Int, toggle:Bool,
+                                    extend:Bool, programmatic:Bool = true):Void {
+        var rsm:ListSelectionModel = getSelectionModel();
+        var csm:ListSelectionModel = getColumnModel().getSelectionModel();
 // Check the selection here rather than in each selection model.
 // This is significant in cell selection mode if we are supposed
 // to be toggling the selection. In this case it is better to
@@ -1322,20 +1379,20 @@ var csm:ListSelectionModel = getColumnModel().getSelectionModel();
 // If this were done in the code for the selection model it
 // might leave a cell in selection state if the row was
 // selected but the column was not - as it would toggle them both.
-var selected:Bool = isCellSelected(rowIndex, columnIndex);
-changeSelectionModel(csm, columnIndex, toggle, extend, selected, programmatic);
-changeSelectionModel(rsm, rowIndex, toggle, extend, selected, programmatic);
+        var selected:Bool = isCellSelected(rowIndex, columnIndex);
+        changeSelectionModel(csm, columnIndex, toggle, extend, selected, programmatic);
+        changeSelectionModel(rsm, rowIndex, toggle, extend, selected, programmatic);
 
 // Scroll after changing the selection as blit scrolling is immediate,
 // so that if we cause the repaint after the scroll we end up painting
 // everything!
-if (false){//getAutoscrolls()){
-var cellRect:IntRectangle = getCellRect(rowIndex, columnIndex, false);
-if(cellRect!=null) {
-scrollRectToVisible(cellRect);
-}
-}
-}
+        if (false) {//getAutoscrolls()){
+            var cellRect:IntRectangle = getCellRect(rowIndex, columnIndex, false);
+            if (cellRect != null) {
+                scrollRectToVisible(cellRect);
+            }
+        }
+    }
 
 /**
  * Returns the foreground color for selected cells.
@@ -1344,9 +1401,10 @@ scrollRectToVisible(cellRect);
  * @see #setSelectionForeground()
  * @see #setSelectionBackground()
  */
-public function getSelectionForeground():ASColor{
-return selectionForeground;
-}
+
+    public function getSelectionForeground():ASColor {
+        return selectionForeground;
+    }
 
 /**
  * Sets the foreground color for selected cells.  Cell renderers
@@ -1364,15 +1422,16 @@ return selectionForeground;
  * @see #setBackground()
  * @see #setFont()
  */
-public function setSelectionForeground(selectionForeground:ASColor):Void{
-var old:ASColor = this.selectionForeground;
-this.selectionForeground = selectionForeground;
+
+    public function setSelectionForeground(selectionForeground:ASColor):Void {
+        var old:ASColor = this.selectionForeground;
+        this.selectionForeground = selectionForeground;
 //firePropertyChange("selectionForeground", old, selectionForeground);
-if (! selectionForeground.equals(old)){
-repaint();
-revalidate();
-}
-}
+        if (!selectionForeground.equals(old)) {
+            repaint();
+            revalidate();
+        }
+    }
 
 /**
  * Returns the background color for selected cells.
@@ -1381,9 +1440,10 @@ revalidate();
  * @see #setSelectionBackground()
  * @see #setSelectionForeground()
  */
-public function getSelectionBackground():ASColor{
-return selectionBackground;
-}
+
+    public function getSelectionBackground():ASColor {
+        return selectionBackground;
+    }
 
 /**
  * Sets the background color for selected cells.  Cell renderers
@@ -1399,15 +1459,16 @@ return selectionBackground;
  * @see #setBackground()
  * @see #setFont()
  */
-public function setSelectionBackground(selectionBackground:ASColor):Void{
-var old:ASColor = this.selectionBackground;
-this.selectionBackground = selectionBackground;
+
+    public function setSelectionBackground(selectionBackground:ASColor):Void {
+        var old:ASColor = this.selectionBackground;
+        this.selectionBackground = selectionBackground;
 //firePropertyChange("selectionBackground", old, selectionBackground);
-if (! selectionBackground.equals(old)){
-repaint();
-revalidate();
-}
-}
+        if (!selectionBackground.equals(old)) {
+            repaint();
+            revalidate();
+        }
+    }
 
 /**
  * Returns the <code>TableColumn</code> object for the column in the table
@@ -1417,11 +1478,12 @@ revalidate();
  * @return  the <code>TableColumn</code> object that matches the identifier
  * @param   identifier                      the identifier object
  */
-public function getColumn(identifier:Dynamic):TableColumn{
-var cm:TableColumnModel = getColumnModel();
-var columnIndex:Int = cm.getColumnIndex(identifier);
-return cm.getColumn(columnIndex);
-}
+
+    public function getColumn(identifier:Dynamic):TableColumn {
+        var cm:TableColumnModel = getColumnModel();
+        var columnIndex:Int = cm.getColumnIndex(identifier);
+        return cm.getColumn(columnIndex);
+    }
 
 /**
  * Returns the <code>TableColumn</code> object for the column at
@@ -1431,9 +1493,10 @@ return cm.getColumn(columnIndex);
  * @return  the <code>TableColumn</code> object for
  *				the column at <code>columnIndex</code>
  */
-public function getColumnAt(columnIndex:Int):TableColumn{
-return getColumnModel().getColumn(columnIndex);
-}
+
+    public function getColumnAt(columnIndex:Int):TableColumn {
+        return getColumnModel().getColumn(columnIndex);
+    }
 
 //*****************************************************
 // Informally implement the TableModel interface.
@@ -1451,12 +1514,13 @@ return getColumnModel().getColumn(columnIndex);
  *
  * @see #convertColumnIndexToView
  */
-public function convertColumnIndexToModel(viewColumnIndex:Int):Int{
-if (viewColumnIndex < 0){
-return viewColumnIndex;
-}
-return getColumnModel().getColumn(viewColumnIndex).getModelIndex();
-}
+
+    public function convertColumnIndexToModel(viewColumnIndex:Int):Int {
+        if (viewColumnIndex < 0) {
+            return viewColumnIndex;
+        }
+        return getColumnModel().getColumn(viewColumnIndex).getModelIndex();
+    }
 
 /**
  * Maps the index of the column in the table model at
@@ -1471,18 +1535,19 @@ return getColumnModel().getColumn(viewColumnIndex).getModelIndex();
  *
  * @see #convertColumnIndexToModel()
  */
-public function convertColumnIndexToView(modelColumnIndex:Int):Int{
-if (modelColumnIndex < 0){
-return modelColumnIndex;
-}
-var cm:TableColumnModel = getColumnModel();
-for (column in 0...getColumnCount()){
-if (cm.getColumn(column).getModelIndex() == modelColumnIndex){
-return column;
-}
-}
-return - 1;
-}
+
+    public function convertColumnIndexToView(modelColumnIndex:Int):Int {
+        if (modelColumnIndex < 0) {
+            return modelColumnIndex;
+        }
+        var cm:TableColumnModel = getColumnModel();
+        for (column in 0...getColumnCount()) {
+            if (cm.getColumn(column).getModelIndex() == modelColumnIndex) {
+                return column;
+            }
+        }
+        return -1;
+    }
 
 /**
  * Returns the number of rows in this table's model.
@@ -1490,9 +1555,10 @@ return - 1;
  *
  * @see #getColumnCount()
  */
-public function getRowCount():Int{
-return getModel().getRowCount();
-}
+
+    public function getRowCount():Int {
+        return getModel().getRowCount();
+    }
 
 /**
  * Returns the number of columns in the column model. Note that this may
@@ -1502,9 +1568,10 @@ return getModel().getRowCount();
  * @see #getRowCount()
  * @see #removeColumn()
  */
-public function getColumnCount():Int{
-return getColumnModel().getColumnCount();
-}
+
+    public function getColumnCount():Int {
+        return getColumnModel().getColumnCount();
+    }
 
 /**
  * Returns the name of the column appearing in the view at
@@ -1514,9 +1581,10 @@ return getColumnModel().getColumnCount();
  * @return the name of the column at position <code>column</code>
  *		in the view where the first column is column 0
  */
-public function getColumnName(column:Int):String{
-return getModel().getColumnName(convertColumnIndexToModel(column));
-}
+
+    public function getColumnName(column:Int):String {
+        return getModel().getColumnName(convertColumnIndexToModel(column));
+    }
 
 /**
  * Returns the type of the column appearing in the view at
@@ -1526,9 +1594,10 @@ return getModel().getColumnName(convertColumnIndexToModel(column));
  * @return the type of the column at position <code>column</code>
  * 		in the view where the first column is column 0
  */
-public function getColumnClass(column:Int):String{
-return getModel().getColumnClass(convertColumnIndexToModel(column));
-}
+
+    public function getColumnClass(column:Int):String {
+        return getModel().getColumnClass(convertColumnIndexToModel(column));
+    }
 
 /**
  * Returns the cell value at <code>row</code> and <code>column</code>.
@@ -1545,9 +1614,10 @@ return getModel().getColumnClass(convertColumnIndexToModel(column));
  * @param   column          the column whose value is to be queried
  * @return  the Object at the specified cell
  */
-public function getValueAt(row:Int, column:Int):Dynamic{
-return getModel().getValueAt(row, convertColumnIndexToModel(column));
-}
+
+    public function getValueAt(row:Int, column:Int):Dynamic {
+        return getModel().getValueAt(row, convertColumnIndexToModel(column));
+    }
 
 /**
  * Sets the value for the cell in the table model at <code>row</code>
@@ -1568,9 +1638,10 @@ return getModel().getValueAt(row, convertColumnIndexToModel(column));
  * @param   column          the column of the cell to be changed
  * @see #getValueAt()
  */
-public function setValueAt(aValue:Dynamic, row:Int, column:Int):Void{
-getModel().setValueAt(aValue, row, convertColumnIndexToModel(column));
-}
+
+    public function setValueAt(aValue:Dynamic, row:Int, column:Int):Void {
+        getModel().setValueAt(aValue, row, convertColumnIndexToModel(column));
+    }
 
 /**
  * Returns true if the cell at <code>row</code> and <code>column</code>
@@ -1591,9 +1662,10 @@ getModel().setValueAt(aValue, row, convertColumnIndexToModel(column));
  * @return  true if the cell is editable
  * @see #setValueAt()
  */
-public function isCellEditable(row:Int, column:Int):Bool{
-return getModel().isCellEditable(row, convertColumnIndexToModel(column));
-}
+
+    public function isCellEditable(row:Int, column:Int):Bool {
+        return getModel().isCellEditable(row, convertColumnIndexToModel(column));
+    }
 
 /**
  *  Appends <code>aColumn</code> to the end of the array of columns held by
@@ -1621,14 +1693,15 @@ return getModel().isCellEditable(row, convertColumnIndexToModel(column));
  *  @param  aColumn         the <code>TableColumn</code> to be added
  *  @see    #removeColumn
  */
-public function addColumn(aColumn:TableColumn):Void{
-if (aColumn.getHeaderValue() == null){
-var modelColumn:Int = aColumn.getModelIndex();
-var columnName:String = getModel().getColumnName(modelColumn);
-aColumn.setHeaderValue(columnName);
-}
-getColumnModel().addColumn(aColumn);
-}
+
+    public function addColumn(aColumn:TableColumn):Void {
+        if (aColumn.getHeaderValue() == null) {
+            var modelColumn:Int = aColumn.getModelIndex();
+            var columnName:String = getModel().getColumnName(modelColumn);
+            aColumn.setHeaderValue(columnName);
+        }
+        getColumnModel().addColumn(aColumn);
+    }
 
 /**
  *  Removes <code>aColumn</code> from this <code>JTable</code>'s
@@ -1639,9 +1712,10 @@ getColumnModel().addColumn(aColumn);
  *  @param  aColumn         the <code>TableColumn</code> to be removed
  *  @see    #addColumn
  */
-public function removeColumn(aColumn:TableColumn):Void{
-getColumnModel().removeColumn(aColumn);
-}
+
+    public function removeColumn(aColumn:TableColumn):Void {
+        getColumnModel().removeColumn(aColumn);
+    }
 
 /**
  * Moves the column <code>column</code> to the position currently
@@ -1652,9 +1726,10 @@ getColumnModel().removeColumn(aColumn);
  * @param   column                  the index of column to be moved
  * @param   targetColumn            the new index of the column
  */
-public function moveColumn(column:Int, targetColumn:Int):Void{
-getColumnModel().moveColumn(column, targetColumn);
-}
+
+    public function moveColumn(column:Int, targetColumn:Int):Void {
+        getColumnModel().moveColumn(column, targetColumn);
+    }
 
 /**
  * Returns the index of the column that <code>point</code> lies in,
@@ -1667,10 +1742,11 @@ getColumnModel().moveColumn(column, targetColumn);
  *		[0, <code>getColumnCount()</code>-1]
  * @see     #rowAtPoint
  */
-public function columnAtPoint(point:IntPoint):Int{
-var x:Int = point.x;
-return getColumnModel().getColumnIndexAtX(x);
-}
+
+    public function columnAtPoint(point:IntPoint):Int {
+        var x:Int = point.x;
+        return getColumnModel().getColumnIndexAtX(x);
+    }
 
 /**
  * Returns the index of the row that <code>point</code> lies in,
@@ -1683,17 +1759,18 @@ return getColumnModel().getColumnIndexAtX(x);
  *          [0, <code>getRowCount()</code>-1]
  * @see     #columnAtPoint
  */
-public function rowAtPoint(point:IntPoint):Int{
-var y:Int = point.y;
-var result:Int = Math.floor(y / getRowHeight());
-if (result < 0){
-return ( - 1);
-}else if (result >= getRowCount()){
-return ( - 1);
-}else{
-return result;
-}
-}
+
+    public function rowAtPoint(point:IntPoint):Int {
+        var y:Int = point.y;
+        var result:Int = Math.floor(y / getRowHeight());
+        if (result < 0) {
+            return ( -1);
+        } else if (result >= getRowCount()) {
+            return ( -1);
+        } else {
+            return result;
+        }
+    }
 
 /**
  * Returns a rectangle for the cell that lies at the intersection of
@@ -1738,189 +1815,192 @@ return result;
  * @return  the rectangle containing the cell at location
  *          <code>row</code>,<code>column</code>
  */
-public function getCellRect(row:Int, column:Int, includeSpacing:Bool):IntRectangle{
-var r:IntRectangle = new IntRectangle();
-var insets:Insets = getInsets();
-var valid:Bool = true;
-if (row < 0){
-valid = false;
-}else if (row >= getRowCount()){
-r.y = getViewSize().height - insets.getMarginHeight();
-valid = false;
-}else{
-r.height = getRowHeight();
-r.y = row * r.height;
-}
-if (column < 0){
-valid = false;
-}else if (column >= getColumnCount()){
-r.x = getLastTotalColumnWidth() - insets.getMarginWidth();
-valid = false;
-}else{
-var cm:TableColumnModel = getColumnModel();
-for (i in 0...column){
-r.x += cm.getColumn(i).getWidth();
-}
-r.width = cm.getColumn(column).getWidth();
-}
-if (valid && (!includeSpacing))
-{
-var rmi:Int = getRowMargin();
-var cmi:Int = getColumnModel().getColumnMargin();
-r.setRectXYWH(r.x +cmi, r.y + rmi, r.width - cmi, r.height - rmi);
-}
-return r;
-}
+
+    public function getCellRect(row:Int, column:Int, includeSpacing:Bool):IntRectangle {
+        var r:IntRectangle = new IntRectangle();
+        var insets:Insets = getInsets();
+        var valid:Bool = true;
+        if (row < 0) {
+            valid = false;
+        } else if (row >= getRowCount()) {
+            r.y = getViewSize().height - insets.getMarginHeight();
+            valid = false;
+        } else {
+            r.height = getRowHeight();
+            r.y = row * r.height;
+        }
+        if (column < 0) {
+            valid = false;
+        } else if (column >= getColumnCount()) {
+            r.x = getLastTotalColumnWidth() - insets.getMarginWidth();
+            valid = false;
+        } else {
+            var cm:TableColumnModel = getColumnModel();
+            for (i in 0...column) {
+                r.x += cm.getColumn(i).getWidth();
+            }
+            r.width = cm.getColumn(column).getWidth();
+        }
+        if (valid && (!includeSpacing)) {
+            var rmi:Int = getRowMargin();
+            var cmi:Int = getColumnModel().getColumnMargin();
+            r.setRectXYWH(r.x + cmi, r.y + rmi, r.width - cmi, r.height - rmi);
+        }
+        return r;
+    }
 
 /**
  * Returns the location in the JTable view area of the logic location.
  */
-public function getPixelLocationFromLogicLocation(p:IntPoint):IntPoint{
-var pp:IntPoint = p.clone();
-var startP:IntPoint = getViewStartPoint();
-pp.move(startP.x, startP.y);
-return pp;
-}
+
+    public function getPixelLocationFromLogicLocation(p:IntPoint):IntPoint {
+        var pp:IntPoint = p.clone();
+        var startP:IntPoint = getViewStartPoint();
+        pp.move(startP.x, startP.y);
+        return pp;
+    }
 
 /**
  * Returns the logic location in the JTable view area of the pixel location.
  */
-public function getLogicLocationFromPixelLocation(p:IntPoint):IntPoint{
-var pp:IntPoint = p.clone();
-var startP:IntPoint = getViewStartPoint();
-pp.move( - startP.x, -startP.y);
-return pp;
-}
 
-private function getViewStartPoint():IntPoint{
-var viewPos:IntPoint = getViewPosition();
-var insets:Insets = getInsets();
-var insetsX:Int = insets.left;
-var insetsY:Int = insets.top;
-var startX:Int= insetsX - viewPos.x;
-var startY:Int = insetsY + getHeaderHeight() - viewPos.y;
-return new IntPoint(startX, startY);
-}
+    public function getLogicLocationFromPixelLocation(p:IntPoint):IntPoint {
+        var pp:IntPoint = p.clone();
+        var startP:IntPoint = getViewStartPoint();
+        pp.move(-startP.x, -startP.y);
+        return pp;
+    }
+
+    private function getViewStartPoint():IntPoint {
+        var viewPos:IntPoint = getViewPosition();
+        var insets:Insets = getInsets();
+        var insetsX:Int = insets.left;
+        var insetsY:Int = insets.top;
+        var startX:Int = insetsX - viewPos.x;
+        var startY:Int = insetsY + getHeaderHeight() - viewPos.y;
+        return new IntPoint(startX, startY);
+    }
 
 /**
  * Returns the header height.
  */
-public function getHeaderHeight():Int{
-if(getTableHeader() == null){
-return 0;
-}else{
-return getTableHeader().getHeight();
-}
-}
 
-private function viewIndexForColumn(aColumn:TableColumn):Int{
-var cm:TableColumnModel = getColumnModel();
-for (column in 0...cm.getColumnCount()){
-if (cm.getColumn(column) == aColumn)
-{
-return column;
-}
-}
-return - 1;
-}
+    public function getHeaderHeight():Int {
+        if (getTableHeader() == null) {
+            return 0;
+        } else {
+            return getTableHeader().getHeight();
+        }
+    }
 
-private function getResizingColumn():TableColumn{
-return (((tableHeader == null) ? null : tableHeader.getResizingColumn()));
-}
+    private function viewIndexForColumn(aColumn:TableColumn):Int {
+        var cm:TableColumnModel = getColumnModel();
+        for (column in 0...cm.getColumnCount()) {
+            if (cm.getColumn(column) == aColumn) {
+                return column;
+            }
+        }
+        return -1;
+    }
 
-private function setWidthsFromPreferredWidths(inverse:Bool):Void{
-var insets:Insets = getInsets();
-var totalWidth:Int = (autoResizeMode == AUTO_RESIZE_OFF ? getLastTotalColumnWidth() : (getWidth() - insets.getMarginWidth()));
-var totalPreferred:Int= getPreferredSize().width - insets.getMarginWidth();
-var target:Int = ((!inverse) ? totalWidth : totalPreferred);
+    private function getResizingColumn():TableColumn {
+        return (((tableHeader == null) ? null : tableHeader.getResizingColumn()));
+    }
 
-var cm:TableColumnModel = columnModel;
-var r:Resizable3 = new Resizable3Imp1(cm, inverse);
-adjustSizes3(target, r, inverse);
-}
+    private function setWidthsFromPreferredWidths(inverse:Bool):Void {
+        var insets:Insets = getInsets();
+        var totalWidth:Int = (autoResizeMode == AUTO_RESIZE_OFF ? getLastTotalColumnWidth() : (getWidth() - insets.getMarginWidth()));
+        var totalPreferred:Int = getPreferredSize().width - insets.getMarginWidth();
+        var target:Int = ((!inverse) ? totalWidth : totalPreferred);
+
+        var cm:TableColumnModel = columnModel;
+        var r:Resizable3 = new Resizable3Imp1(cm, inverse);
+        adjustSizes3(target, r, inverse);
+    }
 
 // Distribute delta over columns, as indicated by the autoresize mode.
-private function accommodateDelta(resizingColumnIndex:Int, delta:Int):Void{
-var columnCount:Int = getColumnCount();
-var from:Int = resizingColumnIndex;
-var _to:Int= columnCount;
+
+    private function accommodateDelta(resizingColumnIndex:Int, delta:Int):Void {
+        var columnCount:Int = getColumnCount();
+        var from:Int = resizingColumnIndex;
+        var _to:Int = columnCount;
 // Use the mode to determine how to absorb the changes.
-switch (autoResizeMode) {
-case AUTO_RESIZE_NEXT_COLUMN:
-from = (from + 1);
-_to = Std.int(Math.min(from + 1, columnCount));
+        switch (autoResizeMode) {
+        case AUTO_RESIZE_NEXT_COLUMN:
+        from = (from + 1);
+        _to = Std.int(Math.min(from + 1, columnCount));
 
-case AUTO_RESIZE_SUBSEQUENT_COLUMNS:
-from = (from + 1);
-_to = columnCount;
+        case AUTO_RESIZE_SUBSEQUENT_COLUMNS:
+        from = (from + 1);
+        _to = columnCount;
 
-case AUTO_RESIZE_LAST_COLUMN:
-from = (columnCount - 1);
-_to = (from + 1);
+        case AUTO_RESIZE_LAST_COLUMN:
+        from = (columnCount - 1);
+        _to = (from + 1);
 
-case AUTO_RESIZE_ALL_COLUMNS:
-from = 0;
-_to = columnCount;
+        case AUTO_RESIZE_ALL_COLUMNS:
+        from = 0;
+        _to = columnCount;
 
-default:
+        default:
 
-}
-var start:Int = from;
-var end:Int = _to;
-var cm:TableColumnModel = columnModel;
-var r:Resizable3 = new Resizable3Imp2(cm, start, end);
-var totalWidth:Int = 0;
-for (i in from..._to){
-var aColumn:TableColumn = columnModel.getColumn(i);
-var input:Int = aColumn.getWidth();
-totalWidth = (totalWidth + input);
-}
-adjustSizes3(totalWidth + delta, r, false);
-return ;
-}
+        }
+        var start:Int = from;
+        var end:Int = _to;
+        var cm:TableColumnModel = columnModel;
+        var r:Resizable3 = new Resizable3Imp2(cm, start, end);
+        var totalWidth:Int = 0;
+        for (i in from..._to){
+        var aColumn:TableColumn = columnModel.getColumn(i);
+        var input:Int = aColumn.getWidth();
+        totalWidth = (totalWidth + input);
+        }
+        adjustSizes3(totalWidth + delta, r, false);
+        return ;
+    }
 
-private function adjustSizes3(target:Int, r:Resizable3, inverse:Bool):Void{
-var N:Int = r.getElementCount();
-var totalPreferred:Int = 0;
-for (i in 0...N){
-totalPreferred += r.getMidPointAt(i);
-}
-var s:Resizable2 = new Resizable2Imp1(r, (target < totalPreferred) == (!inverse));
-adjustSizes2(target, s, !inverse);
-}
+    private function adjustSizes3(target:Int, r:Resizable3, inverse:Bool):Void {
+        var N:Int = r.getElementCount();
+        var totalPreferred:Int = 0;
+        for (i in 0...N) {
+            totalPreferred += r.getMidPointAt(i);
+        }
+        var s:Resizable2 = new Resizable2Imp1(r, (target < totalPreferred) == (!inverse));
+        adjustSizes2(target, s, !inverse);
+    }
 
-private function adjustSizes2(target:Int, r:Resizable2, limitToRange:Bool):Void{
-var totalLowerBound:Int = 0;
-var totalUpperBound:Int = 0;
-var N:Int = r.getElementCount();
-var i:Int;
-for (i in 0...N){
-totalLowerBound += r.getLowerBoundAt(i);
-totalUpperBound += r.getUpperBoundAt(i);
-}
-if(limitToRange) {
-target = Std.int(Math.min(Math.max(totalLowerBound, target), totalUpperBound));
-}
-for (i in 0...N){
-var lowerBound:Int = r.getLowerBoundAt(i);
-var upperBound:Int = r.getUpperBoundAt(i);
+    private function adjustSizes2(target:Int, r:Resizable2, limitToRange:Bool):Void {
+        var totalLowerBound:Int = 0;
+        var totalUpperBound:Int = 0;
+        var N:Int = r.getElementCount();
+        var i:Int;
+        for (i in 0...N) {
+            totalLowerBound += r.getLowerBoundAt(i);
+            totalUpperBound += r.getUpperBoundAt(i);
+        }
+        if (limitToRange) {
+            target = Std.int(Math.min(Math.max(totalLowerBound, target), totalUpperBound));
+        }
+        for (i in 0...N) {
+            var lowerBound:Int = r.getLowerBoundAt(i);
+            var upperBound:Int = r.getUpperBoundAt(i);
 
 // Check for zero. This happens when the distribution of the delta
 // finishes early due to a series of "fixed" entries at the end.
 // In this case, lowerBound == upperBound, for all subsequent terms.
-var newSize:Int;
-if (totalLowerBound == totalUpperBound){
-newSize = lowerBound;
-}else{
-var f:Float = (target - totalLowerBound) / (totalUpperBound - totalLowerBound);
-newSize = Math.round(lowerBound + (f * (upperBound - lowerBound)));
-}
-r.setSizeAt(newSize, i);
-target -= newSize;
-totalLowerBound -= lowerBound;
-totalUpperBound -= upperBound;
-}
-}
+            var newSize:Int;
+            if (totalLowerBound == totalUpperBound) {
+                newSize = lowerBound;
+            } else {
+                var f:Float = (target - totalLowerBound) / (totalUpperBound - totalLowerBound);
+                newSize = Math.round(lowerBound + (f * (upperBound - lowerBound)));
+            }
+            r.setSizeAt(newSize, i);
+            target -= newSize;
+            totalLowerBound -= lowerBound;
+            totalUpperBound -= upperBound;
+        }
+    }
 
 /**
  * editCellAt(row:int, column:int, clickCount:int):Boolean<br>
@@ -1936,36 +2016,37 @@ totalUpperBound -= upperBound;
  * @return  false if for any reason the cell cannot be edited,
  *                or if the indices are invalid
  */
-public function editCellAt(row:Int, column:Int, clickCount:Int = - 1):Bool{
-if ((cellEditor != null) && (! cellEditor.stopCellEditing())){
-return false;
-}
-if ((((row < 0) || (row >= getRowCount())) || (column < 0)) || (column >= getColumnCount())){
-return false;
-}
-if (!isCellEditable(row, column)){
-return false;
-}
-if(cellEditor != null){
-removeEditor();
-}
-var editor:TableCellEditor = getCellEditorOfRowColumn(row, column);
-if ((editor != null) && (clickCount == - 1 || editor.isCellEditable(clickCount))){
-var cb:IntRectangle = getCellRect(row, column, true);
-cb.setLocation(getPixelLocationFromLogicLocation(cb.getLocation()));
-editor.startCellEditing(this, getValueAt(row, column), cb);
-setCellEditor(editor);
-setEditingRow(row);
-setEditingColumn(column);
-editor.removeCellEditorListener(this);
-editor.addCellEditorListener(this);
 
-_storedValue = getValueAt(row, column);
-dispatchEvent(new TableCellEditEvent(TableCellEditEvent.EDITING_STARTED, row, column, _storedValue));
-return true;
-}
-return false;
-}
+    public function editCellAt(row:Int, column:Int, clickCount:Int = -1):Bool {
+        if ((cellEditor != null) && (!cellEditor.stopCellEditing())) {
+            return false;
+        }
+        if ((((row < 0) || (row >= getRowCount())) || (column < 0)) || (column >= getColumnCount())) {
+            return false;
+        }
+        if (!isCellEditable(row, column)) {
+            return false;
+        }
+        if (cellEditor != null) {
+            removeEditor();
+        }
+        var editor:TableCellEditor = getCellEditorOfRowColumn(row, column);
+        if ((editor != null) && (clickCount == -1 || editor.isCellEditable(clickCount))) {
+            var cb:IntRectangle = getCellRect(row, column, true);
+            cb.setLocation(getPixelLocationFromLogicLocation(cb.getLocation()));
+            editor.startCellEditing(this, getValueAt(row, column), cb);
+            setCellEditor(editor);
+            setEditingRow(row);
+            setEditingColumn(column);
+            editor.removeCellEditorListener(this);
+            editor.addCellEditorListener(this);
+
+            _storedValue = getValueAt(row, column);
+            dispatchEvent(new TableCellEditEvent(TableCellEditEvent.EDITING_STARTED, row, column, _storedValue));
+            return true;
+        }
+        return false;
+    }
 
 /**
  * Returns true if a cell is being edited.
@@ -1974,9 +2055,10 @@ return false;
  * @see     #getEditingColumn()
  * @see     #getEditingRow()
  */
-public function isEditing():Bool{
-return (((cellEditor == null) ? false : true));
-}
+
+    public function isEditing():Bool {
+        return (((cellEditor == null) ? false : true));
+    }
 
 /**
  * Returns the index of the column that contains the cell currently
@@ -1986,9 +2068,10 @@ return (((cellEditor == null) ? false : true));
  *		being edited; returns -1 if nothing being edited
  * @see #getEditingRow()
  */
-public function getEditingColumn():Int{
-return editingColumn;
-}
+
+    public function getEditingColumn():Int {
+        return editingColumn;
+    }
 
 /**
  * Returns the index of the row that contains the cell currently
@@ -1998,9 +2081,10 @@ return editingColumn;
  *		being edited; returns -1 if nothing being edited
  * @see #getEditingColumn()
  */
-public function getEditingRow():Int{
-return editingRow;
-}
+
+    public function getEditingRow():Int {
+        return editingRow;
+    }
 
 //*****************************************
 //          Managing models
@@ -2013,23 +2097,23 @@ return editingRow;
  * @param   dataModel        the new data source for this table
  * @see     #getModel()
  */
-public function setModel(dataModel:TableModel):Void{
-if (dataModel == null){
-trace("Can't set null TableModel to JTable, Ignored");
-return;
-}
-if (this.dataModel != dataModel){
-var old:TableModel = this.dataModel;
-if (old != null)
-{
-old.removeTableModelListener(this);
-}
-this.dataModel = dataModel;
-dataModel.addTableModelListener(this);
-tableChanged(new TableModelEvent(dataModel, TableModelEvent.HEADER_ROW));
+
+    public function setModel(dataModel:TableModel):Void {
+        if (dataModel == null) {
+            trace("Can't set null TableModel to JTable, Ignored");
+            return;
+        }
+        if (this.dataModel != dataModel) {
+            var old:TableModel = this.dataModel;
+            if (old != null) {
+                old.removeTableModelListener(this);
+            }
+            this.dataModel = dataModel;
+            dataModel.addTableModelListener(this);
+            tableChanged(new TableModelEvent(dataModel, TableModelEvent.HEADER_ROW));
 //firePropertyChange("model", old, dataModel);
-}
-}
+        }
+    }
 
 /**
  * Returns the <code>TableModel</code> that provides the data displayed by this
@@ -2038,9 +2122,10 @@ tableChanged(new TableModelEvent(dataModel, TableModelEvent.HEADER_ROW));
  * @return  the <code>TableModel</code> that provides the data displayed by this <code>JTable</code>
  * @see     #setModel()
  */
-public function getModel():TableModel{
-return dataModel;
-}
+
+    public function getModel():TableModel {
+        return dataModel;
+    }
 
 /**
  * Sets the column model for this table to <code>newModel</code> and registers
@@ -2050,27 +2135,26 @@ return dataModel;
  * @param   columnModel        the new data source for this table
  * @see     #getColumnModel()
  */
-public function setColumnModel(columnModel:TableColumnModel):Void{
-if (columnModel == null){
-trace("Cannot set a null ColumnModel to JTable, Ignored");
-return;
-}
-var old:TableColumnModel = this.columnModel;
-if (columnModel != old){
-if (old != null)
-{
-old.removeColumnModelListener(this);
-}
-this.columnModel = columnModel;
-columnModel.addColumnModelListener(this);
-if (tableHeader != null)
-{
-tableHeader.setColumnModel(columnModel);
-}
+
+    public function setColumnModel(columnModel:TableColumnModel):Void {
+        if (columnModel == null) {
+            trace("Cannot set a null ColumnModel to JTable, Ignored");
+            return;
+        }
+        var old:TableColumnModel = this.columnModel;
+        if (columnModel != old) {
+            if (old != null) {
+                old.removeColumnModelListener(this);
+            }
+            this.columnModel = columnModel;
+            columnModel.addColumnModelListener(this);
+            if (tableHeader != null) {
+                tableHeader.setColumnModel(columnModel);
+            }
 //firePropertyChange("columnModel", old, columnModel);
-resizeAndRepaint();
-}
-}
+            resizeAndRepaint();
+        }
+    }
 
 /**
  * Returns the <code>TableColumnModel</code> that contains all column information
@@ -2079,9 +2163,10 @@ resizeAndRepaint();
  * @return  the object that provides the column state of the table
  * @see     #setColumnModel()
  */
-public function getColumnModel():TableColumnModel{
-return columnModel;
-}
+
+    public function getColumnModel():TableColumnModel {
+        return columnModel;
+    }
 
 /**
  * Sets the row selection model for this table to <code>newModel</code>
@@ -2090,23 +2175,24 @@ return columnModel;
  * @param   newModel        the new selection model, if it is null, nothing change.
  * @see     #getSelectionModel()
  */
-public function setSelectionModel(newModel:ListSelectionModel):Void{
-if (newModel == null){
-trace("Cannot set a null SelectionModel to JTable, Ignored");
-return;
-}
-var oldModel:ListSelectionModel = selectionModel;
-if (newModel != oldModel){
-if (oldModel != null){
-oldModel.removeListSelectionListener(__listSelectionChanged);
-}
-selectionModel = newModel;
-newModel.addListSelectionListener(__listSelectionChanged);
+
+    public function setSelectionModel(newModel:ListSelectionModel):Void {
+        if (newModel == null) {
+            trace("Cannot set a null SelectionModel to JTable, Ignored");
+            return;
+        }
+        var oldModel:ListSelectionModel = selectionModel;
+        if (newModel != oldModel) {
+            if (oldModel != null) {
+                oldModel.removeListSelectionListener(__listSelectionChanged);
+            }
+            selectionModel = newModel;
+            newModel.addListSelectionListener(__listSelectionChanged);
 //firePropertyChange("selectionModel", oldModel, newModel);
-repaint();
-checkLeadAnchor();
-}
-}
+            repaint();
+            checkLeadAnchor();
+        }
+    }
 
 /**
  * Returns the <code>ListSelectionModel</code> that is used to maintain row
@@ -2116,35 +2202,36 @@ checkLeadAnchor();
  *          if row selection is not allowed
  * @see     #setSelectionModel()
  */
-public function getSelectionModel():ListSelectionModel{
-return selectionModel;
-}
 
-private function checkLeadAnchor():Void{
-var model:TableModel = getModel();
-if (model == null){
-return ;
-}
-var lead:Int = selectionModel.getLeadSelectionIndex();
-var count:Int = model.getRowCount();
-if (count == 0){
-if (lead != ( - 1)){
+    public function getSelectionModel():ListSelectionModel {
+        return selectionModel;
+    }
+
+    private function checkLeadAnchor():Void {
+        var model:TableModel = getModel();
+        if (model == null) {
+            return ;
+        }
+        var lead:Int = selectionModel.getLeadSelectionIndex();
+        var count:Int = model.getRowCount();
+        if (count == 0) {
+            if (lead != ( -1)) {
 //TODO adjusting
 //selectionModel.setValueIsAdjusting(true);
-selectionModel.setAnchorSelectionIndex( - 1);
-selectionModel.setLeadSelectionIndex( - 1);
+                selectionModel.setAnchorSelectionIndex(-1);
+                selectionModel.setLeadSelectionIndex(-1);
 //selectionModel.setValueIsAdjusting(false);
-}
-}else{
-if (lead == ( - 1)){
-if (selectionModel.isSelectedIndex(0)){
-selectionModel.addSelectionInterval(0, 0, true);
-} else{
-selectionModel.removeSelectionInterval(0, 0, true);
-}
-}
-}
-}
+            }
+        } else {
+            if (lead == ( -1)) {
+                if (selectionModel.isSelectedIndex(0)) {
+                    selectionModel.addSelectionInterval(0, 0, true);
+                } else {
+                    selectionModel.removeSelectionInterval(0, 0, true);
+                }
+            }
+        }
+    }
 
 //*********************************************
 // Implementing TableModelListener interface
@@ -2161,64 +2248,67 @@ selectionModel.removeSelectionInterval(0, 0, true);
  * Application code will not use these methods explicitly, they
  * are used internally by <code>JTable</code>.
  */
-public function tableChanged(e:TableModelEvent):Void{
-if ((e == null) || (e.getFirstRow() == TableModelEvent.HEADER_ROW)){
-clearSelection();
-checkLeadAnchor();
-if (getAutoCreateColumnsFromModel()){
-createDefaultColumnsFromModel();
-return ;
-}
-resizeAndRepaint();
-return ;
-}
-if (e.getType() == TableModelEvent.INSERT){
-tableRowsInserted(e);
-return ;
-}
-if (e.getType() == TableModelEvent.DELETE){
-tableRowsDeleted(e);
-return ;
-}
-var end:Int = e.getLastRow();
-if (end != 2147483647){
-revalidate();
-}else{
-clearSelection();
-resizeAndRepaint();
-}
-}
-private function tableRowsInserted(e:TableModelEvent):Void{
-var start:Int = e.getFirstRow();
-var end:Int = e.getLastRow();
-if (start < 0){
-start = 0;
-}
-if (end < 0){
-end = (getRowCount() - 1);
-}
-var length:Int = ((end - start) + 1);
-selectionModel.insertIndexInterval(start, length, true);
-checkLeadAnchor();
-resizeAndRepaint();
-}
-private function tableRowsDeleted(e:TableModelEvent):Void{
-var start:Int = e.getFirstRow();
-var end:Int = e.getLastRow();
-if (start < 0){
-start = 0;
-}
-if (end < 0){
-end = (getRowCount() - 1);
-}
+
+    public function tableChanged(e:TableModelEvent):Void {
+        if ((e == null) || (e.getFirstRow() == TableModelEvent.HEADER_ROW)) {
+            clearSelection();
+            checkLeadAnchor();
+            if (getAutoCreateColumnsFromModel()) {
+                createDefaultColumnsFromModel();
+                return ;
+            }
+            resizeAndRepaint();
+            return ;
+        }
+        if (e.getType() == TableModelEvent.INSERT) {
+            tableRowsInserted(e);
+            return ;
+        }
+        if (e.getType() == TableModelEvent.DELETE) {
+            tableRowsDeleted(e);
+            return ;
+        }
+        var end:Int = e.getLastRow();
+        if (end != 2147483647) {
+            revalidate();
+        } else {
+            clearSelection();
+            resizeAndRepaint();
+        }
+    }
+
+    private function tableRowsInserted(e:TableModelEvent):Void {
+        var start:Int = e.getFirstRow();
+        var end:Int = e.getLastRow();
+        if (start < 0) {
+            start = 0;
+        }
+        if (end < 0) {
+            end = (getRowCount() - 1);
+        }
+        var length:Int = ((end - start) + 1);
+        selectionModel.insertIndexInterval(start, length, true);
+        checkLeadAnchor();
+        resizeAndRepaint();
+    }
+
+    private function tableRowsDeleted(e:TableModelEvent):Void {
+        var start:Int = e.getFirstRow();
+        var end:Int = e.getLastRow();
+        if (start < 0) {
+            start = 0;
+        }
+        if (end < 0) {
+            end = (getRowCount() - 1);
+        }
 //var deletedCount:int = ((end - start) + 1);
 //var previousRowCount:int = (getRowCount() + deletedCount);
-selectionModel.removeIndexInterval(start, end);
-checkLeadAnchor();
+        selectionModel.removeIndexInterval(start, end);
+        checkLeadAnchor();
 //var rh:int = getAllRowHeight();
 //var drawRect:IntRectangle = new IntRectangle(0, (start * rh), getColumnModel().getTotalColumnWidth(), ((previousRowCount - start) * rh));
-resizeAndRepaint();
-}
+        resizeAndRepaint();
+    }
 
 //**************************************************
 // Implementing TableColumnModelListener interface
@@ -2231,12 +2321,13 @@ resizeAndRepaint();
  *
  * @see TableColumnModelListener
  */
-public function columnAdded(e:TableColumnModelEvent):Void{
-if (isEditing()){
-removeEditor();
-}
-resizeAndRepaint();
-}
+
+    public function columnAdded(e:TableColumnModelEvent):Void {
+        if (isEditing()) {
+            removeEditor();
+        }
+        resizeAndRepaint();
+    }
 /**
  * Invoked when a column is removed from the table column model.
  * <p>
@@ -2245,12 +2336,13 @@ resizeAndRepaint();
  *
  * @see TableColumnModelListener
  */
-public function columnRemoved(e:TableColumnModelEvent):Void{
-if (isEditing()){
-removeEditor();
-}
-resizeAndRepaint();
-}
+
+    public function columnRemoved(e:TableColumnModelEvent):Void {
+        if (isEditing()) {
+            removeEditor();
+        }
+        resizeAndRepaint();
+    }
 /**
  * Invoked when a column is repositioned. If a cell is being
  * edited, then editing is stopped and the cell is redrawn.
@@ -2261,12 +2353,13 @@ resizeAndRepaint();
  * @param e   the event received
  * @see TableColumnModelListener
  */
-public function columnMoved(e:TableColumnModelEvent):Void{
-if (isEditing()){
-removeEditor();
-}
-resizeAndRepaint();
-}
+
+    public function columnMoved(e:TableColumnModelEvent):Void {
+        if (isEditing()) {
+            removeEditor();
+        }
+        resizeAndRepaint();
+    }
 /**
  * Invoked when a column is moved due to a margin change.
  * If a cell is being edited, then editing is stopped and the cell
@@ -2278,16 +2371,17 @@ resizeAndRepaint();
  * @param  e    the event received
  * @see TableColumnModelListener
  */
-public function columnMarginChanged(source:TableColumnModel):Void{
-if (isEditing()){
-removeEditor();
-}
-var resizingColumn:TableColumn = getResizingColumn();
-if ((resizingColumn != null) && (autoResizeMode == AUTO_RESIZE_OFF)){
-resizingColumn.setPreferredWidth(resizingColumn.getWidth());
-}
-resizeAndRepaint();
-}
+
+    public function columnMarginChanged(source:TableColumnModel):Void {
+        if (isEditing()) {
+            removeEditor();
+        }
+        var resizingColumn:TableColumn = getResizingColumn();
+        if ((resizingColumn != null) && (autoResizeMode == AUTO_RESIZE_OFF)) {
+            resizingColumn.setPreferredWidth(resizingColumn.getWidth());
+        }
+        resizeAndRepaint();
+    }
 
 /**
  * Invoked when the selection model of the <code>TableColumnModel</code>
@@ -2299,20 +2393,21 @@ resizeAndRepaint();
  * @param  e  the event received
  * @see TableColumnModelListener
  */
-public function columnSelectionChanged(source:TableColumnModel, firstIndex:Int, lastIndex:Int, programmatic:Bool):Void{
-dispatchEvent(new SelectionEvent(SelectionEvent.COLUMN_SELECTION_CHANGED, firstIndex, lastIndex, programmatic));
 
-var isAdjusting:Bool = false;//e.getValueIsAdjusting();
-if (columnSelectionAdjusting && (! isAdjusting)){
-columnSelectionAdjusting = false;
-return ;
-}
-columnSelectionAdjusting = isAdjusting;
-if ((getRowCount() <= 0) || (getColumnCount() <= 0)){
-return ;
-}
-resizeAndRepaint();
-}
+    public function columnSelectionChanged(source:TableColumnModel, firstIndex:Int, lastIndex:Int, programmatic:Bool):Void {
+        dispatchEvent(new SelectionEvent(SelectionEvent.COLUMN_SELECTION_CHANGED, firstIndex, lastIndex, programmatic));
+
+        var isAdjusting:Bool = false;//e.getValueIsAdjusting();
+        if (columnSelectionAdjusting && (!isAdjusting)) {
+            columnSelectionAdjusting = false;
+            return ;
+        }
+        columnSelectionAdjusting = isAdjusting;
+        if ((getRowCount() <= 0) || (getColumnCount() <= 0)) {
+            return ;
+        }
+        resizeAndRepaint();
+    }
 
 //************************************************
 // Implementing ListSelectionListener interface
@@ -2327,18 +2422,18 @@ resizeAndRepaint();
  *
  * @param e   the event received
  */
-public function __listSelectionChanged(e:SelectionEvent):Void{
-var isAdjusting:Bool = false;//e.getValueIsAdjusting();
-if (rowSelectionAdjusting && (!isAdjusting))
-{
-rowSelectionAdjusting = false;
-return ;
-}
-rowSelectionAdjusting = isAdjusting;
-dispatchEvent(new SelectionEvent(SelectionEvent.ROW_SELECTION_CHANGED,
-e.getFirstIndex(), e.getLastIndex(), e.isProgrammatic()));
-resizeAndRepaint();
-}
+
+    public function __listSelectionChanged(e:SelectionEvent):Void {
+        var isAdjusting:Bool = false;//e.getValueIsAdjusting();
+        if (rowSelectionAdjusting && (!isAdjusting)) {
+            rowSelectionAdjusting = false;
+            return ;
+        }
+        rowSelectionAdjusting = isAdjusting;
+        dispatchEvent(new SelectionEvent(SelectionEvent.ROW_SELECTION_CHANGED,
+        e.getFirstIndex(), e.getLastIndex(), e.isProgrammatic()));
+        resizeAndRepaint();
+    }
 
 //************************************************
 // Implementing CellEditorListener interface
@@ -2354,15 +2449,16 @@ resizeAndRepaint();
  * @param  e  the event received
  * @see CellEditorListener
  */
-public function editingStopped(source:CellEditor):Void{
-var editor:TableCellEditor = getCellEditor();
-if (editor != null){
-var value:Dynamic = editor.getCellEditorValue();
-setValueAt(value, editingRow, editingColumn);
-dispatchEvent(new TableCellEditEvent(TableCellEditEvent.EDITING_STOPPED, editingRow, editingColumn, _storedValue, value));
-removeEditor();
-}
-}
+
+    public function editingStopped(source:CellEditor):Void {
+        var editor:TableCellEditor = getCellEditor();
+        if (editor != null) {
+            var value:Dynamic = editor.getCellEditorValue();
+            setValueAt(value, editingRow, editingColumn);
+            dispatchEvent(new TableCellEditEvent(TableCellEditEvent.EDITING_STOPPED, editingRow, editingColumn, _storedValue, value));
+            removeEditor();
+        }
+    }
 
 /**
  * Invoked when editing is canceled. The editor object is discarded
@@ -2374,10 +2470,11 @@ removeEditor();
  * @param  e  the event received
  * @see CellEditorListener
  */
-public function editingCanceled(source:CellEditor):Void{
-dispatchEvent(new TableCellEditEvent(TableCellEditEvent.EDITING_CANCELED, editingRow, editingColumn));
-removeEditor();
-}
+
+    public function editingCanceled(source:CellEditor):Void {
+        dispatchEvent(new TableCellEditEvent(TableCellEditEvent.EDITING_CANCELED, editingRow, editingColumn));
+        removeEditor();
+    }
 
 /**
  * Sets the preferred size of the viewport for this table.
@@ -2385,9 +2482,10 @@ removeEditor();
  * @param size  a <code>IntDimension</code> object specifying the <code>preferredSize</code> of a
  *              <code>JViewport</code> whose view is this table
  */
-public function setPreferredScrollableViewportSize(size:IntDimension):Void{
-preferredViewportSize = size.clone();
-}
+
+    public function setPreferredScrollableViewportSize(size:IntDimension):Void {
+        preferredViewportSize = size.clone();
+    }
 
 /**
  * Returns the preferred size of the viewport for this table.
@@ -2395,111 +2493,117 @@ preferredViewportSize = size.clone();
  * @return a <code>IntDimension</code> object containing the <code>preferredSize</code> of the <code>JViewport</code>
  *         which displays this table
  */
-public function getPreferredScrollableViewportSize():IntDimension{
-return preferredViewportSize;
-}
+
+    public function getPreferredScrollableViewportSize():IntDimension {
+        return preferredViewportSize;
+    }
 
 //*********************************************************
 //         Initialize Defaults
 //*********************************************************
 
-private function initializeLocalVars():Void{
-createDefaultCellFactories();
-createDefaultEditors();
-setTableHeader(createDefaultTableHeader());
-setShowGrid(true);
-setAutoResizeMode(AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-setRowHeight(20);
-setRowMargin(1);
-setRowSelectionAllowed(true);
-setColumnSelectionAllowed(false);
-setCellEditor(null);
-setEditingColumn( - 1);
-setEditingRow( - 1);
-setPreferredScrollableViewportSize(new IntDimension(450, 400));
+    private function initializeLocalVars():Void {
+        createDefaultCellFactories();
+        createDefaultEditors();
+        setTableHeader(createDefaultTableHeader());
+        setShowGrid(true);
+        setAutoResizeMode(AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        setRowHeight(20);
+        setRowMargin(1);
+        setRowSelectionAllowed(true);
+        setColumnSelectionAllowed(false);
+        setCellEditor(null);
+        setEditingColumn(-1);
+        setEditingRow(-1);
+        setPreferredScrollableViewportSize(new IntDimension(450, 400));
 //setAutoscrolls(true);
-}
-public function createDefaultDataModel():TableModel{
-return (new DefaultTableModel()).initWithRowcountColumncount(0, 0);
-}
-public function createDefaultColumnModel():TableColumnModel{
-return new DefaultTableColumnModel();
-}
-public function createDefaultSelectionModel():ListSelectionModel{
-return new DefaultListSelectionModel();
-}
-public function createDefaultTableHeader():JTableHeader{
-return new JTableHeader(columnModel);
-}
-public function createDefaultCellFactories():Void{
-defaultRenderersByColumnClass = new Map<String, TableCellFactory>();
-defaultRenderersByColumnClass.set("Object", new GeneralTableCellFactoryUIResource(PoorTextCell));
-}
-public function createDefaultEditors():Void{
-defaultEditorsByColumnClass = new Map<String, TableCellEditor>();
-defaultEditorsByColumnClass.set("Number", new DefaultNumberTextFieldCellEditor());
-defaultEditorsByColumnClass.set("Boolean", new DefaultCheckBoxCellEditor());
-defaultEditorsByColumnClass.set("Object", new DefaultTextFieldCellEditor());
-}
+    }
 
-public function resizeAndRepaint():Void{
-revalidate();
-repaint();
-}
+    public function createDefaultDataModel():TableModel {
+        return (new DefaultTableModel()).initWithRowcountColumncount(0, 0);
+    }
 
-public function getCellEditor():TableCellEditor{
-return cellEditor;
-}
+    public function createDefaultColumnModel():TableColumnModel {
+        return new DefaultTableColumnModel();
+    }
 
-public function setCellEditor(anEditor:TableCellEditor):Void{
+    public function createDefaultSelectionModel():ListSelectionModel {
+        return new DefaultListSelectionModel();
+    }
+
+    public function createDefaultTableHeader():JTableHeader {
+        return new JTableHeader(columnModel);
+    }
+
+    public function createDefaultCellFactories():Void {
+        defaultRenderersByColumnClass = new Map<String, TableCellFactory>();
+        defaultRenderersByColumnClass.set("Object", new GeneralTableCellFactoryUIResource(PoorTextCell));
+    }
+
+    public function createDefaultEditors():Void {
+        defaultEditorsByColumnClass = new Map<String, TableCellEditor>();
+        defaultEditorsByColumnClass.set("Number", new DefaultNumberTextFieldCellEditor());
+        defaultEditorsByColumnClass.set("Boolean", new DefaultCheckBoxCellEditor());
+        defaultEditorsByColumnClass.set("Object", new DefaultTextFieldCellEditor());
+    }
+
+    public function resizeAndRepaint():Void {
+        revalidate();
+        repaint();
+    }
+
+    public function getCellEditor():TableCellEditor {
+        return cellEditor;
+    }
+
+    public function setCellEditor(anEditor:TableCellEditor):Void {
 //var oldEditor:TableCellEditor = cellEditor;
-cellEditor = anEditor;
+        cellEditor = anEditor;
 //firePropertyChange("tableCellEditor", oldEditor, anEditor);
-}
+    }
 
-public function setEditingColumn(aColumn:Int):Void{
-editingColumn = aColumn;
-}
+    public function setEditingColumn(aColumn:Int):Void {
+        editingColumn = aColumn;
+    }
 
-public function setEditingRow(aRow:Int):Void{
-editingRow = aRow;
-}
+    public function setEditingRow(aRow:Int):Void {
+        editingRow = aRow;
+    }
 
-public function getCellFactory(row:Int, column:Int):TableCellFactory{
+    public function getCellFactory(row:Int, column:Int):TableCellFactory {
 //trace("getCellFactory...");
-var tableColumn:TableColumn = getColumnModel().getColumn(column);
+        var tableColumn:TableColumn = getColumnModel().getColumn(column);
 //trace("tableColumn = " + tableColumn);
-var renderer:TableCellFactory = tableColumn.getCellFactory();
+        var renderer:TableCellFactory = tableColumn.getCellFactory();
 //trace("renderer = " + renderer);
-if (renderer == null)
-{
-renderer = getDefaultCellFactory(getColumnClass(column));
+        if (renderer == null) {
+            renderer = getDefaultCellFactory(getColumnClass(column));
 //trace("renderer = " + renderer);
-}
-return renderer;
-}
+        }
+        return renderer;
+    }
 
-public function getCellEditorOfRowColumn(row:Int, column:Int):TableCellEditor{
-var tableColumn:TableColumn = getColumnModel().getColumn(column);
-var editor:TableCellEditor = tableColumn.getCellEditor();
-if (editor == null){
-editor = getDefaultEditor(getColumnClass(column));
-}
-return editor;
-}
+    public function getCellEditorOfRowColumn(row:Int, column:Int):TableCellEditor {
+        var tableColumn:TableColumn = getColumnModel().getColumn(column);
+        var editor:TableCellEditor = tableColumn.getCellEditor();
+        if (editor == null) {
+            editor = getDefaultEditor(getColumnClass(column));
+        }
+        return editor;
+    }
 
-public function removeEditor():Void{
+    public function removeEditor():Void {
 //		KeyboardFocusManager.getCurrentKeyboardFocusManager().removePropertyChangeListener("permanentFocusOwner", editorRemover);
 //		editorRemover = null;
-var editor:TableCellEditor = getCellEditor();
-if (editor != null){
-editor.removeCellEditorListener(this);
-setCellEditor(null);
-setEditingColumn( - 1);
-setEditingRow(- 1);
-requestFocus();
-}
-}
+        var editor:TableCellEditor = getCellEditor();
+        if (editor != null) {
+            editor.removeCellEditorListener(this);
+            setCellEditor(null);
+            setEditingColumn(-1);
+            setEditingRow(-1);
+            requestFocus();
+        }
+    }
 
 //*****************************************************
 //           Layout Implementation
@@ -2640,17 +2744,18 @@ requestFocus();
  * (maximum or minimum).
  *
  */
-override public function doLayout():Void{
+
+    override public function doLayout():Void {
 //trace("doLayout");
-var resizingColumn:TableColumn = getResizingColumn();
-if (resizingColumn == null){
-setWidthsFromPreferredWidths(false);
-}else{
-var w:Int = getLastTotalColumnWidth();
-var columnIndex:Int = viewIndexForColumn(resizingColumn);
-var delta:Int = (w - getColumnModel().getTotalColumnWidth());
-accommodateDelta(columnIndex, delta);
-delta = (w - getColumnModel().getTotalColumnWidth());
+        var resizingColumn:TableColumn = getResizingColumn();
+        if (resizingColumn == null) {
+            setWidthsFromPreferredWidths(false);
+        } else {
+            var w:Int = getLastTotalColumnWidth();
+            var columnIndex:Int = viewIndexForColumn(resizingColumn);
+            var delta:Int = (w - getColumnModel().getTotalColumnWidth());
+            accommodateDelta(columnIndex, delta);
+            delta = (w - getColumnModel().getTotalColumnWidth());
 // If the delta cannot be completely accomodated, then the
 // resizing column will have to take any remainder. This means
 // that the column is not being allowed to take the requested
@@ -2661,183 +2766,183 @@ delta = (w - getColumnModel().getTotalColumnWidth());
 // columns after it, and hence nowhere to distribute the delta.
 // It would then be given entirely back to the resizing column,
 // preventing it from changing size.
-if (delta != 0 && (autoResizeMode != AUTO_RESIZE_OFF)){
-resizingColumn.setWidth(resizingColumn.getWidth() + delta);
-}
-setWidthsFromPreferredWidths(true);
-}
-lastTotalColumnWidth = getColumnModel().getTotalColumnWidth();
-super.doLayout();
-}
+            if (delta != 0 && (autoResizeMode != AUTO_RESIZE_OFF)) {
+                resizingColumn.setWidth(resizingColumn.getWidth() + delta);
+            }
+            setWidthsFromPreferredWidths(true);
+        }
+        lastTotalColumnWidth = getColumnModel().getTotalColumnWidth();
+        super.doLayout();
+    }
 
-private function getLastTotalColumnWidth():Int{
-if( - 1 == lastTotalColumnWidth){
-if(autoResizeMode == AUTO_RESIZE_OFF){
-lastTotalColumnWidth = getPreferredSize().width - getInsets().getMarginWidth();
-}else{
-lastTotalColumnWidth = getWidth() - getInsets().getMarginWidth();
-}
-}
-return lastTotalColumnWidth;
-}
+    private function getLastTotalColumnWidth():Int {
+        if (-1 == lastTotalColumnWidth) {
+            if (autoResizeMode == AUTO_RESIZE_OFF) {
+                lastTotalColumnWidth = getPreferredSize().width - getInsets().getMarginWidth();
+            } else {
+                lastTotalColumnWidth = getWidth() - getInsets().getMarginWidth();
+            }
+        }
+        return lastTotalColumnWidth;
+    }
 
-private var lastTotalColumnWidth:Int;
+    private var lastTotalColumnWidth:Int;
 
-private function layoutCells():Void{
-var insets:Insets = getInsets();
-var insetsX:Int = insets.left;
-var insetsY:Int = insets.top;
-var cWidth:Int = getWidth() - insets.getMarginWidth();
-var cHeight:Int = getHeight() - insets.getMarginHeight();
+    private function layoutCells():Void {
+        var insets:Insets = getInsets();
+        var insetsX:Int = insets.left;
+        var insetsY:Int = insets.top;
+        var cWidth:Int = getWidth() - insets.getMarginWidth();
+        var cHeight:Int = getHeight() - insets.getMarginHeight();
 
-var headerHeight:Int = getTableHeader().getPreferredHeight();
-var footerHeight:Int = 0;
-var fotr:Component = getFooter();
+        var headerHeight:Int = getTableHeader().getPreferredHeight();
+        var footerHeight:Int = 0;
+        var fotr:Component = getFooter();
 
-headerPane.setComBoundsXYWH(
-insetsX, insetsY,
-cWidth,
-headerHeight
-);
+        headerPane.setComBoundsXYWH(
+            insetsX, insetsY,
+            cWidth,
+            headerHeight
+        );
 
 //layout table header
-getTableHeader().setLocationXY( - viewPosition.x, 0);
-getTableHeader().setSizeWH(
-getLastTotalColumnWidth(),
-headerHeight);
-getTableHeader().validate();
-getTableHeader().paintImmediately();
+        getTableHeader().setLocationXY(-viewPosition.x, 0);
+        getTableHeader().setSizeWH(
+            getLastTotalColumnWidth(),
+            headerHeight);
+        getTableHeader().validate();
+        getTableHeader().paintImmediately();
 //layout table footer
-if(fotr!=null) {
-fotr.setComBoundsXYWH(
-insetsX, getHeight() - insets.bottom - fotr.getPreferredHeight(),
-cWidth, fotr.getPreferredHeight());
-fotr.validate();
-fotr.paintImmediately();
-}
+        if (fotr != null) {
+            fotr.setComBoundsXYWH(
+                insetsX, getHeight() - insets.bottom - fotr.getPreferredHeight(),
+                cWidth, fotr.getPreferredHeight());
+            fotr.validate();
+            fotr.paintImmediately();
+        }
 
-var b:IntRectangle = new IntRectangle();
-b.setSize(getExtentSize());
-b.setLocation(viewPosition);
+        var b:IntRectangle = new IntRectangle();
+        b.setSize(getExtentSize());
+        b.setLocation(viewPosition);
 
-var cellPaneBounds:IntRectangle = new IntRectangle();
-cellPaneBounds.setSize(b.getSize());
-cellPaneBounds.setLocation(new IntPoint(insetsX, insetsY+ getTableHeader().getHeight()));
-cellPane.setComBounds(cellPaneBounds);
+        var cellPaneBounds:IntRectangle = new IntRectangle();
+        cellPaneBounds.setSize(b.getSize());
+        cellPaneBounds.setLocation(new IntPoint(insetsX, insetsY + getTableHeader().getHeight()));
+        cellPane.setComBounds(cellPaneBounds);
 
-if (getRowCount() <= 0 || getColumnCount() <= 0) {
+        if (getRowCount() <= 0 || getColumnCount() <= 0) {
 //for each(var arr:Array in rowCells){
-var arr_i:Int = 0;
-var arr:Array<Dynamic>=[];
-while (arr_i <rowCells.length ){
-for (ccc in arr ){
-ccc.getCellComponent().setVisible(false);
-}
-arr_i++;
-}
-return;
-}
+            var arr_i:Int = 0;
+            var arr:Array<Dynamic> = [];
+            while (arr_i < rowCells.length) {
+                for (ccc in arr) {
+                    ccc.getCellComponent().setVisible(false);
+                }
+                arr_i++;
+            }
+            return;
+        }
 
-var upperLeft:IntPoint = b.getLocation();
-var lowerRight:IntPoint = b.rightBottom();
-var rMin:Int = rowAtPoint(upperLeft);
-var rMax:Int = rowAtPoint(lowerRight);
-var columnCount:Int = getColumnCount();
+        var upperLeft:IntPoint = b.getLocation();
+        var lowerRight:IntPoint = b.rightBottom();
+        var rMin:Int = rowAtPoint(upperLeft);
+        var rMax:Int = rowAtPoint(lowerRight);
+        var columnCount:Int = getColumnCount();
 // This should never happen (as long as our bounds intersect the clip,
 // which is why we bail above if that is the case).
-if (rMin == - 1) {
-rMin = 0;
-}
+        if (rMin == -1) {
+            rMin = 0;
+        }
 // If the table does not have enough rows to fill the view we'll get -1.
 // (We could also get -1 if our bounds don't intersect the clip,
 // which is why we bail above if that is the case).
 // Replace this with the index of the last row.
-if (rMax == - 1) {
-rMax = getRowCount() - 1;
-}
-var cMin:Int = columnAtPoint(upperLeft);
-var cMax:Int = columnAtPoint(lowerRight);
+        if (rMax == -1) {
+            rMax = getRowCount() - 1;
+        }
+        var cMin:Int = columnAtPoint(upperLeft);
+        var cMax:Int = columnAtPoint(lowerRight);
 // This should never happen.
-if (cMin == - 1) {
-cMin = 0;
-}
+        if (cMin == -1) {
+            cMin = 0;
+        }
 // If the table does not have enough columns to fill the view we'll get -1.
 // Replace this with the index of the last column.
-if (cMax == - 1) {
-cMax = columnCount - 1;
-}
+        if (cMax == -1) {
+            cMax = columnCount - 1;
+        }
 
 //layout each eyeable cells
 
-var cm:TableColumnModel = getColumnModel();
-var columnMargin:Int = cm.getColumnMargin();
-var rowMargin:Int = getRowMargin();
+        var cm:TableColumnModel = getColumnModel();
+        var columnMargin:Int = cm.getColumnMargin();
+        var rowMargin:Int = getRowMargin();
 
-var cellRect:IntRectangle;
-var tempRect:IntRectangle = new IntRectangle();
-var aColumn:TableColumn;
-var columnWidth:Int;
-var cr:Int = 0; //row in visible cell table
-var cc:Int = 0; //column in visible cell table
+        var cellRect:IntRectangle;
+        var tempRect:IntRectangle = new IntRectangle();
+        var aColumn:TableColumn;
+        var columnWidth:Int;
+        var cr:Int = 0; //row in visible cell table
+        var cc:Int = 0; //column in visible cell table
 
-var startX:Int = - viewPosition.x;
-var startY:Int = - viewPosition.y;
+        var startX:Int = -viewPosition.x;
+        var startY:Int = -viewPosition.y;
 
-var row:Int = rMin - 1;
-var showHL:Bool = getShowHorizontalLines();
-var showVL:Bool= getShowVerticalLines();
-while((++row) <= rMax){
-if(cr >= rowCells.length){
-break;
-}
-cellRect = getCellRect(row, cMin, false);
-if(showHL && row == getRowCount() - 1){
-cellRect.height -= rowMargin;
-}
-var column:Int = cMin - 1;
-while((++column) <= cMax){
-cc = column;
-if(cc >= rowCells[cr].length){
-break;
-}
-aColumn = cm.getColumn(column);
-columnWidth = aColumn.getWidth();
-cellRect.width = columnWidth - columnMargin;
-tempRect.setRectXYWH(cellRect.x + startX, cellRect.y + startY, cellRect.width, cellRect.height);
-if(showVL && column == (columnCount - 1)){
-tempRect.width -= columnMargin;
-}
-layoutCell(row, column, tempRect, cr, cc);
-cellRect.x += columnWidth;
-}
+        var row:Int = rMin - 1;
+        var showHL:Bool = getShowHorizontalLines();
+        var showVL:Bool = getShowVerticalLines();
+        while ((++row) <= rMax) {
+            if (cr >= rowCells.length) {
+                break;
+            }
+            cellRect = getCellRect(row, cMin, false);
+            if (showHL && row == getRowCount() - 1) {
+                cellRect.height -= rowMargin;
+            }
+            var column:Int = cMin - 1;
+            while ((++column) <= cMax) {
+                cc = column;
+                if (cc >= rowCells[cr].length) {
+                    break;
+                }
+                aColumn = cm.getColumn(column);
+                columnWidth = aColumn.getWidth();
+                cellRect.width = columnWidth - columnMargin;
+                tempRect.setRectXYWH(cellRect.x + startX, cellRect.y + startY, cellRect.width, cellRect.height);
+                if (showVL && column == (columnCount - 1)) {
+                    tempRect.width -= columnMargin;
+                }
+                layoutCell(row, column, tempRect, cr, cc);
+                cellRect.x += columnWidth;
+            }
 //invisible others columns
-var cell:TableCell;
-var cellColumnCount:Int = rowCells[0].length;
-for(cc in 0...cMin){
-cell = rowCells[cr][cc];
-cell.getCellComponent().setVisible(false);
-}
-for(cc in cMax + 1...cellColumnCount){
-cell = rowCells[cr][cc];
-cell.getCellComponent().setVisible(false);
-}
-cr++;
-}//invisible others rows
+            var cell:TableCell;
+            var cellColumnCount:Int = rowCells[0].length;
+            for (cc in 0...cMin) {
+                cell = rowCells[cr][cc];
+                cell.getCellComponent().setVisible(false);
+            }
+            for (cc in cMax + 1...cellColumnCount) {
+                cell = rowCells[cr][cc];
+                cell.getCellComponent().setVisible(false);
+            }
+            cr++;
+        }//invisible others rows
 
 //invisible others rows
-for (i in cr...rowCells.length) {
+        for (i in cr...rowCells.length) {
 //for(var c:int=columnCount-1; c>=0; c--){
-var c:Int = columnCount - 1;
-while( c>=0 ){
-var cell: TableCell = rowCells[i][c];
-cell.getCellComponent().setVisible(false);
-c--;
-}
-}
-}
+            var c:Int = columnCount - 1;
+            while (c >= 0) {
+                var cell:TableCell = rowCells[i][c];
+                cell.getCellComponent().setVisible(false);
+                c--;
+            }
+        }
+    }
 
-private function layoutCell(row:Int, column:Int, cellRect:IntRectangle, cr:Int, cc:Int):Void{
-var value:Dynamic = getValueAt(row, column);
+    private function layoutCell(row:Int, column:Int, cellRect:IntRectangle, cr:Int, cc:Int):Void {
+        var value:Dynamic = getValueAt(row, column);
 
 //        var isSelected:Boolean = false;
 //        var hasFocus:Boolean = false;
@@ -2849,108 +2954,109 @@ var value:Dynamic = getValueAt(row, column);
 //
 //        hasFocus = (rowIsLead && colIsLead) && isFocusOwner();
 
-var cell:TableCell = rowCells[cr][cc];
-if(cell == null){
-trace("Logic Error : rowCells[" + cr + "][" + cc + "] = undefined");
-trace("rowCells.length = " + rowCells.length);
-}
-cell.setCellValue(value);
-cell.setTableCellStatus(this, isCellSelected(row, column), row, column);
-cell.getCellComponent().setComBounds(cellRect);
-cell.getCellComponent().setVisible(true);
-cell.getCellComponent().validate();
-cell.getCellComponent().paintImmediately();
-}
+        var cell:TableCell = rowCells[cr][cc];
+        if (cell == null) {
+            trace("Logic Error : rowCells[" + cr + "][" + cc + "] = undefined");
+            trace("rowCells.length = " + rowCells.length);
+        }
+        cell.setCellValue(value);
+        cell.setTableCellStatus(this, isCellSelected(row, column), row, column);
+        cell.getCellComponent().setComBounds(cellRect);
+        cell.getCellComponent().setVisible(true);
+        cell.getCellComponent().validate();
+        cell.getCellComponent().paintImmediately();
+    }
 
-private var lastColumnCellFactories:Array<Dynamic>;
+    private var lastColumnCellFactories:Array<Dynamic>;
 //track if the cell factory changed, if changed, recreate all cells
-private function synCellClasses():Void{
-if(lastColumnCellFactories==null || lastColumnCellFactories.length != getColumnCount()){
-clearCells();
-return;
-}
+
+    private function synCellClasses():Void {
+        if (lastColumnCellFactories == null || lastColumnCellFactories.length != getColumnCount()) {
+            clearCells();
+            return;
+        }
 //for(var i:int = lastColumnCellFactories.length-1; i>=0; i--){
-var i:Int = lastColumnCellFactories.length - 1;
-while(i>=0 ){
-if(lastColumnCellFactories[i] != this.getCellFactory(0, i)){
-clearCells();
-return;
-}
-i--;
-}
-}
+        var i:Int = lastColumnCellFactories.length - 1;
+        while (i >= 0) {
+            if (lastColumnCellFactories[i] != this.getCellFactory(0, i)) {
+                clearCells();
+                return;
+            }
+            i--;
+        }
+    }
 
-private function clearCells():Void{
+    private function clearCells():Void {
 //trace("Clear cells!!!!!!!!!!!!");
-removeCells(rowCells);
-rowCells = new Array<Array<Dynamic>>();
-}
+        removeCells(rowCells);
+        rowCells = new Array<Array<Dynamic>>();
+    }
 
-private function synCreateCellInstances():Void{
-synCellClasses();
-var ih:Int = getRowHeight();
-var needNum:Int = Math.floor(getExtentSize().height / ih) + 2;
+    private function synCreateCellInstances():Void {
+        synCellClasses();
+        var ih:Int = getRowHeight();
+        var needNum:Int = Math.floor(getExtentSize().height / ih) + 2;
 
-if(rowCells.length == needNum/* || !displayable*/){
-return;
-}
-var columnCount:Int = getColumnCount();
-var i:Int;
-lastColumnCellFactories = new Array<Dynamic>();
-for(i in 0...columnCount){
-lastColumnCellFactories.push(getCellFactory(0, i));
-}
+        if (rowCells.length == needNum/* || !displayable*/) {
+            return;
+        }
+        var columnCount:Int = getColumnCount();
+        var i:Int;
+        lastColumnCellFactories = new Array<Dynamic>();
+        for (i in 0...columnCount) {
+            lastColumnCellFactories.push(getCellFactory(0, i));
+        }
 
 //create needed
-if(rowCells.length < needNum){
-var addNum:Int = needNum - rowCells.length;
+        if (rowCells.length < needNum) {
+            var addNum:Int = needNum - rowCells.length;
 //trace("----create need rows-----" + needNum);
 //trace("----current rows-----" + rowCells.length);
-for(i in 0...addNum){
-var columnCells:Array<Dynamic>= new Array<Dynamic>();
-for(c in 0...columnCount){
-var cell:TableCell = cast(lastColumnCellFactories[c], TableCellFactory).createNewCell(false);
-columnCells.push(cell);
-addCellToContainer(cell);
-}
-rowCells.push(columnCells);
-}
-} else if(rowCells.length > needNum){ //remove mored
-var removeIndex:Int = needNum;
-var removed:Array<Dynamic>= rowCells.splice(removeIndex, rowCells.length - 1);
-removeCells(removed);
-}
-}
+            for (i in 0...addNum) {
+                var columnCells:Array<Dynamic> = new Array<Dynamic>();
+                for (c in 0...columnCount) {
+                    var cell:TableCell = cast(lastColumnCellFactories[c], TableCellFactory).createNewCell(false);
+                    columnCells.push(cell);
+                    addCellToContainer(cell);
+                }
+                rowCells.push(columnCells);
+            }
+        } else if (rowCells.length > needNum) { //remove mored
+            var removeIndex:Int = needNum;
+            var removed:Array<Dynamic> = rowCells.splice(removeIndex, rowCells.length - 1);
+            removeCells(removed);
+        }
+    }
 
-private function removeCells(removed:Array<Dynamic>):Void{
-for(i in 0...removed.length){
-var columnCells:Array<Dynamic>= removed[i];
-for(c in 0...columnCells.length){
-var cell:TableCell = cast(columnCells[c], TableCell);
-removeCellFromeContainer(cell);
-}
-}
-}
+    private function removeCells(removed:Array<Dynamic>):Void {
+        for (i in 0...removed.length) {
+            var columnCells:Array<Dynamic> = removed[i];
+            for (c in 0...columnCells.length) {
+                var cell:TableCell = cast(columnCells[c], TableCell);
+                removeCellFromeContainer(cell);
+            }
+        }
+    }
 
-private function addCellToContainer(cell:TableCell):Void{
-var cellCom:Component = cell.getCellComponent();
-setCellComponentProperties(cellCom);
-cellPane.append(cellCom);
-}
+    private function addCellToContainer(cell:TableCell):Void {
+        var cellCom:Component = cell.getCellComponent();
+        setCellComponentProperties(cellCom);
+        cellPane.append(cellCom);
+    }
 
-private static function setCellComponentProperties(com:Component):Void{
-com.setFocusable(false);
-if(Std.is(com, Container)){
-var con:Container = cast(com, Container);
-for(i in 0...con.getComponentCount()){
-setCellComponentProperties(con.getComponent(i));
-}
-}
-}
+    private static function setCellComponentProperties(com:Component):Void {
+        com.setFocusable(false);
+        if (Std.is(com, Container)) {
+            var con:Container = cast(com, Container);
+            for (i in 0...con.getComponentCount()) {
+                setCellComponentProperties(con.getComponent(i));
+            }
+        }
+    }
 
-private function removeCellFromeContainer(cell:TableCell):Void{
-cellPane.remove(cell.getCellComponent());
-}
+    private function removeCellFromeContainer(cell:TableCell):Void {
+        cellPane.remove(cell.getCellComponent());
+    }
 
 //*****************************************************
 //                  Events Handling
@@ -2960,138 +3066,140 @@ cellPane.remove(cell.getCellComponent());
 //*****************************************************
 //           Viewportable Implementation
 //*****************************************************
-override public function setSize(newSize:IntDimension):Void{
-super.setSize(newSize);
-if(testingSize!=true){
-setViewPosition(getViewPosition());
-}
-}
 
-private function fireStateChanged(programmatic:Bool = true):Void{
-dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
-}
+    override public function setSize(newSize:IntDimension):Void {
+        super.setSize(newSize);
+        if (testingSize != true) {
+            setViewPosition(getViewPosition());
+        }
+    }
 
-public function getVerticalUnitIncrement():Int{
-if(verticalUnitIncrement == AUTO_INCREMENT){
-return getRowHeight();
-}else{
-return verticalUnitIncrement;
-}
-}
+    private function fireStateChanged(programmatic:Bool = true):Void {
+        dispatchEvent(new InteractiveEvent(InteractiveEvent.STATE_CHANGED, programmatic));
+    }
 
-public function getVerticalBlockIncrement():Int{
-if(verticalBlockIncrement == AUTO_INCREMENT){
-return getRowHeight() * 5;
-}else{
-return verticalBlockIncrement;
-}
-}
+    public function getVerticalUnitIncrement():Int {
+        if (verticalUnitIncrement == AUTO_INCREMENT) {
+            return getRowHeight();
+        } else {
+            return verticalUnitIncrement;
+        }
+    }
 
-public function getHorizontalUnitIncrement():Int{
-if(horizontalUnitIncrement == AUTO_INCREMENT){
-return 1;
-}else{
-return horizontalUnitIncrement;
-}
-}
+    public function getVerticalBlockIncrement():Int {
+        if (verticalBlockIncrement == AUTO_INCREMENT) {
+            return getRowHeight() * 5;
+        } else {
+            return verticalBlockIncrement;
+        }
+    }
 
-public function getHorizontalBlockIncrement():Int{
-if(horizontalBlockIncrement == AUTO_INCREMENT){
-return 10;
-}else{
-return horizontalBlockIncrement;
-}
-}
+    public function getHorizontalUnitIncrement():Int {
+        if (horizontalUnitIncrement == AUTO_INCREMENT) {
+            return 1;
+        } else {
+            return horizontalUnitIncrement;
+        }
+    }
 
-public function setVerticalUnitIncrement(increment:Int):Void{
-if(verticalUnitIncrement != increment){
-verticalUnitIncrement = increment;
-fireStateChanged();
-}
-}
+    public function getHorizontalBlockIncrement():Int {
+        if (horizontalBlockIncrement == AUTO_INCREMENT) {
+            return 10;
+        } else {
+            return horizontalBlockIncrement;
+        }
+    }
 
-public function setVerticalBlockIncrement(increment:Int):Void{
-if(verticalBlockIncrement != increment){
-verticalBlockIncrement = increment;
-fireStateChanged();
-}
-}
+    public function setVerticalUnitIncrement(increment:Int):Void {
+        if (verticalUnitIncrement != increment) {
+            verticalUnitIncrement = increment;
+            fireStateChanged();
+        }
+    }
 
-public function setHorizontalUnitIncrement(increment:Int):Void{
-if(horizontalUnitIncrement != increment){
-horizontalUnitIncrement = increment;
-fireStateChanged();
-}
-}
+    public function setVerticalBlockIncrement(increment:Int):Void {
+        if (verticalBlockIncrement != increment) {
+            verticalBlockIncrement = increment;
+            fireStateChanged();
+        }
+    }
 
-public function setHorizontalBlockIncrement(increment:Int):Void{
-if(horizontalBlockIncrement != increment){
-horizontalBlockIncrement = increment;
-fireStateChanged();
-}
-}
+    public function setHorizontalUnitIncrement(increment:Int):Void {
+        if (horizontalUnitIncrement != increment) {
+            horizontalUnitIncrement = increment;
+            fireStateChanged();
+        }
+    }
 
-private var testingSize:Bool;
-public function setViewportTestSize(s:IntDimension):Void{
-testingSize = true;
-setSize(s);
-testingSize = false;
-}
+    public function setHorizontalBlockIncrement(increment:Int):Void {
+        if (horizontalBlockIncrement != increment) {
+            horizontalBlockIncrement = increment;
+            fireStateChanged();
+        }
+    }
 
-public function getExtentSize():IntDimension{
-var d:IntDimension = getInsets().getInsideSize(getSize());
-d.height -= getTableHeader().getHeight();
-if(getFooter()!=null){
-d.height -= getFooter().getHeight();
-}
-return d;
-}
+    private var testingSize:Bool;
 
-public function getViewSize():IntDimension{
-if(getUI() == null){
-return getInsets().getOutsideSize();
-}
-return getTableUI().getViewSize(this);
-}
+    public function setViewportTestSize(s:IntDimension):Void {
+        testingSize = true;
+        setSize(s);
+        testingSize = false;
+    }
 
-public function getViewPosition():IntPoint{
-return new IntPoint(viewPosition.x, viewPosition.y);
-}
+    public function getExtentSize():IntDimension {
+        var d:IntDimension = getInsets().getInsideSize(getSize());
+        d.height -= getTableHeader().getHeight();
+        if (getFooter() != null) {
+            d.height -= getFooter().getHeight();
+        }
+        return d;
+    }
 
-public function setViewPosition(p:IntPoint, programmatic:Bool = true):Void{
-if(!viewPosition.equals(p)){
-restrictionViewPos(p);
-if(viewPosition.equals(p)){
-return;
-}
-viewPosition.setLocation(p);
-fireStateChanged(programmatic);
+    public function getViewSize():IntDimension {
+        if (getUI() == null) {
+            return getInsets().getOutsideSize();
+        }
+        return getTableUI().getViewSize(this);
+    }
+
+    public function getViewPosition():IntPoint {
+        return new IntPoint(viewPosition.x, viewPosition.y);
+    }
+
+    public function setViewPosition(p:IntPoint, programmatic:Bool = true):Void {
+        if (!viewPosition.equals(p)) {
+            restrictionViewPos(p);
+            if (viewPosition.equals(p)) {
+                return;
+            }
+            viewPosition.setLocation(p);
+            fireStateChanged(programmatic);
 //revalidate();
-valid = false;
-RepaintManager.getInstance().addInvalidRootComponent(this);
-repaint();
-}
-}
+            valid = false;
+            RepaintManager.getInstance().addInvalidRootComponent(this);
+            repaint();
+        }
+    }
 
-public function scrollRectToVisible(contentRect : IntRectangle, programmatic:Bool = true) : Void{
-setViewPosition(new IntPoint(contentRect.x, contentRect.y), programmatic);
-}
+    public function scrollRectToVisible(contentRect:IntRectangle, programmatic:Bool = true):Void {
+        setViewPosition(new IntPoint(contentRect.x, contentRect.y), programmatic);
+    }
 
-private function restrictionViewPos(p:IntPoint):IntPoint{
-var maxPos:IntPoint = getViewMaxPos();
-p.x = Std.int( Math.max(0, Math.min(maxPos.x, p.x)));
-p.y = Std.int(Math.max(0, Math.min(maxPos.y, p.y)));
-return p;
-}
+    private function restrictionViewPos(p:IntPoint):IntPoint {
+        var maxPos:IntPoint = getViewMaxPos();
+        p.x = Std.int(Math.max(0, Math.min(maxPos.x, p.x)));
+        p.y = Std.int(Math.max(0, Math.min(maxPos.y, p.y)));
+        return p;
+    }
 
-private function getViewMaxPos():IntPoint{
-var showSize:IntDimension = getExtentSize();
-var viewSize:IntDimension = getViewSize();
-var p:IntPoint = new IntPoint(viewSize.width -showSize.width, viewSize.height - showSize.height);
-if(p.x < 0) p.x = 0;
-if(p.y < 0) p.y = 0;
-return p;
-}
+    private function getViewMaxPos():IntPoint {
+        var showSize:IntDimension = getExtentSize();
+        var viewSize:IntDimension = getViewSize();
+        var p:IntPoint = new IntPoint(viewSize.width - showSize.width, viewSize.height - showSize.height);
+        if (p.x < 0) p.x = 0;
+        if (p.y < 0) p.y = 0;
+        return p;
+    }
 
 /**
  * Adds a listener to row selection changed.
@@ -3100,18 +3208,20 @@ return p;
  * @param useWeakReference Determines whether the reference to the listener is strong or weak.
  * @see org.aswing.event.SelectionEvent
  */
-public function addSelectionListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void{
-addEventListener(SelectionEvent.ROW_SELECTION_CHANGED, listener, false, priority, useWeakReference);
-}
+
+    public function addSelectionListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void {
+        addEventListener(SelectionEvent.ROW_SELECTION_CHANGED, listener, false, priority, useWeakReference);
+    }
 
 /**
  * Removes a listener from row selection changed listeners.
  * @param listener the listener to be removed.
  * @see org.aswing.event.SelectionEvent
  */
-public function removeSelectionListener(listener:Dynamic -> Void):Void{
-removeEventListener(SelectionEvent.ROW_SELECTION_CHANGED, listener);
-}
+
+    public function removeSelectionListener(listener:Dynamic -> Void):Void {
+        removeEventListener(SelectionEvent.ROW_SELECTION_CHANGED, listener);
+    }
 
 /**
  * Adds a listener to column selection changed.
@@ -3121,9 +3231,10 @@ removeEventListener(SelectionEvent.ROW_SELECTION_CHANGED, listener);
  * @see org.aswing.event.SelectionEvent
  * @see #addSelectionListener()
  */
-public function addColumnSelectionListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void{
-addEventListener(SelectionEvent.COLUMN_SELECTION_CHANGED, listener, false, priority, useWeakReference);
-}
+
+    public function addColumnSelectionListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void {
+        addEventListener(SelectionEvent.COLUMN_SELECTION_CHANGED, listener, false, priority, useWeakReference);
+    }
 
 /**
  * Removes a listener from column selection changed listeners.
@@ -3131,9 +3242,10 @@ addEventListener(SelectionEvent.COLUMN_SELECTION_CHANGED, listener, false, prior
  * @see org.aswing.event.SelectionEvent
  * @see #removeSelectionListener()
  */
-public function removeColumnSelectionListener(listener:Dynamic -> Void):Void{
-removeEventListener(SelectionEvent.COLUMN_SELECTION_CHANGED, listener);
-}
+
+    public function removeColumnSelectionListener(listener:Dynamic -> Void):Void {
+        removeEventListener(SelectionEvent.COLUMN_SELECTION_CHANGED, listener);
+    }
 
 /**
  * Add a listener to listen the viewpoat state change event.
@@ -3151,22 +3263,24 @@ removeEventListener(SelectionEvent.COLUMN_SELECTION_CHANGED, listener);
  * @param useWeakReference Determines whether the reference to the listener is strong or weak.
  * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
  */
-public function addStateListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void{
-addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);
-}
+
+    public function addStateListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void {
+        addEventListener(InteractiveEvent.STATE_CHANGED, listener, false, priority);
+    }
 
 /**
  * Removes a state listener.
  * @param listener the listener to be removed.
  * @see org.aswing.event.InteractiveEvent#STATE_CHANGED
  */
-public function removeStateListener(listener:Dynamic -> Void):Void{
-removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
-}
 
-public function getViewportPane():Component{
-return this;
-}
+    public function removeStateListener(listener:Dynamic -> Void):Void {
+        removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
+    }
+
+    public function getViewportPane():Component {
+        return this;
+    }
 
 //******************************************************************
 //------------------------Layout implementation---------------------
@@ -3175,48 +3289,53 @@ return this;
 /**
  * do nothing
  */
-public function addLayoutComponent(comp:Component, constraints:Dynamic):Void{
-}
+
+    public function addLayoutComponent(comp:Component, constraints:Dynamic):Void {
+    }
 /**
  * do nothing
  */
-public function removeLayoutComponent(comp:Component):Void{
-}
 
-public function preferredLayoutSize(target:Container):IntDimension{
-return getViewSize();
-}
+    public function removeLayoutComponent(comp:Component):Void {
+    }
 
-public function minimumLayoutSize(target:Container):IntDimension{
-return getInsets().getOutsideSize();
-}
+    public function preferredLayoutSize(target:Container):IntDimension {
+        return getViewSize();
+    }
 
-public function maximumLayoutSize(target:Container):IntDimension{
-return IntDimension.createBigDimension();
-}
+    public function minimumLayoutSize(target:Container):IntDimension {
+        return getInsets().getOutsideSize();
+    }
+
+    public function maximumLayoutSize(target:Container):IntDimension {
+        return IntDimension.createBigDimension();
+    }
 
 /**
  * position and fill cells here
  */
-public function layoutContainer(target:Container):Void{
-synCreateCellInstances();
-layoutCells();
-}
+
+    public function layoutContainer(target:Container):Void {
+        synCreateCellInstances();
+        layoutCells();
+    }
 
 /**
  * return 0
  */
-public function getLayoutAlignmentX(target:Container):Float{
-return 0;
-}
+
+    public function getLayoutAlignmentX(target:Container):Float {
+        return 0;
+    }
 
 /**
  * return 0
  */
-public function getLayoutAlignmentY(target:Container):Float{
-return 0;
-}
 
-public function invalidateLayout(target:Container):Void{
-}
+    public function getLayoutAlignmentY(target:Container):Float {
+        return 0;
+    }
+
+    public function invalidateLayout(target:Container):Void {
+    }
 }

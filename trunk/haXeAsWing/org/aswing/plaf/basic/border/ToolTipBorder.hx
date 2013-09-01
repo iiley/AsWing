@@ -15,20 +15,18 @@ import org.aswing.geom.IntRectangle;
 /**
  * @private
  */
-class ToolTipBorder extends LineBorder implements UIResource
-{
+class ToolTipBorder extends LineBorder implements UIResource {
 
 
-public function new()
-{
-super();
-}
+    public function new() {
+        super();
+    }
 
-override public function updateBorderImp(c:Component, g:Graphics2D, b:IntRectangle):Void{
-if(color == null){
-color = c.getUI().getColor("ToolTip.borderColor");
-setColor(color);
-}
-super.updateBorderImp(c, g, b);
-}
+    override public function updateBorderImp(c:Component, g:Graphics2D, b:IntRectangle):Void {
+        if (color == null) {
+            color = c.getUI().getColor("ToolTip.borderColor");
+            setColor(color);
+        }
+        super.updateBorderImp(c, g, b);
+    }
 }

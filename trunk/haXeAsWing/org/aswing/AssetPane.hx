@@ -6,12 +6,10 @@ package org.aswing;
 
 
 import flash.display.DisplayObject;
-import flash.display.Loader;
 import flash.display.Shape;
 
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
-import org.aswing.error.ImpMissError;
 import flash.display.Sprite;
 import flash.display.DisplayObjectContainer;
 

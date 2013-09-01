@@ -5,7 +5,6 @@
 package org.aswing.util;
 
 
-import flash.Lib;
 //import flash.system.ApplicationDomain;
 import flash.display.DisplayObject;
 

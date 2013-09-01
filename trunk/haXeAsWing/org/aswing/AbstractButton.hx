@@ -4,7 +4,6 @@
 
 package org.aswing;
 import flash.filters.BitmapFilter;
-import flash.display.DisplayObjectContainer;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -13,7 +12,6 @@ import org.aswing.error.ImpMissError;
 import org.aswing.event.ReleaseEvent;
 import org.aswing.event.AWEvent;
 import org.aswing.event.InteractiveEvent;
-import org.aswing.plaf.ArrayUIResource;
 import org.aswing.plaf.UIResource;
 import org.aswing.plaf.InsetsUIResource;
 /**

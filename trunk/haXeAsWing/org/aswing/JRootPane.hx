@@ -11,7 +11,6 @@ import flash.events.KeyboardEvent;
 	import flash.events.TextEvent;
 	#end
 import flash.events.Event;
-import flash.text.TextField;
 import org.aswing.AWKeyboard;
 
 import org.aswing.error.ImpMissError;
