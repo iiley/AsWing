@@ -14,7 +14,6 @@ import org.aswing.plaf.basic.BasicButtonUI;
 class JButton extends AbstractButton {
     public function new(text:String = "", icon:Icon = null) {
         super(text, icon);
-        setClipMasked(true);
         setName("JButton" + text);
 
         setModel(new DefaultButtonModel());

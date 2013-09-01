@@ -2430,7 +2430,7 @@ class Component extends AWSprite {
             paintBounds.width = Std.int(Math.min(paintBounds.width, clipBounds.width));
             paintBounds.height = Std.int(Math.min(paintBounds.height, clipBounds.height));
         }
-        setClipMaskRect(paintBounds);
+        //setClipMaskRect(paintBounds);
     }
 
 /**

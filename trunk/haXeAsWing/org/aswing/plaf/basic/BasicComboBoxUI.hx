@@ -235,7 +235,7 @@ class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI {
             scrollRect = new IntRectangle(0, 0, popupPane.getWidth(), 0);
         }
         popupPane.setGlobalLocation(gp);
-        popupPane.setClipMaskRect(scrollRect);
+        popupPane.scrollRect=(scrollRect).toRectangle();
         popupTimer.restart();
     }
 
@@ -271,7 +271,7 @@ class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI {
             popupPane.y -= speed;
             scrollRect.height += speed;
         }
-        popupPane.setClipMaskRect(scrollRect);
+        popupPane.scrollRect=(scrollRect).toRectangle();
     }
 
     private function __onFocusKeyDown(e:FocusKeyEvent):Void {

@@ -79,7 +79,6 @@ class AbstractTabbedPane extends Container {
 
 //default
         super();
-        setClipMasked(true);
         verticalAlignment = CENTER;
         horizontalAlignment = CENTER;
         verticalTextPosition = CENTER;

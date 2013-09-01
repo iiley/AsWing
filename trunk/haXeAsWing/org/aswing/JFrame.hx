@@ -149,7 +149,6 @@ class JFrame extends JWindow {
 
     public function new(owner:Dynamic = null, title:String = "", modal:Bool = false) {
         super(owner, modal);
-        setClipMasked(true);
         this.title = title;
 
         state = NORMAL;

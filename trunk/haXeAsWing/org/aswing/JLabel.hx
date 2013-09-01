@@ -105,7 +105,6 @@ class JLabel extends Component {
     public function new(?text:String = "", ?icon:Icon = null, ?horizontalAlignment:Int = 0) {
         textFilters = null;
         super();
-        setClipMasked(true);
         setName("JLabel");
 //default
         this.verticalAlignment = CENTER;

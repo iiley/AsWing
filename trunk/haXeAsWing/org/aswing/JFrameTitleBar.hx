@@ -33,7 +33,6 @@ class JFrameTitleBar extends Container implements FrameTitleBar implements UIRes
 
     public function new() {
         super();
-        setClipMasked(true);
         titleEnabled = true;
         minimizeHeight = 22;
         setLayout(new FrameTitleBarLayout());
