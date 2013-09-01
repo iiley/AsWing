@@ -25,7 +25,6 @@ class JMenuItem extends AbstractButton implements MenuElement {
 
     public function new(text:String = "", icon:Icon = null) {
         super(text, icon);
-        setClipMasked(true);
         setName("JMenuItem");
         setModel(new DefaultButtonModel());
         initFocusability();

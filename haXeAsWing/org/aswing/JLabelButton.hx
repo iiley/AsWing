@@ -25,7 +25,6 @@ class JLabelButton extends AbstractButton {
 
     public function new(text:String = "", icon:Icon = null, horizontalAlignment:Int = 0) {
         super(text, icon);
-        setClipMasked(true);
         setName("JLabelButton");
         setModel(new DefaultButtonModel());
         setHorizontalAlignment(horizontalAlignment);

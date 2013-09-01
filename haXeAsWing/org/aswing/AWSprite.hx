@@ -334,16 +334,16 @@ class AWSprite extends Sprite {
 
                 if (maskShape.parent != this) {
                     d_addChild(maskShape);
-//  mask = maskShape;
+                    mask = maskShape;
                 }
-                setClipMaskRect(clipMaskRect);
+
             } else {
 
                 if (maskShape != null && maskShape.parent == this) {
                     d_removeChild(maskShape);
                 }
-//mask = null;
-                this.scrollRect = null;
+                mask = null;
+
             }
         }
     }
@@ -351,19 +351,12 @@ class AWSprite extends Sprite {
     public function setClipMaskRect(b:IntRectangle):Void {
         if (maskShape != null) {
 
-/*
-maskShape.x = b.x;
-maskShape.y = b.y;
-maskShape.height = b.height;
-maskShape.width = b.width;
-*/
             maskShape.graphics.clear();
             maskShape.graphics.beginFill(0xff0000);
             maskShape.graphics.drawRect(b.x, b.y, b.width, b.height);
             maskShape.graphics.endFill();
             maskShape.alpha = 0;
         }
-        this.scrollRect = new Rectangle(b.x, b.y, b.width, b.height);
         clipMaskRect.setRect(b);
     }
 
