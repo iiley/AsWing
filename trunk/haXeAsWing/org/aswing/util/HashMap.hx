@@ -10,49 +10,47 @@ import haxe.ds.IntMap;
 
 
 class HashMap < K , V >  {
-	private var _keys:IntMap<K>;
+	private var _keys:Array<K>;
 	private var _values:IntMap<V>;
 	private var length:Int;
 		/** @private */ private static var nextObjectID:Int = 0;
 	public function new() { 
-		this._keys = new IntMap();
+		this._keys = new Array<K>();
 		this._values= new IntMap() ;
 		length = 0;
 	}
 	
 	
 	
-	/** @private */ private inline function getID (key:K):Int {
+	private inline function getID (val:K):Int {
 		
-		#if cpp
-		
-		return untyped __global__.__hxcpp_obj_id (key);
-		
-		#elseif !flash
-		
-		if (key.___id___ == null) {
-			
-			key.___id___ = nextObjectID ++;
-			
-			if (nextObjectID == #if neko 0x3fffffff #else 0x7fffffff #end) {
-				
-				nextObjectID = 0;
-				
+		var exists:Int = -1;
+		for (i in 0..._keys.length)
+		{
+			if (_keys[i] != null)
+			{
+				if (_keys[i] == val)
+				{
+					exists = i;
+					break;
+				}
 			}
-			
 		}
-		
-		return key.___id___;
-		
-		#else
-		
-		return 0;
-		
-		#end
-		
+		return exists;
 	}
+	
+	private inline function pushID (val:K):Void {
+		
+		var exists:Int = getID(val);
+	 
+		if (exists == -1) {
+			_keys.push(val);
+		}
+		 
+	}
+	
 	public inline function set(k:K, v:V) {
-		this._keys.set(getID(k), k);
+		pushID(k);
 		this._values.set(getID(k), v);
 	}
 	public inline function get(k:K) {
@@ -63,7 +61,7 @@ class HashMap < K , V >  {
 	}
 	public inline function remove(k:K) {
 		this._values.remove(getID(k ));
-		return this._keys.remove(getID(k ));
+		return this._keys.remove(k );
 	}
 	public inline function keys() {
 		return this._keys.iterator();

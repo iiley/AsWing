@@ -30,6 +30,7 @@ class UIManager
 	 */
 	public static function setLookAndFeel(laf:LookAndFeel):Void{
 		lookAndFeel = laf;
+		trace(laf.getDefaults());
 		setLookAndFeelDefaults(laf.getDefaults());
 	}
 	
@@ -47,13 +48,18 @@ class UIManager
 		return lookAndFeelDefaults;
 	}
 	
-	private static function setLookAndFeelDefaults(d:UIDefaults):Void{
+	private static function setLookAndFeelDefaults(d:UIDefaults):Void {
+		
 		lookAndFeelDefaults = d;
 	}
 	
 	private static function checkLookAndFeel():Void{
 		if(lookAndFeel == null){
 			setLookAndFeel(new BasicLookAndFeel());
+		}
+		if(lookAndFeelDefaults == null){
+				trace(lookAndFeel.getDefaults());
+			setLookAndFeelDefaults(lookAndFeel.getDefaults());
 		}
 	}
 	
@@ -97,7 +103,8 @@ class UIManager
 		return getDefaults().getGroundDecorator(key);
 	}	
 	
-	public static function getColor(key:String):ASColor{
+	public static function getColor(key:String):ASColor {
+	 
 		return getDefaults().getColor(key);
 	}
 	

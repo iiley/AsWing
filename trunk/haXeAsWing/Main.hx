@@ -487,7 +487,7 @@ class Main
     public  function new():Void
     {  
     	AsWingManager.initAsStandard( Lib.current);
-	 
+		trace("2222222222");
 		
 		var sp:org.aswing.JLabel= new  org.aswing.JLabel("*****sdew");
 		 
