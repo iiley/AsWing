@@ -7,6 +7,5 @@ package org.aswing.plaf.basic.icon;
 /**
  * @private
  */
-class MenuItemCheckIcon extends MenuCheckIcon
-{
+class MenuItemCheckIcon extends MenuCheckIcon {
 }

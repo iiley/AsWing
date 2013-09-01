@@ -1,7 +1,6 @@
 package org.aswing.table;
 
 
-
 /**
  * Property translator, it return the value of a specified property name. 
  * Some property need translate, not directly return the real value, For example a int 
@@ -21,8 +20,8 @@ package org.aswing.table;
  * </pre> 
  * @author paling
  */
-interface PropertyTranslator{
-	
-	function translate(info:Dynamic, key:String):Dynamic;
-	
+interface PropertyTranslator {
+
+    function translate(info:Dynamic, key:String):Dynamic;
+
 }

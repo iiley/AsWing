@@ -8,16 +8,16 @@ package org.aswing.ext;
 /**
  * General factory to generate instance by a class
  */
-class GeneralGridListCellFactory implements GridListCellFactory{
-	
-	private var cellClass:Class<Dynamic>;
-	
-	public function new(cellClass:Class<Dynamic>){
-		this.cellClass = cellClass;
-	}
+class GeneralGridListCellFactory implements GridListCellFactory {
 
-	public function createNewGridListCell():GridListCell{
-		return cast(Type.createInstance( cellClass,[]) , GridListCell);
-	}
-	
+    private var cellClass:Class<Dynamic>;
+
+    public function new(cellClass:Class<Dynamic>) {
+        this.cellClass = cellClass;
+    }
+
+    public function createNewGridListCell():GridListCell {
+        return cast(Type.createInstance(cellClass, []), GridListCell);
+    }
+
 }

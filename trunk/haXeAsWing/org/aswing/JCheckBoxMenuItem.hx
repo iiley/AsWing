@@ -15,20 +15,20 @@ import org.aswing.plaf.basic.BasicCheckBoxMenuItemUI;
  * icon associated with it, or both.
  * @author paling
  */
-class JCheckBoxMenuItem extends JMenuItem{
-	
-	public function new(text:String="", icon:Icon=null){
-		super(text, icon);
-		setName("JCheckBoxMenuItem");
-		setModel(new ToggleButtonModel()); 
-	}
+class JCheckBoxMenuItem extends JMenuItem {
 
-	override public function getUIClassID():String{
-		return "CheckBoxMenuItemUI";
-	}
-	
-	override public function getDefaultBasicUIClass():Class<Dynamic>{
-    	return org.aswing.plaf.basic.BasicCheckBoxMenuItemUI;
+    public function new(text:String = "", icon:Icon = null) {
+        super(text, icon);
+        setName("JCheckBoxMenuItem");
+        setModel(new ToggleButtonModel());
     }
-	
+
+    override public function getUIClassID():String {
+        return "CheckBoxMenuItemUI";
+    }
+
+    override public function getDefaultBasicUIClass():Class<Dynamic> {
+        return org.aswing.plaf.basic.BasicCheckBoxMenuItemUI;
+    }
+
 }
