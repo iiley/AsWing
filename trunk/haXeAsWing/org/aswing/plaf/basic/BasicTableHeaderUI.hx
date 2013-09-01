@@ -76,6 +76,7 @@ class BasicTableHeaderUI extends BaseComponentUI {
         uninstallDefaults();
         uninstallComponents();
         uninstallListeners();
+
     }
 
     private function uninstallDefaults():Void {
@@ -93,6 +94,10 @@ class BasicTableHeaderUI extends BaseComponentUI {
         header.removeEventListener(MouseEvent.MOUSE_DOWN, __onHeaderPressed);
         header.removeEventListener(ReleaseEvent.RELEASE, __onHeaderReleased);
         header.removeEventListener(Event.REMOVED_FROM_STAGE, __headerRemovedFromStage);
+        AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE,
+        __onRollOverMouseMoving);
+        AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE,
+        __onMouseMoving);
     }
 
 //*************************************************

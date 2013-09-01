@@ -186,6 +186,7 @@ class BasicScrollBarUI extends BaseComponentUI {
         scrollbar.removeEventListener(Event.REMOVED_FROM_STAGE, __destroy);
         scrollTimer.stop();
         scrollTimer = null;
+        AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __onMoveThumb);
     }
 
     private function isVertical():Bool {
