@@ -9,7 +9,6 @@ import flash.display.CapsStyle;
 import flash.display.Graphics;
 import flash.display.JointStyle;
 import flash.display.LineScaleMode;
-import Type;
 
 import org.aswing.ASColor;
 

@@ -15,19 +15,18 @@ import org.aswing.plaf.UIResource;
 * Discard in aswing 2.0(Background raped his job)
 * @private
 */
-class ProgressBarBorder extends LineBorder implements UIResource
-{
+class ProgressBarBorder extends LineBorder implements UIResource {
 
-public function new() {
-color = null;
-super();
-}
+    public function new() {
+        color = null;
+        super();
+    }
 
-override public function updateBorderImp(c:Component, g:Graphics2D, b:IntRectangle):Void{
-if(color == null){
-color = c.getUI().getColor("ProgressBar.foreground");
-setColor(color);
-}
-super.updateBorderImp(c, g, b);
-}
+    override public function updateBorderImp(c:Component, g:Graphics2D, b:IntRectangle):Void {
+        if (color == null) {
+            color = c.getUI().getColor("ProgressBar.foreground");
+            setColor(color);
+        }
+        super.updateBorderImp(c, g, b);
+    }
 }

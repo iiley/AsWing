@@ -288,7 +288,7 @@ class JWindow extends JPopup {
         }
         var fm:FocusManager = FocusManager.getManager(st);
         var vec:ArrayList = fm.getPopupsVector();
-        var arr:Array<Dynamic >= new Array<Dynamic>();
+        var arr:Array<Dynamic> = new Array<Dynamic>();
         for (i in 0...vec.size()) {
             var win:Dynamic = vec.get(i);
             if (Std.is(win, JWindow)) {
@@ -310,7 +310,7 @@ class JWindow extends JPopup {
     public static function getOwnedWindowsWithOwner(owner:DisplayObjectContainer):Array<Dynamic> {
         var fm:FocusManager = FocusManager.getManager(owner.stage);
         if (fm != null) {
-            var ws:Array<Dynamic >= new Array<Dynamic>();
+            var ws:Array<Dynamic> = new Array<Dynamic>();
             var vec:ArrayList = fm.getPopupsVector();
             var n:Int = vec.size();
             for (i in 0...n) {

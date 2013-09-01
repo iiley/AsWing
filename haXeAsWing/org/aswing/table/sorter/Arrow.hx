@@ -63,7 +63,7 @@ g.fillPolygon(new SolidBrush(ASColor.BLACK), ps1);
         g = new Graphics2D(shape.graphics);
         var center:Point = new Point(x, c.getHeight() / 2);
         var w:Float = width;
-        var ps1:Array<Dynamic >= new Array<Dynamic>();
+        var ps1:Array<Dynamic> = new Array<Dynamic>();
         ps1.push(nextPoint(center, arrow, w / 2 / 2));
         var back:Point = nextPoint(center, arrow + Math.PI, w / 2 / 2);
         ps1.push(nextPoint(back, arrow - Math.PI / 2, w / 2));

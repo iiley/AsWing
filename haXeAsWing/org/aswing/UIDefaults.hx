@@ -3,11 +3,9 @@
 */
 
 package org.aswing;
-import haxe.ds.StringMap;
 import org.aswing.util.HashMap;
 import org.aswing.plaf.ComponentUI;
 import org.aswing.plaf.EmptyUIResources;
-import org.aswing.resizer.ResizerController;
 /**
  * A table of defaults for AsWing components.  Applications can set/get
  * default values via the <code>UIManager</code>.

@@ -43,8 +43,8 @@ import org.aswing.util.DateAs;
  */
 class DateChooser extends JPanel {
 
-    public static var defaultDayNames:Array<Dynamic>= [" Su ", " Mo ", " Tu ", " We ", " Th ", " Fr ", " Sa "];
-    public static var defaultMonthNames:Array<Dynamic>= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    public static var defaultDayNames:Array<Dynamic> = [" Su ", " Mo ", " Tu ", " We ", " Th ", " Fr ", " Sa "];
+    public static var defaultMonthNames:Array<Dynamic> = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     private var allowMultipleSelection:Bool;
     private var dayNames:Array<Dynamic>;
@@ -359,7 +359,7 @@ class DateChooser extends JPanel {
     }
 
     private function getMonthLabels():Array<Dynamic> {
-        var arr:Array<Dynamic >= monthNames.copy();
+        var arr:Array<Dynamic> = monthNames.copy();
 
         if (displayEndMonth < 11) {
             arr = arr.splice(displayEndMonth, 11 - displayEndMonth);
@@ -373,7 +373,7 @@ class DateChooser extends JPanel {
     private function getYearLabels():Array<Dynamic> {
         var start:Int = selectableRange.getStart().getFullYear();
         var end:Int = selectableRange.getEnd().getFullYear();
-        var labels:Array<Dynamic >= [];
+        var labels:Array<Dynamic> = [];
         var n:Int = end - start ;
 
         for (i in 0...n) {

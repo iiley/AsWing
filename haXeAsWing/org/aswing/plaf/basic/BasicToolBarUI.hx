@@ -139,40 +139,40 @@ class BasicToolBarUI extends BaseComponentUI {
  * only when button be rollover.
  * @author paling
  */
-class ToolBarButtonBgAdapter implements GroundDecorator implements UIResource{
+class ToolBarButtonBgAdapter implements GroundDecorator implements UIResource {
 
-private var originalBg:GroundDecorator;
+    private var originalBg:GroundDecorator;
 
-public function new(originalBg:GroundDecorator){
-this.originalBg = originalBg;
-}
+    public function new(originalBg:GroundDecorator) {
+        this.originalBg = originalBg;
+    }
 
-public function getOriginalBg():GroundDecorator{
-return originalBg;
-}
+    public function getOriginalBg():GroundDecorator {
+        return originalBg;
+    }
 
-public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):Void{
-if(originalBg == null){
-return;
-}
-var btn:AbstractButton = cast(c, AbstractButton) ;
-var needPaint:Bool = false;
-if(btn == null || btn.getModel().isArmed() || btn.isSelected()
-|| (btn.getModel().isRollOver() && !btn.getModel().isPressed())){
-needPaint = true;
-}
+    public function updateDecorator(c:Component, g:Graphics2D, bounds:IntRectangle):Void {
+        if (originalBg == null) {
+            return;
+        }
+        var btn:AbstractButton = cast(c, AbstractButton) ;
+        var needPaint:Bool = false;
+        if (btn == null || btn.getModel().isArmed() || btn.isSelected()
+        || (btn.getModel().isRollOver() && !btn.getModel().isPressed())) {
+            needPaint = true;
+        }
 
-var dis:DisplayObject = getDisplay(c);
-if(dis != null) dis.visible = needPaint;
-if(needPaint) {
-originalBg.updateDecorator(c, g, bounds);
-}
-}
+        var dis:DisplayObject = getDisplay(c);
+        if (dis != null) dis.visible = needPaint;
+        if (needPaint) {
+            originalBg.updateDecorator(c, g, bounds);
+        }
+    }
 
-public function getDisplay(c:Component):DisplayObject{
-if(originalBg == null){
-return null;
-}
-return originalBg.getDisplay(c);
-}
+    public function getDisplay(c:Component):DisplayObject {
+        if (originalBg == null) {
+            return null;
+        }
+        return originalBg.getDisplay(c);
+    }
 }

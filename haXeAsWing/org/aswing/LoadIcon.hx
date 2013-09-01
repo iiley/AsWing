@@ -11,7 +11,6 @@ import flash.display.Loader;
 import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.net.URLRequest;
-import flash.display.Sprite;
 
 /**
  * LoadIcon allow you load extenal image/animation to be the icon content.

@@ -15,8 +15,6 @@ import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 
-import org.aswing.AWKeyboard;
-
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 /**
@@ -39,89 +37,93 @@ import org.aswing.geom.IntRectangle;
 * @see JTextField
 * @see JTextArea
 */
-class JTextComponent extends Component implements EditableComponent{
+class JTextComponent extends Component implements EditableComponent {
 
-private var textField:TextField;
-private var editable:Bool;
+    private var textField:TextField;
+    private var editable:Bool;
 
-private var columnWidth:Int;
-private var rowHeight:Int;
-private var widthMargin:Int;
-private var heightMargin:Int;
-private var columnRowCounted:Bool;
+    private var columnWidth:Int;
+    private var rowHeight:Int;
+    private var widthMargin:Int;
+    private var heightMargin:Int;
+    private var columnRowCounted:Bool;
 
-public function new(){
-super();
+    public function new() {
+        super();
 
-textField = new TextField();
-textField.type = TextFieldType.INPUT;
-textField.autoSize = TextFieldAutoSize.NONE;
-textField.background = false;
-editable = true;
-columnRowCounted = false;
-addChild(textField);
+        textField = new TextField();
+        textField.type = TextFieldType.INPUT;
+        textField.autoSize = TextFieldAutoSize.NONE;
+        textField.background = false;
+        editable = true;
+        columnRowCounted = false;
+        addChild(textField);
 #if(flash9)
 		textField.addEventListener(TextEvent.TEXT_INPUT, __onTextComponentTextInput);
 		#end
-}
-public function setDefaultTextFormat(dtf:TextFormat):Void{
-getTextField().defaultTextFormat = dtf;
-}
+    }
 
-public function getDefaultTextFormat():TextFormat{
-return getTextField().defaultTextFormat;
-}
-public function setWordWrap(b:Bool):Void{
-getTextField().wordWrap = b;
-if(isAutoSize()){
-revalidate();
-}
-}
+    public function setDefaultTextFormat(dtf:TextFormat):Void {
+        getTextField().defaultTextFormat = dtf;
+    }
 
-public function isWordWrap():Bool{
-return getTextField().wordWrap;
-}
+    public function getDefaultTextFormat():TextFormat {
+        return getTextField().defaultTextFormat;
+    }
+
+    public function setWordWrap(b:Bool):Void {
+        getTextField().wordWrap = b;
+        if (isAutoSize()) {
+            revalidate();
+        }
+    }
+
+    public function isWordWrap():Bool {
+        return getTextField().wordWrap;
+    }
 
 /**
  * Returns the internal <code>TextField</code> instance.
  * @return the internal <code>TextField</code> instance.
  */
-public function getTextField():TextField{
-return textField;
-}
+
+    public function getTextField():TextField {
+        return textField;
+    }
 
 /**
  * Subclass override this method to do right counting.
  */
-private function isAutoSize():Bool{
-return false;
-}
 
-override public function setEnabled(b:Bool):Void{
-super.setEnabled(b);
-getTextField().selectable = b;
-getTextField().mouseEnabled = b;
-}
+    private function isAutoSize():Bool {
+        return false;
+    }
 
-public function setEditable(b:Bool):Void {
+    override public function setEnabled(b:Bool):Void {
+        super.setEnabled(b);
+        getTextField().selectable = b;
+        getTextField().mouseEnabled = b;
+    }
 
-if(b != editable){
-editable = b;
-if(b) {
-getTextField().type = TextFieldType.INPUT;
-}else{
-getTextField().type = TextFieldType.DYNAMIC;
-}
-invalidate();
-invalidateColumnRowSize();
-repaint();
-}
-}
+    public function setEditable(b:Bool):Void {
 
-public function isEditable():Bool {
+        if (b != editable) {
+            editable = b;
+            if (b) {
+                getTextField().type = TextFieldType.INPUT;
+            } else {
+                getTextField().type = TextFieldType.DYNAMIC;
+            }
+            invalidate();
+            invalidateColumnRowSize();
+            repaint();
+        }
+    }
 
-return editable;
-}
+    public function isEditable():Bool {
+
+        return editable;
+    }
 /**
 * Sets the default textFormat to the text.
 * <p>
@@ -136,7 +138,8 @@ return editable;
  * @param f the font.
  * @see EmptyFont
  */
-override public function setFont(f:ASFont):Void {
+
+    override public function setFont(f:ASFont):Void {
 #if (flash9)
 		super.setFont(f);
 		setFontValidated(true);
@@ -147,64 +150,66 @@ override public function setFont(f:ASFont):Void {
 			invalidateColumnRowSize();
 		}
 		#end
-}
+    }
 
 
-override public function setForeground(c:ASColor):Void{
-super.setForeground(c);
-if (getForeground() != null) {
-getTextField().textColor = getForeground().getRGB();
-getTextField().alpha = getForeground().getAlpha();
-}
-}
+    override public function setForeground(c:ASColor):Void {
+        super.setForeground(c);
+        if (getForeground() != null) {
+            getTextField().textColor = getForeground().getRGB();
+            getTextField().alpha = getForeground().getAlpha();
+        }
+    }
 
-public function setText(text:String):Void{
-if(getTextField().text != text){
-getTextField().text = text;
-if(isAutoSize()){
-revalidate();
-}
-}
-}
+    public function setText(text:String):Void {
+        if (getTextField().text != text) {
+            getTextField().text = text;
+            if (isAutoSize()) {
+                revalidate();
+            }
+        }
+    }
 
-public function getText():String{
-return getTextField().text;
-}
+    public function getText():String {
+        return getTextField().text;
+    }
 
-public function setHtmlText(ht:String):Void{
-getTextField().htmlText = ht;
-if(isAutoSize()){
-revalidate();
-}
-}
+    public function setHtmlText(ht:String):Void {
+        getTextField().htmlText = ht;
+        if (isAutoSize()) {
+            revalidate();
+        }
+    }
 
-public function getHtmlText():String{
-return getTextField().htmlText;
-}
+    public function getHtmlText():String {
+        return getTextField().htmlText;
+    }
 
-public function appendText(newText:String):Void{
-getTextField().text += newText;
-if(isAutoSize()){
-revalidate();
-}
-}
+    public function appendText(newText:String):Void {
+        getTextField().text += newText;
+        if (isAutoSize()) {
+            revalidate();
+        }
+    }
 
 //-------------------------------------------------------------
 
 /**
  * JTextComponent need count preferred size itself.
  */
-override private function countPreferredSize():IntDimension{
-throw new Error("Subclass of JTextComponent need implement this method : countPreferredSize!");
-return null;
-}
+
+    override private function countPreferredSize():IntDimension {
+        throw new Error("Subclass of JTextComponent need implement this method : countPreferredSize!");
+        return null;
+    }
 
 /**
  * Invalidate the column and row size, make it will be recount when need it next time.
  */
-private function invalidateColumnRowSize():Void{
-columnRowCounted = false;
-}
+
+    private function invalidateColumnRowSize():Void {
+        columnRowCounted = false;
+    }
 
 /**
  * Returns the column width. The meaning of what a column is can be considered a fairly weak notion for some fonts.
@@ -213,10 +218,11 @@ columnRowCounted = false;
  * if the font size changed, the invalidateColumnRowSize will be called,
  * then next call get method about this will be counted first.
  */
-private function getColumnWidth():Int{
-if(columnRowCounted!=true) countColumnRowSize();
-return columnWidth;
-}
+
+    private function getColumnWidth():Int {
+        if (columnRowCounted != true) countColumnRowSize();
+        return columnWidth;
+    }
 
 /**
  * Returns the row height. The meaning of what a column is can be considered a fairly weak notion for some fonts.
@@ -225,90 +231,94 @@ return columnWidth;
  * if the font size changed, the invalidateColumnRowSize will be called,
  * then next call get method about this will be counted first.
  */
-private function getRowHeight():Int{
-if(columnRowCounted!=true) countColumnRowSize();
-return rowHeight;
-}
+
+    private function getRowHeight():Int {
+        if (columnRowCounted != true) countColumnRowSize();
+        return rowHeight;
+    }
 
 /**
  * @see #getColumnWidth()
  */
-private function getWidthMargin():Int{
-if(columnRowCounted!=true) countColumnRowSize();
-return widthMargin;
-}
+
+    private function getWidthMargin():Int {
+        if (columnRowCounted != true) countColumnRowSize();
+        return widthMargin;
+    }
 
 /**
  * @see #getRowHeight()
  */
-private function getHeightMargin():Int{
-if(columnRowCounted!=true) countColumnRowSize();
-return heightMargin;
-}
 
-private function getTextFieldAutoSizedSize(forceWidth:Int = 0, forceHeight:Int = 0):IntDimension{
-var tf:TextField = getTextField();
-var oldSize:IntDimension = new IntDimension(Std.int(tf.textWidth), Std.int(tf.textHeight));
-var old:TextFieldAutoSize = tf.autoSize;
-if(forceWidth != 0){
-tf.width = forceWidth;
-}
-if(forceHeight != 0){
-tf.height = forceHeight;
-}
-tf.autoSize = TextFieldAutoSize.LEFT;
-var size:IntDimension = new IntDimension(Std.int(tf.textWidth), Std.int(tf.textHeight));
+    private function getHeightMargin():Int {
+        if (columnRowCounted != true) countColumnRowSize();
+        return heightMargin;
+    }
+
+    private function getTextFieldAutoSizedSize(forceWidth:Int = 0, forceHeight:Int = 0):IntDimension {
+        var tf:TextField = getTextField();
+        var oldSize:IntDimension = new IntDimension(Std.int(tf.textWidth), Std.int(tf.textHeight));
+        var old:TextFieldAutoSize = tf.autoSize;
+        if (forceWidth != 0) {
+            tf.width = forceWidth;
+        }
+        if (forceHeight != 0) {
+            tf.height = forceHeight;
+        }
+        tf.autoSize = TextFieldAutoSize.LEFT;
+        var size:IntDimension = new IntDimension(Std.int(tf.textWidth), Std.int(tf.textHeight));
 #if(flash9)
 		size = new IntDimension(Std.int(tf.width), Std.int(tf.height));
 		#end
-tf.autoSize = old;
-tf.width = oldSize.width;
-tf.height = oldSize.height;
-if(forceWidth != 0){
-size.width = forceWidth;
-}
-if(forceHeight != 0){
-size.height = forceHeight;
-}
-return size;
-}
+        tf.autoSize = old;
+        tf.width = oldSize.width;
+        tf.height = oldSize.height;
+        if (forceWidth != 0) {
+            size.width = forceWidth;
+        }
+        if (forceHeight != 0) {
+            size.height = forceHeight;
+        }
+        return size;
+    }
 
-private function countColumnRowSize():Void{
-var str:String = "mmmmm";
-var tf:TextFormat = getFont().getTextFormat();
-var textFieldSize:IntDimension = AsWingUtils.computeStringSize(tf, str, true, getTextField());
-var textSize:IntDimension = AsWingUtils.computeStringSize(tf, str, false, getTextField());
-if(tf.font == "NSimSun"){
-columnWidth = Math.round(textSize.width /4 + Std.int(tf.size)/ 6);
-}else{
-columnWidth = Std.int(textSize.width /5);
-}
-rowHeight = textSize.height;
-widthMargin = textFieldSize.width - textSize.width;
-heightMargin = textFieldSize.height - textSize.height;
-columnRowCounted = true;
-}
+    private function countColumnRowSize():Void {
+        var str:String = "mmmmm";
+        var tf:TextFormat = getFont().getTextFormat();
+        var textFieldSize:IntDimension = AsWingUtils.computeStringSize(tf, str, true, getTextField());
+        var textSize:IntDimension = AsWingUtils.computeStringSize(tf, str, false, getTextField());
+        if (tf.font == "NSimSun") {
+            columnWidth = Math.round(textSize.width / 4 + Std.int(tf.size) / 6);
+        } else {
+            columnWidth = Std.int(textSize.width / 5);
+        }
+        rowHeight = textSize.height;
+        widthMargin = textFieldSize.width - textSize.width;
+        heightMargin = textFieldSize.height - textSize.height;
+        columnRowCounted = true;
+    }
 
 /**
  * Returns the text field to receive the focus for this component.
  * @return the object to receive the focus.
  */
-override public function getInternalFocusObject():InteractiveObject{
-return getTextField();
-}
 
-override private function paint(b:IntRectangle):Void{
-super.paint(b);
-applyBoundsToText(b);
-}
+    override public function getInternalFocusObject():InteractiveObject {
+        return getTextField();
+    }
 
-private function applyBoundsToText(b:IntRectangle):Void{
-var t:TextField = getTextField();
-t.x = b.x;
-t.y = b.y;
-t.width = b.width;
-t.height = b.height;
-}
+    override private function paint(b:IntRectangle):Void {
+        super.paint(b);
+        applyBoundsToText(b);
+    }
+
+    private function applyBoundsToText(b:IntRectangle):Void {
+        var t:TextField = getTextField();
+        t.x = b.x;
+        t.y = b.y;
+        t.width = b.width;
+        t.height = b.height;
+    }
 
 #if (flash9)
 	

@@ -564,7 +564,7 @@ class JFrame extends JWindow {
     }
 
     private function doSubPopusVisible():Void {
-        var owneds:Array<Dynamic >= getOwnedEquipedPopups();
+        var owneds:Array<Dynamic> = getOwnedEquipedPopups();
         for (i in 0...owneds.length) {
             var pop:JPopup = owneds[i];
             pop.getGroundContainer().visible = pop.shouldGroundVisible();

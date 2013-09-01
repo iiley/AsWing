@@ -7,9 +7,7 @@ package org.aswing.plaf.basic.icon;
 
 import flash.display.Shape;
 import flash.display.DisplayObject;
-
 import flash.filters.BitmapFilterType;
-
 import org.aswing.Component;
 import org.aswing.AbstractButton;
 import org.aswing.graphics.Graphics2D;

@@ -4,7 +4,6 @@ package org.aswing.ext;
 import flash.events.MouseEvent;
 
 import org.aswing.ASColor;
-import org.aswing.Icon;
 import org.aswing.JLabel;
 import org.aswing.UIManager;
 

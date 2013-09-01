@@ -5,8 +5,6 @@
 package org.aswing;
 
 
-import flash.display.DisplayObjectContainer;
-
 import org.aswing.plaf.basic.BasicButtonUI;
 
 /**

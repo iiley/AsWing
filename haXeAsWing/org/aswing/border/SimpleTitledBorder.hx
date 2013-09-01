@@ -11,7 +11,6 @@ package org.aswing.border;
  */
 import flash.display.DisplayObject;
 import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 import org.aswing.ASFont;
 import org.aswing.ASColor;
@@ -21,7 +20,6 @@ import org.aswing.Insets;
 import org.aswing.geom.IntDimension;
 import org.aswing.geom.IntRectangle;
 import org.aswing.graphics.Graphics2D;
-import org.aswing.util.HashMap;
 
 class SimpleTitledBorder extends DecorateBorder {
 

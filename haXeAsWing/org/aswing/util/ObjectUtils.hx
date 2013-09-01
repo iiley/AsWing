@@ -3,8 +3,6 @@
 */
 package org.aswing.util;
 
-import flash.utils.ByteArray;
-
 
 class ObjectUtils {
 

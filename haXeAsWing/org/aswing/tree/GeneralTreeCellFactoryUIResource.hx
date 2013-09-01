@@ -11,10 +11,10 @@ import org.aswing.tree.GeneralTreeCellFactory;
 /**
  * @author paling
  */
-class GeneralTreeCellFactoryUIResource extends GeneralTreeCellFactory implements UIResource{
+class GeneralTreeCellFactoryUIResource extends GeneralTreeCellFactory implements UIResource {
 
-public function new(cellClass :Class<Dynamic>) {
-super(cellClass);
-}
+    public function new(cellClass:Class<Dynamic>) {
+        super(cellClass);
+    }
 
 }

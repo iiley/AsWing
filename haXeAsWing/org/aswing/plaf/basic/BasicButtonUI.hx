@@ -261,7 +261,7 @@ class BasicButtonUI extends BaseComponentUI {
         var icon:Icon = b.getIcon();
         var tmpIcon:Icon = null;
 
-        var icons:Array<Dynamic >= getIcons();
+        var icons:Array<Dynamic> = getIcons();
         for (i in 0...icons.length) {
             var ico:Icon = icons[i];
             setIconVisible(ico, false);
@@ -308,7 +308,7 @@ class BasicButtonUI extends BaseComponentUI {
     }
 
     private function getIcons():Array<Dynamic> {
-        var arr:Array<Dynamic >= new Array<Dynamic>();
+        var arr:Array<Dynamic> = new Array<Dynamic>();
         if (button.getIcon() != null) {
             arr.push(button.getIcon());
         }

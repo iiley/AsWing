@@ -46,7 +46,7 @@ class DragManager {
     private static var mouseOffset:IntPoint;
     private static var enteredComponent:Component;
 
-    private static var listeners:Array<Dynamic>= new Array<Dynamic>();
+    private static var listeners:Array<Dynamic> = new Array<Dynamic>();
     private static var curStage:Stage;
 
 /**
@@ -271,7 +271,7 @@ class DragManager {
  */
 
     public static function getDropTarget(stage:Stage, pos:Point = null,
-                                         targetType:Class<Dynamic>=null,
+                                         targetType:Class<Dynamic> =null,
                                          addtionCheck:Dynamic -> Bool = null):DisplayObject {
         if (stage == null) {
             return null;
@@ -285,7 +285,7 @@ class DragManager {
         if (addtionCheck == null) {
 
         }
-        var targets:Array<Dynamic >= AsWingManager.getStage().getObjectsUnderPoint(pos);
+        var targets:Array<Dynamic> = AsWingManager.getStage().getObjectsUnderPoint(pos);
         var n:Int = targets.length;
         for (i in 0...n) {
             var tar:DisplayObject = targets[i];

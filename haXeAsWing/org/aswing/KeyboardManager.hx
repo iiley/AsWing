@@ -37,7 +37,7 @@ import org.aswing.util.ArrayList;
  */
 class KeyboardManager extends EventDispatcher {
 
-    private static var defaultMnemonicModifier:Array<Dynamic>= [AWKeyboard.CONTROL, AWKeyboard.SHIFT];
+    private static var defaultMnemonicModifier:Array<Dynamic> = [AWKeyboard.CONTROL, AWKeyboard.SHIFT];
 
     private var keySequence:ArrayList;
     private var keymap:KeyMap;
@@ -169,7 +169,7 @@ class KeyboardManager extends EventDispatcher {
  */
 
     public function isMnemonicModifierDown():Bool {
-        var mm:Array<Dynamic >= getMnemonicModifier();
+        var mm:Array<Dynamic> = getMnemonicModifier();
         for (i in 0...mm.length) {
             if (!isKeyDown(mm[i])) {
                 return false;

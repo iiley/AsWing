@@ -722,8 +722,8 @@ class BasicColorMixerUI extends BaseComponentUI {
         offset += thickness;
 
         var colors:Array<Int >= [0, 0x808080];
-        var alphas:Array<Dynamic >= [1, 1];
-        var ratios:Array<Dynamic >= [0, 255];
+        var alphas:Array<Dynamic> = [1, 1];
+        var ratios:Array<Dynamic> = [0, 255];
         var matrix:Matrix = new Matrix();
         matrix.createGradientBox(1, S, (90 / 180) * Math.PI, offset, 0);
         var brush:GradientBrush = new GradientBrush(GradientBrush.LINEAR, colors, alphas, ratios, matrix);
@@ -772,8 +772,8 @@ g.drawLine(new Pen(ASColor.BLACK, 2), 0, 6, 0, 3);
         h = lSize.height;
 
         var colors:Array<Int >= [0xFFFFFF, HLSA2ASColor(hh, 0.5, ss, 100).getRGB(), 0];
-        var alphas:Array<Dynamic >= [1, 1, 1];
-        var ratios:Array<Dynamic >= [0, 127.5, 255];
+        var alphas:Array<Dynamic> = [1, 1, 1];
+        var ratios:Array<Dynamic> = [0, 127.5, 255];
         var matrix:Matrix = new Matrix();
         matrix.createGradientBox(w, h, (90 / 180) * Math.PI, x, y);
         var brush:GradientBrush = new GradientBrush(GradientBrush.LINEAR, colors, alphas, ratios, matrix);

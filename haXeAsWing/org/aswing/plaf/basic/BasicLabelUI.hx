@@ -176,7 +176,7 @@ class BasicLabelUI extends BaseComponentUI {
         var icon:Icon = b.getIcon();
         var tmpIcon:Icon = null;
 
-        var icons:Array<Dynamic >= getIcons();
+        var icons:Array<Dynamic> = getIcons();
         for (i in 0...icons.length) {
             var ico:Icon = icons[i];
             setIconVisible(ico, false);
@@ -205,7 +205,7 @@ class BasicLabelUI extends BaseComponentUI {
     }
 
     private function getIcons():Array<Dynamic> {
-        var arr:Array<Dynamic >= new Array<Dynamic>();
+        var arr:Array<Dynamic> = new Array<Dynamic>();
         if (label.getIcon() != null) {
             arr.push(label.getIcon());
         }

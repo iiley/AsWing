@@ -29,14 +29,14 @@ import org.aswing.plaf.basic.BasicToolBarUI;
  * 
  * @author paling
  */
-class JToolBar extends Container implements Orientable{
+class JToolBar extends Container implements Orientable {
 
-inline public static var HORIZONTAL:Int = AsWingConstants.HORIZONTAL;
-inline public static var VERTICAL:Int = AsWingConstants.VERTICAL;
+    inline public static var HORIZONTAL:Int = AsWingConstants.HORIZONTAL;
+    inline public static var VERTICAL:Int = AsWingConstants.VERTICAL;
 
-private var margin:Insets;
-private var gap:Int;
-private var orientation:Int;
+    private var margin:Insets;
+    private var gap:Int;
+    private var orientation:Int;
 
 /**
  * Creates a new tool bar with specified <code>orientation</code>.
@@ -45,44 +45,47 @@ private var orientation:Int;
  *		either <code>HORIZONTAL</code> or <code>VERTICAL</code>
  * @param gap the gap between toolbar children
  */
-public function new(orientation:Int =AsWingConstants.HORIZONTAL, gap:Int = 2) {
-super();
-this.orientation = orientation;
-this.gap = gap;
-setLayoutWidthOrientation();
-updateUI();
-}
 
-override public function updateUI():Void{
-setUI(UIManager.getUI(this));
-}
+    public function new(orientation:Int = AsWingConstants.HORIZONTAL, gap:Int = 2) {
+        super();
+        this.orientation = orientation;
+        this.gap = gap;
+        setLayoutWidthOrientation();
+        updateUI();
+    }
 
-override public function getDefaultBasicUIClass():Class<Dynamic>{
-return org.aswing.plaf.basic.BasicToolBarUI;
-}
+    override public function updateUI():Void {
+        setUI(UIManager.getUI(this));
+    }
 
-override public function getUIClassID():String{
-return "ToolBarUI";
-}
+    override public function getDefaultBasicUIClass():Class<Dynamic> {
+        return org.aswing.plaf.basic.BasicToolBarUI;
+    }
+
+    override public function getUIClassID():String {
+        return "ToolBarUI";
+    }
 
 /**
  * Sets the gap.
  * @param gap the gap between toolbar children
  */
-public function setGap(gap:Int):Void{
-if(this.gap != gap){
-this.gap = gap;
-revalidate();
-}
-}
+
+    public function setGap(gap:Int):Void {
+        if (this.gap != gap) {
+            this.gap = gap;
+            revalidate();
+        }
+    }
 
 /**
  * Returns the gap.
  * @return gap the gap between toolbar children
  */
-public function getGap():Int{
-return gap;
-}
+
+    public function getGap():Int {
+        return gap;
+    }
 
 /**
  * Sets the margin between the tool bar's border and
@@ -98,13 +101,14 @@ return gap;
  * 	between the border and the buttons
  * @see Insets
  */
-public function setMargin(m:Insets):Void{
-if(margin != m){
-margin = m;
-revalidate();
-repaint();
-}
-}
+
+    public function setMargin(m:Insets):Void {
+        if (margin != m) {
+            margin = m;
+            revalidate();
+            repaint();
+        }
+    }
 
 /**
  * Returns the margin between the tool bar's border and
@@ -113,21 +117,22 @@ repaint();
  * @return an <code>Insets</code> object containing the margin values
  * @see Insets
  */
-public function getMargin():Insets{
-if(margin == null){
-return new InsetsUIResource(0, 0, 0, 0);
-} else if(Std.is(margin, UIResource)){
-return (new InsetsUIResource()).addInsets(margin);//return a copy
-}else{
-return margin.clone();
-}
-}
 
-override public function getInsets():Insets{
-var insets:Insets = super.getInsets();
-insets.addInsets(getMargin());
-return insets;
-}
+    public function getMargin():Insets {
+        if (margin == null) {
+            return new InsetsUIResource(0, 0, 0, 0);
+        } else if (Std.is(margin, UIResource)) {
+            return (new InsetsUIResource()).addInsets(margin);//return a copy
+        } else {
+            return margin.clone();
+        }
+    }
+
+    override public function getInsets():Insets {
+        var insets:Insets = super.getInsets();
+        insets.addInsets(getMargin());
+        return insets;
+    }
 
 /**
  * Returns the current orientation of the tool bar.  The value is either
@@ -137,9 +142,10 @@ return insets;
  *		<code>HORIZONTAL</code> or <code>VERTICAL</code>
  * @see #setOrientation()
  */
-public function getOrientation():Int{
-return orientation;
-}
+
+    public function getOrientation():Int {
+        return orientation;
+    }
 
 /**
  * Sets the orientation of the tool bar.  The orientation must have
@@ -149,21 +155,22 @@ return orientation;
  *			</code>VERTICAL</code>
  * @see #getOrientation()
  */
-public function setOrientation(o:Int):Void{
-if (orientation != o){
-orientation = o;
-setLayoutWidthOrientation();
-revalidate();
-repaint();
-}
-}
 
-private function setLayoutWidthOrientation():Void{
-if(orientation == VERTICAL){
-setLayout(new SoftBoxLayout(SoftBoxLayout.Y_AXIS, gap));
-} else{
-setLayout(new SoftBoxLayout(SoftBoxLayout.X_AXIS, gap));
-}
-}
+    public function setOrientation(o:Int):Void {
+        if (orientation != o) {
+            orientation = o;
+            setLayoutWidthOrientation();
+            revalidate();
+            repaint();
+        }
+    }
+
+    private function setLayoutWidthOrientation():Void {
+        if (orientation == VERTICAL) {
+            setLayout(new SoftBoxLayout(SoftBoxLayout.Y_AXIS, gap));
+        } else {
+            setLayout(new SoftBoxLayout(SoftBoxLayout.X_AXIS, gap));
+        }
+    }
 
 }

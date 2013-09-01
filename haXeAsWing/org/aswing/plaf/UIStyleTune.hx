@@ -6,7 +6,7 @@ import org.aswing.StyleTune;
 /**
  * StyleTune UIResource
  */
-class UIStyleTune extends StyleTune implements UIResource{
+class UIStyleTune extends StyleTune implements UIResource {
 
 /**
  * Create a StyleTune with specified params
@@ -16,7 +16,7 @@ class UIStyleTune extends StyleTune implements UIResource{
  * @param sa shadow alpha
  * @param ma the adjuster for mideground color, null means use this(StyleTune)
  */
-public function new(cg:Float = 0.2, bo:Float = 0.15, bg:Float = 0.35, sa:Float = 0.2, r:Float = 0, ma:UIStyleTune = null){
-super(cg, bo, bg, sa, r, ma);
-}
+    public function new(cg:Float = 0.2, bo:Float = 0.15, bg:Float = 0.35, sa:Float = 0.2, r:Float = 0, ma:UIStyleTune = null) {
+        super(cg, bo, bg, sa, r, ma);
+    }
 }

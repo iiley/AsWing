@@ -1,13 +1,10 @@
 package org.aswing.plaf.basic;
 
 
-import org.aswing.event.FocusKeyEvent;
 import flash.events.MouseEvent;
 import flash.events.Event;
 import org.aswing.plaf.basic.tabbedpane.ClosableTab;
 import flash.display.DisplayObject;
-import flash.display.InteractiveObject;
-import flash.display.DisplayObjectContainer;
 import org.aswing.plaf.basic.tabbedpane.BasicClosableTabbedPaneTab;
 import org.aswing.event.TabCloseEvent;
 import org.aswing.plaf.basic.tabbedpane.Tab;

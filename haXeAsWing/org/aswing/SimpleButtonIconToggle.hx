@@ -2,7 +2,6 @@ package org.aswing;
 
 
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import org.aswing.graphics.Graphics2D;
 import flash.filters.BitmapFilter;
 class SimpleButtonIconToggle implements Icon {
@@ -28,7 +27,7 @@ class SimpleButtonIconToggle implements Icon {
         downState = asset.downState;
 
         if (disabledFilters == null) {
-            var cmatrix:Array<Dynamic >= [0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0, 0, 0, 1, 0];
+            var cmatrix:Array<Dynamic> = [0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0.3, 0.59, 0.11, 0, 0, 0, 0, 0, 1, 0];
 
 #if(flash9)
 			    disabledFilters = [cast(new flash.filters.ColorMatrixFilter(cmatrix),BitmapFilter)];		

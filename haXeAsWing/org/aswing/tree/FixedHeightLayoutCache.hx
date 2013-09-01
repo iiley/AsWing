@@ -359,7 +359,7 @@ class FixedHeightLayoutCache extends AbstractLayoutCache {
     }
 
     private function getVisibleFHTreeStateNodes(parent:FHTreeStateNode, startIndex:Int, totalCount:Int):Array<Dynamic> {
-        var nodes:Array<Dynamic >= new Array<Dynamic>();
+        var nodes:Array<Dynamic> = new Array<Dynamic>();
         var info:EnumerationInfo = new EnumerationInfo();
         info.parent = parent;
         info.nextIndex = startIndex;

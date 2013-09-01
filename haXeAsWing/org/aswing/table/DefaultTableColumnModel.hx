@@ -194,7 +194,7 @@ class DefaultTableColumnModel implements TableColumnModel {
             trace("Error : Identifier is null");
             throw new Error("Identifier is null");
         }
-        var enumeration:Array<Dynamic >= getColumns();
+        var enumeration:Array<Dynamic> = getColumns();
         var aColumn:TableColumn;
         var index:Int = 0;
         for (i in 0...enumeration.length) {
@@ -381,7 +381,7 @@ class DefaultTableColumnModel implements TableColumnModel {
             if ((iMin == (-1)) || (iMax == (-1))) {
                 return new Array<Dynamic>();
             }
-            var rv:Array<Dynamic >= new Array<Dynamic>();
+            var rv:Array<Dynamic> = new Array<Dynamic>();
             for (i in iMin...iMax + 1) {
                 if (selectionModel.isSelectedIndex(i)) {
                     rv.push(i);
@@ -425,7 +425,7 @@ class DefaultTableColumnModel implements TableColumnModel {
     }
 
     private function fireColumnAdded(e:TableColumnModelEvent):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
 // Process the listeners last to first, notifying
 // those that are interested in this event
         for (i in 0...(listeners.length )) {
@@ -435,7 +435,7 @@ class DefaultTableColumnModel implements TableColumnModel {
     }
 
     private function fireColumnRemoved(e:TableColumnModelEvent):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
 // Process the listeners last to first, notifying
 // those that are interested in this event
         for (i in 0...(listeners.length )) {
@@ -445,7 +445,7 @@ class DefaultTableColumnModel implements TableColumnModel {
     }
 
     private function fireColumnMoved(e:TableColumnModelEvent):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
 // Process the listeners last to first, notifying
 // those that are interested in this event
         for (i in 0...(listeners.length )) {
@@ -455,7 +455,7 @@ class DefaultTableColumnModel implements TableColumnModel {
     }
 
     private function fireColumnSelectionChanged(firstIndex:Int, lastIndex:Int, programmatic:Bool):Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
 // Process the listeners last to first, notifying
 // those that are interested in this event
         for (i in 0...(listeners.length )) {
@@ -465,7 +465,7 @@ class DefaultTableColumnModel implements TableColumnModel {
     }
 
     private function fireColumnMarginChanged():Void {
-        var listeners:Array<Dynamic >= listenerList;
+        var listeners:Array<Dynamic> = listenerList;
 // Process the listeners last to first, notifying
 // those that are interested in this event
         for (i in 0...(listeners.length )) {
@@ -501,7 +501,7 @@ class DefaultTableColumnModel implements TableColumnModel {
  */
 
     private function recalcWidthCache():Void {
-        var enumeration:Array<Dynamic >= tableColumns;
+        var enumeration:Array<Dynamic> = tableColumns;
         totalColumnWidth = 0;
         for (i in 0...enumeration.length) {
             var c:TableColumn = enumeration[i];

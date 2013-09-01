@@ -176,7 +176,7 @@ class Container extends Component {
  */
 
     public function reAppendChildren():Void {
-        var chs:Array<Dynamic >= children.copy();
+        var chs:Array<Dynamic> = children.copy();
         removeAll();
         for (i in 0...chs.length) {
             append(chs[i]);
@@ -386,6 +386,18 @@ class Container extends Component {
         while (children.length > 0) {
             removeAt(children.length - 1);
         }
+    }
+
+    override public function dispose():Void {
+        while (children.length > 0) {
+            var removeObj:DisplayObject = getChildAt(children.length - 1);
+            if (Std.is(removeObj, AWSprite)) {
+                cast(removeObj, AWSprite).dispose();
+            }
+            removeChildAt(children.length - 1);
+        }
+
+        super.dispose();
     }
 
     public function getComponents():Array<Dynamic> {

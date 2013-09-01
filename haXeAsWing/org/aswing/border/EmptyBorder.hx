@@ -10,7 +10,6 @@ import org.aswing.Border;
 import org.aswing.geom.IntRectangle;
 import org.aswing.Component;
 import org.aswing.Insets;
-import flash.display.DisplayObject;
 
 /**
  * EmptyBorder not draw any graphics, only use to hold a blank space around component.

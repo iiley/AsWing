@@ -325,7 +325,7 @@ class BasicTableHeaderUI extends BaseComponentUI {
 
     override public function getPreferredSize(c:Component):IntDimension {
         var width:Int = 0;
-        var enumeration:Array<Dynamic >= header.getColumnModel().getColumns();
+        var enumeration:Array<Dynamic> = header.getColumnModel().getColumns();
         for (i in 0...enumeration.length) {
             var aColumn:TableColumn = cast(enumeration[i], TableColumn);
             width = width + aColumn.getPreferredWidth();

@@ -19,18 +19,18 @@ import org.aswing.plaf.basic.BasicSeparatorUI;
  * 
  * @author paling
  */
-class JSeparator extends Component implements Orientable{
+class JSeparator extends Component implements Orientable {
 
 /**
  * Horizontal orientation.
  */
-inline public static var HORIZONTAL:Int = AsWingConstants.HORIZONTAL;
+    inline public static var HORIZONTAL:Int = AsWingConstants.HORIZONTAL;
 /**
  * Vertical orientation.
  */
-inline public static var VERTICAL:Int = AsWingConstants.VERTICAL;
+    inline public static var VERTICAL:Int = AsWingConstants.VERTICAL;
 
-private var orientation:Int;
+    private var orientation:Int;
 
 /**
  * JSeparator(orientation:Number)<br>
@@ -38,35 +38,36 @@ private var orientation:Int;
  * <p>
  * @param orientation (optional) the orientation.
  */
-public function new(orientation:Int = AsWingConstants.HORIZONTAL){
-super();
-setName("JSeparator");
-this.orientation = orientation;
-setFocusable(false);
-updateUI();
-}
 
-override public function updateUI():Void{
-setUI(UIManager.getUI(this));
-}
+    public function new(orientation:Int = AsWingConstants.HORIZONTAL) {
+        super();
+        setName("JSeparator");
+        this.orientation = orientation;
+        setFocusable(false);
+        updateUI();
+    }
 
-override public function getUIClassID():String{
-return "SeparatorUI";
-}
+    override public function updateUI():Void {
+        setUI(UIManager.getUI(this));
+    }
 
-override public function getDefaultBasicUIClass():Class<Dynamic>{
-return org.aswing.plaf.basic.BasicSeparatorUI;
-}
+    override public function getUIClassID():String {
+        return "SeparatorUI";
+    }
 
-public function getOrientation():Int{
-return orientation;
-}
+    override public function getDefaultBasicUIClass():Class<Dynamic> {
+        return org.aswing.plaf.basic.BasicSeparatorUI;
+    }
 
-public function setOrientation(orientation:Int):Void{
-if (this.orientation != orientation){
-this.orientation = orientation;
-revalidate();
-repaint();
-}
-}
+    public function getOrientation():Int {
+        return orientation;
+    }
+
+    public function setOrientation(orientation:Int):Void {
+        if (this.orientation != orientation) {
+            this.orientation = orientation;
+            revalidate();
+            repaint();
+        }
+    }
 }

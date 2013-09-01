@@ -5,8 +5,6 @@
 package org.aswing.dnd;
 
 
-import org.aswing.Component;
-import org.aswing.geom.IntPoint;
 import org.aswing.event.DragAndDropEvent;
 
 /**

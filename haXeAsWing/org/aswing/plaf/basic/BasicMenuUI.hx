@@ -105,7 +105,7 @@ class BasicMenuUI extends BasicMenuItemUI {
     override public function processKeyEvent(code:Int):Void {
         var manager:MenuSelectionManager = MenuSelectionManager.defaultManager();
         if (manager.isNextPageKey(code)) {
-            var path:Array<Dynamic >= manager.getSelectedPath();
+            var path:Array<Dynamic> = manager.getSelectedPath();
             if (path[path.length - 1] == menuItem) {
                 var popElement:MenuElement = getMenu().getPopupMenu();
                 path.push(popElement);
@@ -126,7 +126,7 @@ class BasicMenuUI extends BasicMenuItemUI {
     override private function __menuItemRollOver(e:MouseEvent):Void {
         var menu:JMenu = getMenu();
         var manager:MenuSelectionManager = MenuSelectionManager.defaultManager();
-        var selectedPath:Array<Dynamic >= manager.getSelectedPath();
+        var selectedPath:Array<Dynamic> = manager.getSelectedPath();
         if (!menu.isTopLevelMenu()) {
             if (!(selectedPath.length > 0 && selectedPath[selectedPath.length - 1] == menu.getPopupMenu())) {
                 if (menu.getDelay() <= 0) {
@@ -149,7 +149,7 @@ class BasicMenuUI extends BasicMenuItemUI {
         var menu:JMenu = getMenu();
         var cnt:Container = menu.getParent();
         if (cnt != null && Std.is(cnt, JMenuBar)) {
-            var me:Array<Dynamic >= [cnt, menu, menu.getPopupMenu()];
+            var me:Array<Dynamic> = [cnt, menu, menu.getPopupMenu()];
             MenuSelectionManager.defaultManager().setSelectedPath(menuItem.stage, me, false);
         }
         menuItem.repaint();
@@ -157,7 +157,7 @@ class BasicMenuUI extends BasicMenuItemUI {
 
     private function __postTimerAct(e:Event):Void {
         var menu:JMenu = getMenu();
-        var path:Array<Dynamic >= MenuSelectionManager.defaultManager().getSelectedPath();
+        var path:Array<Dynamic> = MenuSelectionManager.defaultManager().getSelectedPath();
         if (path.length > 0 && Std.is(path[path.length - 1], JMenu) && path[path.length - 1] == menu) {
             appendPath(path, menu.getPopupMenu());
         }

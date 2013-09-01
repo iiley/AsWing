@@ -6,7 +6,6 @@ package org.aswing;
 
 
 import org.aswing.error.Error;
-import flash.events.Event;
 import org.aswing.event.InteractiveEvent;
 import org.aswing.plaf.InsetsUIResource;
 import org.aswing.plaf.UIResource;

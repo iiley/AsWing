@@ -7,7 +7,6 @@ package org.aswing.resizer;
 
 import org.aswing.geom.IntRectangle;
 import org.aswing.geom.IntDimension;
-import org.aswing.Component;
 
 /**
  * A basic implementation of ResizeStrategy.

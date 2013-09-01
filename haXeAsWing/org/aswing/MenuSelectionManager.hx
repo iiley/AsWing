@@ -244,7 +244,7 @@ class MenuSelectionManager extends EventDispatcher {
         if (parent == null || sub == null) {
             return null;
         }
-        var subs:Array<Dynamic >= parent.getSubElements();
+        var subs:Array<Dynamic> = parent.getSubElements();
         var index:Int = ArrayUtils.indexInArray(subs, sub);
         if (index < 0) {
             return null;
