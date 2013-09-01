@@ -26,7 +26,7 @@ class AbstractImpulser extends EventDispatcher implements Impulser {
  * @throws Error when init delay <= 0 or delay == null
  */
 
-    public function new(delay:Int, ?repeatsNum:Int = 0) {
+    public function new(delay:Int,repeatsNum:Int = 0) {
         this.delay = delay;
         this.initialDelay = 0;
         this.repeats = repeatsNum;
@@ -45,7 +45,7 @@ class AbstractImpulser extends EventDispatcher implements Impulser {
  * @see org.aswing.event.AWEvent#ACT
  */
 
-    public function addActionListener(listener:Dynamic -> Void, ?priority:Int = 0, ?useWeakReference:Bool = false):Void {
+    public function addActionListener(listener:Dynamic -> Void, priority:Int = 0, useWeakReference:Bool = false):Void {
         addEventListener(AWEvent.ACT, listener, false, priority, useWeakReference);
     }
 
