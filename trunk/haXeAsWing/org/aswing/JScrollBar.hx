@@ -345,4 +345,10 @@ class JScrollBar extends Component implements Orientable {
         mouseChildren = b;
     }
 
+    override public function dispose():Void {
+        if (model != null) {
+            model.removeStateListener(__modelStateListener);
+        }
+        super.dispose();
+    }
 }

@@ -545,4 +545,11 @@ class JSlider extends Component implements Orientable {
     public function removeStateListener(listener:Dynamic -> Void):Void {
         removeEventListener(InteractiveEvent.STATE_CHANGED, listener);
     }
+
+    override public function dispose():Void {
+        if (model != null) {
+            model.removeStateListener(__onModelStateChanged);
+        }
+        super.dispose();
+    }
 }

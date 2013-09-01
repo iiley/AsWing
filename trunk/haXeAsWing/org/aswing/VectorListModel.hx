@@ -25,7 +25,7 @@ class VectorListModel extends AbstractListModel implements MutableListModel impl
  * @param initalData (optional)the to be copid to the model.
  */
 
-    public function new(initalData:Array<Dynamic> =null) {
+    public function new(initalData:Array<Dynamic> = null) {
         super();
         if (initalData != null) {
             _elements = initalData.copy();

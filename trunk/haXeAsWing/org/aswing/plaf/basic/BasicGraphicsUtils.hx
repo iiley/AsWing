@@ -35,7 +35,7 @@ class BasicGraphicsUtils {
  * @param border true means for border, false means for content
  */
 
-    public static function getGradientBrush(tune:StyleResult, matrix:Matrix, border:Bool = false, ratios:Array<Dynamic> =null):GradientBrush {
+    public static function getGradientBrush(tune:StyleResult, matrix:Matrix, border:Bool = false, ratios:Array<Dynamic> = null):GradientBrush {
         var light:ASColor;
         var dark:ASColor;
         if (border) {
@@ -67,7 +67,7 @@ class BasicGraphicsUtils {
  * Fill gradient round rectangle, if tune.round < roundRectBtmFix, it will fill rectangle with no round
  */
 
-    public static function fillGradientRoundRect(g:Graphics2D, b:IntRectangle, tune:StyleResult, direction:Float = 1.5707963267948966, border:Bool = false, matrixB:IntRectangle = null, ratios:Array<Dynamic> =null):Void {
+    public static function fillGradientRoundRect(g:Graphics2D, b:IntRectangle, tune:StyleResult, direction:Float = 1.5707963267948966, border:Bool = false, matrixB:IntRectangle = null, ratios:Array<Dynamic> = null):Void {
         if (matrixB == null) {
             matrixB = b;
         }
@@ -363,7 +363,7 @@ class BasicGraphicsUtils {
         g.fillRectangle(brush, x, y, w, h);
     }
 
-    public static function fillGradientRect(g:Graphics2D, b:IntRectangle, c1:ASColor, c2:ASColor, direction:Float, ratios:Array<Dynamic> =null):Void {
+    public static function fillGradientRect(g:Graphics2D, b:IntRectangle, c1:ASColor, c2:ASColor, direction:Float, ratios:Array<Dynamic> = null):Void {
         var x:Float = b.x;
         var y:Float = b.y;
         var w:Float = b.width;

@@ -2115,6 +2115,15 @@ class JTable extends Container implements Viewportable implements TableModelList
         }
     }
 
+    override public function dispose():Void {
+        if (selectionModel != null) {
+            selectionModel.removeListSelectionListener(__listSelectionChanged);
+        }
+        if (dataModel != null) {
+            dataModel.removeTableModelListener(this);
+        }
+        super.dispose();
+    }
 /**
  * Returns the <code>TableModel</code> that provides the data displayed by this
  * <code>JTable</code>.

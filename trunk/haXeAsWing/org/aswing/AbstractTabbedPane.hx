@@ -114,6 +114,13 @@ class AbstractTabbedPane extends Container {
         repaint();
     }
 
+    override public function dispose():Void {
+        var oldModel:SingleSelectionModel = getModel();
+        if (oldModel != null) {
+            oldModel.removeStateListener(__modelStateChanged);
+        }
+        super.dispose();
+    }
 /**
  * Returns the model associated with this tabbedpane.
  * @see #setModel()

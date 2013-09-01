@@ -231,4 +231,5 @@ class PropertyTableModel extends AbstractTableModel implements ListDataListener 
     public function contentsChanged(e:ListDataEvent):Void {
         fireTableRowsUpdated(e.getIndex0(), e.getIndex1());
     }
+
 }

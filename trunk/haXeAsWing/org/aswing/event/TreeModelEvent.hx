@@ -88,8 +88,8 @@ class TreeModelEvent extends ModelEvent {
  *                 changed objects
  */
 
-    public function new(source:Dynamic, path:TreePath, childIndices:Array<Dynamic> =null,
-                        children:Array<Dynamic> =null) {
+    public function new(source:Dynamic, path:TreePath, childIndices:Array<Dynamic> = null,
+                        children:Array<Dynamic> = null) {
         super(source);
         this.path = path;
         this.childIndices = childIndices;

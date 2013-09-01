@@ -372,4 +372,11 @@ class JProgressBar extends Component implements Orientable {
             }
         }
     }
+
+    override public function dispose():Void {
+        if (model != null) {
+            model.removeStateListener(__onModelStateChanged);
+        }
+        super.dispose();
+    }
 }
