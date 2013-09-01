@@ -51,7 +51,7 @@ class AWTextField extends TextField {
     private function fireScrollChangeEvent(programmatic:Bool = true):Void {
         dispatchEvent(new InteractiveEvent(InteractiveEvent.SCROLL_CHANGED, programmatic));
     }
-
+#if (flash9)
 /**
  * Sets the <code>htmlText</code> and fire <code>InteractiveEvent.TEXT_CHANGED</code> event.
  */
@@ -92,7 +92,7 @@ class AWTextField extends TextField {
 
         return value;
     }
-#if (flash9)
+
 	
 	/**
 	 * Appends new text and fire <code>InteractiveEvent.TEXT_CHANGED</code> event.

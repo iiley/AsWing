@@ -124,7 +124,7 @@ class GradientBrush implements IBrush {
         }
 
 
-        target.beginGradientFill(fillType, ucolor, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
+        target.beginGradientFill(fillType, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
     }
 
 /**

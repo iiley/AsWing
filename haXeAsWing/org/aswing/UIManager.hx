@@ -30,7 +30,6 @@ class UIManager {
 
     public static function setLookAndFeel(laf:LookAndFeel):Void {
         lookAndFeel = laf;
-        trace(laf.getDefaults());
         setLookAndFeelDefaults(laf.getDefaults());
     }
 
@@ -57,10 +56,7 @@ class UIManager {
         if (lookAndFeel == null) {
             setLookAndFeel(new BasicLookAndFeel());
         }
-        if (lookAndFeelDefaults == null) {
-            trace(lookAndFeel.getDefaults());
-            setLookAndFeelDefaults(lookAndFeel.getDefaults());
-        }
+
     }
 
     public static function containsKey(key:String):Bool {

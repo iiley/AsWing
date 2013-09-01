@@ -649,7 +649,7 @@ class Component extends AWSprite {
     private function get_d_visible():Bool {
         return visible;
     }
-
+/*
     public function set_visible(value:Bool):Bool {
         setVisible(value);
 
@@ -659,7 +659,7 @@ class Component extends AWSprite {
     public function get_visible():Bool {
         return visible;
     }
-
+  */
 /**
  * Set a component to be hide or shown.
  * If a component was hide, some laterly operation may not be done,
@@ -1695,73 +1695,73 @@ class Component extends AWSprite {
  * @see #setX()
  */
 
-    public function set_x(value:Float):Float {
-        setX(Std.int(value));
-
-        return value;
-    }
+//    public function set_x(value:Float):Float {
+//        setX(Std.int(value));
+//
+//        return value;
+//    }
 
 /**
  * @see #getX()
  */
-
-    public function get_x():Float {
-        return getX();
-    }
+//
+//    public function get_x():Float {
+//        return getX();
+//    }
 
 /**
  * @see #setY()
  */
 
-    public function set_y(value:Float):Float {
-        setY(Std.int(value));
-
-        return value;
-    }
+//    public function set_y(value:Float):Float {
+//        setY(Std.int(value));
+//
+//        return value;
+//    }
 
 /**
  * @see #getY()
  */
 
-    public function get_y():Float {
-        return getY();
-    }
+//    public function get_y():Float {
+//        return getY();
+//    }
 
 /**
  * @see setWidth()
  */
 
-    public function set_width(value:Float):Float {
-        setWidth(Std.int(value));
-
-        return value;
-    }
+//    public function set_width(value:Float):Float {
+//        setWidth(Std.int(value));
+//
+//        return value;
+//    }
 
 /**
  * @see getWidth()
  */
 
-    public function get_width():Float {
-        return getWidth();
-    }
+//    public function get_width():Float {
+//        return getWidth();
+//    }
 
 /**
  * @see setHeight()
  */
 
-    public function set_height(value:Float):Float {
-        setHeight(Std.int(value));
-
-        return value;
-    }
+//    public function set_height(value:Float):Float {
+//        setHeight(Std.int(value));
+//
+//        return value;
+//    }
 
 /**
  * @see getHeight()
  */
 
-    public function get_height():Float {
-        return getHeight();
-    }
+//    public function get_height():Float {
+//        return getHeight();
+//    }
 
 /**
  * @param ax
