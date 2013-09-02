@@ -2575,6 +2575,7 @@ class Component extends AWSprite {
         if (parent != null) {
             parent.removeChild(this);
         }
+		this.dispose();
     }
 
 /**
@@ -2923,13 +2924,22 @@ class Component extends AWSprite {
             }
         }
     }
+	override public function dispose():Void {
+    
 
-    override public function dispose():Void {
+        
         if (stage != null) {
             stage.removeEventListener(MouseEvent.MOUSE_UP, __mouseUp, false);
         }
         if (ui != null) {
             ui.uninstallUI(this);
+        }
+		while (numChildren> 0) {
+            var removeObj:DisplayObject = getChildAt(0);
+            if (Std.is(removeObj, AWSprite)) {
+                cast(removeObj, AWSprite).dispose();
+            }
+            removeChildAt(0);
         }
         super.dispose();
     }
