@@ -1139,7 +1139,7 @@ class Component extends AWSprite {
         var oldPos:IntPoint = bounds.getLocation();
 
 
-        if (!newPos.equals(oldPos)) {
+        if (!newPos.equals(oldPos)||!newPos.equals(new IntPoint(Std.int(x),Std.int(y)))) {
             bounds.setLocation(newPos);
             locate();
             dispatchEvent(new MovedEvent(oldPos, newPos));
@@ -2430,7 +2430,7 @@ class Component extends AWSprite {
             paintBounds.width = Std.int(Math.min(paintBounds.width, clipBounds.width));
             paintBounds.height = Std.int(Math.min(paintBounds.height, clipBounds.height));
         }
-        //setClipMaskRect(paintBounds);
+        setClipMaskRect(paintBounds);
     }
 
 /**
