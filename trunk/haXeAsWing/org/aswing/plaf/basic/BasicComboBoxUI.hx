@@ -98,7 +98,7 @@ class BasicComboBoxUI extends BaseComponentUI implements ComboBoxUI {
         box.addEventListener(AWEvent.FOCUS_LOST, __onFocusLost);
         box.addEventListener(Event.REMOVED_FROM_STAGE, __onBoxRemovedFromStage);
         getPopupList().addEventListener(ListItemEvent.ITEM_CLICK, __onListItemReleased, false, 0, false);
-        popupTimer = new Timer(40);
+        popupTimer = new Timer(30);
         popupTimer.addActionListener(__movePopup);
     }
 
