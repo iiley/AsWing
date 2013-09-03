@@ -43,7 +43,19 @@ import flash.geom.Rectangle;
  *             | -- background decorator asset
  * </pre>
  */
- 
+
+class AWListener {
+    public var listener:Dynamic -> Void;
+    public var useCapture:Bool;
+    public function new (listener:Dynamic -> Void, useCapture:Bool ) {
+        this.listener = listener;
+        this.useCapture = useCapture;
+    }
+
+    public function is (listener:Dynamic -> Void, useCapture:Bool) {
+        return (Reflect.compareMethods (this.listener, listener) && this.useCapture == useCapture);
+    }
+}
 class AWSprite extends Sprite {
     private var foregroundChild:DisplayObject;
     private var backgroundChild:DisplayObject;
@@ -54,42 +66,49 @@ class AWSprite extends Sprite {
     private var maskShape:Shape;
     private var usingBitmap:Bool;
 
-    private var hashListener:HashMap<String, Array<Dynamic -> Void>>;
+    private var hashListener:HashMap<String, Array<AWListener>>;
 
     override public function addEventListener(type:String, listener:Dynamic -> Void, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false):Void {
         super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-	
+
 		if (!hashListener.containsKey(type)) {
-			     hashListener.set(type, new Array < Dynamic -> Void >());
-		} 
-		var listeners:Array < Dynamic -> Void >= hashListener.get(type);
-		listeners.remove(listener);	
-		listeners.push(listener);	
-		 
+			     hashListener.set(type, new Array < AWListener>());
+		}
+		var listeners:Array <AWListener> = hashListener.get(type);
+
+		listeners.push(new AWListener(listener,useCapture));
+
+
     }
 
     override public function removeEventListener(type:String, listener:Dynamic -> Void, useCapture:Bool = false):Void {
         super.removeEventListener(type, listener, useCapture);
 		if (hashListener.containsKey(type)) {
-			var listeners:Array < Dynamic -> Void >= hashListener.get(type);
-			listeners.remove(listener);
+			var listeners:Array < AWListener> = hashListener.get(type);
+            for (i in 0...listeners.length) {
+                    var item:AWListener = listeners[i];
+                    if (item != null && item.is (listener, useCapture)) {
+                        listeners.splice(i,1);
+                        return;
+                    }
+            }
 		}
     }
 
     public function dispose():Void {
         if (stage != null) stage.removeEventListener(MouseEvent.MOUSE_UP, __awStageMouseUpListener);
         for (type in hashListener.keys()) {
-			var listeners:Array < Dynamic -> Void >= hashListener.get(type);
+			var listeners:Array < AWListener > = hashListener.get(type);
 			for (listener in listeners)
             {
-				removeEventListener(type, listener);
+				removeEventListener(type, listener.listener,listener.useCapture);
 			}
 			hashListener.remove(type);
         }
     }
 
     public function new() {
-        hashListener = new HashMap<String, Array<Dynamic -> Void>>();
+        hashListener = new HashMap<String, Array<AWListener>>();
         this.clipMasked = false;
         super();
 //focusRect = false;
