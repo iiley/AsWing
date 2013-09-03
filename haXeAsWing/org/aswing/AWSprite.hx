@@ -333,14 +333,14 @@ class AWSprite extends Sprite {
                 checkCreateMaskShape();
 
                 if (maskShape.parent != this) {
-                    d_addChild(maskShape);
-                    mask = maskShape;
+                  //  d_addChild(maskShape);
+                    //mask = maskShape;
                 }
 
             } else {
 
                 if (maskShape != null && maskShape.parent == this) {
-                    d_removeChild(maskShape);
+                   // d_removeChild(maskShape);
                 }
                 mask = null;
 
@@ -358,6 +358,7 @@ class AWSprite extends Sprite {
             maskShape.alpha = 0;
         }
         clipMaskRect.setRect(b);
+		this.scrollRect = b.toRectangle();
     }
 
     private function setUsingBitmap(b:Bool):Void {
