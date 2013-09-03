@@ -124,7 +124,7 @@ class GradientBrush implements IBrush {
         }
 
 		#if (flash9)
-		 target.beginGradientFill(fillType, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
+		 target.beginGradientFill(fillType, ucolor, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 		#else
 		 target.beginGradientFill(fillType, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 		#end
