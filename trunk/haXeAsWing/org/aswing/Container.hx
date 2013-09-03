@@ -268,8 +268,7 @@ class Container extends Component {
             }
         }
         if (com.getParent() != null) {
-           // com.removeFromContainer();
-		    com.getParent().remove(this); 
+			com.removeFromContainer(); 
         }
         com.container = this;
         if (i < 0) {

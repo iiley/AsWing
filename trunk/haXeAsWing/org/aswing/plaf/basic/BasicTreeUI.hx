@@ -162,8 +162,15 @@ class BasicTreeUI extends BaseComponentUI implements TreeUI implements NodeDimen
 
     private function uninstallComponents():Void {
         tree.remove(rendererPane);
+		for (i in 0...cells.getSize()) {
+            var cell :TreeCell= cast(cells.get(i), TreeCell); 
+			cell.dispose();
+        }
         cells.clear();
         rendererPane = null;
+		if (currentCellRenderer != null) {
+			currentCellRenderer.dispose();
+		}
     }
 
     private function installListeners():Void {
@@ -279,6 +286,7 @@ class BasicTreeUI extends BaseComponentUI implements TreeUI implements NodeDimen
         for (i in 0...cells.size()) {
             var cell:TreeCell = cast(cells.get(i), TreeCell);
             cell.getCellComponent().removeFromContainer();
+			cell.dispose();
         }
         cells.clear();
         treeState.invalidateSizes();

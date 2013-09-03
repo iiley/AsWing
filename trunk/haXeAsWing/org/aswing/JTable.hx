@@ -392,6 +392,7 @@ class JTable extends Container implements Viewportable implements TableModelList
             if (old != null) {
                 old.setTable(null);
                 old.removeFromContainer();
+				old.dispose();
             }
             this.tableHeader = tableHeader;
             if (tableHeader != null) {
@@ -2122,6 +2123,10 @@ class JTable extends Container implements Viewportable implements TableModelList
         if (dataModel != null) {
             dataModel.removeTableModelListener(this);
         }
+		if (cellEditor != null) {
+            cellEditor.dispose();
+        }
+		
         super.dispose();
     }
 /**

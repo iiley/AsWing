@@ -295,6 +295,7 @@ class BasicTableHeaderUI extends BaseComponentUI {
         for (i in 0...cells.length) {
             var cell:TableCell = cast(cells[i], TableCell);
             cell.getCellComponent().removeFromContainer();
+			cell.dispose();
         }
         cells = new Array<Dynamic>();
     }

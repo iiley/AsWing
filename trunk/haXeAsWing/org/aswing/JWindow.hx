@@ -158,6 +158,7 @@ class JWindow extends JPopup {
     private function setContentPaneImp(cp:Container):Void {
         if (contentPane != null) {
             contentPane.removeFromContainer();
+			contentPane.dispose();
         }
         contentPane = cp;
         append(contentPane, WindowLayout.CONTENT);

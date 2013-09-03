@@ -899,5 +899,12 @@ class GridList extends JViewport implements ListDataListener {
     private function __onItemDoubleClick(e:MouseEvent):Void {
         dispatchEvent(createItemEventObj(e.currentTarget, GridListItemEvent.ITEM_DOUBLE_CLICK, e));
     }
-
+	override public function dispose():Void {
+		for (i in 0...cells.getSize()) {
+            var cell :GridListCell= cast(cells.get(i), GridListCell);
+            removeCellFromeContainer(cell);
+			cell.dispose();
+        }
+		super.dispose();
+	}
 }

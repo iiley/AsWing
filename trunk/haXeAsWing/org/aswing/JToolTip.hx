@@ -283,6 +283,7 @@ class JToolTip extends Container {
     public function disposeToolTip():Void {
         stopWaitToPopup();
         removeFromContainer();
+	
     }
 
 /**

@@ -382,6 +382,13 @@ class JList extends Container implements LayoutManager implements Viewportable i
         if (selectionModel != null) {
             selectionModel.removeListSelectionListener(__selectionListener);
         }
+		for (i in 0...cells.getSize()) {
+                var cell:ListCell = cast(cells.get(i), ListCell); 
+                removeCellFromeContainer(cell);
+                cellPrefferSizes.remove(cell.getCellComponent().getAwmlIndex());
+				cell.dispose();
+        }
+		cells.clear();
         cellPrefferSizes=null;
         comToCellMap=null;
         super.dispose();
@@ -1163,6 +1170,7 @@ class JList extends Container implements LayoutManager implements Viewportable i
             for (i in 0...removed.length) {
                 cell = cast(removed[i], ListCell);
                 removeCellFromeContainer(cell);
+				cell.dispose();
             }
         }
     }
@@ -1222,6 +1230,7 @@ class JList extends Container implements LayoutManager implements Viewportable i
                 cell = cast(removed[i], ListCell);
                 removeCellFromeContainer(cell);
                 cellPrefferSizes.remove(cell.getCellComponent().getAwmlIndex());
+				cell.dispose();
             }
         }
 
@@ -1249,6 +1258,7 @@ class JList extends Container implements LayoutManager implements Viewportable i
         for (i in 0...cells.getSize()) {
             var cell:ListCell = cells.get(i);
             cell.getCellComponent().removeFromContainer();
+			cell.dispose();
         }
         cells.clear();
     }
@@ -1782,6 +1792,7 @@ class JList extends Container implements LayoutManager implements Viewportable i
                 }
                 removeCellFromeContainer(cell);
                 cellPrefferSizes.remove(cell.getCellComponent().getAwmlIndex());
+				cell.dispose();
             }
             cells.removeRange(i0, i1);
             if (sameHeight) {

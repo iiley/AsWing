@@ -119,4 +119,7 @@ class DefaultComboBoxEditor extends EventDispatcher implements ComboBoxEditor {
             dispatchEvent(new AWEvent(AWEvent.ACT));
         }
     }
+	public function dispose():Void {
+		
+	}
 }
