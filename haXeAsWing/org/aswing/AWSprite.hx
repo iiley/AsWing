@@ -75,7 +75,6 @@ class AWSprite extends Sprite {
 			     hashListener.set(type, new Array < AWListener>());
 		}
 		var listeners:Array <AWListener> = hashListener.get(type);
-
 		listeners.push(new AWListener(listener,useCapture));
 
 
