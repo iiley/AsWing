@@ -63,6 +63,7 @@ class AWSprite extends Sprite {
 			     hashListener.set(type, new Array < Dynamic -> Void >());
 		} 
 		var listeners:Array < Dynamic -> Void >= hashListener.get(type);
+		listeners.remove(listener);	
 		listeners.push(listener);	
 		 
     }
