@@ -322,10 +322,13 @@ class JMenu extends JMenuItem implements MenuElement {
 
     private function __menuDestroied(e:Event):Void {
         if (popupMenu != null && popupMenu.isVisible()) {
-            popupMenu.dispose();
+            popupMenu.setVisible(false);
         }
     }
-
+    override public function dispose():Void {
+        popupMenu.dispose();
+        super.dispose();
+    }
 //--------------------------------
 
     override public function setInUse(b:Bool):Void {
