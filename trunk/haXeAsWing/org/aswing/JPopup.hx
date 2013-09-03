@@ -292,6 +292,7 @@ class JPopup extends JRootPane {
             d_visible = false;
 //TODO check this
 //getPopupOwner().removeEventListener(listenerToOwner);
+
             disposeProcess(st);
             if (ground_mc.parent != null) {
                 ground_mc.parent.removeChild(ground_mc);
@@ -304,6 +305,7 @@ class JPopup extends JRootPane {
             dispatchEvent(new PopupEvent(PopupEvent.POPUP_CLOSED));
 
         }
+
         super.dispose();
     }
 
@@ -313,7 +315,8 @@ class JPopup extends JRootPane {
 
     private function disposeProcess(st:Stage):Void {
 
-
+        AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+        AsWingManager.getStage().removeEventListener(Event.RESIZE, __resetModelMCWhenStageResized);
         removeEventListener(Event.REMOVED_FROM_STAGE, __popupOfffromDisplayList);
 
         removeEventListener(Event.ADDED_TO_STAGE, __popupOpennedAddToList);
@@ -386,7 +389,7 @@ class JPopup extends JRootPane {
     override public function startDrag(lockCenter:Bool = false, bounds:Rectangle = null):Void {
         if (AsWingManager.getStage() != null) {
             super.startDrag(lockCenter, bounds);
-            AsWingManager.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, __dragMoving);
+
             AsWingManager.getStage().addEventListener(MouseEvent.MOUSE_MOVE, __dragMoving, false, 0, false);
             lastDragPos = getLocation();
         }
