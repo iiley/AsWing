@@ -326,7 +326,7 @@ class JMenu extends JMenuItem implements MenuElement {
         }
     }
     override public function dispose():Void {
-        popupMenu.dispose();
+        if (popupMenu != null )  popupMenu.dispose();
         super.dispose();
     }
 //--------------------------------
