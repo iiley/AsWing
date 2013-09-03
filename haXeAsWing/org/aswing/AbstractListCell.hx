@@ -57,4 +57,8 @@ class AbstractListCell implements ListCell {
         throw new ImpMissError();
         return null;
     }
+	
+	public function dispose():Void {
+		
+	}
 }

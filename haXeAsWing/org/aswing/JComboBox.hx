@@ -237,6 +237,7 @@ class JComboBox extends Component implements EditableComponent {
         if (oldEditor != null) {
             oldEditor.removeActionListener(__editorActed);
             oldEditor.getEditorComponent().removeFromContainer();
+			oldEditor.dispose();
         }
         editor = anEditor;
         editor.setEditable(isEditable());
@@ -570,5 +571,10 @@ class JComboBox extends Component implements EditableComponent {
         }
         return -1;
     }
+	
+	override public function dispose():Void {
+		if(editor!=null)editor.dispose();
+		super.dispose();
+	}
 
 }

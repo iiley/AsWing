@@ -57,4 +57,6 @@ interface ComboBoxEditor {
  * Ask the editor to start editing and to select everything in the editor.
  */
     function selectAll():Void;
+	
+	function dispose():Void;
 }

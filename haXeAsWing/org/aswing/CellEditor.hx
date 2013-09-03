@@ -130,4 +130,6 @@ interface CellEditor {
  * Calls the editor's component to update UI.
  */
     function updateUI():Void;
+	
+	function dispose():Void;
 }

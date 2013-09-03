@@ -28,4 +28,5 @@ interface Cell {
  */
     function getCellComponent():Component;
 
+	function dispose():Void;
 }
