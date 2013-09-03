@@ -68,7 +68,7 @@ class DefaultMutableTreeNode implements MutableTreeNode {
  *        nodes -- otherwise, it is always a leaf node. Default is true.
  */
 
-    public function new(userObject:Dynamic, allowsChildren:Bool = true) {
+    public function new(userObject:Dynamic, ?allowsChildren:Bool = true) {
         AWML_INDEX++;
         awmlIndex = AWML_INDEX;
         parent = null;
