@@ -54,12 +54,8 @@ class Main  extends Sprite
 
  static public function main()
    {
-      #if flash
             new Main();
-      #else 
-            Lib.create(function(){new Main();},800,600,60,0xccccff,(1*Lib.HARDWARE) | Lib.RESIZABLE, "AsWing_Paling_UI");
- 
-      #end
+
 
    }
 }
