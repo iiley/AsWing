@@ -14,7 +14,7 @@ class HashMap < K, V > {
 
     public function new() {
         this._keys = new Array<K>();
-        this._values = new IntMap() ;
+        this._values = new IntMap<V>() ;
 
 
         length = 0;
