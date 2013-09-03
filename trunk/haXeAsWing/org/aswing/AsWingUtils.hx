@@ -601,10 +601,8 @@ return b;*/
         TEXT_FIELD_EXT.text = str;
 
         if (includeGutters) {
-#if(flash9)
+
 			return new IntDimension(Math.ceil(TEXT_FIELD_EXT.width), Math.ceil(TEXT_FIELD_EXT.height));
-		#end
-            return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
         } else {
             return new IntDimension(Math.ceil(TEXT_FIELD_EXT.textWidth), Math.ceil(TEXT_FIELD_EXT.textHeight));
         }
