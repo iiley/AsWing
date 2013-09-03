@@ -382,6 +382,8 @@ class JList extends Container implements LayoutManager implements Viewportable i
         if (selectionModel != null) {
             selectionModel.removeListSelectionListener(__selectionListener);
         }
+        cellPrefferSizes=null;
+        comToCellMap=null;
         super.dispose();
     }
 /**

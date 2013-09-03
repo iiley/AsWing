@@ -2575,7 +2575,8 @@ class Component extends AWSprite {
         if (parent != null) {
             parent.removeChild(this);
         }
-		this.dispose();
+		//this.dispose();
+
     }
 
 /**

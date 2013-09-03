@@ -182,7 +182,7 @@ class JPopupMenu extends Container implements MenuElement {
                 setInUse(true);
             }
         } else {
-            popup.dispose();
+            popup.setVisible(false);
             if (isPopupMenu()) {
                 setInUse(false);
             }

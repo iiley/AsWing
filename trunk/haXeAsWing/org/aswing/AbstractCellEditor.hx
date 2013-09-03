@@ -33,8 +33,7 @@ class AbstractCellEditor implements CellEditor implements TableCellEditor implem
     public function new() {
         listeners = new Array<Dynamic>();
         clickCountToStart = 0;
-        popup = new JPopup();
-        popup.setLayout(new EmptyLayout());
+
     }
 
 /**
@@ -91,6 +90,10 @@ class AbstractCellEditor implements CellEditor implements TableCellEditor implem
     }
 
     public function startCellEditing(owner:Container, value:Dynamic, bounds:IntRectangle):Void {
+        if(popup==null){
+            popup = new JPopup();
+            popup.setLayout(new EmptyLayout());
+        }
         popup.changeOwner(AsWingUtils.getOwnerAncestor(owner));
         var gp:IntPoint = owner.getGlobalLocation().move(bounds.x, bounds.y);
         popup.setSizeWH(bounds.width, bounds.height);
@@ -184,5 +187,8 @@ class AbstractCellEditor implements CellEditor implements TableCellEditor implem
     private function removeEditorComponent():Void {
         getEditorComponent().removeFromContainer();
         popup.dispose();
+        popup=null;
     }
+
+
 }
