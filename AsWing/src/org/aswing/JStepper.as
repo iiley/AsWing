@@ -72,7 +72,7 @@ public class JStepper extends Component implements EditableComponent{
 		valueParser	 = DEFAULT_VALUE_PARSER;
 		unit = 1;
 		maxChars = 0;
-		restrict = "0123456789";
+		restrict = "0123456789\\-";
 		
 		setModel(new DefaultBoundedRangeModel(50, 0, 0, 100));
 		updateUI();
