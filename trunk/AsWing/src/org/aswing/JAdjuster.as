@@ -83,7 +83,7 @@ public class JAdjuster extends Component implements Orientable, EditableComponen
 		setModel(new DefaultBoundedRangeModel(50, 0, 0, 100));
 		updateUI();
 		if(getInputText()){
-			getInputText().setRestrict("0123456789");
+			getInputText().setRestrict("0123456789\\-");
 		}
 	}
 	

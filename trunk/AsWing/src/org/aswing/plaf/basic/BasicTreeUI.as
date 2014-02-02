@@ -254,6 +254,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 		cells.clear();
 		treeState.invalidateSizes();
 		updateSize();
+		currentCellRenderer = null;
 	}
 	
 	/**
@@ -867,8 +868,7 @@ public class BasicTreeUI extends BaseComponentUI implements TreeUI, NodeDimensio
 				currentCellRenderer = tree.getCellFactory().createNewCell();
 			}
 			currentCellRenderer.setCellValue(value);
-			//TODO check this selected is needed
-			currentCellRenderer.setTreeCellStatus(tree, /*selected*/false, expanded, tree.getModel().isLeaf(value), row);
+			currentCellRenderer.setTreeCellStatus(tree, true, expanded, tree.getModel().isLeaf(value), row);
 	
 			prefSize = currentCellRenderer.getCellComponent().getPreferredSize();
 		}
